@@ -33,8 +33,12 @@
   .ticks{display:flex;justify-content:center;gap:6px;margin-bottom:22px;}
   .tick{width:28px;height:5px;border-radius:1px;}
   .tick.r{background:var(--red);} .tick.o{background:var(--orange);} .tick.b{background:var(--teal);}
-  .wm{margin:0;line-height:0;}
-  .wm img{height:76px;width:auto;display:block;margin:0 auto;}
+  .wm{
+    margin:0;font-family:var(--font-serif);
+    font-weight:600;font-size:52px;letter-spacing:-.5px;color:var(--ink);
+    line-height:1;
+  }
+  .wm .os{color:var(--teal);}
   .tag{
     margin:14px 0 0;color:var(--muted);font-size:12px;font-weight:600;
     font-family:var(--font-sans);
@@ -68,7 +72,7 @@
   }
   @media(max-width:560px){
     .hub{padding:40px 22px;}
-    .wm img{height:58px;}
+    .wm{font-size:40px;}
   }
 </style>
 </head>
@@ -76,7 +80,7 @@
 <main class="hub">
   <header class="hero">
     <div class="ticks"><span class="tick r"></span><span class="tick o"></span><span class="tick b"></span></div>
-    <h1 class="wm"><img src="oncos-logo-final.png" alt="oncOS"></h1>
+    <h1 class="wm" aria-label="oncOS">onc<span class="os">OS</span></h1>
     <p class="tag">Clinical Hub</p>
   </header>
   <hr class="rule">
