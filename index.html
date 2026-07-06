@@ -4,8 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OncOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#1f6f8b">
+<meta name="theme-color" content="#1668a3">
 <link rel="apple-touch-icon" href="apple-touch-icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,8 +17,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
   :root{
-    --bg:#f7f8fa;--panel:#ffffff;--ink:#1a2230;--muted:#5c6878;--line:#e4e8ee;
-    --accent:#1f6f8b;--accent-soft:#e8f1f4;--chip:#eef1f5;
+    --bg:#f7f8fa;--panel:#ffffff;--ink:#0f2a43;--muted:#5b6b78;--line:#e4e8ee;
+    --accent:#1668a3;--accent-soft:#eaf1f7;--chip:#eef1f5;
     --shadow:0 1px 3px rgba(20,30,50,.06),0 1px 2px rgba(20,30,50,.04);
   }
   *{box-sizing:border-box;}
@@ -28,11 +31,12 @@
   .hub{margin:auto;width:100%;max-width:780px;padding:48px 22px 40px;}
   .hero{text-align:center;margin-bottom:30px;}
   .wm{
-    margin:0;font-family:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
-    font-weight:700;font-size:54px;letter-spacing:2px;color:var(--ink);
-    display:inline-block;border-left:4px solid var(--accent);padding-left:16px;line-height:1;
+    margin:0;font-family:"Public Sans",-apple-system,sans-serif;
+    font-weight:400;font-size:54px;letter-spacing:-.02em;color:var(--ink);
+    display:inline-flex;align-items:flex-end;line-height:1;
   }
-  .wm .os{color:var(--accent);}
+  .wm .wm-mark{width:.82em;height:.82em;margin:0 .03em;color:var(--ink);transform:translateY(-.05em);flex:none;}
+  .wm .os{font-weight:700;color:var(--accent);}
   .tag{
     margin:13px 0 0;color:var(--muted);font-size:11px;font-weight:600;
     font-family:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
@@ -72,7 +76,7 @@
 <body>
 <main class="hub">
   <header class="hero">
-    <h1 class="wm" aria-label="OncOS">Onc<span class="os">OS</span></h1>
+    <h1 class="wm" aria-label="OncOS">onc<svg class="wm-mark" viewBox="7 7 34 34" fill="none" stroke-linecap="round" aria-hidden="true"><path d="M30.5 12.74 A13 13 0 0 0 11.78 28.45" stroke="currentColor" stroke-width="3.8"/><path d="M17.5 35.26 A13 13 0 0 0 36.21 19.55" stroke="currentColor" stroke-width="3.8"/><circle cx="24" cy="24" r="5.5" fill="var(--accent)" stroke="none"/></svg><span class="os">S</span></h1>
     <p class="tag">Clinical Hub</p>
   </header>
   <section class="grid">
