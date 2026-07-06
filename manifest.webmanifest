@@ -1,7 +1,7 @@
 {
-  "name": "OncOS",
-  "short_name": "OncOS",
-  "description": "The OncOS clinical reference suite: Evidence, Staging, Drugs and Algorithms in one place.",
+  "name": "oncOS",
+  "short_name": "oncOS",
+  "description": "The oncOS clinical reference suite: Evidence, Staging, Drugs and Algorithms in one place.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
