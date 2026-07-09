@@ -219,5 +219,127 @@ window.ALGORITHMS = [
       }
 
     ]
+  },
+
+  {
+    id: 'breast-tnbc-early',
+    title: 'Breast — early triple-negative (TNBC)',
+    system: 'Breast',
+    tumour: 'TNBC (early)',
+    summary: 'Stage-directed (neo)adjuvant pathway for early triple-negative breast cancer — small node-negative disease vs the KEYNOTE-522 neoadjuvant chemo-immunotherapy route, with post-neoadjuvant escalation by pathological response and germline BRCA status. Evidence-only.',
+    verified: '2026-07-09',
+    provenance: 'Effect sizes are drawn from the oncOS evidence base and reconciled with the primary publications; cite the underlying trial, not this diagram. A reference aid, not a prescribing system.',
+    sections: [
+
+      // ============ 1. DIAGNOSIS & WORK-UP ============
+      {
+        id: 'workup',
+        title: 'Diagnosis & work-up',
+        open: true,
+        nodes: [
+          { kind: 'entry', title: 'Early triple-negative breast cancer',
+            sub: 'ER & PR <1% · HER2-negative (IHC 0–1+ or ISH−) · confirm on core biopsy' },
+          { kind: 'note', title: 'Germline BRCA1/2 testing and clinical-genetics referral at diagnosis — the result drives adjuvant olaparib eligibility (OlympiA) in both arms below. Offer fertility-preservation counselling before chemotherapy begins.' },
+          { kind: 'note', title: 'PD-L1 is not required in early TNBC — the neoadjuvant chemo-immunotherapy benefit (KEYNOTE-522) is independent of PD-L1 status, unlike the metastatic setting. Do not let PD-L1 gate the decision.' },
+          { kind: 'decision', title: 'Stage — cT2 or node-positive?',
+            sub: 'the threshold that routes ≤cT1c N0 to upfront surgery vs cT2 / node-positive to neoadjuvant chemo-immunotherapy' }
+        ]
+      },
+
+      // ============ 2. ≤cT1c N0 — UPFRONT SURGERY ============
+      {
+        id: 'small-node-neg',
+        title: 'If ≤cT1c N0 — upfront surgery',
+        open: true,
+        nodes: [
+          { kind: 'option', eyebrow: 'Local therapy first',
+            title: 'Upfront surgery ± whole-breast radiotherapy',
+            lines: ['definitive surgery first; adjuvant systemic therapy decided on final pathology'],
+            chips: [{ t: 'consensus', k: 'con' }] },
+
+          { kind: 'subhead', title: 'Adjuvant systemic therapy — by final pathology' },
+
+          { kind: 'option', eyebrow: 'pT1a pN0',
+            title: 'No adjuvant systemic therapy',
+            lines: ['very-low-risk; chemotherapy benefit does not outweigh the harm'],
+            chips: [{ t: 'consensus', k: 'con' }] },
+          { kind: 'option', eyebrow: 'pT1b pN0, or >pT1b / node-positive',
+            title: 'Adjuvant chemotherapy — 6–8 cycles',
+            lines: ['anthracycline–taxane (e.g. dose-dense AC→T); TNBC has no genomic de-escalation assay'],
+            chips: [{ t: 'consensus', k: 'con' }] },
+          { kind: 'option', eyebrow: 'gBRCA1/2m + high-risk',
+            title: 'Add adjuvant olaparib — 1 year',
+            lines: ['OlympiA: 3-yr iDFS 85.9 vs 77.1% (HR 0.58); OS HR 0.68',
+                    'high-risk after surgery = ≥pT2 or node-positive (OlympiA entry)'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] }
+        ]
+      },
+
+      // ============ 3. cT2 / NODE-POSITIVE — NEOADJUVANT ============
+      {
+        id: 'neoadjuvant',
+        title: 'If cT2 or node-positive — neoadjuvant',
+        open: true,
+        nodes: [
+          { kind: 'option', eyebrow: 'Neoadjuvant chemo-immunotherapy — standard',
+            title: 'Pembrolizumab + chemotherapy (KEYNOTE-522)',
+            lines: ['pembrolizumab + carboplatin/paclitaxel → pembrolizumab + AC',
+                    'pCR 64.8 vs 51.2%; EFS HR 0.63; 5-yr OS 86.6 vs 81.7% (HR 0.66)'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+
+          { kind: 'decision', title: 'Surgery — response and germline status',
+            sub: 'pCR (ypT0/Tis ypN0) vs residual invasive disease (grade with RCB); pembrolizumab continues to 1 year either way' },
+
+          { kind: 'option', eyebrow: 'If pCR',
+            title: 'Complete adjuvant pembrolizumab to 1 year',
+            lines: ['no added cytotoxic — adjuvant pembrolizumab ×9 (KEYNOTE-522)'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', tone: 'distinct', eyebrow: 'If residual + gBRCA1/2m',
+            title: 'Pembrolizumab + olaparib',
+            lines: ['olaparib 1 yr — OlympiA: 3-yr iDFS 85.9 vs 77.1% (HR 0.58), OS HR 0.68'],
+            chips: [{ t: 'Ph III · combination off-trial', k: 'ph3' }] },
+          { kind: 'option', tone: 'distinct', eyebrow: 'If residual + gBRCA wild-type',
+            title: 'Pembrolizumab + capecitabine',
+            lines: ['capecitabine — CREATE-X (HER2−): 5-yr DFS 74.1 vs 67.6% (HR 0.70), OS HR 0.59; largest benefit in TNBC'],
+            chips: [{ t: 'Ph III · combination off-trial', k: 'ph3' }] },
+          { kind: 'note', title: 'Pembrolizumab continues to one year regardless of response. The pembrolizumab + olaparib and pembrolizumab + capecitabine doublets are pragmatic extrapolation — OlympiA and CREATE-X both predate routine neoadjuvant immunotherapy, so neither combination has randomised support.' },
+
+          { kind: 'subhead', title: 'If no neoadjuvant pembrolizumab (ineligible / declined / pre-IO) and residual disease' },
+
+          { kind: 'option', eyebrow: 'gBRCA wild-type',
+            title: 'Adjuvant capecitabine',
+            lines: ['CREATE-X (HER2−): 5-yr DFS 74.1 vs 67.6% (HR 0.70), OS HR 0.59'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', eyebrow: 'gBRCA1/2m',
+            title: 'Adjuvant olaparib — 1 year',
+            lines: ['OlympiA: 3-yr iDFS 85.9 vs 77.1% (HR 0.58), OS HR 0.68'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] }
+        ]
+      },
+
+      // ============ 4. RESIDUAL DISEASE — ON THE HORIZON ============
+      {
+        id: 'horizon',
+        title: 'Residual disease — on the horizon',
+        open: false,
+        nodes: [
+          { kind: 'note', title: 'Post-neoadjuvant options were established before immunotherapy. Phase III trials are testing antibody–drug conjugates on a pembrolizumab backbone in residual invasive disease — none has reported; read-outs are expected ~2027; none changes practice today.' },
+
+          { kind: 'option', tone: 'distinct', eyebrow: 'TROP2 ADC + IO',
+            title: 'Sacituzumab govitecan + pembrolizumab — ASCENT-05',
+            lines: ['vs pembrolizumab ± capecitabine, residual TNBC · NCT05633654'],
+            chips: [{ t: 'Ph III · not reported', k: 'low' }] },
+          { kind: 'option', tone: 'distinct', eyebrow: 'TROP2 ADC ± IO',
+            title: 'Datopotamab deruxtecan ± durvalumab — TROPION-Breast03',
+            lines: ['vs investigator choice, stage I–III TNBC with residual disease · NCT05629585'],
+            chips: [{ t: 'Ph III · not reported', k: 'low' }] },
+          { kind: 'option', tone: 'distinct', eyebrow: 'TROP2 ADC + IO',
+            title: 'Sacituzumab tirumotecan + pembrolizumab — MK-2870 (OptiTROP)',
+            lines: ['vs physician choice, non-pCR TNBC · NCT06393374'],
+            chips: [{ t: 'Ph III · not reported', k: 'low' }] }
+        ]
+      }
+
+    ]
   }
 ];
