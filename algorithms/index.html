@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>oncOS — Algorithms</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1668a3">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Algorithms">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700&family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap');
+  :root{
+    --ink:#0f2a43; --teal:#1668a3; --slate:#5b6b78; --muted:#77899a;
+    --hair:#dce3e9; --grid:#e4ebf0; --accent-soft:#eef3f7; --paper:#ffffff;
+    --status-success:#1f8a5b; --status-success-soft:#e7f4ee;
+    --status-warning:#c9820a; --status-warning-soft:#fbf1dc;
+    --status-danger:#d8322f; --status-danger-soft:#fbeae9;
+    --status-info:#1668a3; --status-info-soft:#e6eff6;
+    --font-serif:'Noto Serif',Georgia,serif;
+    --font-sans:'Noto Sans',system-ui,sans-serif;
+    --mono:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    /* legacy aliases kept so downstream rules read naturally */
+    --bg:var(--paper); --panel:var(--paper); --line:var(--hair);
+    --accent:var(--teal); --chip:var(--accent-soft); --sans:var(--font-sans);
+    --sidebar-w:248px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{background:var(--bg); color:var(--ink); font:14px/1.5 var(--sans); -webkit-text-size-adjust:100%;}
+
+  .wm{margin:0; font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-1px; color:var(--ink);
+    line-height:1; text-decoration:none;}
+  .wm .os{color:var(--accent);}
+  .tag{margin:8px 0 0; color:var(--muted); font-size:11px; font-weight:600;
+    font-family:var(--sans); letter-spacing:.18em; text-transform:uppercase;}
+
+  .mhead{display:none; position:sticky; top:0; z-index:40; background:var(--bg);
+    border-bottom:1.2px solid var(--ink); align-items:center; gap:12px;
+    padding:calc(10px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) 10px calc(14px + env(safe-area-inset-left));}
+  .burger{flex:0 0 auto; width:38px; height:38px; border:1px solid var(--line); border-radius:0;
+    background:var(--bg); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;}
+  .burger svg{width:20px;height:20px;}
+  .mhead .mbrand{display:flex; flex-direction:column; gap:1px;}
+  .mhead .mbrand .wm{font-size:16px; line-height:1.1;}
+  .mhead .tag{margin:0; font-size:10px; letter-spacing:.16em;}
+
+  .layout{display:flex; min-height:100vh; min-height:100dvh;}
+  .sidebar{flex:0 0 var(--sidebar-w); width:var(--sidebar-w); background:var(--panel);
+    border-right:1px solid var(--line); position:sticky; top:0; align-self:flex-start;
+    height:100vh; height:100dvh; overflow-y:auto;
+    padding:22px 16px calc(22px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:18px;}
+  .sidebar .wm{font-size:20px;}
+  .sidebar .wm-wrap{padding-bottom:15px; border-bottom:1.2px solid var(--ink);}
+  .sidebar .tag{margin-bottom:0;}
+  .facet .flabel{font-family:var(--sans); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); font-weight:600; margin:0 0 8px 2px;}
+  .navlist{display:flex; flex-direction:column; gap:2px;}
+  .navitem{display:flex; justify-content:space-between; align-items:center; gap:8px; text-align:left;
+    font-size:13px; padding:7px 10px; border-radius:0; cursor:pointer; background:transparent;
+    color:var(--ink); border:1px solid transparent; border-left:2px solid transparent; user-select:none; font-family:var(--sans); width:100%;}
+  .navitem:hover{background:var(--accent-soft);}
+  .navitem.active{background:var(--accent-soft); color:var(--accent); border-color:transparent; border-left-color:var(--accent); font-weight:600;}
+  .navitem .n{font-family:var(--sans); font-size:11px; color:var(--muted);}
+  .navitem.active .n{color:var(--accent);}
+  .navitem.muted{color:var(--muted); cursor:default;}
+  .navitem.muted:hover{background:transparent;}
+
+  .backdrop{display:none;}
+
+  main{flex:1 1 auto; min-width:0; padding:22px clamp(16px,3vw,30px) 40px;}
+  .topbar{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:12px;}
+  .h-title{font-family:var(--font-serif); font-size:22px; font-weight:600; margin:0; letter-spacing:-.01em;}
+  .count{color:var(--muted); font-size:12px;}
+  .search{width:100%; max-width:540px; margin:0 0 16px; padding:9px 4px; font-size:15px;
+    border:none; border-bottom:1.2px solid var(--ink); border-radius:0; background:transparent; color:var(--ink); font-family:var(--sans);}
+  .search:focus{outline:none; border-bottom-color:var(--accent);}
+
+  .sysdiv{font-family:var(--sans); font-weight:700; font-size:11px; color:var(--muted);
+    letter-spacing:.12em; text-transform:uppercase; margin:22px 0 8px 2px; padding-bottom:6px; border-bottom:1px solid var(--grid);}
+  .sysdiv:first-of-type{margin-top:0;}
+
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:0; box-shadow:none;
+    overflow:hidden; transition:border-color .14s; margin-bottom:10px;}
+  .card:hover{border-color:var(--accent);}
+  .card.open{border-color:var(--accent); box-shadow:none;}
+  .card-head{padding:14px 16px; display:flex; justify-content:space-between; gap:12px; align-items:flex-start; cursor:pointer;}
+  .aname{font-family:var(--font-serif); font-weight:600; font-size:16px; line-height:1.3;}
+  .ameta{margin-top:7px; display:flex; flex-wrap:wrap; gap:5px;}
+  .tagpill{font-size:10.5px; padding:2px 8px; border-radius:2px; background:var(--accent-soft); color:var(--slate); font-family:var(--sans); font-weight:600; letter-spacing:.02em;}
+  .tagpill.sys{background:var(--status-info-soft); color:var(--status-info);}
+  .asum{margin-top:8px; font-size:12px; color:var(--muted);}
+  .caret{color:var(--accent); font-size:13px; transition:transform .15s; flex-shrink:0; margin-top:3px;}
+  .card.open .caret{transform:rotate(90deg);}
+  .gbody{display:none; padding:4px 16px 16px; border-top:1px solid var(--line);}
+  .card.open .gbody{display:block;}
+  .gscroll{overflow-x:auto; margin-top:10px;}
+  .gscroll svg{display:block; min-width:560px; max-width:760px; height:auto;}
+  .gnote{margin-top:10px; font-size:10.5px; color:var(--muted); line-height:1.6;}
+  .gnote b{color:var(--accent);}
+
+  .empty{text-align:center; color:var(--muted); padding:64px 20px;}
+  .empty .eic{width:52px; height:52px; margin:0 auto 16px; border-radius:0; background:var(--accent-soft);
+    color:var(--accent); display:flex; align-items:center; justify-content:center;}
+  .empty .eic svg{width:28px; height:28px;}
+  .empty h2{margin:0 0 6px; font-family:var(--font-serif); font-size:16px; font-weight:600; color:var(--ink);}
+  .empty p{margin:0 auto; max-width:380px; font-size:12.5px; line-height:1.6;}
+
+  .foot{margin-top:26px; padding-top:14px; border-top:1px solid var(--grid); color:var(--muted); font-size:11.5px; line-height:1.6;}
+
+  @media (max-width:880px){
+    .mhead{display:flex;}
+    .layout{display:block;}
+    .sidebar{position:fixed; top:0; left:0; z-index:50; height:100vh; height:100dvh;
+      width:min(82vw,300px); flex-basis:auto; transform:translateX(-100%); transition:transform .22s ease;
+      border-right:1px solid var(--line); padding-top:calc(22px + env(safe-area-inset-top));}
+    body.nav-open .sidebar{transform:translateX(0);}
+    .sidebar .wm-wrap{display:none;}
+    body.nav-open .backdrop{display:block; position:fixed; inset:0; z-index:45; background:rgba(15,42,67,.28);}
+    main{padding:16px;}
+  }
+  @media (min-width:881px){ .mhead{display:none;} }
+</style>
+</head>
+<body>
+
+<header class="mhead">
+  <button class="burger" id="burger" aria-label="Open navigation">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <div class="mbrand">
+    <a class="wm homelink" href="https://jonanze.github.io/oncos/" aria-label="oncOS home">onc<span class="os">OS</span></a>
+    <p class="tag">Algorithms</p>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="wm-wrap">
+      <a class="wm homelink" href="https://jonanze.github.io/oncos/" aria-label="oncOS home">onc<span class="os">OS</span></a>
+      <p class="tag">Algorithms</p>
+    </div>
+    <div class="facet"><div class="flabel">Tumour system</div><div class="navlist" id="nav"></div></div>
+  </aside>
+  <div class="backdrop" id="backdrop"></div>
+
+  <main>
+    <div class="topbar">
+      <h1 class="h-title">Algorithms</h1>
+      <span class="count" id="count"></span>
+    </div>
+    <input id="search" class="search" type="search" placeholder="Search tumour, pathway, or system…" autocomplete="off">
+    <div id="list"></div>
+    <div class="empty" id="empty">
+      <div class="eic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="4.5" rx="1"/><rect x="2.5" y="17.5" width="6" height="4.5" rx="1"/><rect x="15.5" y="17.5" width="6" height="4.5" rx="1"/><path d="M12 6.5v7"/><path d="M5.5 17.5v-3a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v3"/></svg>
+      </div>
+      <h2 id="empty-h">No algorithms yet</h2>
+      <p id="empty-p">This module will hold tumour-type-specific treatment pathways and mindmaps. Add the first one in <code>algorithms.js</code>.</p>
+    </div>
+    <div class="foot" id="foot"></div>
+  </main>
+</div>
+
+<script src="algorithms.js"></script>
+<script>
+  // Canonical tumour systems — the organizing axis for the sidebar. Extend as needed.
+  const SYSTEMS = [
+    'Thoracic','Breast','Gastrointestinal','Hepatobiliary & Pancreatic',
+    'Genitourinary','Gynaecological','Head & Neck','Skin & Melanoma',
+    'CNS','Sarcoma','Endocrine & Neuroendocrine','Haematological (Lymphoma)'
+  ];
+
+  const data = (window.ALGORITHMS || []).filter(a => a.id && a.title);
+
+  const listEl  = document.getElementById('list');
+  const searchEl = document.getElementById('search');
+  const countEl = document.getElementById('count');
+  const emptyEl = document.getElementById('empty');
+  const emptyH  = document.getElementById('empty-h');
+  const emptyP  = document.getElementById('empty-p');
+  const navEl   = document.getElementById('nav');
+  const footEl  = document.getElementById('foot');
+
+  let activeSystem = null, query = '';
+
+  function esc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+  const countBySystem = s => data.filter(a => a.system === s).length;
+
+  function renderNav(){
+    navEl.innerHTML = '';
+    const all = document.createElement('button');
+    all.className = 'navitem' + (!activeSystem ? ' active' : '');
+    all.innerHTML = `<span>All systems</span><span class="n">${data.length}</span>`;
+    all.onclick = () => { activeSystem = null; closeNav(); render(); };
+    navEl.appendChild(all);
+
+    SYSTEMS.forEach(s => {
+      const n = countBySystem(s);
+      const el = document.createElement('button');
+      el.className = 'navitem' + (activeSystem === s ? ' active' : '') + (n === 0 ? ' muted' : '');
+      el.innerHTML = `<span>${esc(s)}</span><span class="n">${n}</span>`;
+      if (n > 0) el.onclick = () => { activeSystem = activeSystem === s ? null : s; closeNav(); render(); };
+      navEl.appendChild(el);
+    });
+  }
+
+  function matches(a){
+    if (activeSystem && a.system !== activeSystem) return false;
+    if (query){
+      const hay = [a.title, a.tumour, a.system, a.summary].filter(Boolean).join(' ').toLowerCase();
+      if (!query.split(/\s+/).every(t => hay.includes(t))) return false;
+    }
+    return true;
+  }
+
+  // ---- data-driven graph renderer -----------------------------------------
+  const CHIP = {
+    ev:  { bg: '#eef3f7', fg: '#5b6b78' },   // evidence / phase
+    hsa: { bg: '#e7f4ee', fg: '#1f8a5b' },   // subsidised / available (good)
+    cdl: { bg: '#fbf1dc', fg: '#c9820a' },   // subsidy caveat (amber)
+    no:  { bg: '#fbeae9', fg: '#d8322f' },   // access barrier — no subsidy / not on CDL
+    tox: { bg: '#fbeae9', fg: '#d8322f' }
+  };
+  const anchor = n => ({ cx: n.x + n.w / 2, top: n.y, bot: n.y + n.h });
+
+  function renderGraph(g){
+    const byId = Object.fromEntries(g.nodes.map(n => [n.id, n]));
+    let s = '';
+
+    // edges first (under nodes)
+    g.edges.forEach(e => {
+      const a = byId[e.from], b = byId[e.to];
+      const pts = e.pts || [[anchor(a).cx, anchor(a).bot], [anchor(b).cx, anchor(b).top]];
+      const d = pts.map(p => p.join(' ')).join(' ');
+      const col = e.dashed ? '#77899a' : '#5b6b78';
+      const dash = e.dashed ? ' stroke-dasharray="5 4"' : '';
+      s += `<polyline points="${d}" fill="none" stroke="${col}" stroke-width="1.2"${dash}${e.noarrow ? '' : ' marker-end="url(#ah)"'}/>`;
+      if (e.label){
+        const lp = e.lpos || [pts[0][0] + 6, pts[0][1] - 6];
+        s += `<text x="${lp[0]}" y="${lp[1]}" font-size="10" font-weight="600" fill="#1668a3" text-anchor="${e.lanchor || 'start'}">${esc(e.label)}</text>`;
+      }
+    });
+
+    // nodes
+    g.nodes.forEach(n => {
+      if (n.kind === 'decision'){
+        const cx = n.x + n.w / 2, cy = n.y + n.h / 2;
+        const p = `${cx},${n.y} ${n.x + n.w},${cy} ${cx},${n.y + n.h} ${n.x},${cy}`;
+        s += `<polygon points="${p}" fill="#eef3f7" stroke="#1668a3" stroke-width="1.2"/>`;
+        s += `<text x="${cx}" y="${cy + 4}" font-size="10.5" font-weight="600" fill="#1668a3" text-anchor="middle">${esc(n.title)}</text>`;
+        return;
+      }
+      if (n.kind === 'note'){
+        (n.lines || []).forEach((ln, i) => {
+          const last = i === n.lines.length - 1;
+          s += `<text x="${n.x}" y="${n.y + i * 12}" font-size="9.5" fill="${last ? '#5b6b78' : '#77899a'}">${esc(ln)}</text>`;
+        });
+        return;
+      }
+      const ghost = n.kind === 'ghost', distinct = n.tone === 'distinct', terminal = n.tone === 'terminal';
+      const fill = ghost ? '#f4f6f8' : terminal ? '#1668a3' : distinct ? '#fbf1dc' : '#fff';
+      const stroke = ghost ? '#dce3e9' : terminal ? '#1668a3' : distinct ? '#c9820a' : '#dce3e9';
+      const dash = (ghost || distinct) ? ' stroke-dasharray="5 4"' : '';
+      s += `<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="2" fill="${fill}" stroke="${stroke}" stroke-width="1.2"${dash}/>`;
+      if (!ghost && !distinct && !terminal) s += `<rect x="${n.x}" y="${n.y}" width="3" height="${n.h}" fill="#1668a3"/>`;
+
+      const px = n.x + (ghost ? n.w / 2 : 16);
+      let y = n.y + 23;
+      if (ghost){
+        (n.lines || []).forEach((ln, i) => {
+          s += `<text x="${px}" y="${n.y + 17 + i * 15}" font-size="${i ? 9.5 : 10.5}" ${i ? '' : 'font-weight="600"'} fill="#5b6b78" text-anchor="middle">${esc(ln)}</text>`;
+        });
+        return;
+      }
+      const titleFill = terminal ? '#ffffff' : distinct ? '#c9820a' : '#0f2a43';
+      s += `<text x="${px}" y="${y}" font-size="13.5" font-weight="700" fill="${titleFill}">${esc(n.title)}</text>`;
+      if (n.sub){ y += 17; s += `<text x="${px}" y="${y}" font-size="10" fill="${terminal ? '#e6eff6' : distinct ? '#c9820a' : '#5b6b78'}">${esc(n.sub)}</text>`; }
+      (n.lines || []).forEach(ln => { y += 16; s += `<text x="${px}" y="${y}" font-size="10.5" fill="${terminal ? '#e6eff6' : '#5b6b78'}">${esc(ln)}</text>`; });
+      if (n.tox){ y += 15; s += `<text x="${px}" y="${y}" font-size="10" fill="${terminal ? '#fbeae9' : '#d8322f'}">${esc(n.tox)}</text>`; }
+      if (n.chips && n.chips.length){
+        y += 13; let cx = px;
+        n.chips.forEach(c => {
+          const col = CHIP[c.k] || CHIP.ev, w = 9 + c.t.length * 5.6;
+          s += `<rect x="${cx}" y="${y}" width="${w}" height="16" rx="1" fill="${col.bg}"/>`;
+          s += `<text x="${cx + w / 2}" y="${y + 11.5}" font-size="9" fill="${col.fg}" text-anchor="middle">${esc(c.t)}</text>`;
+          cx += w + 6;
+        });
+      }
+    });
+
+    return `<svg viewBox="0 0 ${g.w} ${g.h}" xmlns="http://www.w3.org/2000/svg" role="img"
+      style="font-family:var(--sans)"><title>${esc('Treatment pathway')}</title>
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7"
+        orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b78"/></marker></defs>${s}</svg>`;
+  }
+
+  function cardHTML(a){
+    const pills = [
+      a.system ? `<span class="tagpill sys">${esc(a.system)}</span>` : '',
+      a.tumour ? `<span class="tagpill">${esc(a.tumour)}</span>` : ''
+    ].join('');
+    const body = a.graph ? `<div class="gbody">
+        <div class="gscroll">${renderGraph(a.graph)}</div>
+        <div class="gnote">${a.status ? `<b>Status:</b> ${esc(a.status)}. ` : ''}Evidence figures verified against the primary publications.${a.accessNote ? ` <b>Access${a.cdlDate ? ` (MOH CDL ${esc(a.cdlDate)})` : ''}:</b> ${esc(a.accessNote)}` : ''}</div>
+      </div>` : '';
+    return `<div class="card" data-id="${esc(a.id)}">
+      <div class="card-head">
+        <div>
+          <div class="aname">${esc(a.title)}</div>
+          <div class="ameta">${pills}</div>
+          ${a.summary ? `<div class="asum">${esc(a.summary)}</div>` : ''}
+        </div>
+        ${a.graph ? '<span class="caret">▶</span>' : ''}
+      </div>
+      ${body}
+    </div>`;
+  }
+
+  function render(){
+    renderNav();
+    const list = data.filter(matches);
+
+    // Group by system, in SYSTEMS order.
+    let html = '';
+    SYSTEMS.forEach(s => {
+      const inSys = list.filter(a => a.system === s);
+      if (!inSys.length) return;
+      html += `<div class="sysdiv">${esc(s)}</div>`;
+      inSys.forEach(a => html += cardHTML(a));
+    });
+    // Any with an unrecognised/blank system fall under "Other".
+    const other = list.filter(a => !SYSTEMS.includes(a.system));
+    if (other.length){
+      html += `<div class="sysdiv">Other</div>`;
+      other.forEach(a => html += cardHTML(a));
+    }
+    listEl.innerHTML = html;
+
+    const filtered = activeSystem || query;
+    countEl.textContent = data.length
+      ? (filtered ? `${list.length} of ${data.length}` : `${data.length} algorithm${data.length===1?'':'s'}`)
+      : '';
+
+    if (!data.length){
+      emptyEl.style.display = 'block';
+      emptyH.textContent = 'No algorithms yet';
+      emptyP.innerHTML = 'This module will hold tumour-type-specific treatment pathways and mindmaps. Add the first one in <code>algorithms.js</code>.';
+    } else if (!list.length){
+      emptyEl.style.display = 'block';
+      emptyH.textContent = 'No matching algorithms';
+      emptyP.textContent = 'Adjust the search or pick a different tumour system.';
+    } else {
+      emptyEl.style.display = 'none';
+    }
+
+    listEl.querySelectorAll('.card-head').forEach(h => h.onclick = () => {
+      const card = h.parentElement;
+      if (card.querySelector('.gbody')) card.classList.toggle('open');
+    });
+  }
+
+  function closeNav(){ document.body.classList.remove('nav-open'); }
+  searchEl.addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); render(); });
+  document.getElementById('burger').onclick = () => document.body.classList.toggle('nav-open');
+  document.getElementById('backdrop').onclick = closeNav;
+
+  footEl.innerHTML = `${data.length} pathway${data.length===1?'':'s'} · oncOS — Algorithms · Not medical advice — verify against the primary source and institutional protocol before clinical use.`;
+  render();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+  }
+</script>
+</body>
+</html>
