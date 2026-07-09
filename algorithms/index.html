@@ -179,14 +179,24 @@
     .algo.flowmode .conn{display:none;}
     .algo.flowmode .flow{align-items:center; gap:22px;}
     .algo.flowmode .flow > .gnode{width:auto; max-width:360px;}
-    .algo.flowmode .arms{display:flex; align-items:flex-start; justify-content:center; gap:36px; padding-top:6px;}
+    .algo.flowmode .arms{display:flex; align-items:flex-start; justify-content:center; gap:36px; padding-top:24px;}
     .algo.flowmode .arms > .algo-section{flex:0 0 auto;}
+    /* stage split: fan the threshold decision into two tidy CENTRED arm headers
+       (chevron+title+count clustered), matching the in-section branch-fan style
+       instead of a stretched full-width bar the connector drops into the middle of */
+    .algo.flowmode .arms > .algo-section > .sec-head{justify-content:center;}
+    .algo.flowmode .arms > .algo-section > .sec-head .sec-title{flex:0 0 auto;}
     .algo.flowmode .branchrow{display:flex; align-items:flex-start; justify-content:center; gap:14px;}
     .algo.flowmode .branchrow > .gnode{width:186px; flex:0 0 auto;}
     .algo.flowmode .gentry, .algo.flowmode .gdecision{max-width:520px; margin-left:auto; margin-right:auto; text-align:center;}
     .algo.flowmode .gnote2{max-width:600px; margin-left:auto; margin-right:auto;}
     .algo.flowmode .gsubhead{text-align:center; border-bottom:0; width:100%;}
     .algo.flowmode .sec-body{padding-bottom:26px;}
+    /* flowchart reads as a diagram — all text in Noto Sans (override the serif titles) */
+    .algo.flowmode .sec-title,
+    .algo.flowmode .gnode .gtitle,
+    .algo.flowmode .gentry .g-t,
+    .algo.flowmode .gdecision .g-t{font-family:var(--font-sans);}
   }
 
   .empty{text-align:center; color:var(--muted); padding:64px 20px;}
@@ -537,10 +547,17 @@
     canvas.querySelectorAll('.sec-body > .flow').forEach(flow => {
       let prev = null;
       [...flow.children].forEach(ch => {
-        if (ch.classList.contains('conn') || ch.classList.contains('gnote2')) return;
+        if (ch.classList.contains('conn')) return;
         if (ch.classList.contains('branchrow')){
           [...ch.children].forEach(cell => edge(prev, cell));
           prev = null; return;
+        }
+        if (ch.classList.contains('gnote2')){
+          // A note mid-chain (prev set) is an inline step: wire the spine THROUGH it so
+          // the connector stops at its edges instead of crossing its interior. A note that
+          // trails a branchrow / opens a flow (prev null) is a true aside — leave it unwired.
+          if (prev){ edge(prev, ch); prev = ch; }
+          return;
         }
         if (prev) edge(prev, ch);
         prev = ch;

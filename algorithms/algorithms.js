@@ -42,7 +42,7 @@ window.ALGORITHMS = [
       {
         id: 'first-line',
         title: 'First-line — classical sensitising (ex19del / L858R)',
-        open: true,
+        open: false,
         nodes: [
           { kind: 'entry', title: 'Advanced EGFR-mutant NSCLC — classical sensitising',
             sub: 'ex19del / L858R · NGS · brain MRI · performance status' },
@@ -81,7 +81,7 @@ window.ALGORITHMS = [
       {
         id: 'progression',
         title: 'On progression — post-osimertinib (2L)',
-        open: true,
+        open: false,
         nodes: [
           { kind: 'entry', title: 'Progression on 1L osimertinib — re-biopsy',
             sub: 'tissue ± plasma NGS · re-image CNS' },
@@ -237,7 +237,7 @@ window.ALGORITHMS = [
       {
         id: 'workup',
         title: 'Diagnosis & work-up',
-        open: true,
+        open: false,
         nodes: [
           { kind: 'entry', title: 'Early triple-negative breast cancer',
             sub: 'ER & PR <1% · HER2-negative (IHC 0–1+ or ISH−) · confirm on core biopsy' },
@@ -253,7 +253,7 @@ window.ALGORITHMS = [
         id: 'small-node-neg',
         title: 'If ≤cT1c N0 — upfront surgery',
         role: 'branch', branchLabel: '≤cT1c N0',
-        open: true,
+        open: false,
         nodes: [
           { kind: 'option', eyebrow: 'Local therapy first',
             title: 'Upfront surgery ± whole-breast radiotherapy',
@@ -283,7 +283,7 @@ window.ALGORITHMS = [
         id: 'neoadjuvant',
         title: 'If cT2 or node-positive — neoadjuvant',
         role: 'branch', branchLabel: 'cT2 / node-positive',
-        open: true,
+        open: false,
         nodes: [
           { kind: 'option', eyebrow: 'Neoadjuvant chemo-immunotherapy — standard',
             title: 'Pembrolizumab + chemotherapy (KEYNOTE-522)',
@@ -362,7 +362,7 @@ window.ALGORITHMS = [
       {
         id: 'workup',
         title: 'Diagnosis & work-up',
-        open: true,
+        open: false,
         nodes: [
           { kind: 'entry', title: 'Early HER2-positive breast cancer',
             sub: 'Stage I–III · resectable, non-metastatic' },
@@ -378,7 +378,7 @@ window.ALGORITHMS = [
         id: 'stage1',
         title: 'If Stage I (cT1 N0) — upfront surgery',
         role: 'branch', branchLabel: 'Stage I · cT1 N0',
-        open: true,
+        open: false,
         nodes: [
           { kind: 'option', eyebrow: 'Local therapy first',
             title: 'Upfront surgery',
@@ -404,7 +404,7 @@ window.ALGORITHMS = [
         id: 'stage23',
         title: 'If cT2+ or node-positive — neoadjuvant',
         role: 'branch', branchLabel: 'cT2+ / node-positive',
-        open: true,
+        open: false,
         nodes: [
           { kind: 'option', eyebrow: 'Neoadjuvant anti-HER2 chemotherapy',
             title: 'TCHP / AC-THP / T-DXd→THP',
