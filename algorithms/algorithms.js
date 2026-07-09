@@ -1,25 +1,28 @@
-/* OncOS — Algorithms module data.
+/* oncOS — Algorithms module data.
  *
  * Tumour-type-specific treatment pathways. Each entry is an index card (id, title,
- * system, tumour, summary, verified) PLUS a `graph` the renderer in index.html draws.
+ * system, tumour, summary, verified) PLUS a set of collapsible `sections`, each a
+ * vertical flow of nodes the renderer in index.html lays out responsively.
  *
- * GRAPH SCHEMA (data-driven node renderer):
- *   graph: {
- *     w: <canvas width>, h: <canvas height>,            // SVG viewBox extent
+ * SECTIONED-FLOW SCHEMA (no coordinates — the renderer stacks nodes top-to-bottom):
+ *   sections: [{
+ *     id, title,                         // section header (the collapsible bar)
+ *     open: true|false,                  // default expanded state
  *     nodes: [{
- *       id, kind, x, y, w, h,                            // kind: entry|decision|option|ghost|note
- *       title,                                            // bold heading (entry/option/decision)
- *       sub,                                              // one muted line under the title
- *       lines: ['muted detail line', ...],               // option/ghost/note body lines
- *       tox: 'red toxicity line',                         // option only, optional
- *       chips: [{t:'label', k:'ev'|'hsa'|'cdl'|'tox'}],  // option only
- *       tone: 'distinct'                                  // amber dashed (e.g. a separate limb)
- *     }],
- *     edges: [{ from, to, label, dashed, pts:[[x,y],...] }]  // pts overrides the auto elbow
- *   }
+ *       kind: 'entry'|'decision'|'option'|'subhead'|'note',
+ *       eyebrow,                          // option only: small uppercase branch label
+ *       title,                            // heading (entry/decision/option/subhead); note may use title
+ *       sub,                              // one muted line under title (entry/decision)
+ *       lines: ['detail line', ...],      // option/note body lines
+ *       tox: 'red toxicity line',         // option only, optional
+ *       chips: [{ t:'label', k:'ph3'|'ph2'|'abs'|'con'|'low' }],  // evidence tier only
+ *       tone: 'distinct'|'terminal'       // distinct = amber-dashed (lower-tier / awaiting RCT)
+ *     }]
+ *   }]
  *
- * Access chips marked "⚑ verify" are PROVISIONAL — confirm vs the HSA register + live
- * MOH CDL before relying on them. Evidence figures are workbook-verified (cite the paper).
+ * Evidence-only: no access/funding content. Chips carry evidence TIER, not availability.
+ * Every effect size is reconciled against the primary publication (via the oncOS evidence
+ * base / wiki). Cite the underlying trial, never this diagram. Never invent a number.
  *
  * TEMPLATE — copy one block per algorithm. `system` must match a SYSTEMS value in index.html.
  */
@@ -29,132 +32,192 @@ window.ALGORITHMS = [
     title: 'NSCLC — EGFR mutations, advanced/metastatic',
     system: 'Thoracic',
     tumour: 'NSCLC (EGFR+)',
-    summary: 'EGFR-mutant advanced NSCLC across three lanes: classical sensitising (1L + progression), uncommon mutations, and exon 20 insertions.',
-    verified: '2026-06-30',
-    cdlDate: '1 Jun 2026',
-    accessNote: 'subsidy verified against the MOH Cancer Drug List (1 Jun 2026); HSA registration against the data.gov.sg HSA register (snapshot Jul 2025). Osimertinib (Tagrisso) is HSA-registered but first-line use is UNSUBSIDISED (CDL “No subsidy”, MediShield Life claim limit $2,400/mo); it is MAF-subsidised only for T790M-positive disease after a prior EGFR TKI. Amivantamab (Rybrevant) is HSA-registered but not on the CDL (self-funded). *Lazertinib and savolitinib were NOT in the register snapshot — the amivantamab + lazertinib regimen may not be prescribable on-label in Singapore; confirm current status on the live HSA PRISM portal. Platinum, pemetrexed, etoposide are SDL; afatinib (Giotrif) and the older TKIs (gefitinib/erlotinib/dacomitinib) are registered and subsidised (MAF/SDL). For exon 20 insertions, amivantamab (PAPILLON; ≥2L monotherapy) is HSA-registered but not on the CDL; sunvozertinib (FDA Jul 2025) has unconfirmed SG availability and mobocertinib has been withdrawn.',
-    status: 'complete across classical (1L + progression), uncommon, and exon 20 lanes; access verified (CDL 1 Jun 2026, HSA register Jul 2025)',
-    graph: {
-      w: 740, h: 1585,
-      nodes: [
-        { id: 'entry', kind: 'entry', x: 150, y: 16, w: 360, h: 56,
-          title: 'Advanced EGFR-mutant NSCLC',
-          sub: 'Classical sensitising (ex19del / L858R) · NGS · brain MRI · PS' },
+    summary: 'First-line (classical), post-osimertinib (2L), uncommon-mutation, and exon-20 pathways for EGFR-mutant advanced NSCLC — reconciled with the oncOS wiki. Evidence-only.',
+    verified: '2026-07-09',
+    provenance: 'Effect sizes are drawn from the oncOS evidence base and reconciled with the primary publications; cite the underlying trial, not this diagram. A reference aid, not a prescribing system.',
+    sections: [
 
-        { id: 'exon20', kind: 'option', tone: 'distinct', x: 528, y: 18, w: 204, h: 50,
-          title: 'EGFR exon 20 insertion',
-          sub: 'distinct — see pathway below ↓' },
+      // ============ 1. FIRST-LINE (classical sensitising) ============
+      {
+        id: 'first-line',
+        title: 'First-line — classical sensitising (ex19del / L858R)',
+        open: true,
+        nodes: [
+          { kind: 'entry', title: 'Advanced EGFR-mutant NSCLC — classical sensitising',
+            sub: 'ex19del / L858R · NGS · brain MRI · performance status' },
+          { kind: 'decision', title: 'Higher-risk features?',
+            sub: 'brain metastases · L858R · high disease burden → favour intensification' },
 
-        { id: 'risk', kind: 'decision', x: 252, y: 98, w: 156, h: 60,
-          title: 'Frail / low burden?' },
+          { kind: 'option', eyebrow: 'If standard-risk / frailer',
+            title: 'Osimertinib monotherapy',
+            lines: ['FLAURA: PFS 18.9 vs 10.2 mo (HR 0.46)',
+                    'OS 38.6 vs 31.8 mo · CNS-active · best tolerated'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
 
-        { id: 'risknote', kind: 'note', x: 430, y: 92,
-          lines: ['intensification preferred', '(judgement): FLAURA2 &', 'MARIPOSA both improve OS'] },
+          { kind: 'subhead', title: 'If higher-risk — intensify beyond monotherapy' },
 
-        { id: 'mono', kind: 'option', x: 20, y: 214, w: 300, h: 110,
-          title: 'Osimertinib monotherapy',
-          lines: ['FLAURA · PFS 18.9 vs 10.2 mo (HR 0.46)',
-                  'OS 38.6 vs 31.8 mo · CNS-active · best tolerated'],
-          chips: [{ t: 'Ph III', k: 'ev' }, { t: 'HSA ✓', k: 'hsa' }, { t: 'CDL: no subsidy (1L)', k: 'no' }] },
+          { kind: 'option', title: 'Osimertinib + platinum–pemetrexed',
+            lines: ['FLAURA2: PFS 25.5 vs 16.7 mo (HR 0.62)',
+                    'OS 47.5 vs 37.6 mo (HR 0.77) · grade ≥3 AE 70% vs 34%'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', title: 'Amivantamab + lazertinib',
+            lines: ['MARIPOSA: PFS 23.7 vs 16.6 mo (HR 0.70)',
+                    'OS NR vs 36.7 mo (HR 0.75) — chemo-free intensification'],
+            tox: 'Toxicity: rash / paronychia · VTE (prophylaxis) · infusion reactions',
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'note', title: 'FLAURA2 vs MARIPOSA — no significant difference on indirect comparison (PFS HR 0.79, OS HR 0.95). Choose on toxicity axis (cytopenias vs skin / VTE / infusion), administration burden, and patient factors.' },
 
-        { id: 'flaura2', kind: 'option', x: 360, y: 210, w: 360, h: 94,
-          title: 'Osimertinib + platinum–pemetrexed',
-          lines: ['FLAURA2 · PFS 25.5 vs 16.7 mo (HR 0.62)',
-                  'OS 47.5 vs 37.6 mo (HR 0.77, P=0.02) — significant'],
-          chips: [{ t: 'Ph III', k: 'ev' }, { t: 'Osimertinib: no subsidy', k: 'no' }, { t: 'Chemo: SDL', k: 'hsa' }] },
+          { kind: 'option', tone: 'distinct', eyebrow: 'Lower-toxicity route — not yet randomised',
+            title: 'Osimertinib + consolidative SBRT',
+            lines: ['SAMPATH: mPFS 32.3 mo, mOS 45 mo (single-arm, N=42)',
+                    'mostly grade 1–2 toxicity; awaiting NORTHSTAR RCT'],
+            chips: [{ t: 'Ph II · single-arm', k: 'ph2' }] },
+          { kind: 'note', title: 'Chemo-intensification is a class effect, not osimertinib-specific — reproduced with aumolertinib (AENEAS2: PFS 28.9 vs 18.9 mo, HR 0.47).' }
+        ]
+      },
 
-        { id: 'mariposa', kind: 'option', x: 360, y: 320, w: 360, h: 114,
-          title: 'Amivantamab + lazertinib',
-          lines: ['MARIPOSA · PFS 23.7 vs 16.6 mo (HR 0.70)',
-                  'OS NR vs 36.7 mo (HR 0.75, P<0.005) — significant'],
-          tox: 'Toxicity: rash/paronychia · VTE (prophylaxis) · IRR',
-          chips: [{ t: 'Ph III', k: 'ev' }, { t: 'Amivantamab not on CDL', k: 'no' }, { t: 'Lazertinib not HSA-reg*', k: 'no' }] },
+      // ============ 2. POST-OSIMERTINIB (2L) — decision-first ============
+      {
+        id: 'progression',
+        title: 'On progression — post-osimertinib (2L)',
+        open: true,
+        nodes: [
+          { kind: 'entry', title: 'Progression on 1L osimertinib — re-biopsy',
+            sub: 'tissue ± plasma NGS · re-image CNS' },
+          { kind: 'note', title: 'Resistance is polyclonal — FLAURA ctDNA: MET 16%, C797S 6%, no T790M, 65% no detectable mechanism, 39% >1 mechanism. No single dominant escape route.' },
+          { kind: 'decision', title: 'Targetable mechanism or focal pattern on biopsy?',
+            sub: 'read the biopsy and imaging first — matched options below, route menu if none' },
 
-        { id: 'prog', kind: 'entry', x: 140, y: 468, w: 470, h: 50,
-          title: 'On progression — re-biopsy',
-          sub: 'Tissue ± plasma NGS → identify resistance mechanism (after any 1L option)' },
+          { kind: 'option', eyebrow: 'If oligoprogression / CNS-only',
+            title: 'Local ablative therapy + continue osimertinib',
+            lines: ['SRS / SBRT to progressing sites; CNS and oligo clones often stay TKI-sensitive'],
+            chips: [{ t: 'consensus', k: 'con' }] },
+          { kind: 'option', eyebrow: 'If MET amplification — commonest bypass',
+            title: 'Continue osimertinib + MET-TKI',
+            lines: ['Savolitinib — SACHI: PFS 8.2 vs 4.5 mo (HR 0.34), first randomised proof',
+                    'Tepotinib — INSIGHT-2: ORR 50% vs 8% MET-TKI alone · all-oral, mechanism-matched'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', eyebrow: 'If small-cell / squamous transformation',
+            title: 'Platinum–etoposide',
+            lines: ['treat as small-cell lung cancer; EGFR-directed therapy no longer relevant'],
+            chips: [{ t: 'consensus', k: 'con' }] },
+          { kind: 'option', eyebrow: 'If on-target EGFR (C797S / acquired PACC), no T790M',
+            title: 'Consider 2nd-generation TKI by allelic context / trial',
+            lines: ['salvage depends on cis vs trans configuration with the founder mutation'],
+            chips: [{ t: 'low-tier', k: 'low' }] },
 
-        { id: 'mech_oligo', kind: 'option', x: 180, y: 540, w: 480, h: 58,
-          title: 'Oligoprogression / CNS-only',
-          lines: ['→ Local ablative therapy (SRS/SBRT) + continue the TKI'],
-          chips: [{ t: 'consensus', k: 'ev' }] },
-        { id: 'mech_met', kind: 'option', x: 180, y: 614, w: 480, h: 62,
-          title: 'MET amplification',
-          lines: ['→ Osimertinib + savolitinib (SAVANNAH) or amivantamab-based'],
-          chips: [{ t: 'investigational', k: 'ev' }, { t: 'Savolitinib: not HSA-registered', k: 'no' }] },
-        { id: 'mech_sclc', kind: 'option', x: 180, y: 692, w: 480, h: 58,
-          title: 'Histologic transformation (small-cell)',
-          lines: ['→ Platinum–etoposide (treat as small-cell lung cancer)'],
-          chips: [{ t: 'Platinum–etoposide: SDL', k: 'hsa' }] },
-        { id: 'mech_ontarget', kind: 'option', x: 180, y: 766, w: 480, h: 58,
-          title: 'On-target EGFR resistance (e.g. C797S)',
-          lines: ['→ Context-specific; prioritise a clinical trial'] },
-        { id: 'mech_indep', kind: 'option', x: 180, y: 840, w: 480, h: 84,
-          title: 'EGFR-independent / no targetable driver',
-          lines: ['→ Platinum–pemetrexed ± amivantamab',
-                  'MARIPOSA-2: PFS 6.3 vs 4.2 mo (HR 0.48); + lazertinib 8.3 mo (HR 0.44)'],
-          chips: [{ t: 'Ph III', k: 'ev' }, { t: 'Chemo: SDL', k: 'hsa' }, { t: 'Amivantamab: HSA-reg, not on CDL', k: 'no' }] },
-        { id: 'emerging', kind: 'ghost', x: 180, y: 942, w: 480, h: 48,
-          lines: ['Emerging post-osimertinib (not standard): HER3-DXd / patritumab',
-                  'deruxtecan (HERTHENA-Lung) · datopotamab deruxtecan (TROPION-Lung)'] },
+          { kind: 'subhead', title: 'No matched target · broad progression — route menu' },
 
-        // ---- Lane 2: uncommon sensitising EGFR (G719X / L861Q / S768I) ----
-        { id: 'unc_hdr', kind: 'entry', x: 140, y: 1046, w: 470, h: 50,
-          title: 'Uncommon sensitising EGFR mutation',
-          sub: 'G719X · L861Q · S768I — NOT exon 20 insertion' },
-        { id: 'afatinib', kind: 'option', x: 40, y: 1122, w: 330, h: 96,
-          title: 'Afatinib (preferred)',
-          lines: ['ACHILLES: afatinib > platinum chemo (RCT)',
-                  'FDA-approved for G719X / L861Q / S768I'],
-          chips: [{ t: 'Ph III', k: 'ev' }, { t: 'HSA ✓', k: 'hsa' }, { t: 'CDL: MAF', k: 'hsa' }] },
-        { id: 'osi_unc', kind: 'option', x: 390, y: 1122, w: 330, h: 96,
-          title: 'Osimertinib (alternative)',
-          lines: ['KCSG-LU15-09 ph II: ORR 50%, mPFS 8.2 mo',
-                  'Best activity in L861Q; guideline-listed'],
-          chips: [{ t: 'Ph II', k: 'ev' }, { t: 'HSA ✓', k: 'hsa' }, { t: 'CDL: no subsidy', k: 'no' }] },
+          { kind: 'option', eyebrow: 'Switch',
+            title: 'Amivantamab + platinum–pemetrexed (± lazertinib)',
+            lines: ['MARIPOSA-2: PFS HR 0.48 (0.44 with lazertinib) · OS immature · heavy toxicity',
+                    'replaces osimertinib; blankets the polyclonal landscape'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', eyebrow: 'Continue',
+            title: 'Osimertinib + platinum–pemetrexed',
+            lines: ['after non-CNS progression. COMPEL: PFS 8.4 vs 4.4 mo (HR 0.43); strong CNS protection',
+                    'keeps the TKI for still-sensitive clones (underpowered, N=98)'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', eyebrow: 'Immunotherapy — bispecific',
+            title: 'Ivonescimab (PD-1×VEGF) + chemotherapy',
+            lines: ['HARMONi-A: PFS HR 0.46; OS 16.8 vs 14.1 mo (HR 0.74) — survival-positive',
+                    'overturns "IO fails in EGFR" — needs the VEGF arm. China-only'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', eyebrow: 'ADC — by surface antigen (mechanism-independent)',
+            title: 'TROP2 / HER3 antibody–drug conjugate',
+            lines: ['Sac-TMT — OptiTROP-Lung04: PFS HR 0.49, OS HR 0.60 — first OS-positive 2L agent; no ILD',
+                    'HER3-DXd — HERTHENA-Lung02: PFS HR 0.77 · Dato-DXd — TROPION-Lung01: OS-neg, ILD signal'],
+            chips: [{ t: 'Ph III', k: 'ph3' }, { t: 'HER3-DXd: abstract', k: 'abs' }] }
+        ]
+      },
 
-        // ---- Lane 3: EGFR exon 20 insertion (de novo TKI-resistant) ----
-        { id: 'ex20_hdr', kind: 'entry', x: 140, y: 1252, w: 470, h: 50,
-          title: 'EGFR exon 20 insertion',
-          sub: 'de novo TKI-resistant — distinct biology' },
-        { id: 'ex20_1l', kind: 'option', x: 40, y: 1328, w: 680, h: 80,
-          title: '1L: Amivantamab + carboplatin–pemetrexed (PAPILLON)',
-          lines: ['PFS 11.4 vs 6.7 mo (HR 0.40)'],
-          chips: [{ t: 'Ph III', k: 'ev' }, { t: 'Amivantamab: HSA-reg, not on CDL', k: 'no' }, { t: 'Chemo: SDL', k: 'hsa' }] },
-        { id: 'ex20_2l', kind: 'option', x: 40, y: 1430, w: 680, h: 90,
-          title: '≥2L (post-platinum)',
-          lines: ['Amivantamab monotherapy (CHRYSALIS) — HSA-registered',
-                  'Sunvozertinib (Zegfrovy) — FDA-approved 2025; SG availability unconfirmed*'],
-          chips: [{ t: 'emerging options', k: 'ev' }] },
-        { id: 'ex20_note', kind: 'note', x: 44, y: 1544,
-          lines: ['* Mobocertinib withdrawn (2023, EXCLAIM-2 negative) — not recommended.',
-                  'Zipalertinib investigational (FDA review).'] }
-      ],
-      edges: [
-        { from: 'entry', to: 'risk' },
-        { from: 'risk', to: 'mono', label: 'Yes — frail / low burden', lpos: [162, 182], lanchor: 'end',
-          pts: [[252, 128], [170, 128], [170, 214]] },
-        { from: 'risk', to: 'flaura2', label: 'No — intensify (preferred)', lpos: [366, 202],
-          pts: [[408, 128], [345, 128], [345, 257], [360, 257]] },
-        { from: 'risk', to: 'mariposa',
-          pts: [[345, 257], [345, 367], [360, 367]] },
-        { from: 'mono', to: 'prog', dashed: true,
-          pts: [[170, 324], [170, 452], [375, 452], [375, 468]] },
-        { from: 'mariposa', to: 'prog', dashed: true, noarrow: true,
-          pts: [[540, 434], [540, 452], [375, 452]] },
-        { from: 'prog', to: 'mech_oligo', pts: [[375, 518], [150, 518], [150, 569], [180, 569]] },
-        { from: 'prog', to: 'mech_met', pts: [[150, 569], [150, 645], [180, 645]] },
-        { from: 'prog', to: 'mech_sclc', pts: [[150, 645], [150, 721], [180, 721]] },
-        { from: 'prog', to: 'mech_ontarget', pts: [[150, 721], [150, 795], [180, 795]] },
-        { from: 'prog', to: 'mech_indep', pts: [[150, 795], [150, 882], [180, 882]] },
-        { from: 'mech_indep', to: 'emerging', dashed: true, noarrow: true,
-          pts: [[420, 924], [420, 942]] },
-        { from: 'unc_hdr', to: 'afatinib', pts: [[375, 1096], [375, 1110], [205, 1110], [205, 1122]] },
-        { from: 'unc_hdr', to: 'osi_unc', pts: [[375, 1096], [375, 1110], [555, 1110], [555, 1122]] },
-        { from: 'ex20_hdr', to: 'ex20_1l', pts: [[375, 1302], [375, 1315], [380, 1315], [380, 1328]] },
-        { from: 'ex20_1l', to: 'ex20_2l', label: 'on progression', lpos: [392, 1424],
-          pts: [[380, 1408], [380, 1430]] }
-      ]
-    }
+      // ============ 3. POST-OSIMERTINIB — additional routes & context ============
+      {
+        id: 'progression-extra',
+        title: 'Post-osimertinib — additional routes & context',
+        open: false,
+        nodes: [
+          { kind: 'note', title: 'Context behind the route menu above — precursor, single-arm, and superseded evidence, kept for completeness. Not first-reach options.' },
+
+          { kind: 'option', eyebrow: 'MET-matched — single-arm anchor',
+            title: 'INSIGHT-2 — tepotinib + osimertinib',
+            lines: ['MET-amplified post-osimertinib: ORR 50% (vs 8% tepotinib alone); PFS 5.6 mo; all-oral'],
+            chips: [{ t: 'Ph II · single-arm', k: 'ph2' }] },
+          { kind: 'option', eyebrow: 'IO + anti-angiogenic — precursor signal',
+            title: 'IMpower150 — ABCP, EGFR subgroup',
+            lines: ['exploratory subgroup: PFS 9.7 vs 6.1 mo (HR 0.59) — the VEGF + IO signal'],
+            chips: [{ t: 'reference · subgroup', k: 'low' }] },
+          { kind: 'option', eyebrow: 'IO + anti-angiogenic — PFS-only Ph III',
+            title: 'ATTLAS — ABCP vs pemetrexed–platinum',
+            lines: ['PFS HR 0.62 (HR 0.24 at PD-L1 ≥50%); OS flat (HR 1.01) — four-drug route, survival-negative'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', eyebrow: 'TROP2 ADC — single-arm anchor',
+            title: 'TROPION-Lung05 — datopotamab deruxtecan',
+            lines: ['EGFR ORR 43.6% (49.1% osimertinib-pretreated); uncontrolled'],
+            chips: [{ t: 'Ph II · single-arm', k: 'ph2' }] },
+          { kind: 'option', eyebrow: 'TROP2 ADC — randomised, OS-negative',
+            title: 'TROPION-Lung01 — Dato-DXd vs docetaxel',
+            lines: ['PFS HR 0.75 (met); OS HR 0.94 (not met); nonsquamous-only benefit; fatal ILD 8.8%'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'note', title: 'Survival bar: until OptiTROP-Lung04, every 2L route improved PFS but left OS immature or flat. Sac-TMT (OS HR 0.60) and HARMONi-A final (OS HR 0.74) are the first to clear it.' }
+        ]
+      },
+
+      // ============ 4. UNCOMMON SENSITISING MUTATIONS ============
+      {
+        id: 'uncommon',
+        title: 'Uncommon sensitising mutations (G719X · L861Q · S768I)',
+        open: false,
+        nodes: [
+          { kind: 'entry', title: 'Uncommon sensitising EGFR mutation',
+            sub: 'G719X · L861Q · S768I · compound — NOT exon 20 insertion' },
+          { kind: 'note', title: 'Structural class guides the TKI: PACC (G719X, S768I) → afatinib binds better; classical-like (L861Q) → osimertinib (Robichaux, Nature 2021). Choose mutation by mutation.' },
+
+          { kind: 'option', eyebrow: 'Broad pan-HER — preferred for PACC / compound',
+            title: 'Afatinib',
+            lines: ['ACHILLES (RCT): PFS 10.6 vs 5.7 mo (HR 0.42) vs platinum–pemetrexed; best in compound mutations'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', eyebrow: 'Mutant-selective — preferred for classical-like L861Q',
+            title: 'Osimertinib',
+            lines: ['UNICORN: ORR 55%, PFS 9.4 mo (best on L861Q) · KCSG-LU15-09: ORR 50%, exceptionally clean'],
+            chips: [{ t: 'Ph II · single-arm', k: 'ph2' }] },
+          { kind: 'option', eyebrow: 'Escalation if the single-agent match is poor',
+            title: 'Amivantamab + lazertinib',
+            lines: ['CHRYSALIS-2 (Cohort C): ORR 52% (treatment-naïve PFS 19.5 mo); PACC ORR 45%',
+                    'structure-agnostic but the heaviest, IV-combination toxicity (VTE ~30%)'],
+            chips: [{ t: 'Ph I/II', k: 'ph2' }] }
+        ]
+      },
+
+      // ============ 5. EXON 20 INSERTIONS ============
+      {
+        id: 'exon20',
+        title: 'Exon 20 insertions',
+        open: false,
+        nodes: [
+          { kind: 'entry', title: 'EGFR exon 20 insertion',
+            sub: 'de novo TKI-resistant — distinct biology · NGS (PCR misses ~50%)' },
+          { kind: 'subhead', title: 'First-line — two options beat chemotherapy (not cleanly rankable)' },
+
+          { kind: 'option', eyebrow: 'Antibody + chemo (IV)',
+            title: 'Amivantamab + carboplatin–pemetrexed',
+            lines: ['PAPILLON: PFS 11.4 vs 6.7 mo (HR 0.40); ORR 73% — deeper response, IV / chemo burden'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', eyebrow: 'Oral, chemo-free',
+            title: 'Sunvozertinib',
+            lines: ['WU-KONG28: PFS 10.3 vs 7.5 mo (HR 0.65); ORR 59% — oral convenience, TKI toxicity',
+                    'succeeds where mobocertinib (EXCLAIM-2) failed'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'note', title: 'Different control arms mean the hazard ratios overstate the gap; absolute medians are close. Neither has proven OS. Choose on response depth + IV/chemo burden vs oral convenience.' },
+
+          { kind: 'option', eyebrow: '≥2L (post-platinum)',
+            title: 'Amivantamab monotherapy · or sunvozertinib if not used first-line',
+            lines: ['amivantamab (CHRYSALIS) established the ≥2L benchmark'],
+            chips: [{ t: 'Ph I/II', k: 'ph2' }] },
+          { kind: 'note', title: 'Mobocertinib withdrawn (2023, EXCLAIM-2 negative). Zipalertinib investigational.' }
+        ]
+      }
+
+    ]
   }
 ];

@@ -98,10 +98,63 @@
   .card.open .caret{transform:rotate(90deg);}
   .gbody{display:none; padding:4px 16px 16px; border-top:1px solid var(--line);}
   .card.open .gbody{display:block;}
-  .gscroll{overflow-x:auto; margin-top:10px;}
-  .gscroll svg{display:block; min-width:560px; max-width:760px; height:auto;}
-  .gnote{margin-top:10px; font-size:10.5px; color:var(--muted); line-height:1.6;}
+  .gnote{margin-top:14px; padding-top:12px; border-top:1px solid var(--grid);
+    font-size:11px; color:var(--muted); line-height:1.6;}
   .gnote b{color:var(--accent);}
+
+  /* ---- sectioned-flow algorithm body ---- */
+  .algo{display:flex; flex-direction:column; margin-top:6px;}
+  .algo-section{border-top:1px solid var(--grid);}
+  .algo-section:first-child{border-top:0;}
+  .sec-head{display:flex; align-items:center; gap:10px; width:100%; background:transparent;
+    border:0; cursor:pointer; padding:12px 2px; text-align:left; font-family:var(--font-sans); color:var(--ink);}
+  .sec-head:hover .sec-title{color:var(--accent);}
+  .sec-chev{color:var(--accent); font-size:11px; transition:transform .15s; flex:0 0 auto; width:12px;}
+  .algo-section.open .sec-chev{transform:rotate(90deg);}
+  .sec-title{font-family:var(--font-serif); font-weight:600; font-size:14.5px; line-height:1.25; flex:1 1 auto; min-width:0;}
+  .sec-n{font-family:var(--sans); font-size:11px; color:var(--muted); font-weight:600; flex:0 0 auto; white-space:nowrap; padding-top:2px;}
+  .sec-body{display:none; padding:2px 0 16px;}
+  .algo-section.open .sec-body{display:block;}
+
+  .flow{display:flex; flex-direction:column; align-items:stretch;}
+  .flow .conn{width:1.5px; height:13px; background:var(--hair); margin:0 auto; flex:0 0 auto;}
+
+  .gnode, .gentry, .gdecision, .gnote2{overflow-wrap:break-word;}
+  .gnode{background:var(--paper); border:1px solid var(--hair); border-left:3px solid var(--teal);
+    border-radius:2px; padding:9px 12px;}
+  .gnode .eyb{font-family:var(--sans); font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--muted); font-weight:700; margin-bottom:3px;}
+  .gnode .gtitle{font-family:var(--font-serif); font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.28;}
+  .gnode .gline{font-size:12px; color:var(--slate); margin-top:4px; line-height:1.45;}
+  .gnode .gtox{font-size:11.5px; color:var(--status-danger); margin-top:4px; line-height:1.4;}
+  .gnode.distinct{border-left-color:var(--status-warning); border-style:dashed; background:var(--status-warning-soft);}
+  .gnode.distinct .gtitle{color:#8a5e08;}
+  .gnode.terminal{background:var(--teal); border-color:var(--teal); border-left-color:var(--teal);}
+  .gnode.terminal .gtitle, .gnode.terminal .gline{color:#fff;}
+
+  .gentry{background:var(--ink); color:#fff; border-radius:2px; padding:10px 13px;}
+  .gentry .g-t{font-family:var(--font-serif); font-weight:700; font-size:14.5px; line-height:1.25;}
+  .gentry .g-s{font-size:11.5px; color:#c6d3de; margin-top:3px; line-height:1.4;}
+
+  .gdecision{background:var(--accent-soft); border:1px solid var(--hair); border-radius:2px;
+    padding:9px 13px; text-align:center;}
+  .gdecision .g-t{font-family:var(--font-serif); font-weight:700; font-size:13.5px; color:var(--ink);}
+  .gdecision .g-h{font-size:11px; color:var(--muted); margin-top:2px; line-height:1.4;}
+
+  .gsubhead{font-family:var(--sans); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent); font-weight:700; padding:6px 2px 5px; border-bottom:1px solid var(--grid); margin:2px 0;}
+
+  .gnote2{border:1px dashed var(--hair); border-radius:2px; padding:8px 11px;
+    font-size:11.5px; color:var(--muted); line-height:1.5;}
+
+  .gchips{display:flex; flex-wrap:wrap; gap:5px; margin-top:7px;}
+  .gchip{font-family:var(--sans); font-size:10px; font-weight:700; letter-spacing:.02em;
+    padding:2px 7px; border-radius:2px; white-space:nowrap;}
+  .k-ph3{background:var(--status-info-soft); color:var(--status-info);}
+  .k-ph2{background:var(--status-warning-soft); color:var(--status-warning);}
+  .k-abs{background:var(--status-danger-soft); color:var(--status-danger);}
+  .k-con{background:var(--accent-soft); color:var(--slate);}
+  .k-low{background:var(--grid); color:var(--muted);}
 
   .empty{text-align:center; color:var(--muted); padding:64px 20px;}
   .empty .eic{width:52px; height:52px; margin:0 auto 16px; border-radius:0; background:var(--accent-soft);
@@ -121,7 +174,26 @@
     body.nav-open .sidebar{transform:translateX(0);}
     .sidebar .wm-wrap{display:none;}
     body.nav-open .backdrop{display:block; position:fixed; inset:0; z-index:45; background:rgba(15,42,67,.28);}
-    main{padding:16px;}
+    main{padding:16px 14px 32px;}
+    /* reclaim horizontal room for the pathway on small screens */
+    .card-head{padding:13px 13px;}
+    .gbody{padding:2px 12px 14px;}
+    .sec-head{padding:13px 0; gap:9px;}
+    .gnode{padding:9px 11px;}
+    .gentry, .gdecision{padding:9px 11px;}
+  }
+  /* phones — tighten type + spacing so nodes stay scannable one-handed */
+  @media (max-width:560px){
+    main{padding:14px 11px 28px;}
+    .gbody{padding:2px 10px 12px;}
+    .card-head{padding:12px 12px;}
+    .aname{font-size:15px;}
+    .sec-title{font-size:13.5px;}
+    .gnode .gtitle, .gentry .g-t{font-size:13.5px;}
+    .gnode .gline{font-size:11.5px; line-height:1.4;}
+    .gdecision .g-t{font-size:12.5px;}
+    .flow{gap:0;}
+    .gchip{font-size:9.5px; padding:2px 6px;}
   }
   @media (min-width:881px){ .mhead{display:none;} }
 </style>
@@ -218,85 +290,50 @@
     return true;
   }
 
-  // ---- data-driven graph renderer -----------------------------------------
-  const CHIP = {
-    ev:  { bg: '#eef3f7', fg: '#5b6b78' },   // evidence / phase
-    hsa: { bg: '#e7f4ee', fg: '#1f8a5b' },   // subsidised / available (good)
-    cdl: { bg: '#fbf1dc', fg: '#c9820a' },   // subsidy caveat (amber)
-    no:  { bg: '#fbeae9', fg: '#d8322f' },   // access barrier — no subsidy / not on CDL
-    tox: { bg: '#fbeae9', fg: '#d8322f' }
-  };
-  const anchor = n => ({ cx: n.x + n.w / 2, top: n.y, bot: n.y + n.h });
+  // ---- sectioned-flow pathway renderer ------------------------------------
+  const KIND_CHIP = { ph3:'k-ph3', ph2:'k-ph2', abs:'k-abs', con:'k-con', low:'k-low' };
+  const SPINE = { entry:1, decision:1, subhead:1 };  // nodes a connector may descend from
 
-  function renderGraph(g){
-    const byId = Object.fromEntries(g.nodes.map(n => [n.id, n]));
-    let s = '';
+  function nodeHTML(n){
+    if (n.kind === 'entry')
+      return `<div class="gentry"><div class="g-t">${esc(n.title)}</div>${
+        n.sub ? `<div class="g-s">${esc(n.sub)}</div>` : ''}</div>`;
+    if (n.kind === 'decision')
+      return `<div class="gdecision"><div class="g-t">${esc(n.title)}</div>${
+        n.sub ? `<div class="g-h">${esc(n.sub)}</div>` : ''}</div>`;
+    if (n.kind === 'subhead')
+      return `<div class="gsubhead">${esc(n.title)}</div>`;
+    if (n.kind === 'note')
+      return `<div class="gnote2">${esc(n.title || (n.lines || []).join(' '))}</div>`;
 
-    // edges first (under nodes)
-    g.edges.forEach(e => {
-      const a = byId[e.from], b = byId[e.to];
-      const pts = e.pts || [[anchor(a).cx, anchor(a).bot], [anchor(b).cx, anchor(b).top]];
-      const d = pts.map(p => p.join(' ')).join(' ');
-      const col = e.dashed ? '#77899a' : '#5b6b78';
-      const dash = e.dashed ? ' stroke-dasharray="5 4"' : '';
-      s += `<polyline points="${d}" fill="none" stroke="${col}" stroke-width="1.2"${dash}${e.noarrow ? '' : ' marker-end="url(#ah)"'}/>`;
-      if (e.label){
-        const lp = e.lpos || [pts[0][0] + 6, pts[0][1] - 6];
-        s += `<text x="${lp[0]}" y="${lp[1]}" font-size="10" font-weight="600" fill="#1668a3" text-anchor="${e.lanchor || 'start'}">${esc(e.label)}</text>`;
-      }
+    // option
+    const cls = 'gnode' + (n.tone === 'distinct' ? ' distinct' : n.tone === 'terminal' ? ' terminal' : '');
+    const eyb = n.eyebrow ? `<div class="eyb">${esc(n.eyebrow)}</div>` : '';
+    const lines = (n.lines || []).map(l => `<div class="gline">${esc(l)}</div>`).join('');
+    const tox = n.tox ? `<div class="gtox">${esc(n.tox)}</div>` : '';
+    const chips = (n.chips && n.chips.length)
+      ? `<div class="gchips">${n.chips.map(c => `<span class="gchip ${KIND_CHIP[c.k] || 'k-con'}">${esc(c.t)}</span>`).join('')}</div>`
+      : '';
+    return `<div class="${cls}">${eyb}<div class="gtitle">${esc(n.title)}</div>${lines}${tox}${chips}</div>`;
+  }
+
+  function sectionHTML(sec, idx){
+    let inner = '';
+    (sec.nodes || []).forEach((n, i) => {
+      const prev = sec.nodes[i - 1];
+      // connector descends only along the spine (from an entry/decision/subhead, or into a decision)
+      if (prev && (SPINE[prev.kind] || n.kind === 'decision')) inner += '<div class="conn"></div>';
+      inner += nodeHTML(n);
     });
-
-    // nodes
-    g.nodes.forEach(n => {
-      if (n.kind === 'decision'){
-        const cx = n.x + n.w / 2, cy = n.y + n.h / 2;
-        const p = `${cx},${n.y} ${n.x + n.w},${cy} ${cx},${n.y + n.h} ${n.x},${cy}`;
-        s += `<polygon points="${p}" fill="#eef3f7" stroke="#1668a3" stroke-width="1.2"/>`;
-        s += `<text x="${cx}" y="${cy + 4}" font-size="10.5" font-weight="600" fill="#1668a3" text-anchor="middle">${esc(n.title)}</text>`;
-        return;
-      }
-      if (n.kind === 'note'){
-        (n.lines || []).forEach((ln, i) => {
-          const last = i === n.lines.length - 1;
-          s += `<text x="${n.x}" y="${n.y + i * 12}" font-size="9.5" fill="${last ? '#5b6b78' : '#77899a'}">${esc(ln)}</text>`;
-        });
-        return;
-      }
-      const ghost = n.kind === 'ghost', distinct = n.tone === 'distinct', terminal = n.tone === 'terminal';
-      const fill = ghost ? '#f4f6f8' : terminal ? '#1668a3' : distinct ? '#fbf1dc' : '#fff';
-      const stroke = ghost ? '#dce3e9' : terminal ? '#1668a3' : distinct ? '#c9820a' : '#dce3e9';
-      const dash = (ghost || distinct) ? ' stroke-dasharray="5 4"' : '';
-      s += `<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="2" fill="${fill}" stroke="${stroke}" stroke-width="1.2"${dash}/>`;
-      if (!ghost && !distinct && !terminal) s += `<rect x="${n.x}" y="${n.y}" width="3" height="${n.h}" fill="#1668a3"/>`;
-
-      const px = n.x + (ghost ? n.w / 2 : 16);
-      let y = n.y + 23;
-      if (ghost){
-        (n.lines || []).forEach((ln, i) => {
-          s += `<text x="${px}" y="${n.y + 17 + i * 15}" font-size="${i ? 9.5 : 10.5}" ${i ? '' : 'font-weight="600"'} fill="#5b6b78" text-anchor="middle">${esc(ln)}</text>`;
-        });
-        return;
-      }
-      const titleFill = terminal ? '#ffffff' : distinct ? '#c9820a' : '#0f2a43';
-      s += `<text x="${px}" y="${y}" font-size="13.5" font-weight="700" fill="${titleFill}">${esc(n.title)}</text>`;
-      if (n.sub){ y += 17; s += `<text x="${px}" y="${y}" font-size="10" fill="${terminal ? '#e6eff6' : distinct ? '#c9820a' : '#5b6b78'}">${esc(n.sub)}</text>`; }
-      (n.lines || []).forEach(ln => { y += 16; s += `<text x="${px}" y="${y}" font-size="10.5" fill="${terminal ? '#e6eff6' : '#5b6b78'}">${esc(ln)}</text>`; });
-      if (n.tox){ y += 15; s += `<text x="${px}" y="${y}" font-size="10" fill="${terminal ? '#fbeae9' : '#d8322f'}">${esc(n.tox)}</text>`; }
-      if (n.chips && n.chips.length){
-        y += 13; let cx = px;
-        n.chips.forEach(c => {
-          const col = CHIP[c.k] || CHIP.ev, w = 9 + c.t.length * 5.6;
-          s += `<rect x="${cx}" y="${y}" width="${w}" height="16" rx="1" fill="${col.bg}"/>`;
-          s += `<text x="${cx + w / 2}" y="${y + 11.5}" font-size="9" fill="${col.fg}" text-anchor="middle">${esc(c.t)}</text>`;
-          cx += w + 6;
-        });
-      }
-    });
-
-    return `<svg viewBox="0 0 ${g.w} ${g.h}" xmlns="http://www.w3.org/2000/svg" role="img"
-      style="font-family:var(--sans)"><title>${esc('Treatment pathway')}</title>
-      <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7"
-        orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b78"/></marker></defs>${s}</svg>`;
+    const optN = (sec.nodes || []).filter(n => n.kind === 'option').length;
+    return `<div class="algo-section${sec.open ? ' open' : ''}">
+      <button class="sec-head" aria-expanded="${sec.open ? 'true' : 'false'}">
+        <span class="sec-chev">▶</span>
+        <span class="sec-title">${esc(sec.title)}</span>
+        <span class="sec-n">${optN} option${optN === 1 ? '' : 's'}</span>
+      </button>
+      <div class="sec-body"><div class="flow">${inner}</div></div>
+    </div>`;
   }
 
   function cardHTML(a){
@@ -304,9 +341,10 @@
       a.system ? `<span class="tagpill sys">${esc(a.system)}</span>` : '',
       a.tumour ? `<span class="tagpill">${esc(a.tumour)}</span>` : ''
     ].join('');
-    const body = a.graph ? `<div class="gbody">
-        <div class="gscroll">${renderGraph(a.graph)}</div>
-        <div class="gnote">${a.status ? `<b>Status:</b> ${esc(a.status)}. ` : ''}Evidence figures verified against the primary publications.${a.accessNote ? ` <b>Access${a.cdlDate ? ` (MOH CDL ${esc(a.cdlDate)})` : ''}:</b> ${esc(a.accessNote)}` : ''}</div>
+    const hasBody = a.sections && a.sections.length;
+    const body = hasBody ? `<div class="gbody">
+        <div class="algo">${a.sections.map((s, i) => sectionHTML(s, i)).join('')}</div>
+        ${a.provenance ? `<div class="gnote">${esc(a.provenance)}</div>` : ''}
       </div>` : '';
     return `<div class="card" data-id="${esc(a.id)}">
       <div class="card-head">
@@ -315,7 +353,7 @@
           <div class="ameta">${pills}</div>
           ${a.summary ? `<div class="asum">${esc(a.summary)}</div>` : ''}
         </div>
-        ${a.graph ? '<span class="caret">▶</span>' : ''}
+        ${hasBody ? '<span class="caret">▶</span>' : ''}
       </div>
       ${body}
     </div>`;
@@ -361,6 +399,13 @@
     listEl.querySelectorAll('.card-head').forEach(h => h.onclick = () => {
       const card = h.parentElement;
       if (card.querySelector('.gbody')) card.classList.toggle('open');
+    });
+
+    // collapsible pathway sections (inside the card body — independent of card open/close)
+    listEl.querySelectorAll('.sec-head').forEach(h => h.onclick = () => {
+      const sec = h.parentElement;
+      const open = sec.classList.toggle('open');
+      h.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
 
