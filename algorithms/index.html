@@ -156,6 +156,39 @@
   .k-con{background:var(--accent-soft); color:var(--slate);}
   .k-low{background:var(--grid); color:var(--muted);}
 
+  /* ---- desktop-flowchart layout (opt-in: .algo.flowmode) ---- */
+  /* Mobile / narrow: .flowcanvas is a plain block; .arms & .branchrow collapse to
+     display:contents, so the DOM lays out as the identical vertical stack and the
+     SVG overlay is hidden — the mobile view is unchanged. */
+  .algo.flowmode .fedges{display:none;}
+  .algo.flowmode .arms, .algo.flowmode .branchrow{display:contents;}
+  .algo.flowmode .algo-section{border-top:1px solid var(--grid);}
+  .algo.flowmode .flowcanvas > .algo-section:first-of-type{border-top:0;}
+
+  @media (min-width:980px){
+    /* block scroll container + a max-content track centred by margin:auto; wider than
+       the card it left-aligns and scrolls (auto-margins clamp) instead of clipping. */
+    .algo.flowmode{display:block; overflow-x:auto; position:relative;}
+    .algo.flowmode .flowcanvas{position:relative; width:max-content; min-width:100%; margin:0 auto;}
+    .algo.flowmode .flowcanvas > *{position:relative; z-index:1;}
+    .algo.flowmode .fedges{display:block; position:absolute; top:0; left:0; z-index:0; pointer-events:none; overflow:visible;}
+    .algo.flowmode .fedges path{fill:none; stroke:var(--teal); stroke-width:1.6;}
+    .algo.flowmode .fedges path.head{fill:var(--teal); stroke:none;}
+    .algo.flowmode .fedges text{fill:var(--slate); font-family:var(--font-sans); font-size:11px; font-weight:700; text-anchor:middle; paint-order:stroke; stroke:var(--paper); stroke-width:4px;}
+    .algo.flowmode .algo-section{border-top:0;}
+    .algo.flowmode .conn{display:none;}
+    .algo.flowmode .flow{align-items:center; gap:22px;}
+    .algo.flowmode .flow > .gnode{width:auto; max-width:360px;}
+    .algo.flowmode .arms{display:flex; align-items:flex-start; justify-content:center; gap:36px; padding-top:6px;}
+    .algo.flowmode .arms > .algo-section{flex:0 0 auto;}
+    .algo.flowmode .branchrow{display:flex; align-items:flex-start; justify-content:center; gap:14px;}
+    .algo.flowmode .branchrow > .gnode{width:186px; flex:0 0 auto;}
+    .algo.flowmode .gentry, .algo.flowmode .gdecision{max-width:520px; margin-left:auto; margin-right:auto; text-align:center;}
+    .algo.flowmode .gnote2{max-width:600px; margin-left:auto; margin-right:auto;}
+    .algo.flowmode .gsubhead{text-align:center; border-bottom:0; width:100%;}
+    .algo.flowmode .sec-body{padding-bottom:26px;}
+  }
+
   .empty{text-align:center; color:var(--muted); padding:64px 20px;}
   .empty .eic{width:52px; height:52px; margin:0 auto 16px; border-radius:0; background:var(--accent-soft);
     color:var(--accent); display:flex; align-items:center; justify-content:center;}
@@ -294,17 +327,18 @@
   const KIND_CHIP = { ph3:'k-ph3', ph2:'k-ph2', abs:'k-abs', con:'k-con', low:'k-low' };
   const SPINE = { entry:1, decision:1, subhead:1 };  // nodes a connector may descend from
 
-  function nodeHTML(n){
+  function nodeHTML(n, id){
+    const ia = id ? ` id="${esc(id)}"` : '';
     if (n.kind === 'entry')
-      return `<div class="gentry"><div class="g-t">${esc(n.title)}</div>${
+      return `<div class="gentry"${ia}><div class="g-t">${esc(n.title)}</div>${
         n.sub ? `<div class="g-s">${esc(n.sub)}</div>` : ''}</div>`;
     if (n.kind === 'decision')
-      return `<div class="gdecision"><div class="g-t">${esc(n.title)}</div>${
+      return `<div class="gdecision"${ia}><div class="g-t">${esc(n.title)}</div>${
         n.sub ? `<div class="g-h">${esc(n.sub)}</div>` : ''}</div>`;
     if (n.kind === 'subhead')
-      return `<div class="gsubhead">${esc(n.title)}</div>`;
+      return `<div class="gsubhead"${ia}>${esc(n.title)}</div>`;
     if (n.kind === 'note')
-      return `<div class="gnote2">${esc(n.title || (n.lines || []).join(' '))}</div>`;
+      return `<div class="gnote2"${ia}>${esc(n.title || (n.lines || []).join(' '))}</div>`;
 
     // option
     const cls = 'gnode' + (n.tone === 'distinct' ? ' distinct' : n.tone === 'terminal' ? ' terminal' : '');
@@ -314,7 +348,7 @@
     const chips = (n.chips && n.chips.length)
       ? `<div class="gchips">${n.chips.map(c => `<span class="gchip ${KIND_CHIP[c.k] || 'k-con'}">${esc(c.t)}</span>`).join('')}</div>`
       : '';
-    return `<div class="${cls}">${eyb}<div class="gtitle">${esc(n.title)}</div>${lines}${tox}${chips}</div>`;
+    return `<div class="${cls}"${ia}>${eyb}<div class="gtitle">${esc(n.title)}</div>${lines}${tox}${chips}</div>`;
   }
 
   function sectionHTML(sec, idx){
@@ -336,14 +370,76 @@
     </div>`;
   }
 
+  // ---- desktop-flowchart path (opt-in via a.desktopFlow) -------------------
+  // Same node data + same mobile output as sectionHTML; adds branchrow wrappers,
+  // node ids and (at the algo level) an SVG connector overlay + side-by-side arms.
+  // On mobile the .arms / .branchrow wrappers are display:contents, so the DOM
+  // lays out identically to the vertical stack; the SVG is hidden.
+  function flowSectionHTML(sec, algoId, si){
+    const nodes = sec.nodes || [];
+    let inner = '', lastDecisionId = '', ni = 0, i = 0;
+    while (i < nodes.length){
+      const n = nodes[i];
+      if (n.kind === 'option' && n.branch){
+        const prev = nodes[i - 1];
+        if (prev && SPINE[prev.kind]) inner += '<div class="conn"></div>';
+        let cells = '';
+        while (i < nodes.length && nodes[i].kind === 'option' && nodes[i].branch){
+          cells += nodeHTML(nodes[i], `${algoId}__${si}_${ni}`); ni++; i++;
+        }
+        inner += `<div class="branchrow">${cells}</div>`;
+      } else {
+        const prev = nodes[i - 1];
+        if (prev && (SPINE[prev.kind] || n.kind === 'decision')) inner += '<div class="conn"></div>';
+        const id = `${algoId}__${si}_${ni}`;
+        inner += nodeHTML(n, id);
+        if (n.kind === 'decision') lastDecisionId = id;
+        ni++; i++;
+      }
+    }
+    const optN = nodes.filter(n => n.kind === 'option').length;
+    const labelAttr = sec.branchLabel ? ` data-branch-label="${esc(sec.branchLabel)}"` : '';
+    const html = `<div class="algo-section${sec.open ? ' open' : ''}"${labelAttr}>
+      <button class="sec-head" aria-expanded="${sec.open ? 'true' : 'false'}">
+        <span class="sec-chev">▶</span>
+        <span class="sec-title">${esc(sec.title)}</span>
+        ${optN > 0 ? `<span class="sec-n">${optN} option${optN === 1 ? '' : 's'}</span>` : ''}
+      </button>
+      <div class="sec-body"><div class="flow">${inner}</div></div>
+    </div>`;
+    return { html, lastDecisionId };
+  }
+
+  function flowAlgoHTML(a){
+    const secs = a.sections || [];
+    let inner = '', i = 0, lastDecisionId = '';
+    while (i < secs.length){
+      if (secs[i].role === 'branch'){
+        let arms = '';
+        while (i < secs.length && secs[i].role === 'branch'){
+          arms += flowSectionHTML(secs[i], a.id, i).html; i++;
+        }
+        inner += `<div class="arms" data-branch-from="${esc(lastDecisionId)}">${arms}</div>`;
+      } else {
+        const built = flowSectionHTML(secs[i], a.id, i);
+        if (built.lastDecisionId) lastDecisionId = built.lastDecisionId;
+        inner += built.html; i++;
+      }
+    }
+    // .flowcanvas = a max-content, margin:auto centred track. Wider than the card it
+    // left-aligns + scrolls (block auto-margins clamp) rather than clipping the centre.
+    return `<div class="flowcanvas"><svg class="fedges" aria-hidden="true"></svg>${inner}</div>`;
+  }
+
   function cardHTML(a){
     const pills = [
       a.system ? `<span class="tagpill sys">${esc(a.system)}</span>` : '',
       a.tumour ? `<span class="tagpill">${esc(a.tumour)}</span>` : ''
     ].join('');
     const hasBody = a.sections && a.sections.length;
+    const algoInner = a.desktopFlow ? flowAlgoHTML(a) : a.sections.map((s, i) => sectionHTML(s, i)).join('');
     const body = hasBody ? `<div class="gbody">
-        <div class="algo">${a.sections.map((s, i) => sectionHTML(s, i)).join('')}</div>
+        <div class="algo${a.desktopFlow ? ' flowmode' : ''}">${algoInner}</div>
         ${a.provenance ? `<div class="gnote">${esc(a.provenance)}</div>` : ''}
       </div>` : '';
     return `<div class="card" data-id="${esc(a.id)}">
@@ -398,7 +494,7 @@
 
     listEl.querySelectorAll('.card-head').forEach(h => h.onclick = () => {
       const card = h.parentElement;
-      if (card.querySelector('.gbody')) card.classList.toggle('open');
+      if (card.querySelector('.gbody')){ card.classList.toggle('open'); scheduleFlows(); }
     });
 
     // collapsible pathway sections (inside the card body — independent of card open/close)
@@ -406,8 +502,68 @@
       const sec = h.parentElement;
       const open = sec.classList.toggle('open');
       h.setAttribute('aria-expanded', open ? 'true' : 'false');
+      scheduleFlows();
     });
+
+    scheduleFlows();
   }
+
+  // ---- SVG connector engine for desktop-flowchart algorithms --------------
+  const isWide = () => window.matchMedia('(min-width:980px)').matches;
+  const flVis = el => el && el.offsetParent !== null && el.getClientRects().length;
+
+  function drawFlow(algo){
+    const canvas = algo.querySelector(':scope > .flowcanvas');
+    const svg = canvas && canvas.querySelector(':scope > .fedges');
+    if (!svg) return;
+    if (!isWide() || algo.offsetParent === null){ svg.innerHTML = ''; return; }
+    const W = canvas.scrollWidth, H = canvas.scrollHeight;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    const s = svg.getBoundingClientRect();
+    const cx = el => { const r = el.getBoundingClientRect(); return r.left + r.width / 2 - s.left; };
+    const yb = el => el.getBoundingClientRect().bottom - s.top;
+    const yt = el => el.getBoundingClientRect().top - s.top;
+    let out = '';
+    const edge = (f, t, label) => {
+      if (!flVis(f) || !flVis(t)) return;
+      const x1 = cx(f), y1 = yb(f), x2 = cx(t), y2 = yt(t);
+      const my = y1 + Math.max(12, (y2 - y1) / 2);
+      out += `<path d="M${x1} ${y1} V${my.toFixed(1)} H${x2} V${(y2 - 7).toFixed(1)}"/>`;
+      out += `<path class="head" d="M${x2} ${y2} l-5 -8 l10 0 z"/>`;
+      if (label) out += `<text x="${x2}" y="${(my - 5).toFixed(1)}">${esc(label)}</text>`;
+    };
+    // intra-section spine + fan edges (notes are asides; conn divs ignored)
+    canvas.querySelectorAll('.sec-body > .flow').forEach(flow => {
+      let prev = null;
+      [...flow.children].forEach(ch => {
+        if (ch.classList.contains('conn') || ch.classList.contains('gnote2')) return;
+        if (ch.classList.contains('branchrow')){
+          [...ch.children].forEach(cell => edge(prev, cell));
+          prev = null; return;
+        }
+        if (prev) edge(prev, ch);
+        prev = ch;
+      });
+    });
+    // cross-section edges: threshold decision -> each arm's header
+    canvas.querySelectorAll(':scope > .arms').forEach(arms => {
+      const from = document.getElementById(arms.getAttribute('data-branch-from') || '');
+      if (!from) return;
+      [...arms.children].forEach(arm => {
+        if (!arm.classList || !arm.classList.contains('algo-section')) return;
+        const head = arm.querySelector(':scope > .sec-head');
+        if (head) edge(from, head, arm.getAttribute('data-branch-label'));
+      });
+    });
+    svg.innerHTML = out;
+  }
+
+  function redrawFlows(){ listEl.querySelectorAll('.algo.flowmode').forEach(drawFlow); }
+  let flraf; function scheduleFlows(){ cancelAnimationFrame(flraf); flraf = requestAnimationFrame(redrawFlows); }
+  window.addEventListener('resize', scheduleFlows);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFlows);
+  window.addEventListener('load', scheduleFlows);
 
   function closeNav(){ document.body.classList.remove('nav-open'); }
   searchEl.addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); render(); });
