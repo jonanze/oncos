@@ -345,5 +345,113 @@ window.ALGORITHMS = [
       }
 
     ]
+  },
+
+  {
+    id: 'breast-her2-early',
+    title: 'Breast — early HER2-positive',
+    system: 'Breast',
+    tumour: 'HER2+ (early)',
+    desktopFlow: true,
+    summary: 'Risk- and response-adapted (neo)adjuvant pathway for stage I–III HER2-positive breast cancer — Stage I upfront surgery vs stage II–III neoadjuvant anti-HER2 chemotherapy, with post-neoadjuvant escalation by pathological response and HR-positive add-ons. Evidence-only.',
+    verified: '2026-07-09',
+    provenance: 'Effect sizes are drawn from the oncOS evidence base and reconciled with the primary publications; cite the underlying trial, not this diagram. A reference aid, not a prescribing system.',
+    sections: [
+
+      // ============ 1. DIAGNOSIS & WORK-UP ============
+      {
+        id: 'workup',
+        title: 'Diagnosis & work-up',
+        open: true,
+        nodes: [
+          { kind: 'entry', title: 'Early HER2-positive breast cancer',
+            sub: 'Stage I–III · resectable, non-metastatic' },
+          { kind: 'note', title: 'Confirm HER2-positive — IHC 3+, or IHC 2+ with ISH amplification (ASCO/CAP). Record ER/PR: HR-positivity drives the endocrine ± neratinib add-ons below.' },
+          { kind: 'note', title: 'Baseline LVEF (echo or MUGA, ≥50%) before anti-HER2; cardiology input at 50–54% or with risk factors; surveillance every 3 months. Trastuzumab cardiotoxicity is usually reversible; anthracycline injury is cumulative and largely not.' },
+          { kind: 'decision', title: 'Stage — cT2 or node-positive?',
+            sub: 'Stage I (cT1 N0) → upfront surgery · cT2+ / node-positive → neoadjuvant anti-HER2 chemotherapy' }
+        ]
+      },
+
+      // ============ 2. STAGE I (cT1 N0) — UPFRONT SURGERY ============
+      {
+        id: 'stage1',
+        title: 'If Stage I (cT1 N0) — upfront surgery',
+        role: 'branch', branchLabel: 'Stage I · cT1 N0',
+        open: true,
+        nodes: [
+          { kind: 'option', eyebrow: 'Local therapy first',
+            title: 'Upfront surgery',
+            lines: ['definitive surgery first; adjuvant anti-HER2 chosen by final nodal status'],
+            chips: [{ t: 'consensus', k: 'con' }] },
+
+          { kind: 'subhead', title: 'Adjuvant systemic therapy — by nodal status' },
+
+          { kind: 'option', branch: true, eyebrow: 'pN0 — node-negative',
+            title: 'Chemotherapy + trastuzumab',
+            lines: ['stage I / ≤3 cm: paclitaxel + trastuzumab — APT: 10-yr iDFS 91.3%, minimal chemotherapy'],
+            chips: [{ t: 'APT · Ph II single-arm', k: 'ph2' }] },
+          { kind: 'option', branch: true, eyebrow: 'pN+ — node-positive',
+            title: 'Chemotherapy + trastuzumab + pertuzumab (HP)',
+            lines: ['add pertuzumab — APHINITY: 8-yr node+ iDFS 86.1 vs 81.2% (HR 0.72)'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'note', title: 'Pertuzumab is added only if node-positive — APHINITY benefit was confined to node-positive disease (node-negative iDFS HR 1.13).' }
+        ]
+      },
+
+      // ============ 3. cT2+ / NODE-POSITIVE — NEOADJUVANT ============
+      {
+        id: 'stage23',
+        title: 'If cT2+ or node-positive — neoadjuvant',
+        role: 'branch', branchLabel: 'cT2+ / node-positive',
+        open: true,
+        nodes: [
+          { kind: 'option', eyebrow: 'Neoadjuvant anti-HER2 chemotherapy',
+            title: 'TCHP / AC-THP / T-DXd→THP',
+            lines: ['docetaxel + carboplatin + trastuzumab + pertuzumab (TCHP); or AC → THP; or T-DXd → THP',
+                    'T-DXd→THP — DESTINY-Breast11: pCR 67.3 vs 56.3%, less LV dysfunction'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+
+          { kind: 'decision', title: 'Surgery — pathological response?',
+            sub: 'pCR (ypT0/is ypN0) vs residual invasive disease' },
+
+          { kind: 'option', branch: true, eyebrow: 'If pCR',
+            title: 'Complete anti-HER2 to 1 year',
+            lines: ['HP if clinically node-positive; trastuzumab alone if cN0'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', branch: true, eyebrow: 'If high-risk residual — ypN+ or inoperable',
+            title: 'Trastuzumab deruxtecan (T-DXd) ×14',
+            lines: ['DESTINY-Breast05: iDFS HR 0.47 (3-yr 92.4 vs 83.7%) vs T-DM1 · NCCN Cat 1',
+                    'ILD ~10% — baseline CT, monitor every cycle, hold/steroid by grade'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'option', branch: true, eyebrow: 'If lower-risk residual — ypN0 or T-DXd-ineligible',
+            title: 'Trastuzumab emtansine (T-DM1) ×14',
+            lines: ['KATHERINE: 3-yr iDFS 88.3 vs 77.0% (HR 0.50); OS HR 0.66 vs trastuzumab'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] },
+          { kind: 'note', title: 'Adjuvant T-DXd (DESTINY-Breast05) applies only after conventional neoadjuvant therapy. Patients who received neoadjuvant T-DXd (DESTINY-Breast11) do not receive further adjuvant T-DXd — no data; use T-DM1 or a trial.' }
+        ]
+      },
+
+      // ============ 4. HR-POSITIVE ADD-ONS (both arms) ============
+      {
+        id: 'hr-addons',
+        title: 'HR-positive add-ons',
+        open: false,
+        nodes: [
+          { kind: 'note', title: 'For hormone-receptor-positive HER2+ disease — given alongside the anti-HER2 backbone above, independent of the stage pathway.' },
+
+          { kind: 'option', branch: true, eyebrow: 'If HR-positive',
+            title: 'Adjuvant endocrine therapy',
+            lines: ['standard ET — aromatase inhibitor or tamoxifen ± ovarian suppression, by menopausal status / risk'],
+            chips: [{ t: 'consensus', k: 'con' }] },
+          { kind: 'option', branch: true, eyebrow: 'If high-risk HR-positive',
+            title: 'Extended neratinib — 1 year',
+            lines: ['ExteNET: 5-yr iDFS 90.2 vs 87.7% (HR 0.73), benefit concentrated in HR-positive starting ≤1 yr post-trastuzumab',
+                    'diarrhoea prominent — loperamide prophylaxis'],
+            chips: [{ t: 'Ph III', k: 'ph3' }] }
+        ]
+      }
+
+    ]
   }
 ];
