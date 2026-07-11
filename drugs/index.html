@@ -12,6 +12,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Drugs">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700&family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap');
   :root{
@@ -32,7 +33,7 @@
     font-family:var(--font-sans); letter-spacing:.18em; text-transform:uppercase;}
 
   .mhead{display:none; position:sticky; top:0; z-index:40; background:var(--paper);
-    border-bottom:1.2px solid var(--ink); align-items:center; gap:12px;
+    border-bottom:1.2px solid var(--rule); align-items:center; gap:12px;
     padding:calc(10px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) 10px calc(14px + env(safe-area-inset-left));}
   .burger{flex:0 0 auto; width:38px; height:38px; border:1px solid var(--hair); border-radius:0;
     background:var(--paper); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;}
@@ -47,7 +48,7 @@
     height:100vh; height:100dvh; overflow-y:auto;
     padding:22px 16px calc(22px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:18px;}
   .sidebar .wm{font-size:20px;}
-  .sidebar .wm-wrap{padding-bottom:15px; border-bottom:1.2px solid var(--ink);}
+  .sidebar .wm-wrap{padding-bottom:15px; border-bottom:1.2px solid var(--rule);}
   .sidebar .tag{margin-bottom:0;}
   .facet .flabel{font-family:var(--font-sans); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
     color:var(--muted); font-weight:600; margin:0 0 8px 2px;}
@@ -63,9 +64,10 @@
   .topbar{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
   .h-title{font-family:var(--font-serif); font-size:22px; font-weight:600; margin:0; letter-spacing:-.01em;}
   .count{color:var(--muted); font-size:12px;}
+  .topbar .theme-toggle{margin-left:auto; align-self:center;}
   .lede{color:var(--slate); font-size:12.5px; margin:0 0 14px; max-width:640px; line-height:1.55;}
   .search{width:100%; max-width:540px; margin:0 0 20px; padding:9px 4px; font-size:15px;
-    border:none; border-bottom:1.2px solid var(--ink); border-radius:0; background:transparent; color:var(--ink); font-family:var(--font-sans);}
+    border:none; border-bottom:1.2px solid var(--rule); border-radius:0; background:transparent; color:var(--ink); font-family:var(--font-sans);}
   .search:focus{outline:none; border-bottom-color:var(--teal);}
 
   .azdiv{font-family:var(--font-sans); font-weight:700; font-size:13px; color:var(--teal);
@@ -128,6 +130,33 @@
     details.evi{display:block;} .evi-body{display:block;}
     .card{break-inside:avoid;}
   }
+
+  /* --- oncOS dark mode (shared: _oncos-kit/oncos_theme.py) --- */
+  :root{ --rule:var(--ink); --btn-ink:#ffffff; color-scheme:light; }
+  :root[data-theme="dark"]{
+    --ink:#e8eef4; --teal:#4aa6e2; --slate:#a8bac8; --muted:#8497a7;
+    --hair:#263d52; --grid:#1c3145; --accent-soft:#173350; --paper:#0e2233;
+    --rule:#37546e; --btn-ink:#08243b;
+    --status-success:#3cbe86; --status-success-soft:#123527;
+    --status-warning:#e0a94a; --status-warning-soft:#372c12;
+    --status-danger:#f0716e; --status-danger-soft:#3c1e1e;
+    --status-info:#4aa6e2; --status-info-soft:#173350;
+    color-scheme:dark;
+  }
+  html{ transition:background .18s ease, color .18s ease; }
+  .theme-toggle{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:36px; height:36px; padding:0; cursor:pointer; flex:0 0 auto;
+    background:transparent; color:var(--muted);
+    border:1px solid var(--hair); border-radius:0;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  .theme-toggle:hover{ color:var(--teal); border-color:var(--teal); background:var(--accent-soft); }
+  .theme-toggle svg{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .theme-toggle .i-sun{ display:none; }
+  :root[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
+  :root[data-theme="dark"] .theme-toggle .i-sun{ display:block; }
+
 </style>
 </head>
 <body>
@@ -156,6 +185,7 @@
     <div class="topbar">
       <h1 class="h-title">Drugs</h1>
       <span class="count" id="count">224 agents</span>
+      <button class="theme-toggle" id="oncos-theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
     </div>
     <p class="lede">Dose adjustment of anticancer drugs in renal and hepatic impairment, from Krens SD, et al. <i>Lancet Oncol</i> 2019;20:e200-e207, updated by Giraud EL, et al. <i>Lancet Oncol</i> 2023;24:e229 (Supplementary Table 1).</p>
     <input id="search" class="search" type="search" placeholder="Search drug or brand…" autocomplete="off">
@@ -4015,5 +4045,6 @@
     window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
   }
 </script>
+<script>(function(){var b=document.getElementById('oncos-theme-toggle');if(!b)return;var m=document.querySelector('meta[name="theme-color"]');var D='#0e2233',L=(m&&m.getAttribute('content'))||'#1668a3';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(e){}s();});})();</script>
 </body>
 </html>
