@@ -102,6 +102,16 @@
   .theme-toggle .i-sun{ display:none; }
   :root[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
   :root[data-theme="dark"] .theme-toggle .i-sun{ display:block; }
+  /* --- oncOS mobile QA (roadmap #4): no side-scroll + no iOS focus-zoom --- */
+  /* Touch devices only: iOS Safari zooms the page when a focused control is
+     under 16px, so pin form controls to 16px there (desktop sizing untouched). */
+  @media (hover:none) and (pointer:coarse){
+    input, select, textarea { font-size:16px !important; }
+  }
+  /* Belt-and-braces: disable horizontal page scroll on phones. `clip` (not
+     `hidden`) doesn't create a scroll container, so position:sticky headers
+     keep working. */
+  @media (max-width:760px){ html, body { overflow-x:clip; } }
 </style>
 </head>
 <body>
