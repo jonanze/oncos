@@ -266,6 +266,9 @@
   .theme-toggle .i-sun{ display:none; }
   :root[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
   :root[data-theme="dark"] .theme-toggle .i-sun{ display:block; }
+  /* --- oncOS mobile QA (roadmap #4; kept in sync with _oncos-kit/oncos_theme.py) --- */
+  @media (hover:none) and (pointer:coarse){ input, select, textarea { font-size:16px !important; } }
+  @media (max-width:760px){ html, body { overflow-x:clip; } }
   /* Algorithms-specific dark fixes: the entry node is a filled prominent box —
      keep it dark (its bg used var(--ink), which flips near-white) so white text stays legible. */
   .topbar .theme-toggle{ margin-left:auto; align-self:center; }
