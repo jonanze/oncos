@@ -227,9 +227,9 @@ mark{background:#fdf3b0;color:inherit;padding:0 1px}
 .band{font-size:11.5px;font-weight:700;padding:6px 11px;border:1px solid;border-left-width:3px;cursor:pointer;background:var(--paper);user-select:none}
 .band.hi{border-color:var(--g4);color:var(--g4)} .band.hi.act{background:var(--g4s)}
 .band.mid{border-color:var(--g2);color:var(--g2)} .band.mid.act{background:var(--g2s)}
-.reslist{margin:12px 0 0;max-height:360px;overflow:auto;border-top:1px dashed var(--hair)}
-.ritem{display:grid;grid-template-columns:1fr 128px;gap:12px;padding:9px 4px;border-bottom:1px solid var(--grid);align-items:start}
-.ritem .rmain{font-size:13px;line-height:1.4}
+.reslist{margin:12px 0 0;max-height:360px;overflow-y:auto;overflow-x:hidden;border-top:1px dashed var(--hair)}
+.ritem{display:grid;grid-template-columns:minmax(0,1fr) 128px;gap:12px;padding:9px 4px;border-bottom:1px solid var(--grid);align-items:start}
+.ritem .rmain{font-size:13px;line-height:1.4;min-width:0;overflow-wrap:anywhere;word-break:break-word}
 .ritem .rname{font-weight:600;color:var(--ink)}
 .ritem .rexp{color:var(--muted);font-size:11.5px}
 .ritem .rdis{color:var(--slate);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
@@ -250,7 +250,8 @@ mark{background:#fdf3b0;color:inherit;padding:0 1px}
 .boxwrap>summary::-webkit-details-marker{display:none}
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 0}
 .chip{font-size:11px;color:var(--slate);border:1px solid var(--hair);padding:3px 8px;line-height:1.3}
-.protab{width:100%;border-collapse:collapse;margin:2px 0 0;font-size:12.5px}
+.tscroll{margin:2px 0 0;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.protab{width:100%;border-collapse:collapse;margin:0;font-size:12.5px}
 .protab th{text-align:left;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:6px 10px;border-bottom:1px solid var(--hair)}
 .protab td{padding:8px 10px;border-bottom:1px solid var(--grid);vertical-align:top;line-height:1.45}
 .protab td.ag{font-weight:600;color:var(--ink)} .protab td.ag .sub{font-weight:400;color:var(--muted);font-size:11px}
@@ -261,7 +262,8 @@ mark{background:#fdf3b0;color:inherit;padding:0 1px}
 .sblock ul{margin:0;padding-left:17px;font-size:12.5px;line-height:1.6;color:var(--ink)} .sblock li{margin:1px 0}
 .scredit{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--hair);color:var(--muted);font-size:11px;line-height:1.6}
 .scredit b{color:var(--slate)}
-@media (max-width:560px){ .ritem{grid-template-columns:1fr} .rband{justify-self:start} .rrow{grid-template-columns:1fr} }
+@media (max-width:560px){ .ritem{grid-template-columns:1fr} .rband{justify-self:start} .rrow{grid-template-columns:1fr}
+ .protab{font-size:12px} .protab th,.protab td{padding:6px 7px} .protab td.dose{white-space:normal} }
 
 /* antiemesis (supportive topic 2) */
 .chiprow{display:flex;gap:6px;flex-wrap:wrap;margin:9px 0 0;align-items:center}
@@ -272,7 +274,8 @@ mark{background:#fdf3b0;color:inherit;padding:0 1px}
 .aefilt.min{border-color:var(--emin);color:var(--emin)} .aefilt.min.act{background:var(--emins)}
 .aert{font-size:11px;font-weight:600;padding:5px 9px;border:1px solid var(--hair);color:var(--slate);cursor:pointer;background:var(--paper)}
 .aert.act{background:var(--teal);color:var(--btn-ink);border-color:var(--teal)}
-.aeitem{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:8px 4px;border-bottom:1px solid var(--grid);align-items:center}
+.aeitem{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;padding:8px 4px;border-bottom:1px solid var(--grid);align-items:center}
+.aeitem>*:first-child{min-width:0;overflow-wrap:anywhere}
 .aeitem .aename{font-size:13px;font-weight:600;color:var(--ink)} .aeitem .aeq{color:var(--g3);font-weight:600;font-size:12px}
 .aeroute{font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--muted);border:1px solid var(--hair);padding:2px 6px}
 .aelvl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:3px 8px;border:1px solid;border-left-width:3px;white-space:nowrap;text-align:center}
@@ -649,7 +652,7 @@ function gcsfCard(g){
     `<details class="boxwrap"><summary>${esc(F.box1_title)} (${(F.box1||[]).length})</summary><div class="chips">${box1}</div></details></div>`+
 
    `<div class="seclabel">3 · Agent &amp; dose — ${esc(F.agents_note)}</div>`+
-   `<table class="protab"><thead><tr><th>Agent</th><th>Dose</th><th>Timing</th><th>Notes</th></tr></thead><tbody>${agents}</tbody></table>`+
+   `<div class="tscroll"><table class="protab"><thead><tr><th>Agent</th><th>Dose</th><th>Timing</th><th>Notes</th></tr></thead><tbody>${agents}</tbody></table></div>`+
 
    `<div class="seclabel">4 · Do not use it for</div><div class="sblock dont"><ul>${dont}</ul></div>`+
 
@@ -713,7 +716,7 @@ function antiemesisCard(a){
    `<div class="seclabel">2 · Prophylaxis by emetic level</div><div class="aerout">${proph}</div>`+
    `<p class="aecnote">${esc(F.combo_note)}</p>`+
 
-   `<div class="seclabel">3 · Antiemetic agents &amp; doses</div><table class="protab"><tbody>${agents}</tbody></table>`+
+   `<div class="seclabel">3 · Antiemetic agents &amp; doses</div><div class="tscroll"><table class="protab"><tbody>${agents}</tbody></table></div>`+
 
    `<div class="seclabel">4 · Breakthrough CINV</div><div class="sblock dont"><ul>${bt}</ul></div>`+
 
