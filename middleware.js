@@ -128,7 +128,11 @@ export default async function middleware(request) {
 
   // Fail closed if misconfigured — never serve content without a working gate.
   if (!password || !secret) {
-    return new Response('Service temporarily unavailable.', { status: 503 });
+    return new Response('Service temporarily unavailable.', {
+      status: 503,
+      // Boolean-only diagnostic (presence, never values). Removed once configured.
+      headers: { 'x-gate-config': `pwd:${password ? 1 : 0},secret:${secret ? 1 : 0}` },
+    });
   }
 
   if (await hasValidSession(request, secret)) {
