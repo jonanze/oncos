@@ -141,12 +141,20 @@
   /* Open/close motion. The animated element is .wrap (a plain div): <tr>/<td> are
      unreliable animation targets. Collapse is grid-template-rows 1fr->0fr rather
      than block-size:auto -- the kit sets interpolate-size at :root, but that is
-     Chrome-only and this has to work in Safari too. Global box-sizing:border-box
-     lets the padded .inner collapse to a true zero.
+     Chrome-only and this has to work in Safari too.
      The collapsed state is opt-in (.mo-collapsed) so the default -- and every
-     re-render of an already-open row -- is simply open, with no JS needed. */
+     re-render of an already-open row -- is simply open, with no JS needed.
+
+     THE PADDING MUST NOT LIVE ON .clip (the grid item the row sizes). An earlier
+     version padded that element and claimed box-sizing:border-box let it "collapse
+     to a true zero" -- it does not. border-box CLAMPS used height to padding+border
+     and padding is incompressible, so min-height:0 floored the collapsed row at
+     32px (=14+18 padding), measured. The drawer therefore popped 32px open before
+     tweening and snapped the last 32px shut on row.remove() -- read as choppy.
+     Padding lives on .inner (clipped, natural height); .clip carries no box of its
+     own, so 0fr reaches a real 0. Keep it that way. */
   .detail .wrap { display: grid; grid-template-rows: 1fr; opacity: 1; }
-  .detail .wrap > .inner { min-height: 0; overflow: clip; }
+  .detail .wrap > .clip { min-height: 0; overflow: clip; }
   @media (prefers-reduced-motion: no-preference) {
     .detail .wrap {
       transition: grid-template-rows var(--mo-dur, 180ms) var(--mo-ease, cubic-bezier(.2,.7,.3,1)),
@@ -452,13 +460,13 @@ function detailRow(t, collapsed) {
     return `<div class="refline">${a}${tag}</div>`;
   }).join('');
   return `<tr class="detail" data-for="${t.id}"><td colspan="${span()}">
-    <div class="wrap${collapsed?' mo-collapsed':''}"><div class="inner">
+    <div class="wrap${collapsed?' mo-collapsed':''}"><div class="clip"><div class="inner">
       <div class="full"><div class="k">Key findings</div><div class="findings">${esc(t.findings)}</div></div>
       <div><div class="k">Population</div><div>${esc(t.population)}</div></div>
       <div><div class="k">Treatment arms</div><div>${esc(t.arms)}</div></div>
       <div><div class="k">Primary endpoint</div><div>${esc(t.endpoint)}</div></div>
       <div><div class="k">Reference</div><div>${link}</div></div>
-    </div></div></td></tr>`;
+    </div></div></div></td></tr>`;
 }
 
 // Run fn once when the wrap's transition ends, with a timeout fallback: if the
