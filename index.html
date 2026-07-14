@@ -112,6 +112,78 @@
      `hidden`) doesn't create a scroll container, so position:sticky headers
      keep working. */
   @media (max-width:760px){ html, body { overflow-x:clip; } }
+
+  /* ===== oncOS motion layer (shared: _oncos-kit/oncos_motion.py) ===== */
+  :root{
+    --mo-dur:180ms;
+    --mo-ease:cubic-bezier(.2,.7,.3,1);
+    interpolate-size: allow-keywords;   /* lets block-size:auto animate */
+  }
+
+  /* --- Tier 1: native <details> cards grow + fade open --- */
+  details::details-content{
+    block-size:0; overflow:clip; opacity:0;
+    transition:block-size var(--mo-dur) var(--mo-ease),
+               opacity var(--mo-dur) var(--mo-ease),
+               content-visibility var(--mo-dur) allow-discrete;
+  }
+  details[open]::details-content{ block-size:auto; opacity:1; }
+  /* chevron rotate — harmless where a module has no .chev */
+  details > summary .chev{ transition:transform var(--mo-dur) var(--mo-ease); }
+  details[open] > summary .chev{ transform:rotate(90deg); }
+
+  /* --- Tier 1: nav backdrop cross-fades with the drawer slide --- */
+  /* Modules toggle .backdrop via display (not animatable); pin it displayed and
+     drive opacity/visibility instead. Inert on pages with no .backdrop (Hub). */
+  .backdrop{
+    display:block !important; position:fixed; inset:0; z-index:45;
+    background:rgba(15,42,67,.18);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity var(--mo-dur) var(--mo-ease),
+               visibility var(--mo-dur) var(--mo-ease);
+  }
+  body.nav-open .backdrop{ opacity:1; visibility:visible; pointer-events:auto; }
+
+  /* --- Tier 2: theme-toggle sun/moon cross-fade (replaces the display swap) --- */
+  .theme-toggle{ position:relative; overflow:hidden; }
+  .theme-toggle svg{
+    position:absolute; top:50%; left:50%; margin:0;
+    transition:opacity var(--mo-dur) var(--mo-ease), transform var(--mo-dur) var(--mo-ease);
+  }
+  .theme-toggle .i-moon{ display:block !important; opacity:1; transform:translate(-50%,-50%) rotate(0) scale(1); }
+  .theme-toggle .i-sun{ display:block !important; opacity:0; transform:translate(-50%,-50%) rotate(-90deg) scale(.6); }
+  :root[data-theme="dark"] .theme-toggle .i-moon{ opacity:0; transform:translate(-50%,-50%) rotate(90deg) scale(.6); }
+  :root[data-theme="dark"] .theme-toggle .i-sun{ opacity:1; transform:translate(-50%,-50%) rotate(0) scale(1); }
+
+  /* --- Tier 1: tap/press feedback (touch has no hover) --- */
+  @media (prefers-reduced-motion:no-preference){
+    details > summary:active{ transform:scale(.994); }
+    a.card:active{ transform:scale(.99); }
+  }
+
+  /* --- Tier 2: opt-in staggered content entrance (Hub grid only) --- */
+  @media (prefers-reduced-motion:no-preference){
+    .mo-stagger > *{ animation:mo-fadeup var(--mo-dur) var(--mo-ease) both; }
+    .mo-stagger > *:nth-child(1){ animation-delay:0ms; }
+    .mo-stagger > *:nth-child(2){ animation-delay:45ms; }
+    .mo-stagger > *:nth-child(3){ animation-delay:90ms; }
+    .mo-stagger > *:nth-child(4){ animation-delay:135ms; }
+    .mo-stagger > *:nth-child(5){ animation-delay:180ms; }
+    .mo-stagger > *:nth-child(6){ animation-delay:225ms; }
+    .mo-stagger > *:nth-child(7){ animation-delay:270ms; }
+    .mo-stagger > *:nth-child(n+8){ animation-delay:300ms; }
+    @keyframes mo-fadeup{ from{ opacity:0; transform:translateY(7px); } to{ opacity:1; transform:none; } }
+  }
+
+  /* --- accessibility: honour the OS reduced-motion setting suite-wide --- */
+  @media (prefers-reduced-motion:reduce){
+    :root{ --mo-dur:0.001ms; }
+    *, *::before, *::after{
+      animation-duration:.001ms !important; animation-iteration-count:1 !important;
+      transition-duration:.001ms !important; scroll-behavior:auto !important;
+    }
+    details::details-content{ transition-duration:.001ms !important; }
+  }
 </style>
 </head>
 <body>
@@ -123,7 +195,7 @@
     <p class="tag">Clinical Hub</p>
   </header>
   <hr class="rule">
-  <section class="list">
+  <section class="list mo-stagger">
       <a class="card" href="evidence/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cname">Evidence</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
       <a class="card" href="staging/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cname">Staging</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
       <a class="card" href="drugs/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cname">Drugs</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
