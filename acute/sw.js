@@ -2,7 +2,7 @@
  * Cache name is a content hash of the app files, so each real change ships a
  * fresh cache. Fetch is NETWORK-FIRST: try the network, fall back to cache
  * offline. This is the OncOS PWA rule — never date-versioned cache-first. */
-const CACHE = 'oncos-acute-e0125300705c';
+const CACHE = 'oncos-acute-099d4417de57';
 const ASSETS = [
   '././',
   './index.html',
@@ -27,6 +27,10 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  // Vercel internals (analytics script + beacons) are never ours to cache or to
+  // serve an offline fallback for. Only the hub's SW is root-scoped enough to
+  // see these; module SWs are scoped to their own subpath.
+  if (new URL(e.request.url).pathname.startsWith('/_vercel/')) return;
   e.respondWith(
     fetch(e.request)
       .then((resp) => {
