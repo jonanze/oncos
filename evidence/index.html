@@ -157,8 +157,11 @@
   .detail .wrap > .clip { min-height: 0; overflow: clip; }
   @media (prefers-reduced-motion: no-preference) {
     .detail .wrap {
-      transition: grid-template-rows var(--mo-dur, 180ms) var(--mo-ease, cubic-bezier(.2,.7,.3,1)),
-                  opacity var(--mo-dur, 180ms) var(--mo-ease, cubic-bezier(.2,.7,.3,1));
+      /* Fallbacks must mirror the kit's :root tokens (_oncos-kit/oncos_motion.py).
+         They are inert while the kit defines them -- but a stale fallback would
+         silently resurrect the old 180ms/(.2,.7,.3,1) timing if it ever did not. */
+      transition: grid-template-rows var(--mo-dur, 150ms) var(--mo-ease, cubic-bezier(.3,0,.1,1)),
+                  opacity var(--mo-dur, 150ms) var(--mo-ease, cubic-bezier(.3,0,.1,1));
     }
   }
   .detail .wrap.mo-collapsed { grid-template-rows: 0fr; opacity: 0; }
@@ -254,8 +257,8 @@
 
   /* ===== oncOS motion layer (shared: _oncos-kit/oncos_motion.py) ===== */
   :root{
-    --mo-dur:180ms;
-    --mo-ease:cubic-bezier(.2,.7,.3,1);
+    --mo-dur:150ms;
+    --mo-ease:cubic-bezier(.3,0,.1,1);
     interpolate-size: allow-keywords;   /* lets block-size:auto animate */
   }
 
