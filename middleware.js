@@ -128,16 +128,7 @@ export default async function middleware(request) {
 
   // Fail closed if misconfigured — never serve content without a working gate.
   if (!password || !secret) {
-    return new Response('Service temporarily unavailable.', {
-      status: 503,
-      // Boolean/system diagnostic (presence + env context, never values). Removed once configured.
-      headers: {
-        'x-gate-config':
-          `pwd:${password ? 1 : 0},secret:${secret ? 1 : 0},` +
-          `venv:${process.env.VERCEL_ENV || '-'},vsys:${process.env.VERCEL || '-'},` +
-          `nkeys:${Object.keys(process.env).length}`,
-      },
-    });
+    return new Response('Service temporarily unavailable.', { status: 503 });
   }
 
   if (await hasValidSession(request, secret)) {
