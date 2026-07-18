@@ -12,6 +12,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="oncOS">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preload" href="/fonts/Montserrat-normal-700.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -83,6 +84,24 @@
     .hub{padding:40px 22px;}
     .wm{font-size:36px;}
   }
+  /* --- Meridian hub load: one orchestrated settle, top-to-bottom, then the
+     cards cascade (kit .mo-stagger). Quiet + fast per the house motion rule;
+     fully behind prefers-reduced-motion. Card delays are pushed past the
+     header so the sequence reads in reading order (higher specificity than the
+     kit's nth-child stagger, so these win). --- */
+  @media (prefers-reduced-motion: no-preference){
+    .spectrumbar{ transform-origin:center;
+      animation:hub-grow .5s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .04s both; }
+    .wm{ animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .14s both; }
+    .tag{ animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .22s both; }
+    .list.mo-stagger > *:nth-child(1){ animation-delay:.30s; }
+    .list.mo-stagger > *:nth-child(2){ animation-delay:.34s; }
+    .list.mo-stagger > *:nth-child(3){ animation-delay:.38s; }
+    .list.mo-stagger > *:nth-child(4){ animation-delay:.42s; }
+    .list.mo-stagger > *:nth-child(5){ animation-delay:.46s; }
+    @keyframes hub-grow{ from{ transform:scaleX(0); opacity:.35; } to{ transform:scaleX(1); opacity:1; } }
+    @keyframes hub-rise{ from{ opacity:0; transform:translateY(7px); } to{ opacity:1; transform:none; } }
+  }
 
   .m-evidence{--m:#4e51d8;}
   :root[data-theme="dark"] .m-evidence{--m:#8a8cff;}
@@ -98,8 +117,8 @@
   :root[data-theme="dark"] .spectrumbar{background:linear-gradient(90deg,#8a8cff,#3fbbef,#3fd6a6,#f0b44e,#ff6f61);}
 
   /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
+  @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
   @font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/fonts/Newsreader-normal-200_800.woff2) format('woff2');}
-  @font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(/fonts/Newsreader-italic-200_800.woff2) format('woff2');}
   @font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-normal-400_900.woff2) format('woff2');}
   @font-face{font-family:'Schibsted Grotesk';font-style:italic;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-italic-400_900.woff2) format('woff2');}
   @font-face{font-family:'Spline Sans Mono';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/SplineSansMono-normal-300_700.woff2) format('woff2');}
@@ -142,7 +161,10 @@
   html{ transition:background .18s ease, color .18s ease; }
   body{ background:var(--ground); }
   /* --- Meridian shared chrome (the locked suite header pattern) --- */
-  .wm{ font-family:var(--font-sans); font-weight:700; letter-spacing:-.03em; }
+  /* Wordmark is Montserrat Bold (self-hosted via oncos_fonts) — the one place
+     the suite keeps its original NCIS wordmark face; everything else is the
+     Meridian type system. */
+  .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
   .wm .os{ background-image:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
     -webkit-background-clip:text; background-clip:text; color:transparent; }
   :root[data-theme="dark"] .wm .os{ background-image:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6); }

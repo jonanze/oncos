@@ -12,6 +12,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Drugs">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preload" href="/fonts/Montserrat-normal-700.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -138,8 +139,8 @@
   .az a, .az span{ border-radius:999px; }
 
   /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
+  @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
   @font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/fonts/Newsreader-normal-200_800.woff2) format('woff2');}
-  @font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(/fonts/Newsreader-italic-200_800.woff2) format('woff2');}
   @font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-normal-400_900.woff2) format('woff2');}
   @font-face{font-family:'Schibsted Grotesk';font-style:italic;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-italic-400_900.woff2) format('woff2');}
   @font-face{font-family:'Spline Sans Mono';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/SplineSansMono-normal-300_700.woff2) format('woff2');}
@@ -182,7 +183,10 @@
   html{ transition:background .18s ease, color .18s ease; }
   body{ background:var(--ground); }
   /* --- Meridian shared chrome (the locked suite header pattern) --- */
-  .wm{ font-family:var(--font-sans); font-weight:700; letter-spacing:-.03em; }
+  /* Wordmark is Montserrat Bold (self-hosted via oncos_fonts) — the one place
+     the suite keeps its original NCIS wordmark face; everything else is the
+     Meridian type system. */
+  .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
   .wm .os{ background-image:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
     -webkit-background-clip:text; background-clip:text; color:transparent; }
   :root[data-theme="dark"] .wm .os{ background-image:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6); }
