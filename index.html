@@ -235,7 +235,7 @@ a{color:var(--teal);}
 /* Suite tabs in the masthead (replaces the drawer suite section). Resets the
    kit's drawer .suite-nav box styling; active tab lights in the current
    wavelength (--m IS the active module's hue by definition). */
-.mast-suite{display:flex;align-items:center;gap:2px;margin:0 0 0 6px;padding:0;border:0;
+.mast-suite{display:flex;align-items:center;gap:2px;margin:0 auto;padding:0;border:0;
   min-width:0;overflow-x:auto;scrollbar-width:none;}
 .mast-suite::-webkit-scrollbar{display:none;}
 /* Icon tabs (Jonan 2026-07-18): the masthead carries the module ICONS, no
@@ -248,7 +248,7 @@ a{color:var(--teal);}
   background:color-mix(in oklab, var(--m) 11%, transparent);}
 .mast-suite .tico{display:flex;}
 .mast-suite .tico svg{width:18px;height:18px;display:block;}
-.barsearch{flex:0 0 auto;width:min(280px,34vw);margin-left:auto;height:36px;padding:0 13px;
+.barsearch{flex:0 0 auto;width:min(280px,34vw);height:36px;padding:0 13px;
   font:inherit;color:var(--ink);border:1px solid var(--hair);}
 .barsearch:focus{outline:none;border-color:var(--teal);}
 .mhead .theme-toggle{flex:0 0 auto;}
@@ -261,8 +261,9 @@ body.nav-open{overflow:hidden;}
 #viewroot{min-height:60vh;}
 @media (max-width:760px){
   .mhead{padding-left:15px;padding-right:15px;gap:10px;flex-wrap:wrap;row-gap:0;}
-  /* tabs drop to their own full-width scrollable row under the bar */
-  .mast-suite{order:99;flex:1 1 100%;margin:4px -4px 0;padding:2px 4px 6px;}
+  .barsearch{margin-left:auto;}
+  /* tabs drop to their own full-width row under the bar, centred */
+  .mast-suite{order:99;flex:1 1 100%;margin:4px -4px 0;padding:2px 4px 6px;justify-content:center;}
 }
 /* view swap: quiet fade/rise, wavelength slides via the :root --m transition */
 @media (prefers-reduced-motion: no-preference){
@@ -270,19 +271,6 @@ body.nav-open{overflow:hidden;}
             transform .15s var(--mo-ease, cubic-bezier(.3,0,.1,1));}
 }
 #viewroot.leaving{opacity:0;transform:translateY(5px);}
-/* ---- Convergence (PRD-convergence): hub icons fly into the masthead tabs ---- */
-/* During flight the masthead overlays as position:fixed so forcing it visible
-   on the hub view causes no layout shift; its opacity is driven inline. */
-html.converging .mhead{display:flex !important;position:fixed;top:0;left:0;right:0;z-index:60;opacity:0;}
-.conv-clone{position:fixed;z-index:100;margin:0;pointer-events:none;
-  will-change:transform,opacity;transform-origin:center;}
-/* Reverse: while icons scatter back out, hide the real sources/targets and
-   quiet the hub's own entrance animations so the two don't fight. */
-html.conv-quiet[data-view="hub"] .ic{visibility:hidden;}
-html.conv-quiet[data-view="hub"] .hero .wm{visibility:hidden;}
-html.conv-quiet[data-view="hub"] .mo-stagger > *,
-html.conv-quiet[data-view="hub"] .spectrumbar,
-html.conv-quiet[data-view="hub"] .hometag{animation:none;}
 /* loading shimmer between fetch start and mount (usually invisible: cached) */
 .viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:13px;}
 /* Chrome hardening: view fragments carry generic element rules
@@ -548,117 +536,6 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
     });
   }
 
-  /* ---- Convergence (PRD-convergence): hub -> module, icons fly to the tabs;
-     reverse on returning home. FLIP clones, transform/opacity only; any
-     failure returns false and navigation proceeds with the plain fade. ---- */
-  var flying = false;
-  var VKEYS = Object.keys(VIEWS).filter(function(k){ return k!=='hub'; });
-  function reduced(){ return matchMedia('(prefers-reduced-motion: reduce)').matches; }
-  function rectOf(sel){ var el=document.querySelector(sel); return el && el.getBoundingClientRect(); }
-  function mkClone(el, r){
-    var c = el.cloneNode(true); c.classList.add('conv-clone');
-    c.style.left=r.left+'px'; c.style.top=r.top+'px';
-    c.style.width=r.width+'px'; c.style.height=r.height+'px';
-    document.body.appendChild(c); return c;
-  }
-  function flyTo(c, s, d, delay, dur){
-    // forced reflow (not rAF — rAF never fires in hidden tabs) so the
-    // transition picks up the start state before the transform lands.
-    // The clone stays fully opaque for the whole flight and crossfades out
-    // only ON landing (the real masthead element is already fading in
-    // underneath) — fading mid-flight is what made the wordmark vanish.
-    c.style.transition='transform '+dur+'ms var(--mo-ease) '+delay+'ms, opacity 120ms linear '+(delay+dur-30)+'ms';
-    void c.offsetHeight;
-    var dx=(d.left+d.width/2)-(s.left+s.width/2), dy=(d.top+d.height/2)-(s.top+s.height/2);
-    c.style.transform='translate('+dx+'px,'+dy+'px) scale('+(d.width/s.width)+')';
-    c.style.opacity='0';
-  }
-  function convergeForward(target){
-    if (flying || reduced() || current!=='hub') return false;
-    var srcIc={}, srcEls={};
-    for (var i=0;i<VKEYS.length;i++){ var k=VKEYS[i];
-      var el=document.querySelector('#viewroot .card.m-'+k+' .ic');
-      if(!el) return false; srcEls[k]=el; srcIc[k]=el.getBoundingClientRect(); }
-    var heroWm=document.querySelector('#viewroot .hero .wm');
-    if(!heroWm) return false;
-    var srcWm=heroWm.getBoundingClientRect();
-    root.classList.add('converging');
-    var mhead=document.querySelector('.mhead');
-    void mhead.offsetHeight; /* layout so tab dots are measurable */
-    var dst={}, ok=true;
-    VKEYS.forEach(function(k){ var r=rectOf('.mast-suite .suite-link[data-nav="'+k+'"] .tico'); if(!r) ok=false; dst[k]=r; });
-    var dstWm=rectOf('.mhead a.wm');
-    if(!ok || !dstWm){ root.classList.remove('converging'); return false; }
-    flying=true;
-    var clones=[];
-    // clicked leads; the rest follow in tab order at ~30ms steps
-    var order=[target].concat(VKEYS.filter(function(k){ return k!==target; }));
-    order.forEach(function(k, idx){
-      var delay = idx===0 ? 0 : 40+idx*30;
-      var c=mkClone(srcEls[k], srcIc[k]); clones.push(c);
-      srcEls[k].style.visibility='hidden';
-      flyTo(c, srcIc[k], dst[k], delay, 360);
-    });
-    var wc=mkClone(heroWm, srcWm); clones.push(wc);
-    heroWm.style.visibility='hidden';
-    flyTo(wc, srcWm, dstWm, 20, 360);
-    mhead.style.transition='opacity .22s var(--mo-ease) .12s';
-    void mhead.offsetHeight;
-    mhead.style.opacity='1';
-    // mount AFTER the flight lands — injecting a large view mid-flight stalls
-    // the main thread and makes the animation stutter (the choppiness bug)
-    go(target, true, 560);
-    setTimeout(function(){
-      clones.forEach(function(c){ c.remove(); });
-      root.classList.remove('converging');
-      mhead.style.transition=''; mhead.style.opacity='';
-      flying=false;
-    }, 700);
-    return true;
-  }
-  function convergeReverse(){
-    if (flying || reduced() || current==='hub') return false;
-    var srcD={}, ok=true;
-    VKEYS.forEach(function(k){ var r=rectOf('.mast-suite .suite-link[data-nav="'+k+'"] .tico'); if(!r) ok=false; srcD[k]=r; });
-    var srcWm=rectOf('.mhead a.wm');
-    if(!ok || !srcWm) return false;
-    flying=true;
-    root.classList.add('conv-quiet');
-    go('hub', true, 150, function(){
-      var clones=[];
-      function scatter(el, srcRect, delay){
-        var tr=el.getBoundingClientRect();
-        var c=mkClone(el, tr); clones.push(c);
-        // start compressed at the masthead position, expand out into place
-        var dx=(srcRect.left+srcRect.width/2)-(tr.left+tr.width/2);
-        var dy=(srcRect.top+srcRect.height/2)-(tr.top+tr.height/2);
-        c.style.transform='translate('+dx+'px,'+dy+'px) scale('+(srcRect.width/tr.width)+')';
-        c.style.opacity='1';
-        void c.offsetHeight;
-        c.style.transition='transform 380ms var(--mo-ease) '+delay+'ms';
-        c.style.transform='none';
-      }
-      VKEYS.forEach(function(k, idx){
-        var tgt=document.querySelector('#viewroot .card.m-'+k+' .ic');
-        if (tgt) scatter(tgt, srcD[k], idx*25);
-      });
-      var heroWm=document.querySelector('#viewroot .hero .wm');
-      if (heroWm) scatter(heroWm, srcWm, 15);
-      setTimeout(function(){
-        clones.forEach(function(c){ c.remove(); });
-        root.classList.remove('conv-quiet');
-        flying=false;
-      }, 540);
-    });
-    // safety: if mount never completes, never leave the hub quiet-hidden
-    setTimeout(function(){
-      if (root.classList.contains('conv-quiet')){
-        root.classList.remove('conv-quiet'); flying=false;
-        document.querySelectorAll('.conv-clone').forEach(function(c){ c.remove(); });
-      }
-    }, 1600);
-    return true;
-  }
   // intercept same-origin suite navigation
   document.addEventListener('click', function(e){
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button!==0) return;
@@ -667,10 +544,7 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
     var to = a.pathname;
     if (/^\/(evidence|staging|drugs|tox|acute)\/?$/.test(to) || to === '/' ) {
       e.preventDefault();
-      var dest = pathToView(to);
-      if (dest !== 'hub' && current === 'hub' && convergeForward(dest)) return;
-      if (dest === 'hub' && current !== 'hub' && convergeReverse()) return;
-      go(dest, true);
+      go(pathToView(to), true);
     }
   }, true);
   window.addEventListener('popstate', function(){ go(pathToView(location.pathname), false); });
