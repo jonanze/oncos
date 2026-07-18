@@ -266,6 +266,19 @@ body.nav-open{overflow:hidden;}
             transform .15s var(--mo-ease, cubic-bezier(.3,0,.1,1));}
 }
 #viewroot.leaving{opacity:0;transform:translateY(5px);}
+/* ---- Convergence (PRD-convergence): hub icons fly into the masthead tabs ---- */
+/* During flight the masthead overlays as position:fixed so forcing it visible
+   on the hub view causes no layout shift; its opacity is driven inline. */
+html.converging .mhead{display:flex !important;position:fixed;top:0;left:0;right:0;z-index:60;opacity:0;}
+.conv-clone{position:fixed;z-index:100;margin:0;pointer-events:none;
+  will-change:transform,opacity;transform-origin:center;}
+/* Reverse: while icons scatter back out, hide the real sources/targets and
+   quiet the hub's own entrance animations so the two don't fight. */
+html.conv-quiet[data-view="hub"] .ic{visibility:hidden;}
+html.conv-quiet[data-view="hub"] .hero .wm{visibility:hidden;}
+html.conv-quiet[data-view="hub"] .mo-stagger > *,
+html.conv-quiet[data-view="hub"] .spectrumbar,
+html.conv-quiet[data-view="hub"] .hometag{animation:none;}
 /* loading shimmer between fetch start and mount (usually invisible: cached) */
 .viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:13px;}
 /* Chrome hardening: view fragments carry generic element rules
@@ -509,7 +522,7 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
       }
     } catch(e){}
   }
-  function go(name, push){
+  function go(name, push, minWait, onMounted){
     if (name === current) { document.body.classList.remove('nav-open'); return; }
     var url = name==='hub' ? '/' : '/'+name+'/';
     if (push) history.pushState({v:name}, '', url);
@@ -517,17 +530,125 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
       current = name;
       mount(name, txt);
       viewroot.classList.remove('leaving');
+      if (onMounted) { try{ onMounted(); }catch(e){} }
     };
     viewroot.classList.add('leaving');
     var t0 = Date.now();
     var p = name==='hub' ? Promise.resolve(null) : fetchView(name);
     p.then(function(txt){
-      var wait = Math.max(0, 150 - (Date.now()-t0));
+      var wait = Math.max(0, (minWait==null?150:minWait) - (Date.now()-t0));
       setTimeout(function(){ done(txt); }, wait);
     }).catch(function(){
       // fetch failed (offline, gate) — hard-navigate as a fallback
       location.href = url;
     });
+  }
+
+  /* ---- Convergence (PRD-convergence): hub -> module, icons fly to the tabs;
+     reverse on returning home. FLIP clones, transform/opacity only; any
+     failure returns false and navigation proceeds with the plain fade. ---- */
+  var flying = false;
+  var VKEYS = Object.keys(VIEWS).filter(function(k){ return k!=='hub'; });
+  function reduced(){ return matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function rectOf(sel){ var el=document.querySelector(sel); return el && el.getBoundingClientRect(); }
+  function mkClone(el, r){
+    var c = el.cloneNode(true); c.classList.add('conv-clone');
+    c.style.left=r.left+'px'; c.style.top=r.top+'px';
+    c.style.width=r.width+'px'; c.style.height=r.height+'px';
+    document.body.appendChild(c); return c;
+  }
+  function flyTo(c, s, d, delay, dur){
+    // forced reflow (not rAF — rAF never fires in hidden tabs) so the
+    // transition picks up the start state before the transform lands
+    c.style.transition='transform '+dur+'ms var(--mo-ease) '+delay+'ms, opacity 160ms linear '+(delay+dur-140)+'ms';
+    void c.offsetHeight;
+    var dx=(d.left+d.width/2)-(s.left+s.width/2), dy=(d.top+d.height/2)-(s.top+s.height/2);
+    c.style.transform='translate('+dx+'px,'+dy+'px) scale('+(d.width/s.width)+')';
+    c.style.opacity='0';
+  }
+  function convergeForward(target){
+    if (flying || reduced() || current!=='hub') return false;
+    var srcIc={}, srcEls={};
+    for (var i=0;i<VKEYS.length;i++){ var k=VKEYS[i];
+      var el=document.querySelector('#viewroot .card.m-'+k+' .ic');
+      if(!el) return false; srcEls[k]=el; srcIc[k]=el.getBoundingClientRect(); }
+    var heroWm=document.querySelector('#viewroot .hero .wm');
+    if(!heroWm) return false;
+    var srcWm=heroWm.getBoundingClientRect();
+    root.classList.add('converging');
+    var mhead=document.querySelector('.mhead');
+    void mhead.offsetHeight; /* layout so tab dots are measurable */
+    var dst={}, ok=true;
+    VKEYS.forEach(function(k){ var r=rectOf('.mast-suite .suite-link[data-nav="'+k+'"] .sdot'); if(!r) ok=false; dst[k]=r; });
+    var dstWm=rectOf('.mhead a.wm');
+    if(!ok || !dstWm){ root.classList.remove('converging'); return false; }
+    flying=true;
+    var clones=[];
+    // clicked leads; the rest follow in tab order at ~30ms steps
+    var order=[target].concat(VKEYS.filter(function(k){ return k!==target; }));
+    order.forEach(function(k, idx){
+      var delay = idx===0 ? 0 : 50+idx*30;
+      var c=mkClone(srcEls[k], srcIc[k]); clones.push(c);
+      srcEls[k].style.visibility='hidden';
+      flyTo(c, srcIc[k], dst[k], delay, 420);
+    });
+    var wc=mkClone(heroWm, srcWm); clones.push(wc);
+    heroWm.style.visibility='hidden';
+    flyTo(wc, srcWm, dstWm, 30, 420);
+    mhead.style.transition='opacity .3s var(--mo-ease) .15s';
+    void mhead.offsetHeight;
+    mhead.style.opacity='1';
+    go(target, true, 360);
+    setTimeout(function(){
+      clones.forEach(function(c){ c.remove(); });
+      root.classList.remove('converging');
+      mhead.style.transition=''; mhead.style.opacity='';
+      flying=false;
+    }, 640);
+    return true;
+  }
+  function convergeReverse(){
+    if (flying || reduced() || current==='hub') return false;
+    var srcD={}, ok=true;
+    VKEYS.forEach(function(k){ var r=rectOf('.mast-suite .suite-link[data-nav="'+k+'"] .sdot'); if(!r) ok=false; srcD[k]=r; });
+    var srcWm=rectOf('.mhead a.wm');
+    if(!ok || !srcWm) return false;
+    flying=true;
+    root.classList.add('conv-quiet');
+    go('hub', true, 150, function(){
+      var clones=[];
+      function scatter(el, srcRect, delay){
+        var tr=el.getBoundingClientRect();
+        var c=mkClone(el, tr); clones.push(c);
+        // start compressed at the masthead position, expand out into place
+        var dx=(srcRect.left+srcRect.width/2)-(tr.left+tr.width/2);
+        var dy=(srcRect.top+srcRect.height/2)-(tr.top+tr.height/2);
+        c.style.transform='translate('+dx+'px,'+dy+'px) scale('+(srcRect.width/tr.width)+')';
+        c.style.opacity='1';
+        void c.offsetHeight;
+        c.style.transition='transform 380ms var(--mo-ease) '+delay+'ms';
+        c.style.transform='none';
+      }
+      VKEYS.forEach(function(k, idx){
+        var tgt=document.querySelector('#viewroot .card.m-'+k+' .ic');
+        if (tgt) scatter(tgt, srcD[k], idx*25);
+      });
+      var heroWm=document.querySelector('#viewroot .hero .wm');
+      if (heroWm) scatter(heroWm, srcWm, 15);
+      setTimeout(function(){
+        clones.forEach(function(c){ c.remove(); });
+        root.classList.remove('conv-quiet');
+        flying=false;
+      }, 540);
+    });
+    // safety: if mount never completes, never leave the hub quiet-hidden
+    setTimeout(function(){
+      if (root.classList.contains('conv-quiet')){
+        root.classList.remove('conv-quiet'); flying=false;
+        document.querySelectorAll('.conv-clone').forEach(function(c){ c.remove(); });
+      }
+    }, 1600);
+    return true;
   }
   // intercept same-origin suite navigation
   document.addEventListener('click', function(e){
@@ -537,7 +658,10 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
     var to = a.pathname;
     if (/^\/(evidence|staging|drugs|tox|acute)\/?$/.test(to) || to === '/' ) {
       e.preventDefault();
-      go(pathToView(to), true);
+      var dest = pathToView(to);
+      if (dest !== 'hub' && current === 'hub' && convergeForward(dest)) return;
+      if (dest === 'hub' && current !== 'hub' && convergeReverse()) return;
+      go(dest, true);
     }
   }, true);
   window.addEventListener('popstate', function(){ go(pathToView(location.pathname), false); });
