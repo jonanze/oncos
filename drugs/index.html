@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>oncOS — Drugs</title>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#1668a3">
+<meta name="theme-color" content="#f6f7f9">
 <link rel="apple-touch-icon" href="apple-touch-icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,7 +16,6 @@
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700&family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap');
   :root{
     --ink:#0f2a43; --teal:#1668a3; --slate:#5b6b78; --muted:#77899a;
     --hair:#dce3e9; --grid:#e4ebf0; --accent-soft:#eef3f7; --paper:#ffffff;
@@ -127,27 +126,83 @@
     .card{break-inside:avoid;}
   }
 
-  /* --- oncOS dark mode (shared: _oncos-kit/oncos_theme.py) --- */
-  :root{ --rule:var(--ink); --btn-ink:#ffffff; color-scheme:light; }
+  /* --- Meridian component pass (tokens from _oncos-kit/oncos_theme.py; 2026-07-18).
+     Surface polish only — kit owns .wm/.mhead/.burger/.barsearch + all tokens.
+     Each drug entry (.card) is a top-level card; the renal/hepatic .rec panels
+     become inset ground bands; A–Z nav chips become pills. Doses are inline
+     prose in ul.bands li with no numeric-only class, so no var(--font-mono)
+     target here (styling existing classes only, per brief). --- */
+  .card{ background:var(--paper); border:1px solid var(--grid); border-radius:14px;
+    box-shadow:var(--shadow); padding:16px 18px 18px; margin-bottom:14px; }
+  .rec{ background:var(--ground); border-radius:var(--radius-sm); }
+  .az a, .az span{ border-radius:999px; }
+
+  /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
+  @font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/fonts/Newsreader-normal-200_800.woff2) format('woff2');}
+  @font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(/fonts/Newsreader-italic-200_800.woff2) format('woff2');}
+  @font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-normal-400_900.woff2) format('woff2');}
+  @font-face{font-family:'Schibsted Grotesk';font-style:italic;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-italic-400_900.woff2) format('woff2');}
+  @font-face{font-family:'Spline Sans Mono';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/SplineSansMono-normal-300_700.woff2) format('woff2');}
+
+  /* --- oncOS Meridian theme (shared: _oncos-kit/oncos_theme.py) --- */
+  :root{
+    --m:#0977b0; --teal:var(--m);
+    --ink:#131926; --slate:#4d5a6b; --muted:#6b7787;
+    --hair:#e3e7ee; --grid:#edf0f5;
+    --accent-soft:color-mix(in oklab, var(--m) 8%, #ffffff);
+    --paper:#ffffff; --ground:#f6f7f9; --raised:#ffffff;
+    --status-success:#0e8f63; --status-success-soft:#e3f3ec;
+    --status-warning:#946908; --status-warning-soft:#f7efdb;
+    --status-danger:#c23f38; --status-danger-soft:#faeae9;
+    --status-info:var(--m); --status-info-soft:var(--accent-soft);
+    --font-serif:'Newsreader','Iowan Old Style',Georgia,serif;
+    --font-sans:'Schibsted Grotesk',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    --font-mono:'Spline Sans Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --rule:#d7dde6; --btn-ink:#ffffff;
+    --radius:12px; --radius-sm:9px;
+    --shadow:0 1px 2px rgba(19,25,38,.05), 0 10px 28px -12px rgba(19,25,38,.14);
+    --glass:rgba(255,255,255,.8);
+    color-scheme:light;
+  }
   :root[data-theme="dark"]{
-    --ink:#e8eef4; --teal:#4aa6e2; --slate:#a8bac8; --muted:#8497a7;
-    --hair:#263d52; --grid:#1c3145; --accent-soft:#173350; --paper:#0e2233;
-    --rule:#37546e; --btn-ink:#08243b;
-    --status-success:#3cbe86; --status-success-soft:#123527;
-    --status-warning:#e0a94a; --status-warning-soft:#372c12;
-    --status-danger:#f0716e; --status-danger-soft:#3c1e1e;
-    --status-info:#4aa6e2; --status-info-soft:#173350;
+    --m:#3fbbef; --teal:var(--m);
+    --ink:#e8ecf3; --slate:#a3aebe; --muted:#8391a3;
+    --hair:#222937; --grid:#1a2130;
+    --accent-soft:color-mix(in oklab, var(--m) 13%, #10141c);
+    --paper:#10141c; --ground:#0a0d13; --raised:#151b26;
+    --status-success:#37c98c; --status-success-soft:#12312a;
+    --status-warning:#e5a93e; --status-warning-soft:#32270f;
+    --status-danger:#f0716b; --status-danger-soft:#391b19;
+    --status-info:var(--m); --status-info-soft:var(--accent-soft);
+    --rule:#2a3242; --btn-ink:#0a0d13;
+    --shadow:none;
+    --glass:rgba(13,17,25,.75);
     color-scheme:dark;
   }
   html{ transition:background .18s ease, color .18s ease; }
+  body{ background:var(--ground); }
+  /* --- Meridian shared chrome (the locked suite header pattern) --- */
+  .wm{ font-family:var(--font-sans); font-weight:700; letter-spacing:-.03em; }
+  .wm .os{ background-image:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  :root[data-theme="dark"] .wm .os{ background-image:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6); }
+  .mhead{ background:var(--glass);
+    -webkit-backdrop-filter:blur(14px) saturate(1.3); backdrop-filter:blur(14px) saturate(1.3);
+    border-bottom:1px solid var(--hair); }
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .mhead{ background:var(--paper); }
+  }
+  .burger{ border-radius:10px; }
+  .barsearch{ border-radius:999px; background:var(--ground); }
+  body.nav-open .backdrop{ background:rgba(10,13,19,.35); }
   .theme-toggle{
     display:inline-flex; align-items:center; justify-content:center;
-    width:24px; height:24px; padding:0; cursor:pointer; flex:0 0 auto;
+    width:26px; height:26px; padding:0; cursor:pointer; flex:0 0 auto;
     background:transparent; color:var(--muted);
-    border:1px solid var(--hair); border-radius:0;
+    border:1px solid var(--hair); border-radius:999px;
     transition:color .15s, border-color .15s, background .15s;
   }
-  .theme-toggle:hover{ color:var(--teal); border-color:var(--teal); background:var(--accent-soft); }
+  .theme-toggle:hover{ color:var(--m); border-color:var(--m); background:var(--accent-soft); }
   .theme-toggle svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
   .theme-toggle .i-sun{ display:none; }
   :root[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
@@ -4110,6 +4165,6 @@
     window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
   }
 </script>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0e2233',L=(m&&m.getAttribute('content'))||'#1668a3';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.querySelectorAll('.theme-toggle').forEach(function(b){b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(e){}s();});});})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.querySelectorAll('.theme-toggle').forEach(function(b){b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(e){}s();});});})();</script>
 </body>
 </html>
