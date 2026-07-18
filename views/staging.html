@@ -23,10 +23,18 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
 [data-view="staging"] .items a.active{ background: var(--accent-soft); border-left-color: var(--teal); font-weight: 600; color: var(--teal); }
 [data-view="staging"] .allbtn{ margin: 4px 20px 10px; }
 [data-view="staging"] .allbtn a{
-    display: block; text-align: center; padding: 8px; border-radius: 0;
+    display: block; text-align: center; padding: 8px; border-radius: 999px;
     background: var(--teal); color: var(--btn-ink); text-decoration: none; font-weight: 600; font-size: 13px; cursor: pointer;
   }
 [data-view="staging"] main{ max-width: 1000px; margin: 0 auto; padding: 18px clamp(16px,4vw,26px) 60px; }
+[data-view="staging"] #results{ transition: opacity .15s var(--mo-ease, cubic-bezier(.3,0,.1,1)),
+              transform .15s var(--mo-ease, cubic-bezier(.3,0,.1,1)); }
+[data-view="staging"] #results.vfade{ opacity: 0; transform: translateY(5px); }
+[data-view="staging"] .backbtn{ display: inline-flex; align-items: center; gap: 7px; margin: 0 0 14px;
+    padding: 7px 15px; font: inherit; font-size: 13px; font-weight: 600;
+    color: var(--slate); background: var(--panel); border: 1px solid var(--hair);
+    border-radius: 999px; cursor: pointer; }
+[data-view="staging"] .backbtn:hover{ color: var(--teal); border-color: var(--teal); background: var(--accent-soft); }
 [data-view="staging"] .topbar{ margin-bottom: 12px; }
 [data-view="staging"] .crumbs{ display: none; }
 [data-view="staging"] .crumbs b{ color: var(--ink); }
@@ -35,9 +43,8 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
 [data-view="staging"] table.list{ width: 100%; border-collapse: collapse; background: var(--panel); }
 [data-view="staging"] table.list > thead th{
     text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
-    padding: 11px 12px; border-bottom: 1.2px solid var(--rule); background: transparent; cursor: pointer; white-space: nowrap; font-weight: 600;
+    padding: 11px 12px; border-bottom: 1.2px solid var(--rule); background: transparent; white-space: nowrap; font-weight: 600;
   }
-[data-view="staging"] table.list > thead th:hover{ color: var(--ink); }
 [data-view="staging"] table.list > tbody tr.row{ border-bottom: 1px solid var(--grid); cursor: pointer; }
 [data-view="staging"] table.list > tbody tr.row:hover{ background: var(--accent-soft); }
 [data-view="staging"] table.list > tbody td{ padding: 11px 12px; vertical-align: top; }
@@ -148,9 +155,6 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
   <main>
     <div class="topbar">
       <div class="crumbs" id="crumbs"></div>
-      <div class="controls">
-        <select id="ftype"><option value="">All systems</option></select>
-      </div>
     </div>
     <div id="results"></div>
     <footer class="disclaimer">
@@ -173,7 +177,7 @@ const SECTIONS = {"Breast": ["breast"], "Chest": ["mesothelioma", "lung", "thymo
 const META = {"title": "Cancer Staging", "subtitle": "Solid-tumour staging by site", "source_note": "Indexed on Radiopaedia's cancer staging list (paediatrics omitted). Staging content verified against the primary system (AJCC 8th/9th ed., FIGO 2018, or the disease-specific system) before entry.", "generated": "2026-07-18"};
 const BYID = Object.fromEntries(CANCERS.map(c => [c.id, c]));
 
-let state = { view: 'index', id: null, q: '', type: '', sortKey: 'name', sortDir: 1 };
+let state = { view: 'index', id: null, q: '' };
 
 
 // ---- Sidebar ----
@@ -197,7 +201,7 @@ for (const [sec, ids] of Object.entries(SECTIONS)) {
 function syncNav() {
   document.querySelectorAll('.items a').forEach(a => a.classList.toggle('active', state.view==='detail' && a.dataset.id===state.id));
 }
-document.getElementById('showall').onclick = () => { state.view='index'; state.id=null; state.q=''; state.type=''; document.getElementById('q').value=''; document.getElementById('ftype').value=''; closeNav(); render(); window.scrollTo(0,0); };
+document.getElementById('showall').onclick = () => { state.view='index'; state.id=null; state.q=''; document.getElementById('q').value=''; closeNav(); render(true); window.scrollTo(0,0); };
 
 // ---- Drawer (burger at every width) ----
 const backdrop = document.getElementById('backdrop');
@@ -206,18 +210,13 @@ function closeNav() { document.body.classList.remove('nav-open'); }
 burger.onclick = () => document.body.classList.toggle('nav-open');
 backdrop.onclick = closeNav;
 
-// ---- Filters ----
-const types = [...new Set(CANCERS.map(c=>c.type))];
-const TYPE_LABEL = { TNM:'TNM (AJCC)', FIGO:'FIGO', other:'Other systems' };
-const ftype = document.getElementById('ftype');
-types.forEach(t => ftype.add(new Option(TYPE_LABEL[t]||t, t)));
-ftype.onchange = e => { state.type = e.target.value; state.view='index'; state.id=null; render(); };
-document.getElementById('q').oninput = e => { state.q = e.target.value.toLowerCase().trim(); state.type=''; document.getElementById('ftype').value=''; state.view='index'; state.id=null; render(); };
+// ---- Search ----
+document.getElementById('q').oninput = e => { state.q = e.target.value.toLowerCase().trim(); state.view='index'; state.id=null; render(); };
 
 function selectCancer(id) {
-  state.view='detail'; state.id=id; state.q=''; state.type='';
-  document.getElementById('q').value=''; document.getElementById('ftype').value='';
-  closeNav(); render();
+  state.view='detail'; state.id=id; state.q='';
+  document.getElementById('q').value='';
+  closeNav(); render(true);
   window.scrollTo(0,0);
 }
 function esc(s) { return String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -231,7 +230,6 @@ function hay(c) {
 
 function filtered() {
   return CANCERS.filter(c => {
-    if (state.type && c.type!==state.type) return false;
     if (state.q && !hay(c).includes(state.q)) return false;
     return true;
   });
@@ -272,11 +270,15 @@ function renderDetail(c) {
   document.getElementById('crumbs').innerHTML = `${esc(c.section)} &rsaquo; <b>${esc(c.name)}</b>`;
   const unv = c.verified===false ? `<span class="unver">unverified</span>` : '';
   document.getElementById('results').innerHTML = `
+    <button class="backbtn" id="backbtn" type="button">&#8592; All cancers</button>
     <div class="dvhead">
       <h2>${esc(c.name)}${unv}</h2>
       <div class="dvmeta"><span class="badge ${c.type}">${esc(c.system_label)}</span><span>${esc(c.edition)}</span><span>${esc(c.section)}</span></div>
     </div>
     <div class="sgrid">${stagingBlocks(c)}</div>`;
+  document.getElementById('backbtn').onclick = () => {
+    state.view='index'; state.id=null; render(true); window.scrollTo(0,0);
+  };
   if (c.decision_tree) initTree(c.decision_tree);
 }
 
@@ -310,7 +312,18 @@ function renderTree() {
   host.querySelectorAll('[data-restart]').forEach(b=>b.onclick=()=>{ _tnode=_tree.start; _tpath=[]; renderTree(); });
 }
 
-function render() {
+function render(fade) {
+  // fade only on real view changes (list <-> detail), never on search keystrokes
+  if (fade) {
+    const res = document.getElementById('results');
+    res.classList.add('vfade');
+    setTimeout(() => { renderNow(); res.classList.remove('vfade'); }, 150);
+    return;
+  }
+  renderNow();
+}
+
+function renderNow() {
   syncNav();
   const res = document.getElementById('results');
 
@@ -320,31 +333,26 @@ function render() {
   }
 
   // ---- Index (list) view ----
-  const searching = state.q || state.type;
-  document.getElementById('crumbs').innerHTML = searching
+  document.getElementById('crumbs').innerHTML = state.q
     ? `<b>Search</b> &mdash; matching cancers`
     : `<b>All cancers</b> &mdash; staging by site`;
 
   let rows = filtered();
-  const dir = state.sortDir;
-  const cmp = (a,b) => {
-    let x=String(a[state.sortKey]||'').toLowerCase(), y=String(b[state.sortKey]||'').toLowerCase();
-    return x<y?-dir : x>y?dir : 0;
-  };
-  // Group by section in canonical (sidebar) order; chosen column sorts within section.
+  // Group by section in canonical (sidebar) order, names A-Z within section.
   const secIdx = {}; Object.keys(SECTIONS).forEach((s,i)=>secIdx[s]=i);
   rows.sort((a,b) => {
     const so=(secIdx[a.section]??99)-(secIdx[b.section]??99);
-    return so!==0 ? so : cmp(a,b);
+    if (so!==0) return so;
+    const x=a.name.toLowerCase(), y=b.name.toLowerCase();
+    return x<y?-1 : x>y?1 : 0;
   });
-  if (!rows.length) { res.innerHTML = `<div class="empty">No staging entries match. Try clearing the filter or search.</div>`; return; }
+  if (!rows.length) { res.innerHTML = `<div class="empty">No staging entries match. Try clearing the search.</div>`; return; }
 
-  const arrow = k => state.sortKey===k ? (state.sortDir===1?' &#9650;':' &#9660;') : '';
   let h = `<table class="list"><thead><tr>
-    <th data-k="name">Cancer${arrow('name')}</th>
-    <th data-k="system_label">Staging system${arrow('system_label')}</th>
-    <th data-k="edition">Edition${arrow('edition')}</th>
-    <th data-k="section">Site${arrow('section')}</th>
+    <th>Cancer</th>
+    <th>Staging system</th>
+    <th>Edition</th>
+    <th>Site</th>
   </tr></thead><tbody>`;
 
   let lastSec = null;
@@ -363,11 +371,6 @@ function render() {
   h += `</tbody></table>`;
   res.innerHTML = h;
 
-  res.querySelectorAll('thead th').forEach(th => th.onclick = () => {
-    const k = th.dataset.k;
-    if (state.sortKey===k) state.sortDir*=-1; else { state.sortKey=k; state.sortDir=1; }
-    render();
-  });
   res.querySelectorAll('tr.row').forEach(tr => tr.onclick = () => selectCancer(tr.dataset.id));
 }
 render();
