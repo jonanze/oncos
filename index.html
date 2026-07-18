@@ -268,14 +268,33 @@ body.nav-open{overflow:hidden;}
 #viewroot.leaving{opacity:0;transform:translateY(5px);}
 /* loading shimmer between fetch start and mount (usually invisible: cached) */
 .viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:13px;}
-/* ---- home (launcher) view ---- */
-[data-view="hub"] .hubwrap{max-width:760px;margin:0 auto;padding:56px 28px 64px;}
-[data-view="hub"] .spectrumbar{width:132px;height:3px;border-radius:999px;margin:0 auto 18px;}
-[data-view="hub"] .hometag{margin:0 0 30px;color:var(--muted);font-size:12px;font-weight:600;
-  letter-spacing:2px;text-transform:uppercase;text-align:center;}
-[data-view="hub"] .list{display:flex;flex-direction:column;gap:12px;}
-[data-view="hub"] .card{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;
-  padding:18px 20px;background:var(--paper);border:1px solid var(--grid);border-radius:14px;
+/* Chrome hardening: view fragments carry generic element rules
+   ([data-view=x] a{color:var(--teal)} etc.) that outrank bare class selectors
+   and were tinting the persistent wordmark per module (the original
+   "wordmark differs across the suite" bug). Two-class selectors win back. */
+.mhead a.wm{color:var(--ink);text-decoration:none;}
+.mhead .mast-suite .suite-link{text-decoration:none;}
+/* ---- home: search-first launchpad ---- */
+[data-view="hub"] .hubwrap{max-width:880px;margin:0 auto;padding:48px 28px 64px;}
+[data-view="hub"] .homehero{max-width:560px;margin:0 auto 40px;}
+[data-view="hub"] #homeq{width:100%;height:48px;padding:0 20px;font:inherit;font-size:15.5px;
+  color:var(--ink);background:var(--paper);border:1px solid var(--hair);border-radius:999px;
+  box-shadow:var(--shadow);}
+[data-view="hub"] #homeq:focus{outline:none;border-color:var(--m);}
+[data-view="hub"] .hq-routes{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px;}
+[data-view="hub"] .hq-routes[hidden]{display:none;}
+[data-view="hub"] .resume[hidden]{display:none;}
+[data-view="hub"] .hq-route{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;
+  font:inherit;font-size:12.5px;font-weight:600;color:var(--slate);cursor:pointer;
+  background:var(--paper);border:1px solid var(--hair);border-radius:999px;}
+[data-view="hub"] .hq-route:hover{color:var(--ink);border-color:var(--muted);}
+[data-view="hub"] .resume{display:block;margin:14px auto 0;padding:6px 14px;font:inherit;font-size:12.5px;
+  color:var(--muted);background:transparent;border:1px dashed var(--hair);border-radius:999px;cursor:pointer;}
+[data-view="hub"] .resume:hover{color:var(--ink);border-color:var(--muted);}
+[data-view="hub"] .homegrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:700px){ [data-view="hub"] .homegrid{grid-template-columns:1fr;} }
+[data-view="hub"] .card{display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:inherit;
+  padding:18px;background:var(--paper);border:1px solid var(--grid);border-radius:14px;
   box-shadow:var(--shadow);transition:background .12s,border-color .15s,transform .15s;}
 [data-view="hub"] .card:hover{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
   border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));transform:translateY(-2px);}
@@ -283,12 +302,17 @@ body.nav-open{overflow:hidden;}
   background:color-mix(in oklab, var(--cm, var(--teal)) 12%, transparent);
   display:flex;align-items:center;justify-content:center;}
 [data-view="hub"] .ic svg{width:22px;height:22px;}
-[data-view="hub"] .cname{flex:1 1 auto;min-width:0;color:var(--ink);font-family:var(--font-serif);
-  font-weight:500;font-size:19px;}
-[data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:18px;opacity:.55;}
+[data-view="hub"] .cbody{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:4px;}
+[data-view="hub"] .cname{color:var(--ink);font-family:var(--font-serif);font-weight:500;font-size:18px;}
+[data-view="hub"] .cdesc{color:var(--slate);font-size:13px;line-height:1.5;}
+[data-view="hub"] .cstats{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px;}
+[data-view="hub"] .cstat{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);
+  padding:2px 9px;border:1px solid var(--grid);border-radius:999px;}
+[data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:17px;opacity:.55;margin-top:2px;}
 [data-view="hub"] .card:hover .cgo{opacity:1;}
-[data-view="hub"] .disc{margin-top:40px;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.6;
-  border-top:1px solid var(--grid);padding-top:18px;letter-spacing:.3px;}
+[data-view="hub"] .disc{grid-column:1/-1;margin-top:26px;text-align:center;color:var(--muted);font-size:12.5px;
+  line-height:1.6;border-top:1px solid var(--grid);padding-top:18px;letter-spacing:.3px;}
+[data-view="hub"] .hubwrap .disc{border-top:1px solid var(--grid);}
 
 [data-view="hub"] .card.m-evidence{--cm:#4e51d8;}
 html[data-theme="dark"] [data-view="hub"] .card.m-evidence{--cm:#8a8cff;}
@@ -320,12 +344,18 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
 <div id="backdrop" class="backdrop"></div>
 <main id="viewroot"></main>
 <template id="home-view"><div class="hubwrap">
-  <section class="list mo-stagger">
-      <a class="card m-evidence" href="evidence/" data-nav="evidence"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cname">Evidence</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-staging" href="staging/" data-nav="staging"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cname">Staging</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-drugs" href="drugs/" data-nav="drugs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cname">Drugs</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-tox" href="tox/" data-nav="tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cname">Tox</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-acute" href="acute/" data-nav="acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cname">Acute</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+  <section class="homehero">
+    <input id="homeq" type="search" placeholder="Search the suite&hellip;" autocomplete="off"
+      aria-label="Search the suite">
+    <div class="hq-routes" id="hqroutes" hidden><button type="button" class="hq-route" data-route="evidence"><span class="sdot sdot-evidence"></span>Evidence</button><button type="button" class="hq-route" data-route="staging"><span class="sdot sdot-staging"></span>Staging</button><button type="button" class="hq-route" data-route="drugs"><span class="sdot sdot-drugs"></span>Drugs</button><button type="button" class="hq-route" data-route="tox"><span class="sdot sdot-tox"></span>Tox</button><button type="button" class="hq-route" data-route="acute"><span class="sdot sdot-acute"></span>Acute</button></div>
+    <button type="button" class="resume" id="resume" hidden></button>
+  </section>
+  <section class="homegrid mo-stagger">
+      <a class="card m-evidence" href="evidence/" data-nav="evidence"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cbody"><span class="cname">Evidence</span><span class="cdesc">Key findings, populations and sources for the trials that set practice.</span><span class="cstats"><span class=cstat>900+ trials</span><span class=cstat>verified sources</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-staging" href="staging/" data-nav="staging"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cbody"><span class="cname">Staging</span><span class="cdesc">AJCC/UICC and specialty staging systems, verified site by site.</span><span class="cstats"><span class=cstat>58 cancers</span><span class=cstat>TNM tables</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-drugs" href="drugs/" data-nav="drugs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cbody"><span class="cname">Drugs</span><span class="cdesc">Renal and hepatic dose adjustment for every systemic agent.</span><span class="cstats"><span class=cstat>224 agents</span><span class=cstat>Krens · Giraud</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-tox" href="tox/" data-nav="tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname">Tox</span><span class="cdesc">Grade it, then act: CTCAE v6, the irAE lens, and supportive care.</span><span class="cstats"><span class=cstat>843 terms</span><span class=cstat>25 irAE</span><span class=cstat>7 topics</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-acute" href="acute/" data-nav="acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname">Acute</span><span class="cdesc">The call-now list — act-now steps first, full reference on demand.</span><span class="cstats"><span class=cstat>22 emergencies</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
   </section>
   <footer class="disc">&copy; Jonan Tan 2026</footer>
 </div></template>
@@ -343,6 +373,7 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
   var current = null;      // active view name
   var active = null;       // active window.oncosView
   var capt = [];           // captured doc/window listeners for auto-cleanup
+  var pendingQuery = null; // query handed from the home search into a view
 
   function pathToView(p){
     var m = p.match(/^\/(evidence|staging|drugs|tox|acute)(\/|$)/);
@@ -380,6 +411,12 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
     }).then(function(t){ cache[name] = t; return t; });
   }
   function mount(name, fragText){
+    // remember where we were (for the home "resume" affordance)
+    if (current && current !== 'hub') {
+      var oldQ = searchEl();
+      try { localStorage.setItem('oncos-one-last', JSON.stringify(
+        { v: current, q: (oldQ && oldQ.value) || '' })); } catch(e){}
+    }
     // teardown
     if (active && active.destroy) { try{ active.destroy(); }catch(e){} }
     releaseCaptured();
@@ -402,6 +439,7 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
     if (name === 'hub') {
       viewroot.innerHTML = '';
       viewroot.appendChild(homeTpl.content.cloneNode(true));
+      hookHome();
     } else {
       var doc = new DOMParser().parseFromString(fragText, 'text/html');
       viewroot.innerHTML = '';
@@ -424,6 +462,13 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
             catch(err){ console.error('oncOS view init failed:', name, err); }
           }
         } finally { restore(); }
+        // hand a home-search query into the freshly-initialised view
+        if (pendingQuery) {
+          var qh = searchEl();
+          if (qh) { qh.value = pendingQuery;
+            qh.dispatchEvent(new Event('input', {bubbles:true})); }
+          pendingQuery = null;
+        }
       }
     }
     // suite-nav active state (kit-injected links carry hrefs we can match)
@@ -433,6 +478,32 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
       else a.removeAttribute('aria-current');
     });
     window.scrollTo(0,0);
+  }
+  function hookHome(){
+    var hq = document.getElementById('homeq');
+    var routes = document.getElementById('hqroutes');
+    var resume = document.getElementById('resume');
+    if (!hq) return;
+    hq.addEventListener('input', function(){ routes.hidden = !hq.value.trim(); });
+    hq.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' && hq.value.trim()) { pendingQuery = hq.value.trim(); go('evidence', true); }
+    });
+    routes.querySelectorAll('.hq-route').forEach(function(b){
+      b.addEventListener('click', function(){
+        pendingQuery = hq.value.trim() || null;
+        go(b.dataset.route, true);
+      });
+    });
+    try {
+      var last = JSON.parse(localStorage.getItem('oncos-one-last') || 'null');
+      if (last && last.v && VIEWS[last.v]) {
+        resume.hidden = false;
+        resume.textContent = 'Resume: ' + VIEWS[last.v].title + (last.q ? ' \u2014 \u201C' + last.q + '\u201D' : '');
+        resume.addEventListener('click', function(){
+          pendingQuery = last.q || null; go(last.v, true);
+        });
+      }
+    } catch(e){}
   }
   function go(name, push){
     if (name === current) { document.body.classList.remove('nav-open'); return; }
