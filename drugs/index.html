@@ -182,6 +182,12 @@
   }
   html{ transition:background .18s ease, color .18s ease; }
   body{ background:var(--ground); }
+  /* --- Keyboard focus: a visible ring in the module wavelength, only on
+     keyboard focus (:focus-visible), suite-wide. Before this the clickable
+     nav links, hub cards, drawer controls and details summaries had no visible
+     focus state. Inputs keep their own border-colour focus affordance (their
+     :focus{outline:none} is more specific, so this doesn't override it). --- */
+  :focus-visible{ outline:2px solid var(--m, var(--teal)); outline-offset:2px; border-radius:4px; }
   /* --- Meridian shared chrome (the locked suite header pattern) --- */
   /* Wordmark is Montserrat Bold (self-hosted via oncos_fonts) — the one place
      the suite keeps its original NCIS wordmark face; everything else is the
@@ -4179,6 +4185,6 @@
     window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
   }
 </script>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.querySelectorAll('.theme-toggle').forEach(function(b){b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(e){}s();});});})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.querySelectorAll('.theme-toggle').forEach(function(b){b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(e){}s();});});var q=document.querySelector('.barsearch');document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else if(q&&document.activeElement===q){q.blur();}}});})();</script>
 </body>
 </html>
