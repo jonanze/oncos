@@ -224,21 +224,8 @@
   ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){
     animation-duration:.2s; animation-timing-function:var(--mo-ease, cubic-bezier(.3,0,.1,1));
   }
-  /* The masthead is continuous across a view transition, so its one-shot settle
-     must not replay on arrival (it would fight the crossfade). */
-  :active-view-transition .mhead{ animation:none; }
   @media (prefers-reduced-motion: reduce){
     ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){ animation:none !important; }
-  }
-  /* Masthead settle: the module masthead fades + slides in once on load. Scoped
-     to .mhead so the hub (no masthead, has its own load sequence) is untouched.
-     One-shot, ~0.36s; the transform clears to none so position:sticky is
-     unaffected after. Reduced-motion shows it instantly (see the suite guard in
-     oncos_motion). Deliberately the bar only — not a content cascade — so it
-     never sits between a tap and the content you opened the page to read. */
-  @media (prefers-reduced-motion: no-preference){
-    .mhead{ animation:mhead-settle .36s var(--mo-ease, cubic-bezier(.3,0,.1,1)) both; }
-    @keyframes mhead-settle{ from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:none; } }
   }
   .burger{ border-radius:10px; }
   .barsearch{ border-radius:999px; background:var(--ground); }
