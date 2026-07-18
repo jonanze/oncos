@@ -386,6 +386,13 @@ html[data-view="tox"][data-theme="dark"] mark{background:#5a4a12; color:#f3e6b0}
 [data-view="tox"] .tixcard{display:flex;align-items:center;justify-content:center;text-align:center;padding:26px 18px;font:inherit;cursor:pointer;background:var(--paper);border:1px solid var(--grid);border-radius:14px;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
 [data-view="tox"] .tixcard:hover{border-color:color-mix(in oklab, var(--teal) 45%, var(--grid));transform:translateY(-2px)}
 [data-view="tox"] .tixname{font-family:var(--font-serif);font-weight:600;font-size:18px;color:var(--ink)}
+[data-view="tox"] .sctop{background:var(--paper);border:1px solid var(--grid);border-radius:12px;box-shadow:var(--shadow);margin:0 0 12px}
+[data-view="tox"] .sctop>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;cursor:pointer;padding:15px 18px}
+[data-view="tox"] .sctop>summary::-webkit-details-marker{display:none}
+[data-view="tox"] .sctop .scname{font-family:var(--font-serif);font-weight:600;font-size:17px;color:var(--ink)}
+[data-view="tox"] .sctop>summary:hover .scname{color:var(--teal)}
+[data-view="tox"] .sctop .chev{color:var(--teal);opacity:.55;font-size:16px}
+[data-view="tox"] .sctop .scbody{padding:0 18px 18px}
 </style>
 <div class="viewfrag">
 <div hidden aria-hidden="true" data-chrome-stubs><span id="mtag"></span></div>
@@ -468,7 +475,7 @@ function setMode(m,key){
  mode=m; query=''; $('#q').value='';
  if(m==='ctcae'){ activeSoc=key||''; }
  else if(m==='irae'){ activeOrgan=key||''; }
- else{ activeTopic=key||'gcsf'; }
+ else{ activeTopic=key||''; }
  fadeRender(); document.body.classList.remove('nav-open'); window.scrollTo(0,0);
 }
 
@@ -626,7 +633,7 @@ function goToIrae(id){
  if(d){ d.open=true; d.scrollIntoView({block:'center'}); }
 }
 function goToSupportive(id){
- mode='supportive'; activeTopic=id||'gcsf'; query=''; $('#q').value='';
+ mode='supportive'; activeTopic=id||''; query=''; $('#q').value='';
  render(); window.scrollTo(0,0);
 }
 function jumpTo(facet,anchor){
@@ -1107,27 +1114,27 @@ function renderSupportive(list){
  $('#htitle').textContent='Supportive care';
  $('#lede').textContent=MODEL.meta.supportive_source||'';
  $('#empty').style.display='none';
- if(activeTopic==='cipn' && SUPP.cipn){
-   list.insertAdjacentHTML('beforeend', cipnCard(SUPP.cipn));
-   initCipnCard(SUPP.cipn);
- } else if(activeTopic==='mucositis' && SUPP.mucositis){
-   list.insertAdjacentHTML('beforeend', mucositisCard(SUPP.mucositis));
-   initMucositisCard(SUPP.mucositis);
- } else if(activeTopic==='diarrhoea' && SUPP.diarrhoea){
-   list.insertAdjacentHTML('beforeend', diarrhoeaCard(SUPP.diarrhoea));
-   initDiarrhoeaCard(SUPP.diarrhoea);
- } else if(activeTopic==='anaemia' && SUPP.anaemia){
-   list.insertAdjacentHTML('beforeend', anaemiaCard(SUPP.anaemia));
-   initAnaemiaCard(SUPP.anaemia);
- } else if(activeTopic==='fn' && SUPP.fn){
-   list.insertAdjacentHTML('beforeend', fnCard(SUPP.fn));
-   initFnCalc(SUPP.fn);
- } else if(activeTopic==='antiemesis' && SUPP.antiemesis){
-   list.insertAdjacentHTML('beforeend', antiemesisCard(SUPP.antiemesis));
-   initAntiemesisLookup(SUPP.antiemesis);
- } else {
-   list.insertAdjacentHTML('beforeend', gcsfCard(SUPP.gcsf));
-   initGcsfLookup(SUPP.gcsf);
+ const names=Object.fromEntries((SUPP.topics||[]).map(t=>[t.id,t.name]));
+ const TOPICS=[
+  ['gcsf', SUPP.gcsf, gcsfCard, initGcsfLookup],
+  ['antiemesis', SUPP.antiemesis, antiemesisCard, initAntiemesisLookup],
+  ['fn', SUPP.fn, fnCard, initFnCalc],
+  ['anaemia', SUPP.anaemia, anaemiaCard, initAnaemiaCard],
+  ['diarrhoea', SUPP.diarrhoea, diarrhoeaCard, initDiarrhoeaCard],
+  ['mucositis', SUPP.mucositis, mucositisCard, initMucositisCard],
+  ['cipn', SUPP.cipn, cipnCard, initCipnCard],
+ ];
+ TOPICS.forEach(([id,data,build,init])=>{
+  if(!data) return;
+  list.insertAdjacentHTML('beforeend',
+   `<details class="sctop" id="sc-${id}"><summary><span class="scname">${esc(names[id]||id)}</span><span class="chev">&rsaquo;</span></summary><div class="scbody"></div></details>`);
+  const body=list.querySelector('#sc-'+id+' .scbody');
+  body.insertAdjacentHTML('beforeend', build(data));
+  init(data);
+ });
+ if(activeTopic){
+  const el=$('#sc-'+activeTopic);
+  if(el){ el.open=true; el.scrollIntoView(); window.scrollBy(0,-72); }
  }
 }
 
@@ -1141,7 +1148,7 @@ function renderIndex(list){
  h+='</div>';
  list.insertAdjacentHTML('beforeend', h);
  list.querySelectorAll('.tixcard').forEach(b=>b.onclick=()=>{
-  const m=b.dataset.ix; setMode(m, m==='supportive'?'gcsf':'');
+  const m=b.dataset.ix; setMode(m, '');
  });
 }
 function goIndex(){ mode='index'; query=''; $('#q').value=''; fadeRender(); window.scrollTo(0,0); }

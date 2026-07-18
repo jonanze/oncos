@@ -373,9 +373,13 @@ const q=document.getElementById('q'), cats=[...document.querySelectorAll('.cat')
     back.hidden = view==='index';
     if (view==='index'){ empty.style.display='none'; q.value=''; cat='';
       cats.forEach(x=>x.classList.toggle('active', x.dataset.cat==='')); }
-    else { apply();
-      if (target){ const el=document.getElementById('e-'+target);
-        if (el){ el.open=true; el.scrollIntoView(); window.scrollBy(0,-72); return; } } }
+    else if (target){
+      // single-entry view: only the selected emergency, opened
+      cards.forEach(c=>{ const on = c.id === 'e-'+target;
+        c.style.display = on ? '' : 'none'; c.open = on; });
+      empty.style.display='none';
+    }
+    else { apply(); }
     window.scrollTo(0,0);
   }
   function setView(v, target){
