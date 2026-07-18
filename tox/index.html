@@ -484,6 +484,16 @@ mark{background:#fdf3b0;color:inherit;padding:0 1px}
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
     .mhead{ background:var(--paper); }
   }
+  /* Masthead settle: the module masthead fades + slides in once on load. Scoped
+     to .mhead so the hub (no masthead, has its own load sequence) is untouched.
+     One-shot, ~0.36s; the transform clears to none so position:sticky is
+     unaffected after. Reduced-motion shows it instantly (see the suite guard in
+     oncos_motion). Deliberately the bar only — not a content cascade — so it
+     never sits between a tap and the content you opened the page to read. */
+  @media (prefers-reduced-motion: no-preference){
+    .mhead{ animation:mhead-settle .36s var(--mo-ease, cubic-bezier(.3,0,.1,1)) both; }
+    @keyframes mhead-settle{ from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:none; } }
+  }
   .burger{ border-radius:10px; }
   .barsearch{ border-radius:999px; background:var(--ground); }
   body.nav-open .backdrop{ background:rgba(10,13,19,.35); }
