@@ -318,10 +318,7 @@ body.nav-open{overflow:hidden;}
 [data-view="hub"] .hub{margin:auto;width:100%;max-width:760px;padding:64px 40px;}
 [data-view="hub"] #viewroot{min-height:100vh;min-height:100dvh;display:flex;}
 [data-view="hub"] .hero{text-align:center;margin-bottom:44px;}
-[data-view="hub"] .spectrumbar{width:132px;height:3px;border-radius:999px;margin:0 auto 24px;}
 [data-view="hub"] .hero .wm{margin:0;font-size:46px;letter-spacing:-1px;color:var(--ink);line-height:1;}
-[data-view="hub"] .hometag{margin:14px 0 0;color:var(--muted);font-size:12px;font-weight:600;
-  letter-spacing:2px;text-transform:uppercase;}
 [data-view="hub"] .rule{border:none;border-top:1px solid var(--rule);margin:0 0 32px;}
 [data-view="hub"] .list{display:flex;flex-direction:column;gap:12px;}
 [data-view="hub"] .card{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;
@@ -344,11 +341,7 @@ body.nav-open{overflow:hidden;}
   [data-view="hub"] .hero .wm{font-size:36px;}
 }
 @media (prefers-reduced-motion: no-preference){
-  [data-view="hub"] .spectrumbar{transform-origin:center;
-    animation:hub-grow .5s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .04s both;}
-  [data-view="hub"] .hero .wm{animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .14s both;}
-  [data-view="hub"] .hometag{animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .22s both;}
-  @keyframes hub-grow{from{transform:scaleX(0);opacity:.35;}to{transform:scaleX(1);opacity:1;}}
+  [data-view="hub"] .hero .wm{animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .06s both;}
   @keyframes hub-rise{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
 }
 
@@ -362,8 +355,6 @@ html[data-theme="dark"] [data-view="hub"] .card.m-staging{--cm:#3fd6a6;}
 html[data-theme="dark"] [data-view="hub"] .card.m-tox{--cm:#f0b44e;}
 [data-view="hub"] .card.m-acute{--cm:#d23d34;}
 html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
-[data-view="hub"] .spectrumbar{background:linear-gradient(90deg,#4e51d8,#0977b0,#0b8a66,#8f6206,#d23d34);}
-html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradient(90deg,#8a8cff,#3fbbef,#3fd6a6,#f0b44e,#ff6f61);}
 </style>
 </head>
 <body>
@@ -391,9 +382,7 @@ html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradien
 <template id="home-view"><div class="themetoggle-fixed"><button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div>
 <main class="hub">
   <header class="hero">
-    <div class="spectrumbar" aria-hidden="true"></div>
     <h1 class="wm" aria-label="oncOS">onc<span class="os">OS</span></h1>
-    <p class="hometag">Clinical Hub</p>
   </header>
   <hr class="rule">
   <section class="list mo-stagger">
