@@ -466,9 +466,9 @@ function buildNav(){
 }
 function setMode(m,key){
  mode=m; query=''; $('#q').value='';
- if(m==='ctcae'){ activeSoc=key||''; $('#q').placeholder='Search adverse-event terms…'; }
- else if(m==='irae'){ activeOrgan=key||''; $('#q').placeholder='Search irAE (colitis, pneumonitis, myocarditis…)'; }
- else{ activeTopic=key||'gcsf'; $('#q').placeholder='Search regimens / agents…'; }
+ if(m==='ctcae'){ activeSoc=key||''; }
+ else if(m==='irae'){ activeOrgan=key||''; }
+ else{ activeTopic=key||'gcsf'; }
  fadeRender(); document.body.classList.remove('nav-open'); window.scrollTo(0,0);
 }
 
@@ -592,7 +592,7 @@ function renderIrae(list){
 }
 function goToTerm(tid){
  const m=tid.match(/^s(\d+)-/); const soc=m?MODEL.socs[+m[1]].soc:'';
- mode='ctcae'; activeSoc=soc; query=''; $('#q').value=''; $('#q').placeholder='Search adverse-event terms…';
+ mode='ctcae'; activeSoc=soc; query=''; $('#q').value='';
  render();
  const d=document.getElementById(tid);
  if(d){ d.open=true; if(d.querySelector('.calc')) buildCalcInputs(d.querySelector('.calc'));
@@ -621,7 +621,6 @@ const SFACETS=[{key:'CTCAE',label:'CTCAE grading'},{key:'irAE',label:'irAE manag
 function goToIrae(id){
  const e=IRAE.find(x=>x.id===id);
  mode='irae'; activeOrgan=e?e.organ:''; query=''; $('#q').value='';
- $('#q').placeholder='Search irAE (colitis, pneumonitis, myocarditis…)';
  render();
  const d=document.getElementById(id);
  if(d){ d.open=true; d.scrollIntoView({block:'center'}); }
