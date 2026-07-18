@@ -1,350 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>oncOS — Drugs</title>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#f6f7f9">
-<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
-<link rel="icon" type="image/png" href="icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Drugs">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="preload" href="/fonts/Montserrat-normal-700.woff2" as="font" type="font/woff2" crossorigin>
-<script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<style>
-  :root{
-    --ink:#0f2a43; --teal:#1668a3; --slate:#5b6b78; --muted:#77899a;
-    --hair:#dce3e9; --grid:#e4ebf0; --accent-soft:#eef3f7; --paper:#ffffff;
-    --status-warning:#c9820a; --status-warning-soft:#fbf1dc;
-    --font-serif:'Noto Serif',Georgia,serif; --font-sans:'Noto Sans',system-ui,sans-serif;
-    --sidebar-w:248px;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;}
-  body{background:var(--paper); color:var(--ink); font:14px/1.5 var(--font-sans); -webkit-text-size-adjust:100%;}
-
-  /* --- full-width masthead (locked suite pattern) --- */
-  .mhead{position:sticky; top:0; z-index:40; background:var(--paper);
-    border-bottom:1.2px solid var(--rule); display:flex; align-items:center; gap:14px;
-    padding:calc(11px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) 11px calc(24px + env(safe-area-inset-left));}
-  .burger{display:flex; flex:0 0 auto; width:36px; height:36px; border:1px solid var(--hair); border-radius:0;
-    background:var(--paper); color:var(--ink); align-items:center; justify-content:center; cursor:pointer; padding:0;}
-  .burger svg{width:20px;height:20px;}
-  .wm{margin:0; font-family:'Montserrat',var(--font-sans); font-weight:700; font-size:22px;
-    letter-spacing:-1px; color:var(--ink); line-height:1; text-decoration:none; flex:0 0 auto;}
-  .wm .os{color:var(--teal);}
-  .hdiv{width:1px; height:22px; background:var(--hair); flex:0 0 auto;}
-  .tag{margin:0; color:var(--muted); font-size:11px; font-weight:600; letter-spacing:2px;
-    text-transform:uppercase; flex:0 0 auto;}
-  .barsearch{flex:0 0 auto; width:min(280px,34vw); margin-left:auto; height:36px; padding:0 13px; font:inherit;
-    color:var(--ink); background:var(--paper); border:1px solid var(--hair); border-radius:3px;}
-  .barsearch:focus{outline:none; border-color:var(--teal);}
-  .mhead .theme-toggle{flex:0 0 auto;}
-
-  /* --- nav = burger-triggered off-canvas drawer at every width --- */
-  .layout{display:block;}
-  .sidebar{position:fixed; top:0; left:0; z-index:50; background:var(--paper);
-    border-right:1px solid var(--hair); height:100vh; height:100dvh; overflow-y:auto;
-    width:min(82vw,290px); transform:translateX(-100%); transition:transform .22s ease;
-    padding:calc(20px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
-    display:flex; flex-direction:column; gap:18px;}
-  body.nav-open .sidebar{transform:translateX(0);}
-  .facet .flabel{font-family:var(--font-sans); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+<style data-view-css>
+html[data-view="drugs"]{--sidebar-w:248px}
+[data-view="drugs"] .facet .flabel{font-family:var(--font-sans); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
     color:var(--muted); font-weight:600; margin:0 0 8px 2px;}
-  .az{display:flex; flex-wrap:wrap; gap:3px;}
-  .az a, .az span{font-family:var(--font-sans); font-size:11px; width:21px; height:21px; display:flex; align-items:center;
+[data-view="drugs"] .az{display:flex; flex-wrap:wrap; gap:3px;}
+[data-view="drugs"] .az a, [data-view="drugs"] .az span{font-family:var(--font-sans); font-size:11px; width:21px; height:21px; display:flex; align-items:center;
     justify-content:center; border-radius:0; color:var(--muted); text-decoration:none;}
-  .az a.has{color:var(--teal); font-weight:600; cursor:pointer;}
-  .az span.off{color:var(--hair);}
-
-  .backdrop{display:none;}
-  body.nav-open{overflow:hidden;}
-  body.nav-open .backdrop{display:block; position:fixed; inset:0; z-index:45; background:rgba(15,42,67,.18);}
-
-  main{max-width:1040px; margin:0 auto; padding:22px clamp(16px,3vw,30px) 40px;}
-  .topbar{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
-  .h-title{font-family:var(--font-serif); font-size:22px; font-weight:600; margin:0; letter-spacing:-.01em;}
-  .lede{color:var(--slate); font-size:12.5px; margin:0 0 14px; max-width:640px; line-height:1.55;}
-
-  .azdiv{font-family:var(--font-sans); font-weight:700; font-size:13px; color:var(--teal);
+[data-view="drugs"] .az a.has{color:var(--teal); font-weight:600; cursor:pointer;}
+[data-view="drugs"] .az span.off{color:var(--hair);}
+[data-view="drugs"] main{max-width:1040px; margin:0 auto; padding:22px clamp(16px,3vw,30px) 40px;}
+[data-view="drugs"] .topbar{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
+[data-view="drugs"] .h-title{font-family:var(--font-serif); font-size:22px; font-weight:600; margin:0; letter-spacing:-.01em;}
+[data-view="drugs"] .lede{color:var(--slate); font-size:12.5px; margin:0 0 14px; max-width:640px; line-height:1.55;}
+[data-view="drugs"] .azdiv{font-family:var(--font-sans); font-weight:700; font-size:13px; color:var(--teal);
     letter-spacing:.05em; margin:22px 0 10px 0; scroll-margin-top:14px;}
-  .letter-group:first-of-type .azdiv{margin-top:0;}
-
-  .card{border-top:1px solid var(--grid); padding:16px 2px 18px;}
-  .card-top{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
-  .dname{font-family:var(--font-serif); font-weight:600; font-size:18px; line-height:1.25; margin:0;}
-  .dbrands{font-size:11.5px; color:var(--muted);}
-
-  .rec-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-  .rec{border:1px solid var(--hair); border-top:2.5px solid var(--teal); border-radius:0; padding:10px 13px 12px; background:var(--paper);}
-  .rec.r-hepatic{border-top-color:var(--status-warning);}
-  .rec-label{font-family:var(--font-sans); font-size:10px; text-transform:uppercase; letter-spacing:.1em;
+[data-view="drugs"] .letter-group:first-of-type .azdiv{margin-top:0;}
+[data-view="drugs"] .card{border-top:1px solid var(--grid); padding:16px 2px 18px;}
+[data-view="drugs"] .card-top{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
+[data-view="drugs"] .dname{font-family:var(--font-serif); font-weight:600; font-size:18px; line-height:1.25; margin:0;}
+[data-view="drugs"] .dbrands{font-size:11.5px; color:var(--muted);}
+[data-view="drugs"] .rec-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+[data-view="drugs"] .rec{border:1px solid var(--hair); border-top:2.5px solid var(--teal); border-radius:0; padding:10px 13px 12px; background:var(--paper);}
+[data-view="drugs"] .rec.r-hepatic{border-top-color:var(--status-warning);}
+[data-view="drugs"] .rec-label{font-family:var(--font-sans); font-size:10px; text-transform:uppercase; letter-spacing:.1em;
     color:var(--muted); font-weight:600; margin-bottom:8px;}
-  .r-hepatic .rec-label{color:var(--status-warning);}
-  .r-renal .rec-label{color:var(--teal);}
-  ul.bands{margin:0; padding:0; list-style:none;}
-  ul.bands li{font-size:13px; line-height:1.5; color:var(--ink); padding:3px 0 3px 12px; position:relative;}
-  ul.bands li:before{content:""; position:absolute; left:0; top:11px; width:4px; height:4px; background:var(--slate);}
-
-  details.evi{margin-top:12px;}
-  details.evi summary{font-family:var(--font-sans); font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+[data-view="drugs"] .r-hepatic .rec-label{color:var(--status-warning);}
+[data-view="drugs"] .r-renal .rec-label{color:var(--teal);}
+[data-view="drugs"] ul.bands{margin:0; padding:0; list-style:none;}
+[data-view="drugs"] ul.bands li{font-size:13px; line-height:1.5; color:var(--ink); padding:3px 0 3px 12px; position:relative;}
+[data-view="drugs"] ul.bands li:before{content:""; position:absolute; left:0; top:11px; width:4px; height:4px; background:var(--slate);}
+[data-view="drugs"] details.evi{margin-top:12px;}
+[data-view="drugs"] details.evi summary{font-family:var(--font-sans); font-size:11px; text-transform:uppercase; letter-spacing:.06em;
     color:var(--teal); font-weight:600; cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:6px; padding:2px 0;}
-  details.evi summary::-webkit-details-marker{display:none;}
-  details.evi summary:before{content:"▸"; font-size:10px; transition:transform .15s;}
-  details.evi[open] summary:before{transform:rotate(90deg);}
-  .evi-body{margin-top:10px; border-left:2px solid var(--grid); padding-left:14px;}
-  .evi-block{margin-bottom:12px;}
-  .evi-block h4{font-family:var(--font-sans); font-size:9.5px; text-transform:uppercase; letter-spacing:.08em;
+[data-view="drugs"] details.evi summary::-webkit-details-marker{display:none;}
+[data-view="drugs"] details.evi summary:before{content:"▸"; font-size:10px; transition:transform .15s;}
+[data-view="drugs"] details.evi[open] summary:before{transform:rotate(90deg);}
+[data-view="drugs"] .evi-body{margin-top:10px; border-left:2px solid var(--grid); padding-left:14px;}
+[data-view="drugs"] .evi-block{margin-bottom:12px;}
+[data-view="drugs"] .evi-block h4{font-family:var(--font-sans); font-size:9.5px; text-transform:uppercase; letter-spacing:.08em;
     color:var(--muted); font-weight:600; margin:0 0 5px;}
-  .evi-block p{margin:0; font-size:12px; color:var(--slate); line-height:1.55;}
-  ul.evi-lines{margin:0; padding-left:15px;}
-  ul.evi-lines li{font-size:12px; color:var(--slate); line-height:1.55; margin-bottom:3px;}
-  .evi-refs{font-size:11px; color:var(--muted); font-style:italic;}
-
-  .empty{text-align:center; color:var(--muted); padding:60px 0; display:none;}
-  .foot{margin-top:30px; padding-top:16px; border-top:1px solid var(--hair); color:var(--muted); font-size:11px; line-height:1.6;}
-  .foot b{color:var(--slate);}
-  .foot .disc{margin-top:8px;}
-
-  @media (max-width:600px){
-    .rec-grid{grid-template-columns:1fr;}
-  }
-  @media (max-width:520px){
-    .mhead{padding-left:15px; padding-right:15px; gap:10px;}
-    .mhead .hdiv,.mhead .tag{display:none;}   /* keep burger + wordmark + narrow search + toggle on one row */
-    main{padding:16px 15px 40px;}
-  }
-
-  @media print{
-    .mhead,.sidebar,.backdrop{display:none !important;}
-    .layout{display:block;} main{padding:0;}
-    details.evi{display:block;} .evi-body{display:block;}
-    .card{break-inside:avoid;}
-  }
-
-  /* --- Meridian component pass (tokens from _oncos-kit/oncos_theme.py; 2026-07-18).
-     Surface polish only — kit owns .wm/.mhead/.burger/.barsearch + all tokens.
-     Each drug entry (.card) is a top-level card; the renal/hepatic .rec panels
-     become inset ground bands; A–Z nav chips become pills. Doses are inline
-     prose in ul.bands li with no numeric-only class, so no var(--font-mono)
-     target here (styling existing classes only, per brief). --- */
-  .card{ background:var(--paper); border:1px solid var(--grid); border-radius:14px;
+[data-view="drugs"] .evi-block p{margin:0; font-size:12px; color:var(--slate); line-height:1.55;}
+[data-view="drugs"] ul.evi-lines{margin:0; padding-left:15px;}
+[data-view="drugs"] ul.evi-lines li{font-size:12px; color:var(--slate); line-height:1.55; margin-bottom:3px;}
+[data-view="drugs"] .evi-refs{font-size:11px; color:var(--muted); font-style:italic;}
+[data-view="drugs"] .empty{text-align:center; color:var(--muted); padding:60px 0; display:none;}
+[data-view="drugs"] .foot{margin-top:30px; padding-top:16px; border-top:1px solid var(--hair); color:var(--muted); font-size:11px; line-height:1.6;}
+[data-view="drugs"] .foot b{color:var(--slate);}
+[data-view="drugs"] .foot .disc{margin-top:8px;}
+@media (max-width:600px){[data-view="drugs"] .rec-grid{grid-template-columns:1fr;}}
+@media (max-width:520px){[data-view="drugs"] main{padding:16px 15px 40px;}}
+@media print{[data-view="drugs"] main{padding:0;}
+[data-view="drugs"] details.evi{display:block;}
+[data-view="drugs"] .evi-body{display:block;}
+[data-view="drugs"] .card{break-inside:avoid;}}
+[data-view="drugs"] .card{ background:var(--paper); border:1px solid var(--grid); border-radius:14px;
     box-shadow:var(--shadow); padding:16px 18px 18px; margin-bottom:14px; }
-  .rec{ background:var(--ground); border-radius:var(--radius-sm); }
-  .az a, .az span{ border-radius:999px; }
-
-  /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
-  @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
-  @font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/fonts/Newsreader-normal-200_800.woff2) format('woff2');}
-  @font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-normal-400_900.woff2) format('woff2');}
-  @font-face{font-family:'Schibsted Grotesk';font-style:italic;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-italic-400_900.woff2) format('woff2');}
-  @font-face{font-family:'Spline Sans Mono';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/SplineSansMono-normal-300_700.woff2) format('woff2');}
-
-  /* --- oncOS Meridian theme (shared: _oncos-kit/oncos_theme.py) --- */
-  :root{
-    --m:#0977b0; --teal:var(--m);
-    --ink:#131926; --slate:#4d5a6b; --muted:#6b7787;
-    --hair:#e3e7ee; --grid:#edf0f5;
-    --accent-soft:color-mix(in oklab, var(--m) 8%, #ffffff);
-    --paper:#ffffff; --ground:#f6f7f9; --raised:#ffffff;
-    --status-success:#0e8f63; --status-success-soft:#e3f3ec;
-    --status-warning:#946908; --status-warning-soft:#f7efdb;
-    --status-danger:#c23f38; --status-danger-soft:#faeae9;
-    --status-info:var(--m); --status-info-soft:var(--accent-soft);
-    --font-serif:'Newsreader','Iowan Old Style',Georgia,serif;
-    --font-sans:'Schibsted Grotesk',-apple-system,'Helvetica Neue',system-ui,sans-serif;
-    --font-mono:'Spline Sans Mono',ui-monospace,'SF Mono',Menlo,monospace;
-    --rule:#d7dde6; --btn-ink:#ffffff;
-    --radius:12px; --radius-sm:9px;
-    --shadow:0 1px 2px rgba(19,25,38,.05), 0 10px 28px -12px rgba(19,25,38,.14);
-    --glass:rgba(255,255,255,.8);
-    color-scheme:light;
-  }
-  :root[data-theme="dark"]{
-    --m:#3fbbef; --teal:var(--m);
-    --ink:#e8ecf3; --slate:#a3aebe; --muted:#8391a3;
-    --hair:#222937; --grid:#1a2130;
-    --accent-soft:color-mix(in oklab, var(--m) 13%, #10141c);
-    --paper:#10141c; --ground:#0a0d13; --raised:#151b26;
-    --status-success:#37c98c; --status-success-soft:#12312a;
-    --status-warning:#e5a93e; --status-warning-soft:#32270f;
-    --status-danger:#f0716b; --status-danger-soft:#391b19;
-    --status-info:var(--m); --status-info-soft:var(--accent-soft);
-    --rule:#2a3242; --btn-ink:#0a0d13;
-    --shadow:none;
-    --glass:rgba(13,17,25,.75);
-    color-scheme:dark;
-  }
-  html{ transition:background .18s ease, color .18s ease; }
-  body{ background:var(--ground); }
-  /* --- Keyboard focus: a visible ring in the module wavelength, only on
-     keyboard focus (:focus-visible), suite-wide. Before this the clickable
-     nav links, hub cards, drawer controls and details summaries had no visible
-     focus state. Inputs keep their own border-colour focus affordance (their
-     :focus{outline:none} is more specific, so this doesn't override it). --- */
-  :focus-visible{ outline:2px solid var(--m, var(--teal)); outline-offset:2px; border-radius:4px; }
-  /* --- Meridian shared chrome (the locked suite header pattern) --- */
-  /* Wordmark is Montserrat Bold (self-hosted via oncos_fonts) — the one place
-     the suite keeps its original NCIS wordmark face; everything else is the
-     Meridian type system. */
-  .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
-  .wm .os{ background-image:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
-    -webkit-background-clip:text; background-clip:text; color:transparent; }
-  :root[data-theme="dark"] .wm .os{ background-image:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6); }
-  .mhead{ background:var(--glass);
-    -webkit-backdrop-filter:blur(14px) saturate(1.3); backdrop-filter:blur(14px) saturate(1.3);
-    border-bottom:1px solid var(--hair); }
-  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-    .mhead{ background:var(--paper); }
-  }
-  .burger{ border-radius:10px; }
-  .barsearch{ border-radius:999px; background:var(--ground); }
-  body.nav-open .backdrop{ background:rgba(10,13,19,.35); }
-  /* --- Suite switcher: module-to-module navigation, injected at the top of
-     every module drawer by the kit script (see toggle_script) — before it, the
-     only route between modules was back through the hub. Wavelength dots come
-     from the generated .sdot-<module> rules appended below. --- */
-  .suite-nav{ padding:2px 0 10px; margin-bottom:8px; border-bottom:1px solid var(--hair); }
-  .suite-nav .suite-label{ font-size:10.5px; font-weight:700; letter-spacing:.08em;
-    text-transform:uppercase; color:var(--muted); padding:8px 20px 5px; }
-  .suite-link{ display:flex; align-items:center; gap:10px; padding:7px 20px;
-    font-size:13.5px; color:var(--ink); text-decoration:none; }
-  .suite-link:hover{ background:var(--accent-soft); color:var(--m); }
-  .suite-link[aria-current="page"]{ color:var(--m); font-weight:600; background:var(--accent-soft); }
-  .sdot{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
-  .sdot-evidence{ background:#4e51d8; }
-  :root[data-theme="dark"] .sdot-evidence{ background:#8a8cff; }
-  .sdot-drugs{ background:#0977b0; }
-  :root[data-theme="dark"] .sdot-drugs{ background:#3fbbef; }
-  .sdot-staging{ background:#0b8a66; }
-  :root[data-theme="dark"] .sdot-staging{ background:#3fd6a6; }
-  .sdot-tox{ background:#8f6206; }
-  :root[data-theme="dark"] .sdot-tox{ background:#f0b44e; }
-  .sdot-acute{ background:#d23d34; }
-  :root[data-theme="dark"] .sdot-acute{ background:#ff6f61; }
-  .sdot-hub{ background:linear-gradient(135deg,#4e51d8,#0977b0,#0b8a66,#8f6206,#d23d34); }
-  :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#8a8cff,#3fbbef,#3fd6a6,#f0b44e,#ff6f61); }
-
-  .theme-toggle{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:26px; height:26px; padding:0; cursor:pointer; flex:0 0 auto;
-    background:transparent; color:var(--muted);
-    border:1px solid var(--hair); border-radius:999px;
-    transition:color .15s, border-color .15s, background .15s;
-  }
-  .theme-toggle:hover{ color:var(--m); border-color:var(--m); background:var(--accent-soft); }
-  .theme-toggle svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-  .theme-toggle .i-sun{ display:none; }
-  :root[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
-  :root[data-theme="dark"] .theme-toggle .i-sun{ display:block; }
-  /* --- oncOS mobile QA (roadmap #4): no side-scroll + no iOS focus-zoom --- */
-  /* Touch devices only: iOS Safari zooms the page when a focused control is
-     under 16px, so pin form controls to 16px there (desktop sizing untouched). */
-  @media (hover:none) and (pointer:coarse){
-    input, select, textarea { font-size:16px !important; }
-  }
-  /* Belt-and-braces: disable horizontal page scroll on phones. `clip` (not
-     `hidden`) doesn't create a scroll container, so position:sticky headers
-     keep working. */
-  @media (max-width:760px){ html, body { overflow-x:clip; } }
-
-  /* ===== oncOS motion layer (shared: _oncos-kit/oncos_motion.py) ===== */
-  :root{
-    --mo-dur:150ms;
-    --mo-ease:cubic-bezier(.3,0,.1,1);
-    interpolate-size: allow-keywords;   /* lets block-size:auto animate */
-  }
-
-  /* --- Tier 1: native <details> cards grow + fade open --- */
-  details::details-content{
-    block-size:0; overflow:clip; opacity:0;
-    transition:block-size var(--mo-dur) var(--mo-ease),
-               opacity var(--mo-dur) var(--mo-ease),
-               content-visibility var(--mo-dur) allow-discrete;
-  }
-  details[open]::details-content{ block-size:auto; opacity:1; }
-  /* chevron rotate — harmless where a module has no .chev */
-  details > summary .chev{ transition:transform var(--mo-dur) var(--mo-ease); }
-  details[open] > summary .chev{ transform:rotate(90deg); }
-
-  /* --- Tier 1: nav backdrop cross-fades with the drawer slide --- */
-  /* Modules toggle .backdrop via display (not animatable); pin it displayed and
-     drive opacity/visibility instead. Inert on pages with no .backdrop (Hub). */
-  .backdrop{
-    display:block !important; position:fixed; inset:0; z-index:45;
-    background:rgba(15,42,67,.18);
-    opacity:0; visibility:hidden; pointer-events:none;
-    transition:opacity var(--mo-dur) var(--mo-ease),
-               visibility var(--mo-dur) var(--mo-ease);
-  }
-  body.nav-open .backdrop{ opacity:1; visibility:visible; pointer-events:auto; }
-
-  /* --- Tier 2: theme-toggle sun/moon cross-fade (replaces the display swap) --- */
-  .theme-toggle{ position:relative; overflow:hidden; }
-  .theme-toggle svg{
-    position:absolute; top:50%; left:50%; margin:0;
-    transition:opacity var(--mo-dur) var(--mo-ease), transform var(--mo-dur) var(--mo-ease);
-  }
-  .theme-toggle .i-moon{ display:block !important; opacity:1; transform:translate(-50%,-50%) rotate(0) scale(1); }
-  .theme-toggle .i-sun{ display:block !important; opacity:0; transform:translate(-50%,-50%) rotate(-90deg) scale(.6); }
-  :root[data-theme="dark"] .theme-toggle .i-moon{ opacity:0; transform:translate(-50%,-50%) rotate(90deg) scale(.6); }
-  :root[data-theme="dark"] .theme-toggle .i-sun{ opacity:1; transform:translate(-50%,-50%) rotate(0) scale(1); }
-
-  /* --- Tier 1: tap/press feedback (touch has no hover) --- */
-  @media (prefers-reduced-motion:no-preference){
-    details > summary:active{ transform:scale(.994); }
-    a.card:active{ transform:scale(.99); }
-  }
-
-  /* --- Tier 2: opt-in staggered content entrance (Hub grid only) --- */
-  @media (prefers-reduced-motion:no-preference){
-    .mo-stagger > *{ animation:mo-fadeup var(--mo-dur) var(--mo-ease) both; }
-    .mo-stagger > *:nth-child(1){ animation-delay:0ms; }
-    .mo-stagger > *:nth-child(2){ animation-delay:45ms; }
-    .mo-stagger > *:nth-child(3){ animation-delay:90ms; }
-    .mo-stagger > *:nth-child(4){ animation-delay:135ms; }
-    .mo-stagger > *:nth-child(5){ animation-delay:180ms; }
-    .mo-stagger > *:nth-child(6){ animation-delay:225ms; }
-    .mo-stagger > *:nth-child(7){ animation-delay:270ms; }
-    .mo-stagger > *:nth-child(n+8){ animation-delay:300ms; }
-    @keyframes mo-fadeup{ from{ opacity:0; transform:translateY(7px); } to{ opacity:1; transform:none; } }
-  }
-
-  /* --- accessibility: honour the OS reduced-motion setting suite-wide --- */
-  @media (prefers-reduced-motion:reduce){
-    :root{ --mo-dur:0.001ms; }
-    *, *::before, *::after{
-      animation-duration:.001ms !important; animation-iteration-count:1 !important;
-      transition-duration:.001ms !important; scroll-behavior:auto !important;
-    }
-    details::details-content{ transition-duration:.001ms !important; }
-  }
-
+[data-view="drugs"] .rec{ background:var(--ground); border-radius:var(--radius-sm); }
+[data-view="drugs"] .az a, [data-view="drugs"] .az span{ border-radius:999px; }
 </style>
-</head>
-<body>
-
-<header class="mhead">
-  <button class="burger" id="burger" aria-label="Open navigation">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-  </button>
-  <a class="wm homelink" href="../" aria-label="oncOS home">onc<span class="os">OS</span></a>
-  <span class="hdiv" aria-hidden="true"></span>
-  <span class="tag">Renal &amp; Hepatic Dosing</span>
-  <input id="search" class="barsearch" type="search" placeholder="Search…" autocomplete="off" aria-label="Search drugs">
-  <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-</header>
-
+<div class="viewfrag">
 <div class="layout">
-  <aside class="sidebar" id="sidebar">
-    <div class="facet"><div class="flabel">A–Z</div><div class="az" id="az"><a href="#ltr-A" class="has">A</a><a href="#ltr-B" class="has">B</a><a href="#ltr-C" class="has">C</a><a href="#ltr-D" class="has">D</a><a href="#ltr-E" class="has">E</a><a href="#ltr-F" class="has">F</a><a href="#ltr-G" class="has">G</a><a href="#ltr-H" class="has">H</a><a href="#ltr-I" class="has">I</a><span class="off">J</span><span class="off">K</span><a href="#ltr-L" class="has">L</a><a href="#ltr-M" class="has">M</a><a href="#ltr-N" class="has">N</a><a href="#ltr-O" class="has">O</a><a href="#ltr-P" class="has">P</a><span class="off">Q</span><a href="#ltr-R" class="has">R</a><a href="#ltr-S" class="has">S</a><a href="#ltr-T" class="has">T</a><span class="off">U</span><a href="#ltr-V" class="has">V</a><span class="off">W</span><span class="off">X</span><span class="off">Y</span><a href="#ltr-Z" class="has">Z</a></div></div>
-  </aside>
-  <div class="backdrop" id="backdrop"></div>
+  
+  
 
   <main>
     <div id="list">
@@ -4165,9 +3881,16 @@
     </div>
   </main>
 </div>
-
+</div>
+<template data-nav>
+<div class="facet"><div class="flabel">A–Z</div><div class="az" id="az"><a href="#ltr-A" class="has">A</a><a href="#ltr-B" class="has">B</a><a href="#ltr-C" class="has">C</a><a href="#ltr-D" class="has">D</a><a href="#ltr-E" class="has">E</a><a href="#ltr-F" class="has">F</a><a href="#ltr-G" class="has">G</a><a href="#ltr-H" class="has">H</a><a href="#ltr-I" class="has">I</a><span class="off">J</span><span class="off">K</span><a href="#ltr-L" class="has">L</a><a href="#ltr-M" class="has">M</a><a href="#ltr-N" class="has">N</a><a href="#ltr-O" class="has">O</a><a href="#ltr-P" class="has">P</a><span class="off">Q</span><a href="#ltr-R" class="has">R</a><a href="#ltr-S" class="has">S</a><a href="#ltr-T" class="has">T</a><span class="off">U</span><a href="#ltr-V" class="has">V</a><span class="off">W</span><span class="off">X</span><span class="off">Y</span><a href="#ltr-Z" class="has">Z</a></div></div>
+</template>
 <script>
-  var search = document.getElementById('search');
+window.oncosView = {
+  name: 'drugs',
+  init: function(ctx) {
+
+var search = document.getElementById('search');
   var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
   var groups = Array.prototype.slice.call(document.querySelectorAll('.letter-group'));
   var empty = document.getElementById('empty');
@@ -4196,10 +3919,12 @@
     a.addEventListener('click', function(){ document.body.classList.remove('nav-open'); window.scrollTo(0,0); });
   });
 
-  if ('serviceWorker' in navigator) {
+  if (false) {
     window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
   }
+  },
+  destroy: function() {
+
+  }
+};
 </script>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.querySelectorAll('.theme-toggle').forEach(function(b){b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(e){}s();});});var q=document.querySelector('.barsearch');document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else if(q&&document.activeElement===q){q.blur();}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}})();</script>
-</body>
-</html>

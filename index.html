@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-view="hub">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -17,104 +17,6 @@
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
-
-  :root{
-    --ink:#0f2a43; --teal:#1668a3; --slate:#5b6b78; --muted:#77899a;
-    --hair:#dce3e9; --grid:#e4ebf0; --accent-soft:#eef3f7; --paper:#ffffff;
-    --font-serif:'Noto Serif',Georgia,serif; --font-sans:'Noto Sans',system-ui,sans-serif;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;min-height:100%;}
-  body{
-    font-family:var(--font-sans);
-    color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5;
-    min-height:100vh;min-height:100dvh;display:flex;
-  }
-  .hub{margin:auto;width:100%;max-width:760px;padding:64px 40px;}
-  .hero{text-align:center;margin-bottom:44px;}
-  /* Meridian spectrum: the five module wavelengths as one line (kit hues). */
-  .spectrumbar{width:132px;height:3px;border-radius:999px;margin:0 auto 24px;}
-  .wm{
-    margin:0;font-family:'Montserrat',var(--font-sans);
-    font-weight:700;font-size:46px;letter-spacing:-1px;color:var(--ink);
-    line-height:1;
-  }
-  .wm .os{color:var(--teal);}
-  .tag{
-    margin:14px 0 0;color:var(--muted);font-size:12px;font-weight:600;
-    font-family:var(--font-sans);
-    letter-spacing:2px;text-transform:uppercase;
-  }
-  .rule{border:none;border-top:1px solid var(--rule);margin:0 0 32px;}
-  .themetoggle-fixed{position:fixed;top:calc(16px + env(safe-area-inset-top));right:calc(16px + env(safe-area-inset-right));z-index:5;}
-  .list{display:flex;flex-direction:column;gap:12px;}
-  /* Meridian cards: raised surfaces, each carrying its module wavelength --m
-     (set by the generated .m-<hue> classes appended below this sheet). */
-  .card{
-    display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;
-    padding:18px 20px;background:var(--paper);
-    border:1px solid var(--grid);border-radius:14px;box-shadow:var(--shadow);
-    transition:background .12s, border-color .15s, transform .15s;
-  }
-  .card:hover{
-    background:color-mix(in oklab, var(--m, var(--teal)) 5%, var(--paper));
-    border-color:color-mix(in oklab, var(--m, var(--teal)) 45%, var(--grid));
-    transform:translateY(-2px);
-  }
-  .ic{
-    flex:0 0 auto;width:38px;height:38px;border-radius:10px;
-    color:var(--m, var(--teal));
-    background:color-mix(in oklab, var(--m, var(--teal)) 12%, transparent);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .ic svg{width:22px;height:22px;}
-  .cname{
-    flex:1 1 auto;min-width:0;color:var(--ink);
-    font-family:var(--font-serif);
-    font-weight:500;font-size:19px;letter-spacing:0;text-transform:none;
-  }
-  .cgo{flex:0 0 auto;color:var(--m, var(--teal));font-size:18px;opacity:.55;transition:opacity .14s;}
-  .card:hover .cgo{opacity:1;}
-  .disc{
-    margin-top:40px;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.6;
-    border-top:1px solid var(--grid);padding-top:18px;
-    font-family:var(--font-sans);letter-spacing:.3px;
-  }
-  @media(max-width:560px){
-    .hub{padding:40px 22px;}
-    .wm{font-size:36px;}
-  }
-  /* --- Meridian hub load: one orchestrated settle, top-to-bottom, then the
-     cards cascade (kit .mo-stagger). Quiet + fast per the house motion rule;
-     fully behind prefers-reduced-motion. Card delays are pushed past the
-     header so the sequence reads in reading order (higher specificity than the
-     kit's nth-child stagger, so these win). --- */
-  @media (prefers-reduced-motion: no-preference){
-    .spectrumbar{ transform-origin:center;
-      animation:hub-grow .5s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .04s both; }
-    .wm{ animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .14s both; }
-    .tag{ animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .22s both; }
-    .list.mo-stagger > *:nth-child(1){ animation-delay:.30s; }
-    .list.mo-stagger > *:nth-child(2){ animation-delay:.34s; }
-    .list.mo-stagger > *:nth-child(3){ animation-delay:.38s; }
-    .list.mo-stagger > *:nth-child(4){ animation-delay:.42s; }
-    .list.mo-stagger > *:nth-child(5){ animation-delay:.46s; }
-    @keyframes hub-grow{ from{ transform:scaleX(0); opacity:.35; } to{ transform:scaleX(1); opacity:1; } }
-    @keyframes hub-rise{ from{ opacity:0; transform:translateY(7px); } to{ opacity:1; transform:none; } }
-  }
-
-  .m-evidence{--m:#4e51d8;}
-  :root[data-theme="dark"] .m-evidence{--m:#8a8cff;}
-  .m-drugs{--m:#0977b0;}
-  :root[data-theme="dark"] .m-drugs{--m:#3fbbef;}
-  .m-staging{--m:#0b8a66;}
-  :root[data-theme="dark"] .m-staging{--m:#3fd6a6;}
-  .m-tox{--m:#8f6206;}
-  :root[data-theme="dark"] .m-tox{--m:#f0b44e;}
-  .m-acute{--m:#d23d34;}
-  :root[data-theme="dark"] .m-acute{--m:#ff6f61;}
-  .spectrumbar{background:linear-gradient(90deg,#4e51d8,#0977b0,#0b8a66,#8f6206,#d23d34);}
-  :root[data-theme="dark"] .spectrumbar{background:linear-gradient(90deg,#8a8cff,#3fbbef,#3fd6a6,#f0b44e,#ff6f61);}
 
   /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
   @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
@@ -302,33 +204,276 @@
     }
     details::details-content{ transition-duration:.001ms !important; }
   }
+
+@property --m { syntax:'<color>'; inherits:true; initial-value:#4e51d8; }
+@media (prefers-reduced-motion: no-preference){ :root{ transition: --m .35s var(--mo-ease, cubic-bezier(.3,0,.1,1)); } }
+html[data-view="evidence"]{ --m:#4e51d8; --teal:var(--m); }
+html[data-view="evidence"][data-theme="dark"]{ --m:#8a8cff; }
+html[data-view="drugs"]{ --m:#0977b0; --teal:var(--m); }
+html[data-view="drugs"][data-theme="dark"]{ --m:#3fbbef; }
+html[data-view="staging"]{ --m:#0b8a66; --teal:var(--m); }
+html[data-view="staging"][data-theme="dark"]{ --m:#3fd6a6; }
+html[data-view="tox"]{ --m:#8f6206; --teal:var(--m); }
+html[data-view="tox"][data-theme="dark"]{ --m:#f0b44e; }
+html[data-view="acute"]{ --m:#d23d34; --teal:var(--m); }
+html[data-view="acute"][data-theme="dark"]{ --m:#ff6f61; }
+
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{font-family:var(--font-sans);color:var(--ink);background:var(--ground);
+  font-size:14px;line-height:1.5;-webkit-text-size-adjust:100%;}
+a{color:var(--teal);}
+.mhead{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;
+  padding:calc(11px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) 11px calc(24px + env(safe-area-inset-left));}
+.burger{display:flex;flex:0 0 auto;width:36px;height:36px;border:1px solid var(--hair);
+  background:var(--paper);color:var(--ink);align-items:center;justify-content:center;cursor:pointer;padding:0;}
+.burger svg{width:20px;height:20px;}
+.wm{margin:0;font-size:22px;color:var(--ink);line-height:1;text-decoration:none;flex:0 0 auto;}
+.hdiv{width:1px;height:22px;background:var(--hair);flex:0 0 auto;}
+.tag{margin:0;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;flex:0 0 auto;}
+.barsearch{flex:0 0 auto;width:min(280px,34vw);margin-left:auto;height:36px;padding:0 13px;
+  font:inherit;color:var(--ink);border:1px solid var(--hair);}
+.barsearch:focus{outline:none;border-color:var(--teal);}
+.mhead .theme-toggle{flex:0 0 auto;}
+aside.sidebar{position:fixed;top:0;left:0;z-index:50;background:var(--paper);
+  border-right:1px solid var(--hair);height:100vh;height:100dvh;overflow-y:auto;
+  width:min(82vw,300px);transform:translateX(-100%);transition:transform .22s ease;
+  padding:calc(16px + env(safe-area-inset-top)) 0 calc(20px + env(safe-area-inset-bottom));}
+body.nav-open aside.sidebar{transform:translateX(0);}
+body.nav-open{overflow:hidden;}
+#viewroot{min-height:60vh;}
+@media (max-width:520px){
+  .mhead{padding-left:15px;padding-right:15px;gap:10px;}
+  .mhead .hdiv,.mhead .tag{display:none;}
+}
+/* view swap: quiet fade/rise, wavelength slides via the :root --m transition */
+@media (prefers-reduced-motion: no-preference){
+  #viewroot{transition:opacity .15s var(--mo-ease, cubic-bezier(.3,0,.1,1)),
+            transform .15s var(--mo-ease, cubic-bezier(.3,0,.1,1));}
+}
+#viewroot.leaving{opacity:0;transform:translateY(5px);}
+/* loading shimmer between fetch start and mount (usually invisible: cached) */
+.viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:13px;}
+/* ---- home (launcher) view ---- */
+[data-view="hub"] .hubwrap{max-width:760px;margin:0 auto;padding:56px 28px 64px;}
+[data-view="hub"] .spectrumbar{width:132px;height:3px;border-radius:999px;margin:0 auto 18px;}
+[data-view="hub"] .hometag{margin:0 0 30px;color:var(--muted);font-size:12px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;text-align:center;}
+[data-view="hub"] .list{display:flex;flex-direction:column;gap:12px;}
+[data-view="hub"] .card{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;
+  padding:18px 20px;background:var(--paper);border:1px solid var(--grid);border-radius:14px;
+  box-shadow:var(--shadow);transition:background .12s,border-color .15s,transform .15s;}
+[data-view="hub"] .card:hover{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
+  border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));transform:translateY(-2px);}
+[data-view="hub"] .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;color:var(--cm, var(--teal));
+  background:color-mix(in oklab, var(--cm, var(--teal)) 12%, transparent);
+  display:flex;align-items:center;justify-content:center;}
+[data-view="hub"] .ic svg{width:22px;height:22px;}
+[data-view="hub"] .cname{flex:1 1 auto;min-width:0;color:var(--ink);font-family:var(--font-serif);
+  font-weight:500;font-size:19px;}
+[data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:18px;opacity:.55;}
+[data-view="hub"] .card:hover .cgo{opacity:1;}
+[data-view="hub"] .disc{margin-top:40px;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.6;
+  border-top:1px solid var(--grid);padding-top:18px;letter-spacing:.3px;}
+
+[data-view="hub"] .card.m-evidence{--cm:#4e51d8;}
+html[data-theme="dark"] [data-view="hub"] .card.m-evidence{--cm:#8a8cff;}
+[data-view="hub"] .card.m-drugs{--cm:#0977b0;}
+html[data-theme="dark"] [data-view="hub"] .card.m-drugs{--cm:#3fbbef;}
+[data-view="hub"] .card.m-staging{--cm:#0b8a66;}
+html[data-theme="dark"] [data-view="hub"] .card.m-staging{--cm:#3fd6a6;}
+[data-view="hub"] .card.m-tox{--cm:#8f6206;}
+html[data-theme="dark"] [data-view="hub"] .card.m-tox{--cm:#f0b44e;}
+[data-view="hub"] .card.m-acute{--cm:#d23d34;}
+html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
+[data-view="hub"] .spectrumbar{background:linear-gradient(90deg,#4e51d8,#0977b0,#0b8a66,#8f6206,#d23d34);}
+html[data-theme="dark"] [data-view="hub"] .spectrumbar{background:linear-gradient(90deg,#8a8cff,#3fbbef,#3fd6a6,#f0b44e,#ff6f61);}
 </style>
 </head>
 <body>
-<div class="themetoggle-fixed"><button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div>
-<main class="hub">
-  <header class="hero">
-    <div class="spectrumbar" aria-hidden="true"></div>
-    <h1 class="wm" aria-label="oncOS">onc<span class="os">OS</span></h1>
-    <p class="tag">Clinical Hub</p>
-  </header>
-  <hr class="rule">
+<header class="mhead">
+  <button class="burger" id="burger" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+  <a class="wm" href="/" data-nav="hub" aria-label="oncOS home">onc<span class="os">OS</span></a>
+  <span class="hdiv" id="hdiv" aria-hidden="true"></span>
+  <span class="tag" id="viewname"></span>
+  <input id="q" type="search" class="barsearch" placeholder="Search&hellip;" autocomplete="off" aria-label="Search" style="display:none">
+  <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</header>
+<aside class="sidebar" id="sidebar">
+  <div id="viewnav"></div>
+</aside>
+<div id="backdrop" class="backdrop"></div>
+<main id="viewroot"></main>
+<template id="home-view"><div class="hubwrap">
+  <div class="spectrumbar" aria-hidden="true"></div>
+  <p class="hometag">Clinical Hub</p>
   <section class="list mo-stagger">
-      <a class="card m-evidence" href="evidence/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cname">Evidence</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-staging" href="staging/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cname">Staging</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-drugs" href="drugs/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cname">Drugs</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-tox" href="tox/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cname">Tox</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-acute" href="acute/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cname">Acute</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-evidence" href="evidence/" data-nav="evidence"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cname">Evidence</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-staging" href="staging/" data-nav="staging"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cname">Staging</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-drugs" href="drugs/" data-nav="drugs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cname">Drugs</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-tox" href="tox/" data-nav="tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cname">Tox</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-acute" href="acute/" data-nav="acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cname">Acute</span><span class="cgo" aria-hidden="true">&rarr;</span></a>
   </section>
-  <footer class="disc">
-    &copy; Jonan Tan 2026
-  </footer>
-</main>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
-  }
-</script>
+  <footer class="disc">&copy; Jonan Tan 2026</footer>
+</div></template>
 <script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.querySelectorAll('.theme-toggle').forEach(function(b){b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(e){}s();});});var q=document.querySelector('.barsearch');document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else if(q&&document.activeElement===q){q.blur();}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}})();</script>
+<script>
+
+(function(){
+  var VIEWS = {"evidence": {"title": "Evidence", "searchId": "q"}, "staging": {"title": "Staging", "searchId": "q"}, "drugs": {"title": "Drugs", "searchId": "search"}, "tox": {"title": "Tox", "searchId": "q"}, "acute": {"title": "Acute", "searchId": "q"}, "hub": {"title": ""}};
+  var root = document.documentElement;
+  var viewroot = document.getElementById('viewroot');
+  var viewnav = document.getElementById('viewnav');
+  var vname = document.getElementById('viewname');
+  var homeTpl = document.getElementById('home-view');
+  var cache = {};          // name -> fragment text
+  var current = null;      // active view name
+  var active = null;       // active window.oncosView
+  var capt = [];           // captured doc/window listeners for auto-cleanup
+
+  function pathToView(p){
+    var m = p.match(/^\/(evidence|staging|drugs|tox|acute)(\/|$)/);
+    return m ? m[1] : 'hub';
+  }
+  function searchEl(){ return document.querySelector('.barsearch'); }
+  function freshChrome(){
+    // drop accumulated listeners on shared chrome nodes by clone-replacing
+    ['.barsearch','#burger','#backdrop'].forEach(function(sel){
+      var el = document.querySelector(sel);
+      if (el) el.parentNode.replaceChild(el.cloneNode(true), el);
+    });
+    var burger = document.getElementById('burger');
+    var backdrop = document.getElementById('backdrop');
+    if (burger) burger.onclick = function(){ document.body.classList.toggle('nav-open'); };
+    if (backdrop) backdrop.onclick = function(){ document.body.classList.remove('nav-open'); };
+  }
+  function captureOn(){
+    var da = document.addEventListener.bind(document), wa = window.addEventListener.bind(window);
+    document.addEventListener = function(t,f,o){ capt.push(['d',t,f,o]); da(t,f,o); };
+    window.addEventListener = function(t,f,o){ capt.push(['w',t,f,o]); wa(t,f,o); };
+    return function(){ document.addEventListener = da; window.addEventListener = wa; };
+  }
+  function releaseCaptured(){
+    capt.forEach(function(c){
+      (c[0]==='d'?document:window).removeEventListener(c[1],c[2],c[3]);
+    });
+    capt = [];
+  }
+  function fetchView(name){
+    if (cache[name]) return Promise.resolve(cache[name]);
+    return fetch('/views/'+name+'.html', {credentials:'same-origin'}).then(function(r){
+      if (!r.ok) throw new Error(r.status);
+      return r.text();
+    }).then(function(t){ cache[name] = t; return t; });
+  }
+  function mount(name, fragText){
+    // teardown
+    if (active && active.destroy) { try{ active.destroy(); }catch(e){} }
+    releaseCaptured();
+    document.body.classList.remove('nav-open');
+    freshChrome();
+    active = null; window.oncosView = null;
+
+    // swap
+    root.setAttribute('data-view', name);
+    var v = VIEWS[name];
+    if (vname) vname.textContent = v ? v.title : '';
+    var q = searchEl();
+    if (q) { q.value=''; q.placeholder = 'Search\u2026'; q.style.display = (name==='hub'?'none':'');
+      q.id = (v && v.searchId) || 'q'; }
+    var tagdiv = document.getElementById('hdiv');
+    if (tagdiv) tagdiv.style.display = (name==='hub'?'none':'');
+    document.title = name==='hub' ? 'oncOS' : 'oncOS \u2014 ' + (v?v.title:name);
+
+    viewnav.innerHTML = '';
+    if (name === 'hub') {
+      viewroot.innerHTML = '';
+      viewroot.appendChild(homeTpl.content.cloneNode(true));
+    } else {
+      var doc = new DOMParser().parseFromString(fragText, 'text/html');
+      viewroot.innerHTML = '';
+      doc.querySelectorAll('style[data-view-css]').forEach(function(s){
+        viewroot.appendChild(document.importNode(s, true));
+      });
+      var frag = doc.querySelector('.viewfrag');
+      if (frag) viewroot.appendChild(document.importNode(frag, true));
+      var nav = doc.querySelector('template[data-nav]');
+      if (nav) viewnav.appendChild(document.importNode(nav.content, true));
+      // execute the view script (innerHTML'd scripts don't run)
+      var vs = doc.querySelector('script');
+      if (vs) {
+        var restore = captureOn();
+        try {
+          (new Function(vs.textContent))();
+          if (window.oncosView && window.oncosView.init) {
+            active = window.oncosView;
+            try { active.init({ root:viewroot, nav:viewnav, search:searchEl() }); }
+            catch(err){ console.error('oncOS view init failed:', name, err); }
+          }
+        } finally { restore(); }
+      }
+    }
+    // suite-nav active state (kit-injected links carry hrefs we can match)
+    document.querySelectorAll('.suite-link').forEach(function(a){
+      var to = pathToView(new URL(a.href, location.href).pathname);
+      if (to === name) a.setAttribute('aria-current','page');
+      else a.removeAttribute('aria-current');
+    });
+    window.scrollTo(0,0);
+  }
+  function go(name, push){
+    if (name === current) { document.body.classList.remove('nav-open'); return; }
+    var url = name==='hub' ? '/' : '/'+name+'/';
+    if (push) history.pushState({v:name}, '', url);
+    var done = function(txt){
+      current = name;
+      mount(name, txt);
+      viewroot.classList.remove('leaving');
+    };
+    viewroot.classList.add('leaving');
+    var t0 = Date.now();
+    var p = name==='hub' ? Promise.resolve(null) : fetchView(name);
+    p.then(function(txt){
+      var wait = Math.max(0, 150 - (Date.now()-t0));
+      setTimeout(function(){ done(txt); }, wait);
+    }).catch(function(){
+      // fetch failed (offline, gate) — hard-navigate as a fallback
+      location.href = url;
+    });
+  }
+  // intercept same-origin suite navigation
+  document.addEventListener('click', function(e){
+    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button!==0) return;
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (!a || a.origin !== location.origin) return;
+    var to = a.pathname;
+    if (/^\/(evidence|staging|drugs|tox|acute)\/?$/.test(to) || to === '/' ) {
+      e.preventDefault();
+      go(pathToView(to), true);
+    }
+  }, true);
+  window.addEventListener('popstate', function(){ go(pathToView(location.pathname), false); });
+
+  // retire old per-module service workers (scope != root)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(rs){
+      rs.forEach(function(r){
+        if (new URL(r.scope).pathname !== '/') r.unregister();
+      });
+    });
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('/sw.js').catch(function(){});
+    });
+  }
+
+  // boot on whatever path we were served at
+  go(pathToView(location.pathname), false);
+  // prefetch remaining views when idle (instant later hops)
+  var idle = window.requestIdleCallback || function(f){ setTimeout(f, 1500); };
+  idle(function(){ Object.keys(VIEWS).forEach(function(n){ if(n!=='hub') fetchView(n).catch(function(){}); }); });
+})();
+
+</script>
 </body>
 </html>

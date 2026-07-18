@@ -1,0 +1,44 @@
+{
+  "rewrites": [
+    {
+      "source": "/evidence",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/staging",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/drugs",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/tox",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/acute",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/evidence/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/staging/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/drugs/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/tox/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/acute/",
+      "destination": "/index.html"
+    }
+  ]
+}
