@@ -288,6 +288,13 @@ aside.sidebar{position:fixed;top:0;left:0;z-index:50;background:var(--paper);
 body.nav-open aside.sidebar{transform:translateX(0);}
 body.nav-open{overflow:hidden;}
 #viewroot{min-height:60vh;}
+/* Drawer padding: evidence/staging nav items carry their own indent; drugs,
+   tox and acute relied on their (stripped) module-aside padding — restore it
+   at the mount point so content doesn't hug the drawer edges. */
+[data-view="drugs"] #viewnav,[data-view="tox"] #viewnav,[data-view="acute"] #viewnav{
+  padding:6px 18px 20px;}
+/* in-view hash anchors (drugs A–Z) land below the sticky masthead */
+:target{scroll-margin-top:72px;}
 @media (max-width:760px){
   .mhead{padding-left:15px;padding-right:15px;gap:10px;}
   .barsearch{margin-left:auto;}
@@ -576,6 +583,12 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button!==0) return;
     var a = e.target.closest ? e.target.closest('a') : null;
     if (!a || a.origin !== location.origin) return;
+    // same-page hash anchors (drugs A-Z letters) are the browser's business —
+    // scroll natively, close the drawer, and never hijack them as navigation
+    if (a.hash && a.pathname.replace(/\/$/,'') === location.pathname.replace(/\/$/,'')) {
+      setTimeout(function(){ document.body.classList.remove('nav-open'); }, 40);
+      return;
+    }
     var to = a.pathname;
     if (/^\/(evidence|staging|drugs|tox|acute)\/?$/.test(to) || to === '/' ) {
       e.preventDefault();
