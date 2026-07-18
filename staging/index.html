@@ -280,9 +280,29 @@
   :root[data-theme="dark"] .wm .os{ background-image:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6); }
   .mhead{ background:var(--glass);
     -webkit-backdrop-filter:blur(14px) saturate(1.3); backdrop-filter:blur(14px) saturate(1.3);
-    border-bottom:1px solid var(--hair); }
+    border-bottom:1px solid var(--hair);
+    view-transition-name:oncos-masthead; }
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
     .mhead{ background:var(--paper); }
+  }
+  /* --- Wavelength crossfade (the proposal's cross-module motion). Cross-document
+     view transitions animate same-origin navigation between modules: the masthead
+     is a named transition element so the chrome stays continuous while the content
+     — and its per-module wavelength (chips, accents, active nav) — crossfades,
+     instead of a hard cut along the spectrum. Progressive enhancement: browsers
+     without cross-document view transitions navigate exactly as before; reduced
+     motion cuts instantly. Both the outgoing and incoming page opt in (every
+     module + the hub inject this), which is what a cross-document transition
+     requires. --- */
+  @view-transition{ navigation:auto; }
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){
+    animation-duration:.2s; animation-timing-function:var(--mo-ease, cubic-bezier(.3,0,.1,1));
+  }
+  /* The masthead is continuous across a view transition, so its one-shot settle
+     must not replay on arrival (it would fight the crossfade). */
+  :active-view-transition .mhead{ animation:none; }
+  @media (prefers-reduced-motion: reduce){
+    ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){ animation:none !important; }
   }
   /* Masthead settle: the module masthead fades + slides in once on load. Scoped
      to .mhead so the hub (no masthead, has its own load sequence) is untouched.
