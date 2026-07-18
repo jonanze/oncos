@@ -69,8 +69,6 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010; --sidebar-w:214px; --he
     border:1px solid var(--hair); border-radius:999px; cursor:pointer; }
 [data-view="acute"] .backbtn[hidden]{ display:none; }
 [data-view="acute"] .backbtn:hover{ color:var(--teal); border-color:var(--teal); background:var(--accent-soft); }
-[data-view="acute"] .ixall{ display:inline-flex; margin:2px 0 16px; padding:8px 18px; font:inherit; font-size:13px;
-    font-weight:600; color:var(--btn-ink); background:var(--teal); border:none; border-radius:999px; cursor:pointer; }
 [data-view="acute"] .ixsec{ display:flex; align-items:baseline; gap:8px; font-size:11px; font-weight:700;
     letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:16px 0 8px; }
 [data-view="acute"] .ixsec .ixn{ font-family:var(--font-mono); font-size:10px; color:var(--muted);
@@ -82,10 +80,6 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010; --sidebar-w:214px; --he
     background:var(--paper); border:1px solid var(--grid); border-radius:11px; box-shadow:var(--shadow);
     transition:border-color .15s, transform .15s; }
 [data-view="acute"] .ixrow:hover{ border-color:color-mix(in oklab, var(--teal) 45%, var(--grid)); transform:translateY(-1px); }
-[data-view="acute"] .ixdot{ flex:0 0 auto; width:9px; height:9px; border-radius:50%; }
-[data-view="acute"] .ixdot.u-high{ background:var(--status-warning); }
-[data-view="acute"] .ixdot.u-peri{ background:var(--status-danger); }
-[data-view="acute"] .ixdot.u-urgent{ background:var(--status-info); }
 [data-view="acute"] .actnow{ border-radius:9px; }
 [data-view="acute"] .cbody{ background:var(--ground); }
 [data-view="acute"] ul.grade .g{ font-family:var(--font-mono); }
@@ -97,46 +91,45 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010; --sidebar-w:214px; --he
   
   <main id="acmain">
     <div id="acuteindex">
-      <button class="ixall" id="ixall" type="button">All emergencies</button>
-<div class="ixsec">Structural<span class="ixn">7</span></div>
+      <div class="ixsec">Structural<span class="ixn">7</span></div>
 <div class="ixgrid">
-<button class="ixrow" type="button" data-id="mscc"><span class="ixdot u-high"></span><span>Malignant spinal cord compression</span></button>
-<button class="ixrow" type="button" data-id="svco"><span class="ixdot u-high"></span><span>Superior vena cava obstruction</span></button>
-<button class="ixrow" type="button" data-id="tamponade"><span class="ixdot u-peri"></span><span>Cardiac tamponade / malignant pericardial effusion</span></button>
-<button class="ixrow" type="button" data-id="raised-icp"><span class="ixdot u-peri"></span><span>Raised intracranial pressure &amp; brain-metastasis crises</span></button>
-<button class="ixrow" type="button" data-id="airway-obstruction"><span class="ixdot u-peri"></span><span>Malignant central airway obstruction / stridor</span></button>
-<button class="ixrow" type="button" data-id="bowel-obstruction"><span class="ixdot u-high"></span><span>Malignant bowel obstruction</span></button>
-<button class="ixrow" type="button" data-id="obstructive-uropathy"><span class="ixdot u-high"></span><span>Obstructive uropathy &amp; urological emergencies</span></button>
+<button class="ixrow" type="button" data-id="mscc"><span>Malignant spinal cord compression</span></button>
+<button class="ixrow" type="button" data-id="svco"><span>Superior vena cava obstruction</span></button>
+<button class="ixrow" type="button" data-id="tamponade"><span>Cardiac tamponade / malignant pericardial effusion</span></button>
+<button class="ixrow" type="button" data-id="raised-icp"><span>Raised intracranial pressure &amp; brain-metastasis crises</span></button>
+<button class="ixrow" type="button" data-id="airway-obstruction"><span>Malignant central airway obstruction / stridor</span></button>
+<button class="ixrow" type="button" data-id="bowel-obstruction"><span>Malignant bowel obstruction</span></button>
+<button class="ixrow" type="button" data-id="obstructive-uropathy"><span>Obstructive uropathy &amp; urological emergencies</span></button>
 </div>
 <div class="ixsec">Metabolic<span class="ixn">3</span></div>
 <div class="ixgrid">
-<button class="ixrow" type="button" data-id="tls"><span class="ixdot u-high"></span><span>Tumour lysis syndrome</span></button>
-<button class="ixrow" type="button" data-id="hypercalcaemia"><span class="ixdot u-high"></span><span>Hypercalcaemia of malignancy</span></button>
-<button class="ixrow" type="button" data-id="hyponatraemia-siadh"><span class="ixdot u-high"></span><span>Hyponatraemia / SIADH</span></button>
+<button class="ixrow" type="button" data-id="tls"><span>Tumour lysis syndrome</span></button>
+<button class="ixrow" type="button" data-id="hypercalcaemia"><span>Hypercalcaemia of malignancy</span></button>
+<button class="ixrow" type="button" data-id="hyponatraemia-siadh"><span>Hyponatraemia / SIADH</span></button>
 </div>
 <div class="ixsec">Infective<span class="ixn">2</span></div>
 <div class="ixgrid">
-<button class="ixrow" type="button" data-id="febrile-neutropaenia"><span class="ixdot u-high"></span><span>Febrile neutropaenia &amp; septic shock</span></button>
-<button class="ixrow" type="button" data-id="typhlitis"><span class="ixdot u-high"></span><span>Neutropenic enterocolitis (typhlitis)</span></button>
+<button class="ixrow" type="button" data-id="febrile-neutropaenia"><span>Febrile neutropaenia &amp; septic shock</span></button>
+<button class="ixrow" type="button" data-id="typhlitis"><span>Neutropenic enterocolitis (typhlitis)</span></button>
 </div>
 <div class="ixsec">Haematological<span class="ixn">4</span></div>
 <div class="ixgrid">
-<button class="ixrow" type="button" data-id="transfusion-reactions"><span class="ixdot u-high"></span><span>Acute transfusion reactions</span></button>
-<button class="ixrow" type="button" data-id="dic"><span class="ixdot u-high"></span><span>Disseminated intravascular coagulation</span></button>
-<button class="ixrow" type="button" data-id="hyperviscosity-leukostasis"><span class="ixdot u-high"></span><span>Hyperviscosity syndrome / leukostasis</span></button>
-<button class="ixrow" type="button" data-id="major-haemorrhage"><span class="ixdot u-peri"></span><span>Major haemorrhage (incl. massive haemoptysis)</span></button>
+<button class="ixrow" type="button" data-id="transfusion-reactions"><span>Acute transfusion reactions</span></button>
+<button class="ixrow" type="button" data-id="dic"><span>Disseminated intravascular coagulation</span></button>
+<button class="ixrow" type="button" data-id="hyperviscosity-leukostasis"><span>Hyperviscosity syndrome / leukostasis</span></button>
+<button class="ixrow" type="button" data-id="major-haemorrhage"><span>Major haemorrhage (incl. massive haemoptysis)</span></button>
 </div>
 <div class="ixsec">Vascular<span class="ixn">1</span></div>
 <div class="ixgrid">
-<button class="ixrow" type="button" data-id="cancer-vte"><span class="ixdot u-high"></span><span>Acute cancer-associated VTE / pulmonary embolism</span></button>
+<button class="ixrow" type="button" data-id="cancer-vte"><span>Acute cancer-associated VTE / pulmonary embolism</span></button>
 </div>
 <div class="ixsec">Treatment-related<span class="ixn">5</span></div>
 <div class="ixgrid">
-<button class="ixrow" type="button" data-id="crs"><span class="ixdot u-high"></span><span>Cytokine release syndrome</span></button>
-<button class="ixrow" type="button" data-id="hypersensitivity"><span class="ixdot u-peri"></span><span>Anaphylaxis, hypersensitivity &amp; infusion reactions</span></button>
-<button class="ixrow" type="button" data-id="extravasation"><span class="ixdot u-urgent"></span><span>Vesicant chemotherapy extravasation</span></button>
-<button class="ixrow" type="button" data-id="icans"><span class="ixdot u-high"></span><span>ICANS (immune effector cell-associated neurotoxicity)</span></button>
-<button class="ixrow" type="button" data-id="irae-emergencies"><span class="ixdot u-high"></span><span>Severe immune-related adverse event crises</span></button>
+<button class="ixrow" type="button" data-id="crs"><span>Cytokine release syndrome</span></button>
+<button class="ixrow" type="button" data-id="hypersensitivity"><span>Anaphylaxis, hypersensitivity &amp; infusion reactions</span></button>
+<button class="ixrow" type="button" data-id="extravasation"><span>Vesicant chemotherapy extravasation</span></button>
+<button class="ixrow" type="button" data-id="icans"><span>ICANS (immune effector cell-associated neurotoxicity)</span></button>
+<button class="ixrow" type="button" data-id="irae-emergencies"><span>Severe immune-related adverse event crises</span></button>
 </div>
     </div>
     <button class="backbtn" id="ixback" type="button" hidden>&#8592; Index</button>
@@ -390,7 +383,6 @@ const q=document.getElementById('q'), cats=[...document.querySelectorAll('.cat')
     acmain.classList.add('vfade');
     setTimeout(()=>{ paintView(target); acmain.classList.remove('vfade'); }, 150);
   }
-  document.getElementById('ixall').onclick=()=>setView('cards');
   ix.querySelectorAll('.ixrow').forEach(b=>b.onclick=()=>setView('cards', b.dataset.id));
   back.onclick=()=>setView('index');
   function apply(){

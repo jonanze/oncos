@@ -383,16 +383,9 @@ html[data-view="tox"][data-theme="dark"] mark{background:#5a4a12; color:#f3e6b0}
 [data-view="tox"] .backbtn{display:inline-flex;align-items:center;gap:7px;margin:0 0 14px;padding:7px 15px;font:inherit;font-size:13px;font-weight:600;color:var(--slate);background:var(--paper);border:1px solid var(--hair);border-radius:999px;cursor:pointer}
 [data-view="tox"] .backbtn:hover{color:var(--teal);border-color:var(--teal);background:var(--accent-soft)}
 [data-view="tox"] .tixgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:6px 0 26px}
-[data-view="tox"] .tixcard{display:flex;flex-direction:column;gap:6px;text-align:left;padding:18px;font:inherit;cursor:pointer;background:var(--paper);border:1px solid var(--grid);border-radius:14px;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
+[data-view="tox"] .tixcard{display:flex;align-items:center;justify-content:center;text-align:center;padding:26px 18px;font:inherit;cursor:pointer;background:var(--paper);border:1px solid var(--grid);border-radius:14px;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
 [data-view="tox"] .tixcard:hover{border-color:color-mix(in oklab, var(--teal) 45%, var(--grid));transform:translateY(-2px)}
 [data-view="tox"] .tixname{font-family:var(--font-serif);font-weight:600;font-size:18px;color:var(--ink)}
-[data-view="tox"] .tixdesc{font-size:13px;color:var(--slate);line-height:1.5}
-[data-view="tox"] .tixstats{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
-[data-view="tox"] .tixstats span{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);padding:2px 9px;border:1px solid var(--grid);border-radius:999px}
-[data-view="tox"] .tixlabel{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-[data-view="tox"] .tixchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
-[data-view="tox"] .tixchip{display:inline-flex;align-items:center;padding:7px 15px;font:inherit;font-size:13px;font-weight:600;color:var(--slate);background:var(--paper);border:1px solid var(--hair);border-radius:999px;cursor:pointer}
-[data-view="tox"] .tixchip:hover{color:var(--teal);border-color:var(--teal);background:var(--accent-soft)}
 </style>
 <div class="viewfrag">
 <div hidden aria-hidden="true" data-chrome-stubs><span id="mtag"></span></div>
@@ -1143,21 +1136,15 @@ function renderSupportive(list){
 
 function renderIndex(list){
  $('#htitle').textContent=''; 
- const topics=(SUPP?SUPP.topics:[]);
  let h='<div class="tixgrid">';
- h+=`<button class="tixcard" data-ix="ctcae"><span class="tixname">CTCAE grading</span><span class="tixdesc">Grade any adverse event \u2014 the verbatim v6.0 ladders, with calculators where a lab scale exists.</span><span class="tixstats"><span>${MODEL.meta.n_terms} terms</span><span>${MODEL.meta.n_socs} organ classes</span></span></button>`;
- h+=`<button class="tixcard" data-ix="irae"><span class="tixname">irAE management</span><span class="tixdesc">Guideline-sourced immune-toxicity management, organ by organ, by grade.</span><span class="tixstats"><span>${MODEL.meta.n_irae} entities</span><span>${(MODEL.irae_groups||[]).length} organs</span></span></button>`;
- h+=`<button class="tixcard" data-ix="supportive"><span class="tixname">Supportive care</span><span class="tixdesc">Decide what to do about the common toxicities \u2014 decoupled from the grade ladder.</span><span class="tixstats"><span>${MODEL.meta.n_supportive} topics</span></span></button>`;
+ h+=`<button class="tixcard" data-ix="ctcae"><span class="tixname">CTCAE grading</span></button>`;
+ h+=`<button class="tixcard" data-ix="irae"><span class="tixname">irAE management</span></button>`;
+ h+=`<button class="tixcard" data-ix="supportive"><span class="tixname">Supportive care</span></button>`;
  h+='</div>';
- h+='<div class="tixlabel">Supportive care topics</div><div class="tixchips">';
- topics.forEach(t=>{ h+=`<button class="tixchip" data-topic="${t.id}">${esc(t.name)}</button>`; });
- h+='<button class="tixchip" data-conv="1">Unit converter</button></div>';
  list.insertAdjacentHTML('beforeend', h);
  list.querySelectorAll('.tixcard').forEach(b=>b.onclick=()=>{
   const m=b.dataset.ix; setMode(m, m==='supportive'?'gcsf':'');
  });
- list.querySelectorAll('.tixchip[data-topic]').forEach(b=>b.onclick=()=>setMode('supportive', b.dataset.topic));
- const cv=list.querySelector('.tixchip[data-conv]'); if(cv) cv.onclick=()=>$('#convBtn').onclick();
 }
 function goIndex(){ mode='index'; query=''; $('#q').value=''; fadeRender(); window.scrollTo(0,0); }
 function addBack(list){ 
