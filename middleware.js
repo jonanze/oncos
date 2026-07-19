@@ -65,47 +65,73 @@ function loginPage(error) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>oncOS — Sign in</title>
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0d13" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Schibsted+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono&display=swap" rel="stylesheet">
 <style>
-  :root{--outer:#081521;--paper:#0e2233;--ink:#e8eef4;--muted:#8497a7;--teal:#4aa6e2;
-    --hair:#25405a;--btn-ink:#062036;--danger:#f0716e;--field:#0a1c2c;--field-hair:#2c4964;}
-  @media (prefers-color-scheme:light){:root{--outer:#eef2f6;--paper:#fff;--ink:#0f2a43;
-    --muted:#5b6b78;--teal:#1668a3;--hair:#e2e8f0;--btn-ink:#fff;--danger:#c0392b;
-    --field:#f7f9fb;--field-hair:#d4dde6;}}
+  /* Meridian tokens — mirrored from _oncos-kit/oncos_theme.py so the gate reads
+     as one system with the suite. Light "porcelain" base; dark "ink" via
+     prefers-color-scheme (the gate has no toggle — it follows the OS, which is
+     the suite's default). Fonts load from Google's CDN, not /fonts/, because the
+     gate serves unauthenticated users and the middleware matcher gates /fonts/. */
+  :root{
+    --ink:#131926; --muted:#647184; --hair:#e3e7ee; --rule:#d7dde6;
+    --paper:#ffffff; --ground:#f6f7f9;
+    --m:#4e51d8; --btn-ink:#ffffff;
+    --accent-soft:color-mix(in oklab,var(--m) 8%,#ffffff);
+    --danger:#c23f38; --danger-soft:#faeae9;
+    --wm-grad:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
+    --shadow:0 1px 2px rgba(19,25,38,.05), 0 10px 28px -12px rgba(19,25,38,.14);
+    --font-sans:'Schibsted Grotesk',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    --font-mono:'Spline Sans Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --ink:#e8ecf3; --muted:#8391a3; --hair:#222937; --rule:#2a3242;
+    --paper:#10141c; --ground:#0a0d13;
+    --m:#8a8cff; --btn-ink:#0a0d13;
+    --accent-soft:color-mix(in oklab,var(--m) 13%,#10141c);
+    --danger:#f0716b; --danger-soft:#391b19;
+    --wm-grad:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6);
+    --shadow:none;
+    color-scheme:dark;
+  }}
   *{box-sizing:border-box}html,body{height:100%}
-  body{margin:0;background:var(--outer);color:var(--ink);font-family:-apple-system,
-    BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;
-    align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font-sans);
+    font-size:14px;line-height:1.5;display:flex;align-items:center;justify-content:center;
+    padding:24px;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
   .card{width:100%;max-width:372px;background:var(--paper);border:1px solid var(--hair);
-    border-radius:14px;padding:38px 34px 30px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
-  .wm{font-family:'Montserrat',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    font-size:31px;font-weight:800;letter-spacing:-.3px;line-height:1;margin:0 0 6px}
-  .wm .os{color:var(--teal)}
-  .kicker{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    border-radius:14px;padding:38px 34px 30px;box-shadow:var(--shadow)}
+  .wm{font-family:'Montserrat',var(--font-sans);font-size:32px;font-weight:700;
+    letter-spacing:-.03em;line-height:1;margin:0 0 7px;color:var(--ink)}
+  .wm .os{background-image:var(--wm-grad);-webkit-background-clip:text;
+    background-clip:text;color:transparent}
+  .kicker{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
     color:var(--muted);margin:0 0 26px}
   label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:0 0 7px;
     letter-spacing:.02em}
   input[type=password]{width:100%;padding:12px 13px;font-size:16px;color:var(--ink);
-    background:var(--field);border:1px solid var(--field-hair);border-radius:8px;
-    outline:none;transition:border-color .15s,box-shadow .15s}
-  input[type=password]:focus{border-color:var(--teal);
-    box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 22%,transparent)}
+    font-family:var(--font-sans);background:var(--ground);border:1px solid var(--rule);
+    border-radius:9px;outline:none;transition:border-color .15s,box-shadow .15s}
+  input[type=password]:focus{border-color:var(--m);
+    box-shadow:0 0 0 3px color-mix(in oklab,var(--m) 22%,transparent)}
   button{width:100%;margin-top:18px;padding:12px 14px;font-size:14px;font-weight:700;
-    letter-spacing:.02em;color:var(--btn-ink);background:var(--teal);border:0;
-    border-radius:8px;cursor:pointer;transition:filter .15s}
+    font-family:var(--font-sans);letter-spacing:.02em;color:var(--btn-ink);background:var(--m);
+    border:0;border-radius:9px;cursor:pointer;transition:filter .15s}
   button:hover{filter:brightness(1.06)}
   .err{display:${error ? 'block' : 'none'};margin:14px 0 0;padding:10px 12px;font-size:13px;
-    color:var(--danger);background:color-mix(in srgb,var(--danger) 12%,transparent);
-    border:1px solid color-mix(in srgb,var(--danger) 30%,transparent);border-radius:8px}
+    color:var(--danger);background:var(--danger-soft);
+    border:1px solid color-mix(in oklab,var(--danger) 34%,transparent);border-radius:9px}
   .foot{margin:24px 0 0;padding-top:18px;border-top:1px solid var(--hair);
-    font-size:11.5px;line-height:1.5;color:var(--muted)}
+    font-family:var(--font-mono);font-size:11.5px;line-height:1.6;letter-spacing:.2px;
+    color:var(--muted)}
 </style>
 </head>
 <body>
   <main class="card">
-    <h1 class="wm">onc<span class="os">OS</span></h1>
+    <h1 class="wm" aria-label="oncOS">onc<span class="os">OS</span></h1>
     <p class="kicker">Authorised access</p>
     <form method="POST" action="/__login">
       <label for="password">Access password</label>
