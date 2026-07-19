@@ -9,6 +9,7 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .navsec{ margin-top: 6px; }
 [data-view="evidence"] .navsec > .sysname{
     display: flex; justify-content: space-between; align-items: center;
+    width: 100%; border: 0; background: transparent; text-align: left; font-family: inherit;
     padding: 9px 20px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
     text-transform: uppercase; color: var(--muted); cursor: pointer; user-select: none;
   }
@@ -16,18 +17,19 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .navsec .caret{ transition: transform .15s; font-size: 10px; opacity: .6; }
 [data-view="evidence"] .navsec.collapsed .caret{ transform: rotate(-90deg); }
 [data-view="evidence"] .navsec.collapsed .sheets{ display: none; }
-[data-view="evidence"] .sheets a{
+[data-view="evidence"] .sheets button{
     display: flex; justify-content: space-between; gap: 8px; align-items: center;
+    width: 100%; background: transparent; font-family: inherit; text-align: left;
     padding: 6px 20px 6px 28px; color: var(--ink); text-decoration: none; cursor: pointer;
-    border-left: 2px solid transparent; font-size: 13px;
+    border: 0; border-left: 2px solid transparent; font-size: 13px;
   }
-[data-view="evidence"] .sheets a:hover{ background: var(--accent-soft); }
-[data-view="evidence"] .sheets a.active{ background: var(--accent-soft); border-left-color: var(--accent); font-weight: 600; color: var(--teal); }
-[data-view="evidence"] .sheets a .cnt{ color: var(--muted); font-size: 11px; background: var(--chip); border-radius: 2px; padding: 0 7px; }
+[data-view="evidence"] .sheets button:hover{ background: var(--accent-soft); }
+[data-view="evidence"] .sheets button.active{ background: var(--accent-soft); border-left-color: var(--accent); font-weight: 600; color: var(--teal); }
+[data-view="evidence"] .sheets button .cnt{ color: var(--muted); font-size: 11px; background: var(--chip); border-radius: 2px; padding: 0 7px; }
 [data-view="evidence"] .allbtn{ margin: 4px 20px 10px; }
-[data-view="evidence"] .allbtn a{
-    display: block; text-align: center; padding: 8px; border-radius: 0;
-    background: var(--accent); color: var(--btn-ink); text-decoration: none; font-weight: 600; font-size: 13px; cursor: pointer;
+[data-view="evidence"] .allbtn button{
+    display: block; width: 100%; text-align: center; padding: 8px; border: 0; border-radius: 0;
+    background: var(--accent); color: var(--btn-ink); text-decoration: none; font-family: inherit; font-weight: 600; font-size: 13px; cursor: pointer;
   }
 [data-view="evidence"] .topbar{ margin-bottom: 12px; }
 [data-view="evidence"] .crumbs{ display: none; }
@@ -38,15 +40,20 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] th.c-set{ width: 210px; }
 [data-view="evidence"] thead th{
     text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
-    padding: 11px 12px; border-bottom: 1.2px solid var(--rule); background: var(--paper); cursor: pointer; white-space: nowrap;
+    padding: 0; border-bottom: 1.2px solid var(--rule); background: var(--paper); white-space: nowrap;
+    position: sticky; top: calc(59px + env(safe-area-inset-top)); z-index: 3;
   }
-[data-view="evidence"] thead th:hover{ color: var(--ink); }
+[data-view="evidence"] .sortbtn{ display: block; width: 100%; padding: 11px 12px; border: 0; background: transparent;
+    color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; text-align: left; cursor: pointer; }
+[data-view="evidence"] .sortbtn:hover{ color: var(--ink); }
 [data-view="evidence"] thead th .arrow{ opacity: .4; font-size: 10px; }
 [data-view="evidence"] tbody tr.trial{ border-bottom: 1px solid var(--grid); cursor: pointer; }
 [data-view="evidence"] tbody tr.trial:hover{ background: var(--accent-soft); }
 [data-view="evidence"] tbody td{ padding: 10px 12px; vertical-align: top; }
 [data-view="evidence"] td.study{ font-family: var(--font-serif); font-weight: 500; font-size: 15px; }
-[data-view="evidence"] td.study .sub{ font-family: var(--font-sans); font-weight: 400; color: var(--muted); font-size: 12px; }
+[data-view="evidence"] .trial-toggle{ display: block; width: 100%; padding: 0; border: 0; background: transparent;
+    color: inherit; font: inherit; font-weight: inherit; text-align: left; cursor: pointer; }
+[data-view="evidence"] td.study .sub{ display: block; font-family: var(--font-sans); font-weight: 400; color: var(--muted); font-size: 12px; }
 [data-view="evidence"] .ph{ display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; font-size: 11px; padding: 2px 8px; border-radius: 2px; font-weight: 600; letter-spacing: .03em; background: var(--status-info-soft); color: var(--status-info); white-space: nowrap; }
 [data-view="evidence"] .ph.III{ background: var(--status-success-soft); color: var(--status-success); }
 [data-view="evidence"] .ph.II{ background: var(--status-warning-soft); color: var(--status-warning); }
@@ -106,13 +113,13 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] footer.disclaimer{ margin-top: 18px; }}
 @media print{[data-view="evidence"] main{ padding: 0; }}
 [data-view="evidence"] #results{ background: var(--panel); border: 1px solid var(--grid); border-radius: 14px;
-    overflow: hidden; box-shadow: var(--shadow); }
+    overflow: clip; box-shadow: var(--shadow); }
 [data-view="evidence"] thead th{ background: var(--ground); }
 [data-view="evidence"] .ph{ border-radius: 999px; font-family: var(--font-mono); font-weight: 500; }
 [data-view="evidence"] td[data-label="Year"]{ font-family: var(--font-mono); font-size: 12.5px; }
-[data-view="evidence"] .sheets a .cnt{ border-radius: 999px; }
+[data-view="evidence"] .sheets button .cnt{ border-radius: 999px; }
 [data-view="evidence"] .reftag{ border-radius: 999px; }
-[data-view="evidence"] .allbtn a{ border-radius: 999px; }
+[data-view="evidence"] .allbtn button{ border-radius: 999px; }
 [data-view="evidence"] .drawerfilters select{ border-radius: 9px; }
 [data-view="evidence"] .detail .findings{ border-radius: 9px; }
 @media (max-width: 760px){[data-view="evidence"] #results{ background: transparent; border: none; border-radius: 0; overflow: visible; box-shadow: none; }
@@ -136,12 +143,12 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 </div>
 </div>
 <template data-nav>
-<div class="allbtn"><a id="showall">All trials</a></div>
-    <nav id="nav"></nav>
+<div class="allbtn"><button id="showall" type="button">All trials</button></div>
+    <nav id="nav" aria-label="Evidence sections"></nav>
     <div class="drawerfilters">
       <div class="dlabel">Filter</div>
-      <select id="fphase"><option value="">All phases</option></select>
-      <select id="fyear"><option value="">All years</option></select>
+      <select id="fphase" aria-label="Filter by phase"><option value="">All phases</option></select>
+      <select id="fyear" aria-label="Filter by year"><option value="">All years</option></select>
     </div>
 </template>
 <script>
@@ -160,14 +167,15 @@ let state = { scope: 'all', sheet: null, system: null, q: '', phase: '', yearBuc
 const nav = document.getElementById('nav');
 for (const [sys, sheets] of Object.entries(SYSTEMS)) {
   const sec = document.createElement('div'); sec.className = 'navsec';
-  const head = document.createElement('div'); head.className = 'sysname';
+  const head = document.createElement('button'); head.type = 'button'; head.className = 'sysname';
+  head.setAttribute('aria-expanded','true');
   const tot = sheets.reduce((a,s)=>a+(META[s]||0),0);
-  head.innerHTML = `<span>${sys}</span><span class="caret">&#9660;</span>`;
-  head.onclick = () => sec.classList.toggle('collapsed');
+  head.innerHTML = `<span>${sys}</span><span class="caret" aria-hidden="true">&#9660;</span>`;
+  head.onclick = () => { const collapsed = sec.classList.toggle('collapsed'); head.setAttribute('aria-expanded', collapsed ? 'false' : 'true'); };
   sec.appendChild(head);
   const box = document.createElement('div'); box.className = 'sheets';
   sheets.forEach(sh => {
-    const a = document.createElement('a'); a.dataset.sheet = sh;
+    const a = document.createElement('button'); a.type = 'button'; a.dataset.sheet = sh;
     a.innerHTML = `<span>${sh}</span><span class="cnt">${META[sh]||0}</span>`;
     a.onclick = () => selectSheet(sh, sys);
     box.appendChild(a);
@@ -176,7 +184,7 @@ for (const [sys, sheets] of Object.entries(SYSTEMS)) {
 }
 document.getElementById('showall').onclick = () => {
   state.scope='all'; state.sheet=null; state.system=null;
-  document.querySelectorAll('.sheets a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.sheets button').forEach(a => a.classList.remove('active'));
   closeNav(); render(); window.scrollTo(0,0);
 };
 
@@ -203,14 +211,14 @@ document.getElementById('q').oninput = e => {
   state.q = e.target.value.toLowerCase().trim();
   if (state.q) {
     state.scope='all'; state.sheet=null; state.system=null;
-    document.querySelectorAll('.sheets a').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('.sheets button').forEach(a => a.classList.remove('active'));
   }
   render();
 };
 
 function selectSheet(sheet, sys) {
   state.scope='sheet'; state.sheet=sheet; state.system=sys; closeNav(); render(); window.scrollTo(0,0);
-  document.querySelectorAll('.sheets a').forEach(a => a.classList.toggle('active', a.dataset.sheet===sheet));
+  document.querySelectorAll('.sheets button').forEach(a => a.classList.toggle('active', a.dataset.sheet===sheet));
 }
 function inBucket(y, b) {
   if (!b) return true; if (y==null) return false;
@@ -284,6 +292,8 @@ function toggleRow(tr) {
   if (tr.dataset.animating) return;   // ignore clicks mid-flight
   const closing = state.open.has(id);
   tr.classList.toggle('open', !closing);
+  const toggle = tr.querySelector('.trial-toggle');
+  if (toggle) toggle.setAttribute('aria-expanded', closing ? 'false' : 'true');
 
   if (closing) {
     state.open.delete(id);
@@ -342,11 +352,12 @@ function render() {
 
   const showSys = state.scope==='all';
   const arrow = k => state.sortKey===k ? (state.sortDir===1?' &#9650;':' &#9660;') : '';
-  let h = `<table><thead><tr>
-    <th data-k="study">Study${arrow('study')}</th>
-    <th data-k="phase" class="c-phase">Phase${arrow('phase')}</th>
-    <th data-k="yearnum" class="c-year">Year${arrow('yearnum')}</th>
-    ${showSys?`<th data-k="sheet" class="c-set">Setting${arrow('sheet')}</th>`:''}
+  const sortHead = (k, label, cls='') => `<th scope="col"${cls?` class="${cls}"`:''}${state.sortKey===k?` aria-sort="${state.sortDir===1?'ascending':'descending'}"`:''}><button class="sortbtn" type="button" data-k="${k}">${label}${arrow(k)}</button></th>`;
+  let h = `<table><caption class="sr-only">Clinical trial evidence</caption><thead><tr>
+    ${sortHead('study','Study')}
+    ${sortHead('phase','Phase','c-phase')}
+    ${sortHead('yearnum','Year','c-year')}
+    ${showSys?sortHead('sheet','Setting','c-set'):''}
   </tr></thead><tbody>`;
 
   let lastGroup = null;
@@ -358,7 +369,7 @@ function render() {
     }
     const isOpen = state.open.has(t.id);
     h += `<tr class="trial${isOpen?' open':''}" data-id="${t.id}">
-      <td class="study">${esc(t.study)}${ state.scope==='all'&&t.subcat?`<div class="sub">${esc(t.subcat)}</div>`:''}</td>
+      <td class="study"><button class="trial-toggle" type="button" aria-expanded="${isOpen?'true':'false'}">${esc(t.study)}${ state.scope==='all'&&t.subcat?`<span class="sub">${esc(t.subcat)}</span>`:''}</button></td>
       <td data-label="Phase"><span class="ph ${phClass(t.phase)}"${t.phaseFull?` title="${esc(t.phaseFull)}"`:''}>${esc(t.phase)}</span></td>
       <td data-label="Year">${esc(t.year)}</td>
       ${showSys?`<td data-label="Setting">${esc(t.sheet)}</td>`:''}</tr>`;
@@ -369,12 +380,13 @@ function render() {
   h += `</tbody></table>`;
   res.innerHTML = h;
 
-  res.querySelectorAll('thead th').forEach(th => th.onclick = () => {
-    const k = th.dataset.k;
+  res.querySelectorAll('thead .sortbtn').forEach(btn => btn.onclick = () => {
+    const k = btn.dataset.k;
     if (state.sortKey===k) state.sortDir*=-1; else { state.sortKey=k; state.sortDir = (k==='yearnum')?-1:1; }
     render();
   });
-  res.querySelectorAll('tr.trial').forEach(tr => tr.onclick = () => toggleRow(tr));
+  res.querySelectorAll('.trial-toggle').forEach(btn => btn.onclick = e => { e.stopPropagation(); toggleRow(btn.closest('tr')); });
+  res.querySelectorAll('tr.trial').forEach(tr => tr.onclick = e => { if (e.target.closest('button,a,input,select')) return; toggleRow(tr); });
 }
 render();
   },
