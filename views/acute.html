@@ -1,10 +1,6 @@
 <style data-view-css>
 html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 [data-view="acute"] a{color:var(--teal);}
-[data-view="acute"] aside{position:fixed;top:0;left:0;z-index:50;background:var(--panel,var(--paper));
-    border-right:1px solid var(--hair);height:100vh;height:100dvh;overflow-y:auto;
-    width:min(82vw,290px);transform:translateX(-100%);transition:transform .22s ease;
-    padding:calc(18px + env(safe-area-inset-top)) 0 calc(20px + env(safe-area-inset-bottom));}
 [data-view="acute"] .allbtn{margin:4px 20px 10px;}
 [data-view="acute"] .allbtn button{display:block;width:100%;text-align:center;padding:8px;border:0;border-radius:999px;
     background:var(--teal);color:var(--btn-ink);text-decoration:none;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;}
@@ -103,14 +99,14 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 [data-view="acute"] table.list tr.row td[data-label="Urgency"]{flex:0 0 auto;width:max-content;padding-top:2px;}
 [data-view="acute"] #results:has(> table.list){background:transparent;border:none;border-radius:0;overflow:visible;box-shadow:none;}}
 @media (max-width:520px){[data-view="acute"] .dvhead h2{font-size:20px;}}
-@media print{[data-view="acute"] aside, [data-view="acute"] .backbtn{display:none !important;}
+@media print{[data-view="acute"] .backbtn{display:none !important;}
 [data-view="acute"] main{padding:0;}}
 </style>
 <div class="viewfrag">
 <div class="layout">
   
   
-  <main>
+  <div class="viewmain">
     <div class="topbar">
       <div class="crumbs" id="crumbs"></div>
     </div>
@@ -119,7 +115,7 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
       Reference only — verify against the primary source before clinical use. Not a prescribing system.<br>
       oncOS Acute · adapted and updated from the ESMO Handbook of Oncological Emergencies.
     </footer>
-  </main>
+  </div>
 </div>
 </div>
 <template data-nav>
@@ -215,7 +211,7 @@ function render(fade){
   if (fade && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
     const res = document.getElementById('results');
     res.classList.add('vfade');
-    setTimeout(() => { renderNow(); res.classList.remove('vfade'); }, 150);
+    setTimeout(() => { if(!res.isConnected) return; renderNow(); res.classList.remove('vfade'); }, 150);  // bail if the view was torn down mid-fade
     return;
   }
   renderNow();

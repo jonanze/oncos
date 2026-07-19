@@ -434,13 +434,13 @@ html[data-view="tox"][data-theme="dark"] mark{background:#5a4a12; color:#f3e6b0}
 <div class="layout">
  
 
- <main>
+ <div class="viewmain">
   <div class="topbar"><h1 class="h-title" id="htitle">CTCAE v6.0</h1></div>
   <p class="lede" id="lede"></p>
   <div id="list"></div>
   <div class="empty" id="empty">No terms match.</div>
   <div class="foot" id="foot"></div>
- </main>
+ </div>
  
 </div>
 
@@ -811,6 +811,7 @@ function gcsfFilter(g){
  lc.textContent=`${rows.length} of ${g.regimens.length} regimens`;
 }
 function initGcsfLookup(g){
+ suppBands={high:true, mid:true};   // reset to the rendered (all-active) chip state — the chips are emitted hardcoded-active each build
  const inp=$('#gcsfq'); if(inp) inp.addEventListener('input',()=>gcsfFilter(g));
  document.querySelectorAll('#list .band[data-b]').forEach(el=>el.addEventListener('click',()=>{
    const b=el.dataset.b; suppBands[b]=!suppBands[b]; el.classList.toggle('act',suppBands[b]); gcsfFilter(g);
@@ -873,6 +874,7 @@ function antiemesisFilter(a){
  lc.textContent=`${rows.length} of ${a.emeto.length} agents`;
 }
 function initAntiemesisLookup(a){
+ antiBands={high:true, mid:true, low:true, min:true}; antiRoute='all';   // reset to the rendered (all-active / route=All) chip state
  const inp=$('#aeq'); if(inp) inp.addEventListener('input',()=>antiemesisFilter(a));
  document.querySelectorAll('#list .aefilt[data-b]').forEach(el=>el.addEventListener('click',()=>{
    const b=el.dataset.b; antiBands[b]=!antiBands[b]; el.classList.toggle('act',antiBands[b]); antiemesisFilter(a); }));
@@ -1352,7 +1354,7 @@ function fadeRender(){
  // just be dead time — swap instantly instead.
  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ render(); return; }
  const el=$('#list'); el.classList.add('vfade');
- setTimeout(()=>{ render(); el.classList.remove('vfade'); },150);
+ setTimeout(()=>{ if(!el.isConnected) return; render(); el.classList.remove('vfade'); },150);  // bail if the view was torn down mid-fade
 }
 function render(){
  buildNav();
@@ -1403,7 +1405,7 @@ function renderCtcaeDetail(list,id){
 $('#list').addEventListener('input',e=>{const w=e.target.closest('.calc');if(w)computeCalc(w);});
 $('#list').addEventListener('click',e=>{
  const sr=e.target.closest('.sresult'); if(sr){ jumpTo(sr.dataset.facet, sr.dataset.anchor); return; }
- const ct=e.target.closest('.ctlink'); if(ct){ goToTerm(ct.dataset.tid, currentDetailOrigin()); return; }
+ const ct=e.target.closest('.ctlink'); if(ct){ if(ct.dataset.tid) goToTerm(ct.dataset.tid, currentDetailOrigin()); return; }  // #fnGcsf is a .ctlink with no term id — handled by its own listener
  const p=e.target.closest('.csc'); if(!p)return;
  const w=p.closest('.calc'); w.dataset.scale=p.dataset.i;
  w.querySelectorAll('.csc').forEach(x=>x.classList.remove('on')); p.classList.add('on'); buildCalcInputs(w);
