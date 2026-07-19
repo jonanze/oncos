@@ -382,10 +382,16 @@ const q=document.getElementById('q'), cats=[...document.querySelectorAll('.cat')
     else { apply(); }
     window.scrollTo(0,0);
   }
+  // Quiet 150ms crossfade of #acmain around a content mutation. Skipped under
+  // reduced motion (no transition to show, so the hold would be dead time).
+  function fadeMain(mutate){
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ mutate(); return; }
+    acmain.classList.add('vfade');
+    setTimeout(()=>{ mutate(); acmain.classList.remove('vfade'); }, 150);
+  }
   function setView(v, target){
     view=v;
-    acmain.classList.add('vfade');
-    setTimeout(()=>{ paintView(target); acmain.classList.remove('vfade'); }, 150);
+    fadeMain(()=>paintView(target));
   }
   ix.querySelectorAll('.ixrow').forEach(b=>b.onclick=()=>setView('cards', b.dataset.id));
   back.onclick=()=>setView('index');
@@ -407,9 +413,14 @@ const q=document.getElementById('q'), cats=[...document.querySelectorAll('.cat')
     } else if(view!=='index'){ setView('index'); }
   });
   cats.forEach(ch=>ch.addEventListener('click',()=>{
-    if(view==='index'){ view='cards'; ix.style.display='none'; list.style.display=''; back.hidden=false; }
+    // chrome updates are immediate; the #acmain content change crossfades
     cat=ch.dataset.cat; cats.forEach(x=>x.classList.toggle('active',x===ch));
-    bodyEl.classList.remove('nav-open'); apply(); window.scrollTo(0,0);
+    bodyEl.classList.remove('nav-open');
+    fadeMain(()=>{
+      if(view==='index'){ view='cards'; ix.style.display='none'; list.style.display=''; back.hidden=false; }
+      apply();
+    });
+    window.scrollTo(0,0);
   }));
   const burger=document.getElementById('burger'), backdrop=document.getElementById('backdrop');
   if(burger) burger.onclick=()=>bodyEl.classList.toggle('nav-open');

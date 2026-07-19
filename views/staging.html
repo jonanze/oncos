@@ -319,8 +319,10 @@ function renderTree() {
 }
 
 function render(fade) {
-  // fade only on real view changes (list <-> detail), never on search keystrokes
-  if (fade) {
+  // fade only on real view changes (list <-> detail), never on search keystrokes;
+  // and never under reduced motion (there's no transition to show, so the 150ms
+  // hold would be dead time) — swap instantly instead.
+  if (fade && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
     const res = document.getElementById('results');
     res.classList.add('vfade');
     setTimeout(() => { renderNow(); res.classList.remove('vfade'); }, 150);

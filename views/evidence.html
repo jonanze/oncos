@@ -113,7 +113,10 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] footer.disclaimer{ margin-top: 18px; }}
 @media print{[data-view="evidence"] main{ padding: 0; }}
 [data-view="evidence"] #results{ background: var(--panel); border: 1px solid var(--grid); border-radius: 14px;
-    overflow: clip; box-shadow: var(--shadow); }
+    overflow: clip; box-shadow: var(--shadow);
+    transition: opacity .15s var(--mo-ease, cubic-bezier(.3,0,.1,1)),
+                transform .15s var(--mo-ease, cubic-bezier(.3,0,.1,1)); }
+[data-view="evidence"] #results.vfade{ opacity: 0; transform: translateY(5px); }
 [data-view="evidence"] thead th{ background: var(--ground); }
 [data-view="evidence"] .ph{ border-radius: 999px; font-family: var(--font-mono); font-weight: 500; }
 [data-view="evidence"] td[data-label="Year"]{ font-family: var(--font-mono); font-size: 12.5px; }
@@ -185,7 +188,7 @@ for (const [sys, sheets] of Object.entries(SYSTEMS)) {
 document.getElementById('showall').onclick = () => {
   state.scope='all'; state.sheet=null; state.system=null;
   document.querySelectorAll('.sheets button').forEach(a => a.classList.remove('active'));
-  closeNav(); render(); window.scrollTo(0,0);
+  closeNav(); fadeRender(); window.scrollTo(0,0);
 };
 
 // ---- Burger drawer (every width) ----
@@ -203,8 +206,8 @@ phases.forEach(p => fphase.add(new Option(p, p)));
 const buckets = [['2020–present','2020+'],['2010–2019','2010s'],['2000–2009','2000s'],['Before 2000','pre2000']];
 const fyear = document.getElementById('fyear');
 buckets.forEach(([lab,val]) => fyear.add(new Option(lab, val)));
-fphase.onchange = e => { state.phase = e.target.value; closeNav(); render(); window.scrollTo(0,0); };
-fyear.onchange = e => { state.yearBucket = e.target.value; closeNav(); render(); window.scrollTo(0,0); };
+fphase.onchange = e => { state.phase = e.target.value; closeNav(); fadeRender(); window.scrollTo(0,0); };
+fyear.onchange = e => { state.yearBucket = e.target.value; closeNav(); fadeRender(); window.scrollTo(0,0); };
 // Global search: typing resets any active sheet/system filter so the query spans
 // the whole dataset, then re-renders.
 document.getElementById('q').oninput = e => {
@@ -217,7 +220,7 @@ document.getElementById('q').oninput = e => {
 };
 
 function selectSheet(sheet, sys) {
-  state.scope='sheet'; state.sheet=sheet; state.system=sys; closeNav(); render(); window.scrollTo(0,0);
+  state.scope='sheet'; state.sheet=sheet; state.system=sys; closeNav(); fadeRender(); window.scrollTo(0,0);
   document.querySelectorAll('.sheets button').forEach(a => a.classList.toggle('active', a.dataset.sheet===sheet));
 }
 function inBucket(y, b) {
@@ -317,6 +320,18 @@ function toggleRow(tr) {
     // Two frames: the first commits the collapsed state, the second animates off it.
     requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.remove('mo-collapsed')));
   }
+}
+
+// Quiet 150ms crossfade of the results card, for sidebar-driven view changes
+// (scope/sheet/drawer filters). Fade-out -> swap -> fade-in on the stable
+// #results node. Skipped under reduced motion (no transition to show, so the
+// hold would be dead time). Search keystrokes call render() directly, so they
+// stay instant and never flicker.
+function fadeRender() {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { render(); return; }
+  const res = document.getElementById('results');
+  res.classList.add('vfade');
+  setTimeout(() => { render(); res.classList.remove('vfade'); }, 150);
 }
 
 function render() {
