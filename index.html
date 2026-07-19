@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>oncOS</title>
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#f6f7f9">
-<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
-<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon-180.png">
+<link rel="icon" type="image/png" href="/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="oncOS">
@@ -401,7 +401,7 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
   </section>
   <footer class="disc">&copy; Jonan Tan 2026</footer>
 </main></template>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.querySelectorAll('.theme-toggle').forEach(function(b){b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(e){}s();});});var q=document.querySelector('.barsearch');document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else if(q&&document.activeElement===q){q.blur();}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}})();</script>
 <script>
 
 (function(){
@@ -409,13 +409,12 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
   var root = document.documentElement;
   var viewroot = document.getElementById('viewroot');
   var viewnav = document.getElementById('viewnav');
-  var vname = document.getElementById('viewname');
   var homeTpl = document.getElementById('home-view');
-  var cache = {};          // name -> fragment text
+  var cache = {};          // name -> parsed fragment + compiled view script
   var current = null;      // active view name
   var active = null;       // active window.oncosView
   var capt = [];           // captured doc/window listeners for auto-cleanup
-  var pendingQuery = null; // query handed from the home search into a view
+  var navSeq = 0;          // latest request; stale fetches may never mount
 
   function pathToView(p){
     var m = p.match(/^\/(evidence|staging|drugs|tox|acute)(\/|$)/);
@@ -450,15 +449,14 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
     return fetch('/views/'+name+'.html', {credentials:'same-origin'}).then(function(r){
       if (!r.ok) throw new Error(r.status);
       return r.text();
-    }).then(function(t){ cache[name] = t; return t; });
+    }).then(function(t){
+      var doc = new DOMParser().parseFromString(t, 'text/html');
+      var vs = doc.querySelector('script');
+      cache[name] = { doc:doc, run:vs ? new Function(vs.textContent) : null };
+      return cache[name];
+    });
   }
-  function mount(name, fragText){
-    // remember where we were (for the home "resume" affordance)
-    if (current && current !== 'hub') {
-      var oldQ = searchEl();
-      try { localStorage.setItem('oncos-one-last', JSON.stringify(
-        { v: current, q: (oldQ && oldQ.value) || '' })); } catch(e){}
-    }
+  function mount(name, prepared){
     // teardown
     if (active && active.destroy) { try{ active.destroy(); }catch(e){} }
     releaseCaptured();
@@ -469,21 +467,17 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
     // swap
     root.setAttribute('data-view', name);
     var v = VIEWS[name];
-    if (vname) vname.textContent = v ? v.title : '';
     var q = searchEl();
     if (q) { q.value=''; q.placeholder = 'Search\u2026'; q.style.display = (name==='hub'?'none':'');
       q.id = (v && v.searchId) || 'q'; }
-    var tagdiv = document.getElementById('hdiv');
-    if (tagdiv) tagdiv.style.display = (name==='hub'?'none':'');
     document.title = name==='hub' ? 'oncOS' : 'oncOS \u2014 ' + (v?v.title:name);
 
     viewnav.innerHTML = '';
     if (name === 'hub') {
       viewroot.innerHTML = '';
       viewroot.appendChild(homeTpl.content.cloneNode(true));
-      hookHome();
     } else {
-      var doc = new DOMParser().parseFromString(fragText, 'text/html');
+      var doc = prepared.doc;
       viewroot.innerHTML = '';
       doc.querySelectorAll('style[data-view-css]').forEach(function(s){
         viewroot.appendChild(document.importNode(s, true));
@@ -492,25 +486,17 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
       if (frag) viewroot.appendChild(document.importNode(frag, true));
       var nav = doc.querySelector('template[data-nav]');
       if (nav) viewnav.appendChild(document.importNode(nav.content, true));
-      // execute the view script (innerHTML'd scripts don't run)
-      var vs = doc.querySelector('script');
-      if (vs) {
+      // execute the view script (compiled once per fetched view)
+      if (prepared.run) {
         var restore = captureOn();
         try {
-          (new Function(vs.textContent))();
+          prepared.run();
           if (window.oncosView && window.oncosView.init) {
             active = window.oncosView;
             try { active.init({ root:viewroot, nav:viewnav, search:searchEl() }); }
             catch(err){ console.error('oncOS view init failed:', name, err); }
           }
         } finally { restore(); }
-        // hand a home-search query into the freshly-initialised view
-        if (pendingQuery) {
-          var qh = searchEl();
-          if (qh) { qh.value = pendingQuery;
-            qh.dispatchEvent(new Event('input', {bubbles:true})); }
-          pendingQuery = null;
-        }
       }
     }
     // suite active state — masthead tabs and the mobile dropdown alike
@@ -530,51 +516,34 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
     }
     window.scrollTo(0,0);
   }
-  function hookHome(){
-    var hq = document.getElementById('homeq');
-    var routes = document.getElementById('hqroutes');
-    var resume = document.getElementById('resume');
-    if (!hq) return;
-    hq.addEventListener('input', function(){ routes.hidden = !hq.value.trim(); });
-    hq.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' && hq.value.trim()) { pendingQuery = hq.value.trim(); go('evidence', true); }
-    });
-    routes.querySelectorAll('.hq-route').forEach(function(b){
-      b.addEventListener('click', function(){
-        pendingQuery = hq.value.trim() || null;
-        go(b.dataset.route, true);
-      });
-    });
-    try {
-      var last = JSON.parse(localStorage.getItem('oncos-one-last') || 'null');
-      if (last && last.v && VIEWS[last.v]) {
-        resume.hidden = false;
-        resume.textContent = 'Resume: ' + VIEWS[last.v].title + (last.q ? ' \u2014 \u201C' + last.q + '\u201D' : '');
-        resume.addEventListener('click', function(){
-          pendingQuery = last.q || null; go(last.v, true);
-        });
-      }
-    } catch(e){}
-  }
-  function go(name, push, minWait, onMounted){
-    if (name === current) { document.body.classList.remove('nav-open'); return; }
+  function go(name, push){
+    var seq = ++navSeq;
     var url = name==='hub' ? '/' : '/'+name+'/';
-    if (push) history.pushState({v:name}, '', url);
-    var done = function(txt){
-      current = name;
-      mount(name, txt);
+    if (name === current) {
+      // Also cancels an in-flight request for another view. Restore the URL
+      // only when that pending request already changed it.
+      if (push && pathToView(location.pathname) !== name) history.pushState({v:name}, '', url);
       viewroot.classList.remove('leaving');
-      if (onMounted) { try{ onMounted(); }catch(e){} }
+      document.body.classList.remove('nav-open');
+      return;
+    }
+    if (push) history.pushState({v:name}, '', url);
+    var done = function(prepared){
+      if (seq !== navSeq) return;
+      current = name;
+      mount(name, prepared);
+      viewroot.classList.remove('leaving');
     };
     viewroot.classList.add('leaving');
     var t0 = Date.now();
+    var warm = name!=='hub' && !!cache[name];
     var p = name==='hub' ? Promise.resolve(null) : fetchView(name);
-    p.then(function(txt){
-      var wait = Math.max(0, (minWait==null?150:minWait) - (Date.now()-t0));
-      setTimeout(function(){ done(txt); }, wait);
+    p.then(function(prepared){
+      var wait = Math.max(0, (warm?0:150) - (Date.now()-t0));
+      setTimeout(function(){ done(prepared); }, wait);
     }).catch(function(){
       // fetch failed (offline, gate) — hard-navigate as a fallback
-      location.href = url;
+      if (seq === navSeq) location.href = url;
     });
   }
 
@@ -619,11 +588,13 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
     });
   })();
 
-  // retire old per-module service workers (scope != root)
+  // Retire only the five module workers replaced by the root shell. Algorithms
+  // remains standalone and is explicitly out of scope for oncOS One.
   if ('serviceWorker' in navigator) {
+    var retiredScopes = ['/evidence/','/staging/','/drugs/','/tox/','/acute/'];
     navigator.serviceWorker.getRegistrations().then(function(rs){
       rs.forEach(function(r){
-        if (new URL(r.scope).pathname !== '/') r.unregister();
+        if (retiredScopes.indexOf(new URL(r.scope).pathname) !== -1) r.unregister();
       });
     });
     window.addEventListener('load', function(){
@@ -633,9 +604,6 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
 
   // boot on whatever path we were served at
   go(pathToView(location.pathname), false);
-  // prefetch remaining views when idle (instant later hops)
-  var idle = window.requestIdleCallback || function(f){ setTimeout(f, 1500); };
-  idle(function(){ Object.keys(VIEWS).forEach(function(n){ if(n!=='hub') fetchView(n).catch(function(){}); }); });
 })();
 
 </script>
