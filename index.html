@@ -61,7 +61,16 @@
     --glass:rgba(13,17,25,.75);
     color-scheme:dark;
   }
-  html{ transition:background .18s ease, color .18s ease; }
+  /* Reserve the scrollbar gutter suite-wide so layout never reflows when the
+     viewport scrollbar appears/disappears. Fixes the masthead + centred-content
+     "shake": opening the nav drawer sets body.nav-open{overflow:hidden}, which
+     on a classic (space-taking) scrollbar removed 15px and shoved the sticky
+     masthead sideways; expanding a <details> card past the viewport added the
+     scrollbar and shoved it the other way. `stable` keeps the gutter reserved
+     in both states. No-op under overlay scrollbars (trackpad Macs), where there
+     is no shift to fix. Doesn't change the scroll container, so the body
+     scroll-lock is untouched. One line, fully reversible. */
+  html{ transition:background .18s ease, color .18s ease; scrollbar-gutter:stable; }
   body{ background:var(--ground); }
   .sr-only{ position:absolute !important; width:1px !important; height:1px !important;
     padding:0 !important; margin:-1px !important; overflow:hidden !important;
