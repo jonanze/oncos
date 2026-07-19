@@ -596,10 +596,16 @@ html[data-theme="dark"] [data-view="hub"] .card.m-acute{--cm:#ff6f61;}
     };
     viewroot.classList.add('leaving');
     var t0 = Date.now();
-    var warm = name!=='hub' && !!cache[name];
+    // Hold the leaving (opacity:0) state long enough for the 150ms CSS fade to
+    // paint, whether or not the view is cached. Collapsing this to 0 on warm
+    // views (as an earlier perf pass did) coalesces the add + later remove into
+    // one frame, so the browser never renders opacity:0 and the fade vanishes
+    // once every module is cached. Skip the hold only under reduced motion,
+    // where there is no transition to show and the wait would be dead time.
+    var animate = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     var p = name==='hub' ? Promise.resolve(null) : fetchView(name);
     p.then(function(prepared){
-      var wait = Math.max(0, (warm?0:150) - (Date.now()-t0));
+      var wait = animate ? Math.max(0, 150 - (Date.now()-t0)) : 0;
       setTimeout(function(){ done(prepared); }, wait);
     }).catch(function(){
       // fetch failed (offline, gate) — hard-navigate as a fallback
