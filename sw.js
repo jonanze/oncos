@@ -2,7 +2,7 @@
  * Cache name is a content hash of the app files, so each real change ships a
  * fresh cache. Fetch is NETWORK-FIRST: try the network, fall back to cache
  * offline. This is the OncOS PWA rule — never date-versioned cache-first. */
-const CACHE = 'oncos-one-ba442a5e3a61';
+const CACHE = 'oncos-one-5a469912e597';
 const CACHE_PREFIX = 'oncos-one-';
 const ASSETS = [
   '././',
@@ -18,10 +18,8 @@ const ASSETS = [
   './views/tox.html',
   './views/acute.html',
   './fonts/Montserrat-normal-700.woff2',
-  './fonts/Newsreader-normal-200_800.woff2',
-  './fonts/SchibstedGrotesk-normal-400_900.woff2',
-  './fonts/SchibstedGrotesk-italic-400_900.woff2',
-  './fonts/SplineSansMono-normal-300_700.woff2'
+  './fonts/Inter-normal-100_900.woff2',
+  './fonts/Inter-italic-100_900.woff2'
 ];
 
 self.addEventListener('install', (e) => {

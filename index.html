@@ -21,10 +21,8 @@
 
   /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
   @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
-  @font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/fonts/Newsreader-normal-200_800.woff2) format('woff2');}
-  @font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-normal-400_900.woff2) format('woff2');}
-  @font-face{font-family:'Schibsted Grotesk';font-style:italic;font-weight:400 900;font-display:swap;src:url(/fonts/SchibstedGrotesk-italic-400_900.woff2) format('woff2');}
-  @font-face{font-family:'Spline Sans Mono';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/SplineSansMono-normal-300_700.woff2) format('woff2');}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-normal-100_900.woff2) format('woff2');}
+  @font-face{font-family:'Inter';font-style:italic;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-italic-100_900.woff2) format('woff2');}
 
   /* --- oncOS Meridian theme (shared: _oncos-kit/oncos_theme.py) --- */
   :root{
@@ -37,9 +35,16 @@
     --status-warning:#946908; --status-warning-soft:#f7efdb;
     --status-danger:#c23f38; --status-danger-soft:#faeae9;
     --status-info:var(--m); --status-info-soft:var(--accent-soft);
-    --font-serif:'Newsreader','Iowan Old Style',Georgia,serif;
-    --font-sans:'Schibsted Grotesk',-apple-system,'Helvetica Neue',system-ui,sans-serif;
-    --font-mono:'Spline Sans Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    /* One typeface, three role names. Retypeset 2026-07-26 (Jonan): Inter
+       replaces Newsreader (serif/entities), Schibsted Grotesk (sans/chrome) and
+       Spline Sans Mono (figures). The role tokens are KEPT — every module
+       declares type through them, so the swap needs no generator edit and the
+       roles stay available if a second face is ever reintroduced. Identical
+       fallback stacks on purpose: if the webfont fails, the page degrades to
+       one system face rather than three mismatched ones. */
+    --font-serif:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    --font-sans:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    --font-mono:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     --rule:#d7dde6; --btn-ink:#ffffff;
     --radius:12px; --radius-sm:9px;
     --shadow:0 1px 2px rgba(19,25,38,.05), 0 10px 28px -12px rgba(19,25,38,.14);
@@ -61,6 +66,22 @@
     --glass:rgba(13,17,25,.75);
     color-scheme:dark;
   }
+  /* --- Tabular figures, suite-wide (Inter retypeset, 2026-07-26) ---
+     Spline Sans Mono used to hold every figure, dose, grade, year and stage
+     code in column by being monospaced. Inter is proportional, so that job now
+     falls to the OpenType `tnum` feature, switched on at the root and inherited
+     by everything: Evidence trial tables, Staging stage/category tables, Tox
+     grade chips + calculator readouts, Acute grade lists, the hub versionmark.
+     font-variant-numeric is an inherited property, but the UA `font` shorthand
+     on form controls resets it, so they opt back in explicitly (the Tox CrCl /
+     BSA / unit-converter fields). Nothing in the suite sets
+     font-feature-settings, so nothing can silently clobber this.
+     NOTE: a slashed zero is NOT available — the Google latin subset of Inter
+     v4.001 ships calt/ccmp/dnom/frac/locl/numr/pnum/tnum and no `zero`
+     feature, so "zero" 1 would be a no-op. Removing this rule reintroduces
+     column drift with no build error, which is why it is documented here. */
+  :root{ font-variant-numeric:tabular-nums; }
+  input, select, textarea, button{ font-variant-numeric:inherit; }
   /* Reserve the scrollbar gutter suite-wide so layout never reflows when the
      viewport scrollbar appears/disappears. Fixes the masthead + centred-content
      "shake": opening the nav drawer sets body.nav-open{overflow:hidden}, which
@@ -83,8 +104,9 @@
   :focus-visible{ outline:2px solid var(--m, var(--teal)); outline-offset:2px; border-radius:4px; }
   /* --- Meridian shared chrome (the locked suite header pattern) --- */
   /* Wordmark is Montserrat Bold (self-hosted via oncos_fonts) — the one place
-     the suite keeps its original NCIS wordmark face; everything else is the
-     Meridian type system. */
+     the suite keeps its original NCIS wordmark face, and the one role the
+     2026-07-26 Inter retypeset deliberately did NOT touch; everything else is
+     Inter. */
   .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
   .wm .os{ background-image:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
     -webkit-background-clip:text; background-clip:text; color:transparent; }

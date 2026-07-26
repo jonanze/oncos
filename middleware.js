@@ -69,13 +69,18 @@ function loginPage(error) {
 <meta name="theme-color" content="#0a0d13" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Schibsted+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
 <style>
   /* Meridian tokens — mirrored from _oncos-kit/oncos_theme.py so the gate reads
      as one system with the suite. Light "porcelain" base; dark "ink" via
      prefers-color-scheme (the gate has no toggle — it follows the OS, which is
      the suite's default). Fonts load from Google's CDN, not /fonts/, because the
-     gate serves unauthenticated users and the middleware matcher gates /fonts/. */
+     gate serves unauthenticated users and the middleware matcher gates /fonts/.
+     RETYPESET 2026-07-26: Inter replaces Schibsted Grotesk and Spline Sans Mono here
+     too. The gate is the first surface a user sees, so leaving it on the retired faces
+     would show a different typeface from the suite behind it at the moment of sign-in.
+     Montserrat stays for the wordmark. Inter is proportional where the mono token was
+     monospaced, so tabular-nums is set at :root as it is suite-side. */
   :root{
     --ink:#131926; --muted:#647184; --hair:#e3e7ee; --rule:#d7dde6;
     --paper:#ffffff; --ground:#f6f7f9;
@@ -84,8 +89,9 @@ function loginPage(error) {
     --danger:#c23f38; --danger-soft:#faeae9;
     --wm-grad:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
     --shadow:0 1px 2px rgba(19,25,38,.05), 0 10px 28px -12px rgba(19,25,38,.14);
-    --font-sans:'Schibsted Grotesk',-apple-system,'Helvetica Neue',system-ui,sans-serif;
-    --font-mono:'Spline Sans Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --font-sans:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    --font-mono:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    font-variant-numeric:tabular-nums;
     color-scheme:light;
   }
   @media (prefers-color-scheme:dark){:root{
