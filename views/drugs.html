@@ -1,49 +1,49 @@
 <style data-view-css>
 html[data-view="drugs"]{--sidebar-w:248px}
-[data-view="drugs"] .facet .flabel{font-family:var(--font-sans); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--muted); font-weight:600; margin:0 0 8px 2px;}
+[data-view="drugs"] .facet .flabel{font-family:var(--font-sans); font-size:var(--t-2xs); letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); font-weight:var(--w-name); margin:0 0 8px 2px;}
 [data-view="drugs"] .az{display:flex; flex-wrap:wrap; gap:3px;}
-[data-view="drugs"] .az a, [data-view="drugs"] .az span{font-family:var(--font-sans); font-size:11px; width:21px; height:21px; display:flex; align-items:center;
+[data-view="drugs"] .az a, [data-view="drugs"] .az span{font-family:var(--font-sans); font-size:var(--t-xs); width:21px; height:21px; display:flex; align-items:center;
     justify-content:center; border-radius:0; color:var(--muted); text-decoration:none;}
-[data-view="drugs"] .az a.has{color:var(--teal); font-weight:600; cursor:pointer;}
+[data-view="drugs"] .az a.has{color:var(--teal); font-weight:var(--w-name); cursor:pointer;}
 [data-view="drugs"] .az span.off{color:var(--hair);}
 [data-view="drugs"] main{max-width:1040px; margin:0 auto; padding:22px clamp(16px,3vw,30px) 40px;}
 [data-view="drugs"] .topbar{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
-[data-view="drugs"] .h-title{font-family:var(--font-serif); font-size:22px; font-weight:600; margin:0; letter-spacing:-.01em;}
-[data-view="drugs"] .lede{color:var(--slate); font-size:12.5px; margin:0 0 14px; max-width:640px; line-height:1.55;}
-[data-view="drugs"] .azdiv{font-family:var(--font-sans); font-weight:700; font-size:13px; color:var(--teal);
+[data-view="drugs"] .h-title{font-family:var(--font-serif); font-size:var(--t-3xl); font-weight:var(--w-name); margin:0; letter-spacing:-.01em;}
+[data-view="drugs"] .lede{color:var(--slate); font-size:var(--t-sm); margin:0 0 14px; max-width:640px; line-height:1.55;}
+[data-view="drugs"] .azdiv{font-family:var(--font-sans); font-weight:var(--w-strong); font-size:var(--t-base); color:var(--teal);
     letter-spacing:.05em; margin:22px 0 10px 0; scroll-margin-top:14px;}
 [data-view="drugs"] .letter-group:first-of-type .azdiv{margin-top:0;}
 [data-view="drugs"] .card{border-top:1px solid var(--grid); padding:16px 2px 18px;}
 [data-view="drugs"] .card-top{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
-[data-view="drugs"] .dname{font-family:var(--font-serif); font-weight:600; font-size:18px; line-height:1.25; margin:0;}
-[data-view="drugs"] .dbrands{font-size:11.5px; color:var(--muted);}
+[data-view="drugs"] .dname{font-family:var(--font-serif); font-weight:var(--w-name); font-size:var(--t-xl); line-height:1.25; margin:0;}
+[data-view="drugs"] .dbrands{font-size:var(--t-xs); color:var(--muted);}
 [data-view="drugs"] .rec-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
 [data-view="drugs"] .rec{border:1px solid var(--hair); border-top:2.5px solid var(--teal); border-radius:0; padding:10px 13px 12px; background:var(--paper);}
 [data-view="drugs"] .rec.r-hepatic{border-top-color:var(--status-warning);}
-[data-view="drugs"] .rec-label{font-family:var(--font-sans); font-size:10px; text-transform:uppercase; letter-spacing:.1em;
-    color:var(--muted); font-weight:600; margin-bottom:8px;}
+[data-view="drugs"] .rec-label{font-family:var(--font-sans); font-size:var(--t-2xs); text-transform:uppercase; letter-spacing:.1em;
+    color:var(--muted); font-weight:var(--w-name); margin-bottom:8px;}
 [data-view="drugs"] .r-hepatic .rec-label{color:var(--status-warning);}
 [data-view="drugs"] .r-renal .rec-label{color:var(--teal);}
 [data-view="drugs"] ul.bands{margin:0; padding:0; list-style:none;}
-[data-view="drugs"] ul.bands li{font-size:13px; line-height:1.5; color:var(--ink); padding:3px 0 3px 12px; position:relative;}
+[data-view="drugs"] ul.bands li{font-size:var(--t-base); line-height:1.5; color:var(--ink); padding:3px 0 3px 12px; position:relative;}
 [data-view="drugs"] ul.bands li:before{content:""; position:absolute; left:0; top:11px; width:4px; height:4px; background:var(--slate);}
 [data-view="drugs"] details.evi{margin-top:12px;}
-[data-view="drugs"] details.evi summary{font-family:var(--font-sans); font-size:11px; text-transform:uppercase; letter-spacing:.06em;
-    color:var(--teal); font-weight:600; cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:6px; padding:2px 0;}
+[data-view="drugs"] details.evi summary{font-family:var(--font-sans); font-size:var(--t-xs); text-transform:uppercase; letter-spacing:.06em;
+    color:var(--teal); font-weight:var(--w-name); cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:6px; padding:2px 0;}
 [data-view="drugs"] details.evi summary::-webkit-details-marker{display:none;}
-[data-view="drugs"] details.evi summary:before{content:"▸"; font-size:10px; transition:transform .15s;}
+[data-view="drugs"] details.evi summary:before{content:"▸"; font-size:var(--t-2xs); transition:transform .15s;}
 [data-view="drugs"] details.evi[open] summary:before{transform:rotate(90deg);}
 [data-view="drugs"] .evi-body{margin-top:10px; border-left:2px solid var(--grid); padding-left:14px;}
 [data-view="drugs"] .evi-block{margin-bottom:12px;}
-[data-view="drugs"] .evi-block h3{font-family:var(--font-sans); font-size:9.5px; text-transform:uppercase; letter-spacing:.08em;
-    color:var(--muted); font-weight:600; margin:0 0 5px;}
-[data-view="drugs"] .evi-block p{margin:0; font-size:12px; color:var(--slate); line-height:1.55;}
+[data-view="drugs"] .evi-block h3{font-family:var(--font-sans); font-size:var(--t-3xs); text-transform:uppercase; letter-spacing:.08em;
+    color:var(--muted); font-weight:var(--w-name); margin:0 0 5px;}
+[data-view="drugs"] .evi-block p{margin:0; font-size:var(--t-sm); color:var(--slate); line-height:1.55;}
 [data-view="drugs"] ul.evi-lines{margin:0; padding-left:15px;}
-[data-view="drugs"] ul.evi-lines li{font-size:12px; color:var(--slate); line-height:1.55; margin-bottom:3px;}
-[data-view="drugs"] .evi-refs{font-size:11px; color:var(--muted); font-style:italic;}
+[data-view="drugs"] ul.evi-lines li{font-size:var(--t-sm); color:var(--slate); line-height:1.55; margin-bottom:3px;}
+[data-view="drugs"] .evi-refs{font-size:var(--t-xs); color:var(--muted); font-style:italic;}
 [data-view="drugs"] .empty{text-align:center; color:var(--muted); padding:60px 0; display:none;}
-[data-view="drugs"] .foot{margin-top:30px; padding-top:16px; border-top:1px solid var(--hair); color:var(--muted); font-size:11px; line-height:1.6;}
+[data-view="drugs"] .foot{margin-top:30px; padding-top:16px; border-top:1px solid var(--hair); color:var(--muted); font-size:var(--t-xs); line-height:1.6;}
 [data-view="drugs"] .foot b{color:var(--slate);}
 [data-view="drugs"] .foot .disc{margin-top:8px;}
 @media (max-width:600px){[data-view="drugs"] .rec-grid{grid-template-columns:1fr;}}

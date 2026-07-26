@@ -21,8 +21,8 @@
 
   /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
   @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
-  @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-normal-100_900.woff2) format('woff2');}
-  @font-face{font-family:'Inter';font-style:italic;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-italic-100_900.woff2) format('woff2');}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-normal-100_900-v41.woff2) format('woff2');}
+  @font-face{font-family:'Inter';font-style:italic;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-italic-100_900-v41.woff2) format('woff2');}
 
   /* --- oncOS Meridian theme (shared: _oncos-kit/oncos_theme.py) --- */
   :root{
@@ -45,6 +45,34 @@
     --font-serif:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     --font-sans:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     --font-mono:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    /* --- Type scale (2026-07-26) ---
+       The suite carried 21 distinct pixel sizes, ten of them inside the 9-13.5px
+       band across ~191 declarations. Under Meridian that was legible design:
+       a 12.5px Spline Sans Mono figure and a 12.5px Schibsted label were
+       different objects, so near-identical sizes still read as different roles.
+       With one face they are imperceptible as meaning and still misalign when
+       adjacent. These twelve steps replace them; fragmentize.py maps each view's
+       literal px onto the nearest step at or below it, so the scale never
+       inflates the UI. Display steps (30/36/46) are single deliberate uses and
+       are kept as they were. */
+    --t-3xs:9px; --t-2xs:10px; --t-xs:11px; --t-sm:12px; --t-base:13px; --t-md:14px;
+    --t-lg:16px; --t-xl:18px; --t-2xl:20px; --t-3xl:22px;
+    --t-display:30px; --t-display-lg:36px; --t-wordmark:46px;
+    /* --- Weight scale ---
+       Measured before this change: 600 used 78x, 700 51x, 500 7x, 400 7x — 129
+       of 143 declarations at semibold or bolder, because weight inherited the
+       hierarchy job that three typefaces used to do. When most of a page is
+       heavy nothing reads as emphasised. Inter here is a continuous wght axis
+       (100-900) in a single file, so the intermediate steps cost nothing: no
+       extra request, no extra byte. */
+    --w-body:400; --w-dense:450; --w-label:500; --w-name:550; --w-strong:600;
+    --w-bold:700;
+    /* Tracking. One value per role, replacing five near-identical uppercase
+       values (.04/.05/.06/.08/.12em) tuned for Schibsted Grotesk's caps.
+       Display sizes get NO manual negative tracking: the opsz axis bought with
+       the Inter 4.1 build does that compensation inside the font, and stacking
+       hand-tuned letter-spacing on top of it double-compensates. */
+    --track-caps:.06em; --track-badge:.04em;
     --rule:#d7dde6; --btn-ink:#ffffff;
     --radius:12px; --radius-sm:9px;
     --shadow:0 1px 2px rgba(19,25,38,.05), 0 10px 28px -12px rgba(19,25,38,.14);
@@ -76,12 +104,55 @@
      on form controls resets it, so they opt back in explicitly (the Tox CrCl /
      BSA / unit-converter fields). Nothing in the suite sets
      font-feature-settings, so nothing can silently clobber this.
-     NOTE: a slashed zero is NOT available — the Google latin subset of Inter
-     v4.001 ships calt/ccmp/dnom/frac/locl/numr/pnum/tnum and no `zero`
-     feature, so "zero" 1 would be a no-op. Removing this rule reintroduces
-     column drift with no build error, which is why it is documented here. */
+     2026-07-26 UPDATE: the suite moved to the upstream Inter 4.1 build, which
+     DOES ship `zero`, so the old note here (slashed zero unavailable) no longer
+     holds — see the disambiguation block below. `tnum` is now also listed
+     explicitly in font-feature-settings, belt-and-braces: the interaction
+     between font-variant-numeric and font-feature-settings is a precedence
+     question this codebase must not depend on being remembered correctly, and
+     column drift fails silently. Verified by measuring digit advance, not by
+     reading the spec. */
   :root{ font-variant-numeric:tabular-nums; }
   input, select, textarea, button{ font-variant-numeric:inherit; }
+  /* --- 1 / l / I / 0 disambiguation (Inter 4.1, 2026-07-26) ---
+     A drug-and-dose reference must never render a confusable numeral. Inter's
+     default `l` and `I` are the same bare vertical stroke and its `0` is
+     unslashed, so "Il1" is unreadable at 11-13px. The upstream 4.1 build carries
+     the fixes the Google subset strips:
+       cv05  l -> tailed l      (GSUB: l -> l.ss02)
+       cv08  I -> serifed I     (GSUB: I -> I.1)
+       zero  0 -> slashed 0     (GSUB: zero -> zero.slash)
+     cv05 and cv08 are unconditional. `zero` is deliberately NOT: it is on for
+     figures and codes, and off in running prose, where a slashed zero in a
+     sentence reads as a technical annotation rather than a number (Jonan's call,
+     2026-07-26). The prose rule below is what turns it off, by re-declaring
+     font-feature-settings without it — this property does not accumulate. */
+  :root{ font-feature-settings:'tnum' 1,'cv05' 1,'cv08' 1,'zero' 1; }
+  /* --- Prose and names: proportional figures, plain zero ---
+     tabular-nums pads narrow digits (above all `1`) to a uniform advance so
+     columns line up. That is right in a table and wrong in a sentence, where it
+     leaves visible gaps around every number; and a slashed zero belongs on a
+     figure, not inside a NAME.
+
+     Two corrections found by rendering rather than by measurement, 2026-07-26 —
+     the computed-style probe passed both before they were fixed, because it only
+     ever asked whether the rule applied, never whether it applied to the right
+     text:
+       * `li` was in this list. Drugs' dose lines are <li> ("GFR >= 30 ml/min",
+         "25% of the original dose"), so every dose lost tabular alignment and
+         its slashed zero — the exact opposite of the intent. Removed.
+       * Trial and drug names sit in table cells (td.study, td.name) or headings
+         (.dname), so they inherited the figures treatment and rendered
+         DESTINY-Breast05 / RJBC-1501 / ASCENT-04 with slashed zeros. Names are
+         not figures. Added here.
+     Everything else keeps the tabular default: td/th, badges, chips, grade tags,
+     dose lists and form readouts. */
+  p, .lede, .disc, .note, .foot, .sub, blockquote, figcaption,
+  .findings, .evi-block, .desc, .summary-text,
+  td.study, td.name, .dname, .study{
+    font-variant-numeric:proportional-nums;
+    font-feature-settings:'pnum' 1,'cv05' 1,'cv08' 1;
+  }
   /* Reserve the scrollbar gutter suite-wide so layout never reflows when the
      viewport scrollbar appears/disappears. Fixes the masthead + centred-content
      "shake": opening the nav drawer sets body.nav-open{overflow:hidden}, which
@@ -125,10 +196,10 @@
      only route between modules was back through the hub. Wavelength dots come
      from the generated .sdot-<module> rules appended below. --- */
   .suite-nav{ padding:2px 0 10px; margin-bottom:8px; border-bottom:1px solid var(--hair); }
-  .suite-nav .suite-label{ font-size:10.5px; font-weight:700; letter-spacing:.08em;
+  .suite-nav .suite-label{ font-size:var(--t-2xs); font-weight:var(--w-bold); letter-spacing:.08em;
     text-transform:uppercase; color:var(--muted); padding:8px 20px 5px; }
   .suite-link{ display:flex; align-items:center; gap:10px; padding:7px 20px;
-    font-size:13.5px; color:var(--ink); text-decoration:none; }
+    font-size:var(--t-base); color:var(--ink); text-decoration:none; }
   .suite-link:hover{ background:var(--accent-soft); color:var(--m); }
   .suite-link[aria-current="page"]{ color:var(--m); font-weight:600; background:var(--accent-soft); }
   .sdot{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
@@ -256,16 +327,16 @@ html[data-view="acute"][data-theme="dark"]{ --m:#ff6f61; }
 *{box-sizing:border-box;}
 html,body{margin:0;}
 body{font-family:var(--font-sans);color:var(--ink);background:var(--ground);
-  font-size:14px;line-height:1.5;-webkit-text-size-adjust:100%;}
+  font-size:var(--t-md);line-height:1.5;-webkit-text-size-adjust:100%;}
 a{color:var(--teal);}
 .mhead{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;
   padding:calc(11px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) 11px calc(24px + env(safe-area-inset-left));}
 .burger{display:flex;flex:0 0 auto;width:36px;height:36px;border:1px solid var(--hair);
   background:var(--paper);color:var(--ink);align-items:center;justify-content:center;cursor:pointer;padding:0;}
 .burger svg{width:20px;height:20px;}
-.wm{margin:0;font-size:22px;color:var(--ink);line-height:1;text-decoration:none;flex:0 0 auto;}
+.wm{margin:0;font-size:var(--t-3xl);color:var(--ink);line-height:1;text-decoration:none;flex:0 0 auto;}
 .hdiv{width:1px;height:22px;background:var(--hair);flex:0 0 auto;}
-.tag{margin:0;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:2px;
+.tag{margin:0;color:var(--muted);font-size:var(--t-xs);font-weight:var(--w-name);letter-spacing:2px;
   text-transform:uppercase;flex:0 0 auto;}
 /* Suite tabs in the masthead (replaces the drawer suite section). Resets the
    kit's drawer .suite-nav box styling; active tab lights in the current
@@ -301,7 +372,7 @@ a{color:var(--teal);}
   min-width:200px;background:var(--paper);border:1px solid var(--hair);border-radius:12px;
   box-shadow:var(--shadow);padding:6px;display:none;}
 .suite-drop .drop-link{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:8px;
-  color:var(--ink);text-decoration:none;font-size:14px;}
+  color:var(--ink);text-decoration:none;font-size:var(--t-md);}
 .suite-drop .drop-link .tico svg{width:18px;height:18px;display:block;}
 /* Stated explicitly, not inherited. A view fragment's CSS is live in this same
  * document while its view is active, and fragmentize scopes it by document
@@ -309,7 +380,7 @@ a{color:var(--teal);}
  * rule matches shell chrome too. A chrome class with no rule of its own has
  * nothing to out-specify it. Drugs styles its drug-name headings and used to
  * collide here, rendering these labels at 18px/600. */
-.suite-drop .drop-link .drop-name{font-family:inherit;font-size:14px;font-weight:400;
+.suite-drop .drop-link .drop-name{font-family:inherit;font-size:var(--t-md);font-weight:var(--w-body);
   line-height:1.35;margin:0;}
 .suite-drop .drop-link:hover{background:var(--accent-soft);}
 .suite-drop .drop-link[aria-current="page"]{color:var(--m);
@@ -363,7 +434,7 @@ body.nav-open{overflow:hidden;}
 }
 #viewroot.leaving{opacity:0;transform:translateY(5px);}
 /* loading shimmer between fetch start and mount (usually invisible: cached) */
-.viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:13px;}
+.viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:var(--t-base);}
 /* Chrome hardening: view fragments carry generic element rules
    ([data-view=x] a{color:var(--teal)} etc.) that outrank bare class selectors
    and were tinting the persistent wordmark per module (the original
@@ -380,7 +451,7 @@ body.nav-open{overflow:hidden;}
 [data-view="hub"] .hub{margin:auto;width:100%;max-width:760px;padding:64px 40px;}
 [data-view="hub"] #viewroot{min-height:100vh;min-height:100dvh;display:flex;}
 [data-view="hub"] .hero{text-align:center;margin-bottom:44px;}
-[data-view="hub"] .hero .wm{margin:0;font-size:46px;letter-spacing:-1px;color:var(--ink);line-height:1;}
+[data-view="hub"] .hero .wm{margin:0;font-size:var(--t-wordmark);letter-spacing:-1px;color:var(--ink);line-height:1;}
 [data-view="hub"] .rule{border:none;border-top:1px solid var(--rule);margin:0 0 32px;}
 [data-view="hub"] .list{display:flex;flex-direction:column;gap:12px;}
 [data-view="hub"] .card{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;
@@ -393,16 +464,16 @@ body.nav-open{overflow:hidden;}
   display:flex;align-items:center;justify-content:center;}
 [data-view="hub"] .ic svg{width:22px;height:22px;}
 [data-view="hub"] .cname{flex:1 1 auto;min-width:0;color:var(--ink);font-family:var(--font-serif);
-  font-weight:500;font-size:19px;}
-[data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:18px;opacity:.55;}
+  font-weight:var(--w-label);font-size:var(--t-xl);}
+[data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:var(--t-xl);opacity:.55;}
 [data-view="hub"] .card:hover .cgo{opacity:1;}
-[data-view="hub"] .disc{margin-top:40px;text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:12.5px;line-height:1.6;
+[data-view="hub"] .disc{margin-top:40px;text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:var(--t-sm);line-height:1.6;
   border-top:1px solid var(--grid);padding-top:18px;letter-spacing:.3px;}
-[data-view="hub"] .versionmark{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;
+[data-view="hub"] .versionmark{font-family:var(--font-mono);font-size:var(--t-2xs);letter-spacing:.08em;
   text-transform:uppercase;white-space:nowrap;}
 @media (max-width:560px){
   [data-view="hub"] .hub{padding:40px 22px;}
-  [data-view="hub"] .hero .wm{font-size:36px;}
+  [data-view="hub"] .hero .wm{font-size:var(--t-display-lg);}
 }
 @media (prefers-reduced-motion: no-preference){
   [data-view="hub"] .hero .wm{animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .06s both;}
