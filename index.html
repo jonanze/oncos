@@ -128,31 +128,30 @@
      2026-07-26). The prose rule below is what turns it off, by re-declaring
      font-feature-settings without it — this property does not accumulate. */
   :root{ font-feature-settings:'tnum' 1,'cv05' 1,'cv08' 1,'zero' 1; }
-  /* --- Prose and names: proportional figures, plain zero ---
-     tabular-nums pads narrow digits (above all `1`) to a uniform advance so
-     columns line up. That is right in a table and wrong in a sentence, where it
-     leaves visible gaps around every number; and a slashed zero belongs on a
-     figure, not inside a NAME.
+  /* --- ONE figure treatment, suite-wide: tabular everywhere (2026-07-26) ---
+     There is deliberately NO prose/name opt-out. Every digit in the suite is
+     tabular and every `0` is slashed, in a table cell, a chip, a dose line, a
+     sentence and a trial name alike.
 
-     Two corrections found by rendering rather than by measurement, 2026-07-26 —
-     the computed-style probe passed both before they were fixed, because it only
-     ever asked whether the rule applied, never whether it applied to the right
-     text:
-       * `li` was in this list. Drugs' dose lines are <li> ("GFR >= 30 ml/min",
-         "25% of the original dose"), so every dose lost tabular alignment and
-         its slashed zero — the exact opposite of the intent. Removed.
-       * Trial and drug names sit in table cells (td.study, td.name) or headings
-         (.dname), so they inherited the figures treatment and rendered
-         DESTINY-Breast05 / RJBC-1501 / ASCENT-04 with slashed zeros. Names are
-         not figures. Added here.
-     Everything else keeps the tabular default: td/th, badges, chips, grade tags,
-     dose lists and form readouts. */
-  p, .lede, .disc, .note, .foot, .sub, blockquote, figcaption,
-  .findings, .evi-block, .desc, .summary-text,
-  td.study, td.name, .dname, .study{
-    font-variant-numeric:proportional-nums;
-    font-feature-settings:'pnum' 1,'cv05' 1,'cv08' 1;
-  }
+     History, so this is not "fixed" back by someone reading the old rationale:
+     an earlier pass the same day carved out `p, .lede, .disc, .note, .foot,
+     .sub, blockquote, figcaption, .findings, .evi-block, .desc, .summary-text,
+     td.study, td.name, .dname, .study` and switched them to `pnum` with `zero`
+     dropped, on the reasoning that tabular padding leaves visible gaps around
+     numbers mid-sentence and that a slashed zero belongs on a figure rather
+     than inside a NAME. That reasoning is not wrong in isolation. What killed it
+     was the composite: the carve-out put TWO digit styles on the same page —
+     DESTINY-Breast05 proportional and unslashed in a name cell, the same
+     numerals uniform and slashed one column over — and that inconsistency reads
+     worse than either treatment applied consistently. Jonan's call on
+     2026-07-26 after seeing it: tabular everywhere.
+
+     So trial names DO render DESTINY-Breast05 / RJBC-1501 / ASCENT-04 with a
+     slashed zero. That is intended, not a regression.
+
+     The one rule that remains is the form-control opt-in above: the UA `font`
+     shorthand resets font-variant-numeric, so inputs/selects/textareas/buttons
+     have to inherit it explicitly (the Tox CrCl / BSA / unit-converter fields). */
   /* Reserve the scrollbar gutter suite-wide so layout never reflows when the
      viewport scrollbar appears/disappears. Fixes the masthead + centred-content
      "shake": opening the nav drawer sets body.nav-open{overflow:hidden}, which
