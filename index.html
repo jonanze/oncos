@@ -440,9 +440,9 @@ body.nav-open{overflow:hidden;}
    "wordmark differs across the suite" bug). Two-class selectors win back. */
 .mhead a.wm{color:var(--ink);text-decoration:none;}
 .mhead .mast-suite .suite-link{text-decoration:none;}
-/* ---- home: the ORIGINAL hub page, unchanged (Jonan 2026-07-18) — shell
-   masthead hidden on this view so it reads exactly as before the integration;
-   its own fixed corner toggle returns. ---- */
+/* ---- home: the original hub structure inside the shell. The masthead stays
+   hidden on this view; module labels use the hub-only Meridian Signal display
+   treatment while their accessible text remains normally cased. ---- */
 [data-view="hub"] .mhead{display:none;}
 [data-view="hub"] .suite-drop{display:none !important;}
 [data-view="hub"] .themetoggle-fixed{position:fixed;top:calc(16px + env(safe-area-inset-top));
@@ -462,8 +462,11 @@ body.nav-open{overflow:hidden;}
   background:color-mix(in oklab, var(--cm, var(--teal)) 12%, transparent);
   display:flex;align-items:center;justify-content:center;}
 [data-view="hub"] .ic svg{width:22px;height:22px;}
-[data-view="hub"] .cname{flex:1 1 auto;min-width:0;color:var(--ink);font-family:var(--font-serif);
-  font-weight:var(--w-label);font-size:var(--t-xl);}
+[data-view="hub"] .cname{position:relative;flex:1 1 auto;min-width:0;color:var(--ink);
+  font-family:var(--font-sans);font-weight:650;font-size:15px;line-height:1.2;
+  letter-spacing:.12em;text-transform:uppercase;}
+[data-view="hub"] .cname::after{content:"";position:absolute;left:0;bottom:-7px;
+  width:26px;height:2px;border-radius:999px;background:var(--cm,var(--teal));opacity:.9;}
 [data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:var(--t-xl);opacity:.55;}
 [data-view="hub"] .card:hover .cgo{opacity:1;}
 [data-view="hub"] .disc{margin-top:40px;text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:var(--t-sm);line-height:1.6;
