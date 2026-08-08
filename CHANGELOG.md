@@ -2,6 +2,17 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.3] - 2026-08-08
+
+### Fixed
+
+- Mobile stage tables no longer overflow when the stage column carries entity
+  names instead of short codes (Adult diffuse glioma, appendiceal carcinoma)
+  or unbreakable slash-joined definitions (lung): the column may wrap under
+  640px, long tokens break, and stage blocks scroll as a seatbelt.
+- Evidence detail cards regained their long-token wrap guard on phones (the
+  rule had rotted onto a selector no longer in the markup).
+
 ## [1.3.2] - 2026-08-08
 
 ### Fixed
