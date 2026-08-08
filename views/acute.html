@@ -20,6 +20,10 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 [data-view="acute"] .items button:hover{background:var(--accent-soft);}
 [data-view="acute"] .items button.active{background:var(--accent-soft);border-left-color:var(--teal);font-weight:var(--w-name);color:var(--teal);}
 [data-view="acute"] .items button > span:first-child{min-width:0;}
+[data-view="acute"] .udot{flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--hair);}
+[data-view="acute"] .udot.u-high{background:var(--status-warning);}
+[data-view="acute"] .udot.u-peri{background:var(--status-danger);}
+[data-view="acute"] .udot.u-urgent{background:var(--status-info);}
 [data-view="acute"] main{max-width:1000px;margin:0 auto;padding:18px clamp(16px,4vw,26px) 60px;}
 [data-view="acute"] #results{transition:opacity .15s var(--mo-ease,cubic-bezier(.3,0,.1,1)),
            transform .15s var(--mo-ease,cubic-bezier(.3,0,.1,1));}
@@ -139,6 +143,7 @@ let state = { view:'index', id:null, q:'' };
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function ubadge(u){ return u ? `<span class="t ${UCLS[u]||'u-urgent'}">${esc(u)}</span>` : ''; }
+function udot(u){ return u ? `<span class="udot ${UCLS[u]||'u-urgent'}" title="${esc(u)}"></span>` : ''; }
 
 // ---- Sidebar: "All emergencies" + collapsible category sections ----
 const nav = document.getElementById('nav');
@@ -153,7 +158,8 @@ for (const [sec, ids] of Object.entries(SECTIONS)) {
   ids.forEach(id => {
     const e = BYID[id];
     const a = document.createElement('button'); a.type = 'button'; a.dataset.section = sec; a.dataset.id = id;
-    a.innerHTML = `<span>${esc(e.name)}</span>${ubadge(e.urgency)}`;
+    a.innerHTML = `<span>${esc(e.name)}</span>${udot(e.urgency)}`;
+    if (e.urgency) a.setAttribute('aria-label', `${e.name} — ${e.urgency}`);
     a.onclick = () => selectEmerg(id);
     box.appendChild(a);
   });

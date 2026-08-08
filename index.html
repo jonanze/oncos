@@ -31,9 +31,13 @@
     --hair:#e3e7ee; --grid:#edf0f5;
     --accent-soft:color-mix(in oklab, var(--m) 8%, #ffffff);
     --paper:#ffffff; --ground:#f6f7f9; --raised:#ffffff;
-    --status-success:#0e8f63; --status-success-soft:#e3f3ec;
-    --status-warning:#946908; --status-warning-soft:#f7efdb;
-    --status-danger:#c23f38; --status-danger-soft:#faeae9;
+    /* Light status text deepened one step (2026-08-08 colour QA): on their soft
+       tints the previous values sat just under the 4.5:1 small-text floor
+       (success 3.57:1, warning 4.28:1, danger 4.43:1). These measure 4.67 /
+       5.60 / 5.39 on the same tints. Dark values already passed (6-8:1). */
+    --status-success:#0a7a52; --status-success-soft:#e3f3ec;
+    --status-warning:#7d5807; --status-warning-soft:#f7efdb;
+    --status-danger:#b0322c; --status-danger-soft:#faeae9;
     --status-info:var(--m); --status-info-soft:var(--accent-soft);
     /* One typeface, three role names. Retypeset 2026-07-26 (Jonan): Inter
        replaces Newsreader (serif/entities), Schibsted Grotesk (sans/chrome) and
@@ -90,7 +94,11 @@
     --status-danger:#f0716b; --status-danger-soft:#391b19;
     --status-info:var(--m); --status-info-soft:var(--accent-soft);
     --rule:#2a3242; --btn-ink:#0a0d13;
-    --shadow:none;
+    /* Dark raised surfaces were separated from the ground only by the --grid
+       border (paper vs ground 1.05:1 — near-invisible). A faint light ring +
+       deep ambient shadow gives cards an edge without lightening the ink
+       aesthetic (2026-08-08 colour QA; was `none`). */
+    --shadow:0 0 0 1px rgba(232,236,243,.05), 0 12px 32px -16px rgba(0,0,0,.6);
     --glass:rgba(13,17,25,.75);
     color-scheme:dark;
   }
@@ -178,7 +186,7 @@
      2026-07-26 Inter retypeset deliberately did NOT touch; everything else is
      Inter. */
   .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
-  .wm .os{ background-image:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
+  .wm .os{ background-image:linear-gradient(100deg,#4e51d8,#0977b0 45%,#097556);
     -webkit-background-clip:text; background-clip:text; color:transparent; }
   :root[data-theme="dark"] .wm .os{ background-image:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6); }
   .mhead{ background:var(--glass);
@@ -206,13 +214,13 @@
   :root[data-theme="dark"] .sdot-evidence{ background:#8a8cff; }
   .sdot-drugs{ background:#0977b0; }
   :root[data-theme="dark"] .sdot-drugs{ background:#3fbbef; }
-  .sdot-staging{ background:#0b8a66; }
+  .sdot-staging{ background:#097556; }
   :root[data-theme="dark"] .sdot-staging{ background:#3fd6a6; }
   .sdot-tox{ background:#8f6206; }
   :root[data-theme="dark"] .sdot-tox{ background:#f0b44e; }
   .sdot-acute{ background:#d23d34; }
   :root[data-theme="dark"] .sdot-acute{ background:#ff6f61; }
-  .sdot-hub{ background:linear-gradient(135deg,#4e51d8,#0977b0,#0b8a66,#8f6206,#d23d34); }
+  .sdot-hub{ background:linear-gradient(135deg,#4e51d8,#0977b0,#097556,#8f6206,#d23d34); }
   :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#8a8cff,#3fbbef,#3fd6a6,#f0b44e,#ff6f61); }
 
   .theme-toggle{
@@ -316,7 +324,7 @@ html[data-view="evidence"]{ --m:#4e51d8; --teal:var(--m); }
 html[data-view="evidence"][data-theme="dark"]{ --m:#8a8cff; }
 html[data-view="drugs"]{ --m:#0977b0; --teal:var(--m); }
 html[data-view="drugs"][data-theme="dark"]{ --m:#3fbbef; }
-html[data-view="staging"]{ --m:#0b8a66; --teal:var(--m); }
+html[data-view="staging"]{ --m:#097556; --teal:var(--m); }
 html[data-view="staging"][data-theme="dark"]{ --m:#3fd6a6; }
 html[data-view="tox"]{ --m:#8f6206; --teal:var(--m); }
 html[data-view="tox"][data-theme="dark"]{ --m:#f0b44e; }
@@ -335,8 +343,15 @@ a{color:var(--teal);}
 .burger svg{width:20px;height:20px;}
 .wm{margin:0;font-size:var(--t-3xl);color:var(--ink);line-height:1;text-decoration:none;flex:0 0 auto;}
 .hdiv{width:1px;height:22px;background:var(--hair);flex:0 0 auto;}
+/* Active-module lockup (oncOS | Evidence): desktop-only — the mobile switcher
+   chip already names the module below 880px, and the hub hides the whole
+   masthead, so no empty state arises. */
 .tag{margin:0;color:var(--muted);font-size:var(--t-xs);font-weight:var(--w-name);letter-spacing:2px;
   text-transform:uppercase;flex:0 0 auto;}
+.mhead .hdiv,.mhead .tag{display:none;}
+@media (min-width:880px){
+  .mhead .hdiv,.mhead .tag{display:block;}
+}
 /* Suite tabs in the masthead (replaces the drawer suite section). Resets the
    kit's drawer .suite-nav box styling; active tab lights in the current
    wavelength (--m IS the active module's hue by definition). */
@@ -462,11 +477,14 @@ body.nav-open{overflow:hidden;}
   background:color-mix(in oklab, var(--cm, var(--teal)) 12%, transparent);
   display:flex;align-items:center;justify-content:center;}
 [data-view="hub"] .ic svg{width:22px;height:22px;}
-[data-view="hub"] .cname{display:flex;align-items:baseline;flex:1 1 auto;min-width:0;
+[data-view="hub"] .cbody{display:flex;flex-direction:column;gap:5px;flex:1 1 auto;min-width:0;}
+[data-view="hub"] .cname{display:flex;align-items:baseline;flex:0 0 auto;min-width:0;
   font-family:var(--font-sans);line-height:1;}
 [data-view="hub"] .cinitial,[data-view="hub"] .crest{color:var(--ink);font-size:12px;
   font-weight:600;line-height:1;letter-spacing:.14em;text-transform:uppercase;}
 [data-view="hub"] .cinitial{flex:0 0 auto;}
+[data-view="hub"] .cdesc{color:var(--muted);font-size:var(--t-sm);font-weight:var(--w-body);
+  line-height:1.35;letter-spacing:0;text-transform:none;}
 [data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:var(--t-xl);opacity:.55;}
 [data-view="hub"] .card:hover .cgo{opacity:1;}
 [data-view="hub"] .disc{margin-top:40px;text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:var(--t-sm);line-height:1.6;
@@ -486,7 +504,7 @@ body.nav-open{overflow:hidden;}
 html[data-theme="dark"][data-view="hub"] .card.m-evidence{--cm:#8a8cff;}
 [data-view="hub"] .card.m-drugs{--cm:#0977b0;}
 html[data-theme="dark"][data-view="hub"] .card.m-drugs{--cm:#3fbbef;}
-[data-view="hub"] .card.m-staging{--cm:#0b8a66;}
+[data-view="hub"] .card.m-staging{--cm:#097556;}
 html[data-theme="dark"][data-view="hub"] .card.m-staging{--cm:#3fd6a6;}
 [data-view="hub"] .card.m-tox{--cm:#8f6206;}
 html[data-theme="dark"][data-view="hub"] .card.m-tox{--cm:#f0b44e;}
@@ -498,6 +516,8 @@ html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#ff6f61;}
 <header class="mhead">
   <button class="burger" id="burger" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
   <a class="wm" href="/" data-nav="hub" aria-label="oncOS home">onc<span class="os">OS</span></a>
+  <span class="hdiv" aria-hidden="true"></span>
+  <span class="tag" id="mast-mod" aria-hidden="true"></span>
   <nav class="suite-nav mast-suite" aria-label="oncOS suite">
     <a class="suite-link" href="/evidence/" data-nav="evidence" title="Evidence" aria-label="Evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span></a><a class="suite-link" href="/staging/" data-nav="staging" title="Staging" aria-label="Staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span></a><a class="suite-link" href="/drugs/" data-nav="drugs" title="Drugs" aria-label="Drugs"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span></a><a class="suite-link" href="/tox/" data-nav="tox" title="Tox" aria-label="Tox"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span></a><a class="suite-link" href="/acute/" data-nav="acute" title="Acute" aria-label="Acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span></a>
   </nav>
@@ -523,11 +543,11 @@ html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#ff6f61;}
   </header>
   <hr class="rule">
   <section class="list mo-stagger">
-      <a class="card m-evidence" href="evidence/" data-nav="evidence" aria-label="Evidence"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cname"><span class="cinitial">E</span><span class="crest">vidence</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-staging" href="staging/" data-nav="staging" aria-label="Staging"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cname"><span class="cinitial">S</span><span class="crest">taging</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-drugs" href="drugs/" data-nav="drugs" aria-label="Drugs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cname"><span class="cinitial">D</span><span class="crest">rugs</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-evidence" href="evidence/" data-nav="evidence" aria-label="Evidence"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">E</span><span class="crest">vidence</span></span><span class="cdesc">Curated trial evidence</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-staging" href="staging/" data-nav="staging" aria-label="Staging"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">S</span><span class="crest">taging</span></span><span class="cdesc">TNM & staging systems</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-drugs" href="drugs/" data-nav="drugs" aria-label="Drugs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">D</span><span class="crest">rugs</span></span><span class="cdesc">Renal & hepatic dosing</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span><span class="cdesc">CTCAE grading & irAE management</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span><span class="cdesc">Oncologic emergencies</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
   </section>
   <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.2.0">v1.2.0</span></footer>
 </main></template>
@@ -637,6 +657,8 @@ html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#ff6f61;}
     if (q) { q.value=''; q.placeholder = 'Search\u2026'; q.style.display = (name==='hub'?'none':'');
       q.id = (v && v.searchId) || 'q'; }
     document.title = name==='hub' ? 'oncOS' : 'oncOS \u2014 ' + (v?v.title:name);
+    var mtag = document.getElementById('mast-mod');
+    if (mtag) mtag.textContent = name==='hub' ? '' : (v?v.title:name);
 
     viewnav.innerHTML = '';
     if (name === 'hub') {
