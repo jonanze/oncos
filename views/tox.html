@@ -382,11 +382,10 @@ html[data-view="tox"][data-theme="dark"] mark{background:#5a4a12; color:#f3e6b0}
 @media (hover: hover){[data-view="tox"] .backbtn:hover{color:var(--teal);border-color:var(--teal);background:var(--accent-soft)}}
 [data-view="tox"] .backbtn.is-pressed{color:var(--teal);border-color:var(--teal);background:var(--accent-soft)}
 [data-view="tox"] .tixgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:6px 0 26px}
-[data-view="tox"] .tixcard{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:20px 20px 17px;font:inherit;cursor:pointer;background:var(--paper);border:1px solid var(--grid);border-radius:14px;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
+[data-view="tox"] .tixcard{display:flex;align-items:center;justify-content:center;text-align:center;padding:26px 18px;font:inherit;cursor:pointer;background:var(--paper);border:1px solid var(--grid);border-radius:14px;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
 @media (hover: hover){[data-view="tox"] .tixcard:hover{border-color:color-mix(in oklab, var(--teal) 45%, var(--grid));transform:translateY(-2px)}}
 [data-view="tox"] .tixcard.is-pressed{border-color:color-mix(in oklab, var(--teal) 45%, var(--grid))}
 [data-view="tox"] .tixname{font-family:var(--font-serif);font-weight:var(--w-name);font-size:var(--t-xl);color:var(--ink)}
-[data-view="tox"] .tixcount{font-size:var(--t-xs);font-weight:var(--w-name);letter-spacing:.03em;color:var(--slate);margin-top:2px}
 [data-view="tox"] .fhead{margin:0 0 12px}
 [data-view="tox"] .fhead .h-title{font-family:var(--font-serif);font-size:var(--t-3xl);font-weight:var(--w-name);margin:0;letter-spacing:-.01em}
 [data-view="tox"] .fhead .lede{color:var(--slate);font-size:var(--t-sm);margin:6px 0 0;max-width:660px;line-height:1.55}
@@ -413,6 +412,7 @@ html[data-view="tox"][data-theme="dark"] mark{background:#5a4a12; color:#f3e6b0}
 [data-view="tox"] .rowtoggle{display:block;width:100%;padding:0;border:0;background:transparent;color:inherit;font:inherit;font-weight:inherit;text-align:left;cursor:pointer}
 [data-view="tox"] .rowsub{margin-top:3px;font-family:var(--font-sans);font-size:var(--t-sm);font-weight:var(--w-body);line-height:1.4;color:var(--muted)}
 [data-view="tox"] .secrow td{background:var(--ground);font-weight:var(--w-strong);font-size:var(--t-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--slate);padding:8px 14px}
+[data-view="tox"] .secrow td::after{content:"";display:inline-block;width:100%;height:1px;background:var(--rule);vertical-align:middle;margin-left:12px;margin-right:-100%}
 [data-view="tox"] .dvhead{margin:2px 0 18px;padding-bottom:14px;border-bottom:1.2px solid var(--rule)}
 [data-view="tox"] .dvhead h2{margin:0 0 8px;font-family:var(--font-serif);font-size:var(--t-3xl);font-weight:var(--w-name);letter-spacing:-.01em}
 [data-view="tox"] .dvmeta{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:baseline;color:var(--muted);font-size:var(--t-sm)}
@@ -1286,14 +1286,10 @@ function renderSupportiveDetail(list,id){
 
 function renderIndex(list){
  $('#htitle').textContent=''; 
- const ix=[
-  ['ctcae','CTCAE grading','Grade any adverse event, CTCAE v6.0',MODEL.meta.n_terms,'terms'],
-  ['irae','irAE management','Immune-related AE work-up & management',MODEL.meta.n_irae,'irAEs'],
-  ['supportive','Supportive care','Antiemesis, G-CSF & supportive protocols',MODEL.meta.n_supportive,'topics']
- ];
  let h='<div class="tixgrid">';
- ix.forEach(c=>{ h+=`<button class="tixcard" data-ix="${c[0]}"><span class="tixname">${c[1]}</span>`+
-  (c[3]?`<span class="tixcount">${c[3]} ${c[4]}</span>`:'')+`</button>`; });
+ h+=`<button class="tixcard" data-ix="ctcae"><span class="tixname">CTCAE grading</span></button>`;
+ h+=`<button class="tixcard" data-ix="irae"><span class="tixname">irAE management</span></button>`;
+ h+=`<button class="tixcard" data-ix="supportive"><span class="tixname">Supportive care</span></button>`;
  h+='</div>';
  list.insertAdjacentHTML('beforeend', h);
  list.querySelectorAll('.tixcard').forEach(b=>b.onclick=()=>{

@@ -55,6 +55,7 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
     color: inherit; font: inherit; font-weight: inherit; text-align: left; cursor: pointer; }
 [data-view="staging"] .badge{ display: inline-flex; align-items: center; box-sizing: border-box; height: var(--chip-h); font-size: var(--chip-fs); padding: 0 var(--chip-pad); border-radius: var(--chip-r); font-weight: var(--w-name); letter-spacing: var(--track-badge); background: transparent; box-shadow: inset 0 0 0 1px var(--rule); color: var(--slate); white-space: nowrap; }
 [data-view="staging"] .secrow td{ background: var(--ground); font-weight: var(--w-strong); font-size: var(--t-xs); letter-spacing: .05em; text-transform: uppercase; color: var(--slate); padding: 7px 12px; }
+[data-view="staging"] .secrow td::after{ content: ""; display: inline-block; width: 100%; height: 1px; background: var(--rule); vertical-align: middle; margin-left: 12px; margin-right: -100%; }
 [data-view="staging"] .detail td{ background: var(--accent-soft); padding: 0; }
 [data-view="staging"] .detail .inner{ padding: 16px 18px 20px; }
 [data-view="staging"] .sgrid{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px 26px; }

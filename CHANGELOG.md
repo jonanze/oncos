@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.6] - 2026-08-08
+
+### Changed
+
+- Beautification set: the masthead's active-module pill glides between tabs;
+  the search field blooms wider on focus; section labels carry a trailing
+  hairline suite-wide; dark mode gains a faint top glow and a machined edge
+  on raised cards. Tox landing cards are titles only (counts removed).
+
 ## [1.3.5] - 2026-08-08
 
 ### Changed

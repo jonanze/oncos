@@ -13,6 +13,7 @@ html[data-view="drugs"]{--sidebar-w:248px}
 [data-view="drugs"] .lede{color:var(--slate); font-size:var(--t-sm); margin:0 0 14px; max-width:640px; line-height:1.55;}
 [data-view="drugs"] .azdiv{font-family:var(--font-sans); font-weight:var(--w-strong); font-size:var(--t-base); color:var(--slate);
     letter-spacing:.05em; margin:22px 0 10px 0; scroll-margin-top:14px;}
+[data-view="drugs"] .azdiv::after{content:"";display:inline-block;width:100%;height:1px;background:var(--rule);vertical-align:middle;margin-left:12px;margin-right:-100%;}
 [data-view="drugs"] .letter-group:first-of-type .azdiv{margin-top:0;}
 [data-view="drugs"] .card{border-top:1px solid var(--grid); padding:16px 2px 18px;}
 [data-view="drugs"] .card-top{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
