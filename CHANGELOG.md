@@ -2,6 +2,19 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.5] - 2026-08-08
+
+### Changed
+
+- Hub and Tox landing cards drop their descriptor lines; Tox keeps the counts.
+
+### Fixed
+
+- Sign-in page synced to the functional-teal identity (it still carried the
+  retired wordmark gradient and iris accent).
+- Masthead module tabs no longer touch the search field in the 885-905px band.
+- Evidence UPDATE tag aligned to the chip system's type metrics.
+
 ## [1.3.4] - 2026-08-08
 
 ### Changed
