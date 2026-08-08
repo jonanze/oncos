@@ -2,6 +2,17 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.7] - 2026-08-08
+
+### Fixed
+
+- Sliding module indicator no longer doubles with a static tint on the active
+  tab; search field shows a single border on focus (ring removed).
+
+### Changed
+
+- Tox landing card titles use the launcher's tracked-uppercase label style.
+
 ## [1.3.6] - 2026-08-08
 
 ### Changed
