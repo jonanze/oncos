@@ -2,6 +2,13 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.9] - 2026-08-08
+
+### Changed
+
+- Acute drops its urgency grading display entirely: no urgency column, pills,
+  or drawer dots. The underlying data field remains unrendered.
+
 ## [1.3.8] - 2026-08-08
 
 ### Fixed
