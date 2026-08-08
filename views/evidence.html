@@ -92,14 +92,15 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .detail .full{ column-span: all; margin-bottom: 10px; }
 [data-view="evidence"] .detail .fld{ break-inside: avoid; margin-bottom: 10px; min-width: 0; }
 [data-view="evidence"] .detail .col{ display: contents; }
+@media (min-width: 1100px){[data-view="evidence"] .detail .inner{ display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px 30px; }
+[data-view="evidence"] .detail .full{ grid-column: 1; grid-row: 1 / span 4; margin-bottom: 0; }
+[data-view="evidence"] .detail .fld{ grid-column: 2; margin-bottom: 0; }}
 [data-view="evidence"] .detail .k{ font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .04em; color: var(--slate); font-weight: var(--w-name); margin-bottom: 1px; }
 [data-view="evidence"] .detail .epsub{ font-size: var(--t-2xs); text-transform: uppercase; letter-spacing: .05em;
     color: var(--muted); font-weight: var(--w-strong); margin-top: 5px; }
 [data-view="evidence"] .detail .epsub:first-child{ margin-top: 0; }
 [data-view="evidence"] .detail .epval{ margin-bottom: 1px; }
-[data-view="evidence"] .detail .findings{ background: var(--ground); border: none; border-left: 3px solid var(--slate); border-radius: 0; padding: 11px 13px;
-    
-    max-width: 100ch; }
+[data-view="evidence"] .detail .findings{ background: var(--ground); border: none; border-left: 3px solid var(--slate); border-radius: 0; padding: 11px 13px; }
 [data-view="evidence"] .detail a.src{ color: var(--teal); text-decoration: none; font-weight: var(--w-name); }
 [data-view="evidence"] .detail a.src:hover{ text-decoration: underline; }
 [data-view="evidence"] .detail .refline{ margin-bottom: 3px; }

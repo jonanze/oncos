@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.4] - 2026-08-08
+
+### Changed
+
+- Evidence uses desktop width: the trial table widens to 1280px (subtitles on
+  one line, shorter rows), and on wide screens the trial card becomes a
+  two-column composition -- Key findings as a reading column beside a rail of
+  Population, Treatment arms, Endpoint and Reference.
+
 ## [1.3.3] - 2026-08-08
 
 ### Fixed
