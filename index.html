@@ -26,7 +26,7 @@
 
   /* --- oncOS Meridian theme (shared: _oncos-kit/oncos_theme.py) --- */
   :root{
-    --m:#4d5a6b; --teal:var(--m);
+    --m:#0977b0; --teal:var(--m);
     --ink:#131926; --slate:#4d5a6b; --muted:#647184;
     --hair:#e3e7ee; --grid:#edf0f5;
     --accent-soft:color-mix(in oklab, var(--m) 8%, #ffffff);
@@ -38,7 +38,16 @@
     --status-success:#0a7a52; --status-success-soft:#e3f3ec;
     --status-warning:#7d5807; --status-warning-soft:#f7efdb;
     --status-danger:#b0322c; --status-danger-soft:#faeae9;
-    --status-info:var(--m); --status-info-soft:var(--accent-soft);
+    /* Info is SLATE, not var(--m) (2026-08-08): under functional teal the
+       accent means "actionable", and an informational pill must not look
+       clickable. */
+    --status-info:#4d5a6b; --status-info-soft:#eef1f4;
+    /* --- Standard chip geometry (2026-08-08) — one spec for the suite's chip
+       families: Evidence phase, Staging system, Tox grade tags + facet tags,
+       Acute urgency. Two finishes only: outline (categorical) and soft fill
+       (semantic). Generators consume these tokens; --chip-fs is a var
+       reference on purpose so fragmentize's px-normaliser can't rewrite it. */
+    --chip-h:20px; --chip-r:999px; --chip-fs:10.5px; --chip-pad:9px;
     /* One typeface, three role names. Retypeset 2026-07-26 (Jonan): Inter
        replaces Newsreader (serif/entities), Schibsted Grotesk (sans/chrome) and
        Spline Sans Mono (figures). The role tokens are KEPT — every module
@@ -84,7 +93,7 @@
     color-scheme:light;
   }
   :root[data-theme="dark"]{
-    --m:#a3aebe; --teal:var(--m);
+    --m:#3fbbef; --teal:var(--m);
     --ink:#e8ecf3; --slate:#a3aebe; --muted:#8391a3;
     --hair:#222937; --grid:#1a2130;
     --accent-soft:color-mix(in oklab, var(--m) 13%, #10141c);
@@ -92,7 +101,7 @@
     --status-success:#37c98c; --status-success-soft:#12312a;
     --status-warning:#e5a93e; --status-warning-soft:#32270f;
     --status-danger:#f0716b; --status-danger-soft:#391b19;
-    --status-info:var(--m); --status-info-soft:var(--accent-soft);
+    --status-info:#a3aebe; --status-info-soft:#222f3c;
     --rule:#2a3242; --btn-ink:#0a0d13;
     /* Dark raised surfaces were separated from the ground only by the --grid
        border (paper vs ground 1.05:1 — near-invisible). A faint light ring +
@@ -212,18 +221,18 @@
   .suite-link:hover{ background:var(--accent-soft); color:var(--m); }
   .suite-link[aria-current="page"]{ color:var(--m); font-weight:600; background:var(--accent-soft); }
   .sdot{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
-  .sdot-evidence{ background:#4d5a6b; }
-  :root[data-theme="dark"] .sdot-evidence{ background:#a3aebe; }
-  .sdot-drugs{ background:#4d5a6b; }
-  :root[data-theme="dark"] .sdot-drugs{ background:#a3aebe; }
-  .sdot-staging{ background:#4d5a6b; }
-  :root[data-theme="dark"] .sdot-staging{ background:#a3aebe; }
-  .sdot-tox{ background:#4d5a6b; }
-  :root[data-theme="dark"] .sdot-tox{ background:#a3aebe; }
-  .sdot-acute{ background:#4d5a6b; }
-  :root[data-theme="dark"] .sdot-acute{ background:#a3aebe; }
-  .sdot-hub{ background:linear-gradient(135deg,#4d5a6b,#4d5a6b,#4d5a6b,#4d5a6b,#4d5a6b); }
-  :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#a3aebe,#a3aebe,#a3aebe,#a3aebe,#a3aebe); }
+  .sdot-evidence{ background:#0977b0; }
+  :root[data-theme="dark"] .sdot-evidence{ background:#3fbbef; }
+  .sdot-drugs{ background:#0977b0; }
+  :root[data-theme="dark"] .sdot-drugs{ background:#3fbbef; }
+  .sdot-staging{ background:#0977b0; }
+  :root[data-theme="dark"] .sdot-staging{ background:#3fbbef; }
+  .sdot-tox{ background:#0977b0; }
+  :root[data-theme="dark"] .sdot-tox{ background:#3fbbef; }
+  .sdot-acute{ background:#0977b0; }
+  :root[data-theme="dark"] .sdot-acute{ background:#3fbbef; }
+  .sdot-hub{ background:linear-gradient(135deg,#0977b0,#0977b0,#0977b0,#0977b0,#0977b0); }
+  :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#3fbbef,#3fbbef,#3fbbef,#3fbbef,#3fbbef); }
 
   .theme-toggle{
     display:inline-flex; align-items:center; justify-content:center;
@@ -320,18 +329,18 @@
     details::details-content{ transition-duration:.001ms !important; }
   }
 
-@property --m { syntax:'<color>'; inherits:true; initial-value:#4e51d8; }
+@property --m { syntax:'<color>'; inherits:true; initial-value:#0977b0; }
 @media (prefers-reduced-motion: no-preference){ :root{ transition: --m .35s var(--mo-ease, cubic-bezier(.3,0,.1,1)); } }
-html[data-view="evidence"]{ --m:#4d5a6b; --teal:var(--m); }
-html[data-view="evidence"][data-theme="dark"]{ --m:#a3aebe; }
-html[data-view="drugs"]{ --m:#4d5a6b; --teal:var(--m); }
-html[data-view="drugs"][data-theme="dark"]{ --m:#a3aebe; }
-html[data-view="staging"]{ --m:#4d5a6b; --teal:var(--m); }
-html[data-view="staging"][data-theme="dark"]{ --m:#a3aebe; }
-html[data-view="tox"]{ --m:#4d5a6b; --teal:var(--m); }
-html[data-view="tox"][data-theme="dark"]{ --m:#a3aebe; }
-html[data-view="acute"]{ --m:#4d5a6b; --teal:var(--m); }
-html[data-view="acute"][data-theme="dark"]{ --m:#a3aebe; }
+html[data-view="evidence"]{ --m:#0977b0; --teal:var(--m); }
+html[data-view="evidence"][data-theme="dark"]{ --m:#3fbbef; }
+html[data-view="drugs"]{ --m:#0977b0; --teal:var(--m); }
+html[data-view="drugs"][data-theme="dark"]{ --m:#3fbbef; }
+html[data-view="staging"]{ --m:#0977b0; --teal:var(--m); }
+html[data-view="staging"][data-theme="dark"]{ --m:#3fbbef; }
+html[data-view="tox"]{ --m:#0977b0; --teal:var(--m); }
+html[data-view="tox"][data-theme="dark"]{ --m:#3fbbef; }
+html[data-view="acute"]{ --m:#0977b0; --teal:var(--m); }
+html[data-view="acute"][data-theme="dark"]{ --m:#3fbbef; }
 
 *{box-sizing:border-box;}
 html,body{margin:0;}
@@ -475,8 +484,12 @@ body.nav-open{overflow:hidden;}
   box-shadow:var(--shadow);transition:background .12s,border-color .15s,transform .15s;}
 [data-view="hub"] .card:hover{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
   border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));transform:translateY(-2px);}
-[data-view="hub"] .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;color:var(--cm, var(--teal));
-  background:color-mix(in oklab, var(--cm, var(--teal)) 12%, transparent);
+/* Icon tiles stay SLATE under functional teal (2026-08-08): the tile is a
+   pictogram, not the affordance — the arrow (.cgo) and hover border carry the
+   actionable teal. --cm (= the teal accent since the wavelength collapse)
+   still drives those two. */
+[data-view="hub"] .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;color:var(--slate);
+  background:color-mix(in oklab, var(--slate) 11%, transparent);
   display:flex;align-items:center;justify-content:center;}
 [data-view="hub"] .ic svg{width:22px;height:22px;}
 [data-view="hub"] .cbody{display:flex;flex-direction:column;gap:5px;flex:1 1 auto;min-width:0;}
@@ -502,16 +515,16 @@ body.nav-open{overflow:hidden;}
   @keyframes hub-rise{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
 }
 
-[data-view="hub"] .card.m-evidence{--cm:#4d5a6b;}
-html[data-theme="dark"][data-view="hub"] .card.m-evidence{--cm:#a3aebe;}
-[data-view="hub"] .card.m-drugs{--cm:#4d5a6b;}
-html[data-theme="dark"][data-view="hub"] .card.m-drugs{--cm:#a3aebe;}
-[data-view="hub"] .card.m-staging{--cm:#4d5a6b;}
-html[data-theme="dark"][data-view="hub"] .card.m-staging{--cm:#a3aebe;}
-[data-view="hub"] .card.m-tox{--cm:#4d5a6b;}
-html[data-theme="dark"][data-view="hub"] .card.m-tox{--cm:#a3aebe;}
-[data-view="hub"] .card.m-acute{--cm:#4d5a6b;}
-html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#a3aebe;}
+[data-view="hub"] .card.m-evidence{--cm:#0977b0;}
+html[data-theme="dark"][data-view="hub"] .card.m-evidence{--cm:#3fbbef;}
+[data-view="hub"] .card.m-drugs{--cm:#0977b0;}
+html[data-theme="dark"][data-view="hub"] .card.m-drugs{--cm:#3fbbef;}
+[data-view="hub"] .card.m-staging{--cm:#0977b0;}
+html[data-theme="dark"][data-view="hub"] .card.m-staging{--cm:#3fbbef;}
+[data-view="hub"] .card.m-tox{--cm:#0977b0;}
+html[data-theme="dark"][data-view="hub"] .card.m-tox{--cm:#3fbbef;}
+[data-view="hub"] .card.m-acute{--cm:#0977b0;}
+html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#3fbbef;}
 </style>
 </head>
 <body>
