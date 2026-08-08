@@ -2,6 +2,14 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.8] - 2026-08-08
+
+### Fixed
+
+- Sliding module indicator is pixel-exact with the tab it marks: stray drawer
+  padding had widened the tabs to 40px under a 36px pill, and the pill now
+  sizes itself from the live tab box.
+
 ## [1.3.7] - 2026-08-08
 
 ### Fixed
