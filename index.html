@@ -410,8 +410,11 @@ a{color:var(--teal);}
 .mast-suite .tico svg{width:18px;height:18px;display:block;}
 /* True geometric centring where the bar is wide enough that the tabs can
    never collide with the search field; below that they centre in the free
-   span (margin:auto), and on mobile they give way to the dropdown. */
-@media (min-width:880px){
+   span (margin:auto), and on mobile they give way to the dropdown.
+   940 (was 880, 2026-08-08 adversarial QA): at 885-905px the absolutely
+   centred strip overlapped the search field by a few px — measured 5px at
+   890. In-flow centring covers the band collision-free. */
+@media (min-width:940px){
   .mhead{position:sticky;}
   .mast-suite{position:absolute;left:50%;transform:translateX(-50%);margin:0;}
 }
@@ -533,8 +536,6 @@ body.nav-open{overflow:hidden;}
 [data-view="hub"] .cinitial,[data-view="hub"] .crest{color:var(--ink);font-size:12px;
   font-weight:600;line-height:1;letter-spacing:.14em;text-transform:uppercase;}
 [data-view="hub"] .cinitial{flex:0 0 auto;}
-[data-view="hub"] .cdesc{color:var(--muted);font-size:var(--t-sm);font-weight:var(--w-body);
-  line-height:1.35;letter-spacing:0;text-transform:none;}
 [data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:var(--t-xl);opacity:.55;}
 [data-view="hub"] .card:hover .cgo{opacity:1;}
 [data-view="hub"] .disc{margin-top:40px;text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:var(--t-sm);line-height:1.6;
@@ -593,11 +594,11 @@ html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#3fbbef;}
   </header>
   <hr class="rule">
   <section class="list mo-stagger">
-      <a class="card m-evidence" href="evidence/" data-nav="evidence" aria-label="Evidence"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">E</span><span class="crest">vidence</span></span><span class="cdesc">Curated trial evidence</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-staging" href="staging/" data-nav="staging" aria-label="Staging"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">S</span><span class="crest">taging</span></span><span class="cdesc">TNM & staging systems</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-drugs" href="drugs/" data-nav="drugs" aria-label="Drugs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">D</span><span class="crest">rugs</span></span><span class="cdesc">Renal & hepatic dosing</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span><span class="cdesc">CTCAE grading & irAE management</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span><span class="cdesc">Oncologic emergencies</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-evidence" href="evidence/" data-nav="evidence" aria-label="Evidence"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">E</span><span class="crest">vidence</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-staging" href="staging/" data-nav="staging" aria-label="Staging"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">S</span><span class="crest">taging</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-drugs" href="drugs/" data-nav="drugs" aria-label="Drugs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">D</span><span class="crest">rugs</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
+      <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
   </section>
   <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.3.4">v1.3.4</span></footer>
 </main></template>

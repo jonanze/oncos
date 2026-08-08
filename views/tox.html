@@ -386,7 +386,6 @@ html[data-view="tox"][data-theme="dark"] mark{background:#5a4a12; color:#f3e6b0}
 @media (hover: hover){[data-view="tox"] .tixcard:hover{border-color:color-mix(in oklab, var(--teal) 45%, var(--grid));transform:translateY(-2px)}}
 [data-view="tox"] .tixcard.is-pressed{border-color:color-mix(in oklab, var(--teal) 45%, var(--grid))}
 [data-view="tox"] .tixname{font-family:var(--font-serif);font-weight:var(--w-name);font-size:var(--t-xl);color:var(--ink)}
-[data-view="tox"] .tixdesc{font-size:var(--t-sm);color:var(--muted);line-height:1.4}
 [data-view="tox"] .tixcount{font-size:var(--t-xs);font-weight:var(--w-name);letter-spacing:.03em;color:var(--slate);margin-top:2px}
 [data-view="tox"] .fhead{margin:0 0 12px}
 [data-view="tox"] .fhead .h-title{font-family:var(--font-serif);font-size:var(--t-3xl);font-weight:var(--w-name);margin:0;letter-spacing:-.01em}
@@ -1294,7 +1293,6 @@ function renderIndex(list){
  ];
  let h='<div class="tixgrid">';
  ix.forEach(c=>{ h+=`<button class="tixcard" data-ix="${c[0]}"><span class="tixname">${c[1]}</span>`+
-  `<span class="tixdesc">${c[2]}</span>`+
   (c[3]?`<span class="tixcount">${c[3]} ${c[4]}</span>`:'')+`</button>`; });
  h+='</div>';
  list.insertAdjacentHTML('beforeend', h);

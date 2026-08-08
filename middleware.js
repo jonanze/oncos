@@ -84,10 +84,10 @@ function loginPage(error) {
   :root{
     --ink:#131926; --muted:#647184; --hair:#e3e7ee; --rule:#d7dde6;
     --paper:#ffffff; --ground:#f6f7f9;
-    --m:#4e51d8; --btn-ink:#ffffff;
+    --m:#0977b0; --btn-ink:#ffffff;
     --accent-soft:color-mix(in oklab,var(--m) 8%,#ffffff);
-    --danger:#c23f38; --danger-soft:#faeae9;
-    --wm-grad:linear-gradient(100deg,#4e51d8,#0977b0 45%,#0b8a66);
+    --danger:#b0322c; --danger-soft:#faeae9;
+    --wm-grad:linear-gradient(0deg,#0977b0,#0977b0);
     --shadow:0 1px 2px rgba(19,25,38,.05), 0 10px 28px -12px rgba(19,25,38,.14);
     --font-sans:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     --font-mono:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
@@ -97,10 +97,10 @@ function loginPage(error) {
   @media (prefers-color-scheme:dark){:root{
     --ink:#e8ecf3; --muted:#8391a3; --hair:#222937; --rule:#2a3242;
     --paper:#10141c; --ground:#0a0d13;
-    --m:#8a8cff; --btn-ink:#0a0d13;
+    --m:#3fbbef; --btn-ink:#0a0d13;
     --accent-soft:color-mix(in oklab,var(--m) 13%,#10141c);
     --danger:#f0716b; --danger-soft:#391b19;
-    --wm-grad:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6);
+    --wm-grad:linear-gradient(0deg,#3fbbef,#3fbbef);
     --shadow:none;
     color-scheme:dark;
   }}
