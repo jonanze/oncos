@@ -26,7 +26,7 @@
 
   /* --- oncOS Meridian theme (shared: _oncos-kit/oncos_theme.py) --- */
   :root{
-    --m:#4e51d8; --teal:var(--m);
+    --m:#4d5a6b; --teal:var(--m);
     --ink:#131926; --slate:#4d5a6b; --muted:#647184;
     --hair:#e3e7ee; --grid:#edf0f5;
     --accent-soft:color-mix(in oklab, var(--m) 8%, #ffffff);
@@ -84,7 +84,7 @@
     color-scheme:light;
   }
   :root[data-theme="dark"]{
-    --m:#8a8cff; --teal:var(--m);
+    --m:#a3aebe; --teal:var(--m);
     --ink:#e8ecf3; --slate:#a3aebe; --muted:#8391a3;
     --hair:#222937; --grid:#1a2130;
     --accent-soft:color-mix(in oklab, var(--m) 13%, #10141c);
@@ -186,9 +186,11 @@
      2026-07-26 Inter retypeset deliberately did NOT touch; everything else is
      Inter. */
   .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
-  .wm .os{ background-image:linear-gradient(100deg,#4e51d8,#0977b0 45%,#097556);
-    -webkit-background-clip:text; background-clip:text; color:transparent; }
-  :root[data-theme="dark"] .wm .os{ background-image:linear-gradient(100deg,#8a8cff,#3fbbef 45%,#3fd6a6); }
+  /* Solid teal "OS" (monochrome retheme 2026-08-08) — background-image:none
+     overrides any module's leftover gradient + background-clip rules. */
+  .wm .os{ background-image:none; -webkit-background-clip:initial;
+    background-clip:initial; color:#0977b0; }
+  :root[data-theme="dark"] .wm .os{ background-image:none; color:#3fbbef; }
   .mhead{ background:var(--glass);
     -webkit-backdrop-filter:blur(14px) saturate(1.3); backdrop-filter:blur(14px) saturate(1.3);
     border-bottom:1px solid var(--hair); }
@@ -210,18 +212,18 @@
   .suite-link:hover{ background:var(--accent-soft); color:var(--m); }
   .suite-link[aria-current="page"]{ color:var(--m); font-weight:600; background:var(--accent-soft); }
   .sdot{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
-  .sdot-evidence{ background:#4e51d8; }
-  :root[data-theme="dark"] .sdot-evidence{ background:#8a8cff; }
-  .sdot-drugs{ background:#0977b0; }
-  :root[data-theme="dark"] .sdot-drugs{ background:#3fbbef; }
-  .sdot-staging{ background:#097556; }
-  :root[data-theme="dark"] .sdot-staging{ background:#3fd6a6; }
-  .sdot-tox{ background:#8f6206; }
-  :root[data-theme="dark"] .sdot-tox{ background:#f0b44e; }
-  .sdot-acute{ background:#d23d34; }
-  :root[data-theme="dark"] .sdot-acute{ background:#ff6f61; }
-  .sdot-hub{ background:linear-gradient(135deg,#4e51d8,#0977b0,#097556,#8f6206,#d23d34); }
-  :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#8a8cff,#3fbbef,#3fd6a6,#f0b44e,#ff6f61); }
+  .sdot-evidence{ background:#4d5a6b; }
+  :root[data-theme="dark"] .sdot-evidence{ background:#a3aebe; }
+  .sdot-drugs{ background:#4d5a6b; }
+  :root[data-theme="dark"] .sdot-drugs{ background:#a3aebe; }
+  .sdot-staging{ background:#4d5a6b; }
+  :root[data-theme="dark"] .sdot-staging{ background:#a3aebe; }
+  .sdot-tox{ background:#4d5a6b; }
+  :root[data-theme="dark"] .sdot-tox{ background:#a3aebe; }
+  .sdot-acute{ background:#4d5a6b; }
+  :root[data-theme="dark"] .sdot-acute{ background:#a3aebe; }
+  .sdot-hub{ background:linear-gradient(135deg,#4d5a6b,#4d5a6b,#4d5a6b,#4d5a6b,#4d5a6b); }
+  :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#a3aebe,#a3aebe,#a3aebe,#a3aebe,#a3aebe); }
 
   .theme-toggle{
     display:inline-flex; align-items:center; justify-content:center;
@@ -320,16 +322,16 @@
 
 @property --m { syntax:'<color>'; inherits:true; initial-value:#4e51d8; }
 @media (prefers-reduced-motion: no-preference){ :root{ transition: --m .35s var(--mo-ease, cubic-bezier(.3,0,.1,1)); } }
-html[data-view="evidence"]{ --m:#4e51d8; --teal:var(--m); }
-html[data-view="evidence"][data-theme="dark"]{ --m:#8a8cff; }
-html[data-view="drugs"]{ --m:#0977b0; --teal:var(--m); }
-html[data-view="drugs"][data-theme="dark"]{ --m:#3fbbef; }
-html[data-view="staging"]{ --m:#097556; --teal:var(--m); }
-html[data-view="staging"][data-theme="dark"]{ --m:#3fd6a6; }
-html[data-view="tox"]{ --m:#8f6206; --teal:var(--m); }
-html[data-view="tox"][data-theme="dark"]{ --m:#f0b44e; }
-html[data-view="acute"]{ --m:#d23d34; --teal:var(--m); }
-html[data-view="acute"][data-theme="dark"]{ --m:#ff6f61; }
+html[data-view="evidence"]{ --m:#4d5a6b; --teal:var(--m); }
+html[data-view="evidence"][data-theme="dark"]{ --m:#a3aebe; }
+html[data-view="drugs"]{ --m:#4d5a6b; --teal:var(--m); }
+html[data-view="drugs"][data-theme="dark"]{ --m:#a3aebe; }
+html[data-view="staging"]{ --m:#4d5a6b; --teal:var(--m); }
+html[data-view="staging"][data-theme="dark"]{ --m:#a3aebe; }
+html[data-view="tox"]{ --m:#4d5a6b; --teal:var(--m); }
+html[data-view="tox"][data-theme="dark"]{ --m:#a3aebe; }
+html[data-view="acute"]{ --m:#4d5a6b; --teal:var(--m); }
+html[data-view="acute"][data-theme="dark"]{ --m:#a3aebe; }
 
 *{box-sizing:border-box;}
 html,body{margin:0;}
@@ -500,16 +502,16 @@ body.nav-open{overflow:hidden;}
   @keyframes hub-rise{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
 }
 
-[data-view="hub"] .card.m-evidence{--cm:#4e51d8;}
-html[data-theme="dark"][data-view="hub"] .card.m-evidence{--cm:#8a8cff;}
-[data-view="hub"] .card.m-drugs{--cm:#0977b0;}
-html[data-theme="dark"][data-view="hub"] .card.m-drugs{--cm:#3fbbef;}
-[data-view="hub"] .card.m-staging{--cm:#097556;}
-html[data-theme="dark"][data-view="hub"] .card.m-staging{--cm:#3fd6a6;}
-[data-view="hub"] .card.m-tox{--cm:#8f6206;}
-html[data-theme="dark"][data-view="hub"] .card.m-tox{--cm:#f0b44e;}
-[data-view="hub"] .card.m-acute{--cm:#d23d34;}
-html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#ff6f61;}
+[data-view="hub"] .card.m-evidence{--cm:#4d5a6b;}
+html[data-theme="dark"][data-view="hub"] .card.m-evidence{--cm:#a3aebe;}
+[data-view="hub"] .card.m-drugs{--cm:#4d5a6b;}
+html[data-theme="dark"][data-view="hub"] .card.m-drugs{--cm:#a3aebe;}
+[data-view="hub"] .card.m-staging{--cm:#4d5a6b;}
+html[data-theme="dark"][data-view="hub"] .card.m-staging{--cm:#a3aebe;}
+[data-view="hub"] .card.m-tox{--cm:#4d5a6b;}
+html[data-theme="dark"][data-view="hub"] .card.m-tox{--cm:#a3aebe;}
+[data-view="hub"] .card.m-acute{--cm:#4d5a6b;}
+html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#a3aebe;}
 </style>
 </head>
 <body>
