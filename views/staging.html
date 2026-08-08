@@ -17,7 +17,8 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
     padding: 6px 20px 6px 28px; color: var(--ink); text-decoration: none; cursor: pointer;
     border: 0; border-left: 2px solid transparent; font-size: var(--t-base);
   }
-[data-view="staging"] .items button:hover{ background: var(--accent-soft); }
+@media (hover: hover){[data-view="staging"] .items button:hover{ background: var(--accent-soft); }}
+[data-view="staging"] .items button:active{ background: var(--accent-soft); }
 [data-view="staging"] .items button.active{ background: var(--accent-soft); border-left-color: var(--teal); font-weight: var(--w-name); color: var(--teal); }
 [data-view="staging"] .allbtn{ margin: 4px 20px 10px; }
 [data-view="staging"] .allbtn button{
@@ -32,7 +33,8 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
     padding: 7px 15px; font: inherit; font-size: var(--t-base); font-weight: var(--w-name);
     color: var(--slate); background: var(--panel); border: 1px solid var(--hair);
     border-radius: 999px; cursor: pointer; }
-[data-view="staging"] .backbtn:hover{ color: var(--teal); border-color: var(--teal); background: var(--accent-soft); }
+@media (hover: hover){[data-view="staging"] .backbtn:hover{ color: var(--teal); border-color: var(--teal); background: var(--accent-soft); }}
+[data-view="staging"] .backbtn:active{ color: var(--teal); border-color: var(--teal); background: var(--accent-soft); }
 [data-view="staging"] .topbar{ margin-bottom: 12px; }
 [data-view="staging"] .crumbs{ display: none; }
 [data-view="staging"] .crumbs b{ color: var(--ink); }
@@ -45,7 +47,8 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
     position: sticky; top: calc(59px + env(safe-area-inset-top)); z-index: 3;
   }
 [data-view="staging"] table.list > tbody tr.row{ border-bottom: 1px solid var(--grid); cursor: pointer; }
-[data-view="staging"] table.list > tbody tr.row:hover{ background: var(--accent-soft); }
+@media (hover: hover){[data-view="staging"] table.list > tbody tr.row:hover{ background: var(--accent-soft); }}
+[data-view="staging"] table.list > tbody tr.row:active{ background: var(--accent-soft); }
 [data-view="staging"] table.list > tbody td{ padding: 11px 12px; vertical-align: top; }
 [data-view="staging"] td.name{ font-family: var(--font-serif); font-weight: var(--w-label); font-size: var(--t-md); }
 [data-view="staging"] .rowtoggle{ display: block; width: 100%; padding: 0; border: 0; background: transparent;
@@ -96,7 +99,8 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
 [data-view="staging"] .topt{ display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; text-align: left;
     border: 1px solid var(--hair); background: var(--panel); border-radius: 0; padding: 12px 14px;
     font-size: var(--t-base); font-family: var(--font-sans); color: var(--ink); cursor: pointer; transition: background .12s, border-color .12s; }
-[data-view="staging"] .topt:hover{ border-color: var(--teal); background: var(--accent-soft); }
+@media (hover: hover){[data-view="staging"] .topt:hover{ border-color: var(--teal); background: var(--accent-soft); }}
+[data-view="staging"] .topt:active{ border-color: var(--teal); background: var(--accent-soft); }
 [data-view="staging"] .topt .tarrow{ color: var(--teal); font-size: var(--t-2xl); line-height: 1; flex: 0 0 auto; }
 [data-view="staging"] .tresult{ border: 1px solid var(--slate); background: var(--ground); border-radius: 0; padding: 18px 16px; text-align: center; }
 [data-view="staging"] .tgrade{ font-weight: var(--w-strong); color: var(--ink); font-size: var(--t-xl); }

@@ -2,6 +2,14 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.1] - 2026-08-08
+
+### Fixed
+
+- Touch devices no longer show card/row highlights while scrolling: hover
+  tints are pointer-only, with :active press feedback on selection instead.
+- Hub module icon tiles restored to the accent teal.
+
 ## [1.3.0] - 2026-08-08
 
 ### Changed

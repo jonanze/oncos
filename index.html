@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="1.3.0">
+<meta name="application-version" content="1.3.1">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#f6f7f9">
@@ -374,7 +374,8 @@ a{color:var(--teal);}
    (--m is the active module's hue by definition). */
 .mast-suite .suite-link{display:flex;align-items:center;justify-content:center;
   width:36px;height:32px;border-radius:9px;color:var(--muted);text-decoration:none;}
-.mast-suite .suite-link:hover{color:var(--ink);background:var(--accent-soft);}
+@media (hover:hover){ .mast-suite .suite-link:hover{color:var(--ink);background:var(--accent-soft);} }
+.mast-suite .suite-link:active{color:var(--ink);background:var(--accent-soft);}
 .mast-suite .suite-link[aria-current="page"]{color:var(--m);
   background:color-mix(in oklab, var(--m) 11%, transparent);}
 .mast-suite .tico{display:flex;}
@@ -407,7 +408,8 @@ a{color:var(--teal);}
  * collide here, rendering these labels at 18px/600. */
 .suite-drop .drop-link .drop-name{font-family:inherit;font-size:var(--t-md);font-weight:var(--w-body);
   line-height:1.35;margin:0;}
-.suite-drop .drop-link:hover{background:var(--accent-soft);}
+@media (hover:hover){ .suite-drop .drop-link:hover{background:var(--accent-soft);} }
+.suite-drop .drop-link:active{background:var(--accent-soft);}
 .suite-drop .drop-link[aria-current="page"]{color:var(--m);
   background:color-mix(in oklab, var(--m) 10%, transparent);}
 @media (prefers-reduced-motion: no-preference){
@@ -482,14 +484,19 @@ body.nav-open{overflow:hidden;}
 [data-view="hub"] .card{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;
   padding:18px 20px;background:var(--paper);border:1px solid var(--grid);border-radius:14px;
   box-shadow:var(--shadow);transition:background .12s,border-color .15s,transform .15s;}
-[data-view="hub"] .card:hover{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
-  border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));transform:translateY(-2px);}
-/* Icon tiles stay SLATE under functional teal (2026-08-08): the tile is a
-   pictogram, not the affordance — the arrow (.cgo) and hover border carry the
-   actionable teal. --cm (= the teal accent since the wavelength collapse)
-   still drives those two. */
-[data-view="hub"] .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;color:var(--slate);
-  background:color-mix(in oklab, var(--slate) 11%, transparent);
+/* Hover is pointer-only (2026-08-08, Jonan): on touch the tint fired while
+   scrolling; :active gives press-to-select feedback instead — browsers
+   suppress it during scroll gestures. */
+@media (hover:hover){
+  [data-view="hub"] .card:hover{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
+    border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));transform:translateY(-2px);}
+  }
+[data-view="hub"] .card:active{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
+  border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));}
+/* Icon tiles in the accent teal (Jonan 2026-08-08, reversing the slate-tile
+   call from earlier the same day). */
+[data-view="hub"] .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;color:var(--cm, var(--teal));
+  background:color-mix(in oklab, var(--cm, var(--teal)) 12%, transparent);
   display:flex;align-items:center;justify-content:center;}
 [data-view="hub"] .ic svg{width:22px;height:22px;}
 [data-view="hub"] .cbody{display:flex;flex-direction:column;gap:5px;flex:1 1 auto;min-width:0;}
@@ -564,7 +571,7 @@ html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#3fbbef;}
       <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span><span class="cdesc">CTCAE grading & irAE management</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
       <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span><span class="cdesc">Oncologic emergencies</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
   </section>
-  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.3.0">v1.3.0</span></footer>
+  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.3.1">v1.3.1</span></footer>
 </main></template>
 <script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}})();</script>
 <script>
