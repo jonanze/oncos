@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.3.2] - 2026-08-08
+
+### Fixed
+
+- Touch press feedback rebuilt: the native grey tap-highlight is disabled, and
+  highlights are driven by press intent — they appear only after a brief still
+  press (or on tap release), never while scrolling, land instantly and fade
+  out softly; cards compress slightly while pressed.
+
 ## [1.3.1] - 2026-08-08
 
 ### Fixed

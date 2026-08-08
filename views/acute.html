@@ -18,7 +18,7 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
     padding:6px 20px 6px 28px;color:var(--ink);text-decoration:none;cursor:pointer;
     border:0;border-left:2px solid transparent;font-size:var(--t-base);}
 @media (hover: hover){[data-view="acute"] .items button:hover{background:var(--accent-soft);}}
-[data-view="acute"] .items button:active{background:var(--accent-soft);}
+[data-view="acute"] .items button.is-pressed{background:var(--accent-soft);}
 [data-view="acute"] .items button.active{background:var(--accent-soft);border-left-color:var(--teal);font-weight:var(--w-name);color:var(--teal);}
 [data-view="acute"] .items button > span:first-child{min-width:0;}
 [data-view="acute"] .udot{flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--hair);}
@@ -34,7 +34,7 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
     color:var(--slate);background:var(--panel,var(--paper));border:1px solid var(--hair);
     border-radius:999px;cursor:pointer;}
 @media (hover: hover){[data-view="acute"] .backbtn:hover{color:var(--teal);border-color:var(--teal);background:var(--accent-soft);}}
-[data-view="acute"] .backbtn:active{color:var(--teal);border-color:var(--teal);background:var(--accent-soft);}
+[data-view="acute"] .backbtn.is-pressed{color:var(--teal);border-color:var(--teal);background:var(--accent-soft);}
 [data-view="acute"] .topbar{margin-bottom:12px;}
 [data-view="acute"] .crumbs{display:none;}
 [data-view="acute"] .crumbs b{color:var(--ink);}
@@ -55,7 +55,7 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
     position:sticky;top:calc(59px + env(safe-area-inset-top));z-index:3;}
 [data-view="acute"] table.list > tbody tr.row{border-bottom:1px solid var(--grid);cursor:pointer;}
 @media (hover: hover){[data-view="acute"] table.list > tbody tr.row:hover{background:var(--accent-soft);}}
-[data-view="acute"] table.list > tbody tr.row:active{background:var(--accent-soft);}
+[data-view="acute"] table.list > tbody tr.row.is-pressed{background:var(--accent-soft);}
 [data-view="acute"] table.list > tbody td{padding:11px 12px;vertical-align:top;}
 [data-view="acute"] td.name{font-family:var(--font-serif);font-weight:var(--w-label);font-size:var(--t-md);}
 [data-view="acute"] .rowtoggle{display:block;width:100%;padding:0;border:0;background:transparent;

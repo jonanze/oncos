@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="1.3.1">
+<meta name="application-version" content="1.3.2">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#f6f7f9">
@@ -178,11 +178,37 @@
      in both states. No-op under overlay scrollbars (trackpad Macs), where there
      is no shift to fix. Doesn't change the scroll container, so the body
      scroll-lock is untouched. One line, fully reversible. */
-  html{ transition:background .18s ease, color .18s ease; scrollbar-gutter:stable; }
+  /* No native grey tap-highlight overlay (2026-08-08, Jonan on-device): the
+     UA painted it over tapped cards/titles regardless of our hover gating.
+     Press feedback is ours — the .is-pressed mechanism below. */
+  html{ transition:background .18s ease, color .18s ease; scrollbar-gutter:stable;
+    -webkit-tap-highlight-color:transparent; }
   body{ background:var(--ground); }
   .sr-only{ position:absolute !important; width:1px !important; height:1px !important;
     padding:0 !important; margin:-1px !important; overflow:hidden !important;
     clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
+  /* --- Touch press system (2026-08-08, Jonan on-device) ---
+     CSS :active engages on touch-down, so it lit rows/cards while SCROLLING,
+     and the UA's grey tap-highlight painted over titles. Both are replaced:
+     the kit script (see toggle_script) adds `.is-pressed` to the nearest
+     interactive element only after a ~100ms still press — cancelled the
+     moment the finger moves — and flashes it briefly on a quick tap. Modules
+     style their own `.is-pressed` surfaces (same tints their :hover uses).
+     Feel: highlight lands INSTANTLY on press (transition-duration:0), and
+     fades out softly on release (the transition below animates class
+     removal). Card-like surfaces also compress a touch. Coarse-pointer
+     only; desktop keeps :hover and its own :active. */
+  @media (hover: none){
+    a, button, summary, tr, .card{
+      transition: background-color .22s var(--mo-ease, ease),
+                  border-color .22s var(--mo-ease, ease),
+                  box-shadow .22s var(--mo-ease, ease),
+                  transform .22s var(--mo-ease, ease);
+    }
+    .is-pressed, .is-pressed > td{ transition-duration: 0s; }
+    a.card.is-pressed, .tixcard.is-pressed, summary.is-pressed{
+      transform: scale(.985); }
+  }
   /* --- Keyboard focus: a visible ring in the module wavelength, only on
      keyboard focus (:focus-visible), suite-wide. Before this the clickable
      nav links, hub cards, drawer controls and details summaries had no visible
@@ -299,8 +325,10 @@
   :root[data-theme="dark"] .theme-toggle .i-moon{ opacity:0; transform:translate(-50%,-50%) rotate(90deg) scale(.6); }
   :root[data-theme="dark"] .theme-toggle .i-sun{ opacity:1; transform:translate(-50%,-50%) rotate(0) scale(1); }
 
-  /* --- Tier 1: tap/press feedback (touch has no hover) --- */
-  @media (prefers-reduced-motion:no-preference){
+  /* --- Tier 1: press feedback. Pointer-only (2026-08-08): on touch, :active
+     engages on touch-down and fired during scroll gestures — the kit's
+     .is-pressed mechanism (oncos_theme) owns touch press feedback now. --- */
+  @media (prefers-reduced-motion:no-preference) and (hover:hover){
     details > summary:active{ transform:scale(.994); }
     a.card:active{ transform:scale(.99); }
   }
@@ -375,7 +403,7 @@ a{color:var(--teal);}
 .mast-suite .suite-link{display:flex;align-items:center;justify-content:center;
   width:36px;height:32px;border-radius:9px;color:var(--muted);text-decoration:none;}
 @media (hover:hover){ .mast-suite .suite-link:hover{color:var(--ink);background:var(--accent-soft);} }
-.mast-suite .suite-link:active{color:var(--ink);background:var(--accent-soft);}
+.mast-suite .suite-link.is-pressed{color:var(--ink);background:var(--accent-soft);}
 .mast-suite .suite-link[aria-current="page"]{color:var(--m);
   background:color-mix(in oklab, var(--m) 11%, transparent);}
 .mast-suite .tico{display:flex;}
@@ -409,7 +437,7 @@ a{color:var(--teal);}
 .suite-drop .drop-link .drop-name{font-family:inherit;font-size:var(--t-md);font-weight:var(--w-body);
   line-height:1.35;margin:0;}
 @media (hover:hover){ .suite-drop .drop-link:hover{background:var(--accent-soft);} }
-.suite-drop .drop-link:active{background:var(--accent-soft);}
+.suite-drop .drop-link.is-pressed{background:var(--accent-soft);}
 .suite-drop .drop-link[aria-current="page"]{color:var(--m);
   background:color-mix(in oklab, var(--m) 10%, transparent);}
 @media (prefers-reduced-motion: no-preference){
@@ -491,7 +519,7 @@ body.nav-open{overflow:hidden;}
   [data-view="hub"] .card:hover{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
     border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));transform:translateY(-2px);}
   }
-[data-view="hub"] .card:active{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
+[data-view="hub"] .card.is-pressed{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
   border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));}
 /* Icon tiles in the accent teal (Jonan 2026-08-08, reversing the slate-tile
    call from earlier the same day). */
@@ -571,9 +599,9 @@ html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#3fbbef;}
       <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span><span class="cdesc">CTCAE grading & irAE management</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
       <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span><span class="cdesc">Oncologic emergencies</span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
   </section>
-  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.3.1">v1.3.1</span></footer>
+  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.3.2">v1.3.2</span></footer>
 </main></template>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,100);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls;clearTimeout(pT);pT=null;pEls=null;els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(function(){els.forEach(function(n){n.classList.remove('is-pressed');});},160);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
 <script>
 
 (function(){
