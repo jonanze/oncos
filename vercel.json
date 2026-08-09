@@ -21,6 +21,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/notes",
+      "destination": "/index.html"
+    },
+    {
       "source": "/evidence/",
       "destination": "/index.html"
     },
@@ -38,6 +42,10 @@
     },
     {
       "source": "/acute/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/notes/",
       "destination": "/index.html"
     }
   ]
