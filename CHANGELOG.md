@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.8] - 2026-08-09
+
+- Notes: Breast group added — five chapters (histopathology/receptors/staging, DCIS, early, neoadjuvant, metastatic), QA-sealed against 171 evidence rows + wiki synthesis.
+
 ## [1.4.7] - 2026-08-09
 
 - Notes: Lung group added — four chapters (NSCLC classification/staging/molecular, early & locally advanced, metastatic, SCLC), QA-sealed and enriched from 145 evidence rows + wiki synthesis.
