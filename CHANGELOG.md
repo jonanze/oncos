@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.9] - 2026-08-09
+
+- Notes: Lymphoma group added — diffuse large B-cell lymphoma, Hodgkin lymphoma, and indolent non-Hodgkin lymphomas, each sealed after two-round adversarial QA.
+
 ## [1.4.8] - 2026-08-09
 
 - Notes: Breast group added — five chapters (histopathology/receptors/staging, DCIS, early, neoadjuvant, metastatic), QA-sealed against 171 evidence rows + wiki synthesis.
