@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.3] - 2026-08-09
+
+- Notes moved to the first position in the home launcher and module navigation.
+
 ## [1.4.2] - 2026-08-09
 
 - Notes: per-note References section compiled from the Evidence rows (citation text + PDF links); source-attribution and dropped-figure flags removed from the rendered page.
