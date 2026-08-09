@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.6] - 2026-08-09
+
+- Notes: Melanoma rephrased under the phraseology/concision rules (scientific register, no fourth wall, direct phrasing); claim-preserving, diff-verified.
+
 ## [1.4.5] - 2026-08-09
 
 - Notes: full-width note layout on desktop (wrapping section bar, justified hyphenated paragraphs).
