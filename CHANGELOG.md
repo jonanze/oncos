@@ -2,6 +2,17 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.0] - 2026-08-09
+
+### Added
+
+- **Notes** — a sixth module, the suite's narrative layer. Tumour-group
+  landing cards open a group's notes; a note renders with a sticky section
+  index, and search spans every note's title and section headings. Trial names
+  in the prose link straight to the trial's row in Evidence, and claims carried
+  over from the source notes but not yet independently verified carry a small
+  YX provenance badge.
+
 ## [1.3.9] - 2026-08-08
 
 ### Changed
