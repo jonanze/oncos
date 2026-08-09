@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.11] - 2026-08-09
+
+- Notes: Early rectal cancer rebuilt from the complete source note without cuts, restructured to the DLBCL reference standard, independently QA-sealed, and round-tripped through its existing canonical Google Doc.
+
 ## [1.4.10] - 2026-08-09
 
 - Notes: Colorectal group added — molecular pathology and genetics, localized colon cancer, early rectal cancer, and metastatic colorectal cancer, each sealed under two-round clinical QA and an exact Google Docs/cache round-trip.
