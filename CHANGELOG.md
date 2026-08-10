@@ -2,6 +2,11 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.13] - 2026-08-10
+
+- Notes and Evidence use `Gastrointestinal`, `Thoracic` and `Lymphoma` consistently.
+- Staging now mirrors the applicable Evidence categories, with dedicated Skin and Sarcoma sections; out-of-scope myeloma staging was removed.
+
 ## [1.4.12] - 2026-08-10
 
 - Notes: landing cards now use Evidence-system headings (GI, Thoracic, Haematological and Skin), Tox's tracked full-caps title treatment, and no note-count line.
