@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.12] - 2026-08-10
+
+- Notes: landing cards now use Evidence-system headings (GI, Thoracic, Haematological and Skin), Tox's tracked full-caps title treatment, and no note-count line.
+
 ## [1.4.11] - 2026-08-09
 
 - Notes: Early rectal cancer rebuilt from the complete source note without cuts, restructured to the DLBCL reference standard, independently QA-sealed, and round-tripped through its existing canonical Google Doc.
