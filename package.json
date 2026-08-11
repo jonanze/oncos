@@ -2,8 +2,5 @@
   "name": "oncos",
   "version": "1.4.13",
   "private": true,
-  "type": "module",
-  "dependencies": {
-    "@vercel/functions": "^3.7.5"
-  }
+  "type": "module"
 }
