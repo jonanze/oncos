@@ -2,6 +2,14 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.15] - 2026-08-11
+
+- Rebuilt the colorectal molecular, early-colon and advanced/metastatic notes
+  from the applied evidence layer, with independent clinical QA and exact
+  Google Docs round-trips.
+- Removed inherited YX attribution from the three replacement chapters;
+  unsupported source-note claims are withheld rather than published.
+
 ## [1.4.14] - 2026-08-11
 
 - Replaced the six module disclaimer footers with concise, module-specific
