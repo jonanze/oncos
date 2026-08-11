@@ -3919,6 +3919,15 @@ var search = document.getElementById('search');
   if (false) {
     window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
   }
+
+    window.oncosView.openRecord = function(record) {
+      if (!record || !record.id) return false;
+      search.value = ''; apply();
+      var card = document.getElementById('d-'+record.id);
+      if (!card) return false;
+      card.scrollIntoView({block:'start'});
+      return true;
+    };
   },
   destroy: function() {
 

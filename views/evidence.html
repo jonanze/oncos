@@ -542,6 +542,13 @@ function focusAnchor() {
 }
 window.addEventListener('hashchange', focusAnchor);
 focusAnchor();
+
+    window.oncosView.openRecord = function(record) {
+      if (!record || !record.id) return false;
+      if (location.hash !== '#'+record.id) history.replaceState(history.state, '', '#'+record.id);
+      focusAnchor();
+      return !!document.getElementById(record.id);
+    };
   },
   destroy: function() {
 

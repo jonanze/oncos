@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="1.4.15">
+<meta name="application-version" content="1.5.0">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#f6f7f9">
@@ -500,6 +500,52 @@ a{color:var(--teal);}
    The border-colour change is the focus affordance, keyboard included. */
 .barsearch:focus-visible{outline:none;}
 .mhead .theme-toggle{flex:0 0 auto;}
+/* Suite-wide search augments the existing module search input. The small
+   affordance leaves each module's local results untouched; the modal owns its
+   own query field and is the only global-results surface. */
+.global-search-suggest{position:fixed;z-index:58;right:58px;top:calc(56px + env(safe-area-inset-top));
+  width:min(380px,calc(100vw - 24px));padding:6px;background:var(--paper);border:1px solid var(--hair);
+  border-radius:12px;box-shadow:var(--shadow);}
+.global-search-suggest[hidden],.global-search-dialog[hidden]{display:none !important;}
+.global-search-suggest button{display:flex;width:100%;align-items:center;gap:7px;text-align:left;
+  border:0;border-radius:8px;background:transparent;color:var(--ink);padding:10px 11px;font:inherit;cursor:pointer;}
+@media (hover:hover){.global-search-suggest button:hover{background:var(--accent-soft);}}
+.global-search-suggest button.is-pressed{background:var(--accent-soft);}
+.global-search-suggest .gs-command{font-weight:var(--w-name);}
+.global-search-suggest .gs-query{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);}
+.global-search-dialog{position:fixed;inset:0;z-index:100;background:color-mix(in oklab,var(--ink) 42%,transparent);
+  padding:max(18px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right))
+    max(18px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));display:flex;justify-content:center;}
+.global-search-panel{width:min(920px,100%);height:min(820px,100%);display:flex;flex-direction:column;
+  background:var(--ground);border:1px solid var(--hair);border-radius:18px;box-shadow:0 20px 70px rgba(0,0,0,.28);overflow:hidden;}
+.global-search-head{display:flex;gap:10px;align-items:center;padding:14px;border-bottom:1px solid var(--grid);background:var(--paper);}
+.global-search-head input{flex:1 1 auto;min-width:0;height:42px;border:1px solid var(--hair);border-radius:10px;
+  background:var(--ground);color:var(--ink);padding:0 13px;font:inherit;}
+.global-search-head input:focus{outline:2px solid color-mix(in oklab,var(--m) 45%,transparent);outline-offset:1px;border-color:var(--m);}
+.global-search-close{flex:0 0 auto;width:42px;height:42px;border:1px solid var(--hair);border-radius:10px;
+  background:var(--paper);color:var(--ink);font:inherit;font-size:var(--t-xl);cursor:pointer;}
+.global-search-results{overflow:auto;padding:18px;overscroll-behavior:contain;}
+.gs-group{margin:0 0 24px;}
+.gs-group h3{margin:0 0 8px;font-size:var(--t-xs);font-weight:var(--w-strong);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);}
+.gs-result{display:grid;width:100%;gap:3px;text-align:left;padding:12px 14px;border:0;border-top:1px solid var(--grid);
+  background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
+.gs-result:first-of-type{border-radius:12px 12px 0 0;}
+.gs-result:last-child{border-radius:0 0 12px 12px;}
+@media (hover:hover){.gs-result:hover{background:color-mix(in oklab,var(--m) 6%,var(--paper));}}
+.gs-result.is-pressed{background:color-mix(in oklab,var(--m) 6%,var(--paper));}
+.gs-title{font-weight:var(--w-name);font-size:var(--t-lg);}
+.gs-subtitle{font-size:var(--t-sm);color:var(--muted);}
+.gs-preview{font-size:var(--t-base);color:var(--slate);line-height:1.45;}
+.gs-empty{padding:42px 16px;text-align:center;color:var(--muted);}
+body.global-search-open{overflow:hidden;}
+@media (max-width:760px){
+  .global-search-suggest{right:12px;top:calc(56px + env(safe-area-inset-top));}
+  .global-search-dialog{padding:0;}
+  .global-search-panel{width:100%;height:100%;border:0;border-radius:0;}
+  .global-search-head{padding-top:calc(10px + env(safe-area-inset-top));}
+  .global-search-results{padding:14px;}
+}
 aside.sidebar{position:fixed;top:0;left:0;z-index:50;background:var(--paper);
   border-right:1px solid var(--hair);height:100vh;height:100dvh;overflow-y:auto;
   width:min(82vw,300px);transform:translateX(-100%);transition:transform .22s ease;
@@ -628,6 +674,19 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
   <input id="q" type="search" class="barsearch" placeholder="Search&hellip;" autocomplete="off" aria-label="Search" style="display:none">
   <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </header>
+<div class="global-search-suggest" id="global-search-suggest" hidden>
+  <button id="global-search-button" type="button"><span class="gs-command">Search all oncOS</span><span aria-hidden="true">for</span><span class="gs-query" id="global-search-suggest-query"></span></button>
+</div>
+<div class="global-search-dialog" id="global-search-dialog" role="dialog" aria-modal="true" aria-labelledby="global-search-label" hidden>
+  <section class="global-search-panel">
+    <h2 class="sr-only" id="global-search-label">Search all oncOS</h2>
+    <div class="global-search-head">
+      <input id="global-search-query" type="search" autocomplete="off" aria-label="Search all oncOS">
+      <button class="global-search-close" id="global-search-close" type="button" aria-label="Close search">&times;</button>
+    </div>
+    <div class="global-search-results" id="global-search-results" aria-live="polite"></div>
+  </section>
+</div>
 <div class="suite-drop" id="suitedrop" hidden>
   <a class="drop-link" href="/notes/" data-nav="notes"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5A4.5 4.5 0 0 0 7.5 4H3v14h4.5a4.5 4.5 0 0 1 4.5 2.5"/><path d="M12 6.5A4.5 4.5 0 0 1 16.5 4H21v14h-4.5a4.5 4.5 0 0 0-4.5 2.5"/><path d="M12 6.5v14"/></svg></span><span class="drop-name">Notes</span></a><a class="drop-link" href="/evidence/" data-nav="evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="drop-name">Evidence</span></a><a class="drop-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="drop-name">Staging</span></a><a class="drop-link" href="/drugs/" data-nav="drugs"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="drop-name">Drugs</span></a><a class="drop-link" href="/tox/" data-nav="tox"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="drop-name">Tox</span></a><a class="drop-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="drop-name">Acute</span></a>
 </div>
@@ -650,7 +709,7 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
       <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
       <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
   </section>
-  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.4.15">v1.4.15</span></footer>
+  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.5.0">v1.5.0</span></footer>
 </main></template>
 <script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,100);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls;clearTimeout(pT);pT=null;pEls=null;els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(function(){els.forEach(function(n){n.classList.remove('is-pressed');});},160);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
 <script>
@@ -666,6 +725,7 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
   var active = null;       // active window.oncosView
   var capt = [];           // captured doc/window listeners for auto-cleanup
   var navSeq = 0;          // latest request; stale fetches may never mount
+  var pendingRecord = null; // suite-search destination delivered after mount
   var drawerWasOpen = false;
   var drawerReturn = null;
 
@@ -844,6 +904,10 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
     } else {
       window.scrollTo(0,0);
     }
+    if (pendingRecord && pendingRecord.module === name && active && active.openRecord) {
+      var record = pendingRecord; pendingRecord = null;
+      setTimeout(function(){ if (active && active.openRecord) active.openRecord(record); }, 0);
+    }
   }
   // `hash` is carried only for a cross-view deep link (/evidence/#t-<slug>): the
   // pushed URL has to keep it, or mount() has nothing to re-apply and the anchor
@@ -853,10 +917,17 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
     var url = (name==='hub' ? '/' : '/'+name+'/') + (hash || '');
     if (name === current) {
       // Also cancels an in-flight request for another view. Restore the URL
-      // only when that pending request already changed it.
-      if (push && pathToView(location.pathname) !== name) history.pushState({v:name}, '', url);
+      // when that pending request changed it. Global search also needs a fresh
+      // canonical entry even within the same module, so Back can reopen the
+      // preceding ?search= results instead of silently losing that step.
+      if (push && (pathToView(location.pathname) !== name || location.search ||
+          location.hash !== (hash || ''))) history.pushState({v:name}, '', url);
       viewroot.classList.remove('leaving');
       document.body.classList.remove('nav-open');
+      if (pendingRecord && pendingRecord.module === name && active && active.openRecord) {
+        var record = pendingRecord; pendingRecord = null;
+        setTimeout(function(){ if (active && active.openRecord) active.openRecord(record); }, 0);
+      }
       return;
     }
     if (push) history.pushState({v:name}, '', url);
@@ -884,6 +955,13 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
       if (seq === navSeq) location.href = url;
     });
   }
+
+  document.addEventListener('oncos:open-search-result', function(e){
+    var record = e.detail;
+    if (!record || !VIEWS[record.module]) return;
+    pendingRecord = record;
+    go(record.module, true, record.module==='evidence' ? '#'+record.id : '');
+  });
 
   // intercept same-origin suite navigation
   document.addEventListener('click', function(e){
@@ -971,5 +1049,6 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
 })();
 
 </script>
+<script type="module" src="/search_ui.js"></script>
 </body>
 </html>

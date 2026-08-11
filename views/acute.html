@@ -256,6 +256,12 @@ function renderNow(){
   res.querySelectorAll('tr.row').forEach(tr => tr.onclick = ev => { if (ev.target.closest('button,a,input,select')) return; selectEmerg(tr.dataset.id); });
 }
 render();
+
+    window.oncosView.openRecord = function(record) {
+      if (!record || !BYID[record.id]) return false;
+      selectEmerg(record.id);
+      return true;
+    };
   },
   destroy: function() {
 

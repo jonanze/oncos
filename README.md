@@ -1,8 +1,10 @@
 # oncOS
 
-oncOS is a private clinical-reference suite delivered as one persistent web application. The hub routes to Evidence, Staging, Drugs, Tox and Acute while preserving each module's URL and interaction model.
+oncOS is a private clinical-reference suite delivered as one persistent web application. The hub routes to Notes, Evidence, Staging, Drugs, Tox and Acute while preserving each module's URL and interaction model.
 
-Current release: **v1.2.0**
+Current live release: **v1.4.15**
+
+Next staged release: **v1.5.0** (suite-wide search; not deployed)
 
 ## Release identity
 

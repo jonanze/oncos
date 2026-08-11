@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.0] - 2026-08-12
+
+- Added deterministic suite-wide search across Notes, Evidence, Staging, Drugs,
+  Tox and Acute while preserving every module's existing local search.
+- Added an offline IndexedDB search snapshot with checksum-verified, atomic
+  catalogue updates and a memory fallback when browser storage is unavailable.
+- Global results open the exact trial, note section, staging entry, drug,
+  toxicity topic or oncological emergency.
+
 ## [1.4.15] - 2026-08-11
 
 - Rebuilt the colorectal molecular, early-colon and advanced/metastatic notes
