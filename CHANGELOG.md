@@ -2,6 +2,13 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.4.14] - 2026-08-11
+
+- Replaced the six module disclaimer footers with concise, module-specific
+  clinical-reference wording and removed the stale Radiopaedia attribution
+  from the Staging footer.
+- Centred the complete disclaimer block responsively across desktop and mobile.
+
 ## [1.4.13] - 2026-08-10
 
 - Notes and Evidence use `Gastrointestinal`, `Thoracic` and `Lymphoma` consistently.
