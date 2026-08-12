@@ -2,6 +2,14 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.1] - 2026-08-12
+
+- Rebuilt the four colorectal Notes as evidence-verified, no-cuts chapters with
+  clearer study-level bullets, shorter prose and explicit cross-note ownership.
+- Added lossless canonical-Doc round-tripping for numbered trial references,
+  ordinary links and nested lists; removed all YX attribution from the released
+  colorectal chapters.
+
 ## [1.5.0] - 2026-08-12
 
 - Added deterministic suite-wide search across Notes, Evidence, Staging, Drugs,
