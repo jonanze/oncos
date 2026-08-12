@@ -2,6 +2,14 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.2] - 2026-08-12
+
+- Corrected colorectal Notes citation presentation so long author, protocol and
+  comparison identities render as numbered bibliography superscripts instead of
+  interrupting the clinical prose.
+- Preserved every clinical claim, number, qualifier, trial identity and external
+  reference through independent QA and exact canonical-Doc/cache round-trips.
+
 ## [1.5.1] - 2026-08-12
 
 - Rebuilt the four colorectal Notes as evidence-verified, no-cuts chapters with
