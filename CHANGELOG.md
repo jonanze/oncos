@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.3] - 2026-08-12
+
+- Moved authoritative external citations in all four colorectal Notes—including
+  Molecular—out of running prose and into numbered bibliography superscripts.
+- Deduplicated repeated exact source URLs to one bibliography entry and number;
+  the six ESMO metastatic-guideline citations now resolve to a single entry.
+- Added lossless external-reference Google Docs round-tripping and deterministic
+  release checks that reject pasted citation-only linked labels.
+
 ## [1.5.2] - 2026-08-12
 
 - Corrected colorectal Notes citation presentation so long author, protocol and
