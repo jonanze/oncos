@@ -101,6 +101,14 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .detail .full{ grid-column: 1; grid-row: 1 / span 4; margin-bottom: 0; }
 [data-view="evidence"] .detail .fld{ grid-column: 2; margin-bottom: 0; }}
 [data-view="evidence"] .detail .k{ font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .04em; color: var(--slate); font-weight: var(--w-name); margin-bottom: 1px; }
+[data-view="evidence"] .detail .arm-vs{
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 34px; height: 20px; margin: 0 .48em; padding: 0 7px;
+    border-radius: 999px; background: var(--accent-soft); color: var(--teal);
+    box-shadow: inset 0 0 0 1px var(--teal); vertical-align: .08em;
+    font-size: var(--t-2xs); font-weight: var(--w-strong); letter-spacing: .08em; line-height: 20px;
+    white-space: nowrap;
+  }
 [data-view="evidence"] .detail .epsub{ font-size: var(--t-2xs); text-transform: uppercase; letter-spacing: .05em;
     color: var(--muted); font-weight: var(--w-strong); margin-top: 5px; }
 [data-view="evidence"] .detail .epsub:first-child{ margin-top: 0; }
@@ -150,6 +158,7 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
       border-radius: 0; margin-bottom: 10px;
     }
 [data-view="evidence"] .detail .inner{ column-count: 1; padding: 10px 13px 16px; }
+[data-view="evidence"] .detail .arm-vs{ display: flex; width: max-content; min-width: 30px; height: 18px; margin: 4px auto; padding: 0 6px; line-height: 18px; }
 [data-view="evidence"] footer.disclaimer{ margin-top: 18px; }}
 @media print{[data-view="evidence"] main{ padding: 0; }}
 [data-view="evidence"] #results{ background: var(--panel); border: 1px solid var(--grid); border-radius: 14px;
@@ -285,6 +294,31 @@ function filtered() {
   });
 }
 function esc(s) { return String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function armsBlock(raw) {
+  const txt = String(raw == null ? '' : raw);
+  // Column F's house grammar uses whitespace-delimited `vs`. Splitting that exact
+  // token avoids touching words that merely contain those letters and leaves
+  // single-arm/non-comparative descriptions byte-for-byte unchanged after escaping.
+  const parts = txt.split(/\s+vs\.?\s+/gi);
+  if (parts.length === 1) return esc(txt);
+  // The workbook's arm grammar is phrase-like, so comparators often begin lower-case.
+  // Sentence-case each arm after the first, but preserve deliberate mixed-case and
+  // lowercase-alphanumeric identifiers such as mFOLFOX6, cCRT and gp100.
+  const sentenceArm = part => {
+    const m = part.match(/^(\s*)(\S+)([\s\S]*)$/);
+    if (!m) return part;
+    const word = m[2];
+    const firstAlpha = word.search(/[A-Za-z]/);
+    if (firstAlpha === -1) return part;
+    const stem = word.slice(firstAlpha);
+    if (/[A-Z]/.test(stem.slice(1)) || /^[a-z]+\d/.test(stem)) return part;
+    const capped = word.slice(0, firstAlpha) + word.charAt(firstAlpha).toUpperCase()
+      + word.slice(firstAlpha + 1);
+    return m[1] + capped + m[3];
+  };
+  const divider = '<span class="arm-vs"><span class="sr-only"> versus </span><span aria-hidden="true">VS</span></span>';
+  return parts.map((part, i) => esc(i ? sentenceArm(part) : part)).join(divider);
+}
 function phClass(p) { if (p==='N/A') return 'na'; if (p==='III') return 'III'; if (String(p).startsWith('II')) return 'II'; return ''; }
 
 // Column count: Study + Phase + Year, plus Setting in the all-trials scope.
@@ -310,7 +344,7 @@ function detailRow(t, collapsed) {
       <div class="full"><div class="k">Key findings</div><div class="findings">${esc(t.findings)}</div></div>
       <div class="col">
         <div class="fld"><div class="k">Population</div><div>${esc(t.population)}</div></div>
-        <div class="fld"><div class="k">Treatment arms</div><div>${esc(t.arms)}</div></div>
+        <div class="fld"><div class="k">Treatment arms</div><div>${armsBlock(t.arms)}</div></div>
       </div>
       <div class="col">
         <div class="fld"><div class="k">${esc(ENDPOINT_LABELS[t.sheet] || 'Endpoints')}</div><div>${epBlock(t.endpoint)}</div></div>
