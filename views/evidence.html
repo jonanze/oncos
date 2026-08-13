@@ -296,14 +296,6 @@ function filtered() {
 function esc(s) { return String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function armsBlock(raw) {
   const txt = String(raw == null ? '' : raw);
-  // Column F's house grammar uses whitespace-delimited `vs`. Splitting that exact
-  // token avoids touching words that merely contain those letters and leaves
-  // single-arm/non-comparative descriptions byte-for-byte unchanged after escaping.
-  const parts = txt.split(/\s+vs\.?\s+/gi);
-  if (parts.length === 1) return esc(txt);
-  // The workbook's arm grammar is phrase-like, so comparators often begin lower-case.
-  // Sentence-case each arm after the first, but preserve deliberate mixed-case and
-  // lowercase-alphanumeric identifiers such as mFOLFOX6, cCRT and gp100.
   const sentenceArm = part => {
     const m = part.match(/^(\s*)(\S+)([\s\S]*)$/);
     if (!m) return part;
@@ -316,6 +308,36 @@ function armsBlock(raw) {
       + word.slice(firstAlpha + 1);
     return m[1] + capped + m[3];
   };
+  const singleArmAtEnd = part => {
+    const marker = /\bsingle(?:-| )arm\b/i;
+    if (!marker.test(part)) return part;
+    let cleaned = part.replace(/\(([^()]*)\)/g, (whole, inner) => {
+      if (!marker.test(inner)) return whole;
+      const rest = inner
+        .replace(/\bsingle(?:-| )arm\b/gi, '')
+        .replace(/\s*([,;])\s*([,;])\s*/g, '$1 ')
+        .replace(/^\s*[,;]\s*|\s*[,;]\s*$/g, '')
+        .trim();
+      return rest ? `(${rest})` : '';
+    });
+    cleaned = cleaned
+      .replace(/\bsingle(?:-| )arm\b/gi, '')
+      .replace(/\s+([,;])/g, '$1')
+      .replace(/([,;])\s*([,;])+/g, '$1')
+      .replace(/^\s*[,;:]\s*|\s*[,;:]\s*$/g, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+    return `${sentenceArm(cleaned)}${cleaned ? ' ' : ''}(single-arm)`;
+  };
+  // Column F's house grammar uses whitespace-delimited `vs`. Splitting that exact
+  // token avoids touching words that merely contain those letters. A labelled
+  // non-comparative study gets one standard suffix; contextual single-arm text in
+  // an otherwise comparative study remains attached to the relevant subgroup.
+  const parts = txt.split(/\s+vs\.?\s+/gi);
+  if (parts.length === 1) return esc(singleArmAtEnd(txt));
+  // The workbook's arm grammar is phrase-like, so comparators often begin lower-case.
+  // Sentence-case each arm after the first, but preserve deliberate mixed-case and
+  // lowercase-alphanumeric identifiers such as mFOLFOX6, cCRT and gp100.
   const divider = '<span class="arm-vs"><span class="sr-only"> versus </span><span aria-hidden="true">VS</span></span>';
   return parts.map((part, i) => esc(i ? sentenceArm(part) : part)).join(divider);
 }
