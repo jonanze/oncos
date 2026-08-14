@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.8] - 2026-08-14
+
+- Restored the complete NLST and NELSON screening evidence to the Early and
+  locally advanced NSCLC note, its canonical reader-facing home.
+- Correctly attached NELSON's primary male analysis, exploratory women's
+  analysis, and male-cohort CT-screening operating characteristics.
+- Preserved single ownership across the Lung suite: Classification retains only
+  its screening bridge, with no duplicated screening evidence section.
+
 ## [1.5.7] - 2026-08-14
 
 - Standardized sibling-list presentation across all 17 Notes: each semantic
