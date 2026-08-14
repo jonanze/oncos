@@ -2,6 +2,16 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.5] - 2026-08-14
+
+- Reorganized SCLC into decision-led evidence blocks and concise lists without
+  changing its independently accepted clinical claims, figures or citations.
+- Removed cross-note Lung duplication: Early/locally advanced now owns screening,
+  Classification owns staging and structural interpretation, and Metastatic owns
+  treatment outcomes.
+- Improved long-note readability with a centred desktop reading measure and
+  left-aligned, non-hyphenated mobile prose.
+
 ## [1.5.4] - 2026-08-14
 
 - Rebuilt the metastatic NSCLC and SCLC Notes from the complete applied Lung
