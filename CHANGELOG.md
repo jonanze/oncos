@@ -2,6 +2,17 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.6] - 2026-08-14
+
+- Replaced the Notes pill-matrix navigation with a restrained nested desktop
+  outline and an accessible in-flow mobile outline.
+- Restored semantic multi-row tables and continuous numbered lists, with
+  container-local overflow for wide tables on small screens.
+- Increased article typography and heading hierarchy, constrained the reading
+  measure, and rendered long evidence units as readable prose blocks.
+- Corrected scroll-spy behavior so the active section, including terminal
+  References, remains visible and announced across desktop and mobile.
+
 ## [1.5.5] - 2026-08-14
 
 - Reorganized SCLC into decision-led evidence blocks and concise lists without
