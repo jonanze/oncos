@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.4] - 2026-08-14
+
+- Rebuilt the metastatic NSCLC and SCLC Notes from the complete applied Lung
+  evidence layer, with independent clinical QA and exact Google Docs round-trips.
+- Added the evidence-bound small-cell transformation section from Marcoux et al.
+  and restored the eight previously blocked SCLC studies after governed intake.
+- Kept HARMONi withheld because no accessible primary publication and accepted
+  dossier chain were available.
+
 ## [1.5.3] - 2026-08-12
 
 - Moved authoritative external citations in all four colorectal Notes—including
