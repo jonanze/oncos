@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.7] - 2026-08-14
+
+- Standardized sibling-list presentation across all 17 Notes: each semantic
+  group now uses ordinary bullets or evidence blocks consistently, never both.
+- Preserved ordered versus unordered semantics across direct transitions, blank
+  paragraphs and invisible figure markers, with suite-wide regression coverage.
+- Kept every visible clinical token, section, link and citation unchanged while
+  reducing 87 mixed visual list groups to zero.
+
 ## [1.5.6] - 2026-08-14
 
 - Replaced the Notes pill-matrix navigation with a restrained nested desktop
