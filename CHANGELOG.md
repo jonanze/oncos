@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.9] - 2026-08-16
+
+- Replaced the three lymphoma Notes chapters with the revised DLBCL, Hodgkin
+  lymphoma, and indolent non-Hodgkin lymphoma editions.
+- Preserved the failed Evidence-entry and whole-suite findings as an explicit
+  force-release exception; publication does not convert those gates to PASS.
+- Corrected the Google Docs writer so cache frontmatter is not inserted into
+  canonical Docs and inherited paragraph-list formatting is cleared.
+
 ## [1.5.8] - 2026-08-14
 
 - Restored the complete NLST and NELSON screening evidence to the Early and
