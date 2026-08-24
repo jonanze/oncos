@@ -2,6 +2,16 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.10] - 2026-08-25
+
+- Replaced the five Breast Notes chapters with the evidence-first, independently
+  accepted editions covering histopathology, DCIS, early, neoadjuvant, and
+  metastatic breast cancer.
+- Preserved exclusive teaching ownership across the Breast suite and the exact
+  canonical Google Docs-to-cache round trip for all five chapters.
+- Published the completed Breast endpoint-register and evidence-curation work
+  through the Notes layer without changing unrelated suite content.
+
 ## [1.5.9] - 2026-08-16
 
 - Replaced the three lymphoma Notes chapters with the revised DLBCL, Hodgkin
