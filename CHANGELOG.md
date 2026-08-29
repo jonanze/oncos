@@ -2,6 +2,12 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.12] - 2026-08-30
+
+- Published the independently curated Advanced & Locoregional HCC Evidence sheet.
+- Replaced all governed population, treatment-arm, endpoint and key-finding cells from verified source-bound dossiers while preserving formal source-limit rows.
+- Kept unrelated oncOS modules and user-owned shared-checkout changes outside the release.
+
 ## [1.5.10] - 2026-08-25
 
 - Replaced the five Breast Notes chapters with the evidence-first, independently
