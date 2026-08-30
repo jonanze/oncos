@@ -2,6 +2,12 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.14] - 2026-08-31
+
+- Published the independently curated Nasopharyngeal Carcinoma Evidence sheet.
+- Replaced the governed population, treatment-arm, endpoint and key-finding cells across 17 rows from 21 independently accepted source-bound dossiers plus one claim-scoped source limit.
+- Preserved all source links, other Evidence sheets and non-Evidence modules.
+
 ## [1.5.13] - 2026-08-30
 
 - Published the independently curated Bladder & UTUC Evidence sheet.
