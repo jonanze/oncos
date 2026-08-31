@@ -2,6 +2,12 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.5.15] - 2026-08-31
+
+- Published the independently curated Tumour-Agnostic Basket Trials Evidence sheet.
+- Replaced the governed population, treatment-arm, endpoint and key-finding cells across 11 rows from 16 independently accepted source-bound dossiers.
+- Preserved all source links, other Evidence sheets and non-Evidence modules.
+
 ## [1.5.14] - 2026-08-31
 
 - Published the independently curated Nasopharyngeal Carcinoma Evidence sheet.
