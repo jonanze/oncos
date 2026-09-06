@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="1.5.16">
+<meta name="application-version" content="1.6.0">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#f6f7f9">
@@ -488,31 +488,12 @@ a{color:var(--teal);}
   @keyframes drop-in{from{opacity:0;transform:scale(.96) translateY(-4px);}to{opacity:1;transform:none;}}
 }
 .suite-drop.open{display:block;}
-.barsearch{flex:0 0 auto;width:min(280px,34vw);margin-left:auto;height:36px;padding:0 13px;
-  font:inherit;color:var(--ink);border:1px solid var(--hair);
-  transition:width .25s var(--mo-ease, cubic-bezier(.3,0,.1,1)), border-color .15s;}
-/* search bloom (beautify #3): breathes open on focus, eases back on blur */
-.barsearch:focus{width:min(340px,40vw);}
-@media (prefers-reduced-motion:reduce){ .barsearch{transition:border-color .15s;} }
-.barsearch:focus{border-color:var(--m);}
-/* No focus ring on the search: text inputs match :focus-visible on EVERY
-   focus, so ring + teal border doubled up (Jonan, on-device, 2026-08-08).
-   The border-colour change is the focus affordance, keyboard included. */
+/* Module scripts keep a non-interactive value holder for their legacy APIs. */
+.barsearch{display:none!important;}
 .barsearch:focus-visible{outline:none;}
 .mhead .theme-toggle{flex:0 0 auto;}
-/* Suite-wide search augments the existing module search input. The small
-   affordance leaves each module's local results untouched; the modal owns its
-   own query field and is the only global-results surface. */
-.global-search-suggest{position:fixed;z-index:58;right:58px;top:calc(56px + env(safe-area-inset-top));
-  width:min(380px,calc(100vw - 24px));padding:6px;background:var(--paper);border:1px solid var(--hair);
-  border-radius:12px;box-shadow:var(--shadow);}
-.global-search-suggest[hidden],.global-search-dialog[hidden]{display:none !important;}
-.global-search-suggest button{display:flex;width:100%;align-items:center;gap:7px;text-align:left;
-  border:0;border-radius:8px;background:transparent;color:var(--ink);padding:10px 11px;font:inherit;cursor:pointer;}
-@media (hover:hover){.global-search-suggest button:hover{background:var(--accent-soft);}}
-.global-search-suggest button.is-pressed{background:var(--accent-soft);}
-.global-search-suggest .gs-command{font-weight:var(--w-name);}
-.global-search-suggest .gs-query{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);}
+/* One suite-wide search surface. */
+.global-search-dialog[hidden]{display:none!important;}
 .global-search-dialog{position:fixed;inset:0;z-index:100;background:color-mix(in oklab,var(--ink) 42%,transparent);
   padding:max(18px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right))
     max(18px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));display:flex;justify-content:center;}
@@ -540,11 +521,26 @@ a{color:var(--teal);}
 .gs-empty{padding:42px 16px;text-align:center;color:var(--muted);}
 body.global-search-open{overflow:hidden;}
 @media (max-width:760px){
-  .global-search-suggest{right:12px;top:calc(56px + env(safe-area-inset-top));}
   .global-search-dialog{padding:0;}
   .global-search-panel{width:100%;height:100%;border:0;border-radius:0;}
   .global-search-head{padding-top:calc(10px + env(safe-area-inset-top));}
   .global-search-results{padding:14px;}
+}
+.mhead .global-search-open{margin-left:auto;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;
+  border:1px solid var(--hair);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;flex:none;}
+.global-search-open svg{width:18px;height:18px;}
+.global-search-open-label{font-size:var(--t-sm);}
+.global-search-filters{display:flex;gap:6px;flex-wrap:wrap;padding:12px 14px 4px;flex-shrink:0;}
+.global-search-filters .gs-filter{min-height:44px;padding:7px 10px;background:var(--paper);border:1px solid var(--hair);border-radius:9px;color:var(--ink);font:inherit;font-size:var(--t-sm);cursor:pointer;}
+.global-search-filters .gs-filter[aria-pressed="true"]{border-color:var(--m);color:var(--m);background:var(--accent-soft);}
+.global-search-status{padding:4px 18px 0;font-size:var(--t-sm);color:var(--muted);flex-shrink:0;}
+.global-search-results .gs-module{font-size:var(--t-xs);font-weight:var(--w-name);color:var(--m);}
+.global-search-results .gs-retry{display:block;margin:0 auto 20px;min-height:44px;padding:8px 14px;border:1px solid var(--hair);border-radius:9px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
+.global-search-head input{height:44px;font-size:16px;}
+.global-search-close{width:44px;height:44px;}
+@media(max-width:760px){
+  .mhead .global-search-open{width:44px;justify-content:center;padding:0;}
+  .global-search-open-label{display:none;}
 }
 aside.sidebar{position:fixed;top:0;left:0;z-index:50;background:var(--paper);
   border-right:1px solid var(--hair);height:100vh;height:100dvh;overflow-y:auto;
@@ -553,6 +549,11 @@ aside.sidebar{position:fixed;top:0;left:0;z-index:50;background:var(--paper);
 body.nav-open aside.sidebar{transform:translateX(0);}
 body.nav-open{overflow:hidden;}
 #viewroot{min-height:60vh;}
+.view-error{max-width:560px;margin:48px auto;padding:24px;color:var(--ink);}
+.view-error h1{font-size:24px;line-height:1.3;}
+.view-error p{color:var(--slate);line-height:1.6;}
+.view-error button{min-height:44px;padding:10px 16px;border:1px solid var(--hair);border-radius:9px;
+  background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
 /* Drawer padding: evidence/staging nav items carry their own indent; drugs,
    tox and acute relied on their (stripped) module-aside padding — restore it
    at the mount point so content doesn't hug the drawer edges. */
@@ -562,7 +563,6 @@ body.nav-open{overflow:hidden;}
 :target{scroll-margin-top:72px;}
 @media (max-width:760px){
   .mhead{padding-left:15px;padding-right:15px;gap:10px;}
-  .barsearch{margin-left:auto;}
   .mast-suite{display:none;}
   .mob-suite{display:flex;}
 }
@@ -671,12 +671,10 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
     <span class="tico" id="mobsuite-ico"></span>
     <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
   </button>
-  <input id="q" type="search" class="barsearch" placeholder="Search&hellip;" autocomplete="off" aria-label="Search" style="display:none">
+  <button id="global-search-open" class="global-search-open" type="button" aria-label="Search all oncOS" title="Search all oncOS (Cmd/Ctrl+K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span class="global-search-open-label">Search all oncOS</span></button>
   <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </header>
-<div class="global-search-suggest" id="global-search-suggest" hidden>
-  <button id="global-search-button" type="button"><span class="gs-command">Search all oncOS</span><span aria-hidden="true">for</span><span class="gs-query" id="global-search-suggest-query"></span></button>
-</div>
+<input id="q" type="hidden" class="barsearch">
 <div class="global-search-dialog" id="global-search-dialog" role="dialog" aria-modal="true" aria-labelledby="global-search-label" hidden>
   <section class="global-search-panel">
     <h2 class="sr-only" id="global-search-label">Search all oncOS</h2>
@@ -684,6 +682,8 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
       <input id="global-search-query" type="search" autocomplete="off" aria-label="Search all oncOS">
       <button class="global-search-close" id="global-search-close" type="button" aria-label="Close search">&times;</button>
     </div>
+    <div class="global-search-filters" id="global-search-filters" role="group" aria-label="Filter search by module"></div>
+    <div class="global-search-status" id="global-search-status" role="status"></div>
     <div class="global-search-results" id="global-search-results" aria-live="polite"></div>
   </section>
 </div>
@@ -709,25 +709,210 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
       <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
       <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
   </section>
-  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.5.16">v1.5.16</span></footer>
+  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.6.0">v1.6.0</span></footer>
 </main></template>
 <script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,100);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls;clearTimeout(pT);pT=null;pEls=null;els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(function(){els.forEach(function(n){n.classList.remove('is-pressed');});},160);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
 <script>
+/* oncOS history journal v1. Snapshots live only in this page's memory. */
+(function(root) {
+  function createHistoryJournal(history, capture, options = {}) {
+    const push = history.pushState.bind(history);
+    const replace = history.replaceState.bind(history);
+    const snapshots = new Map();
+    const readURL = options.readURL || (() => history.url || '');
+    let currentURL = readURL();
+    const namespace = options.prefix || Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
+    let sequence = 0;
+    const nextKey = () => namespace + '-' + (++sequence);
+    const stateKey = () => history.state && typeof history.state.oncosEntry === 'string' ? history.state.oncosEntry : null;
+    let currentKey = stateKey() || nextKey();
+    const withKey = (state, key) => ({...(state && typeof state === 'object' ? state : {}), oncosEntry:key});
+    if (!stateKey()) replace(withKey(history.state, currentKey), '');
 
+    function save(snapshot) {
+      const value = arguments.length ? snapshot : capture(currentURL);
+      if (value) snapshots.set(currentKey, value);
+    }
+    function pushEntry(state, title, url, before) {
+      if (arguments.length > 3) save(before); else save();
+      const key = nextKey();
+      // Adopt the key only after a successful native push.
+      push(withKey(state, key), title, url);
+      currentKey = key; currentURL = readURL();
+    }
+    history.pushState = function(state, title, url) { pushEntry(state, title, url); };
+    history.replaceState = function(state, title, url) { replace(withKey(state, currentKey), title, url); currentURL = readURL(); };
+
+    return {
+      save,
+      current: () => snapshots.get(currentKey) || null,
+      pop: function() {
+        const nextURL = readURL();
+        const hashOnly = currentURL !== nextURL && currentURL.split('#')[0] === nextURL.split('#')[0];
+        save();
+        currentKey = stateKey() || nextKey();
+        if (!stateKey()) replace(withKey(history.state, currentKey), '');
+        currentURL = nextURL;
+        return {snapshot:snapshots.get(currentKey) || null, hashOnly};
+      },
+      push: pushEntry,
+    };
+  }
+  if (typeof module === 'object' && module.exports) module.exports = createHistoryJournal;
+  else root.oncosHistoryJournal = createHistoryJournal;
+})(typeof window === 'undefined' ? globalThis : window);
+
+/* Public oncOS locations v1. Only public catalogue IDs and browsing filters. */
+(function(root) {
+  const modules = ['hub','notes','evidence','staging','drugs','tox','acute'];
+  const fields = ['record','group','kind','phase','year','sort','dir'];
+  const allowed = {
+    hub:[], notes:['record','group'], evidence:['record','group','phase','year','sort','dir'],
+    staging:['record'], drugs:['record'], tox:['record','kind','group'], acute:['record'],
+  };
+  function validText(value) {
+    return typeof value === 'string' && value.length <= 500 && !/[\u0000-\u001f\u007f]/.test(value);
+  }
+  function validate(module, target) {
+    if (!modules.includes(module) || !target || typeof target !== 'object' || Array.isArray(target)) return false;
+    if (Object.keys(target).some(key=>![...fields,'anchor'].includes(key))) return false;
+    for (const field of [...fields,'anchor']) {
+      if (target[field] != null && (!validText(target[field]) || (target[field] && field !== 'anchor' && !allowed[module].includes(field)))) return false;
+    }
+    if (module==='notes' && target.record && target.group) return false;
+    if (module==='evidence' && target.record && (!target.record.startsWith('t-') || target.record.length <= 2)) return false;
+    if (module==='evidence' && target.record && target.anchor && target.anchor.startsWith('t-') && target.anchor !== target.record) return false;
+    if (module==='drugs' && target.record && target.anchor && target.anchor.startsWith('d-') && target.anchor !== 'd-'+target.record) return false;
+    if (module==='hub' && target.anchor) return false;
+    return true;
+  }
+  function read(href) {
+    let url;
+    try { url = new URL(href); } catch (_) { return {valid:false}; }
+    if (!['https:','http:'].includes(url.protocol)) return {valid:false};
+    const path = url.pathname.replace(/\/$/,'');
+    const module = path === '' ? 'hub' : path.slice(1);
+    const target = {};
+    for (const field of fields) {
+      const values = url.searchParams.getAll(field);
+      if (values.length > 1) return {valid:false,module};
+      if (values.length) target[field] = values[0];
+    }
+    try { target.anchor = decodeURIComponent(url.hash.slice(1)); }
+    catch (_) { return {valid:false,module}; }
+    if (module==='evidence' && target.anchor.startsWith('t-')) {
+      if (target.record && target.record !== target.anchor) return {valid:false,module};
+      target.record = target.anchor;
+    }
+    if (module==='drugs' && target.anchor.startsWith('d-')) {
+      const record = target.anchor.slice(2);
+      if (target.record && target.record !== record) return {valid:false,module};
+      target.record = record;
+    }
+    return {valid:validate(module,target),module,target,searchOpen:url.searchParams.has('search')};
+  }
+  function href(module, target = {}, origin = 'https://oncos.invalid') {
+    if (!validate(module,target)) throw new TypeError('Invalid oncOS location');
+    const url = new URL(module==='hub' ? '/' : '/'+module+'/',origin);
+    for (const field of fields) {
+      if ((module==='evidence' || module==='drugs') && field==='record') continue;
+      if (target[field]) url.searchParams.set(field,target[field]);
+    }
+    let anchor = target.anchor || '';
+    if (module==='evidence' && target.record) anchor = target.record;
+    if (module==='drugs' && target.record) anchor = 'd-'+target.record;
+    if (anchor) url.hash = encodeURIComponent(anchor);
+    return url.pathname + url.search + url.hash;
+  }
+  function fromRecord(record) {
+    if (!record || !modules.includes(record.module) || !validText(record.id) || !record.id) return null;
+    const target = {record:record.id};
+    if (record.module==='notes' && record.section) target.anchor = record.section;
+    if (record.module==='tox') target.kind = record.kind;
+    return validate(record.module,target) ? target : null;
+  }
+  const api = {version:1,read,href,fromRecord};
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.oncosLocations = api;
+})(typeof window === 'undefined' ? globalThis : window);
+
+window.oncosViews = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {"title": "Evidence", "searchId": "q"}, "staging": {"title": "Staging", "searchId": "q"}, "drugs": {"title": "Drugs", "searchId": "search"}, "tox": {"title": "Tox", "searchId": "q"}, "acute": {"title": "Acute", "searchId": "q"}, "hub": {"title": ""}};
 (function(){
-  var VIEWS = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {"title": "Evidence", "searchId": "q"}, "staging": {"title": "Staging", "searchId": "q"}, "drugs": {"title": "Drugs", "searchId": "search"}, "tox": {"title": "Tox", "searchId": "q"}, "acute": {"title": "Acute", "searchId": "q"}, "hub": {"title": ""}};
+  var VIEWS = window.oncosViews;
   var root = document.documentElement;
   var viewroot = document.getElementById('viewroot');
   var viewnav = document.getElementById('viewnav');
   var homeTpl = document.getElementById('home-view');
   var cache = {};          // name -> parsed fragment + compiled view script
   var current = null;      // active view name
+  var remembered = {};     // current-tab presentation snapshots; never persisted
   var active = null;       // active window.oncosView
   var capt = [];           // captured doc/window listeners for auto-cleanup
   var navSeq = 0;          // latest request; stale fetches may never mount
-  var pendingRecord = null; // suite-search destination delivered after mount
+  var applyingLocation = 0;
+  var transitionDepth = 0; // legacy actions may call another wrapped action
+  var failedView = false;
+  var handledEvidenceHash = '';
+  var focusVersion = 0;
+  var locations = window.oncosLocations;
   var drawerWasOpen = false;
   var drawerReturn = null;
+  var journal = window.oncosHistoryJournal(history, captureFrame, {readURL:function(){return location.href;}});
+  history.scrollRestoration = 'manual';
+  document.addEventListener('focusin', function(){focusVersion++;});
+
+  function captureFrame(address){
+    if (!current || (current!=='hub' && (!active || !active.captureState))) return null;
+    var href = address || location.href;
+    if (pathToView(new URL(href,location.origin).pathname)!==current) {
+      href = remembered[current] && remembered[current].url || new URL('/'+current+'/',location.origin).href;
+    }
+    var frame = {module:current, value:current==='hub'?null:active.captureState(), query:searchEl().value,
+      scroll:window.scrollY, url:href};
+    var focused = document.activeElement;
+    if (focused && focused.id) frame.focus = {id:focused.id};
+    else if (focused && focused.matches('a[href]') && viewroot.contains(focused)) {
+      var linkHref = focused.getAttribute('href');
+      var links = Array.from(viewroot.querySelectorAll('a[href]')).filter(function(node){return node.getAttribute('href')===linkHref;});
+      frame.focus = {link:linkHref, index:links.indexOf(focused)};
+    }
+    else if (focused && focused.matches('input[data-r]') && focused.closest('.calc[data-tid]')) {
+      frame.focus = {calc:focused.closest('.calc').dataset.tid,role:focused.dataset.r};
+    }
+    else if (focused) frame.focus = {content:true};
+    remembered[current] = frame;
+    return frame;
+  }
+  function restoreFrame(frame){
+    if (!frame || frame.module!==current || (current!=='hub' && (!active || !active.restoreState))) return false;
+    applyingLocation++;
+    var restored;
+    try { restored = current==='hub' || active.restoreState(frame.value); } finally { applyingLocation--; }
+    if (!restored) return false;
+    searchEl().value = frame.query;
+    window.scrollTo(0,frame.scroll);
+    updateTitle();
+    restoreFocus(frame);
+    var owner=active,seq=navSeq;
+    setTimeout(function(){if(active===owner&&seq===navSeq)restoreFocus(frame);},0);
+    return true;
+  }
+  function restoreFocus(frame){
+    if(!frame.focus || !document.getElementById('global-search-dialog').hidden)return;
+    var target=frame.focus.id&&document.getElementById(frame.focus.id);
+    if(frame.focus.content)target=entryHeading()||viewroot.querySelector('h1');
+    if(!target&&frame.focus.link&&Number.isInteger(frame.focus.index)&&frame.focus.index>=0){
+      target=Array.from(viewroot.querySelectorAll('a[href]')).filter(function(node){return node.getAttribute('href')===frame.focus.link;})[frame.focus.index];
+    }
+    if(!target&&frame.focus.calc){
+      var calc=Array.from(viewroot.querySelectorAll('.calc[data-tid]')).find(function(node){return node.dataset.tid===frame.focus.calc;});
+      if(calc)target=Array.from(calc.querySelectorAll('input[data-r]')).find(function(node){return node.dataset.r===frame.focus.role;});
+    }
+    if(target&&target.getBoundingClientRect().width&&target.focus){
+      if(!target.matches('button,a,input,select,textarea,summary,[tabindex]'))target.tabIndex=-1;
+      target.focus({preventScroll:true});
+    }
+  }
 
   function pathToView(p){
     var m = p.match(/^\/(evidence|staging|drugs|tox|acute|notes)(\/|$)/);
@@ -803,57 +988,11 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
       return cache[name];
     });
   }
-  function mount(name, prepared){
-    // teardown
-    if (active && active.destroy) { try{ active.destroy(); }catch(e){} }
-    releaseCaptured();
-    document.body.classList.remove('nav-open');
-    freshChrome();
-    active = null; window.oncosView = null;
-
-    // swap
-    root.setAttribute('data-view', name);
+  function syncSuiteChrome(name){
     var v = VIEWS[name];
-    var q = searchEl();
-    if (q) { q.value=''; q.placeholder = 'Search\u2026'; q.style.display = (name==='hub'?'none':'');
-      q.id = (v && v.searchId) || 'q'; }
-    document.title = name==='hub' ? 'oncOS' : 'oncOS \u2014 ' + (v?v.title:name);
+    document.title = name==='hub' ? 'oncOS' : 'oncOS — ' + (v?v.title:name);
     var mtag = document.getElementById('mast-mod');
     if (mtag) mtag.textContent = name==='hub' ? '' : (v?v.title:name);
-
-    viewnav.innerHTML = '';
-    if (name === 'hub') {
-      viewroot.removeAttribute('aria-labelledby');
-      viewroot.innerHTML = '';
-      viewroot.appendChild(homeTpl.content.cloneNode(true));
-    } else {
-      var doc = prepared.doc;
-      viewroot.innerHTML = '';
-      var viewTitle = document.createElement('h1');
-      viewTitle.className = 'sr-only'; viewTitle.id = 'view-title';
-      viewTitle.textContent = v.title;
-      viewroot.appendChild(viewTitle);
-      viewroot.setAttribute('aria-labelledby','view-title');
-      doc.querySelectorAll('style[data-view-css]').forEach(function(s){
-        viewroot.appendChild(document.importNode(s, true));
-      });
-      var frag = doc.querySelector('.viewfrag');
-      if (frag) viewroot.appendChild(document.importNode(frag, true));
-      var nav = doc.querySelector('template[data-nav]');
-      if (nav) viewnav.appendChild(document.importNode(nav.content, true));
-      // execute the view script (compiled once per fetched view)
-      if (prepared.run) {
-        var restore = captureOn();
-        try {
-          prepared.run();
-          if (window.oncosView && window.oncosView.init) {
-            active = window.oncosView;
-            try { active.init({ root:viewroot, nav:viewnav, search:searchEl() }); }
-            catch(err){ console.error('oncOS view init failed:', name, err); }
-          }
-        } finally { restore(); }
-      }
-    }
     // suite active state — masthead tabs and the mobile dropdown alike
     document.querySelectorAll('.suite-link, .drop-link').forEach(function(a){
       var to = pathToView(new URL(a.href, location.href).pathname);
@@ -886,81 +1025,237 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
       if (mico) mico.innerHTML = srcIco ? srcIco.innerHTML : '';
       drop.classList.remove('open'); mob.setAttribute('aria-expanded','false');
     }
-    // A cross-view deep link (/evidence/#t-<slug> from Notes) arrives with the
-    // hash already in the URL, but the target element did not exist until the
-    // line above injected the view — the browser resolved #t-... against an empty
-    // document and gave up. Re-apply it now: hand it to the view's own hashchange
-    // handler if it has one (Evidence clears its filters and opens the row), and
-    // fall back to a plain scroll for a view that just has in-page anchors.
-    // Only a hashless mount resets the scroll — otherwise this would fight it.
-    if (location.hash && location.hash.length > 1) {
-      var wanted = location.hash;
-      requestAnimationFrame(function(){
-        if (location.hash !== wanted) return;
-        window.dispatchEvent(new Event('hashchange'));
-        var el = document.getElementById(wanted.slice(1));
-        if (el && !window.pageYOffset) el.scrollIntoView();
-      });
+  }
+
+  function localTransition(owner, action, options){
+    if (active !== owner) return;
+    if (applyingLocation || transitionDepth) return action();
+    var seq = ++navSeq, focusAtStart = focusVersion;
+    viewroot.classList.remove('leaving');
+    var before = captureFrame(location.href);
+    var result;
+    transitionDepth++;
+    try { result = action(); } finally { transitionDepth--; }
+    Promise.resolve().then(function(){focusAtStart=focusVersion;});
+    if (!owner.navigation) return result;
+    var url = locations.href(current, owner.navigation.read(), location.origin);
+    if (url !== location.pathname + location.search + location.hash) {
+      if (options && options.replace) history.replaceState({v:current}, '', url);
+      else journal.push({v:current}, '', url, before);
+    }
+    updateTitle();
+    if (!options || options.focus !== false) {
+      setTimeout(function(){if(seq===navSeq && active===owner && focusVersion===focusAtStart)focusContent();},0);
+    }
+    return result;
+  }
+
+  function focusContent(){
+    updateTitle();
+    var dialog = document.getElementById('global-search-dialog');
+    if (dialog && !dialog.hidden) return;
+    var parsed = locations.read(location.href);
+    var anchor = parsed.valid && (parsed.target.anchor || (current==='evidence' && parsed.target.record));
+    var target = anchor && document.getElementById(anchor);
+    if (target && target.matches('tr')) target = target.querySelector('button');
+    if (target && target.matches('article')) target = target.querySelector('h2');
+    if (!target || !viewroot.contains(target)) target = entryHeading() || viewroot.querySelector('h1');
+    if (target) {if(!target.matches('button,a,input,select,summary'))target.tabIndex=-1;target.focus({preventScroll:true});}
+  }
+
+  function entryHeading(){
+    if(current==='evidence'){
+      var evidenceLocation=locations.read(location.href);
+      return evidenceLocation.valid&&evidenceLocation.target.record?viewroot.querySelector('.trial-toggle[aria-expanded="true"]'):null;
+    }
+    if(current==='drugs'){
+      var parsed=locations.read(location.href),id=parsed.valid&&parsed.target.record;
+      var card=id&&document.getElementById('d-'+id);
+      return card&&viewroot.contains(card)?card.querySelector('h2'):null;
+    }
+    return viewroot.querySelector('.notehead h2,.dvhead h2') || viewroot.querySelector('h2');
+  }
+  function updateTitle(){
+    if(!current || current==='hub' || failedView)return;
+    var heading=entryHeading(),label=heading&&heading.textContent.trim();
+    if(current==='evidence'&&heading)label=heading.firstChild.textContent.trim();
+    var parsed=locations.read(location.href);
+    if(!label&&parsed.valid)label=parsed.target.group;
+    document.title=label&&label!==VIEWS[current].title?label+' · oncOS '+VIEWS[current].title:'oncOS — '+VIEWS[current].title;
+  }
+
+  function showViewError(name, loading){
+    if (active && active.destroy) { try { active.destroy(); } catch (_) {} }
+    releaseCaptured(); active = null; window.oncosView = null; failedView = true;
+    current = name; root.setAttribute('data-view', name); syncSuiteChrome(name);
+    viewnav.replaceChildren(); viewroot.replaceChildren(); viewroot.classList.remove('leaving');
+    document.body.classList.remove('nav-open');
+    var box = document.createElement('section'); box.className = 'view-error';
+    var heading = document.createElement('h1'); heading.id = 'view-title';
+    heading.textContent = loading ? 'Unable to load this page' : 'Entry unavailable';
+    var message = document.createElement('p');
+    message.textContent = loading ? 'Check your connection and try again.' : 'This link does not match an entry in the current catalogue.';
+    var button = document.createElement('button'); button.type = 'button';
+    button.textContent = loading ? 'Try again' : 'Browse ' + ((VIEWS[name] || {}).title || 'oncOS');
+    button.onclick = function(){
+      if (loading) go(name, false);
+      else go(name, true, '', {});
+    };
+    box.append(heading,message,button); viewroot.appendChild(box);
+    viewroot.setAttribute('aria-labelledby','view-title');
+    window.scrollTo(0,0);
+    heading.tabIndex = -1; heading.focus({preventScroll:true});
+  }
+
+  function applyLocation(name, target){
+    if (!active) return name==='hub';
+    applyingLocation++;
+    try {
+      if (active.navigation) {
+        if (!active.navigation.open(target)) return false;
+        var old = new URL(location.href);
+        var canonical = new URL(locations.href(name,active.navigation.read(),location.origin),location.origin);
+        ['search','searchModule'].forEach(function(key){if(old.searchParams.has(key))canonical.searchParams.set(key,old.searchParams.get(key));});
+        history.replaceState(history.state, '', canonical.pathname+canonical.search+canonical.hash);
+        focusContent();
+        return true;
+      }
+      if (target.record && active.openRecord) return active.openRecord({module:name,id:target.record,kind:target.kind,section:target.anchor});
+      return !Object.keys(target).some(function(key){return target[key];});
+    } finally { applyingLocation--; }
+  }
+
+  function settleLocation(name, requested, push, sameView){
+    var parsed = locations.read(location.href);
+    if (!parsed.valid) { showViewError(name,false); return; }
+    var historyFrame = !push ? journal.current() : null;
+    if (restoreFrame(historyFrame)) return;
+    var hasTarget = Object.keys(parsed.target).some(function(key){return parsed.target[key];});
+    if (requested !== undefined || hasTarget) {
+      if (!applyLocation(name, parsed.target)) showViewError(name,false);
+      return;
+    }
+    var saved = remembered[name];
+    if (push && requested === undefined && restoreFrame(saved)) {
+      if (saved.url) {
+        var url = new URL(saved.url); url.searchParams.delete('search'); url.searchParams.delete('searchModule');
+        history.replaceState({v:name}, '', url.pathname+url.search+url.hash);
+        updateTitle();
+      }
+      return;
+    }
+    // After a reload, older history keys have no in-memory snapshot. A bare
+    // route still means the module index, not whichever record is now on screen.
+    if (!push && sameView && active && active.navigation) applyLocation(name, {});
+    window.scrollTo(0,0);
+  }
+
+  function mount(name, prepared){
+    // teardown
+    if (active && active.destroy) { try{ active.destroy(); }catch(e){} }
+    releaseCaptured();
+    document.body.classList.remove('nav-open');
+    freshChrome();
+    active = null; window.oncosView = null;
+
+    // swap
+    root.setAttribute('data-view', name);
+    var v = VIEWS[name];
+    var q = searchEl();
+    if (q) { q.value=''; q.id = (v && v.searchId) || 'q'; }
+    viewnav.innerHTML = '';
+    if (name === 'hub') {
+      viewroot.removeAttribute('aria-labelledby');
+      viewroot.innerHTML = '';
+      viewroot.appendChild(homeTpl.content.cloneNode(true));
     } else {
-      window.scrollTo(0,0);
+      var doc = prepared.doc;
+      viewroot.innerHTML = '';
+      var viewTitle = document.createElement('h1');
+      viewTitle.className = 'sr-only'; viewTitle.id = 'view-title';
+      viewTitle.textContent = v.title;
+      viewroot.appendChild(viewTitle);
+      viewroot.setAttribute('aria-labelledby','view-title');
+      doc.querySelectorAll('style[data-view-css]').forEach(function(s){
+        viewroot.appendChild(document.importNode(s, true));
+      });
+      var frag = doc.querySelector('.viewfrag');
+      if (frag) viewroot.appendChild(document.importNode(frag, true));
+      var nav = doc.querySelector('template[data-nav]');
+      if (nav) viewnav.appendChild(document.importNode(nav.content, true));
+      // execute the view script (compiled once per fetched view)
+      if (prepared.run) {
+        var restore = captureOn();
+        try {
+          prepared.run();
+          if (window.oncosView && window.oncosView.init) {
+            active = window.oncosView;
+            var owner = active;
+            active.init({root:viewroot, nav:viewnav, search:searchEl(),
+              transition:function(action, options){return localTransition(owner,action,options);}});
+          }
+        } finally { restore(); }
+      }
     }
-    if (pendingRecord && pendingRecord.module === name && active && active.openRecord) {
-      var record = pendingRecord; pendingRecord = null;
-      setTimeout(function(){ if (active && active.openRecord) active.openRecord(record); }, 0);
-    }
+    syncSuiteChrome(name);
+    failedView = false;
   }
   // `hash` is carried only for a cross-view deep link (/evidence/#t-<slug>): the
   // pushed URL has to keep it, or mount() has nothing to re-apply and the anchor
   // is lost the moment the router takes over from the browser.
-  function go(name, push, hash){
+  function go(name, push, hash, requested){
     var seq = ++navSeq;
-    var url = (name==='hub' ? '/' : '/'+name+'/') + (hash || '');
-    if (name === current) {
-      // Also cancels an in-flight request for another view. Restore the URL
-      // when that pending request changed it. Global search also needs a fresh
-      // canonical entry even within the same module, so Back can reopen the
-      // preceding ?search= results instead of silently losing that step.
-      if (push && (pathToView(location.pathname) !== name || location.search ||
-          location.hash !== (hash || ''))) history.pushState({v:name}, '', url);
-      viewroot.classList.remove('leaving');
-      document.body.classList.remove('nav-open');
-      if (pendingRecord && pendingRecord.module === name && active && active.openRecord) {
-        var record = pendingRecord; pendingRecord = null;
-        setTimeout(function(){ if (active && active.openRecord) active.openRecord(record); }, 0);
+    var url = requested !== undefined ? locations.href(name,requested,location.origin) :
+      (name==='hub' ? '/' : '/'+name+'/') + (hash || '');
+    if (name === current && !failedView) {
+      viewroot.classList.remove('leaving'); document.body.classList.remove('nav-open');
+      var picker=document.getElementById('suitedrop'),pickerButton=document.getElementById('mobsuite');
+      if(picker&&picker.classList.contains('open')){
+        picker.classList.remove('open');pickerButton.setAttribute('aria-expanded','false');
+        if(push&&requested===undefined&&!hash)pickerButton.focus({preventScroll:true});
       }
+      // Re-selecting the current module icon leaves its reading state alone.
+      if (push && requested === undefined && !hash) {
+        // A different module may have pushed its URL while its fetch is pending.
+        // Cancelling that request must also put the still-visible location back.
+        if (pathToView(location.pathname) !== current) {
+          var savedURL = new URL(remembered[current] && remembered[current].url || url,location.origin);
+          // Search result activation has already closed its overlay. Returning
+          // through a module icon resumes the underlying reading destination.
+          savedURL.searchParams.delete('search'); savedURL.searchParams.delete('searchModule');
+          history.replaceState({v:current}, '', savedURL.pathname+savedURL.search+savedURL.hash);
+        }
+        return;
+      }
+      if (push && url !== location.pathname+location.search+location.hash) history.pushState({v:name}, '', url);
+      settleLocation(name,requested,push,true);
       return;
     }
     if (push) history.pushState({v:name}, '', url);
-    var done = function(prepared){
-      if (seq !== navSeq) return;
-      current = name;
-      mount(name, prepared);
-      viewroot.classList.remove('leaving');
-    };
     viewroot.classList.add('leaving');
     var t0 = Date.now();
-    // Hold the leaving (opacity:0) state long enough for the 150ms CSS fade to
-    // paint, whether or not the view is cached. Collapsing this to 0 on warm
-    // views (as an earlier perf pass did) coalesces the add + later remove into
-    // one frame, so the browser never renders opacity:0 and the fade vanishes
-    // once every module is cached. Skip the hold only under reduced motion,
-    // where there is no transition to show and the wait would be dead time.
     var animate = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    var p = name==='hub' ? Promise.resolve(null) : fetchView(name);
-    p.then(function(prepared){
-      var wait = animate ? Math.max(0, 150 - (Date.now()-t0)) : 0;
-      setTimeout(function(){ done(prepared); }, wait);
-    }).catch(function(){
-      // fetch failed (offline, gate) — hard-navigate as a fallback
-      if (seq === navSeq) location.href = url;
-    });
+    var fetched = name==='hub' ? Promise.resolve(null) : fetchView(name);
+    fetched.then(function(prepared){
+      var wait = animate ? Math.max(0,150-(Date.now()-t0)) : 0;
+      setTimeout(function(){
+        if (seq !== navSeq) return;
+        current = name;
+        try {
+          mount(name,prepared); viewroot.classList.remove('leaving');
+          settleLocation(name,requested,push);
+        } catch (error) {
+          console.error('oncOS view failed:',name,error.message); showViewError(name,true);
+        }
+      },wait);
+    }).catch(function(){ if (seq === navSeq) showViewError(name,true); });
   }
 
   document.addEventListener('oncos:open-search-result', function(e){
     var record = e.detail;
-    if (!record || !VIEWS[record.module]) return;
-    pendingRecord = record;
-    go(record.module, true, record.module==='evidence' ? '#'+record.id : '');
+    var target = locations.fromRecord(record);
+    if (!target) return;
+    go(record.module,true,'',target);
   });
 
   // intercept same-origin suite navigation
@@ -968,19 +1263,45 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button!==0) return;
     var a = e.target.closest ? e.target.closest('a') : null;
     if (!a || a.origin !== location.origin) return;
-    // same-page hash anchors (drugs A-Z letters) are the browser's business —
-    // scroll natively, close the drawer, and never hijack them as navigation
-    if (a.hash && a.pathname.replace(/\/$/,'') === location.pathname.replace(/\/$/,'')) {
-      setTimeout(function(){ document.body.classList.remove('nav-open'); }, 40);
-      return;
-    }
     var to = a.pathname;
     if (/^\/(evidence|staging|drugs|tox|acute|notes)\/?$/.test(to) || to === '/' ) {
       e.preventDefault();
-      go(pathToView(to), true, a.hash);
+      // The shell records the old reading position before scrolling. Retire
+      // legacy hash handlers that scroll before history has captured it.
+      if(a.hash)e.stopPropagation();
+      var destination = locations.read(a.href);
+      if (!destination.valid) {
+        history.pushState({v:pathToView(to)}, '', a.href);
+        go(pathToView(to), false);
+        return;
+      }
+      var hasTarget = Object.keys(destination.target).some(function(key){return destination.target[key];});
+      go(pathToView(to), true, a.hash, hasTarget ? destination.target : undefined);
     }
   }, true);
-  window.addEventListener('popstate', function(){ go(pathToView(location.pathname), false); });
+  window.addEventListener('popstate', function(){
+    journal.pop();
+    // All seven views now restore their own reading positions, including
+    // section/reference and A-Z entries. Native restoration would overwrite
+    // snapshots saved before a legacy action changed the rendered page.
+    var parsed = locations.read(location.href);
+    var evidenceHash = parsed.valid && parsed.module==='evidence' && current==='evidence';
+    go(pathToView(location.pathname), false);
+    if (evidenceHash) handledEvidenceHash = location.href;
+  });
+  window.addEventListener('hashchange', function(event){
+    var parsed = locations.read(location.href);
+    if(current==='drugs'&&parsed.module==='drugs'){
+      var destination=parsed.valid&&parsed.target.anchor&&document.getElementById(parsed.target.anchor);
+      if(!parsed.valid||(parsed.target.anchor&&(!destination||!viewroot.contains(destination))))showViewError('drugs',false);
+      else focusContent();
+      return;
+    }
+    if (current!=='evidence' || parsed.module!=='evidence' || !active || !active.navigation) return;
+    event.stopImmediatePropagation();
+    if (handledEvidenceHash===location.href) {handledEvidenceHash='';return;}
+    if (!parsed.valid || !applyLocation('evidence',parsed.target)) showViewError('evidence',false);
+  }, true);
   window.addEventListener('resize', function(){
     var sl = document.getElementById('tabslider');
     var act = document.querySelector('.mast-suite .suite-link[aria-current="page"]');

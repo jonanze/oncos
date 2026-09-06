@@ -2,6 +2,14 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.6.0] - 2026-09-06
+
+- Unified lookup in one header search, with clearer ranked results and module filters; retained cancer, phase and year filtering in the existing sidebar.
+- Added stable record and section URLs, reliable Back/Forward and reading-state restoration across the suite.
+- Improved mobile Notes outlines, Evidence reading, keyboard navigation, calculator labels and converter focus handling.
+- Added recovery for missing entries, unavailable search and failed or cancelled page loads.
+- Preserved current clinical content, catalogues and source links.
+
 ## [1.5.16] - 2026-09-01
 
 - Published the independently curated Head & Neck SCC Evidence sheet.

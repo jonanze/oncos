@@ -178,6 +178,13 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] tr.trial{ border-radius: 12px; box-shadow: var(--shadow); }
 [data-view="evidence"] tr.trial.open{ border-radius: 12px 12px 0 0; box-shadow: var(--shadow); }
 [data-view="evidence"] tr.detail td{ border-radius: 0 0 12px 12px; box-shadow: var(--shadow); }}
+@media (max-width:760px){[data-view="evidence"] #results tbody tr.trial{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:16px;padding:12px 14px;}
+[data-view="evidence"] #results tbody tr.trial>td{width:auto;min-width:0;justify-content:flex-start;gap:7px;}
+[data-view="evidence"] #results tbody tr.trial>td.study{grid-column:1 / -1;margin:0 0 5px;}
+[data-view="evidence"] #results tbody tr.trial>td[data-label="Setting"]{grid-column:1 / -1;color:var(--muted);font-size:var(--t-base);}
+[data-view="evidence"] #results tbody tr.trial>td[data-label="Setting"]::before{content:none;}
+[data-view="evidence"] #results tbody tr.trial>td[data-label="Year"]{justify-content:flex-end;}
+[data-view="evidence"] #results .trial-toggle{min-height:44px;}}
 </style>
 <div class="viewfrag">
 <div class="layout">
@@ -605,6 +612,93 @@ focusAnchor();
       focusAnchor();
       return !!document.getElementById(record.id);
     };
+// Presentation state contract v1. Runs in the Evidence init closure.
+(() => {
+  if (!ctx.root || !ctx.search) return;
+  let routeRecord = null;
+  const rowFor = anchor => TRIALS.find(row=>row.anchor===anchor||row.anchorFull===anchor);
+  const sorts={study:'study',phase:'phase',year:'yearnum',setting:'sheet'};
+  window.oncosView.captureState = () => ({
+    version:1, module:'evidence', value:{...state, open:[...state.open]}
+  });
+  window.oncosView.restoreState = snapshot => {
+    if (!snapshot || snapshot.version !== 1 || snapshot.module !== 'evidence') return false;
+    const value = snapshot.value;
+    if (!value || !['all','sheet'].includes(value.scope) || typeof value.q !== 'string' ||
+        !['study','phase','yearnum','sheet'].includes(value.sortKey) || ![1,-1].includes(value.sortDir) ||
+        !['', ...phases].includes(value.phase) || !['', ...buckets.map(b => b[1])].includes(value.yearBucket) ||
+        !Array.isArray(value.open) || value.open.some(id => !TRIALS.some(t => t.id === id)) ||
+        (value.scope === 'sheet' && !Object.prototype.hasOwnProperty.call(META, value.sheet))) return false;
+    const sheet = value.scope === 'sheet' ? value.sheet : null;
+    state = {scope:value.scope, sheet,
+      system:sheet ? Object.keys(SYSTEMS).find(key => SYSTEMS[key].includes(sheet)) : null,
+      q:value.q, phase:value.phase, yearBucket:value.yearBucket, sortKey:value.sortKey,
+      sortDir:value.sortDir, open:new Set(value.open)};
+    routeRecord = null;
+    ctx.search.value = value.q;
+    fphase.value = state.phase; fyear.value = state.yearBucket;
+    document.querySelectorAll('.sheets button').forEach(button => {
+      button.classList.toggle('active', state.scope === 'sheet' && button.dataset.sheet === state.sheet);
+    });
+    render(); return true;
+  };
+  function describe(){
+    const target={};
+    if(state.scope==='sheet')target.group=state.sheet;
+    if(state.phase)target.phase=state.phase;
+    if(state.yearBucket)target.year=state.yearBucket;
+    if(state.sortKey!=='yearnum'||state.sortDir!==-1){
+      target.sort=Object.keys(sorts).find(key=>sorts[key]===state.sortKey);
+      target.dir=state.sortDir===1?'asc':'desc';
+    }
+    let anchor=routeRecord;
+    if(anchor===null){const parsed=window.oncosLocations.read(location.href);anchor=parsed.valid&&parsed.module==='evidence'?parsed.target.record:'';}
+    const row=anchor&&rowFor(anchor);
+    if(row&&state.open.has(row.id)&&filtered().some(item=>item.id===row.id))target.record=anchor;
+    return target;
+  }
+  function syncFilters(){
+    fphase.value=state.phase;fyear.value=state.yearBucket;
+    document.querySelectorAll('.sheets button').forEach(button=>button.classList.toggle('active',state.scope==='sheet'&&button.dataset.sheet===state.sheet));
+  }
+  window.oncosView.navigation={
+    read:describe,
+    open:target=>{
+      const row=target.record&&rowFor(target.record);
+      if(target.record&&!row)return false;
+      if(target.group&&!Object.prototype.hasOwnProperty.call(META,target.group))return false;
+      if(target.phase&&!phases.includes(target.phase))return false;
+      if(target.year&&!buckets.some(bucket=>bucket[1]===target.year))return false;
+      if(target.sort&&!Object.prototype.hasOwnProperty.call(sorts,target.sort))return false;
+      if(target.dir&&!['asc','desc'].includes(target.dir))return false;
+      let group=target.group||null,phase=target.phase||'',year=target.year||'';
+      if(row){if(group&&row.sheet!==group)group=null;if(phase&&row.phase!==phase)phase='';if(year&&!inBucket(row.yearnum,year))year='';}
+      state={scope:group?'sheet':'all',sheet:group,system:group?Object.keys(SYSTEMS).find(key=>SYSTEMS[key].includes(group)):null,
+        q:'',phase,yearBucket:year,sortKey:sorts[target.sort]||'yearnum',sortDir:target.dir==='asc'?1:-1,open:new Set(row?[row.id]:[])};
+      routeRecord=target.record||'';ctx.search.value='';closeNav();syncFilters();render();
+      if(row){
+        document.getElementById(row.anchor).scrollIntoView({block:'start'});
+      }else if(target.anchor){
+        const node=document.getElementById(target.anchor);if(!node||!ctx.root.contains(node))return false;node.scrollIntoView({block:'start'});
+      }else window.scrollTo(0,0);
+      return true;
+    },
+  };
+  if(ctx.transition){
+    const select=selectSheet,toggle=toggleRow,draw=render;
+    selectSheet=(sheet,system)=>ctx.transition(()=>{routeRecord='';select(sheet,system);});
+    toggleRow=element=>ctx.transition(()=>{toggle(element);routeRecord=state.open.has(Number(element.dataset.id))?element.id:'';},{replace:true});
+    render=()=>{
+      draw();ctx.root.querySelectorAll('.sortbtn').forEach(button=>{const action=button.onclick;button.onclick=event=>ctx.transition(()=>action(event),{replace:true});});
+    };
+    for(const element of [fphase,fyear]){const action=element.onchange;element.onchange=event=>ctx.transition(()=>{routeRecord='';action(event);},{replace:true,focus:false});}
+    const all=document.getElementById('showall'),action=all.onclick;
+    all.onclick=event=>ctx.transition(()=>{routeRecord='';action(event);});
+    fadeRender=()=>render();
+    render();
+  }
+})();
+
   },
   destroy: function() {
 

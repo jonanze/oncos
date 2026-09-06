@@ -153,6 +153,7 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
 [data-view="staging"] .algo, [data-view="staging"] .notes, [data-view="staging"] .flow .fnode, [data-view="staging"] .topt, [data-view="staging"] .tresult, [data-view="staging"] .tbtn-sec{ border-radius: 9px; }
 @media (max-width: 820px){[data-view="staging"] #results:has(> table.list){ background: transparent; border: none; border-radius: 0; overflow: visible; box-shadow: none; }
 [data-view="staging"] table.list tr.row{ border-radius: 12px; box-shadow: var(--shadow); }}
+[data-view="staging"] .tbreadcrumb .tcrumb{border:0;background:transparent;color:var(--teal);font:inherit;padding:0;max-width:100%;white-space:normal;text-align:left;cursor:pointer;}
 </style>
 <div class="viewfrag">
 <div class="layout">
@@ -408,6 +409,70 @@ if (false && location.protocol.startsWith('http')) {
       selectCancer(record.id);
       return true;
     };
+// Staging locations and reading state; the clinical decision tree is unchanged.
+(() => {
+  if (!ctx.root || !ctx.search) return;
+  const valid=id=>Object.prototype.hasOwnProperty.call(BYID,id);
+  function treeState() {
+    const tree=state.view==='detail' && valid(state.id) && BYID[state.id].decision_tree;
+    return tree && tree===_tree && _tnode ? {node:_tnode,path:_tpath.map(p=>({node:p.node,label:p.label}))} : null;
+  }
+  function validTree(value,record) {
+    if (value==null) return true;
+    const tree=record && record.decision_tree;
+    if (!tree || !Array.isArray(value.path) || value.path.length>100) return false;
+    let node=tree.start;
+    for (const step of value.path) {
+      if (!step || step.node!==node) return false;
+      if(!Object.prototype.hasOwnProperty.call(tree.nodes,node))return false;
+      const option=(tree.nodes[node].options||[]).find(option=>option.label===step.label);
+      if (!option) return false;
+      node=option.to;
+    }
+    return node===value.node && Object.prototype.hasOwnProperty.call(tree.nodes,node);
+  }
+  window.oncosView.captureState=()=>({version:1,module:'staging',value:{...state,tree:treeState()}});
+  window.oncosView.restoreState=snapshot=>{
+    const value=snapshot&&snapshot.value;
+    if (!snapshot || snapshot.version!==1 || snapshot.module!=='staging' || !value ||
+        !['index','detail'].includes(value.view) || typeof value.q!=='string' ||
+        (value.id!==null && !valid(value.id)) || (value.view==='detail'&&!value.id) ||
+        !validTree(value.tree,value.id&&BYID[value.id])) return false;
+    state={view:value.view,id:value.id,q:value.q};ctx.search.value=state.q;renderNow();
+    if (value.tree) {_tnode=value.tree.node;_tpath=value.tree.path.map(p=>({...p}));renderTree();}
+    return true;
+  };
+  window.oncosView.navigation={
+    read:()=>state.view==='detail'?{record:state.id}:{},
+    open:target=>{
+      if (target.record&&!valid(target.record)) return false;
+      state={view:target.record?'detail':'index',id:target.record||null,q:''};
+      ctx.search.value='';closeNav();renderNow();window.scrollTo(0,0);
+      if(target.anchor){const node=document.getElementById(target.anchor);if(!node||!ctx.root.contains(node))return false;node.scrollIntoView({block:'start'});}
+      return true;
+    },
+  };
+  if(ctx.transition){
+    const select=selectCancer,draw=renderNow;
+    selectCancer=id=>ctx.transition(()=>select(id));
+    renderNow=()=>{draw();const button=ctx.root.querySelector('#backbtn');if(button){const action=button.onclick;button.onclick=event=>ctx.transition(()=>action(event));}};
+    render=()=>renderNow();
+    const treeDraw=renderTree;
+    renderTree=()=>{
+      const host=ctx.root.querySelector('#treehost'),moveFocus=host&&host.contains(document.activeElement);
+      treeDraw();
+      ctx.root.querySelectorAll('.tcrumb').forEach(span=>{
+        const button=document.createElement('button');button.type='button';button.className=span.className;
+        button.textContent=span.textContent;Object.assign(button.dataset,span.dataset);button.onclick=span.onclick;span.replaceWith(button);
+      });
+      const question=ctx.root.querySelector('#treehost .tq,#treehost .tdiag');
+      if(question){question.setAttribute('role','heading');question.setAttribute('aria-level','3');if(moveFocus){question.tabIndex=-1;question.focus({preventScroll:true});}}
+    };
+    const all=document.getElementById('showall'),action=all.onclick;
+    all.onclick=event=>ctx.transition(()=>action(event));
+  }
+})();
+
   },
   destroy: function() {
 

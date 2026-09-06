@@ -349,13 +349,96 @@ render();
 
     window.oncosView.openRecord = function(record) {
       if (!record || !BYID[record.id]) return false;
-      selectNote(record.id);
-      if (record.section) setTimeout(function(){
+      // Search destinations need the new section DOM before scrolling. The
+      // normal selectNote path fades asynchronously and is not suitable here.
+      state.view = 'note'; state.id = record.id; state.q = '';
+      const search = document.getElementById('q'); if (search) search.value = '';
+      closeNav(); renderNow(); window.scrollTo(0, 0);
+      if (record.section) {
         var section = document.getElementById(record.section);
         if (section) section.scrollIntoView({block:'start'});
-      }, 0);
+      }
       return true;
     };
+// Presentation state contract v1. No note content is reconstructed here.
+(() => {
+  if (!ctx.root || !ctx.search) return;
+  let routeAnchor = null;
+  const wide = () => matchMedia('(min-width:821px)').matches;
+  let wasWide = wide();
+  window.addEventListener('resize', () => {
+    const isWide = wide();
+    if (isWide === wasWide) return;
+    wasWide = isWide;
+    const panel = ctx.root.querySelector('.tocpanel');
+    if (panel) panel.open = isWide;
+  });
+  window.oncosView.captureState = () => {
+    const panel=ctx.root.querySelector('.tocpanel');
+    return {version:1,module:'notes',value:{...state,...(panel?{outline:{open:panel.open,wide:wide()}}:{})}};
+  };
+  window.oncosView.restoreState = snapshot => {
+    if (!snapshot || snapshot.version !== 1 || snapshot.module !== 'notes') return false;
+    const value = snapshot.value;
+    if (!value || !['index','group','note','search'].includes(value.view) || typeof value.q !== 'string' ||
+        (value.group !== null && !GROUPS.includes(value.group)) ||
+        (value.id !== null && !Object.prototype.hasOwnProperty.call(BYID, value.id)) ||
+        (value.view === 'note' && !value.id) || (value.view === 'group' && !value.group) ||
+        (value.outline!==undefined && (!value.outline || typeof value.outline.open!=='boolean' || typeof value.outline.wide!=='boolean'))) return false;
+    state = {view:value.view, group:value.group, id:value.id, q:value.q};
+    routeAnchor = null;
+    ctx.search.value = value.q; renderNow();
+    const panel=ctx.root.querySelector('.tocpanel');
+    if(panel&&value.outline&&value.outline.wide===wide())panel.open=value.outline.open;
+    return true;
+  };
+  function describe() {
+    if (state.view === 'note') {
+      let anchor = routeAnchor;
+      if (anchor === null) {
+        const url = new URL(location.href);
+        try { anchor = url.searchParams.get('record') === state.id ? decodeURIComponent(url.hash.slice(1)) : ''; }
+        catch (_) { anchor = ''; }
+      }
+      return {record:state.id, anchor:anchor || ''};
+    }
+    return state.view === 'group' && state.group ? {group:state.group} : {};
+  }
+  window.oncosView.navigation = {
+    read:describe,
+    open:target => {
+      if (target.record && !Object.prototype.hasOwnProperty.call(BYID,target.record)) return false;
+      if (target.group && !GROUPS.includes(target.group)) return false;
+      routeAnchor = target.anchor || '';
+      if (target.record) state = {view:'note',id:target.record,group:BYID[target.record].group,q:''};
+      else if (target.group) state = {view:'group',id:null,group:target.group,q:''};
+      else state = {view:'index',id:null,group:null,q:''};
+      ctx.search.value = ''; closeNav(); renderNow(); window.scrollTo(0,0);
+      if (routeAnchor) {
+        const destination = document.getElementById(routeAnchor);
+        if (!destination || !ctx.root.contains(destination)) return false;
+        destination.scrollIntoView({block:'start'});
+      }
+      return true;
+    },
+  };
+  if (ctx.transition) {
+    const originalNote = selectNote, originalGroup = selectGroup, originalRender = renderNow;
+    selectNote = id => ctx.transition(() => {routeAnchor=''; originalNote(id);});
+    selectGroup = group => ctx.transition(() => {routeAnchor=''; originalGroup(group);});
+    renderNow = () => {
+      originalRender();
+      ctx.root.querySelectorAll('.backpill[data-back]').forEach(button => {
+        const action = button.onclick;
+        button.onclick = event => ctx.transition(() => {routeAnchor=''; action(event);});
+      });
+    };
+    render = () => renderNow();
+    const all = document.getElementById('showall'), showAll = all.onclick;
+    all.onclick = event => ctx.transition(() => {routeAnchor=''; showAll(event);});
+  }
+})();
+
   },
   destroy: function() {
 
