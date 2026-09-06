@@ -2,6 +2,11 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.6.1] - 2026-09-06
+
+- Show the study-title focus outline after keyboard interaction, while keeping automatic focus and pointer selection visually quiet.
+- Preserve keyboard navigation, reading-state restoration and all clinical content.
+
 ## [1.6.0] - 2026-09-06
 
 - Unified lookup in one header search, with clearer ranked results and module filters; retained cancer, phase and year filtering in the existing sidebar.
