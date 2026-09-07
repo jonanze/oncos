@@ -2,6 +2,11 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [1.6.2] - 2026-09-07
+
+- Updated adjuvant CDK4/6 risk selection, treatment choice and sequencing from dated NCCN, ASCO and ESMO guidance.
+- Clarified monarchE and NATALEE populations, survival analyses, toxicity and node-negative subgroup interpretation.
+
 ## [1.6.1] - 2026-09-06
 
 - Show the study-title focus outline after keyboard interaction, while keeping automatic focus and pointer selection visually quiet.
