@@ -3928,6 +3928,33 @@ var search = document.getElementById('search');
       card.scrollIntoView({block:'start'});
       return true;
     };
+// Drug records already have stable DOM anchors. Keep those URLs and disclosures.
+(() => {
+  if (!ctx.root || !ctx.search) return;
+  const card = id => {const node=document.getElementById('d-'+id);return node&&ctx.root.contains(node)?node:null;};
+  window.oncosView.captureState = () => ({version:1,module:'drugs',value:{
+    open:Array.from(ctx.root.querySelectorAll('article.card details[open]')).map(node=>node.closest('article.card').id.slice(2))
+  }});
+  window.oncosView.restoreState = snapshot => {
+    const value=snapshot&&snapshot.value;
+    if(!snapshot||snapshot.version!==1||snapshot.module!=='drugs'||!value||!Array.isArray(value.open)||
+      value.open.some(id=>typeof id!=='string'||!card(id)))return false;
+    ctx.search.value='';apply();
+    ctx.root.querySelectorAll('article.card details').forEach(node=>{node.open=value.open.includes(node.closest('article.card').id.slice(2));});
+    return true;
+  };
+  window.oncosView.navigation = {
+    read:()=>{const parsed=window.oncosLocations.read(location.href);return parsed.valid?parsed.target:{};},
+    open:target=>{
+      ctx.search.value='';apply();
+      const node=target.record?card(target.record):target.anchor?document.getElementById(target.anchor):null;
+      if((target.record||target.anchor)&&(!node||!ctx.root.contains(node)))return false;
+      if(node)node.scrollIntoView({block:'start'});else window.scrollTo(0,0);
+      return true;
+    },
+  };
+})();
+
   },
   destroy: function() {
 

@@ -262,6 +262,46 @@ render();
       selectEmerg(record.id);
       return true;
     };
+// Existing emergency selections gain locations and current-tab reading state.
+(() => {
+  if (!ctx.root || !ctx.search) return;
+  const valid = id => Object.prototype.hasOwnProperty.call(BYID,id);
+  window.oncosView.captureState = () => ({version:1,module:'acute',value:{...state}});
+  window.oncosView.restoreState = snapshot => {
+    const value = snapshot && snapshot.value;
+    if (!snapshot || snapshot.version!==1 || snapshot.module!=='acute' || !value ||
+        !['index','detail'].includes(value.view) || typeof value.q!=='string' ||
+        (value.id!==null && !valid(value.id)) || (value.view==='detail' && !value.id)) return false;
+    state = {view:value.view,id:value.id,q:value.q};
+    ctx.search.value = state.q; renderNow(); return true;
+  };
+  window.oncosView.navigation = {
+    read:() => state.view==='detail' ? {record:state.id} : {},
+    open:target => {
+      if (target.record && !valid(target.record)) return false;
+      state = {view:target.record?'detail':'index',id:target.record||null,q:''};
+      ctx.search.value=''; closeNav(); renderNow(); window.scrollTo(0,0);
+      if (target.anchor) {
+        const node=document.getElementById(target.anchor);
+        if (!node || !ctx.root.contains(node)) return false;
+        node.scrollIntoView({block:'start'});
+      }
+      return true;
+    },
+  };
+  if (ctx.transition) {
+    const select=selectEmerg, draw=renderNow;
+    selectEmerg = id => ctx.transition(() => select(id));
+    renderNow = () => {
+      draw(); const button=ctx.root.querySelector('#backbtn');
+      if (button) {const action=button.onclick;button.onclick=event=>ctx.transition(()=>action(event));}
+    };
+    render=()=>renderNow();
+    const all=document.getElementById('showall'), action=all.onclick;
+    all.onclick=event=>ctx.transition(()=>action(event));
+  }
+})();
+
   },
   destroy: function() {
 

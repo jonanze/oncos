@@ -779,7 +779,7 @@ function gcsfCard(g){
 
    `<div class="seclabel">5 · Established febrile neutropenia</div>`+
    `<div class="sblock treat"><h5>${esc(F.established.head)}</h5>`+
-    `<p style="margin:0;font-size:var(--t-sm);line-height:1.5">${esc(F.established.text)}<span class="loc">${esc(F.established.loc)}</span></p>`+
+    `<p style="margin:0;font-size:12.5px;line-height:1.5">${esc(F.established.text)}<span class="loc">${esc(F.established.loc)}</span></p>`+
     `<details class="boxwrap"><summary>${esc(F.box2_title)} (${(F.box2||[]).length})</summary><div class="chips">${box2}</div></details></div>`+
 
    `<div class="seclabel">6 · Mobilisation &amp; transplant</div><div class="sblock trans"><ul>${trans}</ul></div>`+
@@ -820,7 +820,7 @@ function antiemesisCard(a){
  const agents=order.map(c=>`<tr class="clsrow"><td colspan="3">${esc(c)}</td></tr>`+
    by[c].map(x=>`<tr><td class="ag">${esc(x.agent)}</td><td class="dose">${esc(x.dose)}</td><td class="anote">${esc(x.note)}</td></tr>`).join('')).join('');
  const bt=(F.breakthrough||[]).map(x=>`<li>${esc(x.text)}<span class="loc">${esc(x.loc)}</span></li>`).join('');
- const spec=(F.special||[]).map(s=>`<div class="sblock spec"><h5>${esc(s.head)}</h5><p style="margin:0;font-size:var(--t-sm);line-height:1.5">${esc(s.text)}<span class="loc">${esc(s.loc)}</span></p></div>`).join('');
+ const spec=(F.special||[]).map(s=>`<div class="sblock spec"><h5>${esc(s.head)}</h5><p style="margin:0;font-size:12.5px;line-height:1.5">${esc(s.text)}<span class="loc">${esc(s.loc)}</span></p></div>`).join('');
  return `<p class="lede" style="margin:10px 0 0">${esc(F.intro)}</p>`+
 
    `<div class="seclabel">1 · Emetogenic risk — look up the agent or regimen</div>`+
@@ -838,7 +838,7 @@ function antiemesisCard(a){
 
    `<div class="seclabel">4 · Breakthrough CINV</div><div class="sblock dont"><ul>${bt}</ul></div>`+
 
-   `<div class="seclabel">5 · Anticipatory CINV</div><div class="sblock spec"><p style="margin:0;font-size:var(--t-sm);line-height:1.5">${esc(F.anticipatory.text)}<span class="loc">${esc(F.anticipatory.loc)}</span></p></div>`+
+   `<div class="seclabel">5 · Anticipatory CINV</div><div class="sblock spec"><p style="margin:0;font-size:12.5px;line-height:1.5">${esc(F.anticipatory.text)}<span class="loc">${esc(F.anticipatory.loc)}</span></p></div>`+
 
    `<div class="seclabel">6 · Special situations</div>${spec}`+
 
@@ -1422,6 +1422,167 @@ render();
       jumpTo(record.kind,record.id);
       return true;
     };
+// Preserve the existing Tox facets, cross-link return path and grade inputs.
+(() => {
+  if (!ctx.root || !ctx.search) return;
+  const kinds={ctcae:'CTCAE',irae:'irAE',supportive:'Supportive'};
+  const modes={CTCAE:'ctcae',irAE:'irae',Supportive:'supportive'};
+  const term=id=>Object.prototype.hasOwnProperty.call(TBYID,id);
+  const irae=id=>IRAE.some(row=>row.id===id);
+  const topic=id=>(SUPP&&SUPP.topics||[]).some(row=>row.id===id);
+  const soc=value=>!value||MODEL.socs.some(row=>row.soc===value);
+  const validOrigin=value=>value===null||!!(value&&typeof value.key==='string'&&
+    ((value.mode==='irae'&&irae(value.key))||(value.mode==='supportive'&&topic(value.key))));
+  function captureCalc(){
+    const node=ctx.root.querySelector('.calc[data-tid]');
+    if(!node)return null;
+    const values={};node.querySelectorAll('input[data-r]').forEach(input=>{values[input.dataset.r]=input.value;});
+    return {id:node.dataset.tid,scale:Number(node.dataset.scale),values};
+  }
+  function validCalc(value,id){
+    if(value==null)return true;
+    if(!value||value.id!==id||!Object.prototype.hasOwnProperty.call(CALCMAP,id)||!Number.isInteger(value.scale)||!CALCMAP[id].scales[value.scale])return false;
+    return value.values&&Object.keys(value.values).every(key=>['val','uln'].includes(key)&&typeof value.values[key]==='string'&&value.values[key].length<100);
+  }
+  function describe(){
+    if(mode==='index')return {};
+    const result={kind:kinds[mode]};
+    if(mode==='ctcae'){if(activeSoc)result.group=activeSoc;if(ctcaeTerm)result.record=ctcaeTerm;}
+    if(mode==='irae'&&iraeEntity)result.record=iraeEntity;
+    if(mode==='supportive'&&activeTopic)result.record=activeTopic;
+    return result;
+  }
+  window.oncosView.captureState=()=>({version:1,module:'tox',value:{
+    mode,activeSoc,activeTopic,iraeEntity,ctcaeTerm,query,returnTo:returnTo?{...returnTo}:null,
+    suppBands:{...suppBands},antiBands:{...antiBands},antiRoute,calc:captureCalc(),
+    lookups:{gcsf:ctx.root.querySelector('#gcsfq')?.value||'',antiemesis:ctx.root.querySelector('#aeq')?.value||''}
+  }});
+  window.oncosView.restoreState=snapshot=>{
+    const v=snapshot&&snapshot.value;
+    if(!snapshot||snapshot.version!==1||snapshot.module!=='tox'||!v||!['index','ctcae','irae','supportive'].includes(v.mode)||
+      typeof v.query!=='string'||typeof v.activeSoc!=='string'||!soc(v.activeSoc)||
+      typeof v.activeTopic!=='string'||(v.activeTopic&&!topic(v.activeTopic))||
+      typeof v.iraeEntity!=='string'||(v.iraeEntity&&!irae(v.iraeEntity))||
+      typeof v.ctcaeTerm!=='string'||(v.ctcaeTerm&&!term(v.ctcaeTerm))||!validOrigin(v.returnTo)||
+      !v.suppBands||!['high','mid'].every(k=>typeof v.suppBands[k]==='boolean')||
+      !v.antiBands||!['high','mid','low','min'].every(k=>typeof v.antiBands[k]==='boolean')||
+      !['all','IV','oral'].includes(v.antiRoute)||!validCalc(v.calc,v.ctcaeTerm)||
+      (v.lookups&&(!['gcsf','antiemesis'].every(k=>typeof v.lookups[k]==='string'))))return false;
+    mode=v.mode;activeSoc=v.activeSoc;activeTopic=v.activeTopic;iraeEntity=v.iraeEntity;ctcaeTerm=v.ctcaeTerm;query=v.query;
+    returnTo=v.returnTo?{mode:v.returnTo.mode,key:v.returnTo.key}:null;
+    ctx.search.value=query;if(query)renderSearch();else render();
+    // Topic initializers reset their chips. Restore values and controls after drawing.
+    suppBands={high:v.suppBands.high,mid:v.suppBands.mid};
+    antiBands={high:v.antiBands.high,mid:v.antiBands.mid,low:v.antiBands.low,min:v.antiBands.min};antiRoute=v.antiRoute;
+    const gcsf=ctx.root.querySelector('#gcsfq'),anti=ctx.root.querySelector('#aeq');
+    if(gcsf){gcsf.value=v.lookups?.gcsf||'';ctx.root.querySelectorAll('.band[data-b]').forEach(el=>el.classList.toggle('act',suppBands[el.dataset.b]));gcsfFilter(SUPP.gcsf);}
+    if(anti){anti.value=v.lookups?.antiemesis||'';ctx.root.querySelectorAll('.aefilt[data-b]').forEach(el=>el.classList.toggle('act',antiBands[el.dataset.b]));ctx.root.querySelectorAll('.aert[data-r]').forEach(el=>el.classList.toggle('act',el.dataset.r===antiRoute));antiemesisFilter(SUPP.antiemesis);}
+    if(v.calc){
+      const node=ctx.root.querySelector('.calc[data-tid]');
+      if(node&&node.dataset.tid===v.calc.id){
+        node.dataset.scale=String(v.calc.scale);buildCalcInputs(node);
+        node.querySelectorAll('.csc').forEach(button=>button.classList.toggle('on',Number(button.dataset.i)===v.calc.scale));
+        node.querySelectorAll('input[data-r]').forEach(input=>{input.value=v.calc.values[input.dataset.r]||'';});
+        computeCalc(node);
+      }
+    }
+    syncPressed();
+    return true;
+  };
+  function syncPressed(){
+    ctx.root.querySelectorAll('.aefilt[data-b],.aert[data-r],.band[data-b],.csc[data-i]').forEach(el=>{
+      el.setAttribute('aria-pressed',String(el.classList.contains(el.matches('.csc')?'on':'act')));
+    });
+  }
+  window.oncosView.navigation={
+    read:describe,
+    open:target=>{
+      let kind=target.kind||'';
+      if(target.record&&!kind)kind=term(target.record)?'CTCAE':irae(target.record)?'irAE':topic(target.record)?'Supportive':'';
+      if(kind&&!Object.prototype.hasOwnProperty.call(modes,kind))return false;
+      if(target.group&&(kind!=='CTCAE'||!soc(target.group)))return false;
+      if(target.record&&!(kind==='CTCAE'?term(target.record):kind==='irAE'?irae(target.record):kind==='Supportive'?topic(target.record):false))return false;
+      mode=kind?modes[kind]:'index';activeSoc=target.group||'';activeTopic='';iraeEntity='';ctcaeTerm='';query='';returnTo=null;ctx.search.value='';
+      if(mode==='ctcae'&&target.record){ctcaeTerm=target.record;const owner=MODEL.socs.find(row=>row.terms.some(t=>t.id===ctcaeTerm));activeSoc=owner?owner.soc:'';}
+      if(mode==='irae')iraeEntity=target.record||'';
+      if(mode==='supportive')activeTopic=target.record||'';
+      document.body.classList.remove('nav-open');render();window.scrollTo(0,0);
+      if(target.anchor){const node=document.getElementById(target.anchor);if(!node||!ctx.root.contains(node))return false;node.scrollIntoView({block:'start'});}
+      return true;
+    },
+  };
+  if(ctx.transition){
+    const buildInputs=buildCalcInputs;
+    buildCalcInputs=node=>{
+      buildInputs(node);
+      const calculator=CALCMAP[node.dataset.tid],scale=calculator.scales[Number(node.dataset.scale)||0];
+      node.querySelectorAll('input[data-r]').forEach(input=>{
+        const label=scale.kind==='ratio'
+          ? calculator.analyte+(input.dataset.r==='uln'?' upper limit of normal (same units as the measured value)':' measured value (laboratory units)')
+          : calculator.analyte+(input.dataset.r==='uln'?' upper limit of normal':' value')+' ('+scale.unit+')';
+        input.setAttribute('aria-label',label);
+      });
+      const output=node.querySelector('.calc-out');
+      if(output){output.setAttribute('role','status');output.setAttribute('aria-live','polite');}
+      // The original scale handler is delegated to #list, after button listeners.
+      // Its rebuild is the point at which the new selected scale is authoritative.
+      syncPressed();
+    };
+    const originalMode=setMode,originalTerm=selectTerm,originalGoTerm=goToTerm,originalIrae=goToIrae,originalSupportive=goToSupportive,originalIndex=goIndex,draw=render;
+    setMode=(m,key)=>ctx.transition(()=>originalMode(m,key));
+    selectTerm=id=>ctx.transition(()=>originalTerm(id));
+    goToTerm=(id,origin)=>ctx.transition(()=>originalGoTerm(id,origin));
+    goToIrae=id=>ctx.transition(()=>originalIrae(id));
+    goToSupportive=id=>ctx.transition(()=>originalSupportive(id));
+    goIndex=()=>ctx.transition(()=>originalIndex());
+    render=()=>{
+      draw();
+      ctx.root.querySelectorAll('.aefilt[data-b],.aert[data-r],.band[data-b],.csc[data-i]').forEach(el=>{
+        if(el.tagName!=='BUTTON'){
+          el.setAttribute('role','button');el.tabIndex=0;
+          el.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();el.click();}});
+        }
+        el.addEventListener('click',syncPressed);
+      });
+      syncPressed();
+      ctx.root.querySelectorAll('.backbtn').forEach(button=>{const action=button.onclick;button.onclick=event=>ctx.transition(()=>action(event));});
+      ctx.nav.querySelectorAll('a:not([href])').forEach(item=>{
+        item.setAttribute('role','button');item.tabIndex=0;
+        item.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();item.click();}});
+      });
+      ctx.nav.querySelectorAll('.navsec .secname').forEach(button=>{
+        const parent=button.closest('.navsec'),action=button.onclick;
+        const sync=()=>button.setAttribute('aria-expanded',String(!parent.classList.contains('collapsed')));
+        button.onclick=()=>{action();sync();};sync();
+      });
+    };
+    fadeRender=()=>render();
+    const converter=ctx.root.querySelector('#convModal');
+    if(converter){
+      converter.setAttribute('role','dialog');converter.setAttribute('aria-modal','true');
+      converter.setAttribute('aria-label','Unit converter');
+      converter.querySelectorAll('.cv-field').forEach(field=>{
+        const label=field.querySelector('label'),input=field.querySelector('input,select');
+        if(label&&input)label.htmlFor=input.id;
+      });
+      const close=converter.querySelector('#convClose'),originalClose=close.onclick;
+      const returnToNavigation=()=>document.getElementById('burger').focus({preventScroll:true});
+      close.onclick=()=>{originalClose();returnToNavigation();};
+      converter.addEventListener('click',event=>{if(event.target===converter)returnToNavigation();});
+      converter.addEventListener('keydown',event=>{
+        if(event.key==='Escape'){event.preventDefault();event.stopPropagation();close.click();return;}
+        if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k')converter.classList.remove('show');
+        if(event.key!=='Tab')return;
+        const controls=Array.from(converter.querySelectorAll('button,input,select')).filter(node=>!node.disabled&&node.offsetParent!==null);
+        const first=controls[0],last=controls[controls.length-1];
+        if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+        else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+      });
+    }
+    render();
+  }
+})();
+
   },
   destroy: function() {
 
