@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.1.0">
+<meta name="application-version" content="2.2.0">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -47,7 +47,7 @@
     --accent-on-soft:#185abc;
     --paper:#ffffff; --ground:#faf9f5; --raised:#f5f4ef;
     /* The sidebar shares the content ground in both themes, as in the app. */
-    --rail:#faf9f5;
+    --rail:#f0efe9;
     /* The single solid fill. Marks one primary action per view or dialog and
        nothing else — near-black on light, near-white on dark. Not a brand
        colour, and deliberately NOT the accent: 13.77:1 either way. */
@@ -136,31 +136,31 @@
   }
   :root[data-theme="dark"]{
     --m:#7aa2f7; --teal:var(--m);
-    /* Dark is the native theme, set to the Claude app (Jonan, 2026-09-23:
-       "follow the colour scheme… too grey"): a near-black ground that the
-       sidebar shares, cards one quiet step up, and near-white text. Every text
-       step is measured on ground / paper / raised:
-         ink   #ececea  14.4 / 13.0 / 12.0
-         slate #b7b5af   8.3 /  7.5 /  6.9
-         muted #93928d   5.5 /  4.9 /  4.55
-       Accent (link blue) and status colours clear 4.5:1 on all of them. */
-    --ink:#ececea;
-    --slate:#b7b5af;
-    --muted:#93928d;
-    --hair:#353533; --grid:#2c2c2a;
+    /* Dark is the native theme: the Claude desktop app's palette, sampled
+       from Jonan's reference screenshot (2026-09-23: "I initially specified
+       that you follow this colour scheme" — the site had become one flat grey).
+       Neutral, not warm, and LAYERED: the sidebar is darker than the page,
+       raised surfaces one step lighter, the active sidebar row clearly lit.
+         sidebar #111111 · page #151515 · raised #1f1f1f/#212121 · rule #232323
+       Text on page / raised: ink #f3f3f3 17.1 / 15.5, slate #c0c1be 10.4 / 9.4,
+       muted #8c8c8c 5.4 / 4.8 (sidebar: 5.8). */
+    --ink:#f3f3f3;
+    --slate:#c0c1be;
+    --muted:#8c8c8c;
+    --hair:#2e2e2e; --grid:#232323;
     --accent-soft:rgba(122,162,247,.14);
     --accent-on-soft:#7aa2f7;          /* 4.8 on its own tint over paper */
-    --ground:#1c1c1b; --paper:#252524; --raised:#2b2b2a;
-    --raised-2:#323231;
-    --rail:#1c1c1b;
-    --solid:#f5f4ef; --solid-text:#1c1c1b;
-    --hover:rgba(255,255,255,.045); --press:rgba(255,255,255,.075);
+    --ground:#151515; --paper:#1f1f1f; --raised:#212121;
+    --raised-2:#2a2a2a;
+    --rail:#111111;
+    --solid:#f3f3f3; --solid-text:#151515;
+    --hover:rgba(255,255,255,.05); --press:rgba(255,255,255,.14);
     /* Measured on their own 14% tint over --paper: 5.5 / 5.6 / 5.3 / 5.3. */
     --status-success:#8fbf92; --status-success-soft:rgba(143,191,146,.14);
     --status-warning:#d9ae6a; --status-warning-soft:rgba(217,174,106,.14);
     --status-danger:#e59a88;  --status-danger-soft:rgba(229,154,136,.14);
     --status-info:#b0aea6;    --status-info-soft:rgba(176,174,166,.14);
-    --rule:#353533; --btn-ink:#1c1c1b;
+    --rule:#2e2e2e; --btn-ink:#151515;
     /* The 2026-08-08 machined-edge ring is retired. Measured, the warm surfaces
        separate only a little better than the cool ones did (paper on ground
        1.15:1, was 1.05:1) — not enough to carry a card edge on luminance alone.
@@ -169,7 +169,7 @@
        Shadows are for surfaces that appear over others only (--shadow-pop). */
     --shadow:none;
     --shadow-pop:0 16px 48px rgba(0,0,0,.45);
-    --glass:rgba(26,26,25,.75);
+    --glass:rgba(21,21,21,.75);
     color-scheme:dark;
   }
   /* --- Tabular figures, suite-wide (Inter retypeset, 2026-07-26) ---
@@ -329,7 +329,7 @@
        the sidebar, with the notch on its left. */
     padding:calc(10px + env(safe-area-inset-top)) var(--s-2)
       calc(var(--s-2) + env(safe-area-inset-bottom)) calc(var(--s-2) + env(safe-area-inset-left));
-    background:var(--ground); border-right:1px solid var(--grid);
+    background:var(--rail); border-right:1px solid var(--grid);
     overflow:hidden;
   }
   /* Icon buttons — the app's small square, r-sm, muted until hovered. */
@@ -353,7 +353,7 @@
   .oncos-rail .suite-link{
     display:flex; align-items:center; gap:var(--s-2); width:100%; height:var(--rail-row);
     box-sizing:border-box; padding:0 var(--s-2); border-radius:var(--r-sm);
-    color:var(--ink); font-size:13px; font-weight:var(--w-body);
+    color:var(--slate); font-size:13px; font-weight:var(--w-body);
     text-decoration:none; white-space:nowrap;
     transition:background 110ms var(--ease), color 110ms var(--ease);
   }
@@ -490,7 +490,7 @@
       top:var(--strip-h); bottom:0; margin:0;
       padding:var(--s-3) var(--s-2) calc(var(--s-6) + env(safe-area-inset-bottom));
       overflow-y:auto; overscroll-behavior:contain;
-      background:var(--ground); border-top:1px solid var(--grid);
+      background:var(--rail); border-top:1px solid var(--grid);
     }
     body.nav-open .rail-sections{ background:var(--press); color:var(--ink); }
     .rail-foot{ display:flex; align-items:center; gap:2px; flex:0 0 auto; padding:0; }
@@ -691,7 +691,13 @@ html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible
 .gs-subtitle{font-size:var(--t-sm);color:var(--muted);}
 .gs-preview{font-size:var(--t-base);color:var(--slate);line-height:1.45;}
 .gs-empty{padding:42px 16px;text-align:center;color:var(--muted);}
-body.global-search-open,body.nav-open{overflow:hidden;}
+/* Scroll lock on the ROOT, not the body (bug found 2026-09-23). On phones the
+   kit clips the root sideways (overflow-x:clip), so a body overflow no longer
+   propagates to the viewport: the body became its own scroll box, the page
+   kept scrolling, and the sticky top strip pinned to the body's top edge,
+   off-screen, taking the Sections button with it whenever the sheet opened
+   below the top of a page. */
+html:has(> body.global-search-open),html:has(> body.nav-open){overflow:hidden;}
 .gs-result:focus-visible{outline:2px solid var(--m);outline-offset:-2px;background:var(--raised);}
 @media (max-width:760px){
   .global-search-dialog{padding:0;}
@@ -794,7 +800,7 @@ body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
   display:flex;align-items:center;gap:var(--s-2);width:100%;height:var(--rail-row);box-sizing:border-box;
   margin:0;padding:0 var(--s-2);border:0;border-radius:var(--r-sm);background:transparent;
   font:inherit;font-size:13px;font-weight:var(--w-body);line-height:1.2;text-align:left;white-space:nowrap;
-  text-decoration:none;color:var(--ink);cursor:pointer;
+  text-decoration:none;color:var(--slate);cursor:pointer;
   transition:background 110ms var(--ease),color 110ms var(--ease);}
 .oncos-rail #viewnav .items button::before,.oncos-rail #viewnav .sheets button::before,
 .oncos-rail #viewnav .socnav a::before,.oncos-rail #viewnav .itemlink::before{
@@ -824,9 +830,13 @@ body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
   background-color:var(--slate);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2'/%3E%3C/svg%3E") center/8px 8px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2'/%3E%3C/svg%3E") center/8px 8px no-repeat;}
 .oncos-rail #viewnav .allbtn{margin-bottom:var(--s-1);}
-/* Drugs' A–Z index: letters in the sidebar's near-white like every other
+/* No "All trials" / "All cancers" row (Jonan, 2026-09-23): the module link
+   itself returns to the module's start (Evidence opens on its changelog).
+   Hidden, not removed: both modules' scripts bind #showall unguarded. */
+html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"] .oncos-rail #viewnav .allbtn{display:none;}
+/* Drugs' A–Z index: letters in the sidebar's row colour like every other
    row (not the accent); letters with no drug stay muted. */
-.oncos-rail #viewnav .az a{color:var(--ink);text-decoration:none;border-radius:var(--r-sm);}
+.oncos-rail #viewnav .az a{color:var(--slate);text-decoration:none;border-radius:var(--r-sm);}
 .oncos-rail #viewnav .az a:hover{background:var(--hover);}
 .oncos-rail #viewnav .az span.off{color:var(--muted);opacity:.6;}
 /* Staging tags every item with its system (TNM/FIGO/other). The app's rows
@@ -907,6 +917,15 @@ html[data-view="drugs"] #viewroot .card{background:transparent;border:0;border-b
 /* Section dividers ("STRUCTURAL", Drugs' letters): the rule after the label
    was drawn 100% wide from the label's end and ran past the panel edge. */
 #viewroot tr.secrow td{overflow:hidden;}
+/* Evidence and Staging subsection headers stand apart from the rows (Jonan,
+   2026-09-23): the small uppercase label kept, in full ink, with space above
+   and a hairline under instead of a trailing rule. A larger heading size was
+   tried and rejected. */
+html[data-view="evidence"] #viewroot tr.secrow td,html[data-view="staging"] #viewroot tr.secrow td{
+  font-size:var(--t-xs);font-weight:var(--w-strong);letter-spacing:.05em;text-transform:uppercase;
+  line-height:1.4;color:var(--ink);padding-top:40px;padding-bottom:10px;border-bottom:1px solid var(--hair);clip-path:none;}
+html[data-view="evidence"] #viewroot tbody tr.secrow:first-child td,html[data-view="staging"] #viewroot tbody tr.secrow:first-child td{padding-top:18px;}
+html[data-view="evidence"] #viewroot tr.secrow td::after,html[data-view="staging"] #viewroot tr.secrow td::after{content:none;}
 html[data-view="drugs"] #viewroot .azdiv{display:flex;align-items:center;gap:12px;font-size:var(--t-xs);
   letter-spacing:.05em;color:var(--slate);}
 html[data-view="drugs"] #viewroot .azdiv::after{flex:1;width:auto;margin:0;}
@@ -916,7 +935,7 @@ html[data-view="acute"] #viewroot table.list > thead{display:none;}
   #viewroot{padding-top:12px;}
   /* Phone lists run edge to edge, separated by hairlines, instead of a
      rounded panel inset 14px inside the page. */
-  html[data-view="evidence"] #viewroot #results,html[data-view="staging"] #viewroot #results,
+  html[data-view="evidence"] #viewroot #results,html[data-view="staging"] #viewroot #results:not(:has(> .sgrid)),
   html[data-view="acute"] #viewroot #results{margin-inline:-14px;}
   #viewroot tr.secrow td{padding-inline:14px;clip-path:inset(0 14px 0 0);}
   /* Acute and Tox list rows were separate rounded cards on a phone; they now
@@ -1013,7 +1032,7 @@ html[data-view="acute"] #viewroot table.list > thead{display:none;}
      the section nav from keyboard and assistive tech. -->
 <div hidden aria-hidden="true" data-chrome-stubs><div id="backdrop" class="backdrop"></div></div>
 <main id="viewroot"></main>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#1c1c1b',L=(m&&m.getAttribute('content'))||'#faf9f5';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,100);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls;clearTimeout(pT);pT=null;pEls=null;els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(function(){els.forEach(function(n){n.classList.remove('is-pressed');});},160);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#111111',L=(m&&m.getAttribute('content'))||'#faf9f5';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,100);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls;clearTimeout(pT);pT=null;pEls=null;els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(function(){els.forEach(function(n){n.classList.remove('is-pressed');});},160);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
 <script>
 // Sidebar controls: hide/show (remembered, applied before first paint by the
 // head script), and back/forward — the installed app has no browser buttons.
@@ -1617,7 +1636,10 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
         picker.classList.remove('open');pickerButton.setAttribute('aria-expanded','false');
         if(push&&requested===undefined&&!hash)pickerButton.focus({preventScroll:true});
       }
-      // Re-selecting the current module icon leaves its reading state alone.
+      // Re-selecting the current module icon leaves its reading state alone,
+      // except in Evidence and Staging, which have no "All ..." row (Jonan,
+      // 2026-09-23): there it returns to the module's start (Evidence's
+      // changelog, Staging's index).
       if (push && requested === undefined && !hash) {
         // A different module may have pushed its URL while its fetch is pending.
         // Cancelling that request must also put the still-visible location back.
@@ -1627,8 +1649,10 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
           // through a module icon resumes the underlying reading destination.
           savedURL.searchParams.delete('search'); savedURL.searchParams.delete('searchModule');
           history.replaceState({v:current}, '', savedURL.pathname+savedURL.search+savedURL.hash);
+          return;
         }
-        return;
+        if (name !== 'evidence' && name !== 'staging') return;
+        requested = {}; url = locations.href(name, requested, location.origin);
       }
       if (push && url !== location.pathname+location.search+location.hash) history.pushState({v:name}, '', url);
       settleLocation(name,requested,push,true);

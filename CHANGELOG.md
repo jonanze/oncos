@@ -2,6 +2,16 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.0] - 2026-09-23
+
+- Evidence opens on a changelog of published edits: grouped by publish, one line per trial (added, removed, or the fields updated), last 30 days with older history on demand. The sidebar's "All trials" and Staging's "All cancers" rows are removed; clicking Evidence or Staging in the sidebar returns to that module's start.
+- Every Evidence publish extends the changelog automatically; history since 19 July was seeded from the site's publish record.
+- Staging pages drop the back button and large title; the edition stays as one line, and the T, N, M and stage-group tables read as a single column on desktop as on phone.
+- Evidence and Staging subsection headers stand apart: brighter, with space above and a line beneath. On phone, Evidence rows are compact (name, phase and year on one line) and Staging rows match them.
+- Fixed: on phone, opening Sections below the top of a page scrolled the top strip away with its button; the scroll lock now holds the page in place.
+- Dark theme follows the Claude app's layers: the sidebar sits darker than the page.
+- Trial data, staging definitions and search catalogues are unchanged.
+
 ## [2.1.0] - 2026-09-23
 
 - Desktop lists now match the phone: no panels, rows on hairlines (Evidence, Staging, Acute, Tox lists, Drugs).

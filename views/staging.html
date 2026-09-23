@@ -153,7 +153,34 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
 [data-view="staging"] table.list tr.row{ border-radius: 12px; box-shadow: var(--shadow); }}
 [data-view="staging"] .tbreadcrumb .tcrumb{border:0;background:transparent;color:var(--teal);font:inherit;padding:0;max-width:100%;white-space:normal;text-align:left;cursor:pointer;}
 @media(max-width:760px){[data-view="staging"] table.list tr.row{border:0;border-bottom:1px solid var(--grid);border-radius:0;box-shadow:none;margin:0;background:transparent;}
-[data-view="staging"] table.list tr.row:last-child{border-bottom:0;}}
+[data-view="staging"] table.list tr.row:last-child{border-bottom:0;}
+[data-view="staging"] table.list tr.row{box-sizing:border-box;min-height:44px;padding:9px 14px;gap:12px;}
+[data-view="staging"] table.list tr.row td.name{line-height:1.35;}
+[data-view="staging"] table.list tr.row .badge{font-weight:var(--w-label);}}
+[data-view="staging"] .backbtn{display:none;}
+[data-view="staging"] .dvhead{margin:0 0 22px;padding:0;border:0;}
+[data-view="staging"] .dvhead h2{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+[data-view="staging"] .dvmeta{gap:8px;font-size:var(--t-sm);}
+[data-view="staging"] .dvmeta .badge, [data-view="staging"] .dvmeta .badge + span + span{display:none;}
+[data-view="staging"] .dvmeta span::before{content:none!important;}
+[data-view="staging"] .dvmeta .badge + span{color:var(--slate);font-weight:var(--w-name);}
+[data-view="staging"] .dvmeta .unver{margin-left:0;}
+[data-view="staging"] .sgrid{grid-template-columns:1fr;gap:32px;max-width:900px;}
+[data-view="staging"] .block h4{margin:0 0 6px;}
+[data-view="staging"] table.stage{background:transparent;}
+[data-view="staging"] table.stage th{background:transparent;padding:6px 12px 6px 0;}
+[data-view="staging"] table.stage td{padding:9px 12px 9px 0;line-height:1.45;}
+[data-view="staging"] table.stage tr > :first-child{width:6.5rem;min-width:0;}
+[data-view="staging"] table.stage:has(th:nth-child(3)){table-layout:fixed;}
+[data-view="staging"] table.stage :is(th, [data-view="staging"] td):not(:first-child):not(:last-child){width:9rem;}
+[data-view="staging"] .block > .fcap{margin-top:14px;font-size:var(--t-sm);line-height:1.5;color:var(--muted);}
+[data-view="staging"] table.stage:not(:has(th:nth-child(3))) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+[data-view="staging"] table.stage:not(:has(th:nth-child(3))) tbody tr:first-child td{border-top:1px solid var(--hair);}
+@media(max-width:760px){[data-view="staging"] .dvhead{margin-bottom:18px;}
+[data-view="staging"] .sgrid{gap:26px;}
+[data-view="staging"] table.stage tr > :first-child{width:4.75rem;}
+[data-view="staging"] table.stage:has(th:nth-child(3)){table-layout:auto;}
+[data-view="staging"] table.stage :is(th, [data-view="staging"] td):not(:first-child):not(:last-child){width:auto;}}
 </style>
 <div class="viewfrag">
 <div class="layout">
@@ -430,6 +457,12 @@ if (false && location.protocol.startsWith('http')) {
       node=option.to;
     }
     return node===value.node && Object.prototype.hasOwnProperty.call(tree.nodes,node);
+  }
+  // The title is visually hidden on the detail page; an "unverified" flag
+  // inside it moves to the visible edition line.
+  if(typeof renderDetail==='function'){
+    const detail=renderDetail;
+    renderDetail=c=>{detail(c);const flag=ctx.root.querySelector('.dvhead h2 .unver'),meta=ctx.root.querySelector('.dvmeta');if(flag&&meta)meta.prepend(flag);};
   }
   window.oncosView.captureState=()=>({version:1,module:'staging',value:{...state,tree:treeState()}});
   window.oncosView.restoreState=snapshot=>{
