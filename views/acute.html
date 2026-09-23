@@ -100,6 +100,13 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 @media (max-width:520px){[data-view="acute"] .dvhead h2{font-size:var(--t-2xl);}}
 @media print{[data-view="acute"] .backbtn{display:none !important;}
 [data-view="acute"] main{padding:0;}}
+[data-view="acute"] .dvbody .sec>p, [data-view="acute"] .dvbody .sec>ul, [data-view="acute"] .dvbody .sec>ol{max-width:85ch;}
+[data-view="acute"] .dvbody .sources, [data-view="acute"] .dvbody .related{max-width:100ch;}
+@container oncos (min-width:1000px){[data-view="acute"] .dvbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 40px;align-items:start;}
+[data-view="acute"] .dvbody .sec{margin:0;min-width:0;}
+[data-view="acute"] .dvbody .related, [data-view="acute"] .dvbody .sources{grid-column:1 / -1;margin:0;}
+[data-view="acute"] .actnow ol{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 40px;}
+[data-view="acute"] .actnow li{margin:0;max-width:80ch;}}
 </style>
 <div class="viewfrag">
 <div class="layout">
@@ -264,6 +271,33 @@ render();
       selectEmerg(record.id);
       return true;
     };
+// Decorate existing text only. Never replace clinical wording or nest links.
+function oncosLinkExistingText(root, entries) {
+  if (!root || !entries.length) return;
+  const choices = entries.filter(([label, href]) => label && /^(https:\/\/|\/)/.test(href))
+    .sort((a,b) => b[0].length-a[0].length);
+  const escape = value => value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const lookup = new Map(choices.map(([label,href]) => [label.toLowerCase(),href]));
+  const pattern = new RegExp(choices.map(([label]) => escape(label)).join('|'),'gi');
+  const walker = document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  const nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
+  for(const node of nodes){
+    if(node.parentElement.closest('a,script,style'))continue;
+    const text=node.nodeValue; let last=0, changed=false;
+    const fragment=document.createDocumentFragment();
+    pattern.lastIndex=0;
+    for(const match of text.matchAll(pattern)){
+      const at=match.index,end=at+match[0].length;
+      if((at&&/[\p{L}\p{N}]/u.test(text[at-1])) || (end<text.length&&/[\p{L}\p{N}]/u.test(text[end])))continue;
+      fragment.append(document.createTextNode(text.slice(last,at)));
+      const link=document.createElement('a');link.href=lookup.get(match[0].toLowerCase());link.textContent=match[0];
+      if(link.getAttribute('href').startsWith('https://')){link.target='_blank';link.rel='noopener noreferrer';}
+      fragment.append(link);last=end;changed=true;
+    }
+    if(changed){fragment.append(document.createTextNode(text.slice(last)));node.replaceWith(fragment);}
+  }
+}
+
 // Existing emergency selections gain locations and current-tab reading state.
 (() => {
   if (!ctx.root || !ctx.search) return;
@@ -302,6 +336,35 @@ render();
     const all=document.getElementById('showall'), action=all.onclick;
     all.onclick=event=>ctx.transition(()=>action(event));
   }
+})();
+
+
+// Only explicit identifiers and existing, unambiguous related-topic names.
+(() => {
+  if(!ctx.root)return;
+  const aliases={
+    'raised ICP & brain-met crises':'raised-icp','raised-ICP crises':'raised-icp',
+    'MSCC':'mscc','DIC':'dic','febrile neutropenia / septic shock':'febrile-neutropaenia',
+    'febrile neutropenia':'febrile-neutropaenia','acute haemolytic transfusion reactions':'transfusion-reactions',
+    'major-haemorrhage':'major-haemorrhage','TLS':'tls','CRS':'crs','ICANS':'icans'
+  };
+  const draw=renderDetail;
+  renderDetail=e=>{
+    draw(e);
+    const sources=ctx.root.querySelector('.sources'), text=sources?.textContent||'';
+    const links=[];
+    for(const m of text.matchAll(/PMID\s+(\d+)/g))links.push([m[0],'https://pubmed.ncbi.nlm.nih.gov/'+m[1]+'/']);
+    for(const m of text.matchAll(/PMC\d+/g))links.push([m[0],'https://pmc.ncbi.nlm.nih.gov/articles/'+m[0]+'/']);
+    for(const m of text.matchAll(/DOI\s+(10\.\d{4,9}\/[^\s;]+)/g)){
+      let doi=m[1];while(doi.endsWith(')')&&doi.split(')').length>doi.split('(').length)doi=doi.slice(0,-1);
+      doi=doi.replace(/[.,]+$/,'');links.push(['DOI '+doi,'https://doi.org/'+doi]);
+    }
+    links.push(['NICE NG234','https://www.nice.org.uk/guidance/ng234']);
+    oncosLinkExistingText(sources,links);
+    const related=Object.entries(aliases).filter(([,id])=>id!==e.id&&BYID[id]).map(([label,id])=>[label,'/acute/?record='+encodeURIComponent(id)]);
+    related.push(['Tox','/tox/']);
+    oncosLinkExistingText(ctx.root.querySelector('.related'),related);
+  };
 })();
 
   },

@@ -267,6 +267,7 @@ function setBackgroundInert(on) {
 }
 
 function showDialog(query, pushHistory) {
+  document.dispatchEvent(new Event('oncos:close-navigation'));
   const existingURL = new URL(location.href);
   const alreadyInSearch = existingURL.searchParams.has('search');
   const clean = (pushHistory && alreadyInSearch ? existingURL.searchParams.get('search') : query).trim();
@@ -329,6 +330,16 @@ document.addEventListener('keydown', event => {
 }, true);
 
 dialog.addEventListener('keydown', event => {
+  if (event.isComposing || event.keyCode === 229) return;
+  const entries = Array.from(results.querySelectorAll('.gs-result'));
+  const onQuery = event.target === dialogQuery;
+  const index = entries.indexOf(document.activeElement);
+  if ((onQuery || index >= 0) && entries.length && ['ArrowDown','ArrowUp'].includes(event.key)) {
+    event.preventDefault();
+    const next = onQuery ? (event.key==='ArrowDown' ? 0 : entries.length-1)
+      : (index + (event.key==='ArrowDown'?1:-1) + entries.length) % entries.length;
+    entries[next].focus(); entries[next].scrollIntoView({block:'nearest'}); return;
+  }
   if (event.key === 'Escape') {
     event.preventDefault(); closeFromUser(); return;
   }

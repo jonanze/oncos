@@ -1423,6 +1423,33 @@ render();
       jumpTo(record.kind,record.id);
       return true;
     };
+// Decorate existing text only. Never replace clinical wording or nest links.
+function oncosLinkExistingText(root, entries) {
+  if (!root || !entries.length) return;
+  const choices = entries.filter(([label, href]) => label && /^(https:\/\/|\/)/.test(href))
+    .sort((a,b) => b[0].length-a[0].length);
+  const escape = value => value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const lookup = new Map(choices.map(([label,href]) => [label.toLowerCase(),href]));
+  const pattern = new RegExp(choices.map(([label]) => escape(label)).join('|'),'gi');
+  const walker = document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  const nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
+  for(const node of nodes){
+    if(node.parentElement.closest('a,script,style'))continue;
+    const text=node.nodeValue; let last=0, changed=false;
+    const fragment=document.createDocumentFragment();
+    pattern.lastIndex=0;
+    for(const match of text.matchAll(pattern)){
+      const at=match.index,end=at+match[0].length;
+      if((at&&/[\p{L}\p{N}]/u.test(text[at-1])) || (end<text.length&&/[\p{L}\p{N}]/u.test(text[end])))continue;
+      fragment.append(document.createTextNode(text.slice(last,at)));
+      const link=document.createElement('a');link.href=lookup.get(match[0].toLowerCase());link.textContent=match[0];
+      if(link.getAttribute('href').startsWith('https://')){link.target='_blank';link.rel='noopener noreferrer';}
+      fragment.append(link);last=end;changed=true;
+    }
+    if(changed){fragment.append(document.createTextNode(text.slice(last)));node.replaceWith(fragment);}
+  }
+}
+
 // Preserve the existing Tox facets, cross-link return path and grade inputs.
 (() => {
   if (!ctx.root || !ctx.search) return;
@@ -1582,6 +1609,23 @@ render();
     }
     render();
   }
+})();
+
+
+// Link named CTCAE neighbours already present in the navigational note.
+(() => {
+  if(!ctx.root)return;
+  const draw=renderCtcaeDetail;
+  const unique=new Map();
+  for(const term of Object.values(TBYID)){
+    const key=term.term.toLowerCase();unique.set(key,unique.has(key)?null:term);
+  }
+  renderCtcaeDetail=(list,id)=>{
+    draw(list,id);
+    const links=Array.from(unique.values()).filter(term=>term&&term.id!==id)
+      .map(term=>[term.term,'/tox/?kind=CTCAE&record='+encodeURIComponent(term.id)]);
+    oncosLinkExistingText(list.querySelector('.term-detail .nav'),links);
+  };
 })();
 
   },

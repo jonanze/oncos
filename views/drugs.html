@@ -54,6 +54,14 @@ html[data-view="drugs"]{--sidebar-w:248px}
     box-shadow:var(--shadow); padding:16px 18px 18px; margin-bottom:14px; }
 [data-view="drugs"] .rec{ background:var(--ground); border-radius:var(--radius-sm); }
 [data-view="drugs"] .az a, [data-view="drugs"] .az span{ border-radius:999px; }
+[data-view="drugs"] .card .rec{border:0;box-shadow:none;border-radius:0;background:transparent;padding:0;}
+[data-view="drugs"] .card .rec-grid{gap:24px;}
+[data-view="drugs"] .card{border-radius:8px;box-shadow:none;}
+[data-view="drugs"] .card .rec ul{max-width:80ch;}
+@container oncos (min-width:1200px){[data-view="drugs"] .letter-group{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 24px;align-items:start;}
+[data-view="drugs"] .letter-group .azdiv{grid-column:1 / -1;margin-bottom:0;}
+[data-view="drugs"] .letter-group .card{margin:0;min-width:0;}}
+@container oncos (max-width:560px){[data-view="drugs"] .card .rec-grid{grid-template-columns:1fr;gap:16px;}}
 </style>
 <div class="viewfrag">
 <div class="layout">

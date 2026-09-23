@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.0.0">
+<meta name="application-version" content="2.0.1">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -460,16 +460,19 @@
     .oncos-rail .suite-link{ width:auto; padding:0 10px; }
     /* The strip holds only the primary modules (Evidence, Staging). The
        Appendix is not in the strip at all: it opens from the Sections drawer,
-       listed above the current page's own sections. */
+       collapsed below the current page's own sections. */
     .oncos-rail .rail-group, .oncos-rail .rail-appendix, .oncos-rail .rail-appendix.open{ display:none; }
-    .oncos-rail .rail-sheet-appendix{ display:flex; flex-direction:column; gap:2px;
-      margin:0 0 var(--s-4); }
+    .oncos-rail .rail-sheet-appendix{ display:block; flex:0 0 auto; margin: auto 0 0; padding-top:var(--s-4); }
+    .rail-sheet-appendix summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 var(--s-2);cursor:pointer;list-style:none;color:var(--ink);font-size:13px;}
+    .rail-sheet-appendix summary::-webkit-details-marker{display:none;}
+    .rail-sheet-appendix summary::before{content:"";width:6px;height:6px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(-45deg);transition:transform 110ms;}
+    .rail-sheet-appendix[open] summary::before{transform:rotate(45deg);}
     .oncos-rail .rail-sheet-label{ font-size:12.5px; color:var(--muted); padding:0 var(--s-2) var(--s-1); }
     .oncos-rail .rail-sheet-appendix .suite-link{ width:100%; padding:0 var(--s-2); }
     .rail-section{ display:none; margin:0; }
     .rail-sections, .rail-search-strip{ display:inline-flex !important; }
     body.nav-open .rail-section{
-      display:block; position:fixed; z-index:39; left:0; right:0;
+      display:flex; flex-direction:column; position:fixed; z-index:39; left:0; right:0;
       top:var(--strip-h); bottom:0; margin:0;
       padding:var(--s-3) var(--s-2) calc(var(--s-6) + env(safe-area-inset-bottom));
       overflow-y:auto; overscroll-behavior:contain;
@@ -483,9 +486,19 @@
     html.rail-collapsed .rail-float{ display:none; }
     html.rail-collapsed #viewroot{ padding-left:14px; }
   }
+  @media (max-width:760px){
+    .oncos-rail .rail-icon,.oncos-rail .theme-toggle{width:44px;height:44px;}
+    .oncos-rail .suite-link{height:44px;}
+    .rail-foot{gap:0;}
+    .oncos-rail{gap:4px;}
+    #viewnav{flex:0 0 auto;}
+    .rail-sheet-appendix[open] .suite-link{display:flex;}
+    .rail-sheet-appendix:not([open]) .suite-link{display:none;}
+  }
+  @media (max-width:360px){.oncos-rail .suite-nav>.suite-link{padding-inline:4px;}}
   /* Strip height, for anything anchored under it (the Sections sheet): one
      30px row, 6px padding top and bottom, the 1px rule, the top safe-area. */
-  :root{ --strip-h:calc(var(--rail-row) + 13px + env(safe-area-inset-top)); }
+  :root{ --strip-h:calc(44px + 13px + env(safe-area-inset-top)); }
 
   .sdot-evidence{ background:#1967d2; }
   :root[data-theme="dark"] .sdot-evidence{ background:#7aa2f7; }
@@ -639,10 +652,10 @@ html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible
 
 /* One suite-wide search surface. */
 .global-search-dialog[hidden]{display:none!important;}
-.global-search-dialog{position:fixed;inset:0;z-index:100;background:color-mix(in oklab,var(--ink) 42%,transparent);
+.global-search-dialog{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.48);
   padding:max(18px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right))
     max(18px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));display:flex;justify-content:center;}
-.global-search-panel{width:min(920px,100%);height:min(820px,100%);display:flex;flex-direction:column;
+.global-search-panel{align-self:flex-start;width:min(920px,100%);height:auto;max-height:min(820px,100%);display:flex;flex-direction:column;
   background:var(--ground);border:1px solid var(--hair);border-radius:var(--r-lg);box-shadow:var(--shadow-pop);overflow:hidden;}
 .global-search-head{display:flex;gap:10px;align-items:center;padding:14px;border-bottom:1px solid var(--grid);background:var(--paper);}
 .global-search-head input{flex:1 1 auto;min-width:0;height:42px;border:1px solid var(--hair);border-radius:10px;
@@ -650,7 +663,7 @@ html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible
 .global-search-head input:focus{outline:2px solid color-mix(in oklab,var(--m) 45%,transparent);outline-offset:1px;border-color:var(--m);}
 .global-search-close{flex:0 0 auto;width:42px;height:42px;border:1px solid var(--hair);border-radius:10px;
   background:var(--paper);color:var(--ink);font:inherit;font-size:var(--t-xl);cursor:pointer;}
-.global-search-results{overflow:auto;padding:18px;overscroll-behavior:contain;}
+.global-search-results{min-height:0;overflow:auto;padding:18px;overscroll-behavior:contain;}
 .gs-group{margin:0 0 24px;}
 .gs-group h3{margin:0 0 8px;font-size:var(--t-xs);font-weight:var(--w-strong);letter-spacing:.08em;
   text-transform:uppercase;color:var(--muted);}
@@ -664,10 +677,11 @@ html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible
 .gs-subtitle{font-size:var(--t-sm);color:var(--muted);}
 .gs-preview{font-size:var(--t-base);color:var(--slate);line-height:1.45;}
 .gs-empty{padding:42px 16px;text-align:center;color:var(--muted);}
-body.global-search-open{overflow:hidden;}
+body.global-search-open,body.nav-open{overflow:hidden;}
+.gs-result:focus-visible{outline:2px solid var(--m);outline-offset:-2px;background:var(--raised);}
 @media (max-width:760px){
   .global-search-dialog{padding:0;}
-  .global-search-panel{width:100%;height:100%;border:0;border-radius:0;}
+  .global-search-panel{width:100%;height:100%;max-height:100%;border:0;border-radius:0;}
   .global-search-head{padding-top:calc(10px + env(safe-area-inset-top));}
   .global-search-results{padding:14px;}
 }
@@ -690,7 +704,7 @@ body.global-search-open{overflow:hidden;}
 /* Rail layout (2026-09-23). The rail sits beside the content; content fills
    the window with no max-width and no header bar above it. */
 body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
-#viewroot{flex:1 1 auto;min-width:0;}
+#viewroot{flex:1 1 auto;min-width:0;container: oncos / inline-size;}
 /* Every page fills the window beside the sidebar (Jonan, 2026-09-23: "fit the
    screen"). Each module styles its own `main` with a centred max-width (Staging
    and Acute 1000px, Drugs and Tox 1040px, Evidence 1280px, Notes 96vw) and
@@ -858,11 +872,11 @@ body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
       <!-- Phone only: the Appendix lives in the Sections drawer, not in the
            strip (Jonan, 2026-09-23). Same links as the desktop group, so the
            router marks the current one in both places. -->
-      <div class="rail-sheet-appendix" role="group" aria-label="Appendix">
-        <div class="rail-sheet-label">Appendix</div>
-        <a class="suite-link" href="/notes/" data-nav="notes"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5A4.5 4.5 0 0 0 7.5 4H3v14h4.5a4.5 4.5 0 0 1 4.5 2.5"/><path d="M12 6.5A4.5 4.5 0 0 1 16.5 4H21v14h-4.5a4.5 4.5 0 0 0-4.5 2.5"/><path d="M12 6.5v14"/></svg></span><span class="rail-label">Notes</span></a><a class="suite-link" href="/drugs/" data-nav="drugs"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="rail-label">Drugs</span></a><a class="suite-link" href="/tox/" data-nav="tox"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="rail-label">Tox</span></a><a class="suite-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="rail-label">Acute</span></a>
-      </div>
       <div id="viewnav"></div>
+      <details class="rail-sheet-appendix" id="mobile-appendix">
+        <summary>Appendix</summary>
+        <a class="suite-link" href="/notes/" data-nav="notes"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5A4.5 4.5 0 0 0 7.5 4H3v14h4.5a4.5 4.5 0 0 1 4.5 2.5"/><path d="M12 6.5A4.5 4.5 0 0 1 16.5 4H21v14h-4.5a4.5 4.5 0 0 0-4.5 2.5"/><path d="M12 6.5v14"/></svg></span><span class="rail-label">Notes</span></a><a class="suite-link" href="/drugs/" data-nav="drugs"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="rail-label">Drugs</span></a><a class="suite-link" href="/tox/" data-nav="tox"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="rail-label">Tox</span></a><a class="suite-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="rail-label">Acute</span></a>
+      </details>
     </div>
   </div>
   <div class="rail-foot">
@@ -1164,38 +1178,40 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   }
   function searchEl(){ return document.querySelector('.barsearch'); }
   function drawerFocusables(){
-    var sb = document.getElementById('sidebar');
-    if (!sb) return [];
-    return Array.prototype.slice.call(sb.querySelectorAll(
-      'a[href],button,input,select,textarea,summary,[tabindex]:not([tabindex="-1"])'
-    )).filter(function(el){
-      var s = getComputedStyle(el), r = el.getBoundingClientRect();
-      return !el.disabled && s.display!=='none' && s.visibility!=='hidden' && r.width && r.height;
+    var rail = document.querySelector('.oncos-rail');
+    if (!rail) return [];
+    return Array.from(rail.querySelectorAll('a[href],button,summary,input,select,[tabindex]:not([tabindex="-1"])')).filter(function(el){
+      var style=getComputedStyle(el), rect=el.getBoundingClientRect();
+      return !el.disabled && !el.closest('[inert]') && style.visibility!=='hidden' && rect.width && rect.height;
     });
   }
   function syncDrawer(){
-    var sb = document.getElementById('sidebar');
-    var burger = document.getElementById('burger');
-    var open = document.body.classList.contains('nav-open');
-    if (sb) {
-      sb.inert = !open;
-      sb.setAttribute('aria-hidden', open ? 'false' : 'true');
-    }
-    if (burger) {
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      burger.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-    }
-    if (open && !drawerWasOpen) {
-      drawerReturn = document.activeElement;
+    var sheet=document.getElementById('railsection');
+    var burger=document.getElementById('burger');
+    var mobile=matchMedia('(max-width:760px)').matches;
+    if(!mobile&&document.body.classList.contains('nav-open'))document.body.classList.remove('nav-open');
+    var open=mobile && document.body.classList.contains('nav-open');
+    var search=document.getElementById('global-search-dialog');
+    // Search owns its own isolation; a drawer mutation must never unlock it.
+    viewroot.inert=open || !!(search && !search.hidden);
+    if(sheet){sheet.inert=mobile&&!open; sheet.removeAttribute('aria-hidden');}
+    if(burger){burger.setAttribute('aria-expanded',String(open));burger.setAttribute('aria-label',open?'Close navigation':'Open navigation');}
+    var appendix=document.getElementById('mobile-appendix');
+    if(appendix && (!open || !drawerWasOpen))appendix.open=false;
+    if(open&&!drawerWasOpen){
+      drawerReturn=document.activeElement;
       setTimeout(function(){
-        var fs = drawerFocusables();
-        if (fs.length) fs[0].focus();
-      }, 0);
-    } else if (!open && drawerWasOpen && sb && sb.contains(document.activeElement)) {
-      if (drawerReturn && drawerReturn.focus) drawerReturn.focus();
+        if(!document.body.classList.contains('nav-open') || (search&&!search.hidden))return;
+        var first=sheet && Array.from(sheet.querySelectorAll('button,a[href],summary')).find(function(el){return el.getBoundingClientRect().height;});
+        if(first)first.focus();
+      },0);
+    }else if(!open&&drawerWasOpen&&sheet&&sheet.contains(document.activeElement)){
+      if(drawerReturn&&drawerReturn.isConnected)drawerReturn.focus({preventScroll:true});
     }
-    drawerWasOpen = open;
+    drawerWasOpen=open;
   }
+  document.addEventListener('oncos:close-navigation',function(){document.body.classList.remove('nav-open');syncDrawer();});
+  window.addEventListener('resize',syncDrawer);
   function freshChrome(){
     // drop accumulated listeners on shared chrome nodes by clone-replacing
     ['.barsearch','#burger','#backdrop'].forEach(function(sel){
@@ -1605,7 +1621,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   var drawerObserver = new MutationObserver(syncDrawer);
   drawerObserver.observe(document.body, {attributes:true, attributeFilter:['class']});
   document.addEventListener('keydown', function(e){
-    if (!document.body.classList.contains('nav-open')) return;
+    if (!document.body.classList.contains('nav-open') || !document.getElementById('global-search-dialog').hidden) return;
     if (e.key === 'Escape') {
       e.preventDefault(); document.body.classList.remove('nav-open'); return;
     }

@@ -146,6 +146,15 @@
 @media print{[data-view="notes"] .backpill, [data-view="notes"] .tocpanel{display:none !important;}
 [data-view="notes"] .notegrid{display:block;}
 [data-view="notes"] main{padding:0;}}
+@container oncos (max-width:860px){[data-view="notes"] .notegrid{display:block;}
+[data-view="notes"] .notehead{padding-left:0;}
+[data-view="notes"] .notehead, [data-view="notes"] .nbody{max-width:none;}
+[data-view="notes"] .tocpanel{position:static;max-height:none;overflow:visible;margin:0 0 20px;padding:0;border:1px solid var(--grid);border-radius:6px;background:var(--paper);}
+[data-view="notes"] .tocpanel summary{display:flex;align-items:center;min-height:44px;padding:0 14px;cursor:pointer;}
+[data-view="notes"] .tocpanel summary::after{content:'+';margin-left:auto;color:var(--teal);font-size:var(--t-lg);line-height:1;}
+[data-view="notes"] .tocpanel[open] summary::after{content:'−';}
+[data-view="notes"] .toc{padding:0 8px 10px;}
+[data-view="notes"] .toc a{padding:8px 10px;font-size:var(--t-base);}}
 </style>
 <div class="viewfrag">
 <div class="layout">
@@ -368,15 +377,20 @@ render();
 (() => {
   if (!ctx.root || !ctx.search) return;
   let routeAnchor = null;
-  const wide = () => matchMedia('(min-width:821px)').matches;
-  let wasWide = wide();
-  window.addEventListener('resize', () => {
-    const isWide = wide();
-    if (isWide === wasWide) return;
-    wasWide = isWide;
-    const panel = ctx.root.querySelector('.tocpanel');
-    if (panel) panel.open = isWide;
-  });
+  const wide = () => {const panel=ctx.root.querySelector('.tocpanel');return panel ? getComputedStyle(panel).position==='sticky' : ctx.root.clientWidth>912;};
+  let wasWide=wide();
+  function syncOutline(fresh=false){
+    const isWide=wide(),panel=ctx.root.querySelector('.tocpanel');
+    if(panel&&(fresh||isWide!==wasWide))panel.open=isWide;
+    wasWide=isWide;
+  }
+  const observer=new ResizeObserver(()=>syncOutline());observer.observe(ctx.root);
+  const teardown=window.oncosView.destroy;
+  window.oncosView.destroy=()=>{observer.disconnect();if(teardown)teardown();};
+  const renderNoteBefore=renderNote;
+  renderNote=(...args)=>{renderNoteBefore(...args);syncOutline(true);};
+  ctx.root.addEventListener('click',event=>{if(event.target.closest('.toc a')&&!wide()){const panel=ctx.root.querySelector('.tocpanel');if(panel)panel.open=false;}});
+  syncOutline(true);
   window.oncosView.captureState = () => {
     const panel=ctx.root.querySelector('.tocpanel');
     return {version:1,module:'notes',value:{...state,...(panel?{outline:{open:panel.open,wide:wide()}}:{})}};

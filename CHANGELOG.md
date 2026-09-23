@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.0.1] - 2026-09-23
+
+- Moved mobile Appendix below module sections as a collapsed disclosure; repaired navigation focus and enlarged mobile toolbar hit areas.
+- Made Evidence and Notes respond to their available content width, retaining readable layouts beside the sidebar.
+- Refined wide-desktop Acute and Drugs layouts, removed redundant Drugs panels and unified mobile Staging rows.
+- Added arrow-key search navigation, a darker search backdrop and content-sized desktop search panels.
+- Linked explicit existing source identifiers and related topics; corrected N/A chip contrast.
+- Preserved all clinical payloads and search catalogues, including the latest Evidence Editor update from 33364d3.
+
 ## [2.0.0] - 2026-09-23
 
 - Rebuilt the interface in the Claude app's design language: a single sidebar with Evidence and Staging, and Notes, Drugs, Tox and Acute under a collapsible Appendix; hide/show with hover-to-peek, back/forward and search in the sidebar. The home page is retired and the root opens Evidence.
