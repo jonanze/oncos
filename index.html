@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.0">
+<meta name="application-version" content="2.2.1">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -660,9 +660,12 @@ a{color:var(--teal);}
 /* Module scripts keep a non-interactive value holder for their legacy APIs. */
 .barsearch{display:none!important;}
 .barsearch:focus-visible{outline:none;}
-/* Automatic study focus preserves navigation without a persistent selection rim.
-   Keyboard interaction restores the kit's visible focus indicator. */
-html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible{outline:none;}
+/* No blue focus highlights (Jonan, 2026-09-23). Clicks and taps never show a
+   ring, including focus the router moves to a heading or back to a control;
+   keyboard navigation (Tab, arrows) keeps a ring, in neutral grey. Text boxes
+   show focus by their caret, and a grey border where they have one. */
+html:not([data-input-modality="keyboard"]) :focus-visible{outline:none;}
+html :focus-visible{outline-color:var(--muted);}
 
 /* One suite-wide search surface. */
 .global-search-dialog[hidden]{display:none!important;}
@@ -674,7 +677,7 @@ html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible
 .global-search-head{display:flex;gap:10px;align-items:center;padding:14px;border-bottom:1px solid var(--grid);background:var(--paper);}
 .global-search-head input{flex:1 1 auto;min-width:0;height:42px;border:1px solid var(--hair);border-radius:10px;
   background:var(--ground);color:var(--ink);padding:0 13px;font:inherit;}
-.global-search-head input:focus{outline:2px solid color-mix(in oklab,var(--m) 45%,transparent);outline-offset:1px;border-color:var(--m);}
+.global-search-head input:focus{outline:none;border-color:var(--muted);}
 .global-search-close{flex:0 0 auto;width:42px;height:42px;border:1px solid var(--hair);border-radius:10px;
   background:var(--paper);color:var(--ink);font:inherit;font-size:var(--t-xl);cursor:pointer;}
 .global-search-results{min-height:0;overflow:auto;padding:18px;overscroll-behavior:contain;}
@@ -698,7 +701,9 @@ html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible
    off-screen, taking the Sections button with it whenever the sheet opened
    below the top of a page. */
 html:has(> body.global-search-open),html:has(> body.nav-open){overflow:hidden;}
-.gs-result:focus-visible{outline:2px solid var(--m);outline-offset:-2px;background:var(--raised);}
+.gs-result:focus-visible{outline:2px solid var(--muted);outline-offset:-2px;background:var(--raised);}
+html:not([data-input-modality="keyboard"]) .gs-result:focus-visible{outline:none;}
+html[data-view="tox"] #viewroot input:focus,html[data-view="tox"] #viewroot select:focus{border-color:var(--muted);}
 @media (max-width:760px){
   .global-search-dialog{padding:0;}
   .global-search-panel{width:100%;height:100%;max-height:100%;border:0;border-radius:0;}
@@ -1225,7 +1230,10 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   var journal = window.oncosHistoryJournal(history, captureFrame, {readURL:function(){return location.href;}});
   history.scrollRestoration = 'manual';
   document.addEventListener('focusin', function(){focusVersion++;});
+  // Only keys that move focus claim keyboard use: typing a search or pressing
+  // Enter on a result must not bring focus rings back for a pointer user.
   function noteInputModality(event){
+    if(event.type==='keydown'&&!/^(Tab|Arrow(Up|Down|Left|Right)|Home|End|PageUp|PageDown)$/.test(event.key||''))return;
     root.setAttribute('data-input-modality',event.type==='keydown'?'keyboard':'pointer');
   }
   document.addEventListener('keydown',noteInputModality,true);

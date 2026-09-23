@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.1] - 2026-09-23
+
+- No blue focus highlights: clicking, tapping and typing never draw a ring (including around the search box and on a chosen entry). Tab and arrow-key navigation keep a neutral grey ring.
+
 ## [2.2.0] - 2026-09-23
 
 - Evidence opens on a changelog of published edits: grouped by publish, one line per trial (added, removed, or the fields updated), last 30 days with older history on demand. The sidebar's "All trials" and Staging's "All cancers" rows are removed; clicking Evidence or Staging in the sidebar returns to that module's start.
