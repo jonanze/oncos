@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.2] - 2026-09-23
+
+- The Evidence landing is labelled CHANGELOG.
+
 ## [2.2.1] - 2026-09-23
 
 - No blue focus highlights: clicking, tapping and typing never draw a ring (including around the search box and on a chosen entry). Tab and arrow-key navigation keep a neutral grey ring.

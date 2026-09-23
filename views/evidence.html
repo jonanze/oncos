@@ -199,7 +199,8 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .ev-landing #results, [data-view="evidence"] .ev-landing .topbar{display:none!important;}
 [data-view="evidence"] .ev-day{display:flex;align-items:center;gap:12px;margin:26px 0 2px;font-size:var(--t-xs);font-weight:var(--w-strong);letter-spacing:.05em;text-transform:uppercase;color:var(--slate);}
 [data-view="evidence"] .ev-day::after{content:"";flex:1;height:1px;background:var(--rule);}
-[data-view="evidence"] .evchanges > .ev-day:first-child{margin-top:4px;}
+[data-view="evidence"] .ev-title{margin:4px 0 0;font-size:var(--t-xs);font-weight:var(--w-strong);letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
+[data-view="evidence"] .evchanges > .ev-title + .ev-day{margin-top:18px;}
 [data-view="evidence"] .ev-head{display:flex;gap:12px;align-items:baseline;padding:12px 0 4px;font-size:var(--t-sm);color:var(--muted);}
 [data-view="evidence"] .ev-tm{color:var(--slate);font-weight:var(--w-strong);}
 [data-view="evidence"] .ev-ln{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--grid);font-size:var(--t-base);}
@@ -751,7 +752,7 @@ const EVIDENCE_CHANGES = [{"t":"2026-09-23T16:01:14+08:00","items":[["u","MARS (
   function draw() {
     const cutoff = Date.now() - days * 864e5;
     const shown = EVIDENCE_CHANGES.filter(e => Date.parse(e.t) >= cutoff);
-    let html = '', lastDay = '';
+    let html = '<h2 class="ev-title">Changelog</h2>', lastDay = '';
     for (const entry of shown) {
       const when = new Date(entry.t);
       const day = when.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
