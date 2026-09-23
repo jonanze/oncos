@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.4] - 2026-09-23
+
+- Hiding the sidebar stays hidden: the pointer left on the show icon no longer slides it straight back; hovering the icon again (after moving off it) still peeks.
+
 ## [2.2.3] - 2026-09-23
 
 - Faster module switching: the tapped module highlights at once, the page is built without waiting for a fade-out, and it fades in over 120ms.

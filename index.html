@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.3">
+<meta name="application-version" content="2.2.4">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -1059,7 +1059,13 @@ html[data-view="acute"] #viewroot table.list > thead{display:none;}
     clearTimeout(leaveTimer);
     root.classList.toggle('rail-peek', on && root.classList.contains('rail-collapsed'));
   }
-  show.addEventListener('pointerenter',function(e){ if(e.pointerType==='mouse') peek(true); });
+  // Hiding leaves the pointer on the show icon, which sits where the hide icon
+  // was: that must not count as hovering, or the sidebar slides straight back
+  // and the hide gives no feedback (Jonan, 2026-09-23). Peek re-arms once the
+  // pointer has left the icon.
+  var peekArmed=true;
+  show.addEventListener('pointerenter',function(e){ if(e.pointerType==='mouse' && peekArmed) peek(true); });
+  show.addEventListener('pointerleave',function(){ peekArmed=true; });
   rail.addEventListener('pointerenter',function(){ clearTimeout(leaveTimer); });
   rail.addEventListener('pointerleave',function(e){
     if(e.pointerType!=='mouse' || !root.classList.contains('rail-peek')) return;
@@ -1069,7 +1075,7 @@ html[data-view="acute"] #viewroot table.list > thead{display:none;}
   // clicking it pins the sidebar open, as in the app.
   hide.onclick=function(){
     if(root.classList.contains('rail-peek')){ peek(false); set(false); hide.focus(); return; }
-    set(true); show.focus();
+    peekArmed=false; set(true); show.focus();
   };
   show.onclick=function(){peek(false);set(false);hide.focus();};
   document.getElementById('rail-back').onclick=function(){history.back();};
