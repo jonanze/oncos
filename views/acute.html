@@ -2,8 +2,9 @@
 html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 [data-view="acute"] a{color:var(--teal);}
 [data-view="acute"] .allbtn{margin:4px 20px 10px;}
-[data-view="acute"] .allbtn button{display:block;width:100%;text-align:center;padding:8px;border:0;border-radius:999px;
-    background:var(--teal);color:var(--btn-ink);text-decoration:none;font-family:inherit;font-weight:var(--w-name);font-size:var(--t-base);cursor:pointer;}
+[data-view="acute"] .allbtn button{display:block;width:100%;text-align:center;padding:8px;border:1px solid var(--hair);border-radius:999px;
+    background:transparent;color:var(--ink);text-decoration:none;font-family:inherit;font-weight:var(--w-label);font-size:var(--t-base);cursor:pointer;}
+[data-view="acute"] .allbtn button:hover{background:var(--hover);}
 [data-view="acute"] .navsec{margin-top:6px;}
 [data-view="acute"] .navsec > .secname{display:flex;justify-content:space-between;align-items:center;
     width:100%;border:0;background:transparent;text-align:left;font-family:inherit;
@@ -19,7 +20,7 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
     border:0;border-left:2px solid transparent;font-size:var(--t-base);}
 @media (hover: hover){[data-view="acute"] .items button:hover{background:var(--accent-soft);}}
 [data-view="acute"] .items button.is-pressed{background:var(--accent-soft);}
-[data-view="acute"] .items button.active{background:var(--accent-soft);border-left-color:var(--teal);font-weight:var(--w-name);color:var(--teal);}
+[data-view="acute"] .items button.active{background:var(--press);border-left-color:transparent;font-weight:var(--w-name);color:var(--ink);}
 [data-view="acute"] .items button > span:first-child{min-width:0;}
 [data-view="acute"] main{max-width:1000px;margin:0 auto;padding:18px clamp(16px,4vw,26px) 60px;}
 [data-view="acute"] #results{transition:opacity .15s var(--mo-ease,cubic-bezier(.3,0,.1,1)),
@@ -43,8 +44,7 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 [data-view="acute"] .t.new{background:var(--accent-soft);color:var(--slate);}
 [data-view="acute"] table.list{width:100%;border-collapse:collapse;background:var(--panel,var(--paper));}
 [data-view="acute"] table.list > thead th{text-align:left;font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
-    padding:11px 12px;border-bottom:1.2px solid var(--rule);background:var(--ground,transparent);white-space:nowrap;font-weight:var(--w-name);
-    position:sticky;top:calc(59px + env(safe-area-inset-top));z-index:3;}
+    padding:11px 12px;border-bottom:1.2px solid var(--rule);background:var(--ground,transparent);white-space:nowrap;font-weight:var(--w-name);}
 [data-view="acute"] table.list > tbody tr.row{border-bottom:1px solid var(--grid);cursor:pointer;}
 @media (hover: hover){[data-view="acute"] table.list > tbody tr.row:hover{background:var(--accent-soft);}}
 [data-view="acute"] table.list > tbody tr.row.is-pressed{background:var(--accent-soft);}
@@ -141,9 +141,11 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp
 // ---- Sidebar: "All emergencies" + collapsible category sections ----
 const nav = document.getElementById('nav');
 for (const [sec, ids] of Object.entries(SECTIONS)) {
-  const block = document.createElement('div'); block.className = 'navsec';
+  // Groups start collapsed (Jonan, 2026-09-23); the shell opens the group
+  // holding the active item, so a deep-linked selection is never hidden.
+  const block = document.createElement('div'); block.className = 'navsec collapsed';
   const head = document.createElement('button'); head.type = 'button'; head.className = 'secname';
-  head.setAttribute('aria-expanded','true');
+  head.setAttribute('aria-expanded','false');
   head.innerHTML = `<span>${esc(sec)}</span><span class="caret" aria-hidden="true">&#9660;</span>`;
   head.onclick = () => { const collapsed = block.classList.toggle('collapsed'); head.setAttribute('aria-expanded', collapsed ? 'false' : 'true'); };
   block.appendChild(head);

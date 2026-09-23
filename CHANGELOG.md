@@ -2,6 +2,15 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.0.0] - 2026-09-23
+
+- Rebuilt the interface in the Claude app's design language: a single sidebar with Evidence and Staging, and Notes, Drugs, Tox and Acute under a collapsible Appendix; hide/show with hover-to-peek, back/forward and search in the sidebar. The home page is retired and the root opens Evidence.
+- New palette in both themes: near-black and off-white grounds, neutral text, and blue links; Google Drive source links carry the Drive logo. Orange remains only on clinical risk colours (Tox grades, Acute urgency, warning status).
+- Section navs start collapsed and open to the current item; tighter spacing throughout; every page fills the window; no frozen headers or table shadows.
+- Evidence trials expand in place inside the table (desktop and phone); fixed Safari clipping of open trials after the page width changes; removed the phase/year filter controls (existing filtered links still work).
+- Published pending Evidence Editor edits to MARBLE and RELEVENT (thymic carcinoma).
+- Preserved all other clinical content, catalogues and source links.
+
 ## [1.6.2] - 2026-09-07
 
 - Updated adjuvant CDK4/6 risk selection, treatment choice and sequencing from dated NCCN, ASCO and ESMO guidance.

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="1.6.2">
+<meta name="application-version" content="2.0.0">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
-<meta name="theme-color" content="#f6f7f9">
+<meta name="theme-color" content="#faf9f5">
 <link rel="apple-touch-icon" href="/apple-touch-icon-180.png">
 <link rel="icon" type="image/png" href="/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,6 +17,7 @@
 <script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('oncos-rail')==='collapsed')document.documentElement.classList.add('rail-collapsed');}catch(e){}</script>
 <style>
 
   /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
@@ -26,22 +27,45 @@
 
   /* --- oncOS Meridian theme (shared: _oncos-kit/oncos_theme.py) --- */
   :root{
-    --m:#0977b0; --teal:var(--m);
-    --ink:#131926; --slate:#4d5a6b; --muted:#647184;
-    --hair:#e3e7ee; --grid:#edf0f5;
-    --accent-soft:color-mix(in oklab, var(--m) 8%, #ffffff);
-    --paper:#ffffff; --ground:#f6f7f9; --raised:#ffffff;
-    /* Light status text deepened one step (2026-08-08 colour QA): on their soft
-       tints the previous values sat just under the 4.5:1 small-text floor
-       (success 3.57:1, warning 4.28:1, danger 4.43:1). These measure 4.67 /
-       5.60 / 5.39 on the same tints. Dark values already passed (6-8:1). */
-    --status-success:#0a7a52; --status-success-soft:#e3f3ec;
-    --status-warning:#7d5807; --status-warning-soft:#f7efdb;
-    --status-danger:#b0322c; --status-danger-soft:#faeae9;
+    --m:#1967d2; --teal:var(--m);
+    /* Warm neutrals (2026-09-23). The cool porcelain greys are retired; every
+       surface and text step below is the Claude Code palette, re-measured for
+       this site's type sizes. --muted is NOT the Editor's #8d8980 (3.31:1,
+       fails): on a clinical page --muted carries real content — trial phase,
+       year, population — so it must clear 4.5:1 on ground, paper and raised.
+       (Values below; see the ink/slate/muted note.) */
+    /* Text follows the Claude app (Jonan, 2026-09-23: "too grey"): near-black
+       ink and neutral secondary greys rather than warm beige-greys. Measured on
+       ground / paper / raised: ink 15.8 / 16.6 / 15.1, slate 7.5 / 8.0 / 7.2,
+       muted 4.7 / 5.0 / 4.5. */
+    --ink:#1f1e1d; --slate:#52514d; --muted:#71706c;
+    --hair:#e5e4df; --grid:#eeede8;
+    --accent-soft:rgba(25,103,210,.12);
+    /* The accent on its own soft tint is 4.3:1 on the ground — below floor. The
+       info badge uses this deepened step (5.2:1); links and focus rings, which
+       sit on plain surfaces, keep var(--m). */
+    --accent-on-soft:#185abc;
+    --paper:#ffffff; --ground:#faf9f5; --raised:#f5f4ef;
+    /* The sidebar shares the content ground in both themes, as in the app. */
+    --rail:#faf9f5;
+    /* The single solid fill. Marks one primary action per view or dialog and
+       nothing else — near-black on light, near-white on dark. Not a brand
+       colour, and deliberately NOT the accent: 13.77:1 either way. */
+    --solid:#2b2926; --solid-text:#faf9f5;
+    /* Translucent interaction overlays, theme-aware. */
+    --hover:rgba(40,36,30,.05); --press:rgba(40,36,30,.09);
+    /* Status text is measured ON ITS OWN SOFT TINT, not on the page ground —
+       that is where these chips actually render, and it is the case the
+       2026-08-08 QA caught on the retired palette. The Editor's raw values fail
+       it again (success 4.19, warning 4.35), so success and warning are
+       deepened one step. Measured on tint: 4.60 / 4.62 / 4.87 / 4.56. */
+    --status-success:#3b7347; --status-success-soft:rgba(63,122,75,.12);
+    --status-warning:#85601f; --status-warning-soft:rgba(138,100,32,.12);
+    --status-danger:#a8402f;  --status-danger-soft:rgba(168,64,47,.12);
     /* Info is SLATE, not var(--m) (2026-08-08): under functional teal the
        accent means "actionable", and an informational pill must not look
        clickable. */
-    --status-info:#4d5a6b; --status-info-soft:#eef1f4;
+    --status-info:#6b675f; --status-info-soft:rgba(107,103,95,.12);
     /* --- Standard chip geometry (2026-08-08) — one spec for the suite's chip
        families: Evidence phase, Staging system, Tox grade tags + facet tags,
        Acute urgency. Two finishes only: outline (categorical) and soft fill
@@ -86,31 +110,66 @@
        the Inter 4.1 build does that compensation inside the font, and stacking
        hand-tuned letter-spacing on top of it double-compensates. */
     --track-caps:.06em; --track-badge:.04em;
-    --rule:#d7dde6; --btn-ink:#ffffff;
-    --radius:12px; --radius-sm:9px;
-    --shadow:0 1px 2px rgba(19,25,38,.05), 0 10px 28px -12px rgba(19,25,38,.14);
-    --glass:rgba(255,255,255,.8);
+    --rule:#e5e4df;
+    /* Text on the solid fill. Named --btn-ink for the six generators that
+       already declare it; its value is --solid-text. */
+    --btn-ink:#faf9f5;
+    /* Three radii plus the pill, replacing the two-step 12/9 scale.
+       --radius/--radius-sm are kept as aliases so no generator needs editing. */
+    --r-sm:6px; --r-md:10px; --r-lg:14px; --r-pill:999px;
+    --radius:var(--r-lg); --radius-sm:var(--r-md);
+    /* One 4px spacing scale. */
+    --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-8:32px;
+    /* Two control heights and one nav icon size. */
+    --h-icon:28px; --h-control:32px; --ico-nav:16px;
+    --ease:cubic-bezier(.2,0,0,1);
+    /* No shadows on tables or cards (Jonan, 2026-09-23 — "follow the app"): the
+       Editor draws every static surface with a 1px hairline and nothing else.
+       Every module card and table wrapper already carries its hairline border,
+       so --shadow is `none` and the generators' `box-shadow:var(--shadow)`
+       lines resolve to nothing. --shadow-pop is the one shadow left, for
+       surfaces that APPEAR over the page (the search dialog). */
+    --shadow:none;
+    --shadow-pop:0 16px 44px rgba(60,50,35,.13);
+    --glass:rgba(250,249,245,.8);
     color-scheme:light;
   }
   :root[data-theme="dark"]{
-    --m:#3fbbef; --teal:var(--m);
-    --ink:#e8ecf3; --slate:#a3aebe; --muted:#8391a3;
-    --hair:#222937; --grid:#1a2130;
-    --accent-soft:color-mix(in oklab, var(--m) 13%, #10141c);
-    --paper:#10141c; --ground:#0a0d13; --raised:#151b26;
-    --status-success:#37c98c; --status-success-soft:#12312a;
-    --status-warning:#e5a93e; --status-warning-soft:#32270f;
-    --status-danger:#f0716b; --status-danger-soft:#391b19;
-    --status-info:#a3aebe; --status-info-soft:#222f3c;
-    --rule:#2a3242; --btn-ink:#0a0d13;
-    /* Dark raised surfaces were separated from the ground only by the --grid
-       border (paper vs ground 1.05:1 — near-invisible). A faint light ring +
-       deep ambient shadow gives cards an edge without lightening the ink
-       aesthetic (2026-08-08 colour QA; was `none`). The inset top highlight is
-       the "machined edge" (beautify #8) — dark surfaces read as objects. */
-    --shadow:0 0 0 1px rgba(232,236,243,.05), inset 0 1px 0 rgba(255,255,255,.05),
-      0 12px 32px -16px rgba(0,0,0,.6);
-    --glass:rgba(13,17,25,.75);
+    --m:#7aa2f7; --teal:var(--m);
+    /* Dark is the native theme, set to the Claude app (Jonan, 2026-09-23:
+       "follow the colour scheme… too grey"): a near-black ground that the
+       sidebar shares, cards one quiet step up, and near-white text. Every text
+       step is measured on ground / paper / raised:
+         ink   #ececea  14.4 / 13.0 / 12.0
+         slate #b7b5af   8.3 /  7.5 /  6.9
+         muted #93928d   5.5 /  4.9 /  4.55
+       Accent (link blue) and status colours clear 4.5:1 on all of them. */
+    --ink:#ececea;
+    --slate:#b7b5af;
+    --muted:#93928d;
+    --hair:#353533; --grid:#2c2c2a;
+    --accent-soft:rgba(122,162,247,.14);
+    --accent-on-soft:#7aa2f7;          /* 4.8 on its own tint over paper */
+    --ground:#1c1c1b; --paper:#252524; --raised:#2b2b2a;
+    --raised-2:#323231;
+    --rail:#1c1c1b;
+    --solid:#f5f4ef; --solid-text:#1c1c1b;
+    --hover:rgba(255,255,255,.045); --press:rgba(255,255,255,.075);
+    /* Measured on their own 14% tint over --paper: 5.5 / 5.6 / 5.3 / 5.3. */
+    --status-success:#8fbf92; --status-success-soft:rgba(143,191,146,.14);
+    --status-warning:#d9ae6a; --status-warning-soft:rgba(217,174,106,.14);
+    --status-danger:#e59a88;  --status-danger-soft:rgba(229,154,136,.14);
+    --status-info:#b0aea6;    --status-info-soft:rgba(176,174,166,.14);
+    --rule:#353533; --btn-ink:#1c1c1b;
+    /* The 2026-08-08 machined-edge ring is retired. Measured, the warm surfaces
+       separate only a little better than the cool ones did (paper on ground
+       1.15:1, was 1.05:1) — not enough to carry a card edge on luminance alone.
+       What replaces the simulated bevel is an explicit hairline: every raised
+       surface takes `1px solid var(--grid)`, the way the Editor draws them.
+       Shadows are for surfaces that appear over others only (--shadow-pop). */
+    --shadow:none;
+    --shadow-pop:0 16px 48px rgba(0,0,0,.45);
+    --glass:rgba(26,26,25,.75);
     color-scheme:dark;
   }
   /* --- Tabular figures, suite-wide (Inter retypeset, 2026-07-26) ---
@@ -197,12 +256,8 @@
   footer.disclaimer strong, footer.disc strong, .foot strong{
     color:var(--ink); font-weight:var(--w-strong);
   }
-  /* Dark depth (beautify #8): a barely-there teal glow bleeding from the top
-     of the page — 4% mix, gone by mid-viewport, scrolls away with content.
-     Dark only; light's shadow already carries depth. */
-  :root[data-theme="dark"] body{
-    background:radial-gradient(120% 60% at 50% -10%,
-      color-mix(in oklab, var(--m) 4%, transparent), transparent 60%), var(--ground); }
+  /* The 2026-08 dark "accent glow" behind the page is retired: under the
+     Claude language the accent is never decoration. */
   .sr-only{ position:absolute !important; width:1px !important; height:1px !important;
     padding:0 !important; margin:-1px !important; overflow:hidden !important;
     clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
@@ -234,62 +289,235 @@
      focus state. Inputs keep their own border-colour focus affordance (their
      :focus{outline:none} is more specific, so this doesn't override it). --- */
   :focus-visible{ outline:2px solid var(--m, var(--teal)); outline-offset:2px; border-radius:4px; }
-  /* --- Meridian shared chrome (the locked suite header pattern) --- */
-  /* Wordmark is Montserrat Bold (self-hosted via oncos_fonts) — the one place
-     the suite keeps its original NCIS wordmark face, and the one role the
-     2026-07-26 Inter retypeset deliberately did NOT touch; everything else is
-     Inter. */
-  .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
-  /* Solid teal "OS" (monochrome retheme 2026-08-08) — background-image:none
+  /* Wordmark: Montserrat Bold (self-hosted via oncos_fonts), the one role the
+     2026-07-26 Inter retypeset deliberately did not touch. It now appears only
+     on the home view's hero — the rail has no wordmark header. "OS" is the
+     suite's one identity colour, in the accent; background-image:none
      overrides any module's leftover gradient + background-clip rules. */
+  .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
   .wm .os{ background-image:none; -webkit-background-clip:initial;
-    background-clip:initial; color:#0977b0; }
-  :root[data-theme="dark"] .wm .os{ background-image:none; color:#3fbbef; }
-  .mhead{ background:var(--glass);
-    -webkit-backdrop-filter:blur(14px) saturate(1.3); backdrop-filter:blur(14px) saturate(1.3);
-    border-bottom:1px solid var(--hair); }
-  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-    .mhead{ background:var(--paper); }
-  }
-  .burger{ border-radius:10px; }
-  .barsearch{ border-radius:999px; background:var(--ground); }
-  body.nav-open .backdrop{ background:rgba(10,13,19,.35); }
-  /* --- Suite switcher: module-to-module navigation, injected at the top of
-     every module drawer by the kit script (see toggle_script) — before it, the
-     only route between modules was back through the hub. Wavelength dots come
-     from the generated .sdot-<module> rules appended below. --- */
-  .suite-nav{ padding:2px 0 10px; margin-bottom:8px; border-bottom:1px solid var(--hair); }
-  .suite-nav .suite-label{ font-size:var(--t-2xs); font-weight:var(--w-bold); letter-spacing:.08em;
-    text-transform:uppercase; color:var(--muted); padding:8px 20px 5px; }
-  .suite-link{ display:flex; align-items:center; gap:10px; padding:7px 20px;
-    font-size:var(--t-base); color:var(--ink); text-decoration:none; }
-  .suite-link:hover{ background:var(--accent-soft); color:var(--m); }
-  .suite-link[aria-current="page"]{ color:var(--m); font-weight:600; background:var(--accent-soft); }
-  .sdot{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
-  .sdot-evidence{ background:#0977b0; }
-  :root[data-theme="dark"] .sdot-evidence{ background:#3fbbef; }
-  .sdot-drugs{ background:#0977b0; }
-  :root[data-theme="dark"] .sdot-drugs{ background:#3fbbef; }
-  .sdot-staging{ background:#0977b0; }
-  :root[data-theme="dark"] .sdot-staging{ background:#3fbbef; }
-  .sdot-tox{ background:#0977b0; }
-  :root[data-theme="dark"] .sdot-tox{ background:#3fbbef; }
-  .sdot-acute{ background:#0977b0; }
-  :root[data-theme="dark"] .sdot-acute{ background:#3fbbef; }
-  .sdot-notes{ background:#0977b0; }
-  :root[data-theme="dark"] .sdot-notes{ background:#3fbbef; }
-  .sdot-hub{ background:linear-gradient(135deg,#0977b0,#0977b0,#0977b0,#0977b0,#0977b0,#0977b0); }
-  :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#3fbbef,#3fbbef,#3fbbef,#3fbbef,#3fbbef,#3fbbef); }
+    background-clip:initial; color:#1967d2; }
+  :root[data-theme="dark"] .wm .os{ background-image:none; color:#7aa2f7; }
 
-  .theme-toggle{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:26px; height:26px; padding:0; cursor:pointer; flex:0 0 auto;
-    background:transparent; color:var(--muted);
-    border:1px solid var(--hair); border-radius:999px;
-    transition:color .15s, border-color .15s, background .15s;
+  /* --- Shared chrome: the SIDEBAR (2026-09-23) ------------------------
+     The Claude app's sidebar, mapped onto oncOS (Jonan: "use the same design").
+     Top row: hide-sidebar, back, forward, search — icon buttons, 28px, r-sm.
+     Primary list: the six modules as icon + label rows. Section list: the active
+     view's own nav (#viewnav, styled in build_shell.py) set like the app's
+     project header and session rows. Foot: wordmark + version where the app has
+     its account row; the theme control where it has settings. There is no header
+     bar above the content, and no home page.
+
+     Density follows the reference screenshot of the Claude app (Jonan,
+     2026-09-23): 28px single-line rows with no gap between them, 13px labels
+     in near-white (not grey), 16px icons, 26px top-row icon buttons, 8px
+     sidebar padding. The sidebar shares the content ground, separated by one
+     hairline. No wordmark, no version, no foot on desktop.
+
+     Router hooks are unchanged: .suite-link + data-nav carry aria-current,
+     #viewnav receives each view's nav, #burger is the phone Sections button, the
+     masthead lookups (#tabslider, #mobsuite, #mast-mod) are null-guarded.
+     Selectors are two classes deep on purpose: a mounted view's fragment CSS
+     carries `[data-view=x] a{color:…}` (0,1,1), which outranks a bare
+     `.suite-link` (0,1,0) and would recolour the sidebar per module. */
+  :root{ --rail-w:244px; --rail-row:28px; }
+  .oncos-rail{
+    position:sticky; top:0; z-index:40; flex:0 0 auto;
+    width:calc(var(--rail-w) + env(safe-area-inset-left)); height:100dvh; box-sizing:border-box;
+    display:flex; flex-direction:column; gap:var(--s-2);
+    /* Safe-area insets: a landscape phone crosses the 760px breakpoint and gets
+       the sidebar, with the notch on its left. */
+    padding:calc(10px + env(safe-area-inset-top)) var(--s-2)
+      calc(var(--s-2) + env(safe-area-inset-bottom)) calc(var(--s-2) + env(safe-area-inset-left));
+    background:var(--ground); border-right:1px solid var(--grid);
+    overflow:hidden;
   }
-  .theme-toggle:hover{ color:var(--m); border-color:var(--m); background:var(--accent-soft); }
-  .theme-toggle svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  /* Icon buttons — the app's small square, r-sm, muted until hovered. */
+  .rail-icon, .rail-top .theme-toggle{ display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+    width:26px; height:26px; padding:0; border:0; border-radius:var(--r-sm);
+    background:transparent; color:var(--slate); cursor:pointer;
+    transition:background 110ms var(--ease), color 110ms var(--ease); }
+  .rail-icon:hover{ background:var(--hover); color:var(--ink); }
+  .rail-icon:active{ background:var(--press); }
+  .rail-icon svg{ width:var(--ico-nav); height:var(--ico-nav); fill:none; stroke:currentColor;
+    stroke-width:1.65; stroke-linecap:round; stroke-linejoin:round; }
+  .rail-top{ display:flex; align-items:center; gap:0; flex:0 0 auto; padding:0 2px; margin-bottom:var(--s-2); }
+  .rail-top-fill{ flex:1; }
+  .oncos-rail .rail-collapse{ margin-right:2px; }
+
+  /* Module list + section list scroll together; the foot stays pinned. */
+  .rail-scroll{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+    margin:0 calc(-1 * var(--s-2)); padding:0 var(--s-2); }
+  /* 2px between rows so adjacent hover/active highlights never touch. */
+  .oncos-rail .suite-nav{ display:flex; flex-direction:column; gap:2px; padding:0; margin:0; border:0; }
+  .oncos-rail .suite-link{
+    display:flex; align-items:center; gap:var(--s-2); width:100%; height:var(--rail-row);
+    box-sizing:border-box; padding:0 var(--s-2); border-radius:var(--r-sm);
+    color:var(--ink); font-size:13px; font-weight:var(--w-body);
+    text-decoration:none; white-space:nowrap;
+    transition:background 110ms var(--ease), color 110ms var(--ease);
+  }
+  .oncos-rail .suite-link:hover{ background:var(--hover); color:var(--ink); }
+  .oncos-rail .suite-link:active,.oncos-rail .suite-link.is-pressed{ background:var(--press); }
+  /* Active: the neutral --press fill, never an accent tint. */
+  .oncos-rail .suite-link[aria-current="page"]{ background:var(--press); color:var(--ink); }
+  .oncos-rail .suite-link .tico{ display:inline-flex; flex:0 0 auto; }
+  .oncos-rail .suite-link .tico svg{ width:var(--ico-nav); height:var(--ico-nav); stroke-width:1.65; }
+  .oncos-rail .suite-link .sdot{ display:none; }
+  /* "Appendix": a module-list row that expands, like the app's "More". Its
+     chevron sits in the icon slot and turns down when open. Collapsed by
+     default; the router opens it when the current view lives inside it. */
+  .oncos-rail .rail-group{
+    display:flex; align-items:center; gap:var(--s-2); width:100%; height:var(--rail-row);
+    box-sizing:border-box; padding:0 var(--s-2); border:0; border-radius:var(--r-sm);
+    background:transparent; color:var(--ink); font:inherit; font-size:13px; text-align:left; cursor:pointer;
+    transition:background 110ms var(--ease), color 110ms var(--ease); }
+  .oncos-rail .rail-group:hover{ background:var(--hover); }
+  .oncos-rail .rail-group .tico{ display:inline-flex; flex:0 0 auto; }
+  .oncos-rail .rail-group .tico svg{ width:var(--ico-nav); height:var(--ico-nav); fill:none; stroke:currentColor;
+    stroke-width:1.65; stroke-linecap:round; stroke-linejoin:round; transition:transform 110ms var(--ease); }
+  .oncos-rail .rail-group[aria-expanded="true"] .tico svg{ transform:rotate(90deg); }
+  .oncos-rail .rail-appendix{ display:none; flex-direction:column; gap:2px; }
+  .oncos-rail .rail-appendix.open{ display:flex; }
+  /* The phone drawer's copy of the Appendix (see the strip rules). */
+  .oncos-rail .rail-sheet-appendix{ display:none; }
+  .rail-label{ flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
+
+  /* The active view's section list: no rule above it; the app separates its
+     project list from the primary items with space alone. */
+  .rail-section{ margin-top:var(--s-4); }
+  .rail-section:empty{ display:none; margin:0; }
+
+  /* The foot exists only on a phone (the strip's controls); on desktop the
+     theme control and search sit in the top row. */
+  .rail-foot{ display:none; }
+  .rail-sections, .rail-search-strip{ display:none !important; }   /* phone only, below */
+
+  /* Sidebar hidden — the Claude app's behaviour (Jonan, 2026-09-23):
+       - only the show icon remains, floating at EXACTLY the hide icon's
+         position (10px from the top and left), so it never jumps;
+       - no bar and no border; the page keeps its top edge and gains width, with
+         an invisible 46px left margin so scrolling content never meets the icon;
+       - hovering the icon slides the sidebar in over the page (html.rail-peek);
+         it leaves when the pointer leaves the sidebar; clicking the icon while it
+         is showing pins it open. */
+  .rail-float{ display:none; }
+  html.rail-collapsed .oncos-rail{ display:none; }
+  html.rail-collapsed .rail-float{
+    display:block; position:fixed; z-index:45;
+    top:calc(10px + env(safe-area-inset-top)); left:calc(10px + env(safe-area-inset-left)); }
+  html.rail-collapsed #viewroot{ padding-left:calc(46px + env(safe-area-inset-left)); }
+  html.rail-collapsed.rail-peek .oncos-rail{
+    display:flex; position:fixed; left:0; top:0; z-index:60; box-shadow:var(--shadow-pop);
+    animation:rail-peek-in 160ms var(--ease); }
+  @keyframes rail-peek-in{ from{ opacity:0; transform:translateX(-4px); } }
+  @media (prefers-reduced-motion:reduce){ html.rail-collapsed.rail-peek .oncos-rail{ animation:none; } }
+
+  /* Links (2026-09-23): blue, no underline until hovered — the Google Docs
+     link style. A link to a Google Drive or Docs file (the filed source PDFs in
+     Evidence and Notes) carries the Drive logo before its text, so a reader can
+     tell at a glance that it opens the source document. Matched on the href, so
+     it covers links the modules build at runtime too. */
+  a[href*="drive.google.com"], a[href*="docs.google.com"]{
+    color:var(--m); text-decoration:none; }
+  a[href*="drive.google.com"]:hover, a[href*="docs.google.com"]:hover{ text-decoration:underline; }
+  a[href*="drive.google.com"]::before, a[href*="docs.google.com"]::before{
+    content:""; display:inline-block; width:1.05em; height:.94em; margin-right:.35em;
+    vertical-align:-.12em; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 87.3 78'%3E%3Cpath d='m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z' fill='%230066da'/%3E%3Cpath d='m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z' fill='%2300ac47'/%3E%3Cpath d='m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z' fill='%23ea4335'/%3E%3Cpath d='m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z' fill='%2300832d'/%3E%3Cpath d='m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z' fill='%232684fc'/%3E%3Cpath d='m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z' fill='%23ffba00'/%3E%3C/svg%3E") center/contain no-repeat; }
+
+  /* Search field, when a module renders one inline. */
+  .barsearch{ border-radius:var(--r-pill); background:var(--raised);
+    border:1px solid transparent; }
+  .barsearch:focus{ border-color:var(--m); background:var(--paper); outline:none; }
+
+  /* Standalone module pages (opened outside the shell) still get a suite nav
+     injected into their own drawer by toggle_script(). Same row vocabulary,
+     scoped to that drawer so it never competes with the sidebar. */
+  aside .suite-nav .suite-link{ display:flex; align-items:center; gap:9px; height:30px;
+    padding:0 20px; color:var(--slate); font-size:13px; text-decoration:none; }
+  aside .suite-nav .suite-link:hover{ background:var(--hover); color:var(--ink); }
+  aside .suite-nav .suite-link[aria-current="page"]{ background:var(--press); color:var(--ink); }
+  aside .suite-nav .suite-label{ font-size:12.5px; color:var(--muted); padding:8px 20px 4px; }
+
+  /* --- Narrow widths: the sidebar becomes a top strip (the app's narrow
+     mode). Modules scroll; Sections, Search and Theme pin right. The top row,
+     the section list and the wordmark have no room and step aside; the section
+     list opens as a sheet from Sections. --- */
+  @media (max-width:760px){
+    body.oncos-railed{ flex-direction:column; }
+    .oncos-rail{
+      width:auto; height:auto; flex-direction:row; align-items:center; gap:var(--s-2);
+      /* Under the status bar in an iOS PWA (viewport-fit=cover). */
+      padding:calc(6px + env(safe-area-inset-top)) calc(var(--s-2) + env(safe-area-inset-right))
+        6px calc(var(--s-2) + env(safe-area-inset-left));
+      border-right:0; border-bottom:1px solid var(--grid); overflow:visible;
+    }
+    .rail-top{ display:none; }
+    .rail-scroll{ flex:1 1 auto; min-width:0; overflow:visible; margin:0; padding:0; }
+    .oncos-rail .suite-nav{ flex:1; min-width:0; flex-direction:row; gap:2px;
+      overflow-x:auto; scrollbar-width:none; }
+    .oncos-rail .suite-nav::-webkit-scrollbar{ display:none; }
+    .oncos-rail .suite-link{ width:auto; padding:0 10px; }
+    /* The strip holds only the primary modules (Evidence, Staging). The
+       Appendix is not in the strip at all: it opens from the Sections drawer,
+       listed above the current page's own sections. */
+    .oncos-rail .rail-group, .oncos-rail .rail-appendix, .oncos-rail .rail-appendix.open{ display:none; }
+    .oncos-rail .rail-sheet-appendix{ display:flex; flex-direction:column; gap:2px;
+      margin:0 0 var(--s-4); }
+    .oncos-rail .rail-sheet-label{ font-size:12.5px; color:var(--muted); padding:0 var(--s-2) var(--s-1); }
+    .oncos-rail .rail-sheet-appendix .suite-link{ width:100%; padding:0 var(--s-2); }
+    .rail-section{ display:none; margin:0; }
+    .rail-sections, .rail-search-strip{ display:inline-flex !important; }
+    body.nav-open .rail-section{
+      display:block; position:fixed; z-index:39; left:0; right:0;
+      top:var(--strip-h); bottom:0; margin:0;
+      padding:var(--s-3) var(--s-2) calc(var(--s-6) + env(safe-area-inset-bottom));
+      overflow-y:auto; overscroll-behavior:contain;
+      background:var(--ground); border-top:1px solid var(--grid);
+    }
+    body.nav-open .rail-sections{ background:var(--press); color:var(--ink); }
+    .rail-foot{ display:flex; align-items:center; gap:2px; flex:0 0 auto; padding:0; }
+    /* The strip has no hide-sidebar control, so a remembered collapse from a
+       desktop session must not hide the only navigation on a phone. */
+    html.rail-collapsed .oncos-rail{ display:flex; position:sticky; box-shadow:none; animation:none; }
+    html.rail-collapsed .rail-float{ display:none; }
+    html.rail-collapsed #viewroot{ padding-left:14px; }
+  }
+  /* Strip height, for anything anchored under it (the Sections sheet): one
+     30px row, 6px padding top and bottom, the 1px rule, the top safe-area. */
+  :root{ --strip-h:calc(var(--rail-row) + 13px + env(safe-area-inset-top)); }
+
+  .sdot-evidence{ background:#1967d2; }
+  :root[data-theme="dark"] .sdot-evidence{ background:#7aa2f7; }
+  .sdot-drugs{ background:#1967d2; }
+  :root[data-theme="dark"] .sdot-drugs{ background:#7aa2f7; }
+  .sdot-staging{ background:#1967d2; }
+  :root[data-theme="dark"] .sdot-staging{ background:#7aa2f7; }
+  .sdot-tox{ background:#1967d2; }
+  :root[data-theme="dark"] .sdot-tox{ background:#7aa2f7; }
+  .sdot-acute{ background:#1967d2; }
+  :root[data-theme="dark"] .sdot-acute{ background:#7aa2f7; }
+  .sdot-notes{ background:#1967d2; }
+  :root[data-theme="dark"] .sdot-notes{ background:#7aa2f7; }
+  .sdot-hub{ background:linear-gradient(135deg,#1967d2,#1967d2,#1967d2,#1967d2,#1967d2,#1967d2); }
+  :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7); }
+
+  /* The theme control stays where the site already puts it — in the sidebar,
+     not a Settings dialog (the site has none, and head_script()'s no-flash
+     resolver is load-bearing). It takes the app's 28px icon-button shape, in the
+     sidebar foot where the app keeps its settings control. oncos_motion stacks
+     sun and moon absolutely at the centre and crossfades them; a fixed-size
+     button is what that crossfade needs. */
+  .theme-toggle{
+    display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+    width:28px; height:28px; padding:0; cursor:pointer;
+    background:transparent; color:var(--slate);
+    border:0; border-radius:var(--r-sm);
+    transition:color 110ms var(--ease), background 110ms var(--ease);
+  }
+  .theme-toggle:hover{ color:var(--ink); background:var(--hover); }
+  .theme-toggle svg{ width:var(--ico-nav); height:var(--ico-nav); flex:0 0 auto;
+    fill:none; stroke:currentColor; stroke-width:1.65; stroke-linecap:round; stroke-linejoin:round; }
   .theme-toggle .i-sun{ display:none; }
   :root[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
   :root[data-theme="dark"] .theme-toggle .i-sun{ display:block; }
@@ -378,130 +606,44 @@
     details::details-content{ transition-duration:.001ms !important; }
   }
 
-@property --m { syntax:'<color>'; inherits:true; initial-value:#0977b0; }
+@property --m { syntax:'<color>'; inherits:true; initial-value:#1967d2; }
 @media (prefers-reduced-motion: no-preference){ :root{ transition: --m .35s var(--mo-ease, cubic-bezier(.3,0,.1,1)); } }
-html[data-view="evidence"]{ --m:#0977b0; --teal:var(--m); }
-html[data-view="evidence"][data-theme="dark"]{ --m:#3fbbef; }
-html[data-view="drugs"]{ --m:#0977b0; --teal:var(--m); }
-html[data-view="drugs"][data-theme="dark"]{ --m:#3fbbef; }
-html[data-view="staging"]{ --m:#0977b0; --teal:var(--m); }
-html[data-view="staging"][data-theme="dark"]{ --m:#3fbbef; }
-html[data-view="tox"]{ --m:#0977b0; --teal:var(--m); }
-html[data-view="tox"][data-theme="dark"]{ --m:#3fbbef; }
-html[data-view="acute"]{ --m:#0977b0; --teal:var(--m); }
-html[data-view="acute"][data-theme="dark"]{ --m:#3fbbef; }
-html[data-view="notes"]{ --m:#0977b0; --teal:var(--m); }
-html[data-view="notes"][data-theme="dark"]{ --m:#3fbbef; }
+html[data-view="evidence"]{ --m:#1967d2; --teal:var(--m); }
+html[data-view="evidence"][data-theme="dark"]{ --m:#7aa2f7; }
+html[data-view="drugs"]{ --m:#1967d2; --teal:var(--m); }
+html[data-view="drugs"][data-theme="dark"]{ --m:#7aa2f7; }
+html[data-view="staging"]{ --m:#1967d2; --teal:var(--m); }
+html[data-view="staging"][data-theme="dark"]{ --m:#7aa2f7; }
+html[data-view="tox"]{ --m:#1967d2; --teal:var(--m); }
+html[data-view="tox"][data-theme="dark"]{ --m:#7aa2f7; }
+html[data-view="acute"]{ --m:#1967d2; --teal:var(--m); }
+html[data-view="acute"][data-theme="dark"]{ --m:#7aa2f7; }
+html[data-view="notes"]{ --m:#1967d2; --teal:var(--m); }
+html[data-view="notes"][data-theme="dark"]{ --m:#7aa2f7; }
 
 *{box-sizing:border-box;}
 html,body{margin:0;}
 body{font-family:var(--font-sans);color:var(--ink);background:var(--ground);
   font-size:var(--t-md);line-height:1.5;-webkit-text-size-adjust:100%;}
 a{color:var(--teal);}
-.mhead{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;
-  padding:calc(11px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) 11px calc(24px + env(safe-area-inset-left));}
-.burger{display:flex;flex:0 0 auto;width:36px;height:36px;border:1px solid var(--hair);
-  background:var(--paper);color:var(--ink);align-items:center;justify-content:center;cursor:pointer;padding:0;}
-.burger svg{width:20px;height:20px;}
+
 .wm{margin:0;font-size:var(--t-3xl);color:var(--ink);line-height:1;text-decoration:none;flex:0 0 auto;}
-.hdiv{width:1px;height:22px;background:var(--hair);flex:0 0 auto;}
-/* Active-module lockup (oncOS | Evidence): desktop-only — the mobile switcher
-   chip already names the module below 880px, and the hub hides the whole
-   masthead, so no empty state arises. */
-.tag{margin:0;color:var(--muted);font-size:var(--t-xs);font-weight:var(--w-name);letter-spacing:2px;
-  text-transform:uppercase;flex:0 0 auto;}
-.mhead .hdiv,.mhead .tag{display:none;}
-@media (min-width:880px){
-  .mhead .hdiv,.mhead .tag{display:block;}
-}
-/* Suite tabs in the masthead (replaces the drawer suite section). Resets the
-   kit's drawer .suite-nav box styling; active tab lights in the current
-   wavelength (--m IS the active module's hue by definition). */
-.mast-suite{display:flex;align-items:center;gap:2px;margin:0 auto;padding:0;border:0;
-  min-width:0;overflow-x:auto;scrollbar-width:none;position:relative;}
-/* Sliding active-module indicator (2026-08-08, beautify #2): the tinted pill
-   is ONE element that glides to the active tab on module switch — possible
-   because the masthead is persistent shell chrome. The router positions it in
-   mount(); the aria-current link keeps only its colour. */
-.mast-suite .tslider{position:absolute;top:0;left:0;width:36px;height:32px;border-radius:9px;
-  background:color-mix(in oklab, var(--m) 11%, transparent);pointer-events:none;opacity:0;
-  transition:transform .22s var(--mo-ease, cubic-bezier(.3,0,.1,1)), background .35s;}
-.mast-suite .tslider.on{opacity:1;}
-@media (prefers-reduced-motion:reduce){ .mast-suite .tslider{transition:background .35s;} }
-.mast-suite::-webkit-scrollbar{display:none;}
-/* Icon tabs (Jonan 2026-07-18): the masthead carries the module ICONS, no
-   text — names live in title/aria-label. Active icon lights in its wavelength
-   (--m is the active module's hue by definition). */
-.mast-suite .suite-link{display:flex;align-items:center;justify-content:center;
-  width:36px;height:32px;border-radius:9px;color:var(--muted);text-decoration:none;
-  /* padding:0 is load-bearing: the kit's drawer .suite-link rule bleeds
-     padding:7px 20px in here; under border-box that floors the tab at 40px
-     while the slider was 36px — the asymmetry Jonan caught on hover. */
-  padding:0;}
-@media (hover:hover){ .mast-suite .suite-link:hover{color:var(--ink);background:var(--accent-soft);} }
-.mast-suite .suite-link.is-pressed{color:var(--ink);background:var(--accent-soft);}
-/* background:transparent is load-bearing: the KIT's drawer .suite-link rule
-   also matches these masthead tabs and paints accent-soft on the active one —
-   without this override the static tint doubles the sliding pill and reads as
-   a shadow ghost (Jonan, on-device, 2026-08-08). */
-.mast-suite .suite-link[aria-current="page"]{color:var(--m);background:transparent;}
-.mast-suite .tico{display:flex;}
-.mast-suite .tico svg{width:18px;height:18px;display:block;}
-/* True geometric centring where the bar is wide enough that the tabs can
-   never collide with the search field; below that they centre in the free
-   span (margin:auto), and on mobile they give way to the dropdown.
-   940 (was 880, 2026-08-08 adversarial QA): at 885-905px the absolutely
-   centred strip overlapped the search field by a few px — measured 5px at
-   890. In-flow centring covers the band collision-free. */
-@media (min-width:940px){
-  .mhead{position:sticky;}
-  .mast-suite{position:absolute;left:50%;transform:translateX(-50%);margin:0;}
-}
-/* Mobile module switcher: single thin masthead row; the active module's icon
-   + caret opens a dropdown sheet under the bar. */
-.mob-suite{display:none;flex:0 0 auto;align-items:center;gap:3px;height:32px;padding:0 7px;
-  border:1px solid var(--hair);border-radius:9px;background:transparent;color:var(--m);cursor:pointer;}
-.mob-suite .tico svg{width:18px;height:18px;display:block;}
-.mob-suite .caret{width:13px;height:13px;color:var(--muted);transition:transform .15s;}
-.mob-suite[aria-expanded="true"] .caret{transform:rotate(180deg);}
-.suite-drop{position:fixed;z-index:55;right:12px;top:calc(54px + env(safe-area-inset-top));
-  min-width:200px;background:var(--paper);border:1px solid var(--hair);border-radius:12px;
-  box-shadow:var(--shadow);padding:6px;display:none;}
-.suite-drop .drop-link{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:8px;
-  color:var(--ink);text-decoration:none;font-size:var(--t-md);}
-.suite-drop .drop-link .tico svg{width:18px;height:18px;display:block;}
-/* Stated explicitly, not inherited. A view fragment's CSS is live in this same
- * document while its view is active, and fragmentize scopes it by document
- * state (`[data-view=x] .foo`), not by containment — so an unqualified module
- * rule matches shell chrome too. A chrome class with no rule of its own has
- * nothing to out-specify it. Drugs styles its drug-name headings and used to
- * collide here, rendering these labels at 18px/600. */
-.suite-drop .drop-link .drop-name{font-family:inherit;font-size:var(--t-md);font-weight:var(--w-body);
-  line-height:1.35;margin:0;}
-@media (hover:hover){ .suite-drop .drop-link:hover{background:var(--accent-soft);} }
-.suite-drop .drop-link.is-pressed{background:var(--accent-soft);}
-.suite-drop .drop-link[aria-current="page"]{color:var(--m);
-  background:color-mix(in oklab, var(--m) 10%, transparent);}
-@media (prefers-reduced-motion: no-preference){
-  .suite-drop{transform-origin:top right;}
-  .suite-drop.open{animation:drop-in .16s var(--mo-ease, cubic-bezier(.3,0,.1,1));}
-  @keyframes drop-in{from{opacity:0;transform:scale(.96) translateY(-4px);}to{opacity:1;transform:none;}}
-}
-.suite-drop.open{display:block;}
+
+
 /* Module scripts keep a non-interactive value holder for their legacy APIs. */
 .barsearch{display:none!important;}
 .barsearch:focus-visible{outline:none;}
 /* Automatic study focus preserves navigation without a persistent selection rim.
    Keyboard interaction restores the kit's visible focus indicator. */
 html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible{outline:none;}
-.mhead .theme-toggle{flex:0 0 auto;}
+
 /* One suite-wide search surface. */
 .global-search-dialog[hidden]{display:none!important;}
 .global-search-dialog{position:fixed;inset:0;z-index:100;background:color-mix(in oklab,var(--ink) 42%,transparent);
   padding:max(18px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right))
     max(18px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));display:flex;justify-content:center;}
 .global-search-panel{width:min(920px,100%);height:min(820px,100%);display:flex;flex-direction:column;
-  background:var(--ground);border:1px solid var(--hair);border-radius:18px;box-shadow:0 20px 70px rgba(0,0,0,.28);overflow:hidden;}
+  background:var(--ground);border:1px solid var(--hair);border-radius:var(--r-lg);box-shadow:var(--shadow-pop);overflow:hidden;}
 .global-search-head{display:flex;gap:10px;align-items:center;padding:14px;border-bottom:1px solid var(--grid);background:var(--paper);}
 .global-search-head input{flex:1 1 auto;min-width:0;height:42px;border:1px solid var(--hair);border-radius:10px;
   background:var(--ground);color:var(--ink);padding:0 13px;font:inherit;}
@@ -516,8 +658,8 @@ html:not([data-input-modality="keyboard"]) #viewroot .trial-toggle:focus-visible
   background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
 .gs-result:first-of-type{border-radius:12px 12px 0 0;}
 .gs-result:last-child{border-radius:0 0 12px 12px;}
-@media (hover:hover){.gs-result:hover{background:color-mix(in oklab,var(--m) 6%,var(--paper));}}
-.gs-result.is-pressed{background:color-mix(in oklab,var(--m) 6%,var(--paper));}
+@media (hover:hover){.gs-result:hover{background:var(--raised);}}
+.gs-result.is-pressed{background:var(--raised);}
 .gs-title{font-weight:var(--w-name);font-size:var(--t-lg);}
 .gs-subtitle{font-size:var(--t-sm);color:var(--muted);}
 .gs-preview{font-size:var(--t-base);color:var(--slate);line-height:1.45;}
@@ -529,54 +671,147 @@ body.global-search-open{overflow:hidden;}
   .global-search-head{padding-top:calc(10px + env(safe-area-inset-top));}
   .global-search-results{padding:14px;}
 }
-.mhead .global-search-open{margin-left:auto;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;
-  border:1px solid var(--hair);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;flex:none;}
-.global-search-open svg{width:18px;height:18px;}
-.global-search-open-label{font-size:var(--t-sm);}
+
 .global-search-filters{display:flex;gap:6px;flex-wrap:wrap;padding:12px 14px 4px;flex-shrink:0;}
 .global-search-filters .gs-filter{min-height:44px;padding:7px 10px;background:var(--paper);border:1px solid var(--hair);border-radius:9px;color:var(--ink);font:inherit;font-size:var(--t-sm);cursor:pointer;}
-.global-search-filters .gs-filter[aria-pressed="true"]{border-color:var(--m);color:var(--m);background:var(--accent-soft);}
+.global-search-filters .gs-filter[aria-pressed="true"]{border-color:var(--hair);color:var(--ink);background:var(--press);}
 .global-search-status{padding:4px 18px 0;font-size:var(--t-sm);color:var(--muted);flex-shrink:0;}
-.global-search-results .gs-module{font-size:var(--t-xs);font-weight:var(--w-name);color:var(--m);}
+.global-search-results .gs-module{font-size:var(--t-xs);font-weight:var(--w-name);color:var(--muted);}
 .global-search-results .gs-retry{display:block;margin:0 auto 20px;min-height:44px;padding:8px 14px;border:1px solid var(--hair);border-radius:9px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
 .global-search-head input{height:44px;font-size:16px;}
 .global-search-close{width:44px;height:44px;}
-@media(max-width:760px){
-  .mhead .global-search-open{width:44px;justify-content:center;padding:0;}
-  .global-search-open-label{display:none;}
-}
-aside.sidebar{position:fixed;top:0;left:0;z-index:50;background:var(--paper);
-  border-right:1px solid var(--hair);height:100vh;height:100dvh;overflow-y:auto;
-  width:min(82vw,300px);transform:translateX(-100%);transition:transform .22s ease;
-  padding:calc(16px + env(safe-area-inset-top)) 0 calc(20px + env(safe-area-inset-bottom));}
-body.nav-open aside.sidebar{transform:translateX(0);}
-body.nav-open{overflow:hidden;}
+
 #viewroot{min-height:60vh;}
 .view-error{max-width:560px;margin:48px auto;padding:24px;color:var(--ink);}
 .view-error h1{font-size:24px;line-height:1.3;}
 .view-error p{color:var(--slate);line-height:1.6;}
 .view-error button{min-height:44px;padding:10px 16px;border:1px solid var(--hair);border-radius:9px;
   background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
-/* Drawer padding: evidence/staging nav items carry their own indent; drugs,
-   tox and acute relied on their (stripped) module-aside padding — restore it
-   at the mount point so content doesn't hug the drawer edges. */
-[data-view="drugs"] #viewnav,[data-view="tox"] #viewnav,[data-view="acute"] #viewnav{
-  padding:6px 18px 20px;}
-/* in-view hash anchors (drugs A–Z) land below the sticky masthead */
-:target{scroll-margin-top:72px;}
-@media (max-width:760px){
-  .mhead{padding-left:15px;padding-right:15px;gap:10px;}
-  .mast-suite{display:none;}
-  .mob-suite{display:flex;}
+/* Rail layout (2026-09-23). The rail sits beside the content; content fills
+   the window with no max-width and no header bar above it. */
+body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
+#viewroot{flex:1 1 auto;min-width:0;}
+/* Every page fills the window beside the sidebar (Jonan, 2026-09-23: "fit the
+   screen"). Each module styles its own `main` with a centred max-width (Staging
+   and Acute 1000px, Drugs and Tox 1040px, Evidence 1280px, Notes 96vw) and
+   slightly different padding. Inside the shell that `main` IS #viewroot, so
+   those caps floated the narrower pages in the middle of a wide window. One ID
+   rule outranks every `[data-view=x] main` rule; padding is Evidence's for all.
+   Screen only, so each module's print styles still apply. */
+@media screen{
+  #viewroot{max-width:none;margin:0;padding:18px clamp(16px,4vw,26px) 60px;box-sizing:border-box;}
 }
-/* Touch ergonomics: preserve the compact visual chrome while extending its
-   real hit areas, and give dense drawer/list controls a full 44px target. */
+@media screen and (max-width:760px){
+  #viewroot{padding:14px 14px 54px;}
+}
+/* Height of the chrome above the content, for module sticky offsets. Module
+   generators write `top:var(--chrome-h, calc(59px + safe-area))`: the fallback
+   is their standalone page's own 59px header; inside the shell there is no
+   header on desktop, and on a phone the strip is the chrome. */
+:root{--chrome-h:0px;}
+@media (max-width:760px){ :root{--chrome-h:var(--strip-h);} }
+/* ---- Section list: each view's own nav, mounted in the sidebar ----------
+   Set in the Claude app's vocabulary (2026-09-23). The six generators share
+   one nav structure — .navsec groups with a .secname/.sysname header, item
+   buttons in .items/.sheets (Tox: .socnav links), an .allbtn reset and count
+   spans — so one block restyles all of them.
+   `.oncos-rail #viewnav …` outranks each fragment's `[data-view=x] …` rules.
+     groups  -> the app's project header ("Oncology"): 12.5px sentence case,
+                muted, caret at right.
+     items   -> the app's session rows: 28px, one line, 13px near-white, a
+                hollow dot that fills when active, the --press row when active.
+     counts  -> quiet muted figures at the right, no pill.
+   Rows are single-line with an ellipsis, as in the app (Jonan, 2026-09-23:
+   "follow the reference"). The router gives every truncatable row a title
+   tooltip carrying its full name, and the phone Sections sheet is full-width,
+   so no clinical name is unreachable. */
+#viewnav{padding:0;}
+.oncos-rail #viewnav .navsec,.oncos-rail #viewnav .items,.oncos-rail #viewnav .sheets,
+.oncos-rail #viewnav .socnav,.oncos-rail #viewnav .facet,.oncos-rail #viewnav .allbtn{margin:0;padding:0;border:0;background:transparent;}
+/* Groups sit on the same rhythm as rows: a 26px header plus the 2px row gap
+   (was 26px + 8px, which read as loose). A module's larger sections (Tox's
+   "Supportive care" / "irAE — by organ") keep a small 8px break. */
+.oncos-rail #viewnav .navsec + .navsec{margin-top:2px;}
+.oncos-rail #viewnav .facet + .facet{margin-top:var(--s-2);}
+.oncos-rail #viewnav .secname,.oncos-rail #viewnav .sysname{
+  display:flex;align-items:center;justify-content:flex-start;gap:4px;width:100%;
+  height:26px;margin:0;padding:0 var(--s-2);border:0;border-radius:var(--r-sm);background:transparent;
+  font:inherit;font-size:12.5px;font-weight:var(--w-body);letter-spacing:0;text-transform:none;
+  color:var(--muted);text-align:left;cursor:pointer;
+  transition:background 110ms var(--ease),color 110ms var(--ease);}
+.oncos-rail #viewnav .secname:hover,.oncos-rail #viewnav .sysname:hover{background:var(--hover);color:var(--ink);}
+/* Chevron beside the label, as the app's "Oncology ⌄": points down when the
+   group is open, right when collapsed. Drawn as a vector mask so it is crisp
+   at any offset; the modules' ▼ glyph is hidden. */
+.oncos-rail #viewnav .secname .caret,.oncos-rail #viewnav .sysname .caret{
+  display:inline-block;flex:0 0 auto;width:12px;height:12px;font-size:0;opacity:1;
+  background-color:var(--muted);transform:none;transition:transform 110ms var(--ease);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px 12px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px 12px no-repeat;}
+.oncos-rail #viewnav .navsec.collapsed .caret{transform:rotate(-90deg);}
+.oncos-rail #viewnav .flabel{
+  margin:0;padding:4px var(--s-2) 2px;font-size:12.5px;font-weight:var(--w-body);
+  letter-spacing:0;text-transform:none;color:var(--muted);}
+.oncos-rail #viewnav .items button,.oncos-rail #viewnav .sheets button,.oncos-rail #viewnav .socnav a,
+.oncos-rail #viewnav .itemlink,.oncos-rail #viewnav .allbtn button,.oncos-rail #viewnav .facet .sbtn{
+  display:flex;align-items:center;gap:var(--s-2);width:100%;height:var(--rail-row);box-sizing:border-box;
+  margin:0;padding:0 var(--s-2);border:0;border-radius:var(--r-sm);background:transparent;
+  font:inherit;font-size:13px;font-weight:var(--w-body);line-height:1.2;text-align:left;white-space:nowrap;
+  text-decoration:none;color:var(--ink);cursor:pointer;
+  transition:background 110ms var(--ease),color 110ms var(--ease);}
+.oncos-rail #viewnav .items button::before,.oncos-rail #viewnav .sheets button::before,
+.oncos-rail #viewnav .socnav a::before,.oncos-rail #viewnav .itemlink::before{
+  /* A vector ring (mask), not a box-shadow: an inset 1.25px shadow rounds
+     differently on each side and read as lopsided. */
+  content:"";flex:0 0 auto;width:8px;height:8px;background-color:var(--muted);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3C/svg%3E") center/8px 8px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3C/svg%3E") center/8px 8px no-repeat;}
+.oncos-rail #viewnav .items button > span:first-child,.oncos-rail #viewnav .sheets button > span:first-child,
+.oncos-rail #viewnav .socnav a > span:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;}
+/* 2px between rows so adjacent highlights never touch. Sibling margins, not a
+   flex gap: making the lists flex would override each module's
+   `.navsec.collapsed .items{display:none}` and un-collapse every group. */
+.oncos-rail #viewnav .items button + button,.oncos-rail #viewnav .sheets button + button,
+.oncos-rail #viewnav .socnav a + a,.oncos-rail #viewnav .itemlink + .itemlink{margin-top:2px;}
+/* Tox's lists are already flex columns with a 1px gap; zero it (gap only —
+   display is left alone) so every list lands on the same 2px. */
+.oncos-rail #viewnav .items,.oncos-rail #viewnav .sheets,.oncos-rail #viewnav .socnav{gap:0;}
+.oncos-rail #viewnav .items button:hover,.oncos-rail #viewnav .sheets button:hover,
+.oncos-rail #viewnav .socnav a:hover,.oncos-rail #viewnav .itemlink:hover,
+.oncos-rail #viewnav .allbtn button:hover,.oncos-rail #viewnav .facet .sbtn:hover{
+  background:var(--hover);color:var(--ink);}
+.oncos-rail #viewnav .items button.active,.oncos-rail #viewnav .sheets button.active,
+.oncos-rail #viewnav .socnav a.on,.oncos-rail #viewnav .itemlink.active{
+  background:var(--press);color:var(--ink);font-weight:var(--w-body);}
+.oncos-rail #viewnav .items button.active::before,.oncos-rail #viewnav .sheets button.active::before,
+.oncos-rail #viewnav .socnav a.on::before,.oncos-rail #viewnav .itemlink.active::before{
+  background-color:var(--slate);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2'/%3E%3C/svg%3E") center/8px 8px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2'/%3E%3C/svg%3E") center/8px 8px no-repeat;}
+.oncos-rail #viewnav .allbtn{margin-bottom:var(--s-1);}
+/* Drugs' A–Z index: letters in the sidebar's near-white like every other
+   row (not the accent); letters with no drug stay muted. */
+.oncos-rail #viewnav .az a{color:var(--ink);text-decoration:none;border-radius:var(--r-sm);}
+.oncos-rail #viewnav .az a:hover{background:var(--hover);}
+.oncos-rail #viewnav .az span.off{color:var(--muted);opacity:.6;}
+/* Staging tags every item with its system (TNM/FIGO/other). The app's rows
+   carry no chips, and here the chip forced most names onto two lines; the
+   system is shown in the table's own column, so the sidebar drops it. */
+.oncos-rail #viewnav .items .badge{display:none;}
+.oncos-rail #viewnav .cnt,.oncos-rail #viewnav .socnav a .c{
+  margin-left:auto;flex:0 0 auto;padding:0;background:transparent;border-radius:0;
+  color:var(--muted);font-size:11.5px;font-weight:var(--w-body);}
+:target{scroll-margin-top:16px;}
+@media (max-width:760px){ :target{scroll-margin-top:64px;} }
+.skip:focus{position:fixed!important;left:8px;top:8px;width:auto!important;height:auto!important;
+  clip:auto!important;z-index:200;padding:8px 12px!important;background:var(--paper);
+  border:1px solid var(--hair);border-radius:var(--r-md);color:var(--ink);}
+
+/* Touch ergonomics: dense section-nav and list controls get a full 44px
+   target under a coarse pointer (rail rows handle their own in the kit). */
 @media (hover:none) and (pointer:coarse){
-  .burger,.mob-suite,.theme-toggle,.mast-suite .suite-link{position:relative;}
-  .burger::before,.mob-suite::before,.mast-suite .suite-link::before{
-    content:"";position:absolute;inset:-4px;}
-  .theme-toggle::before{content:"";position:absolute;inset:-9px;}
-  #viewnav a,#viewnav button,#viewnav [role="button"]{min-height:44px;box-sizing:border-box;}
+  /* Phone Sections sheet only: a full-screen touch list keeps 44px rows. */
+  @media (max-width:760px){ .oncos-rail #viewnav .items button,.oncos-rail #viewnav .sheets button,
+    .oncos-rail #viewnav .socnav a,.oncos-rail #viewnav .itemlink,.oncos-rail #viewnav .allbtn button,
+    .oncos-rail #viewnav .secname,.oncos-rail #viewnav .sysname,
+    .oncos-rail .rail-sheet-appendix .suite-link{height:auto;min-height:44px;white-space:normal;} }
   [data-view="drugs"] .az a,[data-view="drugs"] .az span{width:44px;height:44px;}
   [data-view="drugs"] details.evi summary{min-height:44px;padding-block:8px;box-sizing:border-box;}
 }
@@ -588,95 +823,63 @@ body.nav-open{overflow:hidden;}
 #viewroot.leaving{opacity:0;transform:translateY(5px);}
 /* loading shimmer between fetch start and mount (usually invisible: cached) */
 .viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:var(--t-base);}
-/* Chrome hardening: view fragments carry generic element rules
-   ([data-view=x] a{color:var(--teal)} etc.) that outrank bare class selectors
-   and were tinting the persistent wordmark per module (the original
-   "wordmark differs across the suite" bug). Two-class selectors win back. */
-.mhead a.wm{color:var(--ink);text-decoration:none;}
-.mhead .mast-suite .suite-link{text-decoration:none;}
-/* ---- home: the original hub structure inside the shell. The masthead stays
-   hidden on this view; module labels use the hub-only Meridian Signal display
-   treatment while their accessible text remains normally cased. ---- */
-[data-view="hub"] .mhead{display:none;}
-[data-view="hub"] .suite-drop{display:none !important;}
-[data-view="hub"] .themetoggle-fixed{position:fixed;top:calc(16px + env(safe-area-inset-top));
-  right:calc(16px + env(safe-area-inset-right));z-index:5;}
-[data-view="hub"] .hub{margin:auto;width:100%;max-width:760px;padding:64px 40px;}
-[data-view="hub"] #viewroot{min-height:100vh;min-height:100dvh;display:flex;}
-[data-view="hub"] .hero{text-align:center;margin-bottom:44px;}
-[data-view="hub"] .hero .wm{margin:0;font-size:var(--t-wordmark);letter-spacing:-1px;color:var(--ink);line-height:1;}
-[data-view="hub"] .rule{border:none;border-top:1px solid var(--rule);margin:0 0 32px;}
-[data-view="hub"] .list{display:flex;flex-direction:column;gap:12px;}
-[data-view="hub"] .card{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;
-  padding:18px 20px;background:var(--paper);border:1px solid var(--grid);border-radius:14px;
-  box-shadow:var(--shadow);transition:background .12s,border-color .15s,transform .15s;}
-/* Hover is pointer-only (2026-08-08, Jonan): on touch the tint fired while
-   scrolling; :active gives press-to-select feedback instead — browsers
-   suppress it during scroll gestures. */
-@media (hover:hover){
-  [data-view="hub"] .card:hover{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
-    border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));transform:translateY(-2px);}
-  }
-[data-view="hub"] .card.is-pressed{background:color-mix(in oklab, var(--cm, var(--teal)) 5%, var(--paper));
-  border-color:color-mix(in oklab, var(--cm, var(--teal)) 45%, var(--grid));}
-/* Icon tiles in the accent teal (Jonan 2026-08-08, reversing the slate-tile
-   call from earlier the same day). */
-[data-view="hub"] .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;color:var(--cm, var(--teal));
-  background:color-mix(in oklab, var(--cm, var(--teal)) 12%, transparent);
-  display:flex;align-items:center;justify-content:center;}
-[data-view="hub"] .ic svg{width:22px;height:22px;}
-[data-view="hub"] .cbody{display:flex;flex-direction:column;gap:5px;flex:1 1 auto;min-width:0;}
-[data-view="hub"] .cname{display:flex;align-items:baseline;flex:0 0 auto;min-width:0;
-  font-family:var(--font-sans);line-height:1;}
-[data-view="hub"] .cinitial,[data-view="hub"] .crest{color:var(--ink);font-size:12px;
-  font-weight:600;line-height:1;letter-spacing:.14em;text-transform:uppercase;}
-[data-view="hub"] .cinitial{flex:0 0 auto;}
-[data-view="hub"] .cgo{flex:0 0 auto;color:var(--cm, var(--teal));font-size:var(--t-xl);opacity:.55;}
-[data-view="hub"] .card:hover .cgo{opacity:1;}
-[data-view="hub"] .disc{margin-top:40px;text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:var(--t-sm);line-height:1.6;
-  border-top:1px solid var(--grid);padding-top:18px;letter-spacing:.3px;}
-[data-view="hub"] .versionmark{font-family:var(--font-mono);font-size:var(--t-2xs);letter-spacing:.08em;
-  text-transform:uppercase;white-space:nowrap;}
-@media (max-width:560px){
-  [data-view="hub"] .hub{padding:40px 22px;}
-  [data-view="hub"] .hero .wm{font-size:var(--t-display-lg);}
-}
-@media (prefers-reduced-motion: no-preference){
-  [data-view="hub"] .hero .wm{animation:hub-rise .34s var(--mo-ease, cubic-bezier(.3,0,.1,1)) .06s both;}
-  @keyframes hub-rise{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
-}
 
-[data-view="hub"] .card.m-evidence{--cm:#0977b0;}
-html[data-theme="dark"][data-view="hub"] .card.m-evidence{--cm:#3fbbef;}
-[data-view="hub"] .card.m-drugs{--cm:#0977b0;}
-html[data-theme="dark"][data-view="hub"] .card.m-drugs{--cm:#3fbbef;}
-[data-view="hub"] .card.m-staging{--cm:#0977b0;}
-html[data-theme="dark"][data-view="hub"] .card.m-staging{--cm:#3fbbef;}
-[data-view="hub"] .card.m-tox{--cm:#0977b0;}
-html[data-theme="dark"][data-view="hub"] .card.m-tox{--cm:#3fbbef;}
-[data-view="hub"] .card.m-acute{--cm:#0977b0;}
-html[data-theme="dark"][data-view="hub"] .card.m-acute{--cm:#3fbbef;}
-[data-view="hub"] .card.m-notes{--cm:#0977b0;}
-html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
 </style>
 </head>
-<body>
-<header class="mhead">
-  <button class="burger" id="burger" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
-  <a class="wm" href="/" data-nav="hub" aria-label="oncOS home">onc<span class="os">OS</span></a>
-  <span class="hdiv" aria-hidden="true"></span>
-  <span class="tag" id="mast-mod" aria-hidden="true"></span>
-  <nav class="suite-nav mast-suite" aria-label="oncOS suite">
-    <span class="tslider" id="tabslider" aria-hidden="true"></span>
-    <a class="suite-link" href="/notes/" data-nav="notes" title="Notes" aria-label="Notes"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5A4.5 4.5 0 0 0 7.5 4H3v14h4.5a4.5 4.5 0 0 1 4.5 2.5"/><path d="M12 6.5A4.5 4.5 0 0 1 16.5 4H21v14h-4.5a4.5 4.5 0 0 0-4.5 2.5"/><path d="M12 6.5v14"/></svg></span></a><a class="suite-link" href="/evidence/" data-nav="evidence" title="Evidence" aria-label="Evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span></a><a class="suite-link" href="/staging/" data-nav="staging" title="Staging" aria-label="Staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span></a><a class="suite-link" href="/drugs/" data-nav="drugs" title="Drugs" aria-label="Drugs"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span></a><a class="suite-link" href="/tox/" data-nav="tox" title="Tox" aria-label="Tox"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span></a><a class="suite-link" href="/acute/" data-nav="acute" title="Acute" aria-label="Acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span></a>
-  </nav>
-  <button class="mob-suite" id="mobsuite" type="button" aria-label="Switch module" aria-expanded="false">
-    <span class="tico" id="mobsuite-ico"></span>
-    <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-  </button>
-  <button id="global-search-open" class="global-search-open" type="button" aria-label="Search all oncOS" title="Search all oncOS (Cmd/Ctrl+K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span class="global-search-open-label">Search all oncOS</span></button>
-  <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-</header>
+<body class="oncos-railed">
+<a class="skip sr-only" href="#viewroot">Skip to content</a>
+<!-- The sidebar (2026-09-23): the Claude app's sidebar, mapped onto oncOS.
+     Top row: sidebar toggle, back, forward, search. Primary list: the six
+     modules (Evidence first; there is no home page). Section list: the active
+     view's own nav (#viewnav), its groups set like the app's project header
+     and its items like the app's session rows. Theme and search sit in the top
+     row. No wordmark or version anywhere (Jonan, 2026-09-23); the foot exists
+     only on a phone, where it holds the strip's Sections / Search / Theme.
+     Router hooks are unchanged: .suite-link + data-nav carry aria-current,
+     #viewnav receives each view's nav, #burger is the phone Sections button. -->
+<div class="oncos-rail" role="complementary" aria-label="oncOS navigation">
+  <div class="rail-top">
+    <button class="rail-icon rail-collapse" id="rail-collapse" type="button" aria-label="Hide sidebar" aria-expanded="true" title="Hide sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M9.5 4.5v15"/></svg></button>
+    <button class="rail-icon" id="rail-back" type="button" aria-label="Back" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg></button>
+    <button class="rail-icon" id="rail-forward" type="button" aria-label="Forward" title="Forward"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></button>
+    <span class="rail-top-fill"></span>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+    <button id="global-search-open" class="rail-icon global-search-open" type="button" aria-label="Search all oncOS" title="Search all oncOS (Cmd/Ctrl+K)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
+  </div>
+  <div class="rail-scroll">
+    <nav class="suite-nav" aria-label="oncOS modules">
+      <a class="suite-link" href="/evidence/" data-nav="evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="rail-label">Evidence</span></a><a class="suite-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="rail-label">Staging</span></a>
+      <button class="rail-group" id="rail-appendix-toggle" type="button" aria-expanded="false" aria-controls="rail-appendix"><span class="tico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span><span class="rail-label">Appendix</span></button>
+      <div class="rail-appendix" id="rail-appendix" role="group" aria-label="Appendix">
+        <a class="suite-link" href="/notes/" data-nav="notes"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5A4.5 4.5 0 0 0 7.5 4H3v14h4.5a4.5 4.5 0 0 1 4.5 2.5"/><path d="M12 6.5A4.5 4.5 0 0 1 16.5 4H21v14h-4.5a4.5 4.5 0 0 0-4.5 2.5"/><path d="M12 6.5v14"/></svg></span><span class="rail-label">Notes</span></a><a class="suite-link" href="/drugs/" data-nav="drugs"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="rail-label">Drugs</span></a><a class="suite-link" href="/tox/" data-nav="tox"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="rail-label">Tox</span></a><a class="suite-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="rail-label">Acute</span></a>
+      </div>
+    </nav>
+    <div class="rail-section" id="railsection">
+      <!-- Phone only: the Appendix lives in the Sections drawer, not in the
+           strip (Jonan, 2026-09-23). Same links as the desktop group, so the
+           router marks the current one in both places. -->
+      <div class="rail-sheet-appendix" role="group" aria-label="Appendix">
+        <div class="rail-sheet-label">Appendix</div>
+        <a class="suite-link" href="/notes/" data-nav="notes"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5A4.5 4.5 0 0 0 7.5 4H3v14h4.5a4.5 4.5 0 0 1 4.5 2.5"/><path d="M12 6.5A4.5 4.5 0 0 1 16.5 4H21v14h-4.5a4.5 4.5 0 0 0-4.5 2.5"/><path d="M12 6.5v14"/></svg></span><span class="rail-label">Notes</span></a><a class="suite-link" href="/drugs/" data-nav="drugs"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="rail-label">Drugs</span></a><a class="suite-link" href="/tox/" data-nav="tox"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="rail-label">Tox</span></a><a class="suite-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="rail-label">Acute</span></a>
+      </div>
+      <div id="viewnav"></div>
+    </div>
+  </div>
+  <div class="rail-foot">
+    <!-- Phone only: opens the active view's section nav as a sheet under the
+         strip. It IS the router's #burger, so the existing drawer mechanics
+         apply unchanged: module nav clicks call closeNav(), Esc closes it, and
+         syncDrawer() keeps aria-expanded in step. -->
+    <button id="burger" class="rail-icon rail-sections" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="railsection"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+    <button class="rail-icon rail-search-strip" type="button" aria-label="Search all oncOS" onclick="document.getElementById('global-search-open').click()"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+  </div>
+</div>
+<!-- Sidebar hidden: only the show icon remains, at the hide icon's exact
+     position; hovering it slides the sidebar in over the page (peek). -->
+<div class="rail-float" aria-label="Sidebar controls">
+  <button class="rail-icon" type="button" aria-label="Show sidebar" title="Show sidebar" data-rail-show><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M9.5 4.5v15"/></svg></button>
+</div>
 <input id="q" type="hidden" class="barsearch">
 <div class="global-search-dialog" id="global-search-dialog" role="dialog" aria-modal="true" aria-labelledby="global-search-label" hidden>
   <section class="global-search-panel">
@@ -690,31 +893,63 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
     <div class="global-search-results" id="global-search-results" aria-live="polite"></div>
   </section>
 </div>
-<div class="suite-drop" id="suitedrop" hidden>
-  <a class="drop-link" href="/notes/" data-nav="notes"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5A4.5 4.5 0 0 0 7.5 4H3v14h4.5a4.5 4.5 0 0 1 4.5 2.5"/><path d="M12 6.5A4.5 4.5 0 0 1 16.5 4H21v14h-4.5a4.5 4.5 0 0 0-4.5 2.5"/><path d="M12 6.5v14"/></svg></span><span class="drop-name">Notes</span></a><a class="drop-link" href="/evidence/" data-nav="evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="drop-name">Evidence</span></a><a class="drop-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="drop-name">Staging</span></a><a class="drop-link" href="/drugs/" data-nav="drugs"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="drop-name">Drugs</span></a><a class="drop-link" href="/tox/" data-nav="tox"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="drop-name">Tox</span></a><a class="drop-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="drop-name">Acute</span></a>
-</div>
-<aside class="sidebar" id="sidebar" aria-hidden="true" inert>
-  <div id="viewnav"></div>
-</aside>
-<div id="backdrop" class="backdrop"></div>
+<!-- Compatibility stub. Every module script binds #burger and #backdrop
+     WITHOUT a null guard (drugs, tox, evidence, notes, acute, staging).
+     #burger is the rail's phone-only Sections button above; #backdrop has no
+     visible role, so it stays a hidden, inert node and the writes land
+     harmlessly instead of throwing inside the view's init. Same pattern
+     fragmentize.py uses for the other stripped masthead ids. The rail section
+     deliberately does NOT carry id="sidebar": the router's syncDrawer() sets
+     #sidebar inert whenever the (retired) drawer is closed, which would hide
+     the section nav from keyboard and assistive tech. -->
+<div hidden aria-hidden="true" data-chrome-stubs><div id="backdrop" class="backdrop"></div></div>
 <main id="viewroot"></main>
-<template id="home-view"><div class="themetoggle-fixed"><button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div>
-<main class="hub">
-  <header class="hero">
-    <h1 class="wm" aria-label="oncOS">onc<span class="os">OS</span></h1>
-  </header>
-  <hr class="rule">
-  <section class="list mo-stagger">
-      <a class="card m-notes" href="notes/" data-nav="notes" aria-label="Notes"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5A4.5 4.5 0 0 0 7.5 4H3v14h4.5a4.5 4.5 0 0 1 4.5 2.5"/><path d="M12 6.5A4.5 4.5 0 0 1 16.5 4H21v14h-4.5a4.5 4.5 0 0 0-4.5 2.5"/><path d="M12 6.5v14"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">N</span><span class="crest">otes</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-evidence" href="evidence/" data-nav="evidence" aria-label="Evidence"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5c0 1.66 3.13 3 7 3s7-1.34 7-3-3.13-3-7-3-7 1.34-7 3z"/><path d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">E</span><span class="crest">vidence</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-staging" href="staging/" data-nav="staging" aria-label="Staging"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21v-6"/><path d="M12 21V10"/><path d="M18 21V5"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">S</span><span class="crest">taging</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-drugs" href="drugs/" data-nav="drugs" aria-label="Drugs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">D</span><span class="crest">rugs</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-tox" href="tox/" data-nav="tox" aria-label="Tox"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">T</span><span class="crest">ox</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-      <a class="card m-acute" href="acute/" data-nav="acute" aria-label="Acute"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3.5l2-6 4 12 2.5-8 1.5 2H21"/></svg></span><span class="cbody"><span class="cname"><span class="cinitial">A</span><span class="crest">cute</span></span></span><span class="cgo" aria-hidden="true">&rarr;</span></a>
-  </section>
-  <footer class="disc">&copy; Jonan Tan 2026 &middot; <span class="versionmark" aria-label="Version 1.6.2">v1.6.2</span></footer>
-</main></template>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#0d1119',L=(m&&m.getAttribute('content'))||'#f6f7f9';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,100);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls;clearTimeout(pT);pT=null;pEls=null;els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(function(){els.forEach(function(n){n.classList.remove('is-pressed');});},160);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#1c1c1b',L=(m&&m.getAttribute('content'))||'#faf9f5';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,100);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls;clearTimeout(pT);pT=null;pEls=null;els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(function(){els.forEach(function(n){n.classList.remove('is-pressed');});},160);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
+<script>
+// Sidebar controls: hide/show (remembered, applied before first paint by the
+// head script), and back/forward — the installed app has no browser buttons.
+(function(){
+  var root=document.documentElement, hide=document.getElementById('rail-collapse'),
+      show=document.querySelector('[data-rail-show]');
+  function set(collapsed){
+    root.classList.toggle('rail-collapsed',collapsed);
+    hide.setAttribute('aria-expanded',String(!collapsed));
+    try{localStorage.setItem('oncos-rail',collapsed?'collapsed':'open');}catch(e){}
+  }
+  hide.setAttribute('aria-expanded',String(!root.classList.contains('rail-collapsed')));
+  // Peek (hidden state, pointer only): hovering the show icon slides the
+  // sidebar in over the page; leaving the sidebar puts it away after a short
+  // grace period, so a pointer crossing the edge doesn't flicker it.
+  var rail=document.querySelector('.oncos-rail'), leaveTimer=null;
+  function peek(on){
+    clearTimeout(leaveTimer);
+    root.classList.toggle('rail-peek', on && root.classList.contains('rail-collapsed'));
+  }
+  show.addEventListener('pointerenter',function(e){ if(e.pointerType==='mouse') peek(true); });
+  rail.addEventListener('pointerenter',function(){ clearTimeout(leaveTimer); });
+  rail.addEventListener('pointerleave',function(e){
+    if(e.pointerType!=='mouse' || !root.classList.contains('rail-peek')) return;
+    leaveTimer=setTimeout(function(){ peek(false); },200);
+  });
+  // While peeking, the icon under the pointer is the sidebar's own toggle:
+  // clicking it pins the sidebar open, as in the app.
+  hide.onclick=function(){
+    if(root.classList.contains('rail-peek')){ peek(false); set(false); hide.focus(); return; }
+    set(true); show.focus();
+  };
+  show.onclick=function(){peek(false);set(false);hide.focus();};
+  document.getElementById('rail-back').onclick=function(){history.back();};
+  // Appendix group: collapsed by default; the router opens it when the current
+  // view is one of its modules (syncSuiteChrome).
+  var ap=document.getElementById('rail-appendix-toggle');
+  ap.onclick=function(){
+    var open=ap.getAttribute('aria-expanded')!=='true';
+    ap.setAttribute('aria-expanded',String(open));
+    document.getElementById('rail-appendix').classList.toggle('open',open);
+  };
+  document.getElementById('rail-forward').onclick=function(){history.forward();};
+})();
+</script>
 <script>
 /* oncOS history journal v1. Snapshots live only in this page's memory. */
 (function(root) {
@@ -839,13 +1074,12 @@ html[data-theme="dark"][data-view="hub"] .card.m-notes{--cm:#3fbbef;}
   else root.oncosLocations = api;
 })(typeof window === 'undefined' ? globalThis : window);
 
-window.oncosViews = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {"title": "Evidence", "searchId": "q"}, "staging": {"title": "Staging", "searchId": "q"}, "drugs": {"title": "Drugs", "searchId": "search"}, "tox": {"title": "Tox", "searchId": "q"}, "acute": {"title": "Acute", "searchId": "q"}, "hub": {"title": ""}};
+window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "staging": {"title": "Staging", "searchId": "q"}, "notes": {"title": "Notes", "searchId": "q"}, "drugs": {"title": "Drugs", "searchId": "search"}, "tox": {"title": "Tox", "searchId": "q"}, "acute": {"title": "Acute", "searchId": "q"}};
 (function(){
   var VIEWS = window.oncosViews;
   var root = document.documentElement;
   var viewroot = document.getElementById('viewroot');
   var viewnav = document.getElementById('viewnav');
-  var homeTpl = document.getElementById('home-view');
   var cache = {};          // name -> parsed fragment + compiled view script
   var current = null;      // active view name
   var remembered = {};     // current-tab presentation snapshots; never persisted
@@ -924,7 +1158,9 @@ window.oncosViews = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {
 
   function pathToView(p){
     var m = p.match(/^\/(evidence|staging|drugs|tox|acute|notes)(\/|$)/);
-    return m ? m[1] : 'hub';
+    // There is no home page (Jonan, 2026-09-23): the root and any non-module
+    // path open Evidence.
+    return m ? m[1] : 'evidence';
   }
   function searchEl(){ return document.querySelector('.barsearch'); }
   function drawerFocusables(){
@@ -1007,6 +1243,22 @@ window.oncosViews = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {
       if (to === name) a.setAttribute('aria-current','page');
       else a.removeAttribute('aria-current');
     });
+    // Appendix group: open it when the current view lives inside it, so the
+    // active module is never hidden in a collapsed group.
+    var appendix = document.getElementById('rail-appendix');
+    var appendixToggle = document.getElementById('rail-appendix-toggle');
+    if (appendix && appendixToggle && appendix.querySelector('.suite-link[aria-current="page"]')) {
+      appendix.classList.add('open'); appendixToggle.setAttribute('aria-expanded','true');
+    }
+    // Phone strip: the module links scroll horizontally, so the current one
+    // can sit off-screen (Tox, Acute). Centre it in the strip. No-op on the
+    // desktop rail, where the list never overflows sideways.
+    var railNav = document.querySelector('.oncos-rail .suite-nav');
+    var railCur = railNav && railNav.querySelector('.suite-link[aria-current="page"]');
+    if (railCur && railNav.scrollWidth > railNav.clientWidth && railCur.getBoundingClientRect) {
+      var nr = railNav.getBoundingClientRect(), cr = railCur.getBoundingClientRect();
+      railNav.scrollLeft += (cr.left - nr.left) - (nr.width - cr.width) / 2;
+    }
     // sliding indicator: glide the tinted pill to the active tab (first
     // placement snaps without animation so boot doesn't play a phantom glide)
     var sl = document.getElementById('tabslider');
@@ -1158,6 +1410,33 @@ window.oncosViews = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {
     window.scrollTo(0,0);
   }
 
+  // Section groups start collapsed (2026-09-23). When an ITEM becomes active —
+  // a deep link, a search result, a module's own selection — open the group
+  // that holds it, so the selection is never hidden. Only item changes count:
+  // collapsing a group by hand is a class change on the group itself, which is
+  // ignored, so the reader's choice stands.
+  function revealGroup(el){
+    var sec = el.closest && el.closest('.navsec');
+    if (!sec || !sec.classList.contains('collapsed')) return;
+    sec.classList.remove('collapsed');
+    var head = sec.querySelector('.secname,.sysname');
+    if (head) head.setAttribute('aria-expanded','true');
+  }
+  if (typeof MutationObserver === 'function' && viewnav) new MutationObserver(function(records){
+    records.forEach(function(r){
+      if (r.type === 'attributes') {
+        var el = r.target;
+        if (el.nodeType === 1 && !el.classList.contains('navsec') && el.matches('.active,.on')) revealGroup(el);
+      } else {
+        r.addedNodes.forEach(function(node){
+          if (node.nodeType !== 1) return;
+          if (node.matches('.active,.on')) revealGroup(node);
+          node.querySelectorAll('.active,.on').forEach(revealGroup);
+        });
+      }
+    });
+  }).observe(viewnav, {subtree:true, childList:true, attributes:true, attributeFilter:['class']});
+
   function mount(name, prepared){
     // teardown
     if (active && active.destroy) { try{ active.destroy(); }catch(e){} }
@@ -1172,11 +1451,7 @@ window.oncosViews = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {
     var q = searchEl();
     if (q) { q.value=''; q.id = (v && v.searchId) || 'q'; }
     viewnav.innerHTML = '';
-    if (name === 'hub') {
-      viewroot.removeAttribute('aria-labelledby');
-      viewroot.innerHTML = '';
-      viewroot.appendChild(homeTpl.content.cloneNode(true));
-    } else {
+    {
       var doc = prepared.doc;
       viewroot.innerHTML = '';
       var viewTitle = document.createElement('h1');
@@ -1205,6 +1480,15 @@ window.oncosViews = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {
         } finally { restore(); }
       }
     }
+    viewnav.querySelectorAll('.active,.on').forEach(revealGroup);
+    // Sidebar rows are single-line with an ellipsis (the app's pattern); give
+    // each a tooltip carrying its full name so no clinical label is lost.
+    viewnav.querySelectorAll('button, a').forEach(function(el){
+      if (el.title) return;
+      var label = el.querySelector('span') || el;
+      var text = label.textContent.replace(/\s+/g,' ').trim();
+      if (text) el.title = text;
+    });
     syncSuiteChrome(name);
     failedView = false;
   }
@@ -1373,7 +1657,12 @@ window.oncosViews = {"notes": {"title": "Notes", "searchId": "q"}, "evidence": {
     });
   }
 
-  // boot on whatever path we were served at
+  // boot on whatever path we were served at. The root has no page of its own:
+  // canonicalise it to /evidence/ (keeping any ?search / #anchor) so reloads,
+  // shares and the back stack all name the view that is actually showing.
+  if (!/^\/(evidence|staging|drugs|tox|acute|notes)(\/|$)/.test(location.pathname)) {
+    history.replaceState(history.state, '', '/evidence/' + location.search + location.hash);
+  }
   go(pathToView(location.pathname), false);
 })();
 

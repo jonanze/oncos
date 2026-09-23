@@ -1,15 +1,15 @@
 {
   "rewrites": [
     {
-      "source": "/notes",
-      "destination": "/index.html"
-    },
-    {
       "source": "/evidence",
       "destination": "/index.html"
     },
     {
       "source": "/staging",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/notes",
       "destination": "/index.html"
     },
     {
@@ -25,15 +25,15 @@
       "destination": "/index.html"
     },
     {
-      "source": "/notes/",
-      "destination": "/index.html"
-    },
-    {
       "source": "/evidence/",
       "destination": "/index.html"
     },
     {
       "source": "/staging/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/notes/",
       "destination": "/index.html"
     },
     {

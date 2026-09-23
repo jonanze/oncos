@@ -256,7 +256,7 @@ for (const module of ['all', ...MODULES]) {
 
 function setBackgroundInert(on) {
   if (on && inertState.length) return; // An already-open search must retain its original background state.
-  const nodes = document.querySelectorAll('.mhead,.suite-drop,#sidebar,#backdrop,#viewroot');
+  const nodes = document.querySelectorAll('.oncos-rail,#viewroot');
   if (on) {
     inertState = Array.from(nodes, node => ({node, inert: node.inert}));
     inertState.forEach(({node}) => { node.inert = true; });
