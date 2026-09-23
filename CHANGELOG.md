@@ -2,6 +2,12 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.1.0] - 2026-09-23
+
+- Desktop lists now match the phone: no panels, rows on hairlines (Evidence, Staging, Acute, Tox lists, Drugs).
+- Removed the "Clinical reference only" footers from every module in the app.
+- Preserved all clinical payloads and search catalogues; views differ only by the removed footer.
+
 ## [2.0.2] - 2026-09-23
 
 - Moved the desktop Appendix to the foot of the sidebar as a quiet disclosure that opens upward; the phone drawer uses the same muted treatment.

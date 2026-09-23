@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.0.2">
+<meta name="application-version" content="2.1.0">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -876,9 +876,23 @@ body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
 #viewroot .topbar:not(:has(:not(.crumbs))),#viewroot .topbar:has(> .crumbs:only-child){margin:0;}
 #viewroot .tixgrid{margin-top:0;}
 html[data-view="drugs"] #viewroot .letter-group:first-of-type .azdiv{margin-top:0;}
-/* One panel: 10px radius, hairline border, no shadow. */
-#viewroot #results:has(> table),#viewroot .listcard,#viewroot .gcard,#viewroot .tixcard,
-html[data-view="drugs"] #viewroot .card{border-radius:var(--surface-r);box-shadow:none;}
+/* Lists sit straight on the page at every width (Jonan, 2026-09-23: bring
+   desktop in line with the phone): no panel, no radius, no fill; rows are
+   separated by hairlines. Landing tiles keep their 10px outline. */
+#viewroot .gcard,#viewroot .tixcard{border-radius:var(--surface-r);box-shadow:none;}
+#viewroot #results:has(> table),#viewroot .listcard{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;}
+#viewroot #results > table,#viewroot .listcard > table{background:transparent;}
+#viewroot thead th{background:var(--ground);}
+/* Evidence rows painted each cell with the old panel fill; they now sit on
+   the page like the phone rows. Hover, press and open states are restated
+   because the base rule outranks the fragment's own. */
+html[data-view="evidence"] #viewroot tbody tr.trial > td{background:transparent;}
+@media (hover:hover){ html[data-view="evidence"] #viewroot tbody tr.trial:hover > td{background:var(--hover);} }
+html[data-view="evidence"] #viewroot tbody tr.trial.is-pressed > td{background:var(--press);}
+html[data-view="evidence"] #viewroot tbody tr.trial.open > td{background:var(--raised);}
+/* Drugs: each drug is a section between hairlines, not a box. */
+html[data-view="drugs"] #viewroot .card{background:transparent;border:0;border-bottom:1px solid var(--grid);
+  border-radius:0;box-shadow:none;padding:18px 0 20px;margin:0;}
 /* Landing tiles (Notes groups, Tox indexes): one component — label left,
    arrow right, 56px, quiet hover fill instead of a lift and accent border. */
 #viewroot .gcard,#viewroot .tixcard{display:flex;align-items:center;justify-content:space-between;gap:14px;
@@ -898,23 +912,18 @@ html[data-view="drugs"] #viewroot .azdiv{display:flex;align-items:center;gap:12p
 html[data-view="drugs"] #viewroot .azdiv::after{flex:1;width:auto;margin:0;}
 /* Acute is one column: its "Emergency" header row labelled nothing. */
 html[data-view="acute"] #viewroot table.list > thead{display:none;}
-/* Clinical footers: one size, rule and spacing (the kit centres them). */
-#viewroot footer.disclaimer,#viewroot footer.disc,#viewroot .foot{margin-top:32px;padding:16px 0 0;
-  border-top:1px solid var(--grid);color:var(--muted);font-size:var(--t-xs);line-height:1.6;}
 @media (max-width:760px){
   #viewroot{padding-top:12px;}
   /* Phone lists run edge to edge, separated by hairlines, instead of a
      rounded panel inset 14px inside the page. */
   html[data-view="evidence"] #viewroot #results,html[data-view="staging"] #viewroot #results,
-  html[data-view="acute"] #viewroot #results{margin-inline:-14px;border:0;border-radius:0;background:transparent;box-shadow:none;}
-  #viewroot #results > table{background:transparent;}
+  html[data-view="acute"] #viewroot #results{margin-inline:-14px;}
   #viewroot tr.secrow td{padding-inline:14px;clip-path:inset(0 14px 0 0);}
   /* Acute and Tox list rows were separate rounded cards on a phone; they now
      match Staging and Evidence: flat rows on hairlines. */
   html[data-view="acute"] #viewroot table.list tr.row,html[data-view="tox"] #viewroot table.list tr.row{
     border:0;border-bottom:1px solid var(--grid);border-radius:0;box-shadow:none;margin:0;background:transparent;}
-  html[data-view="tox"] #viewroot .listcard{margin-inline:-14px;border:0;border-radius:0;box-shadow:none;background:transparent;}
-  html[data-view="tox"] #viewroot .listcard > table{background:transparent;}
+  html[data-view="tox"] #viewroot .listcard{margin-inline:-14px;}
   #viewnav{padding-bottom:var(--s-4);}
 }
 
