@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.5] - 2026-09-23
+
+- Evidence and Staging subsection headers use the same grey as the changelog dates.
+
 ## [2.2.4] - 2026-09-23
 
 - Hiding the sidebar stays hidden: the pointer left on the show icon no longer slides it straight back; hovering the icon again (after moving off it) still peeks.

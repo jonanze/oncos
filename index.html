@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.4">
+<meta name="application-version" content="2.2.5">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -924,12 +924,12 @@ html[data-view="drugs"] #viewroot .card{background:transparent;border:0;border-b
    was drawn 100% wide from the label's end and ran past the panel edge. */
 #viewroot tr.secrow td{overflow:hidden;}
 /* Evidence and Staging subsection headers stand apart from the rows (Jonan,
-   2026-09-23): the small uppercase label kept, in full ink, with space above
-   and a hairline under instead of a trailing rule. A larger heading size was
-   tried and rejected. */
+   2026-09-23): the small uppercase label, in the changelog dates' grey
+   (--slate; full ink read as too uniform), with space above and a hairline
+   under instead of a trailing rule. A larger heading size was rejected. */
 html[data-view="evidence"] #viewroot tr.secrow td,html[data-view="staging"] #viewroot tr.secrow td{
   font-size:var(--t-xs);font-weight:var(--w-strong);letter-spacing:.05em;text-transform:uppercase;
-  line-height:1.4;color:var(--ink);padding-top:40px;padding-bottom:10px;border-bottom:1px solid var(--hair);clip-path:none;}
+  line-height:1.4;color:var(--slate);padding-top:40px;padding-bottom:10px;border-bottom:1px solid var(--hair);clip-path:none;}
 html[data-view="evidence"] #viewroot tbody tr.secrow:first-child td,html[data-view="staging"] #viewroot tbody tr.secrow:first-child td{padding-top:18px;}
 html[data-view="evidence"] #viewroot tr.secrow td::after,html[data-view="staging"] #viewroot tr.secrow td::after{content:none;}
 html[data-view="drugs"] #viewroot .azdiv{display:flex;align-items:center;gap:12px;font-size:var(--t-xs);
