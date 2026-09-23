@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.3] - 2026-09-23
+
+- Faster module switching: the tapped module highlights at once, the page is built without waiting for a fade-out, and it fades in over 120ms.
+
 ## [2.2.2] - 2026-09-23
 
 - The Evidence landing is labelled CHANGELOG.

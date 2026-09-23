@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.2">
+<meta name="application-version" content="2.2.3">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -868,12 +868,13 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"
   [data-view="drugs"] .az a,[data-view="drugs"] .az span{width:44px;height:44px;}
   [data-view="drugs"] details.evi summary{min-height:44px;padding-block:8px;box-sizing:border-box;}
 }
-/* view swap: quiet fade/rise, wavelength slides via the :root --m transition */
+/* view swap (2026-09-23, faster): no fade-out wait. The new page fades in
+   over 120ms, opacity only; a page still downloading dims the old one. */
 @media (prefers-reduced-motion: no-preference){
-  #viewroot{transition:opacity .15s var(--mo-ease, cubic-bezier(.3,0,.1,1)),
-            transform .15s var(--mo-ease, cubic-bezier(.3,0,.1,1));}
+  #viewroot.entering{animation:view-in .12s ease-out both;}
 }
-#viewroot.leaving{opacity:0;transform:translateY(5px);}
+@keyframes view-in{from{opacity:0;}}
+#viewroot.leaving{opacity:.5;}
 /* loading shimmer between fetch start and mount (usually invisible: cached) */
 .viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:var(--t-base);}
 
@@ -1635,10 +1636,19 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   // is lost the moment the router takes over from the browser.
   function go(name, push, hash, requested){
     var seq = ++navSeq;
+    // The module rail's highlight follows the tap at once (see below), so a
+    // tap that cancels a pending switch must move it back.
+    var markSuite = function(view){
+      if (!document.querySelectorAll) return;
+      document.querySelectorAll('.suite-link').forEach(function(a){
+        if (pathToView(new URL(a.href, location.href).pathname) === view) a.setAttribute('aria-current','page');
+        else a.removeAttribute('aria-current');
+      });
+    };
     var url = requested !== undefined ? locations.href(name,requested,location.origin) :
       (name==='hub' ? '/' : '/'+name+'/') + (hash || '');
     if (name === current && !failedView) {
-      viewroot.classList.remove('leaving'); document.body.classList.remove('nav-open');
+      viewroot.classList.remove('leaving'); document.body.classList.remove('nav-open'); markSuite(current);
       var picker=document.getElementById('suitedrop'),pickerButton=document.getElementById('mobsuite');
       if(picker&&picker.classList.contains('open')){
         picker.classList.remove('open');pickerButton.setAttribute('aria-expanded','false');
@@ -1667,22 +1677,27 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
       return;
     }
     if (push) history.pushState({v:name}, '', url);
-    viewroot.classList.add('leaving');
-    var t0 = Date.now();
-    var animate = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    // Responsiveness (Jonan, 2026-09-23: switching "feels slow/laggy"): the
+    // tapped module highlights at once; the page no longer waits out a 150ms
+    // fade before it is built. Only a view that still has to be downloaded
+    // dims the old page meanwhile; the new page fades in briefly (CSS).
+    markSuite(name);
+    if (name !== 'hub' && !(typeof cache !== 'undefined' && cache[name])) viewroot.classList.add('leaving');
     var fetched = name==='hub' ? Promise.resolve(null) : fetchView(name);
     fetched.then(function(prepared){
-      var wait = animate ? Math.max(0,150-(Date.now()-t0)) : 0;
-      setTimeout(function(){
+      // One frame for the highlight to paint, then build the page.
+      var build = function(){ setTimeout(function(){
         if (seq !== navSeq) return;
         current = name;
         try {
           mount(name,prepared); viewroot.classList.remove('leaving');
+          viewroot.classList.remove('entering'); void viewroot.offsetWidth; viewroot.classList.add('entering');
           settleLocation(name,requested,push);
         } catch (error) {
           console.error('oncOS view failed:',name,error.message); showViewError(name,true);
         }
-      },wait);
+      },0); };
+      if (window.requestAnimationFrame) window.requestAnimationFrame(build); else build();
     }).catch(function(){ if (seq === navSeq) showViewError(name,true); });
   }
 
