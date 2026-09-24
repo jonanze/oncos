@@ -201,24 +201,20 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .ev-day::after{content:"";flex:1;height:1px;background:var(--rule);}
 [data-view="evidence"] .ev-title{margin:4px 0 0;font-size:var(--t-xs);font-weight:var(--w-strong);letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
 [data-view="evidence"] .evchanges > .ev-title + .ev-day{margin-top:18px;}
-[data-view="evidence"] .ev-head{display:flex;gap:12px;align-items:baseline;padding:12px 0 4px;font-size:var(--t-sm);color:var(--muted);}
-[data-view="evidence"] .ev-tm{color:var(--slate);font-weight:var(--w-strong);}
-[data-view="evidence"] .ev-ln{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--grid);font-size:var(--t-base);}
+[data-view="evidence"] .ev-day + .ev-pub{margin-top:6px;}
+[data-view="evidence"] .ev-ln{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--grid);font-size:var(--t-base);}
 [data-view="evidence"] .ev-ln[hidden]{display:none;}
 [data-view="evidence"] .ev-ln > span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 [data-view="evidence"] .ev-nm{font-weight:var(--w-name);color:var(--ink);}
 [data-view="evidence"] .ev-nm a{color:var(--ink);text-decoration:none;}
 [data-view="evidence"] .ev-sh a{color:inherit;text-decoration:none;}
 [data-view="evidence"] .ev-nm a:hover, [data-view="evidence"] .ev-sh a:hover{text-decoration:underline;}
-[data-view="evidence"] .ev-sh, [data-view="evidence"] .ev-wh{color:var(--muted);font-size:var(--t-sm);}
-[data-view="evidence"] .ev-added .ev-wh{color:var(--m);}
-[data-view="evidence"] .ev-removed s{color:var(--muted);font-weight:var(--w-body);}
+[data-view="evidence"] .ev-sh{color:var(--muted);font-size:var(--t-sm);}
 [data-view="evidence"] .ev-more, [data-view="evidence"] .ev-older{display:block;margin:0;padding:8px 0;border:0;background:none;font:inherit;font-size:var(--t-sm);color:var(--m);cursor:pointer;}
 [data-view="evidence"] .ev-older{margin-top:18px;}
 [data-view="evidence"] .ev-empty{color:var(--muted);font-size:var(--t-sm);}
 @container oncos (max-width:740px){[data-view="evidence"] .ev-ln{grid-template-columns:minmax(0,1fr) auto;}
-[data-view="evidence"] .ev-sh{display:none;}
-[data-view="evidence"] .ev-wh{max-width:46vw;text-align:right;}
+[data-view="evidence"] .ev-sh{max-width:42vw;text-align:right;}
 [data-view="evidence"] .ev-more, [data-view="evidence"] .ev-older{min-height:44px;}}
 </style>
 <div class="viewfrag">
@@ -738,10 +734,6 @@ const EVIDENCE_CHANGES = [{"t":"2026-09-24T08:17:41+08:00","items":[["u","EBCTCG
   if (!ctx.root || typeof EVIDENCE_CHANGES === 'undefined' || !window.oncosView.navigation) return;
   const results = document.getElementById('results');
   if (!results) return;
-  const LABEL = {n:'Name', p:'Phase', y:'Year', o:'Population', a:'Treatment arms', e:'Endpoints',
-    f:'Key findings', r:'Reference', s:'Sheet', t:'Topic'};
-  const KIND = {a:'added', u:'updated', r:'removed'};
-  const live = new Set(TRIALS.map(t => t.anchor));
   const escHtml = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const link = target => window.oncosLocations ? window.oncosLocations.href('evidence', target, location.origin) : '#';
   const box = document.createElement('div');
@@ -749,33 +741,52 @@ const EVIDENCE_CHANGES = [{"t":"2026-09-24T08:17:41+08:00","items":[["u","EBCTCG
   results.parentNode.insertBefore(box, results);
   let days = 30, landing = false;
 
+  // The landing lists brand-new trials only (Jonan, 2026-09-24). Updates and
+  // removals stay in the log but are not shown. An addition is a move or a
+  // rename, not a new trial, when the same or an earlier publish removed that
+  // name (a sheet rename can span two publishes), or when the same publish
+  // removes a trial from that sheet whose name starts with the same word.
+  const norm = s => String(s).toLowerCase().replace(/[\W_]+/g, '');
+  const head = s => (String(s).toLowerCase().match(/[a-z0-9]+/) || [''])[0];
+  // Older entries can carry an anchor or sheet name that has since changed;
+  // resolve them to the current trial by anchor, else by a unique name.
+  const byAnchor = new Map(TRIALS.map(t => [t.anchor, t])), byName = new Map();
+  TRIALS.forEach(t => { const k = norm(t.study); byName.set(k, byName.has(k) ? null : t); });
+  const current = (anchor, study) => byAnchor.get(anchor) || byName.get(norm(study)) || null;
+  const removed = new Set(), fresh = [];
+  for (const entry of [...EVIDENCE_CHANGES].reverse()) {
+    const gone = entry.items.filter(i => i[0] === 'r');
+    gone.forEach(i => removed.add(norm(i[1])));
+    const items = entry.items.filter(([kind, study, sheet]) => kind === 'a' && !removed.has(norm(study))
+      && !gone.some(i => i[2] === sheet && head(i[1]).length >= 3 && head(i[1]) === head(study)));
+    if (items.length) fresh.unshift({t: entry.t, items});
+  }
+
   function draw() {
     const cutoff = Date.now() - days * 864e5;
-    const shown = EVIDENCE_CHANGES.filter(e => Date.parse(e.t) >= cutoff);
-    let html = '<h2 class="ev-title">Changelog</h2>', lastDay = '';
+    const shown = fresh.filter(e => Date.parse(e.t) >= cutoff);
+    const byDay = [];
     for (const entry of shown) {
-      const when = new Date(entry.t);
-      const day = when.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
-      if (day !== lastDay) { html += `<div class="ev-day">${escHtml(day)}</div>`; lastDay = day; }
-      const count = {a:0, u:0, r:0};
-      entry.items.forEach(item => { count[item[0]]++; });
-      const summary = ['a','u','r'].filter(k => count[k]).map(k => `${count[k]} ${KIND[k]}`).join(' · ');
-      const collapse = entry.items.length > 8;
-      html += `<section class="ev-pub"><div class="ev-head"><span class="ev-tm">${when.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'})}</span><span>${summary}</span></div>`;
-      entry.items.forEach(([kind, study, sheet, anchor, codes], n) => {
-        const name = kind === 'r' ? `<s>${escHtml(study)}</s>`
-          : live.has(anchor) ? `<a href="${escHtml(link({record:anchor}))}">${escHtml(study)}</a>` : escHtml(study);
-        const what = kind === 'u' ? [...new Set([...codes].map(code => LABEL[code]))].join(', ')
-          : kind === 'a' ? 'Added' : 'Removed';
+      const day = new Date(entry.t).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+      if (!byDay.length || byDay[byDay.length - 1].day !== day) byDay.push({day, items: []});
+      byDay[byDay.length - 1].items.push(...entry.items);
+    }
+    let html = '<h2 class="ev-title">Changelog</h2>';
+    for (const {day, items} of byDay) {
+      html += `<div class="ev-day">${escHtml(day)}</div><section class="ev-pub">`;
+      const collapse = items.length > 8;
+      items.forEach(([, study, logged, anchor], n) => {
+        const now = current(anchor, study), sheet = now ? now.sheet : logged;
+        const name = now && now.anchor ? `<a href="${escHtml(link({record:now.anchor}))}">${escHtml(study)}</a>` : escHtml(study);
         const sheetCell = Object.prototype.hasOwnProperty.call(META, sheet)
           ? `<a href="${escHtml(link({group:sheet}))}">${escHtml(sheet)}</a>` : escHtml(sheet);
-        html += `<div class="ev-ln ev-${KIND[kind]}"${collapse && n >= 6 ? ' hidden' : ''}><span class="ev-nm">${name}</span><span class="ev-sh">${sheetCell}</span><span class="ev-wh">${escHtml(what)}</span></div>`;
+        html += `<div class="ev-ln"${collapse && n >= 6 ? ' hidden' : ''}><span class="ev-nm">${name}</span><span class="ev-sh">${sheetCell}</span></div>`;
       });
-      if (collapse) html += `<button type="button" class="ev-more">Show ${entry.items.length - 6} more</button>`;
+      if (collapse) html += `<button type="button" class="ev-more">Show ${items.length - 6} more</button>`;
       html += '</section>';
     }
-    if (!shown.length) html += `<p class="ev-empty">No changes in the last ${days} days.</p>`;
-    if (shown.length < EVIDENCE_CHANGES.length) html += '<button type="button" class="ev-older">Show older</button>';
+    if (!byDay.length) html += `<p class="ev-empty">No new trials in the last ${days} days.</p>`;
+    if (shown.length < fresh.length) html += '<button type="button" class="ev-older">Show older</button>';
     box.innerHTML = html;
   }
   box.addEventListener('click', event => {

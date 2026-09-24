@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.6] - 2026-09-24
+
+- The Evidence changelog lists only newly added trials, by day. Updates, removals and trials that only moved sheet or were renamed are no longer shown.
+
 ## [2.2.5] - 2026-09-23
 
 - Evidence and Staging subsection headers use the same grey as the changelog dates.
