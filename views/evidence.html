@@ -696,7 +696,8 @@ focusAnchor();
       if(target.sort&&!Object.prototype.hasOwnProperty.call(sorts,target.sort))return false;
       if(target.dir&&!['asc','desc'].includes(target.dir))return false;
       let group=target.group||null,phase=target.phase||'',year=target.year||'';
-      if(row){if(group&&row.sheet!==group)group=null;if(phase&&row.phase!==phase)phase='';if(year&&!inBucket(row.yearnum,year))year='';}
+      // A record opens on its own disease sheet, not the all-sheets master list.
+      if(row){if(!group||row.sheet!==group)group=Object.prototype.hasOwnProperty.call(META,row.sheet)?row.sheet:null;if(phase&&row.phase!==phase)phase='';if(year&&!inBucket(row.yearnum,year))year='';}
       state={scope:group?'sheet':'all',sheet:group,system:group?Object.keys(SYSTEMS).find(key=>SYSTEMS[key].includes(group)):null,
         q:'',phase,yearBucket:year,sortKey:sorts[target.sort]||'yearnum',sortDir:target.dir==='asc'?1:-1,open:new Set(row?[row.id]:[])};
       routeRecord=target.record||'';ctx.search.value='';closeNav();syncFilters();render();

@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.9] - 2026-09-25
+
+- Opening an Evidence search result now shows the entry on its own disease sheet instead of the all-sheets list.
+
 ## [2.2.8] - 2026-09-25
 
 - Notes is archived: it is no longer in the sidebar, search or offline cache, and /notes/ links open Evidence.
