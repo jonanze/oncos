@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.6">
+<meta name="application-version" content="2.2.7">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -874,9 +874,23 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"
   #viewroot.entering{animation:view-in .12s ease-out both;}
 }
 @keyframes view-in{from{opacity:0;}}
-#viewroot.leaving{opacity:.5;}
-/* loading shimmer between fetch start and mount (usually invisible: cached) */
-.viewload{padding:60px 0;text-align:center;color:var(--muted);font-size:var(--t-base);}
+#viewroot.leaving > :not(.viewload){opacity:.5;}
+/* Cell loader (2026-09-25, Jonan): the animated oncOS cell while a view is
+   still downloading (the old page dims behind it; a first visit has none) and
+   while search prepares its index. It appears only after 150ms, so a quick
+   or cached switch never flashes it. Artwork: /cell-loader.png (the approved
+   cell), animated by /cell-loader.js, which holds still under reduced motion. */
+.cell-loader{display:inline-block;flex:0 0 auto;width:28px;height:28px;color:var(--ink);}
+.cell-loader canvas{display:block;width:100%;height:100%;}
+.cell-wait{display:inline-flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);line-height:1.5;}
+.viewload{position:sticky;top:38vh;height:0;overflow:visible;display:flex;justify-content:center;align-items:flex-start;z-index:5;pointer-events:none;}
+.viewload:only-child{position:static;height:auto;padding:28vh 0 0;}
+.viewload .cell-wait{padding:8px 16px 8px 12px;border-radius:999px;background:var(--paper);border:1px solid var(--hair);
+  font-size:var(--t-base);opacity:0;animation:cell-wait-in .16s ease-out .15s forwards;}
+.viewload:only-child .cell-wait{background:none;border-color:transparent;}
+.gs-empty .cell-wait{opacity:0;animation:cell-wait-in .16s ease-out .15s forwards;}
+@keyframes cell-wait-in{to{opacity:1;}}
+@media (prefers-reduced-motion: reduce){.viewload .cell-wait,.gs-empty .cell-wait{animation-duration:1ms;}}
 
 /* ---- Suite surfaces (2026-09-23 polish, Jonan: "sleek, consistent,
    minimalistic") ----------------------------------------------------------
@@ -1436,7 +1450,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     if (active !== owner) return;
     if (applyingLocation || transitionDepth) return action();
     var seq = ++navSeq, focusAtStart = focusVersion;
-    viewroot.classList.remove('leaving');
+    viewroot.classList.remove('leaving'); hideViewLoading();
     var before = captureFrame(location.href);
     var result;
     transitionDepth++;
@@ -1487,6 +1501,25 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     var parsed=locations.read(location.href);
     if(!label&&parsed.valid)label=parsed.target.group;
     document.title=label&&label!==VIEWS[current].title?label+' · oncOS '+VIEWS[current].title:'oncOS — '+VIEWS[current].title;
+  }
+
+  // The cell loader over a view that is still downloading (CSS delays it, so
+  // a quick fetch never shows it). mount() and showViewError() replace the
+  // children, which removes it; a cancelled switch removes it here.
+  function showViewLoading(name){
+    hideViewLoading();
+    if (!document.createElement || !viewroot.prepend) return;
+    var box = document.createElement('div'); box.className = 'viewload';
+    var wait = document.createElement('span'); wait.className = 'cell-wait'; wait.setAttribute('role','status');
+    var mark = document.createElement('span'); mark.className = 'cell-loader'; mark.setAttribute('aria-hidden','true');
+    mark.appendChild(document.createElement('canvas'));
+    var label = document.createElement('span');
+    label.textContent = 'Loading ' + ((VIEWS[name] || {}).title || 'oncOS') + '…';
+    wait.append(mark,label); box.appendChild(wait); viewroot.prepend(box);
+  }
+  function hideViewLoading(){
+    if (!viewroot.querySelectorAll) return;
+    viewroot.querySelectorAll(':scope > .viewload').forEach(function(n){ n.remove(); });
   }
 
   function showViewError(name, loading){
@@ -1654,7 +1687,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     var url = requested !== undefined ? locations.href(name,requested,location.origin) :
       (name==='hub' ? '/' : '/'+name+'/') + (hash || '');
     if (name === current && !failedView) {
-      viewroot.classList.remove('leaving'); document.body.classList.remove('nav-open'); markSuite(current);
+      viewroot.classList.remove('leaving'); hideViewLoading(); document.body.classList.remove('nav-open'); markSuite(current);
       var picker=document.getElementById('suitedrop'),pickerButton=document.getElementById('mobsuite');
       if(picker&&picker.classList.contains('open')){
         picker.classList.remove('open');pickerButton.setAttribute('aria-expanded','false');
@@ -1688,7 +1721,9 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     // fade before it is built. Only a view that still has to be downloaded
     // dims the old page meanwhile; the new page fades in briefly (CSS).
     markSuite(name);
-    if (name !== 'hub' && !(typeof cache !== 'undefined' && cache[name])) viewroot.classList.add('leaving');
+    if (name !== 'hub' && !(typeof cache !== 'undefined' && cache[name])) {
+      viewroot.classList.add('leaving'); showViewLoading(name);
+    }
     var fetched = name==='hub' ? Promise.resolve(null) : fetchView(name);
     fetched.then(function(prepared){
       // One frame for the highlight to paint, then build the page.
@@ -1831,6 +1866,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
 })();
 
 </script>
+<script src="/cell-loader.js" defer data-texture="/cell-loader.png"></script>
 <script type="module" src="/search_ui.js"></script>
 </body>
 </html>

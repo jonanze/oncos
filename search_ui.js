@@ -173,7 +173,14 @@ function render(query) {
     : `No matches in ${LABELS[selectedModule]}. Try all oncOS.`;
   if (message) {
     const empty = document.createElement('p');
-    empty.className = 'gs-empty'; empty.textContent = message;
+    empty.className = 'gs-empty';
+    if (bootstrapState === 'loading') {
+      // The oncOS cell (cell-loader.js animates it) while the index prepares.
+      const wait = document.createElement('span'); wait.className = 'cell-wait'; wait.setAttribute('role', 'status');
+      const mark = document.createElement('span'); mark.className = 'cell-loader'; mark.setAttribute('aria-hidden', 'true');
+      mark.appendChild(document.createElement('canvas'));
+      appendText(wait, 'cell-wait-label', message); wait.prepend(mark); empty.appendChild(wait);
+    } else empty.textContent = message;
     results.appendChild(empty);
     if (ready && query.trim() && !hits.length) {
       for (const suggestion of searchCore.suggest(records, query, {module:selectedModule})) {

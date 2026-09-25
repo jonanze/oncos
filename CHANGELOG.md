@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.7] - 2026-09-25
+
+- While a module is still downloading, the animated oncOS cell and "Loading <module>…" show in place of a blank or silently dimmed page. Search shows the cell while it prepares its index. Both appear only after 150ms and hold still under reduced motion.
+
 ## [2.2.6] - 2026-09-24
 
 - The Evidence changelog lists only newly added trials, by day. Updates, removals and trials that only moved sheet or were renamed are no longer shown.
