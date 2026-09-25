@@ -6,6 +6,11 @@
       "permanent": false
     },
     {
+      "source": "/notes/",
+      "destination": "/evidence/",
+      "permanent": false
+    },
+    {
       "source": "/notes/:path*",
       "destination": "/evidence/",
       "permanent": false
