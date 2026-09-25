@@ -1859,7 +1859,11 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   // boot on whatever path we were served at. The root has no page of its own:
   // canonicalise it to /evidence/ (keeping any ?search / #anchor) so reloads,
   // shares and the back stack all name the view that is actually showing.
-  if (!/^\/(evidence|staging|drugs|tox|acute)(\/|$)/.test(location.pathname)) {
+  // Notes was archived (2026-09-25): its old links open Evidence's start, not
+  // an Evidence lookup of a Notes record.
+  if (/^\/notes(\/|$)/.test(location.pathname)) {
+    history.replaceState(history.state, '', '/evidence/');
+  } else if (!/^\/(evidence|staging|drugs|tox|acute)(\/|$)/.test(location.pathname)) {
     history.replaceState(history.state, '', '/evidence/' + location.search + location.hash);
   }
   go(pathToView(location.pathname), false);

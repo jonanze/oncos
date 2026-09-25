@@ -1,21 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/notes",
-      "destination": "/evidence/",
-      "permanent": false
-    },
-    {
-      "source": "/notes/",
-      "destination": "/evidence/",
-      "permanent": false
-    },
-    {
-      "source": "/notes/:path*",
-      "destination": "/evidence/",
-      "permanent": false
-    }
-  ],
   "rewrites": [
     {
       "source": "/evidence",
@@ -55,6 +38,18 @@
     },
     {
       "source": "/acute/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/notes",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/notes/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/notes/:path*",
       "destination": "/index.html"
     }
   ]
