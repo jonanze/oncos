@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/notes",
+      "destination": "/evidence/",
+      "permanent": false
+    },
+    {
+      "source": "/notes/:path*",
+      "destination": "/evidence/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/evidence",
@@ -6,10 +18,6 @@
     },
     {
       "source": "/staging",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/notes",
       "destination": "/index.html"
     },
     {
@@ -30,10 +38,6 @@
     },
     {
       "source": "/staging/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/notes/",
       "destination": "/index.html"
     },
     {

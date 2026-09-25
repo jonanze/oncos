@@ -1,8 +1,8 @@
 import searchCore from './search_runtime.js';
 
-const MODULES = ['notes', 'evidence', 'staging', 'drugs', 'tox', 'acute'];
+const MODULES = ['evidence', 'staging', 'drugs', 'tox', 'acute'];
 const LABELS = {
-  notes: 'Notes', evidence: 'Evidence', staging: 'Staging',
+  evidence: 'Evidence', staging: 'Staging',
   drugs: 'Drugs', tox: 'Tox', acute: 'Acute'
 };
 

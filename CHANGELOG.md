@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.8] - 2026-09-25
+
+- Notes is archived: it is no longer in the sidebar, search or offline cache, and /notes/ links open Evidence.
+
 ## [2.2.7] - 2026-09-25
 
 - While a module is still downloading, the animated oncOS cell and "Loading <module>…" show in place of a blank or silently dimmed page. Search shows the cell while it prepares its index. Both appear only after 150ms and hold still under reduced motion.
