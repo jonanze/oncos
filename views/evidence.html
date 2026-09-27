@@ -232,8 +232,6 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .wl-title{color:var(--ink);font-size:var(--t-base);line-height:1.4;text-decoration:none;overflow-wrap:anywhere;}
 [data-view="evidence"] a.wl-title:hover{text-decoration:underline;}
 [data-view="evidence"] .wl-meta{color:var(--muted);font-size:var(--t-sm);line-height:1.4;overflow-wrap:anywhere;}
-[data-view="evidence"] .wl-side{flex-shrink:0;padding-top:2px;}
-[data-view="evidence"] .wl-version{color:var(--muted);font-size:var(--t-sm);font-variant-numeric:tabular-nums;white-space:nowrap;}
 [data-view="evidence"] .wl-tags{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px;}
 [data-view="evidence"] .wl-badge{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;background:var(--raised);color:var(--slate);font-size:var(--t-xs);font-weight:var(--w-label);}
 [data-view="evidence"] .wl-badge.info{background:var(--accent-soft);color:var(--m);}
@@ -241,8 +239,7 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 @container oncos (max-width:740px){[data-view="evidence"] .wl-bar{flex-direction:column;align-items:stretch;}
 [data-view="evidence"] .wl-tab{flex:1 1 0;min-width:0;justify-content:center;height:36px;padding:0 6px;}
 [data-view="evidence"] .wl-select{margin-left:0;max-width:none;height:40px;}
-[data-view="evidence"] .wl-row{flex-direction:column;gap:4px;padding:12px 0;}
-[data-view="evidence"] .wl-side{padding-top:0;}}
+[data-view="evidence"] .wl-row{flex-direction:column;gap:4px;padding:12px 0;}}
 </style>
 <div class="viewfrag">
 <div class="layout">
@@ -783,27 +780,20 @@ const EVIDENCE_WATCH = {"guidelines":{"checked_at":"2026-09-27T16:01:23+00:00","
 
   const a = (href, text, cls) => `<a class="${cls}" href="${escHtml(href)}" target="_blank" rel="noopener">${escHtml(text)}</a>`;
   const badge = (text, cls = '') => text ? `<span class="wl-badge${cls ? ' ' + cls : ''}">${escHtml(text)}</span>` : '';
-  const row = (title, meta, extra = '', side = '') => `<div class="wl-row"><div class="wl-copy">${title}`
+  const row = (title, meta, extra = '') => `<div class="wl-row"><div class="wl-copy">${title}`
     + (meta ? `<span class="wl-meta">${escHtml(meta)}</span>` : '') + (extra ? `<span class="wl-tags">${extra}</span>` : '')
-    + `</div>${side ? `<div class="wl-side">${side}</div>` : ''}</div>`;
+    + '</div></div>';
 
   // Guidelines: by tumour category, then newest publication first, then title; the title opens the guideline.
   const category = g => g.category || 'Other';
   const topic = g => g.title || String(g.study || '').replace(/^(ASCO|ESMO) (Living|Clinical Practice) Guideline:\s*/i, '').replace(/,?\s*Version\s+[\d.]+\s*$/i, '');
-  // Only the published version shows; review state and check failures stay in the editor.
-  function version(g) {
-    const v = g.track === 'esmo-living' || g.publisher === 'ESMO' ? 'v' : '';
-    if (g.status === 'newer' || g.status === 'unknown-filed' || g.status === 'not-filed') return g.latest ? v + g.latest : '';
-    if (g.status === 'current') return (g.track === 'esmo-living' ? 'v' : '') + (g.filed || g.latest || '');
-    return '';
-  }
   function guidelineRows() {
     const list = guidelines.filter(g => inCategory(g, pick.guidelines));
     const order = c => { const i = CATEGORIES.indexOf(c); return i < 0 ? 99 : i; };
     const cats = [...new Set(list.map(category))].sort((x, y) => order(x) - order(y) || x.localeCompare(y));
     const sorted = c => list.filter(g => category(g) === c).sort((x, y) => String(y.date || '').localeCompare(String(x.date || '')) || topic(x).localeCompare(topic(y)));
     const one = g => row(g.url ? a(g.url, topic(g), 'wl-title') : `<span class="wl-title">${escHtml(topic(g))}</span>`,
-      [g.society, g.reference].filter(Boolean).join(' · '), '', (v => v ? `<span class="wl-version">${escHtml(v)}</span>` : '')(version(g)));
+      [g.society, g.reference].filter(Boolean).join(' · '));
     return cats.length ? cats.map(c => `<div class="wl-group">${escHtml(c)}</div>${sorted(c).map(one).join('')}`).join('') : '<p class="wl-empty">No guidelines</p>';
   }
   function literatureRows() {
