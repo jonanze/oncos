@@ -768,6 +768,12 @@ const EVIDENCE_WATCH = {"guidelines":{"checked_at":"2026-09-27T16:01:23+00:00","
   const OTHER = ':none';
   const guidelines = W.guidelines.items, literature = W.literature.items, congress = W.congress.items;
   const sheetsOf = c => c.sheets || [];
+  // One category filter on every tab: a PubMed or congress item belongs to each sidebar
+  // group (SYSTEMS) holding one of its sheets; an item with none is Other.
+  const groupOf = {};
+  for (const [group, sheets] of Object.entries(SYSTEMS)) sheets.forEach(sheet => { groupOf[sheet] = group; });
+  const categoriesOf = item => item.category ? [item.category] : [...new Set(sheetsOf(item).map(s => groupOf[s]).filter(Boolean))];
+  const inCategory = (item, c) => !c || (c === OTHER ? !categoriesOf(item).length : categoriesOf(item).includes(c));
   let landing = false, tab = 'guidelines';
   const pick = {guidelines: '', literature: '', congress: ''};
 
@@ -792,7 +798,7 @@ const EVIDENCE_WATCH = {"guidelines":{"checked_at":"2026-09-27T16:01:23+00:00","
     return '';
   }
   function guidelineRows() {
-    const list = pick.guidelines ? guidelines.filter(g => category(g) === pick.guidelines) : guidelines;
+    const list = guidelines.filter(g => inCategory(g, pick.guidelines));
     const order = c => { const i = CATEGORIES.indexOf(c); return i < 0 ? 99 : i; };
     const cats = [...new Set(list.map(category))].sort((x, y) => order(x) - order(y) || x.localeCompare(y));
     const sorted = c => list.filter(g => category(g) === c).sort((x, y) => String(x.sheet || '').localeCompare(String(y.sheet || '')) || topic(x).localeCompare(topic(y)));
@@ -801,15 +807,14 @@ const EVIDENCE_WATCH = {"guidelines":{"checked_at":"2026-09-27T16:01:23+00:00","
     return cats.length ? cats.map(c => `<div class="wl-group">${escHtml(c)}</div>${sorted(c).map(one).join('')}`).join('') : '<p class="wl-empty">No guidelines</p>';
   }
   function literatureRows() {
-    const list = pick.literature ? literature.filter(c => sheetsOf(c).includes(pick.literature)) : literature;
+    const list = literature.filter(c => inCategory(c, pick.literature));
     if (!list.length) return '<p class="wl-empty">No publications</p>';
     return list.map(c => row(a(`https://pubmed.ncbi.nlm.nih.gov/${c.pmid}/`, c.title, 'wl-title'),
       [c.journal, c.published, c.author].filter(Boolean).join(' · '),
       badge(c.design, c.design === 'Phase 3' ? 'info' : '') + (c.secondary ? badge('Secondary analysis') : ''))).join('');
   }
   function congressRows() {
-    const sheet = pick.congress;
-    const list = congress.filter(c => !sheet || (sheet === OTHER ? !sheetsOf(c).length : sheetsOf(c).includes(sheet)));
+    const list = congress.filter(c => inCategory(c, pick.congress));
     if (!list.length) return '<p class="wl-empty">No abstracts</p>';
     let html = '', meeting = null;
     for (const c of list) {
@@ -820,22 +825,19 @@ const EVIDENCE_WATCH = {"guidelines":{"checked_at":"2026-09-27T16:01:23+00:00","
     return html;
   }
   function options() {
-    if (tab === 'guidelines') {
-      const cats = CATEGORIES.filter(c => guidelines.some(g => category(g) === c));
-      return ['<option value="">All categories</option>' + cats.map(c => `<option value="${escHtml(c)}">${escHtml(c)}</option>`).join(''), 'Category'];
-    }
-    const list = tab === 'literature' ? literature : congress;
-    const sheets = [...new Set(list.flatMap(sheetsOf))].sort((x, y) => x.localeCompare(y));
-    const other = tab === 'congress' && list.some(c => !sheetsOf(c).length);
-    return ['<option value="">All sheets</option>' + sheets.map(s => `<option value="${escHtml(s)}">${escHtml(s)}</option>`).join('')
-      + (other ? `<option value="${OTHER}">Other</option>` : ''), 'Sheet'];
+    const list = tab === 'guidelines' ? guidelines : tab === 'literature' ? literature : congress;
+    const order = c => { const i = CATEGORIES.indexOf(c); return i < 0 ? 99 : i; };
+    const cats = [...new Set(list.flatMap(categoriesOf))].sort((x, y) => order(x) - order(y) || x.localeCompare(y));
+    const other = list.some(item => !categoriesOf(item).length);
+    return '<option value="">All categories</option>' + cats.map(c => `<option value="${escHtml(c)}">${escHtml(c)}</option>`).join('')
+      + (other ? `<option value="${OTHER}">Other</option>` : '');
   }
   function draw() {
     const tabs = [['guidelines', 'Guidelines'], ['literature', 'PubMed'], ['congress', 'Congress']];
-    const [opts, label] = options();
+    const opts = options();
     box.innerHTML = '<div class="wl-bar"><div class="wl-tabs" role="tablist" aria-label="Watch list">'
       + tabs.map(([key, name]) => `<button type="button" role="tab" class="wl-tab" data-tab="${key}" aria-selected="${key === tab}">${name}</button>`).join('')
-      + `</div><select class="wl-select" aria-label="${label}">${opts}</select></div>`
+      + `</div><select class="wl-select" aria-label="Category">${opts}</select></div>`
       + `<div class="wl-list">${tab === 'guidelines' ? guidelineRows() : tab === 'literature' ? literatureRows() : congressRows()}</div>`;
     const menu = box.querySelector('.wl-select');
     if (![...menu.options].some(o => o.value === pick[tab])) pick[tab] = '';
