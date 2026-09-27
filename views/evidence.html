@@ -787,13 +787,15 @@ const EVIDENCE_WATCH = {"guidelines":{"checked_at":"2026-09-27T16:01:23+00:00","
   // Guidelines: by tumour category, then newest publication first, then title; the title opens the guideline.
   const category = g => g.category || 'Other';
   const topic = g => g.title || String(g.study || '').replace(/^(ASCO|ESMO) (Living|Clinical Practice) Guideline:\s*/i, '').replace(/,?\s*Version\s+[\d.]+\s*$/i, '');
+  // Living guidelines carry their current version in the citation line.
+  const livingVersion = g => /-living$/.test(g.track || '') ? (g.status === 'newer' ? g.latest : g.filed || g.latest) || '' : '';
   function guidelineRows() {
     const list = guidelines.filter(g => inCategory(g, pick.guidelines));
     const order = c => { const i = CATEGORIES.indexOf(c); return i < 0 ? 99 : i; };
     const cats = [...new Set(list.map(category))].sort((x, y) => order(x) - order(y) || x.localeCompare(y));
     const sorted = c => list.filter(g => category(g) === c).sort((x, y) => String(y.date || '').localeCompare(String(x.date || '')) || topic(x).localeCompare(topic(y)));
     const one = g => row(g.url ? a(g.url, topic(g), 'wl-title') : `<span class="wl-title">${escHtml(topic(g))}</span>`,
-      [g.society, g.reference].filter(Boolean).join(' · '));
+      [g.society, g.reference, livingVersion(g) && 'Version ' + livingVersion(g)].filter(Boolean).join(' · '));
     return cats.length ? cats.map(c => `<div class="wl-group">${escHtml(c)}</div>${sorted(c).map(one).join('')}`).join('') : '<p class="wl-empty">No guidelines</p>';
   }
   function literatureRows() {
