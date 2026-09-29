@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.10] - 2026-09-29
+
+- The oncOS cell has a heavier ring and a larger nucleus, in the app icons and the loader. While a module loads, the nucleus now ticks round the cell in five quick steps instead of drifting.
+
 ## [2.2.9] - 2026-09-25
 
 - Opening an Evidence search result now shows the entry on its own disease sheet instead of the all-sheets list.

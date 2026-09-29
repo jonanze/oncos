@@ -26,7 +26,7 @@ globalThis.OncosCellLoader = (() => {
 
   // One shared texture and animation clock for every visible loader.
   const textureSize = 256, instances = new Map();
-  let alpha = null, frame = 0, lastPaint = -Infinity, dirty = true;
+  let alpha = null, frame = 0, dirty = true;
   let reduced;
   function sample(x, y) {
     x *= textureSize - 1; y *= textureSize - 1;
@@ -36,32 +36,42 @@ globalThis.OncosCellLoader = (() => {
       +(alpha[i+textureSize]*(1-fx)+alpha[i+textureSize+1]*fx)*fy;
   }
   function geometry(n) {
-    const result=new Float32Array(n*n*5);
+    const result=new Float32Array(n*n*6);
     for(let y=0;y<n;y++)for(let x=0;x<n;x++){
-      const dx=(x+.5)/n-.5,dy=(y+.5)/n-.49,r=Math.hypot(dx,dy),a=Math.atan2(dy,dx),i=(y*n+x)*5;
+      const dx=(x+.5)/n-.5,dy=(y+.5)/n-.49,r=Math.hypot(dx,dy),i=(y*n+x)*6;
       const t=Math.max(0,Math.min(1,(r-.23)/.14));
-      result[i]=dx;result[i+1]=dy;result[i+2]=r ? t*t*(3-2*t)/r : 0;
-      result[i+3]=a;result[i+4]=r;
+      result[i]=dx;result[i+1]=dy;result[i+2]=r;
+      result[i+3]=r?dx/r:0;result[i+4]=r?dy/r:0;result[i+5]=t*t*(3-2*t);
     }
     return result;
   }
-  function paint(item, phase, moving) {
+  // Orbit (2026-09-29, Jonan: "more distinct and snappy"): the nucleus ticks
+  // round the cell in five quick steps, 0.24 s each, with a slight overshoot;
+  // the membrane bulges where it lands. At rest (reduced motion) the artwork
+  // is drawn unchanged.
+  const home=[.607,.612], orbit=Math.hypot(home[0]-.5,home[1]-.49), rest=Math.atan2(home[1]-.49,home[0]-.5);
+  const back=x=>1+2.70158*(x-1)**3+1.70158*(x-1)**2;
+  function pose(t) {
+    const step=.24,k=Math.floor(t/step),f=Math.min(1,(t%step)/step/.6),kick=Math.sin(Math.PI*f);
+    const angle=rest+(k+back(f))*2*Math.PI/5;
+    return {angle,kick,nx:.5+orbit*Math.cos(angle),ny:.49+orbit*Math.sin(angle)};
+  }
+  function paint(item, time, moving) {
     const {ctx,pixels,n,mesh,color}=item, out=pixels.data;
-    const wave=moving?1:0;
-    const nx=.607+wave*.022*Math.sin(phase+.6),ny=.612+wave*.018*Math.sin(phase*1.3);
-    const rotation=wave*.10*Math.sin(phase),co=Math.cos(rotation),si=Math.sin(rotation);
-    const stretch=1+wave*.035*Math.sin(phase*2);
+    const {angle,kick,nx,ny}=moving?pose(time):{angle:rest,kick:0,nx:home[0],ny:home[1]};
+    const rotation=angle-rest,co=Math.cos(rotation),si=Math.sin(rotation);
+    const stretch=1+.14*kick,scale=1-.015*kick,bulge=.022*(.5+.5*kick)*(moving?1:0);
+    const bx=Math.cos(angle),by=Math.sin(angle);
     for(let p=0;p<n*n;p++){
-      const i=p*5,dx=mesh[i],dy=mesh[i+1],a=mesh[i+3];
-      // Travelling membrane ripples change the contour locally, not its
-      // position as a rigid object. The centre and average radius stay put.
-      const radial=1-wave*(.026*Math.sin(3*a+phase)+.012*Math.sin(2*a-phase*1.5))*mesh[i+2];
-      const sx=.5+dx*radial,sy=.49+dy*radial;
-      let membrane=(sx>.49&&sx<.72&&sy>.49&&sy<.72)?0:sample(sx,sy);
+      const i=p*6,dx=mesh[i],dy=mesh[i+1],ex=mesh[i+3],ey=mesh[i+4],w=mesh[i+5];
+      // The membrane bulges towards the nucleus; its centre stays put.
+      const facing=Math.max(0,ex*bx+ey*by),rs=mesh[i+2]/scale-bulge*facing**4*w;
+      const sx=.5+ex*rs,sy=.49+ey*rs;
+      const membrane=(sx>.49&&sx<.72&&sy>.49&&sy<.72)?0:sample(sx,sy);
       const ux=dx+.5-nx,uy=dy+.49-ny;
-      const cx=.607+(ux*co+uy*si)/stretch,cy=.612+(-ux*si+uy*co)*stretch;
+      const cx=home[0]+(ux*co+uy*si)/stretch,cy=home[1]+(-ux*si+uy*co)*stretch;
       const nucleus=(cx>.49&&cx<.72&&cy>.49&&cy<.72)?sample(cx,cy):0;
-      const j=p*4;out[j]=color[0];out[j+1]=color[1];out[j+2]=color[2];out[j+3]=Math.max(membrane,nucleus);
+      const j=p*4;out[j]=color[0];out[j+1]=color[1];out[j+2]=color[2];out[j+3]=membrane>nucleus?membrane:nucleus;
     }
     ctx.putImageData(pixels,0,0);
     item.element.classList.add('cell-loader-ready');
@@ -83,8 +93,6 @@ globalThis.OncosCellLoader = (() => {
     frame=0;
     if(document.hidden)return;
     const moving=!reduced.matches;
-    if(moving&&time-lastPaint<1000/30){schedule();return;}
-    lastPaint=time;
     let visible=0;
     for(const [element,item] of instances){
       if(!element.isConnected){instances.delete(element);continue;}
@@ -97,7 +105,7 @@ globalThis.OncosCellLoader = (() => {
         const rgb=getComputedStyle(element).color.match(/[\d.]+/g)||[243,243,243];
         item.color=rgb.slice(0,3).map(Number);
       }
-      paint(item,moving?time/1000*1.65:0,moving);
+      paint(item,time/1000,moving);
     }
     dirty=false;
     if(visible&&moving)schedule();
