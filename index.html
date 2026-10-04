@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.12">
+<meta name="application-version" content="2.2.13">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -1600,11 +1600,29 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     var head = sec.querySelector('.secname,.sysname');
     if (head) head.setAttribute('aria-expanded','true');
   }
+  // One group open at a time (Jonan, 2026-10-04): a group that opens, by its
+  // header or by revealGroup(), closes its sibling groups. Closing by hand is
+  // left alone.
+  function closeSiblingGroups(sec){
+    var parent = sec.parentNode;
+    if (!parent) return;
+    Array.prototype.forEach.call(parent.children, function(other){
+      if (other === sec || !other.classList.contains('navsec') || other.classList.contains('collapsed')) return;
+      other.classList.add('collapsed');
+      var head = other.querySelector('.secname,.sysname');
+      if (head) head.setAttribute('aria-expanded','false');
+    });
+  }
   if (typeof MutationObserver === 'function' && viewnav) new MutationObserver(function(records){
     records.forEach(function(r){
       if (r.type === 'attributes') {
         var el = r.target;
-        if (el.nodeType === 1 && !el.classList.contains('navsec') && el.matches('.active,.on')) revealGroup(el);
+        if (el.nodeType !== 1) return;
+        if (el.classList.contains('navsec')) {
+          if (/\bcollapsed\b/.test(r.oldValue || '') && !el.classList.contains('collapsed')) closeSiblingGroups(el);
+          return;
+        }
+        if (el.matches('.active,.on')) revealGroup(el);
       } else {
         r.addedNodes.forEach(function(node){
           if (node.nodeType !== 1) return;
@@ -1613,7 +1631,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
         });
       }
     });
-  }).observe(viewnav, {subtree:true, childList:true, attributes:true, attributeFilter:['class']});
+  }).observe(viewnav, {subtree:true, childList:true, attributes:true, attributeOldValue:true, attributeFilter:['class']});
 
   function mount(name, prepared){
     // teardown

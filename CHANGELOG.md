@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.13] - 2026-10-04
+
+- Opening a sidebar group closes the others, so one group is open at a time.
+
 ## [2.2.12] - 2026-10-04
 
 - The Evidence sheet bar is removed.
