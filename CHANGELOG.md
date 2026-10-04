@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.18] - 2026-10-04
+
+- On desktop, choosing a sheet no longer closes the other sidebar groups; its own group opens if it was closed. The phone Sections drawer still closes the other groups.
+
 ## [2.2.17] - 2026-10-04
 
 - Tapping a sidebar group header opens or closes only that group, and nothing above it moves. Choosing a sheet in another group closes the other groups without motion.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.17">
+<meta name="application-version" content="2.2.18">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -894,7 +894,7 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"
 /* Sidebar groups (Jonan, 2026-10-04: "smooth like the Claude app"). A group
    expands by its list's grid row (0fr to 1fr) over 200ms, ease-out, and
    collapses over 150ms; the header stays put and only what is below it moves.
-   Groups that close because a sheet elsewhere was chosen carry .mo-instant
+   Groups that change because a sheet was chosen carry .mo-instant
    (navigation_shell.js) and change without motion. A closed list is invisible,
    so it leaves the tab order and the accessibility tree. This replaces each
    module's `.navsec.collapsed .items{display:none}`. */
@@ -1642,10 +1642,11 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   // Section groups start collapsed (2026-09-23). A header tap opens or closes
   // only its own group, so nothing above it moves (Jonan, 2026-10-04: "smooth
   // like the Claude app"). When an ITEM becomes active (a sheet chosen in the
-  // sidebar, a search result, a deep link), its group opens and every other
-  // group closes, keeping the list tidy. That change is a navigation, not a
-  // reveal: it applies at once, and where the list can scroll it is scrolled
-  // so the active row keeps its place on screen.
+  // sidebar, a search result, a deep link), its group opens at once. On a phone
+  // every other group also closes, keeping the Sections sheet tidy; on desktop
+  // the other groups stay as the reader left them (Jonan, 2026-10-04: no
+  // auto-close on desktop). Where the list can scroll it is scrolled so the
+  // active row keeps its place on screen.
   function setGroup(sec, open){
     sec.classList.toggle('collapsed', !open);
     var head = sec.querySelector('.secname,.sysname');
@@ -1654,12 +1655,13 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   function focusGroup(el, deferred){
     var sec = el.closest && el.closest('.navsec');
     if (!sec || !sec.parentNode) return;
-    var groups = Array.prototype.filter.call(sec.parentNode.children, function(g){ return g.classList.contains('navsec'); });
+    var phone = window.matchMedia('(max-width:760px)').matches;
+    var groups = phone ? Array.prototype.filter.call(sec.parentNode.children, function(g){ return g.classList.contains('navsec'); }) : [sec];
     var change = groups.filter(function(g){ return g === sec ? g.classList.contains('collapsed') : !g.classList.contains('collapsed'); });
     if (!change.length) return;
     // Phone: the Sections sheet is fading out after a choice; tidy it once it
     // has gone, so the list does not jump inside the fade.
-    if (!deferred && window.matchMedia('(max-width:760px)').matches && !document.body.classList.contains('nav-open')) {
+    if (!deferred && phone && !document.body.classList.contains('nav-open')) {
       setTimeout(function(){ focusGroup(el, true); }, 170);
       return;
     }
