@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.15] - 2026-10-04
+
+- The desktop sidebar is wider (276px), so every Evidence sheet name fits on one line.
+
 ## [2.2.14] - 2026-10-04
 
 - Sidebar items sit indented under their group.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.14">
+<meta name="application-version" content="2.2.15">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -739,6 +739,10 @@ html[data-view="tox"] #viewroot input:focus,html[data-view="tox"] #viewroot sele
 /* Rail layout (2026-09-23). The rail sits beside the content; content fills
    the window with no max-width and no header bar above it. */
 body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
+/* Sidebar 276px, not the kit's 244px (Jonan, 2026-10-04): with sheets indented
+   under their group, every Evidence sheet name fits on one line. Doubled :root
+   outranks the kit's own :root declaration. The phone strip has no width. */
+:root:root{--rail-w:276px;}
 #viewroot{flex:1 1 auto;min-width:0;container: oncos / inline-size;}
 /* Every page fills the window beside the sidebar (Jonan, 2026-09-23: "fit the
    screen"). Each module styles its own `main` with a centred max-width (Staging
