@@ -7,7 +7,7 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
     padding: 9px 20px; font-size: var(--t-xs); font-weight: var(--w-strong); letter-spacing: .06em;
     text-transform: uppercase; color: var(--muted); cursor: pointer; user-select: none;
   }
-[data-view="staging"] .navsec > .secname:hover{ color: var(--ink); }
+@media (hover:hover){[data-view="staging"] .navsec > .secname:hover{ color: var(--ink); }}
 [data-view="staging"] .navsec .caret{ transition: transform .15s; font-size: var(--t-2xs); opacity: .6; }
 [data-view="staging"] .navsec.collapsed .caret{ transform: rotate(-90deg); }
 [data-view="staging"] .navsec.collapsed .items{ display: none; }
@@ -18,12 +18,11 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
     border: 0; border-left: 2px solid transparent; font-size: var(--t-base);
   }
 @media (hover: hover){[data-view="staging"] .items button:hover{ background: var(--accent-soft); }}
-[data-view="staging"] .items button.is-pressed{ background: var(--accent-soft); }
 [data-view="staging"] .items button.active{ background: var(--press); border-left-color: transparent; font-weight: var(--w-name); color: var(--ink); }
 [data-view="staging"] .allbtn{ margin: 4px 20px 10px; }
 [data-view="staging"] .allbtn button{display:block;width:100%;text-align:center;padding:8px;border:1px solid var(--hair);border-radius:999px;
     background:transparent;color:var(--ink);text-decoration:none;font-family:inherit;font-weight:var(--w-label);font-size:var(--t-base);cursor:pointer;}
-[data-view="staging"] .allbtn button:hover{background:var(--hover);}
+@media (hover:hover){[data-view="staging"] .allbtn button:hover{background:var(--hover);}}
 [data-view="staging"] main{ max-width: 1000px; margin: 0 auto; padding: 18px clamp(16px,4vw,26px) 60px; }
 [data-view="staging"] #results{ transition: opacity .15s var(--mo-ease, cubic-bezier(.3,0,.1,1)),
               transform .15s var(--mo-ease, cubic-bezier(.3,0,.1,1)); }
@@ -33,7 +32,6 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
     color: var(--slate); background: var(--panel); border: 1px solid var(--hair);
     border-radius: 999px; cursor: pointer; }
 @media (hover: hover){[data-view="staging"] .backbtn:hover{ color: var(--teal); border-color: var(--teal); background: var(--accent-soft); }}
-[data-view="staging"] .backbtn.is-pressed{ color: var(--teal); border-color: var(--teal); background: var(--accent-soft); }
 [data-view="staging"] .topbar{ margin-bottom: 12px; }
 [data-view="staging"] .crumbs{ display: none; }
 [data-view="staging"] .crumbs b{ color: var(--ink); }
@@ -46,7 +44,6 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
   }
 [data-view="staging"] table.list > tbody tr.row{ border-bottom: 1px solid var(--grid); cursor: pointer; }
 @media (hover: hover){[data-view="staging"] table.list > tbody tr.row:hover{ background: var(--accent-soft); }}
-[data-view="staging"] table.list > tbody tr.row.is-pressed{ background: var(--accent-soft); }
 [data-view="staging"] table.list > tbody td{ padding: 11px 12px; vertical-align: top; }
 [data-view="staging"] td.name{ font-family: var(--font-serif); font-weight: var(--w-label); font-size: var(--t-md); }
 [data-view="staging"] .rowtoggle{ display: block; width: 100%; padding: 0; border: 0; background: transparent;
@@ -93,7 +90,7 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
 [data-view="staging"] .tree{ max-width: 560px; }
 [data-view="staging"] .tbreadcrumb{ display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: var(--t-sm); color: var(--muted); margin-bottom: 12px; }
 [data-view="staging"] .tcrumb{ color: var(--teal); cursor: pointer; }
-[data-view="staging"] .tcrumb:hover{ text-decoration: underline; }
+@media (hover:hover){[data-view="staging"] .tcrumb:hover{ text-decoration: underline; }}
 [data-view="staging"] .tsep{ opacity: .5; }
 [data-view="staging"] .tq{ font-size: var(--t-md); font-weight: var(--w-name); color: var(--ink); margin-bottom: 2px; }
 [data-view="staging"] .tsub{ font-size: var(--t-sm); color: var(--muted); margin-bottom: 12px; }
@@ -102,7 +99,6 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
     border: 1px solid var(--hair); background: var(--panel); border-radius: 0; padding: 12px 14px;
     font-size: var(--t-base); font-family: var(--font-sans); color: var(--ink); cursor: pointer; transition: background .12s, border-color .12s; }
 @media (hover: hover){[data-view="staging"] .topt:hover{ border-color: var(--teal); background: var(--accent-soft); }}
-[data-view="staging"] .topt.is-pressed{ border-color: var(--teal); background: var(--accent-soft); }
 [data-view="staging"] .topt .tarrow{ color: var(--teal); font-size: var(--t-2xl); line-height: 1; flex: 0 0 auto; }
 [data-view="staging"] .tresult{ border: 1px solid var(--slate); background: var(--ground); border-radius: 0; padding: 18px 16px; text-align: center; }
 [data-view="staging"] .tgrade{ font-weight: var(--w-strong); color: var(--ink); font-size: var(--t-xl); }
@@ -110,11 +106,11 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
 [data-view="staging"] .tactions{ display: flex; gap: 8px; margin-top: 12px; }
 [data-view="staging"] .tbtn-sec{ border: 1px solid var(--hair); background: var(--panel); border-radius: 0; padding: 7px 13px;
     font-size: var(--t-sm); font-family: var(--font-sans); color: var(--muted); cursor: pointer; }
-[data-view="staging"] .tbtn-sec:hover{ border-color: var(--teal); color: var(--teal); }
+@media (hover:hover){[data-view="staging"] .tbtn-sec:hover{ border-color: var(--teal); color: var(--teal); }}
 [data-view="staging"] .notes{ background: var(--paper); border: 1px solid var(--hair); border-left: 3px solid var(--slate); border-radius: 0; padding: 10px 12px; color: var(--ink); }
 [data-view="staging"] .srcline{ margin-top: 4px; font-size: var(--t-sm); color: var(--muted); }
 [data-view="staging"] .srcline a{ color: var(--teal); text-decoration: none; font-weight: var(--w-name); }
-[data-view="staging"] .srcline a:hover{ text-decoration: underline; }
+@media (hover:hover){[data-view="staging"] .srcline a:hover{ text-decoration: underline; }}
 [data-view="staging"] .unver{ display:inline-block; font-size: var(--t-2xs); padding: 1px 7px; border-radius: 2px; background: var(--status-warning-soft); color: var(--status-warning); margin-left: 6px; }
 [data-view="staging"] .dvhead{ margin: 2px 0 18px; padding-bottom: 14px; border-bottom: 1.2px solid var(--rule); }
 [data-view="staging"] .dvhead h2{ margin: 0 0 8px; font-family: var(--font-serif); font-size: var(--t-3xl); font-weight: var(--w-name); letter-spacing: -.01em; }

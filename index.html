@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.19">
+<meta name="application-version" content="2.2.20">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -19,571 +19,296 @@
 <script defer src="/_vercel/insights/script.js"></script>
 <script>try{if(localStorage.getItem('oncos-rail')==='collapsed')document.documentElement.classList.add('rail-collapsed');}catch(e){}</script>
 <style>
-
-  /* --- oncOS Meridian webfonts (shared: _oncos-kit/oncos_fonts.py) --- */
-  @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
-  @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-normal-100_900-v41.woff2) format('woff2');}
-  @font-face{font-family:'Inter';font-style:italic;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-italic-100_900-v41.woff2) format('woff2');}
-
-  /* --- oncOS Meridian theme (shared: _oncos-kit/oncos_theme.py) --- */
-  :root{
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-normal-100_900-v41.woff2) format('woff2');}
+@font-face{font-family:'Inter';font-style:italic;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-italic-100_900-v41.woff2) format('woff2');}
+:root{
     --m:#1967d2; --teal:var(--m);
-    /* Warm neutrals (2026-09-23). The cool porcelain greys are retired; every
-       surface and text step below is the Claude Code palette, re-measured for
-       this site's type sizes. --muted is NOT the Editor's #8d8980 (3.31:1,
-       fails): on a clinical page --muted carries real content — trial phase,
-       year, population — so it must clear 4.5:1 on ground, paper and raised.
-       (Values below; see the ink/slate/muted note.) */
-    /* Text follows the Claude app (Jonan, 2026-09-23: "too grey"): near-black
-       ink and neutral secondary greys rather than warm beige-greys. Measured on
-       ground / paper / raised: ink 15.8 / 16.6 / 15.1, slate 7.5 / 8.0 / 7.2,
-       muted 4.7 / 5.0 / 4.5. */
+    
+    
     --ink:#1f1e1d; --slate:#52514d; --muted:#71706c;
     --hair:#e5e4df; --grid:#eeede8;
     --accent-soft:rgba(25,103,210,.12);
-    /* The accent on its own soft tint is 4.3:1 on the ground — below floor. The
-       info badge uses this deepened step (5.2:1); links and focus rings, which
-       sit on plain surfaces, keep var(--m). */
+    
     --accent-on-soft:#185abc;
     --paper:#ffffff; --ground:#faf9f5; --raised:#f5f4ef;
-    /* The sidebar shares the content ground in both themes, as in the app. */
+    
     --rail:#f0efe9;
-    /* The single solid fill. Marks one primary action per view or dialog and
-       nothing else — near-black on light, near-white on dark. Not a brand
-       colour, and deliberately NOT the accent: 13.77:1 either way. */
+    
     --solid:#2b2926; --solid-text:#faf9f5;
-    /* Translucent interaction overlays, theme-aware. */
+    
     --hover:rgba(40,36,30,.05); --press:rgba(40,36,30,.09);
-    /* Status text is measured ON ITS OWN SOFT TINT, not on the page ground —
-       that is where these chips actually render, and it is the case the
-       2026-08-08 QA caught on the retired palette. The Editor's raw values fail
-       it again (success 4.19, warning 4.35), so success and warning are
-       deepened one step. Measured on tint: 4.60 / 4.62 / 4.87 / 4.56. */
+    
     --status-success:#3b7347; --status-success-soft:rgba(63,122,75,.12);
     --status-warning:#85601f; --status-warning-soft:rgba(138,100,32,.12);
     --status-danger:#a8402f;  --status-danger-soft:rgba(168,64,47,.12);
-    /* Info is SLATE, not var(--m) (2026-08-08): under functional teal the
-       accent means "actionable", and an informational pill must not look
-       clickable. */
+    
     --status-info:#6b675f; --status-info-soft:rgba(107,103,95,.12);
-    /* --- Standard chip geometry (2026-08-08) — one spec for the suite's chip
-       families: Evidence phase, Staging system, Tox grade tags + facet tags,
-       Acute urgency. Two finishes only: outline (categorical) and soft fill
-       (semantic). Generators consume these tokens; --chip-fs is a var
-       reference on purpose so fragmentize's px-normaliser can't rewrite it. */
+    
     --chip-h:20px; --chip-r:999px; --chip-fs:10.5px; --chip-pad:9px;
-    /* One typeface, three role names. Retypeset 2026-07-26 (Jonan): Inter
-       replaces Newsreader (serif/entities), Schibsted Grotesk (sans/chrome) and
-       Spline Sans Mono (figures). The role tokens are KEPT — every module
-       declares type through them, so the swap needs no generator edit and the
-       roles stay available if a second face is ever reintroduced. Identical
-       fallback stacks on purpose: if the webfont fails, the page degrades to
-       one system face rather than three mismatched ones. */
+    
     --font-serif:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     --font-sans:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     --font-mono:'Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
-    /* --- Type scale (2026-07-26) ---
-       The suite carried 21 distinct pixel sizes, ten of them inside the 9-13.5px
-       band across ~191 declarations. Under Meridian that was legible design:
-       a 12.5px Spline Sans Mono figure and a 12.5px Schibsted label were
-       different objects, so near-identical sizes still read as different roles.
-       With one face they are imperceptible as meaning and still misalign when
-       adjacent. These twelve steps replace them; fragmentize.py maps each view's
-       literal px onto the nearest step at or below it, so the scale never
-       inflates the UI. Display steps (30/36/46) are single deliberate uses and
-       are kept as they were. */
+    
     --t-3xs:9px; --t-2xs:10px; --t-xs:11px; --t-sm:12px; --t-base:13px; --t-md:14px;
     --t-lg:16px; --t-xl:18px; --t-2xl:20px; --t-3xl:22px;
     --t-display:30px; --t-display-lg:36px; --t-wordmark:46px;
-    /* --- Weight scale ---
-       Measured before this change: 600 used 78x, 700 51x, 500 7x, 400 7x — 129
-       of 143 declarations at semibold or bolder, because weight inherited the
-       hierarchy job that three typefaces used to do. When most of a page is
-       heavy nothing reads as emphasised. Inter here is a continuous wght axis
-       (100-900) in a single file, so the intermediate steps cost nothing: no
-       extra request, no extra byte. */
+    
     --w-body:400; --w-dense:450; --w-label:500; --w-name:550; --w-strong:600;
     --w-bold:700;
-    /* Tracking. One value per role, replacing five near-identical uppercase
-       values (.04/.05/.06/.08/.12em) tuned for Schibsted Grotesk's caps.
-       Display sizes get NO manual negative tracking: the opsz axis bought with
-       the Inter 4.1 build does that compensation inside the font, and stacking
-       hand-tuned letter-spacing on top of it double-compensates. */
+    
     --track-caps:.06em; --track-badge:.04em;
     --rule:#e5e4df;
-    /* Text on the solid fill. Named --btn-ink for the six generators that
-       already declare it; its value is --solid-text. */
+    
     --btn-ink:#faf9f5;
-    /* Three radii plus the pill, replacing the two-step 12/9 scale.
-       --radius/--radius-sm are kept as aliases so no generator needs editing. */
+    
     --r-sm:6px; --r-md:10px; --r-lg:14px; --r-pill:999px;
     --radius:var(--r-lg); --radius-sm:var(--r-md);
-    /* One 4px spacing scale. */
+    
     --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-8:32px;
-    /* Two control heights and one nav icon size. */
+    
     --h-icon:28px; --h-control:32px; --ico-nav:16px;
     --ease:cubic-bezier(.2,0,0,1);
-    /* No shadows on tables or cards (Jonan, 2026-09-23 — "follow the app"): the
-       Editor draws every static surface with a 1px hairline and nothing else.
-       Every module card and table wrapper already carries its hairline border,
-       so --shadow is `none` and the generators' `box-shadow:var(--shadow)`
-       lines resolve to nothing. --shadow-pop is the one shadow left, for
-       surfaces that APPEAR over the page (the search dialog). */
+    
     --shadow:none;
     --shadow-pop:0 16px 44px rgba(60,50,35,.13);
     --glass:rgba(250,249,245,.8);
     color-scheme:light;
   }
-  :root[data-theme="dark"]{
+:root[data-theme="dark"]{
     --m:#7aa2f7; --teal:var(--m);
-    /* Dark is the native theme: the Claude desktop app's palette, sampled
-       from Jonan's reference screenshot (2026-09-23: "I initially specified
-       that you follow this colour scheme" — the site had become one flat grey).
-       Neutral, not warm, and LAYERED: the sidebar is darker than the page,
-       raised surfaces one step lighter, the active sidebar row clearly lit.
-         sidebar #111111 · page #151515 · raised #1f1f1f/#212121 · rule #232323
-       Text on page / raised: ink #f3f3f3 17.1 / 15.5, slate #c0c1be 10.4 / 9.4,
-       muted #8c8c8c 5.4 / 4.8 (sidebar: 5.8). */
+    
     --ink:#f3f3f3;
     --slate:#c0c1be;
     --muted:#8c8c8c;
     --hair:#2e2e2e; --grid:#232323;
     --accent-soft:rgba(122,162,247,.14);
-    --accent-on-soft:#7aa2f7;          /* 4.8 on its own tint over paper */
+    --accent-on-soft:#7aa2f7;          
     --ground:#151515; --paper:#1f1f1f; --raised:#212121;
     --raised-2:#2a2a2a;
     --rail:#111111;
     --solid:#f3f3f3; --solid-text:#151515;
     --hover:rgba(255,255,255,.05); --press:rgba(255,255,255,.14);
-    /* Measured on their own 14% tint over --paper: 5.5 / 5.6 / 5.3 / 5.3. */
+    
     --status-success:#8fbf92; --status-success-soft:rgba(143,191,146,.14);
     --status-warning:#d9ae6a; --status-warning-soft:rgba(217,174,106,.14);
     --status-danger:#e59a88;  --status-danger-soft:rgba(229,154,136,.14);
     --status-info:#b0aea6;    --status-info-soft:rgba(176,174,166,.14);
     --rule:#2e2e2e; --btn-ink:#151515;
-    /* The 2026-08-08 machined-edge ring is retired. Measured, the warm surfaces
-       separate only a little better than the cool ones did (paper on ground
-       1.15:1, was 1.05:1) — not enough to carry a card edge on luminance alone.
-       What replaces the simulated bevel is an explicit hairline: every raised
-       surface takes `1px solid var(--grid)`, the way the Editor draws them.
-       Shadows are for surfaces that appear over others only (--shadow-pop). */
+    
     --shadow:none;
     --shadow-pop:0 16px 48px rgba(0,0,0,.45);
     --glass:rgba(21,21,21,.75);
     color-scheme:dark;
   }
-  /* --- Tabular figures, suite-wide (Inter retypeset, 2026-07-26) ---
-     Spline Sans Mono used to hold every figure, dose, grade, year and stage
-     code in column by being monospaced. Inter is proportional, so that job now
-     falls to the OpenType `tnum` feature, switched on at the root and inherited
-     by everything: Evidence trial tables, Staging stage/category tables, Tox
-     grade chips + calculator readouts, Acute grade lists, the hub versionmark.
-     font-variant-numeric is an inherited property, but the UA `font` shorthand
-     on form controls resets it, so they opt back in explicitly (the Tox CrCl /
-     BSA / unit-converter fields). Nothing in the suite sets
-     font-feature-settings, so nothing can silently clobber this.
-     2026-07-26 UPDATE: the suite moved to the upstream Inter 4.1 build, which
-     DOES ship `zero`, so the old note here (slashed zero unavailable) no longer
-     holds — see the disambiguation block below. `tnum` is now also listed
-     explicitly in font-feature-settings, belt-and-braces: the interaction
-     between font-variant-numeric and font-feature-settings is a precedence
-     question this codebase must not depend on being remembered correctly, and
-     column drift fails silently. Verified by measuring digit advance, not by
-     reading the spec. */
-  :root{ font-variant-numeric:tabular-nums; }
-  input, select, textarea, button{ font-variant-numeric:inherit; }
-  /* --- 1 / l / I / 0 disambiguation (Inter 4.1, 2026-07-26) ---
-     A drug-and-dose reference must never render a confusable numeral. Inter's
-     default `l` and `I` are the same bare vertical stroke and its `0` is
-     unslashed, so "Il1" is unreadable at 11-13px. The upstream 4.1 build carries
-     the fixes the Google subset strips:
-       cv05  l -> tailed l      (GSUB: l -> l.ss02)
-       cv08  I -> serifed I     (GSUB: I -> I.1)
-       zero  0 -> slashed 0     (GSUB: zero -> zero.slash)
-     cv05 and cv08 are unconditional. `zero` is deliberately NOT: it is on for
-     figures and codes, and off in running prose, where a slashed zero in a
-     sentence reads as a technical annotation rather than a number (Jonan's call,
-     2026-07-26). The prose rule below is what turns it off, by re-declaring
-     font-feature-settings without it — this property does not accumulate. */
-  :root{ font-feature-settings:'tnum' 1,'cv05' 1,'cv08' 1,'zero' 1; }
-  /* --- ONE figure treatment, suite-wide: tabular everywhere (2026-07-26) ---
-     There is deliberately NO prose/name opt-out. Every digit in the suite is
-     tabular and every `0` is slashed, in a table cell, a chip, a dose line, a
-     sentence and a trial name alike.
-
-     History, so this is not "fixed" back by someone reading the old rationale:
-     an earlier pass the same day carved out `p, .lede, .disc, .note, .foot,
-     .sub, blockquote, figcaption, .findings, .evi-block, .desc, .summary-text,
-     td.study, td.name, .dname, .study` and switched them to `pnum` with `zero`
-     dropped, on the reasoning that tabular padding leaves visible gaps around
-     numbers mid-sentence and that a slashed zero belongs on a figure rather
-     than inside a NAME. That reasoning is not wrong in isolation. What killed it
-     was the composite: the carve-out put TWO digit styles on the same page —
-     DESTINY-Breast05 proportional and unslashed in a name cell, the same
-     numerals uniform and slashed one column over — and that inconsistency reads
-     worse than either treatment applied consistently. Jonan's call on
-     2026-07-26 after seeing it: tabular everywhere.
-
-     So trial names DO render DESTINY-Breast05 / RJBC-1501 / ASCENT-04 with a
-     slashed zero. That is intended, not a regression.
-
-     The one rule that remains is the form-control opt-in above: the UA `font`
-     shorthand resets font-variant-numeric, so inputs/selects/textareas/buttons
-     have to inherit it explicitly (the Tox CrCl / BSA / unit-converter fields). */
-  /* Reserve the scrollbar gutter suite-wide so layout never reflows when the
-     viewport scrollbar appears/disappears. Fixes the masthead + centred-content
-     "shake": opening the nav drawer sets body.nav-open{overflow:hidden}, which
-     on a classic (space-taking) scrollbar removed 15px and shoved the sticky
-     masthead sideways; expanding a <details> card past the viewport added the
-     scrollbar and shoved it the other way. `stable` keeps the gutter reserved
-     in both states. No-op under overlay scrollbars (trackpad Macs), where there
-     is no shift to fix. Doesn't change the scroll container, so the body
-     scroll-lock is untouched. One line, fully reversible. */
-  /* No native grey tap-highlight overlay (2026-08-08, Jonan on-device): the
-     UA painted it over tapped cards/titles regardless of our hover gating.
-     Press feedback is ours — the .is-pressed mechanism below. */
-  html{ transition:background .18s ease, color .18s ease; scrollbar-gutter:stable;
+:root{ font-variant-numeric:tabular-nums; }
+input, select, textarea, button{ font-variant-numeric:inherit; }
+:root{ font-feature-settings:'tnum' 1,'cv05' 1,'cv08' 1,'zero' 1; }
+html{ transition:background .18s ease, color .18s ease; scrollbar-gutter:stable;
     -webkit-tap-highlight-color:transparent; }
-  body{ background:var(--ground); }
-  /* --- Clinical footer contract (2026-08-11) ---
-     All live module generators use one of these three legacy hooks. Centre the
-     complete footer block within the content viewport at desktop widths, then
-     centre its copy. Module CSS still owns vertical spacing and the top rule. */
-  footer.disclaimer, footer.disc, .foot{
+body{ background:var(--ground); }
+footer.disclaimer, footer.disc, .foot{
     box-sizing:border-box; width:100%; max-width:900px;
     margin-inline:auto; text-align:center; text-wrap:balance;
   }
-  footer.disclaimer strong, footer.disc strong, .foot strong{
+footer.disclaimer strong, footer.disc strong, .foot strong{
     color:var(--ink); font-weight:var(--w-strong);
   }
-  /* The 2026-08 dark "accent glow" behind the page is retired: under the
-     Claude language the accent is never decoration. */
-  .sr-only{ position:absolute !important; width:1px !important; height:1px !important;
+.sr-only{ position:absolute !important; width:1px !important; height:1px !important;
     padding:0 !important; margin:-1px !important; overflow:hidden !important;
     clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
-  /* --- Touch press system (2026-08-08, Jonan on-device) ---
-     CSS :active engages on touch-down, so it lit rows/cards while SCROLLING,
-     and the UA's grey tap-highlight painted over titles. Both are replaced:
-     the kit script (see toggle_script) adds `.is-pressed` to the nearest
-     interactive element only after a ~100ms still press — cancelled the
-     moment the finger moves — and flashes it briefly on a quick tap. Modules
-     style their own `.is-pressed` surfaces (same tints their :hover uses).
-     Feel: highlight lands INSTANTLY on press (transition-duration:0), and
-     fades out softly on release (the transition below animates class
-     removal). Card-like surfaces also compress a touch. Coarse-pointer
-     only; desktop keeps :hover and its own :active. */
-  @media (hover: none){
-    a, button, summary, tr, .card{
+@media (hover: none){a, button, summary, tr, .card{
       transition: background-color .22s var(--mo-ease, ease),
                   border-color .22s var(--mo-ease, ease),
                   box-shadow .22s var(--mo-ease, ease),
                   transform .22s var(--mo-ease, ease);
-    }
-    .is-pressed, .is-pressed > td{ transition-duration: 0s; }
-    a.card.is-pressed, .tixcard.is-pressed, summary.is-pressed{
-      transform: scale(.985); }
-  }
-  /* --- Keyboard focus: a visible ring in the module wavelength, only on
-     keyboard focus (:focus-visible), suite-wide. Before this the clickable
-     nav links, hub cards, drawer controls and details summaries had no visible
-     focus state. Inputs keep their own border-colour focus affordance (their
-     :focus{outline:none} is more specific, so this doesn't override it). --- */
-  :focus-visible{ outline:2px solid var(--m, var(--teal)); outline-offset:2px; border-radius:4px; }
-  /* Wordmark: Montserrat Bold (self-hosted via oncos_fonts), the one role the
-     2026-07-26 Inter retypeset deliberately did not touch. It now appears only
-     on the home view's hero — the rail has no wordmark header. "OS" is the
-     suite's one identity colour, in the accent; background-image:none
-     overrides any module's leftover gradient + background-clip rules. */
-  .wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
-  .wm .os{ background-image:none; -webkit-background-clip:initial;
+    }}
+:focus-visible{ outline:2px solid var(--m, var(--teal)); outline-offset:2px; border-radius:4px; }
+.wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
+.wm .os{ background-image:none; -webkit-background-clip:initial;
     background-clip:initial; color:#1967d2; }
-  :root[data-theme="dark"] .wm .os{ background-image:none; color:#7aa2f7; }
-
-  /* --- Shared chrome: the SIDEBAR (2026-09-23) ------------------------
-     The Claude app's sidebar, mapped onto oncOS (Jonan: "use the same design").
-     Top row: hide-sidebar, back, forward, search — icon buttons, 28px, r-sm.
-     Primary list: the six modules as icon + label rows. Section list: the active
-     view's own nav (#viewnav, styled in build_shell.py) set like the app's
-     project header and session rows. Foot: wordmark + version where the app has
-     its account row; the theme control where it has settings. There is no header
-     bar above the content, and no home page.
-
-     Density follows the reference screenshot of the Claude app (Jonan,
-     2026-09-23): 28px single-line rows with no gap between them, 13px labels
-     in near-white (not grey), 16px icons, 26px top-row icon buttons, 8px
-     sidebar padding. The sidebar shares the content ground, separated by one
-     hairline. No wordmark, no version, no foot on desktop.
-
-     Router hooks are unchanged: .suite-link + data-nav carry aria-current,
-     #viewnav receives each view's nav, #burger is the phone Sections button, the
-     masthead lookups (#tabslider, #mobsuite, #mast-mod) are null-guarded.
-     Selectors are two classes deep on purpose: a mounted view's fragment CSS
-     carries `[data-view=x] a{color:…}` (0,1,1), which outranks a bare
-     `.suite-link` (0,1,0) and would recolour the sidebar per module. */
-  :root{ --rail-w:244px; --rail-row:28px; }
-  .oncos-rail{
+:root[data-theme="dark"] .wm .os{ background-image:none; color:#7aa2f7; }
+:root{ --rail-w:244px; --rail-row:28px; }
+.oncos-rail{
     position:sticky; top:0; z-index:40; flex:0 0 auto;
     width:calc(var(--rail-w) + env(safe-area-inset-left)); height:100dvh; box-sizing:border-box;
     display:flex; flex-direction:column; gap:var(--s-2);
-    /* Safe-area insets: a landscape phone crosses the 760px breakpoint and gets
-       the sidebar, with the notch on its left. */
+    
     padding:calc(10px + env(safe-area-inset-top)) var(--s-2)
       calc(var(--s-2) + env(safe-area-inset-bottom)) calc(var(--s-2) + env(safe-area-inset-left));
     background:var(--rail); border-right:1px solid var(--grid);
     overflow:hidden;
   }
-  /* Icon buttons — the app's small square, r-sm, muted until hovered. */
-  .rail-icon, .rail-top .theme-toggle{ display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+.rail-icon, .rail-top .theme-toggle{ display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
     width:26px; height:26px; padding:0; border:0; border-radius:var(--r-sm);
     background:transparent; color:var(--slate); cursor:pointer;
     transition:background 110ms var(--ease), color 110ms var(--ease); }
-  .rail-icon:hover{ background:var(--hover); color:var(--ink); }
-  .rail-icon:active{ background:var(--press); }
-  .rail-icon svg{ width:var(--ico-nav); height:var(--ico-nav); fill:none; stroke:currentColor;
+@media (hover:hover){.rail-icon:hover{ background:var(--hover); color:var(--ink); }}
+@media (hover:hover){.rail-icon:active{ background:var(--press); }}
+.rail-icon svg{ width:var(--ico-nav); height:var(--ico-nav); fill:none; stroke:currentColor;
     stroke-width:1.65; stroke-linecap:round; stroke-linejoin:round; }
-  .rail-top{ display:flex; align-items:center; gap:0; flex:0 0 auto; padding:0 2px; margin-bottom:var(--s-2); }
-  .rail-top-fill{ flex:1; }
-  .oncos-rail .rail-collapse{ margin-right:2px; }
-
-  /* Module list + section list scroll together; the foot stays pinned. */
-  .rail-scroll{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+.rail-top{ display:flex; align-items:center; gap:0; flex:0 0 auto; padding:0 2px; margin-bottom:var(--s-2); }
+.rail-top-fill{ flex:1; }
+.oncos-rail .rail-collapse{ margin-right:2px; }
+.rail-scroll{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain;
     margin:0 calc(-1 * var(--s-2)); padding:0 var(--s-2); }
-  /* 2px between rows so adjacent hover/active highlights never touch. */
-  .oncos-rail .suite-nav{ display:flex; flex-direction:column; gap:2px; padding:0; margin:0; border:0; }
-  .oncos-rail .suite-link{
+.oncos-rail .suite-nav{ display:flex; flex-direction:column; gap:2px; padding:0; margin:0; border:0; }
+.oncos-rail .suite-link{
     display:flex; align-items:center; gap:var(--s-2); width:100%; height:var(--rail-row);
     box-sizing:border-box; padding:0 var(--s-2); border-radius:var(--r-sm);
     color:var(--slate); font-size:13px; font-weight:var(--w-body);
     text-decoration:none; white-space:nowrap;
     transition:background 110ms var(--ease), color 110ms var(--ease);
   }
-  .oncos-rail .suite-link:hover{ background:var(--hover); color:var(--ink); }
-  .oncos-rail .suite-link:active,.oncos-rail .suite-link.is-pressed{ background:var(--press); }
-  /* Active: the neutral --press fill, never an accent tint. */
-  .oncos-rail .suite-link[aria-current="page"]{ background:var(--press); color:var(--ink); }
-  .oncos-rail .suite-link .tico{ display:inline-flex; flex:0 0 auto; }
-  .oncos-rail .suite-link .tico svg{ width:var(--ico-nav); height:var(--ico-nav); stroke-width:1.65; }
-  .oncos-rail .suite-link .sdot{ display:none; }
-  /* "Appendix" (Jonan, 2026-09-23: "somewhere less conspicuous"): pinned to
-     the sidebar foot in muted 12.5px type, below the section list, with a
-     hairline above it. It opens UPWARD: the toggle is first in the DOM
-     (keyboard order), column-reverse draws the four links above it. The
-     chevron points up while closed and down while open. Collapsed by default;
-     the router opens it when the current view lives inside it, so the active
-     module is never hidden. */
-  .oncos-rail .rail-more{ display:flex; flex-direction:column-reverse; gap:2px; flex:0 0 auto;
+@media (hover:hover){.oncos-rail .suite-link:hover{ background:var(--hover); color:var(--ink); }}
+@media (hover:hover){.oncos-rail .suite-link:active{ background:var(--press); }}
+.oncos-rail .suite-link[aria-current="page"]{ background:var(--press); color:var(--ink); }
+.oncos-rail .suite-link .tico{ display:inline-flex; flex:0 0 auto; }
+.oncos-rail .suite-link .tico svg{ width:var(--ico-nav); height:var(--ico-nav); stroke-width:1.65; }
+.oncos-rail .suite-link .sdot{ display:none; }
+.oncos-rail .rail-more{ display:flex; flex-direction:column-reverse; gap:2px; flex:0 0 auto;
     margin:0 calc(-1 * var(--s-2)); padding:var(--s-2) var(--s-2) 0; border-top:1px solid var(--grid); }
-  .oncos-rail .rail-group{
+.oncos-rail .rail-group{
     display:flex; align-items:center; gap:6px; width:100%; height:var(--rail-row);
     box-sizing:border-box; padding:0 var(--s-2); border:0; border-radius:var(--r-sm);
     background:transparent; color:var(--muted); font:inherit; font-size:12.5px; text-align:left; cursor:pointer;
     transition:background 110ms var(--ease), color 110ms var(--ease); }
-  .oncos-rail .rail-group .rail-label{ flex:0 1 auto; }
-  .oncos-rail .rail-group:hover{ background:var(--hover); color:var(--ink); }
-  .oncos-rail .rail-group .tico{ display:inline-flex; flex:0 0 auto; }
-  .oncos-rail .rail-group .tico svg{ width:12px; height:12px; fill:none; stroke:currentColor;
+.oncos-rail .rail-group .rail-label{ flex:0 1 auto; }
+@media (hover:hover){.oncos-rail .rail-group:hover{ background:var(--hover); color:var(--ink); }}
+.oncos-rail .rail-group .tico{ display:inline-flex; flex:0 0 auto; }
+.oncos-rail .rail-group .tico svg{ width:12px; height:12px; fill:none; stroke:currentColor;
     stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transform:rotate(-90deg);
     transition:transform 110ms var(--ease); }
-  .oncos-rail .rail-group[aria-expanded="true"] .tico svg{ transform:rotate(90deg); }
-  .oncos-rail .rail-appendix{ display:none; flex-direction:column; gap:2px; }
-  .oncos-rail .rail-appendix.open{ display:flex; }
-  .oncos-rail .rail-appendix .suite-link{ color:var(--slate); }
-  .oncos-rail .rail-appendix .suite-link:hover,
-  .oncos-rail .rail-appendix .suite-link[aria-current="page"]{ color:var(--ink); }
-  /* The phone drawer's copy of the Appendix (see the strip rules). */
-  .oncos-rail .rail-sheet-appendix{ display:none; }
-  .rail-label{ flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
-
-  /* The active view's section list: no rule above it; the app separates its
-     project list from the primary items with space alone. */
-  .rail-section{ margin-top:var(--s-4); }
-  .rail-section:empty{ display:none; margin:0; }
-
-  /* The foot exists only on a phone (the strip's controls); on desktop the
-     theme control and search sit in the top row. */
-  .rail-foot{ display:none; }
-  .rail-sections, .rail-search-strip{ display:none !important; }   /* phone only, below */
-
-  /* Sidebar hidden — the Claude app's behaviour (Jonan, 2026-09-23):
-       - only the show icon remains, floating at EXACTLY the hide icon's
-         position (10px from the top and left), so it never jumps;
-       - no bar and no border; the page keeps its top edge and gains width, with
-         an invisible 46px left margin so scrolling content never meets the icon;
-       - hovering the icon slides the sidebar in over the page (html.rail-peek);
-         it leaves when the pointer leaves the sidebar; clicking the icon while it
-         is showing pins it open. */
-  .rail-float{ display:none; }
-  html.rail-collapsed .oncos-rail{ display:none; }
-  html.rail-collapsed .rail-float{
+.oncos-rail .rail-group[aria-expanded="true"] .tico svg{ transform:rotate(90deg); }
+.oncos-rail .rail-appendix{ display:none; flex-direction:column; gap:2px; }
+.oncos-rail .rail-appendix.open{ display:flex; }
+.oncos-rail .rail-appendix .suite-link{ color:var(--slate); }
+.oncos-rail .rail-appendix .suite-link[aria-current="page"]{ color:var(--ink); }
+@media (hover:hover){.oncos-rail .rail-appendix .suite-link:hover{ color:var(--ink); }}
+.oncos-rail .rail-sheet-appendix{ display:none; }
+.rail-label{ flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; }
+.rail-section{ margin-top:var(--s-4); }
+.rail-section:empty{ display:none; margin:0; }
+.rail-foot{ display:none; }
+.rail-sections, .rail-search-strip{ display:none !important; }
+.rail-float{ display:none; }
+html.rail-collapsed .oncos-rail{ display:none; }
+html.rail-collapsed .rail-float{
     display:block; position:fixed; z-index:45;
     top:calc(10px + env(safe-area-inset-top)); left:calc(10px + env(safe-area-inset-left)); }
-  html.rail-collapsed #viewroot{ padding-left:calc(46px + env(safe-area-inset-left)); }
-  html.rail-collapsed.rail-peek .oncos-rail{
+html.rail-collapsed #viewroot{ padding-left:calc(46px + env(safe-area-inset-left)); }
+html.rail-collapsed.rail-peek .oncos-rail{
     display:flex; position:fixed; left:0; top:0; z-index:60; box-shadow:var(--shadow-pop);
     animation:rail-peek-in 160ms var(--ease); }
-  @keyframes rail-peek-in{ from{ opacity:0; transform:translateX(-4px); } }
-  @media (prefers-reduced-motion:reduce){ html.rail-collapsed.rail-peek .oncos-rail{ animation:none; } }
-
-  /* Links (2026-09-23): blue, no underline until hovered — the Google Docs
-     link style. A link to a Google Drive or Docs file (the filed source PDFs in
-     Evidence and Notes) carries the Drive logo before its text, so a reader can
-     tell at a glance that it opens the source document. Matched on the href, so
-     it covers links the modules build at runtime too. */
-  a[href*="drive.google.com"], a[href*="docs.google.com"]{
+@keyframes rail-peek-in{ from{ opacity:0; transform:translateX(-4px); } }
+@media (prefers-reduced-motion:reduce){html.rail-collapsed.rail-peek .oncos-rail{ animation:none; }}
+a[href*="drive.google.com"], a[href*="docs.google.com"]{
     color:var(--m); text-decoration:none; }
-  a[href*="drive.google.com"]:hover, a[href*="docs.google.com"]:hover{ text-decoration:underline; }
-  a[href*="drive.google.com"]::before, a[href*="docs.google.com"]::before{
+@media (hover:hover){a[href*="drive.google.com"]:hover, a[href*="docs.google.com"]:hover{ text-decoration:underline; }}
+a[href*="drive.google.com"]::before, a[href*="docs.google.com"]::before{
     content:""; display:inline-block; width:1.05em; height:.94em; margin-right:.35em;
     vertical-align:-.12em; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 87.3 78'%3E%3Cpath d='m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z' fill='%230066da'/%3E%3Cpath d='m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z' fill='%2300ac47'/%3E%3Cpath d='m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z' fill='%23ea4335'/%3E%3Cpath d='m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z' fill='%2300832d'/%3E%3Cpath d='m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z' fill='%232684fc'/%3E%3Cpath d='m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z' fill='%23ffba00'/%3E%3C/svg%3E") center/contain no-repeat; }
-
-  /* Search field, when a module renders one inline. */
-  .barsearch{ border-radius:var(--r-pill); background:var(--raised);
+.barsearch{ border-radius:var(--r-pill); background:var(--raised);
     border:1px solid transparent; }
-  .barsearch:focus{ border-color:var(--m); background:var(--paper); outline:none; }
-
-  /* Standalone module pages (opened outside the shell) still get a suite nav
-     injected into their own drawer by toggle_script(). Same row vocabulary,
-     scoped to that drawer so it never competes with the sidebar. */
-  aside .suite-nav .suite-link{ display:flex; align-items:center; gap:9px; height:30px;
+.barsearch:focus{ border-color:var(--m); background:var(--paper); outline:none; }
+aside .suite-nav .suite-link{ display:flex; align-items:center; gap:9px; height:30px;
     padding:0 20px; color:var(--slate); font-size:13px; text-decoration:none; }
-  aside .suite-nav .suite-link:hover{ background:var(--hover); color:var(--ink); }
-  aside .suite-nav .suite-link[aria-current="page"]{ background:var(--press); color:var(--ink); }
-  aside .suite-nav .suite-label{ font-size:12.5px; color:var(--muted); padding:8px 20px 4px; }
-
-  /* --- Narrow widths: the sidebar becomes a top strip (the app's narrow
-     mode). Modules scroll; Sections, Search and Theme pin right. The top row,
-     the section list and the wordmark have no room and step aside; the section
-     list opens as a sheet from Sections. --- */
-  @media (max-width:760px){
-    body.oncos-railed{ flex-direction:column; }
-    .oncos-rail{
+@media (hover:hover){aside .suite-nav .suite-link:hover{ background:var(--hover); color:var(--ink); }}
+aside .suite-nav .suite-link[aria-current="page"]{ background:var(--press); color:var(--ink); }
+aside .suite-nav .suite-label{ font-size:12.5px; color:var(--muted); padding:8px 20px 4px; }
+@media (max-width:760px){body.oncos-railed{ flex-direction:column; }
+.oncos-rail{
       width:auto; height:auto; flex-direction:row; align-items:center; gap:var(--s-2);
-      /* Under the status bar in an iOS PWA (viewport-fit=cover). */
+      
       padding:calc(6px + env(safe-area-inset-top)) calc(var(--s-2) + env(safe-area-inset-right))
         6px calc(var(--s-2) + env(safe-area-inset-left));
       border-right:0; border-bottom:1px solid var(--grid); overflow:visible;
     }
-    .rail-top{ display:none; }
-    .rail-scroll{ flex:1 1 auto; min-width:0; overflow:visible; margin:0; padding:0; }
-    .oncos-rail .suite-nav{ flex:1; min-width:0; flex-direction:row; gap:2px;
+.rail-top{ display:none; }
+.rail-scroll{ flex:1 1 auto; min-width:0; overflow:visible; margin:0; padding:0; }
+.oncos-rail .suite-nav{ flex:1; min-width:0; flex-direction:row; gap:2px;
       overflow-x:auto; scrollbar-width:none; }
-    .oncos-rail .suite-nav::-webkit-scrollbar{ display:none; }
-    .oncos-rail .suite-link{ width:auto; padding:0 10px; }
-    /* The strip holds only the primary modules (Evidence, Staging). The
-       Appendix is not in the strip at all: it opens from the Sections drawer,
-       collapsed below the current page's own sections. */
-    .oncos-rail .rail-more, .oncos-rail .rail-group, .oncos-rail .rail-appendix, .oncos-rail .rail-appendix.open{ display:none; }
-    .oncos-rail .rail-sheet-appendix{ display:block; flex:0 0 auto; margin: auto 0 0; padding-top:var(--s-1); }
-    /* Same quiet treatment as the desktop foot: muted label, chevron after it,
-       a hairline above; the 44px row keeps the touch target. */
-    .oncos-rail .rail-sheet-appendix{ border-top:1px solid var(--grid); margin-top:auto; }
-    .rail-sheet-appendix summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 var(--s-2);cursor:pointer;list-style:none;color:var(--muted);font-size:12.5px;}
-    .rail-sheet-appendix summary::-webkit-details-marker{display:none;}
-    .rail-sheet-appendix summary::after{content:"";width:5px;height:5px;margin-top:-1px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(-45deg);transition:transform 110ms;}
-    .rail-sheet-appendix[open] summary::after{transform:rotate(45deg);margin-top:-4px;}
-    .oncos-rail .rail-sheet-label{ font-size:12.5px; color:var(--muted); padding:0 var(--s-2) var(--s-1); }
-    .oncos-rail .rail-sheet-appendix .suite-link{ width:100%; padding:0 var(--s-2); }
-    .rail-section{ display:none; margin:0; }
-    .rail-sections, .rail-search-strip{ display:inline-flex !important; }
-    body.nav-open .rail-section{
+.oncos-rail .suite-nav::-webkit-scrollbar{ display:none; }
+.oncos-rail .suite-link{ width:auto; padding:0 10px; }
+.oncos-rail .rail-more, .oncos-rail .rail-group, .oncos-rail .rail-appendix, .oncos-rail .rail-appendix.open{ display:none; }
+.oncos-rail .rail-sheet-appendix{ display:block; flex:0 0 auto; margin: auto 0 0; padding-top:var(--s-1); }
+.oncos-rail .rail-sheet-appendix{ border-top:1px solid var(--grid); margin-top:auto; }
+.rail-sheet-appendix summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 var(--s-2);cursor:pointer;list-style:none;color:var(--muted);font-size:12.5px;}
+.rail-sheet-appendix summary::-webkit-details-marker{display:none;}
+.rail-sheet-appendix summary::after{content:"";width:5px;height:5px;margin-top:-1px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(-45deg);transition:transform 110ms;}
+.rail-sheet-appendix[open] summary::after{transform:rotate(45deg);margin-top:-4px;}
+.oncos-rail .rail-sheet-label{ font-size:12.5px; color:var(--muted); padding:0 var(--s-2) var(--s-1); }
+.oncos-rail .rail-sheet-appendix .suite-link{ width:100%; padding:0 var(--s-2); }
+.rail-section{ display:none; margin:0; }
+.rail-sections, .rail-search-strip{ display:inline-flex !important; }
+body.nav-open .rail-section{
       display:flex; flex-direction:column; position:fixed; z-index:39; left:0; right:0;
       top:var(--strip-h); bottom:0; margin:0;
       padding:var(--s-3) var(--s-2) calc(var(--s-6) + env(safe-area-inset-bottom));
       overflow-y:auto; overscroll-behavior:contain;
       background:var(--rail); border-top:1px solid var(--grid);
     }
-    body.nav-open .rail-sections{ background:var(--press); color:var(--ink); }
-    .rail-foot{ display:flex; align-items:center; gap:2px; flex:0 0 auto; padding:0; }
-    /* The strip has no hide-sidebar control, so a remembered collapse from a
-       desktop session must not hide the only navigation on a phone. */
-    html.rail-collapsed .oncos-rail{ display:flex; position:sticky; box-shadow:none; animation:none; }
-    html.rail-collapsed .rail-float{ display:none; }
-    html.rail-collapsed #viewroot{ padding-left:14px; }
-  }
-  @media (max-width:760px){
-    .oncos-rail .rail-icon,.oncos-rail .theme-toggle{width:44px;height:44px;}
-    .oncos-rail .suite-link{height:44px;}
-    .rail-foot{gap:0;}
-    .oncos-rail{gap:4px;}
-    #viewnav{flex:0 0 auto;}
-    .rail-sheet-appendix[open] .suite-link{display:flex;}
-    .rail-sheet-appendix:not([open]) .suite-link{display:none;}
-  }
-  @media (max-width:360px){.oncos-rail .suite-nav>.suite-link{padding-inline:4px;}}
-  /* Strip height, for anything anchored under it (the Sections sheet): one
-     30px row, 6px padding top and bottom, the 1px rule, the top safe-area. */
-  :root{ --strip-h:calc(44px + 13px + env(safe-area-inset-top)); }
-
-  .sdot-evidence{ background:#1967d2; }
-  :root[data-theme="dark"] .sdot-evidence{ background:#7aa2f7; }
-  .sdot-drugs{ background:#1967d2; }
-  :root[data-theme="dark"] .sdot-drugs{ background:#7aa2f7; }
-  .sdot-staging{ background:#1967d2; }
-  :root[data-theme="dark"] .sdot-staging{ background:#7aa2f7; }
-  .sdot-tox{ background:#1967d2; }
-  :root[data-theme="dark"] .sdot-tox{ background:#7aa2f7; }
-  .sdot-acute{ background:#1967d2; }
-  :root[data-theme="dark"] .sdot-acute{ background:#7aa2f7; }
-  .sdot-notes{ background:#1967d2; }
-  :root[data-theme="dark"] .sdot-notes{ background:#7aa2f7; }
-  .sdot-hub{ background:linear-gradient(135deg,#1967d2,#1967d2,#1967d2,#1967d2,#1967d2,#1967d2); }
-  :root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7); }
-
-  /* The theme control stays where the site already puts it — in the sidebar,
-     not a Settings dialog (the site has none, and head_script()'s no-flash
-     resolver is load-bearing). It takes the app's 28px icon-button shape, in the
-     sidebar foot where the app keeps its settings control. oncos_motion stacks
-     sun and moon absolutely at the centre and crossfades them; a fixed-size
-     button is what that crossfade needs. */
-  .theme-toggle{
+body.nav-open .rail-sections{ background:var(--press); color:var(--ink); }
+.rail-foot{ display:flex; align-items:center; gap:2px; flex:0 0 auto; padding:0; }
+html.rail-collapsed .oncos-rail{ display:flex; position:sticky; box-shadow:none; animation:none; }
+html.rail-collapsed .rail-float{ display:none; }
+html.rail-collapsed #viewroot{ padding-left:14px; }}
+@media (max-width:760px){.oncos-rail .rail-icon, .oncos-rail .theme-toggle{width:44px;height:44px;}
+.oncos-rail .suite-link{height:44px;}
+.rail-foot{gap:0;}
+.oncos-rail{gap:4px;}
+#viewnav{flex:0 0 auto;}
+.rail-sheet-appendix[open] .suite-link{display:flex;}
+.rail-sheet-appendix:not([open]) .suite-link{display:none;}}
+@media (max-width:360px){.oncos-rail .suite-nav>.suite-link{padding-inline:4px;}}
+:root{ --strip-h:calc(44px + 13px + env(safe-area-inset-top)); }
+.sdot-evidence{ background:#1967d2; }
+:root[data-theme="dark"] .sdot-evidence{ background:#7aa2f7; }
+.sdot-drugs{ background:#1967d2; }
+:root[data-theme="dark"] .sdot-drugs{ background:#7aa2f7; }
+.sdot-staging{ background:#1967d2; }
+:root[data-theme="dark"] .sdot-staging{ background:#7aa2f7; }
+.sdot-tox{ background:#1967d2; }
+:root[data-theme="dark"] .sdot-tox{ background:#7aa2f7; }
+.sdot-acute{ background:#1967d2; }
+:root[data-theme="dark"] .sdot-acute{ background:#7aa2f7; }
+.sdot-notes{ background:#1967d2; }
+:root[data-theme="dark"] .sdot-notes{ background:#7aa2f7; }
+.sdot-hub{ background:linear-gradient(135deg,#1967d2,#1967d2,#1967d2,#1967d2,#1967d2,#1967d2); }
+:root[data-theme="dark"] .sdot-hub{ background:linear-gradient(135deg,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7,#7aa2f7); }
+.theme-toggle{
     display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
     width:28px; height:28px; padding:0; cursor:pointer;
     background:transparent; color:var(--slate);
     border:0; border-radius:var(--r-sm);
     transition:color 110ms var(--ease), background 110ms var(--ease);
   }
-  .theme-toggle:hover{ color:var(--ink); background:var(--hover); }
-  .theme-toggle svg{ width:var(--ico-nav); height:var(--ico-nav); flex:0 0 auto;
+@media (hover:hover){.theme-toggle:hover{ color:var(--ink); background:var(--hover); }}
+.theme-toggle svg{ width:var(--ico-nav); height:var(--ico-nav); flex:0 0 auto;
     fill:none; stroke:currentColor; stroke-width:1.65; stroke-linecap:round; stroke-linejoin:round; }
-  .theme-toggle .i-sun{ display:none; }
-  :root[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
-  :root[data-theme="dark"] .theme-toggle .i-sun{ display:block; }
-  /* --- oncOS mobile QA (roadmap #4): no side-scroll + no iOS focus-zoom --- */
-  /* Touch devices only: iOS Safari zooms the page when a focused control is
-     under 16px, so pin form controls to 16px there (desktop sizing untouched). */
-  @media (hover:none) and (pointer:coarse){
-    input, select, textarea { font-size:16px !important; }
-  }
-  /* Belt-and-braces: disable horizontal page scroll on phones. `clip` (not
-     `hidden`) doesn't create a scroll container, so position:sticky headers
-     keep working. */
-  @media (max-width:760px){ html, body { overflow-x:clip; } }
-
-  /* ===== oncOS motion layer (shared: _oncos-kit/oncos_motion.py): none ===== */
-  :root{ --mo-dur:0s; --mo-ease:linear; }
-  *, *::before, *::after{ transition:none !important; animation:none !important; scroll-behavior:auto !important; }
-
-  /* native <details>: open and close at once */
-  details[open] > summary .chev{ transform:rotate(90deg); }
-
-  /* nav backdrop: kept displayed, switched by visibility */
-  .backdrop{
+.theme-toggle .i-sun{ display:none; }
+:root[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
+:root[data-theme="dark"] .theme-toggle .i-sun{ display:block; }
+@media (hover:none) and (pointer:coarse){input, select, textarea{ font-size:16px !important; }}
+@media (max-width:760px){html, body{ overflow-x:clip; }}
+:root{ --mo-dur:0s; --mo-ease:linear; }
+*, *::before, *::after{ transition:none !important; animation:none !important; scroll-behavior:auto !important; }
+details[open] > summary .chev{ transform:rotate(90deg); }
+.backdrop{
     display:block !important; position:fixed; inset:0; z-index:45;
     background:rgba(15,42,67,.18);
     opacity:0; visibility:hidden; pointer-events:none;
   }
-  body.nav-open .backdrop{ opacity:1; visibility:visible; pointer-events:auto; }
-
-  /* theme toggle: both icons stacked, the current one shown */
-  .theme-toggle{ position:relative; overflow:hidden; }
-  .theme-toggle svg{ position:absolute; top:50%; left:50%; margin:0; }
-  .theme-toggle .i-moon{ display:block !important; opacity:1; transform:translate(-50%,-50%); }
-  .theme-toggle .i-sun{ display:block !important; opacity:0; transform:translate(-50%,-50%); }
-  :root[data-theme="dark"] .theme-toggle .i-moon{ opacity:0; }
-  :root[data-theme="dark"] .theme-toggle .i-sun{ opacity:1; }
-
-@property --m { syntax:'<color>'; inherits:true; initial-value:#1967d2; }
-@media (prefers-reduced-motion: no-preference){ :root{ transition: --m .35s var(--mo-ease, cubic-bezier(.3,0,.1,1)); } }
+body.nav-open .backdrop{ opacity:1; visibility:visible; pointer-events:auto; }
+.theme-toggle{ position:relative; overflow:hidden; }
+.theme-toggle svg{ position:absolute; top:50%; left:50%; margin:0; }
+.theme-toggle .i-moon{ display:block !important; opacity:1; transform:translate(-50%,-50%); }
+.theme-toggle .i-sun{ display:block !important; opacity:0; transform:translate(-50%,-50%); }
+:root[data-theme="dark"] .theme-toggle .i-moon{ opacity:0; }
+:root[data-theme="dark"] .theme-toggle .i-sun{ opacity:1; }
+@property --m{ syntax:'<color>'; inherits:true; initial-value:#1967d2; }
+@media (prefers-reduced-motion: no-preference){:root{ transition: --m .35s var(--mo-ease, cubic-bezier(.3,0,.1,1)); }}
 html[data-view="evidence"]{ --m:#1967d2; --teal:var(--m); }
 html[data-view="evidence"][data-theme="dark"]{ --m:#7aa2f7; }
 html[data-view="drugs"]{ --m:#1967d2; --teal:var(--m); }
@@ -596,27 +321,16 @@ html[data-view="acute"]{ --m:#1967d2; --teal:var(--m); }
 html[data-view="acute"][data-theme="dark"]{ --m:#7aa2f7; }
 html[data-view="notes"]{ --m:#1967d2; --teal:var(--m); }
 html[data-view="notes"][data-theme="dark"]{ --m:#7aa2f7; }
-
 *{box-sizing:border-box;}
-html,body{margin:0;}
+html, body{margin:0;}
 body{font-family:var(--font-sans);color:var(--ink);background:var(--ground);
   font-size:var(--t-md);line-height:1.5;-webkit-text-size-adjust:100%;}
 a{color:var(--teal);}
-
 .wm{margin:0;font-size:var(--t-3xl);color:var(--ink);line-height:1;text-decoration:none;flex:0 0 auto;}
-
-
-/* Module scripts keep a non-interactive value holder for their legacy APIs. */
 .barsearch{display:none!important;}
 .barsearch:focus-visible{outline:none;}
-/* No blue focus highlights (Jonan, 2026-09-23). Clicks and taps never show a
-   ring, including focus the router moves to a heading or back to a control;
-   keyboard navigation (Tab, arrows) keeps a ring, in neutral grey. Text boxes
-   show focus by their caret, and a grey border where they have one. */
 html:not([data-input-modality="keyboard"]) :focus-visible{outline:none;}
 html :focus-visible{outline-color:var(--muted);}
-
-/* One suite-wide search surface. */
 .global-search-dialog[hidden]{display:none!important;}
 .global-search-dialog{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.48);
   padding:max(18px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right))
@@ -638,28 +352,18 @@ html :focus-visible{outline-color:var(--muted);}
 .gs-result:first-of-type{border-radius:12px 12px 0 0;}
 .gs-result:last-child{border-radius:0 0 12px 12px;}
 @media (hover:hover){.gs-result:hover{background:var(--raised);}}
-.gs-result.is-pressed{background:var(--raised);}
 .gs-title{font-weight:var(--w-name);font-size:var(--t-lg);}
 .gs-subtitle{font-size:var(--t-sm);color:var(--muted);}
 .gs-preview{font-size:var(--t-base);color:var(--slate);line-height:1.45;}
 .gs-empty{padding:42px 16px;text-align:center;color:var(--muted);}
-/* Scroll lock on the ROOT, not the body (bug found 2026-09-23). On phones the
-   kit clips the root sideways (overflow-x:clip), so a body overflow no longer
-   propagates to the viewport: the body became its own scroll box, the page
-   kept scrolling, and the sticky top strip pinned to the body's top edge,
-   off-screen, taking the Sections button with it whenever the sheet opened
-   below the top of a page. */
-html:has(> body.global-search-open),html:has(> body.nav-open){overflow:hidden;}
+html:has(> body.global-search-open), html:has(> body.nav-open){overflow:hidden;}
 .gs-result:focus-visible{outline:2px solid var(--muted);outline-offset:-2px;background:var(--raised);}
 html:not([data-input-modality="keyboard"]) .gs-result:focus-visible{outline:none;}
-html[data-view="tox"] #viewroot input:focus,html[data-view="tox"] #viewroot select:focus{border-color:var(--muted);}
-@media (max-width:760px){
-  .global-search-dialog{padding:0;}
-  .global-search-panel{width:100%;height:100%;max-height:100%;border:0;border-radius:0;}
-  .global-search-head{padding-top:calc(10px + env(safe-area-inset-top));}
-  .global-search-results{padding:14px;}
-}
-
+html[data-view="tox"] #viewroot input:focus, html[data-view="tox"] #viewroot select:focus{border-color:var(--muted);}
+@media (max-width:760px){.global-search-dialog{padding:0;}
+.global-search-panel{width:100%;height:100%;max-height:100%;border:0;border-radius:0;}
+.global-search-head{padding-top:calc(10px + env(safe-area-inset-top));}
+.global-search-results{padding:14px;}}
 .global-search-filters{display:flex;gap:6px;flex-wrap:wrap;padding:12px 14px 4px;flex-shrink:0;}
 .global-search-filters .gs-filter{min-height:44px;padding:7px 10px;background:var(--paper);border:1px solid var(--hair);border-radius:9px;color:var(--ink);font:inherit;font-size:var(--t-sm);cursor:pointer;}
 .global-search-filters .gs-filter[aria-pressed="true"]{border-color:var(--hair);color:var(--ink);background:var(--press);}
@@ -668,84 +372,38 @@ html[data-view="tox"] #viewroot input:focus,html[data-view="tox"] #viewroot sele
 .global-search-results .gs-retry{display:block;margin:0 auto 20px;min-height:44px;padding:8px 14px;border:1px solid var(--hair);border-radius:9px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
 .global-search-head input{height:44px;font-size:16px;}
 .global-search-close{width:44px;height:44px;}
-/* Quiet controls (2026-09-23): filters are borderless pills (the pressed one
-   takes the neutral --press fill above), Close is a plain icon button. Touch
-   keeps 44px targets; a mouse gets 32px pills. */
 .global-search-filters{gap:4px;}
 .global-search-filters .gs-filter{border-color:transparent;border-radius:999px;background:transparent;color:var(--slate);
   padding:5px 12px;transition:background 110ms var(--ease),color 110ms var(--ease);}
-.global-search-filters .gs-filter:hover{background:var(--hover);color:var(--ink);}
+@media (hover:hover){.global-search-filters .gs-filter:hover{background:var(--hover);color:var(--ink);}}
 .global-search-close{border:0;background:transparent;color:var(--slate);border-radius:var(--r-sm);}
-.global-search-close:hover{background:var(--hover);color:var(--ink);}
-@media (hover:hover) and (pointer:fine){ .global-search-filters .gs-filter{min-height:32px;} }
-
+@media (hover:hover){.global-search-close:hover{background:var(--hover);color:var(--ink);}}
+@media (hover:hover) and (pointer:fine){.global-search-filters .gs-filter{min-height:32px;}}
 #viewroot{min-height:60vh;}
 .view-error{max-width:560px;margin:48px auto;padding:24px;color:var(--ink);}
 .view-error h1{font-size:24px;line-height:1.3;}
 .view-error p{color:var(--slate);line-height:1.6;}
 .view-error button{min-height:44px;padding:10px 16px;border:1px solid var(--hair);border-radius:9px;
   background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
-/* Rail layout (2026-09-23). The rail sits beside the content; content fills
-   the window with no max-width and no header bar above it. */
 body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
-/* Sidebar 276px, not the kit's 244px (Jonan, 2026-10-04): with sheets indented
-   under their group, every Evidence sheet name fits on one line. Doubled :root
-   outranks the kit's own :root declaration. The phone strip has no width. */
 :root:root{--rail-w:276px;}
 #viewroot{flex:1 1 auto;min-width:0;container: oncos / inline-size;}
-/* Every page fills the window beside the sidebar (Jonan, 2026-09-23: "fit the
-   screen"). Each module styles its own `main` with a centred max-width (Staging
-   and Acute 1000px, Drugs and Tox 1040px, Evidence 1280px, Notes 96vw) and
-   slightly different padding. Inside the shell that `main` IS #viewroot, so
-   those caps floated the narrower pages in the middle of a wide window. One ID
-   rule outranks every `[data-view=x] main` rule; padding is Evidence's for all.
-   Screen only, so each module's print styles still apply. */
-@media screen{
-  #viewroot{max-width:none;margin:0;padding:18px clamp(16px,4vw,26px) 60px;box-sizing:border-box;}
-}
-@media screen and (max-width:760px){
-  #viewroot{padding:14px 14px 54px;}
-}
-/* Height of the chrome above the content, for module sticky offsets. Module
-   generators write `top:var(--chrome-h, calc(59px + safe-area))`: the fallback
-   is their standalone page's own 59px header; inside the shell there is no
-   header on desktop, and on a phone the strip is the chrome. */
+@media screen{#viewroot{max-width:none;margin:0;padding:18px clamp(16px,4vw,26px) 60px;box-sizing:border-box;}}
+@media screen and (max-width:760px){#viewroot{padding:14px 14px 54px;}}
 :root{--chrome-h:0px;}
-@media (max-width:760px){ :root{--chrome-h:var(--strip-h);} }
-/* ---- Section list: each view's own nav, mounted in the sidebar ----------
-   Set in the Claude app's vocabulary (2026-09-23). The six generators share
-   one nav structure — .navsec groups with a .secname/.sysname header, item
-   buttons in .items/.sheets (Tox: .socnav links), an .allbtn reset and count
-   spans — so one block restyles all of them.
-   `.oncos-rail #viewnav …` outranks each fragment's `[data-view=x] …` rules.
-     groups  -> the app's project header ("Oncology"): 12.5px sentence case,
-                muted, caret at right.
-     items   -> the app's session rows: 28px, one line, 13px near-white, a
-                hollow dot that fills when active, the --press row when active.
-     counts  -> quiet muted figures at the right, no pill.
-   Rows are single-line with an ellipsis, as in the app (Jonan, 2026-09-23:
-   "follow the reference"). The router gives every truncatable row a title
-   tooltip carrying its full name, and the phone Sections sheet is full-width,
-   so no clinical name is unreachable. */
+@media (max-width:760px){:root{--chrome-h:var(--strip-h);}}
 #viewnav{padding:0;}
-.oncos-rail #viewnav .navsec,.oncos-rail #viewnav .items,.oncos-rail #viewnav .sheets,
-.oncos-rail #viewnav .socnav,.oncos-rail #viewnav .facet,.oncos-rail #viewnav .allbtn{margin:0;padding:0;border:0;background:transparent;}
-/* Groups sit on the same rhythm as rows: a 26px header plus the 2px row gap
-   (was 26px + 8px, which read as loose). A module's larger sections (Tox's
-   "Supportive care" / "irAE — by organ") keep a small 8px break. */
+.oncos-rail #viewnav .navsec, .oncos-rail #viewnav .items, .oncos-rail #viewnav .sheets, .oncos-rail #viewnav .socnav, .oncos-rail #viewnav .facet, .oncos-rail #viewnav .allbtn{margin:0;padding:0;border:0;background:transparent;}
 .oncos-rail #viewnav .navsec + .navsec{margin-top:2px;}
 .oncos-rail #viewnav .facet + .facet{margin-top:var(--s-2);}
-.oncos-rail #viewnav .secname,.oncos-rail #viewnav .sysname{
+.oncos-rail #viewnav .secname, .oncos-rail #viewnav .sysname{
   display:flex;align-items:center;justify-content:flex-start;gap:4px;width:100%;
   height:26px;margin:0;padding:0 var(--s-2);border:0;border-radius:var(--r-sm);background:transparent;
   font:inherit;font-size:12.5px;font-weight:var(--w-body);letter-spacing:0;text-transform:none;
   color:var(--muted);text-align:left;cursor:pointer;
   transition:background 110ms var(--ease),color 110ms var(--ease);}
-.oncos-rail #viewnav .secname:hover,.oncos-rail #viewnav .sysname:hover{background:var(--hover);color:var(--ink);}
-/* Chevron beside the label, as the app's "Oncology ⌄": points down when the
-   group is open, right when collapsed. Drawn as a vector mask so it is crisp
-   at any offset; the modules' ▼ glyph is hidden. */
-.oncos-rail #viewnav .secname .caret,.oncos-rail #viewnav .sysname .caret{
+@media (hover:hover){.oncos-rail #viewnav .secname:hover, .oncos-rail #viewnav .sysname:hover{background:var(--hover);color:var(--ink);}}
+.oncos-rail #viewnav .secname .caret, .oncos-rail #viewnav .sysname .caret{
   display:inline-block;flex:0 0 auto;width:12px;height:12px;font-size:0;opacity:1;
   background-color:var(--muted);transform:none;transition:transform 110ms var(--ease);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px 12px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px 12px no-repeat;}
@@ -753,85 +411,45 @@ body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
 .oncos-rail #viewnav .flabel{
   margin:0;padding:4px var(--s-2) 2px;font-size:12.5px;font-weight:var(--w-body);
   letter-spacing:0;text-transform:none;color:var(--muted);}
-.oncos-rail #viewnav .items button,.oncos-rail #viewnav .sheets button,.oncos-rail #viewnav .socnav a,
-.oncos-rail #viewnav .itemlink,.oncos-rail #viewnav .allbtn button,.oncos-rail #viewnav .facet .sbtn{
+.oncos-rail #viewnav .items button, .oncos-rail #viewnav .sheets button, .oncos-rail #viewnav .socnav a, .oncos-rail #viewnav .itemlink, .oncos-rail #viewnav .allbtn button, .oncos-rail #viewnav .facet .sbtn{
   display:flex;align-items:center;gap:var(--s-2);width:100%;height:var(--rail-row);box-sizing:border-box;
   margin:0;padding:0 var(--s-2);border:0;border-radius:var(--r-sm);background:transparent;
   font:inherit;font-size:13px;font-weight:var(--w-body);line-height:1.2;text-align:left;white-space:nowrap;
   text-decoration:none;color:var(--slate);cursor:pointer;
   transition:background 110ms var(--ease),color 110ms var(--ease);}
-.oncos-rail #viewnav .items button::before,.oncos-rail #viewnav .sheets button::before,
-.oncos-rail #viewnav .socnav a::before,.oncos-rail #viewnav .itemlink::before{
-  /* A vector ring (mask), not a box-shadow: an inset 1.25px shadow rounds
-     differently on each side and read as lopsided. */
+.oncos-rail #viewnav .items button::before, .oncos-rail #viewnav .sheets button::before, .oncos-rail #viewnav .socnav a::before, .oncos-rail #viewnav .itemlink::before{
+  
   content:"";flex:0 0 auto;width:8px;height:8px;background-color:var(--muted);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3C/svg%3E") center/8px 8px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3C/svg%3E") center/8px 8px no-repeat;}
-.oncos-rail #viewnav .items button > span:first-child,.oncos-rail #viewnav .sheets button > span:first-child,
-.oncos-rail #viewnav .socnav a > span:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;}
-/* 2px between rows so adjacent highlights never touch. Sibling margins, not a
-   flex gap: making the lists flex would override each module's
-   `.navsec.collapsed .items{display:none}` and un-collapse every group. */
-.oncos-rail #viewnav .items button + button,.oncos-rail #viewnav .sheets button + button,
-.oncos-rail #viewnav .socnav a + a,.oncos-rail #viewnav .itemlink + .itemlink{margin-top:2px;}
-/* Tox's lists are already flex columns with a 1px gap; zero it (gap only —
-   display is left alone) so every list lands on the same 2px. */
-.oncos-rail #viewnav .items,.oncos-rail #viewnav .sheets,.oncos-rail #viewnav .socnav{gap:0;}
-/* Rows inside a group sit 12px in from its header (Jonan, 2026-10-04), so
-   sheets read as children of the disease group; the highlight moves with them. */
-.oncos-rail #viewnav .navsec .items,.oncos-rail #viewnav .navsec .sheets,.oncos-rail #viewnav .navsec .socnav{padding-left:12px;}
-.oncos-rail #viewnav .items button:hover,.oncos-rail #viewnav .sheets button:hover,
-.oncos-rail #viewnav .socnav a:hover,.oncos-rail #viewnav .itemlink:hover,
-.oncos-rail #viewnav .allbtn button:hover,.oncos-rail #viewnav .facet .sbtn:hover{
-  background:var(--hover);color:var(--ink);}
-.oncos-rail #viewnav .items button.active,.oncos-rail #viewnav .sheets button.active,
-.oncos-rail #viewnav .socnav a.on,.oncos-rail #viewnav .itemlink.active{
+.oncos-rail #viewnav .items button > span:first-child, .oncos-rail #viewnav .sheets button > span:first-child, .oncos-rail #viewnav .socnav a > span:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;}
+.oncos-rail #viewnav .items button + button, .oncos-rail #viewnav .sheets button + button, .oncos-rail #viewnav .socnav a + a, .oncos-rail #viewnav .itemlink + .itemlink{margin-top:2px;}
+.oncos-rail #viewnav .items, .oncos-rail #viewnav .sheets, .oncos-rail #viewnav .socnav{gap:0;}
+.oncos-rail #viewnav .navsec .items, .oncos-rail #viewnav .navsec .sheets, .oncos-rail #viewnav .navsec .socnav{padding-left:12px;}
+@media (hover:hover){.oncos-rail #viewnav .items button:hover, .oncos-rail #viewnav .sheets button:hover, .oncos-rail #viewnav .socnav a:hover, .oncos-rail #viewnav .itemlink:hover, .oncos-rail #viewnav .allbtn button:hover, .oncos-rail #viewnav .facet .sbtn:hover{
+  background:var(--hover);color:var(--ink);}}
+.oncos-rail #viewnav .items button.active, .oncos-rail #viewnav .sheets button.active, .oncos-rail #viewnav .socnav a.on, .oncos-rail #viewnav .itemlink.active{
   background:var(--press);color:var(--ink);font-weight:var(--w-body);}
-.oncos-rail #viewnav .items button.active::before,.oncos-rail #viewnav .sheets button.active::before,
-.oncos-rail #viewnav .socnav a.on::before,.oncos-rail #viewnav .itemlink.active::before{
+.oncos-rail #viewnav .items button.active::before, .oncos-rail #viewnav .sheets button.active::before, .oncos-rail #viewnav .socnav a.on::before, .oncos-rail #viewnav .itemlink.active::before{
   background-color:var(--slate);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2'/%3E%3C/svg%3E") center/8px 8px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3.2'/%3E%3C/svg%3E") center/8px 8px no-repeat;}
 .oncos-rail #viewnav .allbtn{margin-bottom:var(--s-1);}
-/* No "All trials" / "All cancers" row (Jonan, 2026-09-23): the module link
-   itself returns to the module's start (Evidence opens on its changelog).
-   Hidden, not removed: both modules' scripts bind #showall unguarded. */
-html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"] .oncos-rail #viewnav .allbtn{display:none;}
-/* Drugs' A–Z index: letters in the sidebar's row colour like every other
-   row (not the accent); letters with no drug stay muted. */
+html[data-view="evidence"] .oncos-rail #viewnav .allbtn, html[data-view="staging"] .oncos-rail #viewnav .allbtn{display:none;}
 .oncos-rail #viewnav .az a{color:var(--slate);text-decoration:none;border-radius:var(--r-sm);}
-.oncos-rail #viewnav .az a:hover{background:var(--hover);}
+@media (hover:hover){.oncos-rail #viewnav .az a:hover{background:var(--hover);}}
 .oncos-rail #viewnav .az span.off{color:var(--muted);opacity:.6;}
-/* Staging tags every item with its system (TNM/FIGO/other). The app's rows
-   carry no chips, and here the chip forced most names onto two lines; the
-   system is shown in the table's own column, so the sidebar drops it. */
 .oncos-rail #viewnav .items .badge{display:none;}
-.oncos-rail #viewnav .cnt,.oncos-rail #viewnav .socnav a .c{
+.oncos-rail #viewnav .cnt, .oncos-rail #viewnav .socnav a .c{
   margin-left:auto;flex:0 0 auto;padding:0;background:transparent;border-radius:0;
   color:var(--muted);font-size:11.5px;font-weight:var(--w-body);}
 :target{scroll-margin-top:16px;}
-@media (max-width:760px){ :target{scroll-margin-top:64px;} }
+@media (max-width:760px){:target{scroll-margin-top:64px;}}
 .skip:focus{position:fixed!important;left:8px;top:8px;width:auto!important;height:auto!important;
   clip:auto!important;z-index:200;padding:8px 12px!important;background:var(--paper);
   border:1px solid var(--hair);border-radius:var(--r-md);color:var(--ink);}
-
-/* Touch ergonomics: dense section-nav and list controls get a full 44px
-   target under a coarse pointer (rail rows handle their own in the kit). */
-@media (hover:none) and (pointer:coarse){
-  /* Phone Sections sheet only: a full-screen touch list keeps 44px rows. */
-  @media (max-width:760px){ .oncos-rail #viewnav .items button,.oncos-rail #viewnav .sheets button,
-    .oncos-rail #viewnav .socnav a,.oncos-rail #viewnav .itemlink,.oncos-rail #viewnav .allbtn button,
-    .oncos-rail #viewnav .secname,.oncos-rail #viewnav .sysname,
-    .oncos-rail .rail-sheet-appendix .suite-link{height:auto;min-height:44px;white-space:normal;} }
-  [data-view="drugs"] .az a,[data-view="drugs"] .az span{width:44px;height:44px;}
-  [data-view="drugs"] details.evi summary{min-height:44px;padding-block:8px;box-sizing:border-box;}
-}
-/* View swap: no motion (Jonan, 2026-10-04). A page still downloading dims
-   the old one. */
+@media (hover:none) and (pointer:coarse){@media (max-width:760px){.oncos-rail #viewnav .items button, .oncos-rail #viewnav .sheets button, .oncos-rail #viewnav .socnav a, .oncos-rail #viewnav .itemlink, .oncos-rail #viewnav .allbtn button, .oncos-rail #viewnav .secname, .oncos-rail #viewnav .sysname, .oncos-rail .rail-sheet-appendix .suite-link{height:auto;min-height:44px;white-space:normal;}}
+[data-view="drugs"] .az a, [data-view="drugs"] .az span{width:44px;height:44px;}
+[data-view="drugs"] details.evi summary{min-height:44px;padding-block:8px;box-sizing:border-box;}}
 #viewroot.leaving > :not(.viewload){opacity:.5;}
-/* Cell loader (2026-09-25, Jonan): the animated oncOS cell while a view is
-   still downloading (the old page dims behind it; a first visit has none) and
-   while search prepares its index. It appears only after 150ms, so a quick
-   or cached switch never flashes it. Artwork: /cell-loader.png (the approved
-   cell), animated by /cell-loader.js, which holds still under reduced motion. */
 .cell-loader{display:inline-block;flex:0 0 auto;width:28px;height:28px;color:var(--ink);}
 .cell-loader canvas{display:block;width:100%;height:100%;}
 .cell-wait{display:inline-flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);line-height:1.5;}
@@ -842,84 +460,51 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"
 .viewload:only-child .cell-wait{background:none;border-color:transparent;}
 .gs-empty .cell-wait{opacity:0;animation:cell-wait-in .16s ease-out .15s forwards!important;}
 @keyframes cell-wait-in{to{opacity:1;}}
-/* The site has no motion (kit oncos_motion.py); this is the one exception: the
-   loader is a waiting signal, and the delay keeps a quick switch from flashing it. */
-@media (prefers-reduced-motion: reduce){.viewload .cell-wait,.gs-empty .cell-wait{animation-duration:1ms!important;}}
-
-/* ---- Suite surfaces (2026-09-23 polish, Jonan: "sleek, consistent,
-   minimalistic") ----------------------------------------------------------
-   The six generators each drew their own panels: 14px or 8px radii, shadows,
-   hover lifts, three footer sizes, and first surfaces landing between 23px and
-   53px from the top. One vocabulary here, shell-owned so no clinical payload
-   changes. `#viewroot` (an ID) outranks every fragment's `[data-view=x] ...`
-   rule, which is also why these live here rather than in the kit. */
+@media (prefers-reduced-motion: reduce){.viewload .cell-wait, .gs-empty .cell-wait{animation-duration:1ms!important;}}
 :root{--surface-r:10px;}
-@media screen{ #viewroot{padding-top:16px;} }
-/* Same top edge everywhere: the empty breadcrumb bars and first-block margins
-   no longer push the first surface down. */
-#viewroot .topbar:not(:has(:not(.crumbs))),#viewroot .topbar:has(> .crumbs:only-child){margin:0;}
+@media screen{#viewroot{padding-top:16px;}}
+#viewroot .topbar:not(:has(:not(.crumbs))), #viewroot .topbar:has(> .crumbs:only-child){margin:0;}
 #viewroot .tixgrid{margin-top:0;}
 html[data-view="drugs"] #viewroot .letter-group:first-of-type .azdiv{margin-top:0;}
-/* Lists sit straight on the page at every width (Jonan, 2026-09-23: bring
-   desktop in line with the phone): no panel, no radius, no fill; rows are
-   separated by hairlines. Landing tiles keep their 10px outline. */
-#viewroot .gcard,#viewroot .tixcard{border-radius:var(--surface-r);box-shadow:none;}
-#viewroot #results:has(> table),#viewroot .listcard{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;}
-#viewroot #results > table,#viewroot .listcard > table{background:transparent;}
+#viewroot .gcard, #viewroot .tixcard{border-radius:var(--surface-r);box-shadow:none;}
+#viewroot #results:has(> table), #viewroot .listcard{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;}
+#viewroot #results > table, #viewroot .listcard > table{background:transparent;}
 #viewroot thead th{background:var(--ground);}
-/* Evidence rows painted each cell with the old panel fill; they now sit on
-   the page like the phone rows. Hover, press and open states are restated
-   because the base rule outranks the fragment's own. */
 html[data-view="evidence"] #viewroot tbody tr.trial > td{background:transparent;}
-@media (hover:hover){ html[data-view="evidence"] #viewroot tbody tr.trial:hover > td{background:var(--hover);} }
-html[data-view="evidence"] #viewroot tbody tr.trial.is-pressed > td{background:var(--press);}
+@media (hover:hover){html[data-view="evidence"] #viewroot tbody tr.trial:hover > td{background:var(--hover);}}
 html[data-view="evidence"] #viewroot tbody tr.trial.open > td{background:var(--raised);}
-/* Drugs: each drug is a section between hairlines, not a box. */
 html[data-view="drugs"] #viewroot .card{background:transparent;border:0;border-bottom:1px solid var(--grid);
   border-radius:0;box-shadow:none;padding:18px 0 20px;margin:0;}
-/* Landing tiles (Notes groups, Tox indexes): one component — label left,
-   arrow right, 56px, quiet hover fill instead of a lift and accent border. */
-#viewroot .gcard,#viewroot .tixcard{display:flex;align-items:center;justify-content:space-between;gap:14px;
+#viewroot .gcard, #viewroot .tixcard{display:flex;align-items:center;justify-content:space-between;gap:14px;
   min-height:56px;padding:0 18px;text-align:left;background:var(--paper);border:1px solid var(--grid);
   transition:background-color 110ms var(--ease),border-color 110ms var(--ease);}
 #viewroot .tixcard::after{content:"→";flex:0 0 auto;color:var(--muted);font-size:var(--t-xl);opacity:.7;}
 #viewroot .gcard .go{font-size:var(--t-xl);}
-@media (hover:hover){ #viewroot .gcard:hover,#viewroot .tixcard:hover{transform:none;background:var(--raised);border-color:var(--hair);} }
-#viewroot .gcard.is-pressed,#viewroot .tixcard.is-pressed{transform:none;background:var(--raised);border-color:var(--hair);}
-/* Tox's index grid takes Notes' columns, so tiles are the same size in both. */
+@media (hover:hover){#viewroot .gcard:hover, #viewroot .tixcard:hover{transform:none;background:var(--raised);border-color:var(--hair);}}
 #viewroot .tixgrid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
-/* Section dividers ("STRUCTURAL", Drugs' letters): the rule after the label
-   was drawn 100% wide from the label's end and ran past the panel edge. */
 #viewroot tr.secrow td{overflow:hidden;}
-/* Evidence and Staging subsection headers stand apart from the rows (Jonan,
-   2026-09-23): the small uppercase label, in the changelog dates' grey
-   (--slate; full ink read as too uniform), with space above and a hairline
-   under instead of a trailing rule. A larger heading size was rejected. */
-html[data-view="evidence"] #viewroot tr.secrow td,html[data-view="staging"] #viewroot tr.secrow td{
+html[data-view="evidence"] #viewroot tr.secrow td, html[data-view="staging"] #viewroot tr.secrow td{
   font-size:var(--t-xs);font-weight:var(--w-strong);letter-spacing:.05em;text-transform:uppercase;
   line-height:1.4;color:var(--slate);padding-top:40px;padding-bottom:10px;border-bottom:1px solid var(--hair);clip-path:none;}
-html[data-view="evidence"] #viewroot tbody tr.secrow:first-child td,html[data-view="staging"] #viewroot tbody tr.secrow:first-child td{padding-top:18px;}
-html[data-view="evidence"] #viewroot tr.secrow td::after,html[data-view="staging"] #viewroot tr.secrow td::after{content:none;}
+html[data-view="evidence"] #viewroot tbody tr.secrow:first-child td, html[data-view="staging"] #viewroot tbody tr.secrow:first-child td{padding-top:18px;}
+html[data-view="evidence"] #viewroot tr.secrow td::after, html[data-view="staging"] #viewroot tr.secrow td::after{content:none;}
 html[data-view="drugs"] #viewroot .azdiv{display:flex;align-items:center;gap:12px;font-size:var(--t-xs);
   letter-spacing:.05em;color:var(--slate);}
 html[data-view="drugs"] #viewroot .azdiv::after{flex:1;width:auto;margin:0;}
-/* Acute is one column: its "Emergency" header row labelled nothing. */
 html[data-view="acute"] #viewroot table.list > thead{display:none;}
-@media (max-width:760px){
-  #viewroot{padding-top:12px;}
-  /* Phone lists run edge to edge, separated by hairlines, instead of a
-     rounded panel inset 14px inside the page. */
-  html[data-view="evidence"] #viewroot #results,html[data-view="staging"] #viewroot #results:not(:has(> .sgrid)),
-  html[data-view="acute"] #viewroot #results{margin-inline:-14px;}
-  #viewroot tr.secrow td{padding-inline:14px;clip-path:inset(0 14px 0 0);}
-  /* Acute and Tox list rows were separate rounded cards on a phone; they now
-     match Staging and Evidence: flat rows on hairlines. */
-  html[data-view="acute"] #viewroot table.list tr.row,html[data-view="tox"] #viewroot table.list tr.row{
+@media (max-width:760px){#viewroot{padding-top:12px;}
+html[data-view="evidence"] #viewroot #results, html[data-view="staging"] #viewroot #results:not(:has(> .sgrid)), html[data-view="acute"] #viewroot #results{margin-inline:-14px;}
+#viewroot tr.secrow td{padding-inline:14px;clip-path:inset(0 14px 0 0);}
+html[data-view="acute"] #viewroot table.list tr.row, html[data-view="tox"] #viewroot table.list tr.row{
     border:0;border-bottom:1px solid var(--grid);border-radius:0;box-shadow:none;margin:0;background:transparent;}
-  html[data-view="tox"] #viewroot .listcard{margin-inline:-14px;}
-  #viewnav{padding-bottom:var(--s-4);}
+html[data-view="tox"] #viewroot .listcard{margin-inline:-14px;}
+#viewnav{padding-bottom:var(--s-4);}}
+</style>
+<style data-touch-press>
+@media (hover:none){
+  .is-pressed{background-color:var(--press)!important;}
+  tr.is-pressed > td{background-color:transparent!important;}
 }
-
 </style>
 </head>
 <body class="oncos-railed">
@@ -1006,7 +591,7 @@ html[data-view="acute"] #viewroot table.list > thead{display:none;}
      the section nav from keyboard and assistive tech. -->
 <div hidden aria-hidden="true" data-chrome-stubs><div id="backdrop" class="backdrop"></div></div>
 <main id="viewroot"></main>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#111111',L=(m&&m.getAttribute('content'))||'#faf9f5';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,100);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls;clearTimeout(pT);pT=null;pEls=null;els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(function(){els.forEach(function(n){n.classList.remove('is-pressed');});},160);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#111111',L=(m&&m.getAttribute('content'))||'#faf9f5';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0;function pOn(){pT=null;if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;clearTimeout(pT);pT=setTimeout(pOn,50);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls,shown=!pT;clearTimeout(pT);pT=null;pEls=null;var off=function(){els.forEach(function(n){n.classList.remove('is-pressed');});};if(shown){off();return;}els.forEach(function(n){n.classList.add('is-pressed');});requestAnimationFrame(function(){requestAnimationFrame(off);});},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',pOff,{passive:true,capture:true});}})();</script>
 <script>
 // Sidebar controls: hide/show (remembered, applied before first paint by the
 // head script), and back/forward — the installed app has no browser buttons.

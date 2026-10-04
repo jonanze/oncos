@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.20] - 2026-10-04
+
+- On phones every tappable row, card, link and button presses the same grey, with no colour or size change, and clears on release. Hover tints no longer stick after a tap.
+
 ## [2.2.19] - 2026-10-04
 
 - No animation anywhere on the site: sidebar groups, the phone Sections drawer, trial rows, page and sheet changes, search, menus and the theme switch all change at once. The loader still appears while a page downloads.
