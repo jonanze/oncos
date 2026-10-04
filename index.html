@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.13">
+<meta name="application-version" content="2.2.14">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -823,6 +823,9 @@ body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
 /* Tox's lists are already flex columns with a 1px gap; zero it (gap only —
    display is left alone) so every list lands on the same 2px. */
 .oncos-rail #viewnav .items,.oncos-rail #viewnav .sheets,.oncos-rail #viewnav .socnav{gap:0;}
+/* Rows inside a group sit 12px in from its header (Jonan, 2026-10-04), so
+   sheets read as children of the disease group; the highlight moves with them. */
+.oncos-rail #viewnav .navsec .items,.oncos-rail #viewnav .navsec .sheets,.oncos-rail #viewnav .navsec .socnav{padding-left:12px;}
 .oncos-rail #viewnav .items button:hover,.oncos-rail #viewnav .sheets button:hover,
 .oncos-rail #viewnav .socnav a:hover,.oncos-rail #viewnav .itemlink:hover,
 .oncos-rail #viewnav .allbtn button:hover,.oncos-rail #viewnav .facet .sbtn:hover{
