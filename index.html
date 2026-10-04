@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.16">
+<meta name="application-version" content="2.2.17">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -891,31 +891,40 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"
   .global-search-dialog:not([hidden]) .global-search-panel{animation:gs-in .12s ease-out both;}
 }
 @keyframes gs-in{from{transform:scale(.98);}}
-/* Sidebar groups open and close by animating their list's grid row (0fr to
-   1fr), which also runs in Safari, so a header below a closing group glides
-   into place. A closed list is invisible after the move, which keeps it out of
-   the tab order and the accessibility tree. This replaces each module's
-   `.navsec.collapsed .items{display:none}`. */
-.oncos-rail #viewnav .navsec{display:grid;grid-template-rows:auto 1fr;
-  transition:grid-template-rows var(--mo-dur) var(--mo-ease);}
+/* Sidebar groups (Jonan, 2026-10-04: "smooth like the Claude app"). A group
+   expands by its list's grid row (0fr to 1fr) over 200ms, ease-out, and
+   collapses over 150ms; the header stays put and only what is below it moves.
+   Groups that close because a sheet elsewhere was chosen carry .mo-instant
+   (navigation_shell.js) and change without motion. A closed list is invisible,
+   so it leaves the tab order and the accessibility tree. This replaces each
+   module's `.navsec.collapsed .items{display:none}`. */
+.oncos-rail #viewnav .navsec{display:grid;grid-template-rows:auto 1fr;}
 .oncos-rail #viewnav .navsec.collapsed{grid-template-rows:auto 0fr;}
 .oncos-rail #viewnav .navsec > .items,.oncos-rail #viewnav .navsec > .sheets,.oncos-rail #viewnav .navsec > .socnav,
 .oncos-rail #viewnav .navsec.collapsed > .items,.oncos-rail #viewnav .navsec.collapsed > .sheets,.oncos-rail #viewnav .navsec.collapsed > .socnav{
-  display:flex;flex-direction:column;min-height:0;overflow:clip;overflow-clip-margin:3px;
-  opacity:1;visibility:visible;transition:opacity var(--mo-dur) var(--mo-ease),visibility 0s;}
+  display:flex;flex-direction:column;min-height:0;overflow:clip;overflow-clip-margin:3px;opacity:1;visibility:visible;}
 .oncos-rail #viewnav .navsec.collapsed > .items,.oncos-rail #viewnav .navsec.collapsed > .sheets,.oncos-rail #viewnav .navsec.collapsed > .socnav{
-  opacity:0;visibility:hidden;transition:opacity var(--mo-dur) var(--mo-ease),visibility 0s linear var(--mo-dur);}
-/* Phone Sections drawer: fades and slides 8px down from under the strip on
-   open, and back on close. The open state's box is set on the closed state too,
-   so only display, opacity and transform change. */
+  opacity:0;visibility:hidden;}
+.oncos-rail .rail-scroll,.oncos-rail .rail-section{overflow-anchor:none;}
+@media (prefers-reduced-motion: no-preference){
+  .oncos-rail #viewnav .navsec{transition:grid-template-rows .2s cubic-bezier(.2,0,0,1);}
+  .oncos-rail #viewnav .navsec.collapsed{transition:grid-template-rows .15s cubic-bezier(.2,0,0,1);}
+  .oncos-rail #viewnav .navsec > .items,.oncos-rail #viewnav .navsec > .sheets,.oncos-rail #viewnav .navsec > .socnav{
+    transition:opacity .2s cubic-bezier(.2,0,0,1),visibility 0s;}
+  .oncos-rail #viewnav .navsec.collapsed > .items,.oncos-rail #viewnav .navsec.collapsed > .sheets,.oncos-rail #viewnav .navsec.collapsed > .socnav{
+    transition:opacity .15s cubic-bezier(.2,0,0,1),visibility 0s linear .15s;}
+  .oncos-rail #viewnav .navsec.mo-instant,.oncos-rail #viewnav .navsec.mo-instant > .items,
+  .oncos-rail #viewnav .navsec.mo-instant > .sheets,.oncos-rail #viewnav .navsec.mo-instant > .socnav{transition:none;}
+}
+/* Phone Sections drawer: fades in and out, no movement. The open state's box
+   is set on the closed state too, so only display and opacity change. */
 @media (max-width:760px) and (prefers-reduced-motion: no-preference){
   .oncos-rail .rail-section{flex-direction:column;position:fixed;z-index:39;left:0;right:0;top:var(--strip-h);bottom:0;margin:0;
     padding:var(--s-3) var(--s-2) calc(var(--s-6) + env(safe-area-inset-bottom));
     overflow-y:auto;overscroll-behavior:contain;background:var(--rail);border-top:1px solid var(--grid);
-    opacity:0;transform:translateY(-8px);
-    transition:opacity var(--mo-dur) var(--mo-ease),transform var(--mo-dur) var(--mo-ease),display var(--mo-dur) allow-discrete;}
-  body.nav-open .oncos-rail .rail-section{opacity:1;transform:none;}
-  @starting-style{body.nav-open .oncos-rail .rail-section{opacity:0;transform:translateY(-8px);}}
+    opacity:0;transition:opacity var(--mo-dur) var(--mo-ease),display var(--mo-dur) allow-discrete;}
+  body.nav-open .oncos-rail .rail-section{opacity:1;}
+  @starting-style{body.nav-open .oncos-rail .rail-section{opacity:0;}}
 }
 /* Cell loader (2026-09-25, Jonan): the animated oncOS cell while a view is
    still downloading (the old page dims behind it; a first visit has none) and
@@ -1630,46 +1639,52 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     window.scrollTo(0,0);
   }
 
-  // Section groups start collapsed (2026-09-23). When an ITEM becomes active —
-  // a deep link, a search result, a module's own selection — open the group
-  // that holds it, so the selection is never hidden. Only item changes count:
-  // collapsing a group by hand is a class change on the group itself, which is
-  // ignored, so the reader's choice stands.
-  function revealGroup(el){
-    var sec = el.closest && el.closest('.navsec');
-    if (!sec || !sec.classList.contains('collapsed')) return;
-    sec.classList.remove('collapsed');
+  // Section groups start collapsed (2026-09-23). A header tap opens or closes
+  // only its own group, so nothing above it moves (Jonan, 2026-10-04: "smooth
+  // like the Claude app"). When an ITEM becomes active (a sheet chosen in the
+  // sidebar, a search result, a deep link), its group opens and every other
+  // group closes, keeping the list tidy. That change is a navigation, not a
+  // reveal: it applies at once, and where the list can scroll it is scrolled
+  // so the active row keeps its place on screen.
+  function setGroup(sec, open){
+    sec.classList.toggle('collapsed', !open);
     var head = sec.querySelector('.secname,.sysname');
-    if (head) head.setAttribute('aria-expanded','true');
+    if (head) head.setAttribute('aria-expanded', String(open));
   }
-  // One group open at a time (Jonan, 2026-10-04): a group that opens, by its
-  // header or by revealGroup(), closes its sibling groups. Closing by hand is
-  // left alone.
-  function closeSiblingGroups(sec){
-    var parent = sec.parentNode;
-    if (!parent) return;
-    Array.prototype.forEach.call(parent.children, function(other){
-      if (other === sec || !other.classList.contains('navsec') || other.classList.contains('collapsed')) return;
-      other.classList.add('collapsed');
-      var head = other.querySelector('.secname,.sysname');
-      if (head) head.setAttribute('aria-expanded','false');
-    });
+  function focusGroup(el, deferred){
+    var sec = el.closest && el.closest('.navsec');
+    if (!sec || !sec.parentNode) return;
+    var groups = Array.prototype.filter.call(sec.parentNode.children, function(g){ return g.classList.contains('navsec'); });
+    var change = groups.filter(function(g){ return g === sec ? g.classList.contains('collapsed') : !g.classList.contains('collapsed'); });
+    if (!change.length) return;
+    // Phone: the Sections sheet is fading out after a choice; tidy it once it
+    // has gone, so the list does not jump inside the fade.
+    if (!deferred && window.matchMedia('(max-width:760px)').matches && !document.body.classList.contains('nav-open')) {
+      setTimeout(function(){ focusGroup(el, true); }, 170);
+      return;
+    }
+    var before = el.getBoundingClientRect().top;
+    change.forEach(function(g){ g.classList.add('mo-instant'); setGroup(g, g === sec); });
+    var moved = el.getBoundingClientRect().top - before;
+    for (var box = sec.parentElement; moved && box && box !== document.body; box = box.parentElement) {
+      var overflow = getComputedStyle(box).overflowY;
+      if ((overflow === 'auto' || overflow === 'scroll') && box.scrollHeight > box.clientHeight) { box.scrollTop += moved; break; }
+    }
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      change.forEach(function(g){ g.classList.remove('mo-instant'); });
+    }); });
   }
   if (typeof MutationObserver === 'function' && viewnav) new MutationObserver(function(records){
     records.forEach(function(r){
       if (r.type === 'attributes') {
         var el = r.target;
-        if (el.nodeType !== 1) return;
-        if (el.classList.contains('navsec')) {
-          if (/\bcollapsed\b/.test(r.oldValue || '') && !el.classList.contains('collapsed')) closeSiblingGroups(el);
-          return;
-        }
-        if (el.matches('.active,.on')) revealGroup(el);
+        if (el.nodeType !== 1 || el.classList.contains('navsec')) return;
+        if (el.matches('.active,.on') && !/\b(active|on)\b/.test(r.oldValue || '')) focusGroup(el);
       } else {
         r.addedNodes.forEach(function(node){
           if (node.nodeType !== 1) return;
-          if (node.matches('.active,.on')) revealGroup(node);
-          node.querySelectorAll('.active,.on').forEach(revealGroup);
+          if (node.matches('.active,.on')) focusGroup(node);
+          node.querySelectorAll('.active,.on').forEach(function(n){ focusGroup(n); });
         });
       }
     });
@@ -1718,7 +1733,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
         } finally { restore(); }
       }
     }
-    viewnav.querySelectorAll('.active,.on').forEach(revealGroup);
+    viewnav.querySelectorAll('.active,.on').forEach(function(n){ focusGroup(n); });
     // Sidebar rows are single-line with an ellipsis (the app's pattern); give
     // each a tooltip carrying its full name so no clinical label is lost.
     viewnav.querySelectorAll('button, a').forEach(function(el){

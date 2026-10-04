@@ -2,6 +2,11 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.17] - 2026-10-04
+
+- Tapping a sidebar group header opens or closes only that group, and nothing above it moves. Choosing a sheet in another group closes the other groups without motion.
+- The phone Sections drawer fades in and out without sliding.
+
 ## [2.2.16] - 2026-10-04
 
 - Sidebar groups slide open and closed; the phone Sections drawer fades in; a new Evidence sheet or Tox section fades in; global search fades in. None of this runs when the device asks for reduced motion.
