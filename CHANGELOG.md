@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.16] - 2026-10-04
+
+- Sidebar groups slide open and closed; the phone Sections drawer fades in; a new Evidence sheet or Tox section fades in; global search fades in. None of this runs when the device asks for reduced motion.
+
 ## [2.2.15] - 2026-10-04
 
 - The desktop sidebar is wider (276px), so every Evidence sheet name fits on one line.

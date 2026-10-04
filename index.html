@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.15">
+<meta name="application-version" content="2.2.16">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -882,6 +882,41 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"
 }
 @keyframes view-in{from{opacity:0;}}
 #viewroot.leaving > :not(.viewload){opacity:.5;}
+/* Transitions (Jonan, 2026-10-04). All are 120-150ms and collapse to nothing
+   under prefers-reduced-motion through the kit's global rule.
+   Sheet switch inside a view: the new list fades in, no wait before the swap. */
+@media (prefers-reduced-motion: no-preference){
+  html[data-view="evidence"] #results.mo-in,html[data-view="tox"] #list.mo-in{animation:view-in .12s ease-out both;}
+  .global-search-dialog:not([hidden]){animation:view-in .12s ease-out both;}
+  .global-search-dialog:not([hidden]) .global-search-panel{animation:gs-in .12s ease-out both;}
+}
+@keyframes gs-in{from{transform:scale(.98);}}
+/* Sidebar groups open and close by animating their list's grid row (0fr to
+   1fr), which also runs in Safari, so a header below a closing group glides
+   into place. A closed list is invisible after the move, which keeps it out of
+   the tab order and the accessibility tree. This replaces each module's
+   `.navsec.collapsed .items{display:none}`. */
+.oncos-rail #viewnav .navsec{display:grid;grid-template-rows:auto 1fr;
+  transition:grid-template-rows var(--mo-dur) var(--mo-ease);}
+.oncos-rail #viewnav .navsec.collapsed{grid-template-rows:auto 0fr;}
+.oncos-rail #viewnav .navsec > .items,.oncos-rail #viewnav .navsec > .sheets,.oncos-rail #viewnav .navsec > .socnav,
+.oncos-rail #viewnav .navsec.collapsed > .items,.oncos-rail #viewnav .navsec.collapsed > .sheets,.oncos-rail #viewnav .navsec.collapsed > .socnav{
+  display:flex;flex-direction:column;min-height:0;overflow:clip;overflow-clip-margin:3px;
+  opacity:1;visibility:visible;transition:opacity var(--mo-dur) var(--mo-ease),visibility 0s;}
+.oncos-rail #viewnav .navsec.collapsed > .items,.oncos-rail #viewnav .navsec.collapsed > .sheets,.oncos-rail #viewnav .navsec.collapsed > .socnav{
+  opacity:0;visibility:hidden;transition:opacity var(--mo-dur) var(--mo-ease),visibility 0s linear var(--mo-dur);}
+/* Phone Sections drawer: fades and slides 8px down from under the strip on
+   open, and back on close. The open state's box is set on the closed state too,
+   so only display, opacity and transform change. */
+@media (max-width:760px) and (prefers-reduced-motion: no-preference){
+  .oncos-rail .rail-section{flex-direction:column;position:fixed;z-index:39;left:0;right:0;top:var(--strip-h);bottom:0;margin:0;
+    padding:var(--s-3) var(--s-2) calc(var(--s-6) + env(safe-area-inset-bottom));
+    overflow-y:auto;overscroll-behavior:contain;background:var(--rail);border-top:1px solid var(--grid);
+    opacity:0;transform:translateY(-8px);
+    transition:opacity var(--mo-dur) var(--mo-ease),transform var(--mo-dur) var(--mo-ease),display var(--mo-dur) allow-discrete;}
+  body.nav-open .oncos-rail .rail-section{opacity:1;transform:none;}
+  @starting-style{body.nav-open .oncos-rail .rail-section{opacity:0;transform:translateY(-8px);}}
+}
 /* Cell loader (2026-09-25, Jonan): the animated oncOS cell while a view is
    still downloading (the old page dims behind it; a first visit has none) and
    while search prepares its index. It appears only after 150ms, so a quick

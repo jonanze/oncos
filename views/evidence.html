@@ -784,7 +784,8 @@ focusAnchor();
     };
     const all=document.getElementById('showall'),action=all.onclick;
     all.onclick=event=>ctx.transition(()=>{routeRecord='';action(event);});
-    fadeRender=()=>render();
+    // A sheet change re-renders at once and fades the new list in (shell .mo-in).
+    fadeRender=()=>{render();const list=document.getElementById('results');if(list){list.classList.remove('mo-in');void list.offsetWidth;list.classList.add('mo-in');}};
     render();
   }
 })();

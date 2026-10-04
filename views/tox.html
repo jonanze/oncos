@@ -1584,7 +1584,8 @@ function oncosLinkExistingText(root, entries) {
         button.onclick=()=>{action();sync();};sync();
       });
     };
-    fadeRender=()=>render();
+    // A section change re-renders at once and fades the new list in (shell .mo-in).
+    fadeRender=()=>{render();const list=ctx.root.querySelector('#list');if(list){list.classList.remove('mo-in');void list.offsetWidth;list.classList.add('mo-in');}};
     const converter=ctx.root.querySelector('#convModal');
     if(converter){
       converter.setAttribute('role','dialog');converter.setAttribute('aria-modal','true');
