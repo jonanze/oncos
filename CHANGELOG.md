@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.12] - 2026-10-04
+
+- The Evidence sheet bar is removed.
+
 ## [2.2.11] - 2026-10-04
 
 - An Evidence sheet has a bar under the masthead naming the sheet and the section in view; tapping it lists the sheet's sections with their trial counts and jumps to the one chosen.
