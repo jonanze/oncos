@@ -113,6 +113,24 @@ function scoreRecord(record, phrase, phraseTerm, terms) {
   return score;
 }
 
+// Equal scores: Evidence trials come first, phase III before II/III, II, I/II, I and
+// anything else, then newest year first. Both are read from the trial subtitle
+// ("… · III · 2025"). Other modules keep the alphabetical order after them.
+const PHASE_RANK = {'III': 0, 'II/III': 1, 'II': 2, 'I/II': 3, 'I': 4};
+function trialOrder(record) {
+  if (record.module !== 'evidence') return null;
+  const parts = String(record.subtitle || '').split(' · ').map(part => part.trim());
+  const year = /^(?:19|20)\d\d$/.test(parts[parts.length - 1]) ? Number(parts.pop()) : 0;
+  const phase = (parts[parts.length - 1] || '').replace(/\s*[-–]\s*/g, '/');
+  return {phase: PHASE_RANK[phase] ?? 5, year};
+}
+function tieOrder(a, b) {
+  const x = trialOrder(a), y = trialOrder(b);
+  if (x && y) return x.phase - y.phase || y.year - x.year;
+  if (x || y) return x ? -1 : 1;
+  return 0;
+}
+
 function search(records, query, {limit = 100, module = 'all'} = {}) {
   const phrase = normalize(query);
   if (!phrase) return [];
@@ -124,6 +142,7 @@ function search(records, query, {limit = 100, module = 'all'} = {}) {
     .map(record => ({record, score: scoreRecord(record, phrase, phraseTerm, terms)}))
     .filter(hit => hit.score > 0)
     .sort((a, b) => b.score - a.score ||
+      tieOrder(a.record, b.record) ||
       a.record.title.localeCompare(b.record.title) ||
       a.record.module.localeCompare(b.record.module))
     .slice(0, limit)

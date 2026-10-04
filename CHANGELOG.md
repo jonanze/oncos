@@ -2,6 +2,12 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.11] - 2026-10-04
+
+- An Evidence sheet has a bar under the masthead naming the sheet and the section in view; tapping it lists the sheet's sections with their trial counts and jumps to the one chosen.
+- On a phone, an open trial's name stays at the top while its details are on screen; tapping it closes the trial and returns to its row.
+- Search results with equal scores list Evidence trials by phase (III first), then newest year first.
+
 ## [2.2.10] - 2026-09-29
 
 - The oncOS cell has a heavier ring and a larger nucleus, in the app icons and the loader. While a module loads, the nucleus now ticks round the cell in five quick steps instead of drifting.

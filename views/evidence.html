@@ -46,7 +46,8 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] tbody tr.trial > td{ background: var(--panel); border-bottom: 1px solid var(--grid); }
 @media (hover: hover){[data-view="evidence"] tbody tr.trial:hover > td{ background: var(--accent-soft); }}
 [data-view="evidence"] tbody tr.trial.is-pressed > td{ background: var(--accent-soft); }
-[data-view="evidence"] tbody tr.trial{ scroll-margin-top: calc(var(--chrome-h, 59px) + 12px); }
+[data-view="evidence"] tbody tr.trial{ scroll-margin-top: calc(var(--chrome-h, 59px) + var(--secbar-h, 0px) + 12px); }
+[data-view="evidence"] tbody tr.secrow{ scroll-margin-top: calc(var(--chrome-h, 59px) + var(--secbar-h, 0px)); }
 [data-view="evidence"] tbody tr.trial.anchor-hit > td{ box-shadow: inset 0 0 0 2px var(--teal); }
 [data-view="evidence"] tbody tr.trial.anchor-hit.fading > td{ box-shadow: inset 0 0 0 2px transparent;
     transition: box-shadow .8s ease; }
@@ -55,6 +56,30 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .trial-toggle{ display: block; width: 100%; padding: 0; border: 0; background: transparent;
     color: inherit; font: inherit; font-weight: inherit; text-align: left; cursor: pointer; }
 [data-view="evidence"] td.study .sub{ display: block; font-family: var(--font-sans); font-weight: var(--w-body); color: var(--muted); font-size: var(--t-sm); }
+[data-view="evidence"] tbody tr.trial.open.pin{ position: sticky; top: calc(var(--chrome-h, 59px) + var(--secbar-h, 0px)); z-index: 20; }
+[data-view="evidence"] tbody tr.trial.open.pin.stuck{ border-bottom-color: var(--grid); }
+[data-view="evidence"] #results.has-secbar{ --secbar-h: 44px; }
+[data-view="evidence"] .secbar{ position: sticky; top: var(--chrome-h, 59px); z-index: 30; background: var(--ground); }
+[data-view="evidence"] .secbar-btn{ display: flex; align-items: center; gap: 8px; box-sizing: border-box; width: 100%; height: 44px; margin: 0; padding: 0 12px;
+    border: 0; border-bottom: 1px solid var(--rule); background: var(--ground); color: var(--ink);
+    font: inherit; font-size: var(--t-md); text-align: left; cursor: pointer; }
+[data-view="evidence"] .secbar-txt{ flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-view="evidence"] .secbar-txt b{ font-weight: var(--w-name); }
+[data-view="evidence"] .secbar-cur{ color: var(--muted); }
+[data-view="evidence"] .secbar-chev{ flex: 0 0 auto; width: 14px; height: 14px; color: var(--muted); }
+[data-view="evidence"] .secbar-btn[aria-expanded="true"] .secbar-chev{ transform: rotate(180deg); }
+@media (prefers-reduced-motion: no-preference){[data-view="evidence"] .secbar-chev{ transition: transform 120ms ease; }}
+[data-view="evidence"] .secbar-pop{ position: absolute; left: 0; top: calc(100% + 4px); width: min(420px, 100%); box-sizing: border-box;
+    max-height: calc(100dvh - var(--chrome-h, 59px) - 72px); overflow-y: auto; overscroll-behavior: contain;
+    padding: 4px; background: var(--raised); border: 1px solid var(--grid); border-radius: 12px; box-shadow: var(--shadow-pop, var(--shadow)); }
+[data-view="evidence"] .secbar-pop[hidden]{ display: none; }
+[data-view="evidence"] .secbar-it{ display: flex; align-items: center; gap: 12px; width: 100%; min-height: 36px; margin: 0; padding: 6px 10px;
+    border: 0; border-radius: 8px; background: transparent; color: var(--ink); font: inherit; font-size: var(--t-base);
+    line-height: 1.3; text-align: left; cursor: pointer; }
+[data-view="evidence"] .secbar-it > span:first-child{ flex: 1 1 auto; min-width: 0; }
+[data-view="evidence"] .secbar-it .cnt{ flex: 0 0 auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+@media (hover: hover){[data-view="evidence"] .secbar-it:hover{ background: var(--hover, var(--accent-soft)); }}
+[data-view="evidence"] .secbar-it.cur{ background: var(--press, var(--accent-soft)); font-weight: var(--w-name); }
 [data-view="evidence"] .ph{ display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; box-sizing: border-box; height: var(--chip-h); line-height: var(--chip-h); min-width: 40px; text-align: center; font-size: var(--chip-fs); padding: 0 var(--chip-pad); border-radius: var(--chip-r); font-weight: var(--w-name); letter-spacing: var(--track-badge); background: transparent; box-shadow: inset 0 0 0 1px var(--rule); color: var(--slate); white-space: nowrap; }
 [data-view="evidence"] .ph.III{ box-shadow: inset 0 0 0 1px var(--slate); color: var(--ink); }
 [data-view="evidence"] .ph.na{ background: var(--grid); box-shadow: none; color: var(--muted); }
@@ -194,7 +219,9 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] #results tbody tr.trial>td.study{grid-column:auto;margin:0;line-height:1.35;}
 [data-view="evidence"] #results tbody tr.trial>td[data-label="Setting"]{grid-column:1 / -1;color:var(--muted);font-size:var(--t-base);padding-top:2px;}
 [data-view="evidence"] #results tbody tr.trial>td[data-label="Year"]{justify-content:flex-end;color:var(--slate);}
-[data-view="evidence"] #results .trial-toggle{min-height:0;}}
+[data-view="evidence"] #results .trial-toggle{min-height:0;}
+[data-view="evidence"] #results .secbar-btn{padding:0 14px;}
+[data-view="evidence"] #results .secbar-pop{left:8px;width:calc(100% - 16px);}}
 [data-view="evidence"] .evchanges{display:none;max-width:1100px;}
 [data-view="evidence"] .ev-landing .evchanges{display:block;}
 [data-view="evidence"] .ev-landing #results, [data-view="evidence"] .ev-landing .topbar{display:none!important;}
@@ -485,6 +512,7 @@ function collapseRow(tr) {
   const toggle = tr.querySelector('.trial-toggle');
   if (toggle) toggle.setAttribute('aria-expanded', 'false');
   const row = tr.nextElementSibling;
+  unpin(tr);
   if (!row || !row.classList.contains('detail')) { delete tr.dataset.animating; return; }
   const wrap = row.querySelector('.wrap');
   if (!wrap || reduced()) { row.remove(); delete tr.dataset.animating; return; }
@@ -588,12 +616,15 @@ function render() {
   </tr></thead><tbody>`;
 
   let lastGroup = null;
+  secs = [];
   rows.forEach(t => {
     const groupKey = state.scope==='sheet' ? t.subcat : null;
     if (state.scope==='sheet' && groupKey && groupKey!==lastGroup) {
-      h += `<tr class="secrow"><td colspan="${span()}">${esc(groupKey)}</td></tr>`;
+      h += `<tr class="secrow" data-sec="${secs.length}"><td colspan="${span()}">${esc(groupKey)}</td></tr>`;
+      secs.push({name: groupKey, n: 0});
       lastGroup = groupKey;
     }
+    if (secs.length && groupKey===lastGroup) secs[secs.length-1].n++;
     const isOpen = state.open.has(t.id);
     h += `<tr class="trial${isOpen?' open':''}" id="${t.anchor}" data-id="${t.id}">
       <td class="study"><button class="trial-toggle" type="button" aria-expanded="${isOpen?'true':'false'}">${esc(t.study)}${ state.scope==='all'&&t.subcat?`<span class="sub">${esc(t.subcat)}</span>`:''}</button></td>
@@ -605,15 +636,104 @@ function render() {
     if (isOpen) h += detailRow(t, false);
   });
   h += `</tbody></table>`;
-  res.innerHTML = h;
+  const bar = state.scope==='sheet' && secs.length
+    ? `<div class="secbar"><button class="secbar-btn" type="button" aria-expanded="false">`
+      + `<span class="secbar-txt"><b>${esc(state.sheet)}</b><span class="secbar-cur"></span></span>`
+      + `<svg class="secbar-chev" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 5.5 7 9l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+      + `</button><div class="secbar-pop" hidden></div></div>`
+    : '';
+  res.innerHTML = bar + h;
+  const barEl = res.querySelector('.secbar');
+  res.classList.toggle('has-secbar', !!barEl);
+  if (barEl) barEl.querySelector('.secbar-btn').onclick = () => secbarOpen(!secbarPop());
+  secbarCur = -2;
 
   res.querySelectorAll('thead .sortbtn').forEach(btn => btn.onclick = () => {
     const k = btn.dataset.k;
     if (state.sortKey===k) state.sortDir*=-1; else { state.sortKey=k; state.sortDir = (k==='yearnum')?-1:1; }
     render();
   });
-  res.querySelectorAll('.trial-toggle').forEach(btn => btn.onclick = e => { e.stopPropagation(); toggleRow(btn.closest('tr')); });
-  res.querySelectorAll('tr.trial').forEach(tr => tr.onclick = e => { if (e.target.closest('button,a,input,select')) return; toggleRow(tr); });
+  res.querySelectorAll('.trial-toggle').forEach(btn => btn.onclick = e => { e.stopPropagation(); tapRow(btn.closest('tr')); });
+  res.querySelectorAll('tr.trial').forEach(tr => tr.onclick = e => { if (e.target.closest('button,a,input,select')) return; tapRow(tr); });
+  syncSticky();
+}
+
+// ---- Sheet bar and pinned open row ----
+// The bar names the sheet and the section under it: the last section header at or
+// above the bar's bottom edge. On a phone, an open row's title pins under the bar
+// while its drawer is in view and is pushed up with the drawer's end.
+let secs = [], secbarCur = -2, stickyRaf = 0;
+function secbarPop() { const p = document.querySelector('#results .secbar-pop'); return !!(p && !p.hidden); }
+function secbarOpen(open) {
+  const bar = document.querySelector('#results .secbar');
+  if (!bar) return;
+  const btn = bar.querySelector('.secbar-btn'), pop = bar.querySelector('.secbar-pop');
+  if (open) {
+    pop.innerHTML = secs.map((s, i) => `<button class="secbar-it${i===secbarCur?' cur':''}" type="button" data-sec="${i}">`
+      + `<span>${esc(s.name)}</span><span class="cnt">${s.n}</span></button>`).join('');
+    pop.querySelectorAll('.secbar-it').forEach(it => it.onclick = () => {
+      secbarOpen(false);
+      const row = document.querySelector(`#results tr.secrow[data-sec="${it.dataset.sec}"]`);
+      if (row) row.scrollIntoView({ block: 'start' });
+    });
+    pop.hidden = false;
+    const cur = pop.querySelector('.cur');
+    if (cur) pop.scrollTop = cur.offsetTop - (pop.clientHeight - cur.offsetHeight) / 2;
+  } else {
+    pop.hidden = true; pop.innerHTML = '';
+  }
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+document.addEventListener('pointerdown', e => {
+  if (secbarPop() && !e.target.closest('#results .secbar')) secbarOpen(false);
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || !secbarPop()) return;
+  secbarOpen(false);
+  const btn = document.querySelector('#results .secbar-btn'); if (btn) btn.focus();
+});
+
+function unpin(tr) { tr.classList.remove('pin', 'stuck'); tr.style.transform = ''; }
+function syncSticky() {
+  stickyRaf = 0;
+  const res = document.getElementById('results');
+  if (!res || !res.isConnected) return;
+  const bar = res.querySelector('.secbar');
+  if (bar) {
+    const edge = bar.getBoundingClientRect().bottom + 2;
+    let cur = -1;
+    for (const row of res.querySelectorAll('tr.secrow')) {
+      if (row.getBoundingClientRect().top <= edge) cur = +row.dataset.sec; else break;
+    }
+    if (cur !== secbarCur) {
+      secbarCur = cur;
+      bar.querySelector('.secbar-cur').textContent = cur < 0 ? '' : ` · ${secs[cur].name}`;
+    }
+  }
+  res.querySelectorAll('tr.trial.pin').forEach(tr => { if (!tr.classList.contains('open')) unpin(tr); });
+  const tr = res.querySelector('tr.trial.open');
+  if (!tr) return;
+  const det = tr.nextElementSibling;
+  // Pinning is for the stacked phone rows; a desktop table row stays in place.
+  if (!det || !det.classList.contains('detail') || getComputedStyle(tr).display === 'table-row') { unpin(tr); return; }
+  tr.classList.add('pin');
+  const top = parseFloat(getComputedStyle(tr).top) || 0;
+  const d = det.getBoundingClientRect(), h = tr.offsetHeight;
+  if (d.bottom <= top) { unpin(tr); return; }
+  const shift = Math.min(0, d.bottom - (top + h));
+  tr.style.transform = shift ? `translateY(${shift}px)` : '';
+  tr.classList.toggle('stuck', d.top < top + h - 1);
+}
+function scheduleSticky() { if (!stickyRaf) stickyRaf = requestAnimationFrame(syncSticky); }
+window.addEventListener('scroll', scheduleSticky, { passive: true });
+window.addEventListener('resize', scheduleSticky);
+
+// Tapping a pinned title closes the row and brings it back to the top of the list.
+function tapRow(tr) {
+  const pinned = tr.classList.contains('stuck');
+  toggleRow(tr);
+  if (pinned && !tr.classList.contains('open')) { unpin(tr); tr.scrollIntoView({ block: 'start' }); }
+  scheduleSticky();
 }
 render();
 
