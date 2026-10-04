@@ -707,6 +707,9 @@ focusAnchor();
 // Presentation state contract v1. Runs in the Evidence init closure.
 (() => {
   if (!ctx.root || !ctx.search) return;
+  // No motion on the site (Jonan, 2026-10-04): a trial row opens and closes at
+  // once, by the drawer's reduced-motion path, with no wait for a transition.
+  reduced=()=>true;
   let routeRecord = null;
   const rowFor = anchor => TRIALS.find(row=>row.anchor===anchor||row.anchorFull===anchor);
   const sorts={study:'study',phase:'phase',year:'yearnum',setting:'sheet'};
@@ -784,8 +787,7 @@ focusAnchor();
     };
     const all=document.getElementById('showall'),action=all.onclick;
     all.onclick=event=>ctx.transition(()=>{routeRecord='';action(event);});
-    // A sheet change re-renders at once and fades the new list in (shell .mo-in).
-    fadeRender=()=>{render();const list=document.getElementById('results');if(list){list.classList.remove('mo-in');void list.offsetWidth;list.classList.add('mo-in');}};
+    fadeRender=()=>render();
     render();
   }
 })();

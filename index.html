@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.18">
+<meta name="application-version" content="2.2.19">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -559,79 +559,28 @@
      keep working. */
   @media (max-width:760px){ html, body { overflow-x:clip; } }
 
-  /* ===== oncOS motion layer (shared: _oncos-kit/oncos_motion.py) ===== */
-  :root{
-    --mo-dur:150ms;
-    --mo-ease:cubic-bezier(.3,0,.1,1);
-    interpolate-size: allow-keywords;   /* lets block-size:auto animate */
-  }
+  /* ===== oncOS motion layer (shared: _oncos-kit/oncos_motion.py): none ===== */
+  :root{ --mo-dur:0s; --mo-ease:linear; }
+  *, *::before, *::after{ transition:none !important; animation:none !important; scroll-behavior:auto !important; }
 
-  /* --- Tier 1: native <details> cards grow + fade open --- */
-  details::details-content{
-    block-size:0; overflow:clip; opacity:0;
-    transition:block-size var(--mo-dur) var(--mo-ease),
-               opacity var(--mo-dur) var(--mo-ease),
-               content-visibility var(--mo-dur) allow-discrete;
-  }
-  details[open]::details-content{ block-size:auto; opacity:1; }
-  /* chevron rotate — harmless where a module has no .chev */
-  details > summary .chev{ transition:transform var(--mo-dur) var(--mo-ease); }
+  /* native <details>: open and close at once */
   details[open] > summary .chev{ transform:rotate(90deg); }
 
-  /* --- Tier 1: nav backdrop cross-fades with the drawer slide --- */
-  /* Modules toggle .backdrop via display (not animatable); pin it displayed and
-     drive opacity/visibility instead. Inert on pages with no .backdrop (Hub). */
+  /* nav backdrop: kept displayed, switched by visibility */
   .backdrop{
     display:block !important; position:fixed; inset:0; z-index:45;
     background:rgba(15,42,67,.18);
     opacity:0; visibility:hidden; pointer-events:none;
-    transition:opacity var(--mo-dur) var(--mo-ease),
-               visibility var(--mo-dur) var(--mo-ease);
   }
   body.nav-open .backdrop{ opacity:1; visibility:visible; pointer-events:auto; }
 
-  /* --- Tier 2: theme-toggle sun/moon cross-fade (replaces the display swap) --- */
+  /* theme toggle: both icons stacked, the current one shown */
   .theme-toggle{ position:relative; overflow:hidden; }
-  .theme-toggle svg{
-    position:absolute; top:50%; left:50%; margin:0;
-    transition:opacity var(--mo-dur) var(--mo-ease), transform var(--mo-dur) var(--mo-ease);
-  }
-  .theme-toggle .i-moon{ display:block !important; opacity:1; transform:translate(-50%,-50%) rotate(0) scale(1); }
-  .theme-toggle .i-sun{ display:block !important; opacity:0; transform:translate(-50%,-50%) rotate(-90deg) scale(.6); }
-  :root[data-theme="dark"] .theme-toggle .i-moon{ opacity:0; transform:translate(-50%,-50%) rotate(90deg) scale(.6); }
-  :root[data-theme="dark"] .theme-toggle .i-sun{ opacity:1; transform:translate(-50%,-50%) rotate(0) scale(1); }
-
-  /* --- Tier 1: press feedback. Pointer-only (2026-08-08): on touch, :active
-     engages on touch-down and fired during scroll gestures — the kit's
-     .is-pressed mechanism (oncos_theme) owns touch press feedback now. --- */
-  @media (prefers-reduced-motion:no-preference) and (hover:hover){
-    details > summary:active{ transform:scale(.994); }
-    a.card:active{ transform:scale(.99); }
-  }
-
-  /* --- Tier 2: opt-in staggered content entrance (Hub grid only) --- */
-  @media (prefers-reduced-motion:no-preference){
-    .mo-stagger > *{ animation:mo-fadeup var(--mo-dur) var(--mo-ease) both; }
-    .mo-stagger > *:nth-child(1){ animation-delay:0ms; }
-    .mo-stagger > *:nth-child(2){ animation-delay:45ms; }
-    .mo-stagger > *:nth-child(3){ animation-delay:90ms; }
-    .mo-stagger > *:nth-child(4){ animation-delay:135ms; }
-    .mo-stagger > *:nth-child(5){ animation-delay:180ms; }
-    .mo-stagger > *:nth-child(6){ animation-delay:225ms; }
-    .mo-stagger > *:nth-child(7){ animation-delay:270ms; }
-    .mo-stagger > *:nth-child(n+8){ animation-delay:300ms; }
-    @keyframes mo-fadeup{ from{ opacity:0; transform:translateY(7px); } to{ opacity:1; transform:none; } }
-  }
-
-  /* --- accessibility: honour the OS reduced-motion setting suite-wide --- */
-  @media (prefers-reduced-motion:reduce){
-    :root{ --mo-dur:0.001ms; }
-    *, *::before, *::after{
-      animation-duration:.001ms !important; animation-iteration-count:1 !important;
-      transition-duration:.001ms !important; scroll-behavior:auto !important;
-    }
-    details::details-content{ transition-duration:.001ms !important; }
-  }
+  .theme-toggle svg{ position:absolute; top:50%; left:50%; margin:0; }
+  .theme-toggle .i-moon{ display:block !important; opacity:1; transform:translate(-50%,-50%); }
+  .theme-toggle .i-sun{ display:block !important; opacity:0; transform:translate(-50%,-50%); }
+  :root[data-theme="dark"] .theme-toggle .i-moon{ opacity:0; }
+  :root[data-theme="dark"] .theme-toggle .i-sun{ opacity:1; }
 
 @property --m { syntax:'<color>'; inherits:true; initial-value:#1967d2; }
 @media (prefers-reduced-motion: no-preference){ :root{ transition: --m .35s var(--mo-ease, cubic-bezier(.3,0,.1,1)); } }
@@ -875,57 +824,9 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"
   [data-view="drugs"] .az a,[data-view="drugs"] .az span{width:44px;height:44px;}
   [data-view="drugs"] details.evi summary{min-height:44px;padding-block:8px;box-sizing:border-box;}
 }
-/* view swap (2026-09-23, faster): no fade-out wait. The new page fades in
-   over 120ms, opacity only; a page still downloading dims the old one. */
-@media (prefers-reduced-motion: no-preference){
-  #viewroot.entering{animation:view-in .12s ease-out both;}
-}
-@keyframes view-in{from{opacity:0;}}
+/* View swap: no motion (Jonan, 2026-10-04). A page still downloading dims
+   the old one. */
 #viewroot.leaving > :not(.viewload){opacity:.5;}
-/* Transitions (Jonan, 2026-10-04). All are 120-150ms and collapse to nothing
-   under prefers-reduced-motion through the kit's global rule.
-   Sheet switch inside a view: the new list fades in, no wait before the swap. */
-@media (prefers-reduced-motion: no-preference){
-  html[data-view="evidence"] #results.mo-in,html[data-view="tox"] #list.mo-in{animation:view-in .12s ease-out both;}
-  .global-search-dialog:not([hidden]){animation:view-in .12s ease-out both;}
-  .global-search-dialog:not([hidden]) .global-search-panel{animation:gs-in .12s ease-out both;}
-}
-@keyframes gs-in{from{transform:scale(.98);}}
-/* Sidebar groups (Jonan, 2026-10-04: "smooth like the Claude app"). A group
-   expands by its list's grid row (0fr to 1fr) over 200ms, ease-out, and
-   collapses over 150ms; the header stays put and only what is below it moves.
-   Groups that change because a sheet was chosen carry .mo-instant
-   (navigation_shell.js) and change without motion. A closed list is invisible,
-   so it leaves the tab order and the accessibility tree. This replaces each
-   module's `.navsec.collapsed .items{display:none}`. */
-.oncos-rail #viewnav .navsec{display:grid;grid-template-rows:auto 1fr;}
-.oncos-rail #viewnav .navsec.collapsed{grid-template-rows:auto 0fr;}
-.oncos-rail #viewnav .navsec > .items,.oncos-rail #viewnav .navsec > .sheets,.oncos-rail #viewnav .navsec > .socnav,
-.oncos-rail #viewnav .navsec.collapsed > .items,.oncos-rail #viewnav .navsec.collapsed > .sheets,.oncos-rail #viewnav .navsec.collapsed > .socnav{
-  display:flex;flex-direction:column;min-height:0;overflow:clip;overflow-clip-margin:3px;opacity:1;visibility:visible;}
-.oncos-rail #viewnav .navsec.collapsed > .items,.oncos-rail #viewnav .navsec.collapsed > .sheets,.oncos-rail #viewnav .navsec.collapsed > .socnav{
-  opacity:0;visibility:hidden;}
-.oncos-rail .rail-scroll,.oncos-rail .rail-section{overflow-anchor:none;}
-@media (prefers-reduced-motion: no-preference){
-  .oncos-rail #viewnav .navsec{transition:grid-template-rows .2s cubic-bezier(.2,0,0,1);}
-  .oncos-rail #viewnav .navsec.collapsed{transition:grid-template-rows .15s cubic-bezier(.2,0,0,1);}
-  .oncos-rail #viewnav .navsec > .items,.oncos-rail #viewnav .navsec > .sheets,.oncos-rail #viewnav .navsec > .socnav{
-    transition:opacity .2s cubic-bezier(.2,0,0,1),visibility 0s;}
-  .oncos-rail #viewnav .navsec.collapsed > .items,.oncos-rail #viewnav .navsec.collapsed > .sheets,.oncos-rail #viewnav .navsec.collapsed > .socnav{
-    transition:opacity .15s cubic-bezier(.2,0,0,1),visibility 0s linear .15s;}
-  .oncos-rail #viewnav .navsec.mo-instant,.oncos-rail #viewnav .navsec.mo-instant > .items,
-  .oncos-rail #viewnav .navsec.mo-instant > .sheets,.oncos-rail #viewnav .navsec.mo-instant > .socnav{transition:none;}
-}
-/* Phone Sections drawer: fades in and out, no movement. The open state's box
-   is set on the closed state too, so only display and opacity change. */
-@media (max-width:760px) and (prefers-reduced-motion: no-preference){
-  .oncos-rail .rail-section{flex-direction:column;position:fixed;z-index:39;left:0;right:0;top:var(--strip-h);bottom:0;margin:0;
-    padding:var(--s-3) var(--s-2) calc(var(--s-6) + env(safe-area-inset-bottom));
-    overflow-y:auto;overscroll-behavior:contain;background:var(--rail);border-top:1px solid var(--grid);
-    opacity:0;transition:opacity var(--mo-dur) var(--mo-ease),display var(--mo-dur) allow-discrete;}
-  body.nav-open .oncos-rail .rail-section{opacity:1;}
-  @starting-style{body.nav-open .oncos-rail .rail-section{opacity:0;}}
-}
 /* Cell loader (2026-09-25, Jonan): the animated oncOS cell while a view is
    still downloading (the old page dims behind it; a first visit has none) and
    while search prepares its index. It appears only after 150ms, so a quick
@@ -937,11 +838,13 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn,html[data-view="staging"
 .viewload{position:sticky;top:38vh;height:0;overflow:visible;display:flex;justify-content:center;align-items:flex-start;z-index:5;pointer-events:none;}
 .viewload:only-child{position:static;height:auto;padding:28vh 0 0;}
 .viewload .cell-wait{padding:8px 16px 8px 12px;border-radius:999px;background:var(--paper);border:1px solid var(--hair);
-  font-size:var(--t-base);opacity:0;animation:cell-wait-in .16s ease-out .15s forwards;}
+  font-size:var(--t-base);opacity:0;animation:cell-wait-in .16s ease-out .15s forwards!important;}
 .viewload:only-child .cell-wait{background:none;border-color:transparent;}
-.gs-empty .cell-wait{opacity:0;animation:cell-wait-in .16s ease-out .15s forwards;}
+.gs-empty .cell-wait{opacity:0;animation:cell-wait-in .16s ease-out .15s forwards!important;}
 @keyframes cell-wait-in{to{opacity:1;}}
-@media (prefers-reduced-motion: reduce){.viewload .cell-wait,.gs-empty .cell-wait{animation-duration:1ms;}}
+/* The site has no motion (kit oncos_motion.py); this is the one exception: the
+   loader is a waiting signal, and the delay keeps a quick switch from flashing it. */
+@media (prefers-reduced-motion: reduce){.viewload .cell-wait,.gs-empty .cell-wait{animation-duration:1ms!important;}}
 
 /* ---- Suite surfaces (2026-09-23 polish, Jonan: "sleek, consistent,
    minimalistic") ----------------------------------------------------------
@@ -1640,8 +1543,8 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   }
 
   // Section groups start collapsed (2026-09-23). A header tap opens or closes
-  // only its own group, so nothing above it moves (Jonan, 2026-10-04: "smooth
-  // like the Claude app"). When an ITEM becomes active (a sheet chosen in the
+  // only its own group, so nothing above it moves (Jonan, 2026-10-04). When an
+  // ITEM becomes active (a sheet chosen in the
   // sidebar, a search result, a deep link), its group opens at once. On a phone
   // every other group also closes, keeping the Sections sheet tidy; on desktop
   // the other groups stay as the reader left them (Jonan, 2026-10-04: no
@@ -1652,29 +1555,20 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     var head = sec.querySelector('.secname,.sysname');
     if (head) head.setAttribute('aria-expanded', String(open));
   }
-  function focusGroup(el, deferred){
+  function focusGroup(el){
     var sec = el.closest && el.closest('.navsec');
     if (!sec || !sec.parentNode) return;
     var phone = window.matchMedia('(max-width:760px)').matches;
     var groups = phone ? Array.prototype.filter.call(sec.parentNode.children, function(g){ return g.classList.contains('navsec'); }) : [sec];
     var change = groups.filter(function(g){ return g === sec ? g.classList.contains('collapsed') : !g.classList.contains('collapsed'); });
     if (!change.length) return;
-    // Phone: the Sections sheet is fading out after a choice; tidy it once it
-    // has gone, so the list does not jump inside the fade.
-    if (!deferred && phone && !document.body.classList.contains('nav-open')) {
-      setTimeout(function(){ focusGroup(el, true); }, 170);
-      return;
-    }
     var before = el.getBoundingClientRect().top;
-    change.forEach(function(g){ g.classList.add('mo-instant'); setGroup(g, g === sec); });
+    change.forEach(function(g){ setGroup(g, g === sec); });
     var moved = el.getBoundingClientRect().top - before;
     for (var box = sec.parentElement; moved && box && box !== document.body; box = box.parentElement) {
       var overflow = getComputedStyle(box).overflowY;
       if ((overflow === 'auto' || overflow === 'scroll') && box.scrollHeight > box.clientHeight) { box.scrollTop += moved; break; }
     }
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){
-      change.forEach(function(g){ g.classList.remove('mo-instant'); });
-    }); });
   }
   if (typeof MutationObserver === 'function' && viewnav) new MutationObserver(function(records){
     records.forEach(function(r){
@@ -1809,7 +1703,6 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
         current = name;
         try {
           mount(name,prepared); viewroot.classList.remove('leaving');
-          viewroot.classList.remove('entering'); void viewroot.offsetWidth; viewroot.classList.add('entering');
           settleLocation(name,requested,push);
         } catch (error) {
           console.error('oncOS view failed:',name,error.message); showViewError(name,true);

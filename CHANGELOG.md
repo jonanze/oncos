@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.19] - 2026-10-04
+
+- No animation anywhere on the site: sidebar groups, the phone Sections drawer, trial rows, page and sheet changes, search, menus and the theme switch all change at once. The loader still appears while a page downloads.
+
 ## [2.2.18] - 2026-10-04
 
 - On desktop, choosing a sheet no longer closes the other sidebar groups; its own group opens if it was closed. The phone Sections drawer still closes the other groups.
