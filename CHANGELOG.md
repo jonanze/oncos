@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.21] - 2026-10-05
+
+- The Evidence Watch list PubMed tab matches the editor's: newest papers first under a header for each day PubMed added them, the rank ordering each day, and under All categories each paper's line starts with its tumour group. A congress abstract of the same trial is named on the paper's line instead of being listed again under Congress.
+
 ## [2.2.20] - 2026-10-04
 
 - On phones every tappable row, card, link and button presses the same grey, with no colour or size change, and clears on release. Hover tints no longer stick after a tap.
