@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.25] - 2026-10-11
+
+- The hourglass loader is one closed outline, without the caps reaching past the glass.
+
 ## [2.2.24] - 2026-10-11
 
 - Browsers that kept the old cell icon after 2.2.23 now load the new document icon.

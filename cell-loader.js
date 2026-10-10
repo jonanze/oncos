@@ -7,17 +7,19 @@
 // a circle is exactly the full upper bulb and the loop has no seam. The motion
 // is SVG (SMIL) animation, so it needs no stylesheet: the editor's CSP forbids
 // injected styles, and the site's animation:none rule does not reach it. Under
-// reduced motion each glass is paused part drained.
+// reduced motion each glass is paused part drained. Every shape carries its own
+// fill and stroke: the editor styles every svg with fill:none, which the sand
+// would otherwise inherit.
 globalThis.OncosCellLoader = (() => {
   const escape = value => String(value ?? '').replace(/[&<>"']/g,
     c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const cycle = 'dur="1.6s" repeatCount="indefinite"';
   const glass = '<svg viewBox="0 0 24 24" width="100%" height="100%" focusable="false" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'
     + `<g><animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12;180 12 12" keyTimes="0;.78;1" calcMode="spline" keySplines="0 0 1 1;.5 0 .2 1" ${cycle}/>`
-    + '<path class="hg-glass" fill="none" stroke-width="1.6" d="M4.5 3h15M4.5 21h15M6 3l5.4 9L6 21M18 3l-5.4 9 5.4 9"/>'
-    + `<g transform="translate(12 10.67)"><g><animateTransform attributeName="transform" type="scale" values="1;0;0" keyTimes="0;.78;1" ${cycle}/><path stroke="none" d="M-3.4-5.67h6.8L0 0z"/></g></g>`
-    + `<path fill="none" stroke-width=".9" d="M12 10.67V19"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.03;.06;.72;.76;1" ${cycle}/></path>`
-    + `<g transform="translate(12 19)"><g><animateTransform attributeName="transform" type="scale" values="1 0;1 1;1 1" keyTimes="0;.78;1" ${cycle}/><path stroke="none" d="M-3.4 0h6.8L0-5.67z"/></g></g>`
+    + '<path class="hg-glass" fill="none" stroke="currentColor" stroke-width="1.6" d="M6 3h12l-5.4 9 5.4 9H6l5.4-9z"/>'
+    + `<g transform="translate(12 10.67)"><g><animateTransform attributeName="transform" type="scale" values="1;0;0" keyTimes="0;.78;1" ${cycle}/><path fill="currentColor" stroke="none" d="M-3.4-5.67h6.8L0 0z"/></g></g>`
+    + `<path fill="none" stroke="currentColor" stroke-width=".9" d="M12 10.67V19"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.03;.06;.72;.76;1" ${cycle}/></path>`
+    + `<g transform="translate(12 19)"><g><animateTransform attributeName="transform" type="scale" values="1 0;1 1;1 1" keyTimes="0;.78;1" ${cycle}/><path fill="currentColor" stroke="none" d="M-3.4 0h6.8L0-5.67z"/></g></g>`
     + '</g></svg>';
   const mark = `<span class="cell-loader" aria-hidden="true">${glass}</span>`;
   function status(message) {
