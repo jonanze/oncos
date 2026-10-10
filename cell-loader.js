@@ -2,9 +2,10 @@
 // Hourglass loader (2026-10-11, Jonan: replaces the Orbit cell). One shared
 // script for the editor and the oncOS site: it draws a monochrome hourglass in
 // currentColor into every .cell-loader element. Sand drains from the upper bulb
-// into a mound below, then the glass turns over. Each sand shape is the glass's
-// own triangle scaled about one fixed point, so the full lower mound turned half
-// a circle is exactly the full upper bulb and the loop has no seam. The motion
+// into the lower one, then the glass turns over. The upper sand is the bulb's
+// triangle scaled about the neck; the lower sand rises with a level surface
+// along the walls (2026-10-11, Jonan: no peak in the middle). Full, each is the
+// other turned half a circle, so the loop has no seam. The motion
 // is SVG (SMIL) animation, so it needs no stylesheet: the editor's CSP forbids
 // injected styles, and the site's animation:none rule does not reach it. Under
 // reduced motion each glass is paused part drained. Every shape carries its own
@@ -18,8 +19,8 @@ globalThis.OncosCellLoader = (() => {
     + `<g><animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12;180 12 12" keyTimes="0;.78;1" calcMode="spline" keySplines="0 0 1 1;.5 0 .2 1" ${cycle}/>`
     + '<path class="hg-glass" fill="none" stroke="currentColor" stroke-width="1.6" d="M6 3h12l-5.4 9 5.4 9H6l5.4-9z"/>'
     + `<g transform="translate(12 10.67)"><g><animateTransform attributeName="transform" type="scale" values="1;0;0" keyTimes="0;.78;1" ${cycle}/><path fill="currentColor" stroke="none" d="M-3.4-5.67h6.8L0 0z"/></g></g>`
-    + `<path fill="none" stroke="currentColor" stroke-width=".9" d="M12 10.67V19"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.03;.06;.72;.76;1" ${cycle}/></path>`
-    + `<g transform="translate(12 19)"><g><animateTransform attributeName="transform" type="scale" values="1 0;1 1;1 1" keyTimes="0;.78;1" ${cycle}/><path fill="currentColor" stroke="none" d="M-3.4 0h6.8L0-5.67z"/></g></g>`
+    + `<path fill="none" stroke="currentColor" stroke-width=".9" d="M12 10.67V18.4"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.03;.06;.72;.76;1" ${cycle}/></path>`
+    + `<path fill="currentColor" stroke="none" d="M8.6 19H15.4L15.4 19H8.6Z"><animate attributeName="d" values="M8.6 19H15.4L15.4 19H8.6Z;M8.6 19H15.4L12 13.33H12Z;M8.6 19H15.4L12 13.33H12Z" keyTimes="0;.78;1" ${cycle}/></path>`
     + '</g></svg>';
   const mark = `<span class="cell-loader" aria-hidden="true">${glass}</span>`;
   function status(message) {

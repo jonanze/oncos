@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.26] - 2026-10-11
+
+- The sand in the hourglass loader fills the lower bulb with a level surface, without a peak in the middle.
+
 ## [2.2.25] - 2026-10-11
 
 - The hourglass loader is one closed outline, without the caps reaching past the glass.
