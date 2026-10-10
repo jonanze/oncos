@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.22] - 2026-10-10
+
+- On phones a touch that starts a scroll no longer greys the row, card or button under the finger. The grey appears only for a tap: after the finger has stayed still for a moment, or briefly once a quick tap lifts. A touch that stops a moving list shows nothing.
+
 ## [2.2.21] - 2026-10-05
 
 - The Evidence Watch list PubMed tab matches the editor's: newest papers first under a header for each day PubMed added them, the rank ordering each day, and under All categories each paper's line starts with its tumour group. A congress abstract of the same trial is named on the paper's line instead of being listed again under Congress.
