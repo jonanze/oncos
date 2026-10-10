@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.22">
+<meta name="application-version" content="2.2.23">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -451,7 +451,7 @@ html[data-view="evidence"] .oncos-rail #viewnav .allbtn, html[data-view="staging
 [data-view="drugs"] details.evi summary{min-height:44px;padding-block:8px;box-sizing:border-box;}}
 #viewroot.leaving > :not(.viewload){opacity:.5;}
 .cell-loader{display:inline-block;flex:0 0 auto;width:28px;height:28px;color:var(--ink);}
-.cell-loader canvas{display:block;width:100%;height:100%;}
+.cell-loader svg{display:block;width:100%;height:100%;overflow:visible;}
 .cell-wait{display:inline-flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);line-height:1.5;}
 .viewload{position:sticky;top:38vh;height:0;overflow:visible;display:flex;justify-content:center;align-items:flex-start;z-index:5;pointer-events:none;}
 .viewload:only-child{position:static;height:auto;padding:28vh 0 0;}
@@ -1425,7 +1425,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
 })();
 
 </script>
-<script src="/cell-loader.js" defer data-texture="/cell-loader.png"></script>
+<script src="/cell-loader.js" defer></script>
 <script type="module" src="/search_ui.js"></script>
 </body>
 </html>

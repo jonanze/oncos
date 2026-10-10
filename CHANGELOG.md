@@ -2,6 +2,11 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.23] - 2026-10-11
+
+- The app icon is now a document page, the file icon from the Evidence editor.
+- The loading indicator is now an hourglass: sand runs into the lower bulb, then the glass turns over. It is drawn in the text colour, so it matches light and dark themes, and it stands still when the device asks for reduced motion.
+
 ## [2.2.22] - 2026-10-10
 
 - On phones a touch that starts a scroll no longer greys the row, card or button under the finger. The grey appears only for a tap: after the finger has stayed still for a moment, or briefly once a quick tap lifts. A touch that stops a moving list shows nothing.

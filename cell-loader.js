@@ -1,12 +1,25 @@
 'use strict';
-// Warp the approved raster artwork itself. No SVG or new logo geometry.
+// Hourglass loader (2026-10-11, Jonan: replaces the Orbit cell). One shared
+// script for the editor and the oncOS site: it draws a monochrome hourglass in
+// currentColor into every .cell-loader element. Sand drains from the upper bulb
+// into a mound below, then the glass turns over. Each sand shape is the glass's
+// own triangle scaled about one fixed point, so the full lower mound turned half
+// a circle is exactly the full upper bulb and the loop has no seam. The motion
+// is SVG (SMIL) animation, so it needs no stylesheet: the editor's CSP forbids
+// injected styles, and the site's animation:none rule does not reach it. Under
+// reduced motion each glass is paused part drained.
 globalThis.OncosCellLoader = (() => {
-  // The host page may name its own copy of the artwork (oncOS site: data-texture).
-  const script = typeof document !== 'undefined' ? document.currentScript : null;
-  const texture = (script && script.dataset && script.dataset.texture) || '/assets/cell-logo.png';
   const escape = value => String(value ?? '').replace(/[&<>"']/g,
     c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const mark = '<span class="cell-loader" aria-hidden="true"><canvas></canvas></span>';
+  const cycle = 'dur="1.6s" repeatCount="indefinite"';
+  const glass = '<svg viewBox="0 0 24 24" width="100%" height="100%" focusable="false" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'
+    + `<g><animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12;180 12 12" keyTimes="0;.78;1" calcMode="spline" keySplines="0 0 1 1;.5 0 .2 1" ${cycle}/>`
+    + '<path class="hg-glass" fill="none" stroke-width="1.6" d="M4.5 3h15M4.5 21h15M6 3l5.4 9L6 21M18 3l-5.4 9 5.4 9"/>'
+    + `<g transform="translate(12 10.67)"><g><animateTransform attributeName="transform" type="scale" values="1;0;0" keyTimes="0;.78;1" ${cycle}/><path stroke="none" d="M-3.4-5.67h6.8L0 0z"/></g></g>`
+    + `<path fill="none" stroke-width=".9" d="M12 10.67V19"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.03;.06;.72;.76;1" ${cycle}/></path>`
+    + `<g transform="translate(12 19)"><g><animateTransform attributeName="transform" type="scale" values="1 0;1 1;1 1" keyTimes="0;.78;1" ${cycle}/><path stroke="none" d="M-3.4 0h6.8L0-5.67z"/></g></g>`
+    + '</g></svg>';
+  const mark = `<span class="cell-loader" aria-hidden="true">${glass}</span>`;
   function status(message) {
     return `<span class="cell-wait" role="status">${mark}<span class="cell-wait-label">${escape(message)}</span></span>`;
   }
@@ -20,125 +33,34 @@ globalThis.OncosCellLoader = (() => {
     if (!container) return () => {};
     const node = document.createElement('span');
     node.className = 'cell-loader'; node.setAttribute('aria-hidden', 'true');
-    node.innerHTML = '<canvas></canvas>'; container.prepend(node);
+    node.innerHTML = glass; container.prepend(node);
     return () => node.remove();
   }
 
-  // One shared texture and animation clock for every visible loader.
-  const textureSize = 256, instances = new Map();
-  let alpha = null, frame = 0, dirty = true;
-  let reduced;
-  function sample(x, y) {
-    x *= textureSize - 1; y *= textureSize - 1;
-    if (x < 0 || y < 0 || x >= textureSize-1 || y >= textureSize-1) return 0;
-    const ix=x|0, iy=y|0, fx=x-ix, fy=y-iy, i=iy*textureSize+ix;
-    return (alpha[i]*(1-fx)+alpha[i+1]*fx)*(1-fy)
-      +(alpha[i+textureSize]*(1-fx)+alpha[i+textureSize+1]*fx)*fy;
-  }
-  function geometry(n) {
-    const result=new Float32Array(n*n*6);
-    for(let y=0;y<n;y++)for(let x=0;x<n;x++){
-      const dx=(x+.5)/n-.5,dy=(y+.5)/n-.49,r=Math.hypot(dx,dy),i=(y*n+x)*6;
-      const t=Math.max(0,Math.min(1,(r-.23)/.14));
-      result[i]=dx;result[i+1]=dy;result[i+2]=r;
-      result[i+3]=r?dx/r:0;result[i+4]=r?dy/r:0;result[i+5]=t*t*(3-2*t);
-    }
-    return result;
-  }
-  // Orbit (2026-09-29, Jonan: "more distinct and snappy"): the nucleus ticks
-  // round the cell in five quick steps, 0.24 s each, with a slight overshoot;
-  // the membrane bulges where it lands. At rest (reduced motion) the artwork
-  // is drawn unchanged.
-  const home=[.607,.612], orbit=Math.hypot(home[0]-.5,home[1]-.49), rest=Math.atan2(home[1]-.49,home[0]-.5);
-  const back=x=>1+2.70158*(x-1)**3+1.70158*(x-1)**2;
-  function pose(t) {
-    const step=.24,k=Math.floor(t/step),f=Math.min(1,(t%step)/step/.6),kick=Math.sin(Math.PI*f);
-    const angle=rest+(k+back(f))*2*Math.PI/5;
-    return {angle,kick,nx:.5+orbit*Math.cos(angle),ny:.49+orbit*Math.sin(angle)};
-  }
-  function paint(item, time, moving) {
-    const {ctx,pixels,n,mesh,color}=item, out=pixels.data;
-    const {angle,kick,nx,ny}=moving?pose(time):{angle:rest,kick:0,nx:home[0],ny:home[1]};
-    const rotation=angle-rest,co=Math.cos(rotation),si=Math.sin(rotation);
-    const stretch=1+.14*kick,scale=1-.015*kick,bulge=.022*(.5+.5*kick)*(moving?1:0);
-    const bx=Math.cos(angle),by=Math.sin(angle);
-    for(let p=0;p<n*n;p++){
-      const i=p*6,dx=mesh[i],dy=mesh[i+1],ex=mesh[i+3],ey=mesh[i+4],w=mesh[i+5];
-      // The membrane bulges towards the nucleus; its centre stays put.
-      const facing=Math.max(0,ex*bx+ey*by),rs=mesh[i+2]/scale-bulge*facing**4*w;
-      const sx=.5+ex*rs,sy=.49+ey*rs;
-      const membrane=(sx>.49&&sx<.72&&sy>.49&&sy<.72)?0:sample(sx,sy);
-      const ux=dx+.5-nx,uy=dy+.49-ny;
-      const cx=home[0]+(ux*co+uy*si)/stretch,cy=home[1]+(-ux*si+uy*co)*stretch;
-      const nucleus=(cx>.49&&cx<.72&&cy>.49&&cy<.72)?sample(cx,cy):0;
-      const j=p*4;out[j]=color[0];out[j+1]=color[1];out[j+2]=color[2];out[j+3]=membrane>nucleus?membrane:nucleus;
-    }
-    ctx.putImageData(pixels,0,0);
-    item.element.classList.add('cell-loader-ready');
-  }
-  function schedule() {
-    if(!frame&&alpha&&!document.hidden) frame=requestAnimationFrame(tick);
-  }
+  // Pages also write bare <span class="cell-loader"> markup; fill each one once.
+  let reduced = null;
   function discover() {
-    document.querySelectorAll('.cell-loader').forEach(element=>{
-      if(instances.has(element))return;
-      let canvas=element.querySelector('canvas');
-      if(!canvas){canvas=document.createElement('canvas');element.append(canvas);}
-      const ctx=canvas.getContext('2d');
-      if(ctx)instances.set(element,{element,canvas,ctx,n:0});
+    document.querySelectorAll('.cell-loader').forEach(element => {
+      if (!element.querySelector('.hg-glass')) element.innerHTML = glass;
+      const svg = element.querySelector('svg');
+      if (!svg || svg.pauseAnimations === undefined) return;
+      const still = reduced.matches;
+      if (svg.dataset.still === String(still)) return;
+      svg.dataset.still = String(still);
+      if (still) { svg.pauseAnimations(); svg.setCurrentTime(.6); } else svg.unpauseAnimations();
     });
-    dirty=true;schedule();
-  }
-  function tick(time) {
-    frame=0;
-    if(document.hidden)return;
-    const moving=!reduced.matches;
-    let visible=0;
-    for(const [element,item] of instances){
-      if(!element.isConnected){instances.delete(element);continue;}
-      const box=element.getBoundingClientRect();
-      if(!box.width||!box.height||box.bottom<0||box.top>innerHeight||box.right<0||box.left>innerWidth)continue;
-      visible++;
-      const n=Math.min(192,Math.max(24,Math.ceil(box.width*Math.min(devicePixelRatio||1,2))));
-      if(item.n!==n){item.n=n;item.canvas.width=item.canvas.height=n;item.mesh=geometry(n);item.pixels=item.ctx.createImageData(n,n);dirty=true;}
-      if(dirty||!item.color){
-        const rgb=getComputedStyle(element).color.match(/[\d.]+/g)||[243,243,243];
-        item.color=rgb.slice(0,3).map(Number);
-      }
-      paint(item,time/1000,moving);
-    }
-    dirty=false;
-    if(visible&&moving)schedule();
   }
   function start() {
-    reduced=matchMedia('(prefers-reduced-motion: reduce)');
-    reduced.addEventListener('change',()=>{dirty=true;schedule();});
-    const image=new Image();
-    image.onload=()=>{
-      const texture=document.createElement('canvas');texture.width=texture.height=textureSize;
-      const ctx=texture.getContext('2d');if(!ctx)return;
-      ctx.drawImage(image,0,0,textureSize,textureSize);
-      const rgba=ctx.getImageData(0,0,textureSize,textureSize).data;
-      alpha=new Float32Array(textureSize*textureSize);
-      // Remove only the flat charcoal backing at render time. Silhouette and
-      // antialiasing are sampled from the approved image, never recreated.
-      for(let i=0;i<alpha.length;i++)alpha[i]=Math.max(0,Math.min(255,(rgba[i*4]-24)/212*255));
-      discover();
-    };
-    image.src=texture;
-    new MutationObserver(records=>{
-      // Our paint-only class update does not require another DOM scan.
-      if(records.every(r=>r.type==='attributes'&&r.target.classList?.contains('cell-loader')))return;
-      discover();
-    }).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','data-theme','open','hidden','style']});
-    new MutationObserver(()=>{dirty=true;schedule();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else discover();});
-    window.addEventListener('resize',discover);
-    window.addEventListener('scroll',schedule,true);
+    reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    reduced.addEventListener('change', discover);
+    discover();
+    new MutationObserver(records => {
+      if (records.some(r => r.addedNodes.length)) discover();
+    }).observe(document.body, {childList: true, subtree: true});
   }
-  if(typeof window!=='undefined'){
-    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once: true});
     else start();
   }
-  return {status,show,attach};
+  return {status, show, attach};
 })();
