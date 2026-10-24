@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.28">
+<meta name="application-version" content="2.2.29">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -504,11 +504,12 @@ html[data-view="tox"] #viewroot .listcard{margin-inline:-14px;}
 #viewnav{padding-bottom:var(--s-4);}}
 :root{--b-ink:#111;--b-paper:#fff;--b-line:#9aa3ad;--b-grid:#c3c9d0;--b-cell:#eef0f2;--b-band:#dfe4ea;
   --b-open:#f4f6f8;--b-sub:#f7f8f9;--b-note:#5b6066;
-  --tb:#22262c;--tb-cur:#3a4049;--tb-rule:#3a3f47;--tb-edge:#111;--tb-text:#c9ced5;--tb-icon:#e6e8eb;
-  --tb-hover:rgba(255,255,255,.07);--tb-press:rgba(255,255,255,.13);}
+  --tb:#dfe4ea;--tb-cur:#c5cdd7;--tb-rule:#c3c9d0;--tb-edge:#9aa3ad;--tb-text:#2f343b;--tb-icon:#2f343b;--tb-on:#111;--tb-mark:#22262c;
+  --tb-hover:rgba(30,40,55,.06);--tb-press:rgba(30,40,55,.12);}
 :root[data-theme="dark"]{--b-ink:var(--ink);--b-paper:#151515;--b-line:#454b53;--b-grid:#2c3137;--b-cell:#1f2226;
   --b-band:#282c32;--b-open:#1b1e22;--b-sub:#1a1d20;--b-note:#9a9fa6;
-  --tb:#0a0b0d;--tb-cur:#272b32;--tb-rule:#1c1f24;--tb-edge:#000;--tb-text:#a7adb6;--tb-icon:#d8dce1;}
+  --tb:#0a0b0d;--tb-cur:#272b32;--tb-rule:#1c1f24;--tb-edge:#000;--tb-text:#a7adb6;--tb-icon:#d8dce1;--tb-on:#fff;--tb-mark:#0a0b0d;
+  --tb-hover:rgba(255,255,255,.07);--tb-press:rgba(255,255,255,.13);}
 html[data-view="evidence"] body{background:var(--b-paper);}
 html[data-view="evidence"] #viewroot thead th{background:var(--b-cell);border-bottom:1px solid var(--b-line);border-right:1px solid var(--b-grid);}
 html[data-view="evidence"] #viewroot thead th:last-child{border-right:0;}
@@ -536,8 +537,8 @@ html[data-view="evidence"] #viewroot tbody tr.trial.open > td{background:transpa
 .oncos-rail{background:var(--b-paper);}
 .oncos-rail .rail-top .rail-icon, .oncos-rail .rail-top .theme-toggle{color:var(--tb-icon);}
 @media (hover:hover){.oncos-rail .rail-top .rail-icon:active{background:var(--tb-press);}}
-.oncos-rail .suite-nav .suite-link[aria-current="page"]{background:var(--tb-cur);color:#fff;font-weight:var(--w-bold);}
-@media (hover:hover){.oncos-rail .rail-top .rail-icon:hover, .oncos-rail .rail-top .theme-toggle:hover, .oncos-rail .suite-nav .suite-link:hover{background:var(--tb-hover);color:#fff;}
+.oncos-rail .suite-nav .suite-link[aria-current="page"]{background:var(--tb-cur);color:var(--tb-on);font-weight:var(--w-bold);}
+@media (hover:hover){.oncos-rail .rail-top .rail-icon:hover, .oncos-rail .rail-top .theme-toggle:hover, .oncos-rail .suite-nav .suite-link:hover{background:var(--tb-hover);color:var(--tb-on);}
 .oncos-rail .suite-nav .suite-link[aria-current="page"]:hover{background:var(--tb-cur);}}
 @media (min-width:761px){.oncos-rail{gap:0;padding:0 0 env(safe-area-inset-bottom) env(safe-area-inset-left);border-right:1px solid var(--b-line);}
 .rail-top{margin:0;padding:calc(10px + env(safe-area-inset-top)) 8px 10px;background:var(--tb);}
@@ -565,12 +566,12 @@ html[data-view="evidence"] #viewroot tbody tr.trial.open > td{background:transpa
 .oncos-rail #viewnav .items button + button, .oncos-rail #viewnav .sheets button + button, .oncos-rail #viewnav .socnav a + a, .oncos-rail #viewnav .itemlink + .itemlink{margin-top:0;}
 .oncos-rail #viewnav .items button::before, .oncos-rail #viewnav .sheets button::before, .oncos-rail #viewnav .socnav a::before, .oncos-rail #viewnav .itemlink::before{content:none;}
 .oncos-rail #viewnav .items button.active, .oncos-rail #viewnav .sheets button.active, .oncos-rail #viewnav .socnav a.on, .oncos-rail #viewnav .itemlink.active, .oncos-rail .rail-appendix .suite-link[aria-current="page"], .oncos-rail .rail-sheet-appendix .suite-link[aria-current="page"]{
-  background:var(--b-band);color:var(--b-ink);font-weight:var(--w-bold);box-shadow:inset 3px 0 0 var(--tb);}
+  background:var(--b-band);color:var(--b-ink);font-weight:var(--w-bold);box-shadow:inset 3px 0 0 var(--tb-mark);}
 :root[data-theme="dark"] .oncos-rail #viewnav :is(.items button.active,.sheets button.active,.socnav a.on,.itemlink.active), :root[data-theme="dark"] .oncos-rail :is(.rail-appendix,.rail-sheet-appendix) .suite-link[aria-current="page"]{box-shadow:inset 3px 0 0 var(--b-ink);}
 .oncos-rail #viewnav .cnt, .oncos-rail #viewnav .socnav a .c{color:var(--muted);}
 @media (max-width:760px){.oncos-rail{background:var(--tb);border-bottom:1px solid var(--tb-edge);}
 .oncos-rail .rail-icon, .oncos-rail .theme-toggle, .oncos-rail .suite-nav .suite-link{color:var(--tb-icon);}
-body.nav-open .rail-sections{background:var(--tb-cur);color:#fff;}
+body.nav-open .rail-sections{background:var(--tb-cur);color:var(--tb-on);}
 body.nav-open .rail-section{padding:0 0 calc(var(--s-6) + env(safe-area-inset-bottom));background:var(--b-paper);border-top:0;}
 .oncos-rail #viewnav{border-top:0;}
 .oncos-rail #viewnav .secname, .oncos-rail #viewnav .sysname, .oncos-rail #viewnav .flabel{height:auto;min-height:44px;padding:0 14px;}
