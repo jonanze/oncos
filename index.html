@@ -504,11 +504,11 @@ html[data-view="tox"] #viewroot .listcard{margin-inline:-14px;}
 #viewnav{padding-bottom:var(--s-4);}}
 :root{--b-ink:#111;--b-paper:#fff;--b-line:#9aa3ad;--b-grid:#c3c9d0;--b-cell:#eef0f2;--b-band:#dfe4ea;
   --b-open:#f4f6f8;--b-sub:#f7f8f9;--b-note:#5b6066;
-  --tb:#dfe4ea;--tb-cur:#c5cdd7;--tb-rule:#c3c9d0;--tb-edge:#9aa3ad;--tb-text:#2f343b;--tb-icon:#2f343b;--tb-on:#111;--tb-mark:#22262c;
+  --tb:#dfe4ea;--tb-cur:#c5cdd7;--tb-rule:#c3c9d0;--tb-edge:#9aa3ad;--tb-text:#3d4754;--tb-icon:#5a6676;--tb-on:#1f2933;--tb-mark:#6b7a8c;--b-mark:#6b7a8c;
   --tb-hover:rgba(30,40,55,.06);--tb-press:rgba(30,40,55,.12);}
 :root[data-theme="dark"]{--b-ink:var(--ink);--b-paper:#151515;--b-line:#454b53;--b-grid:#2c3137;--b-cell:#1f2226;
   --b-band:#282c32;--b-open:#1b1e22;--b-sub:#1a1d20;--b-note:#9a9fa6;
-  --tb:#0a0b0d;--tb-cur:#272b32;--tb-rule:#1c1f24;--tb-edge:#000;--tb-text:#a7adb6;--tb-icon:#d8dce1;--tb-on:#fff;--tb-mark:#0a0b0d;
+  --tb:#0a0b0d;--tb-cur:#272b32;--tb-rule:#1c1f24;--tb-edge:#000;--tb-text:#a7adb6;--tb-icon:#d8dce1;--tb-on:#fff;--tb-mark:#0a0b0d;--b-mark:var(--b-ink);
   --tb-hover:rgba(255,255,255,.07);--tb-press:rgba(255,255,255,.13);}
 html[data-view="evidence"] body{background:var(--b-paper);}
 html[data-view="evidence"] #viewroot thead th{background:var(--b-cell);border-bottom:1px solid var(--b-line);border-right:1px solid var(--b-grid);}
@@ -545,9 +545,9 @@ html[data-view="evidence"] #viewroot tbody tr.trial.open > td{background:transpa
 .rail-scroll{margin:0;padding:0;}
 .oncos-rail .suite-nav{gap:0;background:var(--tb);border-bottom:1px solid var(--tb-edge);position:sticky;top:0;z-index:2;}
 .oncos-rail .suite-nav .suite-link{height:36px;padding:0 12px;color:var(--tb-text);border-top:1px solid var(--tb-rule);}
-.rail-section{margin-top:10px;}
+.rail-section{margin-top:0;}
 .oncos-rail .rail-more{margin:0;padding:6px 8px 8px;border-top:1px solid var(--b-line);}}
-.oncos-rail #viewnav{border-top:1px solid var(--b-line);}
+.oncos-rail #viewnav{border-top:0;}
 .oncos-rail #viewnav .navsec + .navsec, .oncos-rail #viewnav .facet + .facet{margin-top:0;}
 .oncos-rail #viewnav .secname, .oncos-rail #viewnav .sysname, .oncos-rail #viewnav .flabel{
   display:flex;align-items:center;justify-content:flex-start;gap:6px;height:32px;padding:0 12px;
@@ -664,7 +664,7 @@ html[data-view="tox"] #viewroot table:not(.list){border-collapse:collapse;}
 html[data-view="tox"] #viewroot table:not(.list) th{background:var(--b-cell);color:var(--b-ink);font-weight:var(--w-bold);}
 html[data-view="tox"] #viewroot table:not(.list) :is(th,td){border:1px solid var(--b-grid);}
 html[data-view="drugs"] #viewroot .azdiv{padding:6px 12px;background:var(--b-band);color:var(--b-ink);font-size:var(--t-base);
-  font-weight:var(--w-bold);border:1px solid var(--b-line);}
+  font-weight:var(--w-bold);border:1px solid var(--b-line);gap:0;}
 html[data-view="drugs"] #viewroot .azdiv::before{content:"【";content:"【" / "";}
 html[data-view="drugs"] #viewroot .azdiv::after{content:"】";content:"】" / "";flex:none;width:auto;height:auto;margin:0;background:none;}
 html[data-view="drugs"] #viewroot .card{border-bottom:0;padding:16px 0 18px;}
@@ -704,6 +704,15 @@ html[data-view="tox"] #viewroot :is(.ipanel,.igblock) .ifrow > .fl{border-right:
 .gs-result, .gs-result:first-of-type, .gs-result:last-child{border-radius:0;background:var(--b-paper);}
 .gs-result{border-top:1px solid var(--b-grid);}
 .gs-group h3 + .gs-result{border-top:0;}
+.oncos-rail #viewnav .allbtn{margin-bottom:0;border-bottom:1px solid var(--b-line);}
+.oncos-rail #viewnav .az{padding-bottom:6px;border-bottom:1px solid var(--b-line);}
+.oncos-rail .rail-group, .oncos-rail .rail-group .tico svg{transition:none;}
+@media (min-width:761px){.oncos-rail .rail-more{gap:0;padding:0;}
+.oncos-rail .rail-appendix{gap:0;}
+.oncos-rail .rail-group{height:32px;padding:0 12px;}
+.oncos-rail .rail-appendix .suite-link{height:32px;margin:0;padding:0 12px;border-bottom:1px solid var(--b-grid);}}
+html[data-view="evidence"] #viewroot .detail .arm-vs{border-color:var(--b-mark);}
+html[data-view="tox"] #viewroot :is(.csc.on,.aert.act,.fnbopt.on,.mucpill.on,.cv-pick .cvp.on){border-color:var(--b-mark);}
 </style>
 <style data-touch-press>
 @media (hover:none){
