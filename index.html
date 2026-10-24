@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.34">
+<meta name="application-version" content="2.2.35">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -390,7 +390,7 @@ html[data-view="tox"] #viewroot input:focus, html[data-view="tox"] #viewroot sel
 .view-error button{min-height:44px;padding:10px 16px;border:1px solid var(--hair);border-radius:9px;
   background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
 body.oncos-railed{display:flex;min-height:100vh;min-height:100dvh;}
-:root:root{--rail-w:276px;}
+:root:root{--rail-w:300px;}
 #viewroot{flex:1 1 auto;min-width:0;container: oncos / inline-size;}
 @media screen{#viewroot{max-width:none;margin:0;padding:18px clamp(16px,4vw,26px) 60px;box-sizing:border-box;}}
 @media screen and (max-width:760px){#viewroot{padding:14px 14px 54px;}}
@@ -728,6 +728,12 @@ html[data-view="evidence"] #viewroot tr.secrow td, html:is([data-view="staging"]
 :root{--b-bullet:#4f6178;}
 .rail-back-strip, .rail-home-strip{display:none!important;}
 .oncos-rail a.rail-home{text-decoration:none;}
+.rail-here{display:none;}
+@media (max-width:760px){.oncos-rail .rail-scroll{flex:0 0 0;}
+.oncos-rail .rail-foot{flex:1 1 auto;min-width:0;}
+.oncos-rail .rail-here{display:block;flex:1 1 auto;min-width:0;margin-right:auto;padding:0 8px 0 6px;
+    font-size:13px;font-weight:var(--w-bold);line-height:1.25;color:var(--tb-icon);overflow-wrap:anywhere;}}
+.global-search-dialog .global-search-filters{display:none;}
 @media (max-width:760px){.rail-back-strip, .rail-home-strip{display:inline-flex!important;}}
 :root[data-theme="dark"]{--b-bullet:var(--muted);}
 .oncos-rail svg, .rail-float svg{stroke-linecap:square;stroke-linejoin:miter;}
@@ -811,6 +817,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
          strip. It IS the router's #burger, so the existing drawer mechanics
          apply unchanged: module nav clicks call closeNav(), Esc closes it, and
          syncDrawer() keeps aria-expanded in step. -->
+    <span class="rail-here" id="rail-here"></span>
     <a class="rail-icon rail-home rail-home-strip" href="/evidence/" aria-label="Watch list" title="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
     <button class="rail-icon rail-back-strip" type="button" aria-label="Back" onclick="history.back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
     <button id="burger" class="rail-icon rail-sections" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="railsection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
@@ -897,6 +904,32 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
     document.getElementById('rail-appendix').classList.toggle('open',open);
   };
   document.getElementById('rail-forward').onclick=function(){history.forward();};
+})();
+</script>
+<script>
+// Phone strip: name the current place (2.2.35). The sheet on an Evidence sheet,
+// "Watch list" on the landing, else the module; re-read on every view, sheet or
+// landing change, Back included.
+(function(){
+  var here=document.getElementById('rail-here'); if(!here) return;
+  var pending=0;
+  function label(){
+    var view=document.documentElement.getAttribute('data-view');
+    if(view==='evidence'){
+      if(document.querySelector('#viewroot .ev-watch, #viewroot.ev-watch')) return 'Watch list';
+      var act=document.querySelector('.oncos-rail #viewnav .sheets button.active > span:first-child');
+      return act ? act.textContent.trim() : 'Evidence';
+    }
+    var v=window.oncosViews && window.oncosViews[view];
+    return v ? v.title : '';
+  }
+  function update(){ pending=0; var t=label(); if(here.textContent!==t) here.textContent=t; }
+  function soon(){ if(!pending) pending=setTimeout(update,0); }
+  var watch=function(node,opts){ if(node) new MutationObserver(soon).observe(node,opts); };
+  watch(document.documentElement,{attributes:true,attributeFilter:['data-view']});
+  watch(document.getElementById('viewroot'),{attributes:true,attributeFilter:['class'],subtree:true,childList:true});
+  watch(document.getElementById('viewnav'),{attributes:true,attributeFilter:['class'],subtree:true,childList:true});
+  window.addEventListener('popstate',soon); update();
 })();
 </script>
 <script>
