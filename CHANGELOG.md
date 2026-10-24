@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.30] - 2026-10-24
+
+- On desktop the Evidence and Staging links stay in place while the section list scrolls.
+
 ## [2.2.29] - 2026-10-24
 
 - In light mode the top of the sidebar is blue-grey, the shade of the table header and section bands.
