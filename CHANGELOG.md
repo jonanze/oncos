@@ -2,6 +2,14 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.27] - 2026-10-24
+
+- Evidence is set as a ruled form: the sheet table is fully ruled with shaded header and section bands, and an open trial shows its fields as label and value rows.
+- Key findings show the conclusion first, then one row per result with its label.
+- Staging, Drugs, Tox and Acute use the same ruled form.
+- The sidebar holds the module links in a dark title block above a ruled section list.
+- The site text face is BIZ UDPGothic; numbers in columns use the digits of BIZ UDGothic, which all share one width.
+
 ## [2.2.26] - 2026-10-11
 
 - The sand in the hourglass loader fills the lower bulb with a level surface, without a peak in the middle.
