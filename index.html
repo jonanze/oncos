@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.33">
+<meta name="application-version" content="2.2.34">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -726,8 +726,9 @@ html[data-view="evidence"] #viewroot tr.secrow td, html:is([data-view="staging"]
 @font-face{font-family:'oncOS Marks';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/oncOSMarks-rx.woff2) format('woff2');unicode-range:U+211E;}
 @font-face{font-family:'oncOS Marks';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/oncOSMarks-warn.woff2) format('woff2');unicode-range:U+26A0;}
 :root{--b-bullet:#4f6178;}
-.rail-back-strip{display:none!important;}
-@media (max-width:760px){.rail-back-strip{display:inline-flex!important;}}
+.rail-back-strip, .rail-home-strip{display:none!important;}
+.oncos-rail a.rail-home{text-decoration:none;}
+@media (max-width:760px){.rail-back-strip, .rail-home-strip{display:inline-flex!important;}}
 :root[data-theme="dark"]{--b-bullet:var(--muted);}
 .oncos-rail svg, .rail-float svg{stroke-linecap:square;stroke-linejoin:miter;}
 .oncos-rail .theme-toggle svg{position:static;margin:0;opacity:1;transform:none;}
@@ -778,6 +779,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
     <button class="rail-icon rail-collapse" id="rail-collapse" type="button" aria-label="Hide sidebar" aria-expanded="true" title="Hide sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 4h18v16H3zM9 4v16"/></svg></button>
     <button class="rail-icon" id="rail-back" type="button" aria-label="Back" title="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
     <button class="rail-icon" id="rail-forward" type="button" aria-label="Forward" title="Forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+    <a class="rail-icon rail-home" href="/evidence/" aria-label="Watch list" title="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
     <span class="rail-top-fill"></span>
     <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path fill="currentColor" stroke="none" d="M4 4h16L4 20z"/><path d="M4 4h16v16H4z"/></svg></button>
     <button id="global-search-open" class="rail-icon global-search-open" type="button" aria-label="Search all oncOS" title="Search all oncOS (Cmd/Ctrl+K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
@@ -809,6 +811,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
          strip. It IS the router's #burger, so the existing drawer mechanics
          apply unchanged: module nav clicks call closeNav(), Esc closes it, and
          syncDrawer() keeps aria-expanded in step. -->
+    <a class="rail-icon rail-home rail-home-strip" href="/evidence/" aria-label="Watch list" title="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
     <button class="rail-icon rail-back-strip" type="button" aria-label="Back" onclick="history.back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
     <button id="burger" class="rail-icon rail-sections" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="railsection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
     <button class="rail-icon rail-search-strip" type="button" aria-label="Search all oncOS" onclick="document.getElementById('global-search-open').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>

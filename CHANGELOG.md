@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.34] - 2026-10-24
+
+- A home icon opens the Watch list from any page: in the sidebar's top row after Forward, and first in the phone strip.
+
 ## [2.2.33] - 2026-10-24
 
 - Evidence is the only main module: Staging joins Drugs, Tox and Acute in the Appendix, and the back arrow, now also on phones, returns to Evidence.
