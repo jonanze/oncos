@@ -350,6 +350,11 @@ dialog.addEventListener('keydown', event => {
   if (event.key === 'Escape') {
     event.preventDefault(); closeFromUser(); return;
   }
+  // Enter (a phone keyboard's Go/Search) in the query opens the top result; on a
+  // focused result the button's own Enter opens that one.
+  if (event.key === 'Enter' && onQuery && entries.length) {
+    event.preventDefault(); entries[0].click(); return;
+  }
   if (event.key !== 'Tab') return;
   const focusable = Array.from(dialog.querySelectorAll('button,input,[href],[tabindex]:not([tabindex="-1"])'))
     .filter(node => !node.disabled && node.offsetParent !== null);

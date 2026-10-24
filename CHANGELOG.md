@@ -2,6 +2,12 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.35] - 2026-10-24
+
+- The desktop sidebar is wider (300px), so sheet names fit on one line.
+- On phones the top strip names the current place: the sheet, the Watch list or the module.
+- In search, Enter opens the top result; the module filter row is gone.
+
 ## [2.2.34] - 2026-10-24
 
 - A home icon opens the Watch list from any page: in the sidebar's top row after Forward, and first in the phone strip.
