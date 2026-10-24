@@ -115,13 +115,20 @@ function scoreRecord(record, phrase, phraseTerm, terms) {
 
 // Equal scores: Evidence trials come first, phase III before II/III, II, I/II, I and
 // anything else, then newest year first. Both are read from the trial subtitle
-// ("… · III · 2025"). Other modules keep the alphabetical order after them.
+// ("… · Randomised clinical trial (phase III) · 2025"): the phase named in the study
+// type, in either wording ("Randomised phase III trial"), or a bare phase ("III")
+// in a row not yet given one. Other modules keep the
+// alphabetical order after them.
 const PHASE_RANK = {'III': 0, 'II/III': 1, 'II': 2, 'I/II': 3, 'I': 4};
+const PHASE_IN_TYPE = /\bphase\s+(IV|I{1,3}|[1-4])[ab]?(?:\s*[/–-]\s*(IV|I{1,3}|[1-4])[ab]?)?(?![a-z0-9])/i;
+const ROMAN = {'1': 'I', '2': 'II', '3': 'III', '4': 'IV'};
 function trialOrder(record) {
   if (record.module !== 'evidence') return null;
   const parts = String(record.subtitle || '').split(' · ').map(part => part.trim());
   const year = /^(?:19|20)\d\d$/.test(parts[parts.length - 1]) ? Number(parts.pop()) : 0;
-  const phase = (parts[parts.length - 1] || '').replace(/\s*[-–]\s*/g, '/');
+  const type = parts[parts.length - 1] || '';
+  const named = (/\bphase\b/i.test(type) ? type : `phase ${type}`).match(PHASE_IN_TYPE);
+  const phase = named ? [named[1], named[2]].filter(Boolean).map(n => ROMAN[n] || n.toUpperCase()).join('/') : '';
   return {phase: PHASE_RANK[phase] ?? 5, year};
 }
 function tieOrder(a, b) {

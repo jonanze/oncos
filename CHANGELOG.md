@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.32] - 2026-10-24
+
+- Search ranks Evidence trials by the phase named in the study type ("Randomised clinical trial (phase III)"), as well as the earlier wording and bare phases.
+
 ## [2.2.31] - 2026-10-24
 
 - In light mode the sidebar icons and the loader are blue-grey instead of black, matching the editor.
