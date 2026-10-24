@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.27">
+<meta name="application-version" content="2.2.28">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -22,8 +22,6 @@
 @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
 @font-face{font-family:'BIZ UDPGothic';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/BIZUDPGothic-normal-400.woff2) format('woff2');}
 @font-face{font-family:'BIZ UDPGothic';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/BIZUDPGothic-normal-700.woff2) format('woff2');}
-@font-face{font-family:'oncOS Num';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/oncOSNum-BIZUDGothic-400.woff2) format('woff2');}
-@font-face{font-family:'oncOS Num';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/oncOSNum-BIZUDGothic-700.woff2) format('woff2');}
 @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-normal-100_900-v41.woff2) format('woff2');}
 @font-face{font-family:'Inter';font-style:italic;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-italic-100_900-v41.woff2) format('woff2');}
 :root{
@@ -54,7 +52,8 @@
     --font-serif:'BIZ UDPGothic','Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     --font-sans:'BIZ UDPGothic','Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     --font-mono:'BIZ UDPGothic','Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
-    --font-num:'oncOS Num','BIZ UDPGothic','Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    
+    --font-num:var(--font-sans);
     
     --t-3xs:9px; --t-2xs:10px; --t-xs:11px; --t-sm:12px; --t-base:13px; --t-md:14px;
     --t-lg:16px; --t-xl:18px; --t-2xl:20px; --t-3xl:22px;
@@ -568,7 +567,7 @@ html[data-view="evidence"] #viewroot tbody tr.trial.open > td{background:transpa
 .oncos-rail #viewnav .items button.active, .oncos-rail #viewnav .sheets button.active, .oncos-rail #viewnav .socnav a.on, .oncos-rail #viewnav .itemlink.active, .oncos-rail .rail-appendix .suite-link[aria-current="page"], .oncos-rail .rail-sheet-appendix .suite-link[aria-current="page"]{
   background:var(--b-band);color:var(--b-ink);font-weight:var(--w-bold);box-shadow:inset 3px 0 0 var(--tb);}
 :root[data-theme="dark"] .oncos-rail #viewnav :is(.items button.active,.sheets button.active,.socnav a.on,.itemlink.active), :root[data-theme="dark"] .oncos-rail :is(.rail-appendix,.rail-sheet-appendix) .suite-link[aria-current="page"]{box-shadow:inset 3px 0 0 var(--b-ink);}
-.oncos-rail #viewnav .cnt, .oncos-rail #viewnav .socnav a .c{color:var(--muted);font-size:12.5px;}
+.oncos-rail #viewnav .cnt, .oncos-rail #viewnav .socnav a .c{color:var(--muted);}
 @media (max-width:760px){.oncos-rail{background:var(--tb);border-bottom:1px solid var(--tb-edge);}
 .oncos-rail .rail-icon, .oncos-rail .theme-toggle, .oncos-rail .suite-nav .suite-link{color:var(--tb-icon);}
 body.nav-open .rail-sections{background:var(--tb-cur);color:#fff;}
@@ -579,7 +578,6 @@ body.nav-open .rail-section{padding:0 0 calc(var(--s-6) + env(safe-area-inset-bo
 .oncos-rail .rail-sheet-appendix{margin-top:0;padding-top:0;border-top:0;}
 .rail-sheet-appendix summary{padding:0 14px;border-bottom:1px solid var(--b-line);color:var(--b-ink);}
 .oncos-rail .rail-sheet-appendix .suite-link{height:44px;padding:0 14px;color:var(--b-ink);border-bottom:1px solid var(--b-grid);}}
-.oncos-rail #viewnav .cnt, .oncos-rail #viewnav .socnav a .c, html[data-view="evidence"] #viewroot td[data-label="Year"], html[data-view="evidence"] #viewroot td[data-label="Phase"], html[data-view="evidence"] #viewroot .wl-group, html[data-view="staging"] #viewroot td[data-label="Edition"], html[data-view="staging"] #viewroot td.cat, html[data-view="staging"] #viewroot td.stg, html[data-view="tox"] #viewroot .gtag, html[data-view="tox"] #viewroot .igchip{font-family:var(--font-num);}
 body{background:var(--b-paper);}
 html:is([data-view="staging"],[data-view="drugs"],[data-view="tox"],[data-view="acute"],[data-view="evidence"]) #viewroot :not(.cell-wait){border-radius:0!important;}
 html:is([data-view="staging"],[data-view="drugs"],[data-view="tox"],[data-view="acute"]) #viewroot :is(*,*::before,*::after){text-transform:none!important;letter-spacing:0!important;}

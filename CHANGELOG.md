@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.28] - 2026-10-24
+
+- Every numeral uses the text face; the separate column digits are gone.
+
 ## [2.2.27] - 2026-10-24
 
 - Evidence is set as a ruled form: the sheet table is fully ruled with shaded header and section bands, and an open trial shows its fields as label and value rows.
