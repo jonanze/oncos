@@ -2,6 +2,12 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.33] - 2026-10-24
+
+- Evidence is the only main module: Staging joins Drugs, Tox and Acute in the Appendix, and the back arrow, now also on phones, returns to Evidence.
+- Square-ended line icons, ℞ and ⚠ marks for Drugs and Tox, square sheet bullets and ▼ folds in the sidebar.
+- References end in a link icon; update tags read ◆ Update and ◆ Earlier report.
+
 ## [2.2.32] - 2026-10-24
 
 - Search ranks Evidence trials by the phase named in the study type ("Randomised clinical trial (phase III)"), as well as the earlier wording and bare phases.
