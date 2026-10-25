@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.37] - 2026-10-25
+
+- Circled letters Ⓐ–Ⓩ return to the system's own glyphs; the faces added in 2.2.36 are removed.
+
 ## [2.2.36] - 2026-10-25
 
 - Circled letters Ⓐ–Ⓩ are drawn in the text face, with the same circle, size and stroke as ①②.
