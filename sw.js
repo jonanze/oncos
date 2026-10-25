@@ -2,7 +2,7 @@
  * Cache name is a content hash of the app files, so each real change ships a
  * fresh cache. Fetch is NETWORK-FIRST: try the network, fall back to cache
  * offline. This is the OncOS PWA rule — never date-versioned cache-first. */
-const CACHE = 'oncos-one-36cd3f6ab397';
+const CACHE = 'oncos-one-5c2c4ad0b1b2';
 const CACHE_PREFIX = 'oncos-one-';
 const ASSETS = [
   '././',
