@@ -424,6 +424,17 @@ function armsBlock(raw) {
       return `<div class="kf-row"><span class="kf-l">${esc(i > 0 ? t.slice(0, i) : '')}</span><span class="kf-v">${esc(kfValue(i > 0 ? t.slice(i + 2) : t))}</span></div>`;
     }).join('') + '</div>';
   }
+  // A meta-analysis's comparison lines (Jonan, 2026-10-25): each '・A vs B (size)' a row, the
+  // comparison on the left and its size on the right; '・Regimens: ...' as a labelled row.
+  const bullets = armLines.filter(l => /^・/.test(l));
+  if (bullets.length >= 2 && bullets.length === armLines.length && bullets.filter(l => /\bvs\.?\b|\bversus\b/i.test(l)).length >= 2) {
+    return '<div class="kf-list">' + bullets.map(l => {
+      const t = l.replace(/^・\s*/, ''), i = t.indexOf(': ');
+      if (i > 0 && !/\bvs\.?\b/i.test(t.slice(0, i))) return `<div class="kf-row"><span class="kf-l">${esc(t.slice(0, i))}</span><span class="kf-v">${esc(kfValue(t.slice(i + 2)))}</span></div>`;
+      const size = /^(.*?)\s*\(([^()]*)\)\s*$/.exec(t);
+      return `<div class="kf-row"><span class="kf-l">${esc(size ? size[1] : t)}</span><span class="kf-v">${esc(size ? kfValue(size[2]) : '')}</span></div>`;
+    }).join('') + '</div>';
+  }
   const sentenceArm = part => {
     const m = part.match(/^(\s*)(\S+)([\s\S]*)$/);
     if (!m) return part;
