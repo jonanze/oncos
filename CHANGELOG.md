@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.36] - 2026-10-25
+
+- Circled letters Ⓐ–Ⓩ are drawn in the text face, with the same circle, size and stroke as ①②.
+
 ## [2.2.35] - 2026-10-24
 
 - The desktop sidebar is wider (300px), so sheet names fit on one line.
