@@ -4,7 +4,7 @@ All notable oncOS frontend releases are recorded here. Versions follow semantic 
 
 ## [2.2.38] - 2026-11-01
 
-- Circled letters Ⓐ–Ⓩ are drawn with BIZ UDPGothic's own ⓐ–ⓩ.
+- Circled arm letters are drawn with BIZ UDPGothic's own ⓐ–ⓩ.
 
 ## [2.2.37] - 2026-10-25
 
