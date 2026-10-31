@@ -2,7 +2,7 @@
  * Cache name is a content hash of the app files, so each real change ships a
  * fresh cache. Fetch is NETWORK-FIRST: try the network, fall back to cache
  * offline. This is the OncOS PWA rule — never date-versioned cache-first. */
-const CACHE = 'oncos-one-78d4dff0f726';
+const CACHE = 'oncos-one-d2a37c1333d2';
 const CACHE_PREFIX = 'oncos-one-';
 const ASSETS = [
   '././',
@@ -30,6 +30,8 @@ const ASSETS = [
   './fonts/Montserrat-normal-700.woff2',
   './fonts/BIZUDPGothic-normal-400.woff2',
   './fonts/BIZUDPGothic-normal-700.woff2',
+  './fonts/BIZUDPGothic-letters-400.woff2',
+  './fonts/BIZUDPGothic-letters-700.woff2',
   './fonts/Inter-normal-100_900-v41.woff2',
   './fonts/Inter-italic-100_900-v41.woff2',
   './fonts/oncOSMarks-rx.woff2',
