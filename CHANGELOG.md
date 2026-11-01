@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.39] - 2026-11-01
+
+- `/favicon.ico` and `/apple-touch-icon.png` answer with the white-file icon (they were 404).
+
 ## [2.2.38] - 2026-11-01
 
 - Circled arm letters are drawn with BIZ UDPGothic's own ⓐ–ⓩ.
