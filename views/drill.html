@@ -103,12 +103,32 @@ html[data-view="drill"] #viewroot .drill .more{display:flex;gap:6px;align-items:
 html[data-view="drill"] #viewroot .drill .more .tri{display:inline-block;font-size:10px}
 html[data-view="drill"] #viewroot .drill .more[aria-expanded="false"] .tri{transform:rotate(-90deg)}
 html[data-view="drill"] #viewroot .drill [hidden]{display:none!important}
-html[data-view="drill"] #viewroot .drill{--d-bg:var(--b-paper);--d-paper:var(--b-paper);--d-ink:var(--b-ink);--d-muted:var(--b-note);--d-line:var(--b-line);--d-grid:var(--b-grid);--d-band:var(--b-band);--d-cell:var(--b-cell);--d-bar:#2a313c;--d-bar-ink:#f1f4f7;--d-sel:var(--tb-cur);--d-ok:#245f40;--d-bad:#9b2f22;--d-f:inherit;max-width:480px;margin:0 auto;padding:0 0 28px;color:var(--d-ink);font-size:15px;line-height:1.45;font-variant-numeric:tabular-nums;}
+
+html[data-view="drill"] #viewroot .drill{--d-bg:var(--b-paper);--d-paper:var(--b-paper);--d-ink:var(--b-ink);--d-muted:var(--b-note);--d-line:var(--b-line);--d-grid:var(--b-grid);--d-band:var(--b-band);--d-cell:var(--b-cell);--d-bar:#2a313c;--d-bar-ink:#f1f4f7;--d-sel:var(--tb-cur);--d-ok:#245f40;--d-bad:#9b2f22;--d-f:inherit;max-width:900px;margin:0;padding:0 0 28px;color:var(--d-ink);font-size:15px;line-height:1.45;font-variant-numeric:tabular-nums;}
 :root[data-theme="dark"] html[data-view="drill"] #viewroot .drill{--d-bar:#0a0b0d;--d-bar-ink:#eef1f4;--d-ok:#7cc59a;--d-bad:#e8907c;}
-html[data-view="drill"] #viewroot .drill .bar{position:static;}
-html[data-view="drill"] #viewroot .drill .frame:first-child{margin-top:0;}
+html[data-view="drill"] #viewroot .drill .ed{margin:0 0 18px;padding:0 0 4px;border-bottom:1px solid var(--b-line);color:var(--slate);font-size:var(--t-sm);font-weight:var(--w-name);min-height:1.5em;}
+html[data-view="drill"] #viewroot .drill .scope{display:none;width:100%;margin:0 0 12px;padding:0;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;text-align:left;cursor:pointer;}
+html[data-view="drill"] #viewroot .drill .scope .k{padding:9px 12px;background:var(--b-cell);border-right:1px solid var(--b-grid);font-weight:var(--w-bold);font-size:13px;}
+html[data-view="drill"] #viewroot .drill .scope .v{padding:9px 12px;min-width:0;}
+html[data-view="drill"] #viewroot .drill .scope .v::after{content:" \25BC";content:" \25BC" / "";font-size:9px;color:var(--slate);}
+html[data-view="drill"] #viewroot .drill .cols{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start;}
+html[data-view="drill"] #viewroot .drill .col{margin:0;}
+html[data-view="drill"] #viewroot .drill .col:empty{display:none;}
+html[data-view="drill"] #viewroot .drill .band .tablelink{margin-left:auto;order:3;color:var(--b-ink);font-weight:var(--w-bold);letter-spacing:0;text-transform:none;text-decoration:underline;text-underline-offset:2px;}
+html[data-view="drill"] #viewroot .drill .next{background:var(--b-band);color:var(--b-ink);border-top:1px solid var(--b-line);}
+@media (hover:hover){html[data-view="drill"] #viewroot .drill .next:hover{background:var(--b-cell);}}
+html[data-view="drill"] .oncos-rail #viewnav .navsec.collapsed .items{display:none;}
+@container oncos (min-width:880px){
+  html[data-view="drill"] #viewroot .drill .cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;}
+  html[data-view="drill"] #viewroot .drill .col:empty{display:block;visibility:hidden;}
+}
+@container oncos (max-width:740px){
+  html[data-view="drill"] #viewroot .drill .scope{display:grid;grid-template-columns:auto minmax(0,1fr);}
+}
+
 </style>
 <div class="viewfrag">
+<div class="st-tabs wl-tabs" role="tablist" aria-label="Staging"><a class="wl-tab" role="tab" aria-selected="false" href="/staging/">Tables</a><span class="wl-tab" role="tab" aria-selected="true">Practice</span></div>
 <div class="drill" id="drill-app"></div>
 </div>
 <template data-nav></template>
@@ -118,6 +138,7 @@ window.oncosView = {
   init: function(ctx) {
     window.DrillHost = {
       root: ctx.root.querySelector('#drill-app'),
+      nav: ctx.nav,
       tableHref: function(site, anchor) { return '/staging/' + (site ? '?record=' + encodeURIComponent(site) + (anchor ? '#' + encodeURIComponent(anchor) : '') : ''); }
     };
     window.DrillEvidenceLinks = {"ACT II":"t-act-ii","ACTS-GC":"t-acts-gc","ADAURA":"t-adaura","ADAURA (7th-edition IB, 3–5 cm)":"t-adaura","ADRIATIC":"t-adriatic","AEGEAN":"t-aegean","ALINA":"t-alina","APT":"t-apt","BILCAP":"t-bilcap","CAPTAIN-1st":"t-captain-1st","CASPIAN":"t-caspian","CATNON":"t-catnon","CLARINET":"t-clarinet","CLASSIC":"t-classic","CLEAR":"t-clear","COMBI-AD":"t-combi-ad","CREATE-X":"t-create-x","CROSS":"t-cross","Cercek 2022":"t-cercek-et-al","CheckMate 067":"t-checkmate-067","CheckMate 238":"t-checkmate-238","CheckMate 274":"t-checkmate-274","CheckMate 577":"t-checkmate-577","CheckMate 649":"t-checkmate-649","CheckMate 743":"t-checkmate-743","CheckMate 76K":"t-checkmate-76k","CheckMate 816":"t-checkmate-816","CheckMate 9ER":"t-checkmate-9er","DUO-E":"t-duo-e","DYNAMIC":"t-dynamic","De-ESCALaTE":"t-de-escalate","ECHELON-1":"t-echelon-1","EF-14":"t-ef-14","EORTC 22931 / RTOG 9501 pooled":"t-eortc-22931","EORTC 26951":"t-eortc-26951","EORTC 40983":"t-epoc","EORTC 62931":"t-eortc-62931","ESOPEC":"t-esopec","ESPAC-3 periampullary":"t-espac-3","ESPAC-4":"t-espac-4","EURAMOS-1":"t-euramos-1","EV-302":"t-ev-302","FIRM-ACT":"t-firm-act","FLOT4":"t-flot4-aio","FLYER":"t-flyer","FOxTROT":"t-foxtrot","GOG 92":"t-gog-92","HD16/HD17":"t-ghsg-hd16","HD21":"t-ghsg-hd21","HIMALAYA":"t-himalaya","IDEA":"t-idea-collaboration","IGCCCG":"t-international-germ-cell-cancer-collaborative-group","IMbrave050":"t-imbrave050","IMbrave150":"t-imbrave150","IMpower010":"t-impower010","IMpower133":"t-impower133","IND.227 / KEYNOTE-483":"t-keynote-483","INDIGO":"t-indigo","INTERLACE":"t-interlace","ISG-1001":"t-isg-sts-1001","InterAACT":"t-interaact","JACCRO GC-07":"t-jaccro-gc-07","JCOG1109":"t-jcog1109","JUPITER-02":"t-jupiter-02","KATHERINE":"t-katherine","KEYNOTE-048":"t-keynote-048","KEYNOTE-054":"t-keynote-054","KEYNOTE-091":"t-pearls-keynote-091","KEYNOTE-483":"t-keynote-483","KEYNOTE-522":"t-keynote-522","KEYNOTE-564":"t-keynote-564","KEYNOTE-671":"t-keynote-671","KEYNOTE-689":"t-keynote-689","KEYNOTE-716":"t-keynote-716","KEYNOTE-811":"t-keynote-811","KEYNOTE-826":"t-keynote-826","KEYNOTE-905":"t-keynote-905-ev-303","KEYNOTE-966":"t-keynote-966","KEYNOTE-A18":"t-keynote-a18","LAURA":"t-laura","MARS 2":"t-mars-2","MATTERHORN":"t-matterhorn","MOSAIC":"t-mosaic","MPACT":"t-mpact","MSLT-II":"t-mslt-ii","NADINA":"t-nadina","NAPOLI-3":"t-napoli-3","NATALEE":"t-natalee","NEOCRTEC5010":"t-neocrtec5010","NETTER-1":"t-netter-1","NETTER-2":"t-netter-2","NIAGARA":"t-niagara","NICHE-2":"t-niche-2","NRG-GY018":"t-nrg-gy018-keynote-868","O'Sullivan":"t-o-sullivan","OPRA":"t-opra","OlympiA":"t-olympia","PACIFIC":"t-pacific","PAOLA-1":"t-paola-1","POD1UM-303":"t-pod1um-303-interaact-2","POLARIX":"t-polarix","PORTEC-2":"t-portec-2","PORTEC-3":"t-portec-3","PORTEC-3 molecular analysis":"t-portec-3-molecular","POUT":"t-pout","PREOPANC":"t-preopanc","PRIMA":"t-prima","PRODIGE 23":"t-prodige-23","PRODIGE 24":"t-prodige-24-accord-24-cctg-pa-6","PRODIGE 4":"t-prodige-4-accord-11","PROMID":"t-promid","PROSPECT":"t-prospect","ProtecT":"t-protect","RADIANT-4":"t-radiant-4","RADICALS-RT":"t-radicals-rt","RAPIDO":"t-rapido","RELATIVITY-047":"t-relativity-047","RTOG 1016":"t-rtog-1016","RTOG 91-11":"t-rtog-91-11","RTOG 9402":"t-rtog-9402","RTOG 9802":"t-rtog-9802","RUBY":"t-ruby","RxPONDER":"t-rxponder","S1826":"t-swog-s1826","SOFT/TEXT":"t-text-soft","SOLO-1":"t-solo-1","SPOTLIGHT":"t-spotlight","STAMPEDE (Attard 2022)":"t-stampede--advanced-prostate-2","STAMPEDE arm H":"t-stampede","SWOG 8710":"t-swog-8710","SWOG S1801":"t-swog-s1801","Stupp 2005":"t-eortc-22981-26981-ncic-ce-3","TAILORx":"t-tailorx","TOPAZ-1":"t-topaz-1","VESPER":"t-getug-afu-v05-vesper","monarchE":"t-monarche"};
@@ -2273,10 +2294,76 @@ function caseSite() {
   const s = current.sys && current.sys.site; return s ? (HANDSITE[s] || s) : null;
 }
 
+// ---------- hosted layout (oncOS Staging › Practice) ----------
+// The sidebar's tumour groups set the scope; a scope line above the case opens
+// the same list on a phone; the case and answers sit left of the result on wide screens.
+const NAV_ORDER = ['Breast', 'Thoracic', 'GI', 'GU', 'Gynae', 'H&N', 'Skin', 'CNS', 'Sarcoma', 'Lymphoma'];
+const SECFULL = { GI: 'Gastrointestinal', GU: 'Genitourinary', Gynae: 'Gynaecological', 'H&N': 'Head & Neck', CNS: 'Central Nervous System' };
+const secName = sec => SECFULL[sec] || sec;
+const chipLabel = c => c.site === 'lung' ? c.label : SITEBY[c.site].label;
+function scopeLabel() {
+  if (ui.section === 'All') return 'All cancers';
+  const ch = chosen(), chips = chipsFor(ui.section).filter(c => ch.includes(c.key));
+  return secName(ui.section) + (chips.length ? ' · ' + chips.map(chipLabel).join(', ') : '');
+}
+function setScope(sec, key) {
+  if (sec === 'All') ui.section = 'All';
+  else if (key === null) { ui.section = sec; ui.sel[sec] = []; }
+  else if (ui.section !== sec) { ui.section = sec; ui.sel[sec] = [key]; }
+  else { const cur = (ui.sel[sec] || []).slice(), i = cur.indexOf(key); if (i >= 0) cur.splice(i, 1); else cur.push(key); ui.sel[sec] = cur; }
+  saveUi(); shell();
+  // phone: the choice closes the Sections sheet so the new case shows
+  if (window.matchMedia && window.matchMedia('(max-width:760px)').matches) document.body.classList.remove('nav-open');
+}
+function navBtn(label, active, fn) { return el('button', { type: 'button', class: active ? 'active' : null, 'aria-pressed': String(!!active), on: { click: fn } }, [el('span', { text: label })]); }
+function renderNav() {
+  const nav = HOST.nav; if (!nav) return;
+  const keep = {};
+  nav.querySelectorAll('.navsec').forEach(b => { keep[b.dataset.sec] = !b.classList.contains('collapsed'); });
+  nav.innerHTML = '';
+  nav.appendChild(el('div', { class: 'items' }, [navBtn('All cancers', ui.section === 'All', () => setScope('All'))]));
+  NAV_ORDER.forEach(sec => {
+    const chips = chipsFor(sec); if (!chips.length) return;
+    const ch = ui.section === sec ? chosen() : null;
+    const open = sec in keep ? keep[sec] : ui.section === sec;
+    const block = el('div', { class: 'navsec' + (open ? '' : ' collapsed'), 'data-sec': sec });
+    const head = el('button', { type: 'button', class: 'secname', 'aria-expanded': String(open), on: { click: () => { const shut = block.classList.toggle('collapsed'); head.setAttribute('aria-expanded', String(!shut)); } } }, [el('span', { text: secName(sec) })]);
+    const rows = [navBtn('All ' + secName(sec), !!ch && !ch.length, () => setScope(sec, null))]
+      .concat(chips.slice().sort((a, b) => chipLabel(a).localeCompare(chipLabel(b))).map(c => navBtn(chipLabel(c), !!ch && ch.includes(c.key), () => setScope(sec, c.key))));
+    block.appendChild(head); block.appendChild(el('div', { class: 'items' }, rows));
+    nav.appendChild(block);
+  });
+}
+function hostShell() {
+  const root = HOST.root; root.innerHTML = '';
+  edEl = el('div', { class: 'ed' });
+  const scope = el('button', { type: 'button', class: 'scope', on: { click: () => { const b = document.getElementById('burger'); if (b) b.click(); } } },
+    [el('span', { class: 'k', text: 'Scope' }), el('span', { class: 'v', text: scopeLabel() })]);
+  body = el('div', { id: 'body', class: 'cols' });
+  root.appendChild(edEl); root.appendChild(scope); root.appendChild(body);
+  renderNav();
+  if (current && current.key === scopeKey()) return current.kind === 'vs' ? drawVs() : drawCase();
+  newCase();
+}
+// left: case and answers; right: result, debrief and Next (one column when standalone)
+function cols() {
+  body.innerHTML = '';
+  if (!HOST) return [body, body];
+  const l = el('div', { class: 'col frame' }), r = el('div', { class: 'col frame' });
+  body.appendChild(l); body.appendChild(r);
+  return [l, r];
+}
+function caseBand() {
+  const b = el('div', { class: 'band first' }, ['Case']);
+  if (HOST) { tableLink = el('a', { class: 'r tablelink', href: HOST.tableHref(caseSite(), caseAnchor()), text: 'Table' }); b.appendChild(tableLink); }
+  return b;
+}
+
 function shell() {
-  const root = HOST ? HOST.root : $('#app'); root.innerHTML = '';
+  if (HOST) return hostShell();
+  const root = $('#app'); root.innerHTML = '';
   const bar = el('div', { class: 'bar' }); bar.innerHTML = ICON; bar.appendChild(el('span', { text: 'Staging drill' })); edEl = el('span', { class: 'ed' }); bar.appendChild(edEl);
-  const modes = el('div', { class: 'row modes', role: 'group' }, MODES.map(m => HOST && m[0] === 'table' ? (tableLink = el('a', { href: HOST.tableHref(caseSite()), text: m[1] })) : el('button', { type: 'button', 'aria-pressed': String(ui.mode === m[0]), text: m[1], on: { click: () => {
+  const modes = el('div', { class: 'row modes', role: 'group' }, MODES.map(m => el('button', { type: 'button', 'aria-pressed': String(ui.mode === m[0]), text: m[1], on: { click: () => {
     if (m[0] === 'table' && ui.mode === 'case' && current) { const sid = caseSite(); if (sid) { ui.site = sid; jumpSys = current.sys ? current.sys.id : null; } }
     ui.mode = m[0]; saveUi(); shell();
   } } })));
@@ -2359,18 +2446,18 @@ function optionsFor(step) {
 function drawCase() {
   const { c, sys, picks, step, done } = current;
   setEd(sys.label + ' · ' + sys.edition);
-  body.innerHTML = '';
-  body.appendChild(el('div', { class: 'band first' }, ['Case']));
-  body.appendChild(el('div', { class: 'vig', text: c.text }));
+  const [L, R] = cols();
+  L.appendChild(caseBand());
+  L.appendChild(el('div', { class: 'vig', text: c.text }));
   const truth = { T: c.t, N: c.nFine || c.n, M: c.m, S: c.stage };
-  body.appendChild(el('div', { class: 'band' }, [done ? 'Result' : (step === 'S' ? 'Stage' : step)]));
-  body.appendChild(el('div', { class: 'strip' }, ['T', 'N', 'M', 'S'].map(k => {
+  L.appendChild(el('div', { class: 'band' }, [done ? 'Result' : (step === 'S' ? 'Stage' : step)]));
+  L.appendChild(el('div', { class: 'strip' }, ['T', 'N', 'M', 'S'].map(k => {
     const v = picks[k], cls = done ? (v === truth[k] ? 'ok' : 'bad') : '';
     return el('button', { type: 'button', class: cls || null, 'aria-current': !done && step === k ? 'step' : null, on: { click: () => { if (!current.done) { current.step = k; drawCase(); } } } },
       [el('b', { text: k === 'S' ? 'Stage' : k }), el('span', { text: v || '—' }), done && v !== truth[k] ? el('small', { text: truth[k] }) : null]);
   })));
   if (!done) {
-    body.appendChild(optGrid(optionsFor(step), v => {
+    L.appendChild(optGrid(optionsFor(step), v => {
       current.picks[step] = v;
       const nextEmpty = ['T', 'N', 'M', 'S'].find(k => !current.picks[k]);
       if (nextEmpty) current.step = nextEmpty; else current.done = true;
@@ -2397,11 +2484,11 @@ function drawCase() {
       }
     }
     if (c.why.X) rows.push(['※', c.why.X, 'n']);
-    body.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (allOk ? '★ ' : '✕ ') + c.stage }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: (r[2] === 'x' ? '✕ ' : r[2] === 'ok' && !allOk ? '★ ' : '') + r[0], class: r[2] === 'x' ? 'x' : null }), el('div', { text: r[1] })]))]));
+    R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (allOk ? '★ ' : '✕ ') + c.stage }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: (r[2] === 'x' ? '✕ ' : r[2] === 'ok' && !allOk ? '★ ' : '') + r[0], class: r[2] === 'x' ? 'x' : null }), el('div', { text: r[1] })]))]));
     const hist = (c.fields || []).find(f => f[0] === 'Histology');
     const db = debrief(sys.site, { s: c.stage, t: c.t, n: c.n, m: c.m, q: c.q, label: sys.label, rectal: /\brect(um|al)\b/i.test(c.text) && !/rectosigmoid/i.test(c.text), sclc: !!(hist && /^Small cell/.test(hist[1])) }, ['T', 'N', 'M', 'S'].filter(k => picks[k] !== truth[k]));
-    if (db) body.appendChild(db);
-    body.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
+    if (db) R.appendChild(db);
+    R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
   }
 }
 // ---------- Debrief ----------
@@ -2431,20 +2518,20 @@ function vsCase(sid) { current = { kind: 'vs', v: D.makeVsCase(sid), pick: null,
 function drawVs() {
   const { v, pick, done } = current, site = SITEBY[v.site];
   setEd(site.label + ' · ' + v.title);
-  body.innerHTML = '';
-  body.appendChild(el('div', { class: 'band first' }, ['Case']));
-  body.appendChild(el('div', { class: 'vig', text: v.text }));
-  body.appendChild(el('div', { class: 'band' }, [v.title]));
+  const [L, R] = cols();
+  L.appendChild(caseBand());
+  L.appendChild(el('div', { class: 'vig', text: v.text }));
+  L.appendChild(el('div', { class: 'band' }, [v.title]));
   const marks = done ? Object.fromEntries(v.opts.map(o => [o, o === v.cat ? 'hit' : (o === pick ? 'wrong' : '')])) : null;
-  body.appendChild(optGrid(v.opts, o => { current.pick = o; current.done = true; drawVs(); }, marks, v.opts.some(o => o.length > 14)));
+  L.appendChild(optGrid(v.opts, o => { current.pick = o; current.done = true; drawVs(); }, marks, v.opts.some(o => o.length > 14)));
   if (done) {
     const ok = pick === v.cat, rows = [];
     if (!ok) rows.push(['✕ ' + pick, D.defOf(v.site, 'S', pick) || '—', 'x']);
     rows.push([(ok ? '' : '★ ') + v.cat, D.defOf(v.site, 'S', v.cat) || '', null]);
-    body.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (ok ? '★ ' : '✕ ') + v.cat }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: r[0], class: r[2] }), el('div', { text: r[1] })]))]));
+    R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (ok ? '★ ' : '✕ ') + v.cat }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: r[0], class: r[2] }), el('div', { text: r[1] })]))]));
     const db = debrief(v.site, { s: v.cat, t: '', n: '', m: '', q: null, label: v.title }, ok ? [] : ['S']);
-    if (db) body.appendChild(db);
-    body.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
+    if (db) R.appendChild(db);
+    R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
   }
 }
 function empty() { body.innerHTML = ''; body.appendChild(el('div', { class: 'band first' }, ['None'])); }
@@ -2507,6 +2594,12 @@ function showTable() {
 
 // ---------- state (the host keeps the open case across module switches) ----------
 window.DrillState = {
+  scope(siteId) {
+    const s = SITEBY[siteId]; if (!s) return false;
+    ui.section = s.section; ui.sel[s.section] = siteId === 'lung' ? ['nsclc', 'sclc'] : [siteId];
+    saveUi(); shell();
+    return true;
+  },
   get() {
     let cur = null;
     if (current && current.kind === 'case') cur = { kind: 'case', key: current.key, c: current.c, sys: current.sys.id, picks: current.picks, step: current.step, done: current.done };
@@ -2535,6 +2628,7 @@ document.addEventListener('keydown', e => {
 });
 shell();
 })();
+    window.oncosView.openRecord = function(record) { return !!(record && window.DrillState.scope(record.id)); };
     window.oncosView.captureState = function() { return {version: 1, module: 'drill', value: window.DrillState.get()}; };
     window.oncosView.restoreState = function(snapshot) {
       if (!snapshot || snapshot.version !== 1 || snapshot.module !== 'drill') return false;

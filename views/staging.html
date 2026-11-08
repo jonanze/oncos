@@ -177,6 +177,10 @@ html[data-view="staging"]{--bg: var(--paper); --panel: var(--paper); --line: var
 [data-view="staging"] table.stage tr > :first-child{width:4.75rem;}
 [data-view="staging"] table.stage:has(th:nth-child(3)){table-layout:auto;}
 [data-view="staging"] table.stage :is(th, [data-view="staging"] td):not(:first-child):not(:last-child){width:auto;}}
+[data-view="staging"] .dvmeta{align-items:center;}
+[data-view="staging"] .dvmeta .st-practise{margin-left:auto;padding:4px 14px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);
+  font-weight:var(--w-bold);text-decoration:none;}
+@media (hover:hover){[data-view="staging"] .dvmeta .st-practise:hover{background:var(--b-cell);}}
 </style>
 <div class="viewfrag">
 <div class="layout">
@@ -468,9 +472,14 @@ if (false && location.protocol.startsWith('http')) {
   }
   // The title is visually hidden on the detail page; an "unverified" flag
   // inside it moves to the visible edition line.
+  // Tables | Practice (2026-11-08): the module's two tabs; Practice is the
+  // /drill/ view. Each cancer's tables carry a Practise cell for that cancer.
+  const main=ctx.root.querySelector('.viewmain');
+  if(main&&!main.querySelector('.st-tabs'))main.insertAdjacentHTML('afterbegin','<div class="st-tabs wl-tabs" role="tablist" aria-label="Staging"><span class="wl-tab" role="tab" aria-selected="true">Tables</span><a class="wl-tab" role="tab" aria-selected="false" href="/drill/">Practice</a></div>');
   if(typeof renderDetail==='function'){
     const detail=renderDetail;
-    renderDetail=c=>{detail(c);const flag=ctx.root.querySelector('.dvhead h2 .unver'),meta=ctx.root.querySelector('.dvmeta');if(flag&&meta)meta.prepend(flag);};
+    renderDetail=c=>{detail(c);const flag=ctx.root.querySelector('.dvhead h2 .unver'),meta=ctx.root.querySelector('.dvmeta');if(flag&&meta)meta.prepend(flag);
+      if(meta){const a=document.createElement('a');a.className='st-practise';a.href='/drill/?record='+encodeURIComponent(c.id);a.textContent='Practise';meta.appendChild(a);}};
   }
   window.oncosView.captureState=()=>({version:1,module:'staging',value:{...state,tree:treeState()}});
   window.oncosView.restoreState=snapshot=>{

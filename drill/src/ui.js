@@ -48,10 +48,76 @@ function caseSite() {
   const s = current.sys && current.sys.site; return s ? (HANDSITE[s] || s) : null;
 }
 
+// ---------- hosted layout (oncOS Staging › Practice) ----------
+// The sidebar's tumour groups set the scope; a scope line above the case opens
+// the same list on a phone; the case and answers sit left of the result on wide screens.
+const NAV_ORDER = ['Breast', 'Thoracic', 'GI', 'GU', 'Gynae', 'H&N', 'Skin', 'CNS', 'Sarcoma', 'Lymphoma'];
+const SECFULL = { GI: 'Gastrointestinal', GU: 'Genitourinary', Gynae: 'Gynaecological', 'H&N': 'Head & Neck', CNS: 'Central Nervous System' };
+const secName = sec => SECFULL[sec] || sec;
+const chipLabel = c => c.site === 'lung' ? c.label : SITEBY[c.site].label;
+function scopeLabel() {
+  if (ui.section === 'All') return 'All cancers';
+  const ch = chosen(), chips = chipsFor(ui.section).filter(c => ch.includes(c.key));
+  return secName(ui.section) + (chips.length ? ' · ' + chips.map(chipLabel).join(', ') : '');
+}
+function setScope(sec, key) {
+  if (sec === 'All') ui.section = 'All';
+  else if (key === null) { ui.section = sec; ui.sel[sec] = []; }
+  else if (ui.section !== sec) { ui.section = sec; ui.sel[sec] = [key]; }
+  else { const cur = (ui.sel[sec] || []).slice(), i = cur.indexOf(key); if (i >= 0) cur.splice(i, 1); else cur.push(key); ui.sel[sec] = cur; }
+  saveUi(); shell();
+  // phone: the choice closes the Sections sheet so the new case shows
+  if (window.matchMedia && window.matchMedia('(max-width:760px)').matches) document.body.classList.remove('nav-open');
+}
+function navBtn(label, active, fn) { return el('button', { type: 'button', class: active ? 'active' : null, 'aria-pressed': String(!!active), on: { click: fn } }, [el('span', { text: label })]); }
+function renderNav() {
+  const nav = HOST.nav; if (!nav) return;
+  const keep = {};
+  nav.querySelectorAll('.navsec').forEach(b => { keep[b.dataset.sec] = !b.classList.contains('collapsed'); });
+  nav.innerHTML = '';
+  nav.appendChild(el('div', { class: 'items' }, [navBtn('All cancers', ui.section === 'All', () => setScope('All'))]));
+  NAV_ORDER.forEach(sec => {
+    const chips = chipsFor(sec); if (!chips.length) return;
+    const ch = ui.section === sec ? chosen() : null;
+    const open = sec in keep ? keep[sec] : ui.section === sec;
+    const block = el('div', { class: 'navsec' + (open ? '' : ' collapsed'), 'data-sec': sec });
+    const head = el('button', { type: 'button', class: 'secname', 'aria-expanded': String(open), on: { click: () => { const shut = block.classList.toggle('collapsed'); head.setAttribute('aria-expanded', String(!shut)); } } }, [el('span', { text: secName(sec) })]);
+    const rows = [navBtn('All ' + secName(sec), !!ch && !ch.length, () => setScope(sec, null))]
+      .concat(chips.slice().sort((a, b) => chipLabel(a).localeCompare(chipLabel(b))).map(c => navBtn(chipLabel(c), !!ch && ch.includes(c.key), () => setScope(sec, c.key))));
+    block.appendChild(head); block.appendChild(el('div', { class: 'items' }, rows));
+    nav.appendChild(block);
+  });
+}
+function hostShell() {
+  const root = HOST.root; root.innerHTML = '';
+  edEl = el('div', { class: 'ed' });
+  const scope = el('button', { type: 'button', class: 'scope', on: { click: () => { const b = document.getElementById('burger'); if (b) b.click(); } } },
+    [el('span', { class: 'k', text: 'Scope' }), el('span', { class: 'v', text: scopeLabel() })]);
+  body = el('div', { id: 'body', class: 'cols' });
+  root.appendChild(edEl); root.appendChild(scope); root.appendChild(body);
+  renderNav();
+  if (current && current.key === scopeKey()) return current.kind === 'vs' ? drawVs() : drawCase();
+  newCase();
+}
+// left: case and answers; right: result, debrief and Next (one column when standalone)
+function cols() {
+  body.innerHTML = '';
+  if (!HOST) return [body, body];
+  const l = el('div', { class: 'col frame' }), r = el('div', { class: 'col frame' });
+  body.appendChild(l); body.appendChild(r);
+  return [l, r];
+}
+function caseBand() {
+  const b = el('div', { class: 'band first' }, ['Case']);
+  if (HOST) { tableLink = el('a', { class: 'r tablelink', href: HOST.tableHref(caseSite(), caseAnchor()), text: 'Table' }); b.appendChild(tableLink); }
+  return b;
+}
+
 function shell() {
-  const root = HOST ? HOST.root : $('#app'); root.innerHTML = '';
+  if (HOST) return hostShell();
+  const root = $('#app'); root.innerHTML = '';
   const bar = el('div', { class: 'bar' }); bar.innerHTML = ICON; bar.appendChild(el('span', { text: 'Staging drill' })); edEl = el('span', { class: 'ed' }); bar.appendChild(edEl);
-  const modes = el('div', { class: 'row modes', role: 'group' }, MODES.map(m => HOST && m[0] === 'table' ? (tableLink = el('a', { href: HOST.tableHref(caseSite()), text: m[1] })) : el('button', { type: 'button', 'aria-pressed': String(ui.mode === m[0]), text: m[1], on: { click: () => {
+  const modes = el('div', { class: 'row modes', role: 'group' }, MODES.map(m => el('button', { type: 'button', 'aria-pressed': String(ui.mode === m[0]), text: m[1], on: { click: () => {
     if (m[0] === 'table' && ui.mode === 'case' && current) { const sid = caseSite(); if (sid) { ui.site = sid; jumpSys = current.sys ? current.sys.id : null; } }
     ui.mode = m[0]; saveUi(); shell();
   } } })));
@@ -134,18 +200,18 @@ function optionsFor(step) {
 function drawCase() {
   const { c, sys, picks, step, done } = current;
   setEd(sys.label + ' · ' + sys.edition);
-  body.innerHTML = '';
-  body.appendChild(el('div', { class: 'band first' }, ['Case']));
-  body.appendChild(el('div', { class: 'vig', text: c.text }));
+  const [L, R] = cols();
+  L.appendChild(caseBand());
+  L.appendChild(el('div', { class: 'vig', text: c.text }));
   const truth = { T: c.t, N: c.nFine || c.n, M: c.m, S: c.stage };
-  body.appendChild(el('div', { class: 'band' }, [done ? 'Result' : (step === 'S' ? 'Stage' : step)]));
-  body.appendChild(el('div', { class: 'strip' }, ['T', 'N', 'M', 'S'].map(k => {
+  L.appendChild(el('div', { class: 'band' }, [done ? 'Result' : (step === 'S' ? 'Stage' : step)]));
+  L.appendChild(el('div', { class: 'strip' }, ['T', 'N', 'M', 'S'].map(k => {
     const v = picks[k], cls = done ? (v === truth[k] ? 'ok' : 'bad') : '';
     return el('button', { type: 'button', class: cls || null, 'aria-current': !done && step === k ? 'step' : null, on: { click: () => { if (!current.done) { current.step = k; drawCase(); } } } },
       [el('b', { text: k === 'S' ? 'Stage' : k }), el('span', { text: v || '—' }), done && v !== truth[k] ? el('small', { text: truth[k] }) : null]);
   })));
   if (!done) {
-    body.appendChild(optGrid(optionsFor(step), v => {
+    L.appendChild(optGrid(optionsFor(step), v => {
       current.picks[step] = v;
       const nextEmpty = ['T', 'N', 'M', 'S'].find(k => !current.picks[k]);
       if (nextEmpty) current.step = nextEmpty; else current.done = true;
@@ -172,11 +238,11 @@ function drawCase() {
       }
     }
     if (c.why.X) rows.push(['※', c.why.X, 'n']);
-    body.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (allOk ? '★ ' : '✕ ') + c.stage }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: (r[2] === 'x' ? '✕ ' : r[2] === 'ok' && !allOk ? '★ ' : '') + r[0], class: r[2] === 'x' ? 'x' : null }), el('div', { text: r[1] })]))]));
+    R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (allOk ? '★ ' : '✕ ') + c.stage }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: (r[2] === 'x' ? '✕ ' : r[2] === 'ok' && !allOk ? '★ ' : '') + r[0], class: r[2] === 'x' ? 'x' : null }), el('div', { text: r[1] })]))]));
     const hist = (c.fields || []).find(f => f[0] === 'Histology');
     const db = debrief(sys.site, { s: c.stage, t: c.t, n: c.n, m: c.m, q: c.q, label: sys.label, rectal: /\brect(um|al)\b/i.test(c.text) && !/rectosigmoid/i.test(c.text), sclc: !!(hist && /^Small cell/.test(hist[1])) }, ['T', 'N', 'M', 'S'].filter(k => picks[k] !== truth[k]));
-    if (db) body.appendChild(db);
-    body.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
+    if (db) R.appendChild(db);
+    R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
   }
 }
 // ---------- Debrief ----------
@@ -206,20 +272,20 @@ function vsCase(sid) { current = { kind: 'vs', v: D.makeVsCase(sid), pick: null,
 function drawVs() {
   const { v, pick, done } = current, site = SITEBY[v.site];
   setEd(site.label + ' · ' + v.title);
-  body.innerHTML = '';
-  body.appendChild(el('div', { class: 'band first' }, ['Case']));
-  body.appendChild(el('div', { class: 'vig', text: v.text }));
-  body.appendChild(el('div', { class: 'band' }, [v.title]));
+  const [L, R] = cols();
+  L.appendChild(caseBand());
+  L.appendChild(el('div', { class: 'vig', text: v.text }));
+  L.appendChild(el('div', { class: 'band' }, [v.title]));
   const marks = done ? Object.fromEntries(v.opts.map(o => [o, o === v.cat ? 'hit' : (o === pick ? 'wrong' : '')])) : null;
-  body.appendChild(optGrid(v.opts, o => { current.pick = o; current.done = true; drawVs(); }, marks, v.opts.some(o => o.length > 14)));
+  L.appendChild(optGrid(v.opts, o => { current.pick = o; current.done = true; drawVs(); }, marks, v.opts.some(o => o.length > 14)));
   if (done) {
     const ok = pick === v.cat, rows = [];
     if (!ok) rows.push(['✕ ' + pick, D.defOf(v.site, 'S', pick) || '—', 'x']);
     rows.push([(ok ? '' : '★ ') + v.cat, D.defOf(v.site, 'S', v.cat) || '', null]);
-    body.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (ok ? '★ ' : '✕ ') + v.cat }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: r[0], class: r[2] }), el('div', { text: r[1] })]))]));
+    R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (ok ? '★ ' : '✕ ') + v.cat }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: r[0], class: r[2] }), el('div', { text: r[1] })]))]));
     const db = debrief(v.site, { s: v.cat, t: '', n: '', m: '', q: null, label: v.title }, ok ? [] : ['S']);
-    if (db) body.appendChild(db);
-    body.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
+    if (db) R.appendChild(db);
+    R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
   }
 }
 function empty() { body.innerHTML = ''; body.appendChild(el('div', { class: 'band first' }, ['None'])); }
@@ -282,6 +348,12 @@ function showTable() {
 
 // ---------- state (the host keeps the open case across module switches) ----------
 window.DrillState = {
+  scope(siteId) {
+    const s = SITEBY[siteId]; if (!s) return false;
+    ui.section = s.section; ui.sel[s.section] = siteId === 'lung' ? ['nsclc', 'sclc'] : [siteId];
+    saveUi(); shell();
+    return true;
+  },
   get() {
     let cur = null;
     if (current && current.kind === 'case') cur = { kind: 'case', key: current.key, c: current.c, sys: current.sys.id, picks: current.picks, step: current.step, done: current.done };

@@ -735,6 +735,14 @@ html[data-view="evidence"] #viewroot tr.secrow td, html:is([data-view="staging"]
 .oncos-rail .rail-foot{flex:1 1 auto;min-width:0;}
 .oncos-rail .rail-here{display:block;flex:1 1 auto;min-width:0;margin-right:auto;padding:0 8px 0 6px;
     font-size:13px;font-weight:var(--w-bold);line-height:1.25;color:var(--tb-icon);overflow-wrap:anywhere;}}
+.wl-tabs{display:flex;padding:0;gap:0;border:1px solid var(--b-line);border-radius:0;background:var(--b-paper);}
+.wl-tab{display:inline-flex;flex:1 1 0;min-width:0;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 6px;
+  border:0;border-radius:0;background:none;font:inherit;font-size:var(--t-sm);color:var(--b-ink);text-decoration:none;cursor:pointer;}
+.wl-tab + .wl-tab{border-left:1px solid var(--b-line);}
+.wl-tab[aria-selected="true"]{background:var(--b-band);font-weight:var(--w-bold);}
+@media (hover:hover){a.wl-tab:hover{background:var(--b-cell);}}
+.st-tabs{width:240px;margin:0 0 16px;}
+@container oncos (max-width:740px){.st-tabs{width:auto;}}
 .oncos-rail .rail-sheet-main{display:none;}
 @media (max-width:760px){.oncos-rail .rail-main{display:none;}
 .oncos-rail .rail-sheet-main{display:block;border-bottom:1px solid var(--b-line);}
@@ -1004,7 +1012,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
   const fields = ['record','group','kind','phase','year','sort','dir'];
   const allowed = {
     hub:[], notes:['record','group'], evidence:['record','group','phase','year','sort','dir'],
-    staging:['record'], drill:[], drugs:['record'], tox:['record','kind','group'], acute:['record'],
+    staging:['record'], drill:['record'], drugs:['record'], tox:['record','kind','group'], acute:['record'],
   };
   function validText(value) {
     return typeof value === 'string' && value.length <= 500 && !/[\u0000-\u001f\u007f]/.test(value);
