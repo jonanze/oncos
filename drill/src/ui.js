@@ -1,3 +1,4 @@
+function plainWhy(w, cat) { w = w || ''; if (cat) { const a = ' → ' + cat; w = w.split(a + ' ').join(' ').split(a + ',').join(',').split(a + ';').join(';'); if (w.endsWith(a)) w = w.slice(0, -a.length); } return w.replace(/ → /g, ', giving ').replace(/→/g, ' to '); }
 (function () {
 'use strict';
 const D = window.Drill;
@@ -221,10 +222,10 @@ function drawCase() {
     const allOk = ['T', 'N', 'M', 'S'].every(k => picks[k] === truth[k]);
     const rows = [];
     [['T', 'T'], ['N', 'N'], ['M', 'M']].forEach(([k, ax]) => {
-      if (picks[k] === truth[k]) { rows.push([truth[k], c.why[k], 'ok']); return; }
+      if (picks[k] === truth[k]) { rows.push([truth[k], plainWhy(c.why[k], truth[k]), 'ok']); return; }
       rows.push([picks[k], D.defOf(sys.site, ax, picks[k]) || '—', 'x']);
-      const dTrue = D.defOf(sys.site, ax, truth[k]), w = c.why[k] || '';
-      rows.push([truth[k], dTrue && w.indexOf(dTrue) < 0 ? dTrue + ' ← ' + w : w, 'ok']);
+      const dTrue = D.defOf(sys.site, ax, truth[k]), w = plainWhy(c.why[k], truth[k]);
+      rows.push([truth[k], dTrue && w.indexOf(dTrue) < 0 ? dTrue + '. In this case: ' + w : w, 'ok']);
     });
     if (picks.S === truth.S) rows.push([c.stage, c.ruleText, 'ok']);
     else {
@@ -237,7 +238,7 @@ function drawCase() {
         if (own) rows.push(['※', 'Your ' + pT + ' ' + pN + ' ' + pM + ' would give ' + own, 'n']);
       }
     }
-    if (c.why.X) rows.push(['※', c.why.X, 'n']);
+    if (c.why.X) rows.push(['※', plainWhy(c.why.X, ''), 'n']);
     R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (allOk ? '★ ' : '✕ ') + c.stage }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: (r[2] === 'x' ? '✕ ' : r[2] === 'ok' && !allOk ? '★ ' : '') + r[0], class: r[2] === 'x' ? 'x' : null }), el('div', { text: r[1] })]))]));
     const hist = (c.fields || []).find(f => f[0] === 'Histology');
     const db = debrief(sys.site, { s: c.stage, t: c.t, n: c.n, m: c.m, q: c.q, label: sys.label, rectal: /\brect(um|al)\b/i.test(c.text) && !/rectosigmoid/i.test(c.text), sclc: !!(hist && /^Small cell/.test(hist[1])) }, ['T', 'N', 'M', 'S'].filter(k => picks[k] !== truth[k]));
@@ -252,7 +253,7 @@ function debrief(siteId, x, wrong) {
   if (!d) return null;
   const EV = window.DrillEvidenceLinks || {}, local = /(^|\.)oncos\.vercel\.app$/.test(location.hostname);
   const evHref = id => (HOST || local ? '' : 'https://oncos.vercel.app') + '/evidence/#' + id;
-  const trials = tr => el('span', { class: 'tr' }, tr.split(', ').flatMap((name, i) => { const id = EV[name.replace(/ ※$/, '')]; const node = id ? el('a', { href: evHref(id), text: name, 'data-evidence': id }) : document.createTextNode(name); return i ? [', ', node] : [node]; }));
+const trials = tr => el('span', { class: 'tr' }, tr.split(', ').flatMap((name, i) => { const id = EV[name.replace(/ ※$/, '')]; const node = id ? el('a', { href: evHref(id), text: name, 'data-evidence': id }) : document.createTextNode(name); return i ? [', ', node] : [node]; }));
   const cell = (k, v, cls, tr) => [el('div', { class: cls || null, text: k }), el('div', {}, [v, tr ? trials(tr) : null])];
   const top = [], rest = [];
   top.push(...cell('Logic', d.logic));
