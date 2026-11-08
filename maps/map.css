@@ -1,0 +1,71 @@
+/* oncOS board maps, drawn inside the Evidence view. Colours are the hub's own
+   ruled-form tokens, so the map follows the site theme. */
+/* Trials | Map: the same two-cell pair as Staging's Tables | Practice (.st-tabs) */
+#viewroot .om-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:0 0 16px}
+#viewroot .om-bar .wl-tabs{width:240px}
+#viewroot .om-bar .wl-tab{flex:1 1 0;min-width:0;justify-content:center;height:36px;padding:0 6px}
+#viewroot .om-bar .om-zoom{display:none;align-items:center;justify-content:center;gap:6px;height:38px;margin-left:auto;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
+#viewroot .om-bar.on .om-zoom{display:inline-flex}
+#viewroot .om-bar .om-zoom .bx{width:10px;height:10px;border:1px solid var(--b-ink);display:inline-block}
+#viewroot .om-bar .om-zoom[aria-pressed="true"] .bx{background:var(--b-ink)}
+@media (hover:hover){#viewroot .om-bar .om-zoom:hover{background:var(--b-cell)}}
+@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-zoom{margin-left:0;flex:1 1 100%}}
+
+#map{outline:none}
+#map[hidden]{display:none}
+.om-wrap{overflow:hidden;border:1px solid var(--b-line);background:var(--b-paper)}
+.om-wrap.actual{overflow:auto}
+.om-sheet{--om-wire:var(--b-mark);position:relative;transform-origin:0 0;background:var(--b-paper);color:var(--b-ink);font-size:14px;line-height:1.45}
+:root[data-theme="dark"] .om-sheet{--om-wire:#8c98a5}
+.om-sheet .om-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
+.om-sheet .om-wires line,.om-sheet .om-wires path{stroke:var(--om-wire);stroke-width:1.3;fill:none}
+.om-sheet .at{position:absolute;z-index:2}
+.om-sheet .box{border:1.3px solid var(--b-line);padding:6px 10px;background:var(--b-paper)}
+.om-sheet .box.lbl{display:inline-block;padding:3px 10px;font-weight:var(--w-bold);white-space:nowrap;background:var(--b-band)}
+.om-sheet h2{font-size:14px;font-weight:var(--w-bold);margin:0 0 6px;padding:0;border:0;text-decoration:underline;text-underline-offset:3px;letter-spacing:.04em;text-transform:uppercase;color:var(--b-ink)}
+.om-sheet ol{list-style:none;margin:0;padding:0}
+.om-sheet ol>li{position:relative;padding-left:1.7em;margin:0 0 6px}
+.om-sheet ol>li>.n{position:absolute;left:0;top:0;font-weight:var(--w-bold)}
+.om-sheet .sub{margin:2px 0 0;padding-left:1.1em;text-indent:-1.1em}
+.om-sheet .sub::before{content:"・"}
+.om-sheet .b{color:var(--accent-on-soft)}
+.om-sheet .r{color:var(--status-danger)}
+.om-sheet .sm{font-size:12.5px}
+.om-sheet .dim{color:var(--muted)}
+.om-sheet .row{display:flex;align-items:flex-start;gap:10px}
+.om-sheet .brace{position:absolute;z-index:2}
+.om-sheet .brace svg{display:block;overflow:visible}
+.om-sheet .brace path{stroke:var(--om-wire);stroke-width:1.3;fill:none}
+.om-sheet .tl svg{display:block}
+.om-sheet .tl text{font-family:inherit;fill:var(--b-ink);font-size:12px}
+.om-sheet .tl .ax{stroke:var(--om-wire);stroke-width:1.2}
+.om-sheet .tl .psa{fill:none;stroke:var(--b-ink);stroke-width:1.5}
+.om-sheet .tl .tick,.om-sheet .tl .span{stroke:var(--b-ink);stroke-width:1.2}
+.om-sheet .nw{white-space:nowrap}
+.om-sheet .trial{white-space:nowrap;cursor:pointer;text-decoration:underline;text-decoration-color:var(--b-line);text-underline-offset:2px}
+.om-sheet .trial:focus-visible{outline:1px solid var(--b-ink);outline-offset:1px}
+.om-sheet .trial.on{background:var(--b-band)}
+
+/* trial card: same ruled label | value cells as an open Evidence row */
+#om-card{position:fixed;z-index:60;display:none;flex-direction:column;background:var(--b-paper);color:var(--b-ink);border:1px solid var(--b-line)}
+#om-card.open{display:flex}
+#om-card .hd{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--b-band);border-bottom:1px solid var(--b-line);font-weight:var(--w-bold)}
+#om-card .hd button{margin-left:auto;background:none;border:0;color:var(--b-ink);cursor:pointer;font-size:18px;line-height:1;padding:0 2px}
+#om-card .cb{overflow:auto;padding:12px}
+#om-card table{display:table;border-collapse:collapse;width:100%;font-size:var(--t-base)}
+#om-card tr{display:table-row}
+#om-card th,#om-card td{display:table-cell;border:1px solid var(--b-line);padding:6px 8px;vertical-align:top;text-align:left;line-height:1.45}
+#om-card th{width:9em;font-weight:var(--w-bold);font-size:var(--t-sm)}
+#om-card th::before{content:"【"}
+#om-card th::after{content:"】"}
+#om-card a{color:var(--accent-on-soft)}
+#om-card .ev{display:block;padding:8px 12px;border-top:1px solid var(--b-line);text-decoration:none;color:var(--b-ink);font-weight:var(--w-bold)}
+#om-card .ev::after{content:"\25B8";margin-left:8px;color:var(--muted)}
+@media (hover:hover){#om-card .ev:hover{background:var(--b-band)}}
+@media (min-width:900px){
+  #om-card{top:calc(env(safe-area-inset-top,0px) + 16px);right:max(16px, env(safe-area-inset-right,0px));width:400px;max-height:calc(100vh - 32px)}
+}
+@media (max-width:899px){
+  #om-card th{width:7.5em}
+  #om-card{left:0;right:0;bottom:0;max-height:62vh;border-left:0;border-right:0;padding-bottom:env(safe-area-inset-bottom,0px)}
+}
