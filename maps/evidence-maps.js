@@ -193,7 +193,9 @@
       var txt = fetch('/maps/' + id + '/map.txt', {credentials:'same-origin'}).then(function(r){
         if (!r.ok) throw new Error(r.status); return r.text();
       });
-      loaded[id] = Promise.all([txt, engine]).then(function(v){ return v[0]; });
+      // The Evidence rows fill live figures; without them the map still draws, figures left blank.
+      var ev = evidenceRows().catch(function(){ return null; });
+      loaded[id] = Promise.all([txt, engine, ev]).then(function(v){ return {src: v[0], rows: v[2]}; });
       loaded[id].catch(function(){ delete loaded[id]; });
       return loaded[id];
     }
@@ -217,7 +219,9 @@
   var cfg = null, T = {}, wrap = null, sheetEl = null, ctrl = null;
   function draw(pane, id, html){
     if (CANVAS[id]) {
-      ctrl = window.oncosCanvas.render(pane, window.oncosOutline.parse(html), {id: id});
+      var model = window.oncosOutline.parse(html.src);
+      window.oncosOutline.figures(model, html.rows);
+      ctrl = window.oncosCanvas.render(pane, model, {id: id});
       return;
     }
     var d = window.oncosMapData[id];

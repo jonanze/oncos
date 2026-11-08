@@ -1,7 +1,8 @@
 /* Release check for the board maps: node maps/check.cjs
    - every map trial points at an Evidence row, or carries a PMID and is listed for intake
-   - every key figure's numbers appear in that trial's Evidence row
-   - lists the sheet's Evidence rows that are not on the map, newest first, for review
+   - a live figure ("OS HR", "PFS median", "response") resolves from its Evidence row
+   - every written key figure's numbers appear in that trial's Evidence row
+   - lists the sheet's Evidence rows that are neither on the map nor under off:, newest first, for review
    Writes maps/<id>/intake.txt and maps/<id>/unplaced.txt. Exits 1 on any failure. */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -17,18 +18,24 @@ const rows = (function(){ let d = 0, j = i + 15, q = false, e = false;
   return JSON.parse(src.slice(i + 15, j + 1)); })();
 const byAnchor = new Map(rows.map(r => [r.anchor, r]));
 const norm = s => String(s).replace(/·/g, '.').replace(/(\d),(\d{3})/g, '$1$2');
-let bad = 0;
+let bad = 0, live = 0;
 for (const dir of fs.readdirSync(__dirname)) {
   const f = path.join(__dirname, dir, 'map.txt');
   if (!fs.existsSync(f)) continue;
   const m = O.parse(fs.readFileSync(f, 'utf8'));
   m.errors.forEach(e => { bad++; console.log(dir + '/map.txt ' + e); });
-  const intake = [];
+  const intake = []; live = 0;
   for (const {line, where} of O.trials(m)) {
     const tag = dir + '/map.txt:' + line.at + ' ' + line.name;
     if (line.pmid && !line.anchor) { intake.push(line.name + '\tPMID ' + line.pmid + '\t' + where); continue; }
     const r = byAnchor.get(line.anchor);
     if (!r) { bad++; console.log(tag + ': no Evidence row ' + line.anchor + ' (give [t-...] or {pmid N})'); continue; }
+    if (O.live(line.fig)) {
+      const f = O.figure(line.fig, r);
+      if (!f.ok) { bad++; console.log(tag + ': live figure "' + line.fig + '" not found in ' + r.anchor); }
+      else live++;
+      continue;
+    }
     const text = norm([r.findings, r.population, r.arms, r.endpoint, r.type].join('\n'));
     for (const n of (norm(line.fig).match(/\d+(?:\.\d+)?/g) || [])) {
       const re = new RegExp('(^|[^\\d.])' + n.replace('.', '\\.') + '(?![\\d])');
@@ -38,13 +45,14 @@ for (const dir of fs.readdirSync(__dirname)) {
   fs.writeFileSync(path.join(__dirname, dir, 'intake.txt'),
     '# Trials on the ' + (m.map || dir) + ' map with no Evidence row yet (name, PMID, where on the map)\n' + intake.join('\n') + '\n');
   const on = new Set(O.trials(m).map(t => t.line.anchor));
+  m.off.forEach(o => { if (!byAnchor.has(o.anchor)) { bad++; console.log(dir + '/map.txt:' + o.at + ' off: no Evidence row ' + o.anchor); } else if (on.has(o.anchor)) { bad++; console.log(dir + '/map.txt:' + o.at + ' ' + o.name + ' is both on the map and under off:'); } on.add(o.anchor); });
   const off = rows.filter(r => r.sheet === m.map && !on.has(r.anchor))
     .sort((a, b) => String(b.pubdate || b.yearnum).localeCompare(String(a.pubdate || a.yearnum)));
   fs.writeFileSync(path.join(__dirname, dir, 'unplaced.txt'),
-    '# ' + (m.map || dir) + ' Evidence rows not on the map, newest first (year, study, section, anchor)\n' +
+    '# ' + (m.map || dir) + ' Evidence rows neither on the map nor under off:, newest first (year, study, section, anchor)\n' +
     off.map(r => [r.yearnum, r.study, r.subcat, r.anchor].join('\t')).join('\n') + '\n');
   if (!rows.some(r => r.sheet === m.map)) { bad++; console.log(dir + ': no Evidence sheet named "' + m.map + '"'); }
-  console.log(dir + ': ' + O.trials(m).length + ' trials, ' + intake.length + ' for intake, ' + off.length + ' sheet rows not on the map');
+  console.log(dir + ': ' + O.trials(m).length + ' trials (' + live + ' live figures), ' + intake.length + ' for intake, ' + off.length + ' new sheet rows to place');
 }
 if (bad) { console.log(bad + ' problem(s)'); process.exit(1); }
 console.log('maps check passed');

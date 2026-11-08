@@ -20,7 +20,7 @@
       var a = l.anchor
         ? '<span class="' + cls + '" role="button" tabindex="0" data-ev="' + esc(l.anchor) + '">' + name + '</span>'
         : '<a class="' + cls + '" href="https://pubmed.ncbi.nlm.nih.gov/' + esc(l.pmid) + '/" target="_blank" rel="noopener">' + name + '</a>';
-      return '<div class="ln tr"' + pad + '>' + a + '<span class="fig"> · ' + keep(l.fig) + '</span></div>';
+      return '<div class="ln tr"' + pad + '>' + a + (l.fig ? '<span class="fig"> · ' + keep(l.fig) + '</span>' : '') + '</div>';
     }
     if (l.kind === 'tx') return '<div class="ln tx"' + pad + '>' + keep(l.text) + '</div>';
     if (l.kind === 'cv') return '<div class="ln cv"' + pad + '>※ ' + keep(l.text) + '</div>';

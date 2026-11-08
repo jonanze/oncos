@@ -1,9 +1,2 @@
-# Advanced NSCLC Evidence rows not on the map, newest first (year, study, section, anchor)
-2026	AENEAS2	EGFR-mutant	t-aeneas2
-2025	CHRYSALIS-2 Cohort C	EGFR-mutant	t-chrysalis-2-cohort-c
-2022	DESTINY-Lung01	HER2-altered (ERBB2)	t-destiny-lung01
-2021	RATIONALE-304	No actionable driver — immunotherapy & chemo-immunotherapy	t-rationale-304
-2021	RATIONALE-307	No actionable driver — immunotherapy & chemo-immunotherapy	t-rationale-307
-2019	KCSG-LU15-09	EGFR-mutant	t-kcsg-lu15-09
-2017	EAST-LC	Second-line & post-progression therapy	t-east-lc
-2013	LUX-Lung 3	EGFR-mutant	t-lux-lung-3
+# Advanced NSCLC Evidence rows neither on the map nor under off:, newest first (year, study, section, anchor)
+
