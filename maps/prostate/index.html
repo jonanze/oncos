@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>oncOS — Advanced prostate cancer map</title>
+<meta name="theme-color" content="#2a2f35">
+<script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="../map.css">
+</head>
+<body>
+<header class="tb">
+  <div class="ttl">
+    <a href="/">oncOS</a><span class="sep">|</span><a href="/maps/">MAPS</a><span class="sep">|</span>ADVANCED PROSTATE CANCER
+  </div>
+  <div class="tg">
+    <button id="zoom" aria-pressed="false"><span class="bx"></span>Actual size</button>
+    <button id="theme" aria-label="Theme"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="none" stroke="currentColor"/><path d="M7 1.5a5.5 5.5 0 0 1 0 11z" fill="currentColor"/></svg></button>
+  </div>
+</header>
+
+<div id="wrap">
+<div id="sheet">
+<svg id="wires" aria-hidden="true"></svg>
+
+<!-- NOMENCLATURE -->
+<div class="at box" id="k-nom" style="left:28px;top:24px;width:640px">
+  <div class="row"><b><t k="PCWG4">PCWG4</t> (2026):</b>
+    <div>APMN, APMS, APMR &nbsp;≡&nbsp; androgen pathway modulator naive, sensitive, resistant<br>
+    <span class="sm">APMN and APMS replace HSPC; APMR replaces CRPC. Modulators include ADT and the ARSIs. <t k="PCWG3">PCWG3</t> (2016) used castration-sensitive and castration-resistant</span></div></div>
+</div>
+
+<!-- TIMELINE -->
+<div class="at box tl" id="k-time" style="left:28px;top:152px;width:640px;height:400px">
+  <b>TIMELINE</b>
+  <svg width="350" height="250" viewBox="0 0 350 250" style="position:absolute;left:12px;top:30px">
+    <text x="22" y="22">PSA</text>
+    <line class="ax" x1="40" y1="30" x2="40" y2="185"/>
+    <line class="ax" x1="40" y1="185" x2="318" y2="185"/>
+    <text x="4" y="52" class="sm">de novo</text>
+    <path class="psa" d="M42 48 C 58 90, 72 140, 95 150 C 120 160, 128 150, 142 146 L 150 146 C 165 152, 180 156, 200 154 C 220 152, 228 146, 240 140 L 248 140 C 262 144, 272 138, 282 118 C 292 98, 300 78, 312 60"/>
+    <path d="M306 68 L 312 58 L 316 70" class="psa"/>
+    <line class="tick" x1="40" y1="178" x2="40" y2="192"/>
+    <line class="tick" x1="142" y1="178" x2="142" y2="192"/>
+    <line class="tick" x1="240" y1="178" x2="240" y2="192"/>
+    <line class="tick" x1="282" y1="178" x2="282" y2="192"/>
+    <text x="40" y="208" text-anchor="start">ADT</text>
+    <text x="142" y="208" text-anchor="middle">ARSI</text>
+    <text x="142" y="222" text-anchor="middle" class="sm">+1 year</text>
+    <text x="240" y="208" text-anchor="middle">Docetaxel</text>
+    <text x="240" y="222" text-anchor="middle" class="sm">+6 months</text>
+    <rect x="286" y="196" width="40" height="16" fill="none" stroke="var(--rule)"/>
+    <text x="306" y="208" text-anchor="middle" class="sm">CRPC</text>
+    <text x="300" y="44" text-anchor="end" class="sm">about 4.5 years</text>
+    <line class="span" x1="42" y1="238" x2="280" y2="238"/>
+    <path d="M48 234 L42 238 L48 242 M274 234 L280 238 L274 242" class="span"/>
+    <rect x="135" y="230" width="46" height="16" fill="var(--sheet)" stroke="var(--rule)"/>
+    <text x="158" y="242" text-anchor="middle" class="sm">HSPC</text>
+  </svg>
+  <div style="position:absolute;left:355px;top:34px;width:270px">
+    <div>De novo disease has a poorer prognosis than metastases after radical treatment</div>
+    <div class="sub b sm">On ADT alone, median OS 92 months for low volume relapsed disease and 43 months for high volume de novo disease (<t k="FRANCINI">Francini 2018</t>)</div>
+    <div style="margin-top:14px">Rough gauge only. The trials compared ADT with or without docetaxel against a triplet, not ADT plus an ARSI with or without docetaxel</div>
+    <div class="sub b sm">In current practice the ARSI, and docetaxel when used, start together with ADT</div>
+    <div class="sub b sm">Median OS: <t k="CHAARTED">CHAARTED</t> 57.6 months, <t k="LATITUDE">LATITUDE</t> 53.3 months; first-line CRPC in <t k="TALAPRO2">TALAPRO-2</t> 45.8 months</div>
+  </div>
+</div>
+
+<!-- ARSI OPTIONS -->
+<div class="at" id="k-arsi" style="left:720px;top:24px;width:560px">
+  <h2>ARSI options</h2>
+  <ol>
+    <li id="a1"><span class="n">①</span>Abiraterone with prednisone (<t k="LATITUDE">LATITUDE</t>, <t k="STAMPG">STAMPEDE arm G</t>) <span class="dim">raised BP, low potassium, oedema, cardiovascular risk</span>
+      <div class="sub b sm">Grade 3–4 hypertension 21% vs 10%. Check liver tests often in the first 12 weeks (<t k="COU301">COU-AA-301</t>). Prednisone 5 mg once daily in HSPC, twice daily in CRPC</div></li>
+    <li id="a2"><span class="n">②</span>Enzalutamide (<t k="ENZAMET">ENZAMET</t>, <t k="ARCHES">ARCHES</t>)</li>
+    <li id="a3"><span class="n">③</span>Apalutamide (<t k="TITAN">TITAN</t>) <span class="b sm">rash 24%, hypothyroidism 8%, fracture 12% in <t k="SPARTAN">SPARTAN</t></span></li>
+    <li id="a4"><span class="n">④</span>Darolutamide (<t k="ARANOTE">ARANOTE</t>; <t k="ARASENS">ARASENS</t> with docetaxel) <span class="dim">low brain penetration, fatigue 5.6%</span>
+      <div class="sub">Fewer drug interactions, except rosuvastatin: exposure rises 5.2-fold through BCRP and OATP inhibition (<t k="ZURTH">Zurth 2019</t>). Rosuvastatin at most 5 mg once daily</div>
+      <div class="sub b">Enzalutamide and apalutamide are strong CYP3A4 inducers: midazolam exposure fell 86% and 92% (<t k="GIBBONS">Gibbons 2015</t>, <t k="DURAN">Duran 2020</t>). Expect lower levels of simvastatin, atorvastatin and warfarin</div>
+      <div class="sub b">Abiraterone inhibits CYP2D6: dextromethorphan exposure doubled (<t k="CHI2012">Chi 2012</t>)</div>
+      <div class="sub b sm">Brain to blood ratio for darolutamide 0.079 in rats (<t k="TAAVI">Taavitsainen 2020</t>); no change in cerebral blood flow in volunteers, unlike enzalutamide (<t k="WILLIAMS">Williams 2023</t>)</div>
+    </li>
+  </ol>
+</div>
+<div class="brace" id="br-arsi"></div>
+<div class="at" id="k-arsi-note" style="left:1330px;top:84px;width:250px">
+  Cross the blood-brain barrier<br>
+  Fatigue, raised BP, falls<br>
+  Seizures if predisposed: cognitive impairment, brain lesion, epilepsy, previous stroke
+</div>
+
+<!-- DE NOVO TREE -->
+<div class="at box lbl" id="k-denovo" style="left:28px;top:664px">De novo<br>mHSPC</div>
+<div class="at box lbl" id="k-low" style="left:190px;top:580px">Low vol</div>
+<div class="at" id="k-low-t" style="left:290px;top:580px;width:620px">
+  : ADT + ARSI + radiotherapy to the prostate<br>
+  <span class="sm">OS benefit from <t k="STAMPH">STAMPEDE arm H</t>, low burden: 3-year OS 81% vs 73%, HR 0.68</span>
+  <div class="r sm">Extrapolated: arm H gave ADT with or without docetaxel, no ARSI. <t k="HORRAD">HORRAD</t> was negative overall (HR 0.90); its low burden subgroup HR 0.68 (0.42–1.10). <t k="STOPCAP">STOPCAP</t> pooled: 3-year OS +7% with fewer than 5 bone metastases</div>
+  <div class="b sm">On ADT + abiraterone (<t k="PEACE1RT">PEACE-1</t>), radiotherapy improved rPFS (HR 0.65) but not OS (HR 0.98) and reduced serious urinary events. Docetaxel adds nothing in low volume (<t k="CHAARTED">CHAARTED</t> HR 1.04)</div>
+</div>
+<div class="at box lbl" id="k-high" style="left:190px;top:790px">High vol</div>
+<div class="at" id="k-high-t" style="left:292px;top:790px;width:380px">: <span id="tripw">TRIPLET</span><div class="sm dim">ADT + ARSI if unfit for docetaxel</div></div>
+
+<div class="at box lbl b" id="k-meta" style="left:28px;top:862px;border-color:var(--blue)">Relapsed<br>mHSPC</div>
+<div class="at b" id="k-meta-t" style="left:190px;top:864px;width:480px">
+  ADT + ARSI, any volume (<t k="ENZAMET">ENZAMET</t>, <t k="ARCHES">ARCHES</t>, <t k="TITAN">TITAN</t>, <t k="ARANOTE">ARANOTE</t>)<br>
+  <span class="sm">1 to 3 metastases: stereotactic radiotherapy to all sites delays progression (<t k="ORIOLE">ORIOLE</t> HR 0.30; <t k="STOMP">STOMP</t> ADT-free survival 21 vs 13 months). No OS endpoint</span>
+</div>
+
+<!-- DEFINITIONS -->
+<div class="at" id="k-defs" style="left:28px;top:978px;width:640px">
+  <div>&gt; <b><t k="CHAARTED">CHAARTED</t> "high vol"</b>: ① 4 or more bone metastases, at least 1 beyond the spine and pelvis, or ② visceral metastases (lymph nodes excluded)</div>
+  <div style="margin-top:8px">&gt; <b><t k="LATITUDE">LATITUDE</t> "high risk"</b>: at least 2 of 3: ① Gleason 8 or more ② 3 or more bone lesions ③ visceral metastases <span class="sm dim">(trial of ADT + abiraterone with prednisone)</span></div>
+  <div class="b sm" style="margin-top:8px">Both defined on CT and bone scan. PSMA PET finds more lesions and was not used for volume in these trials</div>
+</div>
+
+<!-- ADT, TESTING, BONE -->
+<div class="at b" id="k-adt" style="left:28px;top:1124px;width:640px">
+  <h2 style="color:var(--blue)">ADT, testing and bone</h2>
+  <div class="sub">Flutamide for 2 weeks before the first LHRH agonist injection prevents PSA flare (<t k="NOGUCHI">Noguchi 2001</t>); clinical harm from flare is poorly evidenced except with extensive spinal disease (<t k="KRAKOW">Krakowsky 2017</t>)</div>
+  <div class="sub">Relugolix: major cardiovascular events 2.9% vs 6.2% against leuprolide (<t k="HERO">HERO</t>)</div>
+  <div class="sub">Intermittent ADT: non-inferior after radiotherapy relapse (<t k="PR7">PR.7</t>, HR 1.02); not shown in metastatic disease (<t k="SWOG9346">SWOG 9346</t>, HR 1.10)</div>
+  <div class="sub">Germline panel and tumour testing in all metastatic disease; BRCA2, BRCA1 and mismatch repair genes first (<t k="PHILLY">Philadelphia 2019</t>)</div>
+  <div class="sub">Bone loss on ADT: denosumab 60 mg every 6 months, vertebral fractures 1.5% vs 3.9% (<t k="HALT">Smith 2009</t>). Bone metastases in CRPC: denosumab 120 mg every 4 weeks beat zoledronic acid for first skeletal event, HR 0.82 (<t k="DENOS">Fizazi 2011</t>)</div>
+</div>
+
+<!-- TRIPLET -->
+<div class="at" id="k-trip" style="left:700px;top:790px;width:520px">
+  <ol>
+    <li id="t1"><span class="n">①</span><t k="PEACE1">PEACE-1</t>: ADT + abiraterone/prednisone + docetaxel <span class="b sm">OS HR 0.75; grade 3 or higher hypertension 22% vs 13%</span></li>
+    <li id="t2"><span class="n">②</span><t k="ARASENS">ARASENS</t>: ADT + darolutamide + docetaxel <span class="b sm">OS HR 0.68; low volume HR 0.68 (0.41–1.13), not significant</span></li>
+  </ol>
+  <div style="margin:2px 0 0 1.7em">(Both compared with <u>ADT + docetaxel</u>; neither against ADT + ARSI)</div>
+</div>
+
+<!-- SELECTED -->
+<div class="at" id="k-sel" style="left:700px;top:930px;width:520px">
+  <ol>
+    <li id="s3"><span class="n">③</span><b>HRR altered</b>
+      <div style="margin-top:4px">A) <t k="TALAPRO3">TALAPRO-3</t>: talazoparib + enzalutamide <span class="b sm">3-year rPFS 77% vs 56%, HR 0.48; grade 3 or higher anaemia 51%</span></div>
+      <div style="margin-top:4px">B) <t k="AMPLITUDE">AMPLITUDE</t>: niraparib + abiraterone/prednisone <span class="sm">(prior docetaxel allowed, 16%)</span> <span class="b sm">rPFS HR 0.63; BRCA HR 0.52; grade 3–4 anaemia 29%</span></div></li>
+    <li id="s4"><span class="n">④</span><t k="PSMADD">PSMAddition</t>: Lu-177 PSMA-617 + ADT/ARSI <span class="sm">(crossover allowed in the control arm)</span> <span class="b sm">PSMA PET positive; rPFS HR 0.72</span></li>
+  </ol>
+  <ol style="margin-top:14px">
+    <li id="s5"><span class="n">⑤</span><t k="CAPI281">CAPItello-281</t>: capivasertib + abiraterone/prednisone, de novo, PTEN deficient on IHC <span class="b sm">(25.3% of 6,003 tested)</span>
+      <div class="b sm">rPFS 33.2 vs 25.7 months, HR 0.81. OS HR 0.82 in a later ad hoc analysis. Diarrhoea 52%, hyperglycaemia 38%, rash 35%</div></li>
+  </ol>
+</div>
+<div class="brace" id="br-sel"></div>
+<div class="at" id="k-sel-note" style="left:1255px;top:880px;width:180px">
+  rPFS improved<br>No OS benefit yet<br><span class="sm">(all vs ADT/ARSI)</span>
+</div>
+
+<!-- nmCRPC -->
+<div class="at b" id="k-nmc" style="left:1250px;top:640px;width:330px">
+  <h2 style="color:var(--blue)">nmCRPC and PSA relapse</h2>
+  <div class="sub sm">nmCRPC, PSA doubling time 10 months or less: <t k="SPARTAN">SPARTAN</t> apalutamide, <t k="PROSPER">PROSPER</t> enzalutamide, <t k="ARAMIS">ARAMIS</t> darolutamide. MFS roughly doubled, HR 0.28 to 0.41</div>
+  <div class="sub sm">PSA relapse, doubling time 9 months or less: <t k="EMBARK">EMBARK</t> enzalutamide + leuprolide, 8-year OS 79% vs 70%, HR 0.60</div>
+</div>
+
+<!-- CRPC -->
+<div class="at box lbl" id="k-crpc" style="left:1250px;top:1062px">CRPC</div>
+<div class="at" id="k-crpc-l" style="left:1250px;top:1104px;width:330px">
+  <ol>
+    <li><span class="n">①</span>Clinical trial</li>
+    <li><span class="n">②</span>2nd chemotherapy: cabazitaxel (<t k="TROPIC">TROPIC</t>) <span class="b sm">after docetaxel and one ARSI, beats a second ARSI: <t k="CARD">CARD</t> OS HR 0.64</span></li>
+    <li><span class="n">③</span>Olaparib if HRR altered (<t k="PROFOUND">PROfound</t>) <span class="b sm">BRCA1, BRCA2 or ATM in 19% of mCRPC (<t k="ROBINSON">Robinson 2015</t>)</span></li>
+    <li><span class="n">④</span>Radioligand: Lu-177 PSMA-617 (<t k="VISION">VISION</t>; 7.4 GBq every 6 weeks × 4–6) · radium-223 (<t k="ALSYMPCA">ALSYMPCA</t>) to bone <span class="b sm">not with abiraterone: <t k="ERA223">ERA 223</t> fractures 29% vs 11%</span></li>
+  </ol>
+  <div class="sub b sm">Before taxane, PSMA positive: Lu-177 (<t k="PSMAFORE">PSMAfore</t> rPFS HR 0.41). Docetaxel if not yet given (<t k="TAX327">TAX327</t>)</div>
+  <div class="sub b sm"><t k="TALAPRO2">TALAPRO-2</t>: talazoparib + enzalutamide, first-line, ARSI-naive; OS 45.8 vs 37.0 months</div>
+  <div class="sub b sm"><t k="PEACE3">PEACE-3</t>: enzalutamide + radium-223, bone-only; OS HR 0.76, bone-protecting agent required</div>
+</div>
+
+</div>
+</div>
+
+<aside id="card" aria-live="polite">
+  <div class="hd"><span id="card-t"></span><button id="card-x" aria-label="Close">×</button></div>
+  <div class="cb"><table id="card-b"></table></div>
+</aside>
+
+<script src="trials.js"></script>
+<script>
+var MAP = {
+  w: 1600, h: 1550,
+  links: [
+    {from:'k-denovo', to:'k-low'},
+    {from:'k-denovo', to:'k-high'},
+    {from:'tripw', to:'t1', dx1:4, dx2:-6, dy2:-4}
+  ],
+  braces: [
+    {id:'br-arsi', x:1296, top:'a2', bottom:'a3', note:'k-arsi-note'},
+    {id:'br-sel', x:1222, top:'s3', bottom:'s4', note:'k-sel-note'}
+  ]
+};
+</script>
+<script src="../map.js"></script>
+</body>
+</html>
