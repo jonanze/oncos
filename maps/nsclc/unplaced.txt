@@ -1,49 +1,9 @@
 # Advanced NSCLC Evidence rows not on the map, newest first (year, study, section, anchor)
-2026	HERON-Lung01	Second-line & post-progression therapy	t-heron-lung01
-2026	Krascendo 1	Other actionable drivers (KRAS G12C, BRAF, MET, RET, NTRK)	t-krascendo-1
-2026	OptiTROP-Lung06	No actionable driver — immunotherapy & chemo-immunotherapy	t-optitrop-lung06
-2026	SAFFRON	Second-line & post-progression therapy	t-saffron
-2026	PANKU-Lung01	Second-line & post-progression therapy	t-panku-lung01
-2026	Zhou et al.	EGFR-mutant	t-zhou-et-al
-2026	HARMONi	Second-line & post-progression therapy	t-harmoni
 2026	AENEAS2	EGFR-mutant	t-aeneas2
-2026	WU-KONG28	EGFR-mutant	t-wu-kong28
-2026	OptiTROP-Lung05	No actionable driver — immunotherapy & chemo-immunotherapy	t-optitrop-lung05
-2026	CAMPASS	No actionable driver — immunotherapy & chemo-immunotherapy	t-campass
-2026	SACHI	Second-line & post-progression therapy	t-sachi
 2025	CHRYSALIS-2 Cohort C	EGFR-mutant	t-chrysalis-2-cohort-c
-2025	HARMONi-6	No actionable driver — immunotherapy & chemo-immunotherapy	t-harmoni-6
-2025	OptiTROP-Lung04	Second-line & post-progression therapy	t-optitrop-lung04
-2025	SOHO-01	HER2-altered (ERBB2)	t-soho-01
-2025	POD1UM-304	No actionable driver — immunotherapy & chemo-immunotherapy	t-pod1um-304
-2025	COMPEL	Second-line & post-progression therapy	t-compel
-2025	Sampath et al.	EGFR-mutant	t-sampath-et-al
-2025	SAVANNAH	Second-line & post-progression therapy	t-savannah
-2025	Beamion LUNG-1	HER2-altered (ERBB2)	t-beamion-lung-1
-2025	ACHILLES (TORG 1834)	EGFR-mutant	t-achilles
-2025	TRUST-I and TRUST-II integrated analysis	ROS1-positive	t-trust-i-and-trust-ii-integrated-analysis
-2025	TROPION-Lung05	Second-line & post-progression therapy	t-tropion-lung05
-2024	HARMONi-A	Second-line & post-progression therapy	t-harmoni-a
-2024	INSIGHT 2	Other actionable drivers (KRAS G12C, BRAF, MET, RET, NTRK)	t-insight-2
-2024	UNICORN (TCOG 1901)	EGFR-mutant	t-unicorn
-2024	CURB	Second-line & post-progression therapy	t-curb
-2023	ATTLAS (KCSG-LU19-04)	Second-line & post-progression therapy	t-attlas
-2023	RATIONALE-303	Second-line & post-progression therapy	t-rationale-303
 2022	DESTINY-Lung01	HER2-altered (ERBB2)	t-destiny-lung01
-2021	Robichaux et al.	EGFR-mutant	t-robichaux-et-al
 2021	RATIONALE-304	No actionable driver — immunotherapy & chemo-immunotherapy	t-rationale-304
 2021	RATIONALE-307	No actionable driver — immunotherapy & chemo-immunotherapy	t-rationale-307
-2021	IMpower132	No actionable driver — immunotherapy & chemo-immunotherapy	t-impower132
 2019	KCSG-LU15-09	EGFR-mutant	t-kcsg-lu15-09
-2019	Aguilar et al.	No actionable driver — immunotherapy & chemo-immunotherapy	t-aguilar-et-al
-2019	IMpower130	No actionable driver — immunotherapy & chemo-immunotherapy	t-impower130
-2018	Marcoux et al.	EGFR-mutant	t-marcoux-et-al
 2017	EAST-LC	Second-line & post-progression therapy	t-east-lc
-2017	AURA3	EGFR-mutant	t-aura3
-2015	LUX-Lung 2, LUX-Lung 3, and LUX-Lung 6	EGFR-mutant	t-lux-lung-2-lux-lung-3-and-lux-lung-6
-2014	PROFILE 1014	ALK-positive	t-profile-1014
 2013	LUX-Lung 3	EGFR-mutant	t-lux-lung-3
-2009	IPASS	EGFR-mutant	t-ipass
-2008	Scagliotti et al.	Chemotherapy & maintenance	t-scagliotti-et-al
-2005	BR.21	Second-line & post-progression therapy	t-br-21
-2000	Shepherd et al.	Second-line & post-progression therapy	t-shepherd-et-al
