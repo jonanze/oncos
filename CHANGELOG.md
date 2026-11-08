@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.40] - 2026-11-08
+
+- Staging is a main link under Evidence, in the sidebar's title block on desktop and at the top of the Sections sheet on phones; the Appendix keeps Drugs, Tox and Acute.
+
 ## [2.2.39] - 2026-11-08
 
 - Drill: a sixth module in the Appendix with staging case vignettes, built from the same staging tables as the Staging module.
