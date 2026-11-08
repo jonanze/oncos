@@ -62,15 +62,15 @@ Object.assign(T, {
 });
 (window.oncosMapData = window.oncosMapData || {}).prostate = {
   map: {
-    w: 1600, h: 1600,
+    w: 1600, h: 1400,
     links: [
       {from:'k-denovo', to:'k-low'},
       {from:'k-denovo', to:'k-high'},
-      {from:'tripw', to:'t1', dx1:4, dx2:-6, dy2:-4}
+      {from:'tripw', to:'t1', dx1:4, dx2:-6, dy2:-10.5}
     ],
     braces: [
-      {id:'br-arsi', x:1296, top:'a2', bottom:'a3', note:'k-arsi-note'},
-      {id:'br-sel', x:1222, top:'s3', bottom:'s4', note:'k-sel-note'}
+      {id:'br-arsi', x:1292, top:'a2', bottom:'a3', note:'k-arsi-note'},
+      {id:'br-sel', x:1292, top:'s3', bottom:'s4', note:'k-sel-note'}
     ]
   },
   T: T
