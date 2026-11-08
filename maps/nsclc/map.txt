@@ -6,8 +6,8 @@
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
 #   = text          the treatment for a branch
-#   + Trial | fig   OS benefit         ~ Trial | fig   surrogate only (PFS, response, single-arm)
-#   - Trial | fig   no benefit or harm * Trial | fig   no comparison drawn
+#   + Trial | fig   a trial line; the mark records the result and is not drawn:
+#                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
 #   fig with no digits is read from the Evidence row at each publish:
 #     OS HR, PFS HR   the HR on the row's OS or PFS line
 #     OS median       the medians on that line, "a vs b months"
@@ -25,8 +25,6 @@ band: Before first line
   Tissue NGS, plasma if tissue is short: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK. PD-L1 TPS (22C3)
   ※ Checkpoint inhibitors do little in EGFR, ALK, RET and HER2 driven disease; KRAS and BRAF respond as often as unselected disease
     * IMMUNOTARGET {pmid 31125062} | response 12%, 0%, 6%, 7%
-  ※ EGFR mutation, not clinical selection, predicts benefit from an EGFR TKI
-    ~ IPASS | PFS HR 0.48 mutated, 2.85 not mutated
 
 band: Local treatment and bone
   ① 3 or fewer metastases, no progression after first line: radiotherapy or surgery to every site
@@ -72,8 +70,6 @@ tree: Advanced NSCLC, first line
         ~ ALTA-1L | PFS HR
         ~ CROWN | 7-year PFS 55% vs 3%
         ° Lorlatinib: raised cholesterol and triglycerides
-        ※ Each newer ALK TKI was compared with crizotinib, which had beaten chemotherapy
-          ~ PROFILE 1014 | PFS HR
       ROS1
         = Crizotinib, entrectinib, repotrectinib or taletrectinib
         ~ PROFILE 1001 | response
@@ -157,7 +153,6 @@ panel: Course of treatment > No driver
   Pemetrexed for non-squamous only: better than gemcitabine in adenocarcinoma, worse in squamous
     + Scagliotti 2008 [t-scagliotti-et-al] | adenocarcinoma OS HR 0.84, squamous 1.23
   Non-squamous: pemetrexed continues with the PD-1 antibody
-    + PARAMOUNT | OS HR
 
 panel: Second line > No driver
   ① After chemotherapy + PD-1 antibody: docetaxel, with ramucirumab if fit
@@ -169,9 +164,8 @@ panel: Second line > No driver
     + OAK {pmid 27979383} | OS HR 0.73
     + RATIONALE-303 | OS HR
   ③ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C branch
-  ④ Docetaxel and erlotinib each beat supportive care
+  ④ Docetaxel beat supportive care
     + Shepherd 2000 [t-shepherd-et-al] | OS 7.5 vs 4.6 months
-    + BR.21 | OS HR
   ⑤ Not standard
     ~ TROPION-Lung01 | PFS HR
     + Lung-MAP S1800A {pmid 35658002} | OS HR 0.69
@@ -207,6 +201,10 @@ panel: Later lines > Driver found
   ⑧ A single progressing site: local therapy with the TKI continued
 
 off:
+  PROFILE 1014 | Crizotinib vs chemotherapy for ALK; replaced by ALEX and CROWN
+  BR.21 | Erlotinib in unselected second-line disease; no longer used
+  PARAMOUNT | Pemetrexed maintenance after chemotherapy alone; now part of KEYNOTE-189
+  IPASS | Superseded: EGFR testing is routine, so clinical selection for a TKI is historical
   AENEAS2 | Repeats the FLAURA2 question with aumolertinib
   LUX-Lung 3 | Afatinib vs chemotherapy, superseded by FLAURA
   KCSG-LU15-09 | Osimertinib in uncommon EGFR; UNICORN covers it

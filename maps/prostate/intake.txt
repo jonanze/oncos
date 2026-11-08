@@ -1,0 +1,25 @@
+# Trials on the Advanced Prostate map with no Evidence row yet (name, PMID, where on the map)
+PCWG4	PMID 41744290	States and volume
+PCWG3	PMID 26903579	States and volume
+Francini 2018	PMID 29707790	States and volume
+Noguchi 2001	PMID 11706524	ADT, testing and bone
+Krakowsky 2017	PMID 28753828	ADT, testing and bone
+HERO	PMID 32469183	ADT, testing and bone
+PR.7	PMID 22931259	ADT, testing and bone
+SWOG 9346	PMID 23550669	ADT, testing and bone
+Philadelphia 2019	PMID 32516092	ADT, testing and bone
+HALT	PMID 19671656	ADT, testing and bone
+Fizazi 2011	PMID 21353695	ADT, testing and bone
+ORIOLE	PMID 32215577	Metastatic relapse, castration-sensitive
+STOMP	PMID 29240541	Metastatic relapse, castration-sensitive
+HORRAD	PMID 30266309	Metastatic at diagnosis, castration-sensitive
+STOPCAP	PMID 30826218	Metastatic at diagnosis, castration-sensitive
+Robinson 2015	PMID 26000489	③ After ADT and an ARSI
+Gibbons 2015	PMID 25929560	ARSI options
+Duran 2020	PMID 32338345	ARSI options
+Zurth 2019	PMID 31571146	ARSI options
+Chi 2012	PMID 23064959	ARSI options
+Taavitsainen 2020	PMID 32003293	ARSI options
+Williams 2023	PMID 37103658	ARSI options
+ERA 223	PMID 30738780	Bone metastases, no visceral disease
+PEACE-3	PMID 40450503	Bone metastases, no visceral disease
