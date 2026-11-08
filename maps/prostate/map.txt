@@ -47,12 +47,12 @@ band: ADT, testing and bone
     ~ HERO {pmid 32469183} | 2.9% vs 6.2%
   ③ Intermittent ADT: non-inferior after radiotherapy relapse, not shown in metastatic disease
     + PR.7 {pmid 22931259} | OS HR 1.02
-    - SWOG 9346 {pmid 23550669} | OS HR 1.10
+    - SWOG 9346 [t-hussain-et-al] | OS HR
   ④ Germline panel and tumour testing in all metastatic disease; BRCA2, BRCA1 and mismatch repair genes first
   ⑤ Bone loss on ADT: denosumab 60 mg every 6 months
-    ~ HALT {pmid 19671656} | vertebral fractures 1.5% vs 3.9%
+    ~ HALT [t-halt] | vertebral fractures 1.5% vs 3.9%
   ⑥ Bone metastases in castration-resistant disease: denosumab 120 mg every 4 weeks
-    ~ Fizazi 2011 {pmid 21353695} | first skeletal event HR 0.82
+    ~ Fizazi 2011 [t-fizazi-et-al] | first skeletal event HR 0.82
 
 course: Advanced prostate cancer
   Rising PSA after surgery or radiotherapy, no metastases on CT or bone scan
@@ -66,8 +66,8 @@ course: Advanced prostate cancer
     next: Metastatic, castration-resistant
     = ADT + ARSI, any volume
     ※ 1 to 3 metastases: stereotactic radiotherapy to every site delays progression; no OS endpoint
-      ~ ORIOLE {pmid 32215577} | PFS HR 0.30
-      ~ STOMP {pmid 29240541} | ADT-free survival 21 vs 13 months
+      ~ ORIOLE [t-oriole] | PFS HR
+      ~ STOMP [t-stomp] | ADT-free survival 21 vs 13 months
 
   Castration-resistant, no metastases on CT or bone scan
     next: Metastatic, castration-resistant | Metastases appear
@@ -86,8 +86,8 @@ course: Advanced prostate cancer
       ※ With abiraterone, radiotherapy lengthened rPFS but not OS, and reduced serious urinary events
         ~ PEACE-1 radiotherapy [t-peace-1] | low volume rPFS HR 0.65
       ※ Benefit confined to fewer than 5 bone metastases
-        - HORRAD {pmid 30266309} | OS HR 0.90
-        + STOPCAP {pmid 30826218} | 3-year OS 7% higher
+        - HORRAD [t-horrad] | OS HR
+        + STOPCAP [t-stopcap-m1-prostate-radiotherapy-meta-analysis] | 3-year OS 7% higher
     ② High volume: ADT + ARSI + docetaxel; ADT + ARSI if unfit for docetaxel
       + PEACE-1 | OS HR
       + ARASENS | OS HR
@@ -174,9 +174,9 @@ panel: Bone metastases, no visceral disease > Metastatic, castration-resistant
   = Radium-223, at any step
   + ALSYMPCA | OS HR
   ※ Not with abiraterone: fractures 29% vs 11%
-    - ERA 223 {pmid 30738780} | fractures 29% vs 11%
+    - ERA 223 [t-era-223] | fractures 29% vs 11%
   ※ Added to enzalutamide with a bone-protecting agent: rPFS and OS longer at the interim analysis; fractures 24% vs 13%
-    + PEACE-3 {pmid 40450503} | OS HR 0.69
+    + PEACE-3 [t-peace-3] | OS HR
 
 off:
   GETUG-AFU 15 | ADT + docetaxel without an ARSI; replaced by the triplets (PEACE-1, ARASENS)
