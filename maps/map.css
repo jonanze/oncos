@@ -1,13 +1,11 @@
 /* oncOS board maps, drawn inside the Evidence view. Colours are the hub's own
    ruled-form tokens, so the map follows the site theme. */
-.om-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:0 0 12px}
-.om-bar .wl-tabs{width:240px;flex:0 0 auto}
-.om-bar .om-zoom{display:none;align-items:center;gap:6px;height:38px;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer;margin-left:auto}
+.om-bar .om-zoom{display:none;align-items:center;gap:6px;height:30px;margin-left:auto;padding:0 10px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
 .om-bar.on .om-zoom{display:inline-flex}
-.om-bar .om-zoom .bx{width:11px;height:11px;border:1px solid var(--b-ink);display:inline-block}
+.om-bar .om-zoom .bx{width:10px;height:10px;border:1px solid var(--b-ink);display:inline-block}
 .om-bar .om-zoom[aria-pressed="true"] .bx{background:var(--b-ink)}
 @media (hover:hover){.om-bar .om-zoom:hover{background:var(--b-band)}}
-@container oncos (max-width:740px){.om-bar .wl-tabs{width:auto;flex:1 1 auto}}
+@container oncos (max-width:740px){.om-bar .om-zoom{margin-left:0;height:40px;justify-content:center}}
 
 #map{outline:none}
 #map[hidden]{display:none}
@@ -39,8 +37,10 @@
 .om-sheet .tl .ax{stroke:var(--om-wire);stroke-width:1.2}
 .om-sheet .tl .psa{fill:none;stroke:var(--b-ink);stroke-width:1.5}
 .om-sheet .tl .tick,.om-sheet .tl .span{stroke:var(--b-ink);stroke-width:1.2}
-.om-sheet button.trial{background:none;border:0;padding:0;margin:0;cursor:pointer;color:inherit;font:inherit;font-weight:inherit;text-decoration:underline;text-decoration-color:var(--b-line);text-underline-offset:2px;text-align:left;line-height:inherit}
-.om-sheet button.trial.on{background:var(--b-band)}
+.om-sheet .nw{white-space:nowrap}
+.om-sheet .trial{white-space:nowrap;cursor:pointer;text-decoration:underline;text-decoration-color:var(--b-line);text-underline-offset:2px}
+.om-sheet .trial:focus-visible{outline:1px solid var(--b-ink);outline-offset:1px}
+.om-sheet .trial.on{background:var(--b-band)}
 
 /* trial card: same ruled label | value cells as an open Evidence row */
 #om-card{position:fixed;z-index:60;display:none;flex-direction:column;background:var(--b-paper);color:var(--b-ink);border:1px solid var(--b-line)}

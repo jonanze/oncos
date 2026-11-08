@@ -105,7 +105,7 @@
     var el = top.querySelector('.om-bar');
     if (el) return el;
     el = document.createElement('div');
-    el.className = 'om-bar';
+    el.className = 'wl-bar om-bar';
     el.innerHTML = '<div class="wl-tabs" role="tablist" aria-label="Sheet view">' +
       '<button type="button" class="wl-tab" role="tab" data-om="trials">Trials</button>' +
       '<button type="button" class="wl-tab" role="tab" data-om="map">Map</button></div>' +
@@ -199,12 +199,32 @@
     sheetEl.style.width = (cfg.w || 1600) + 'px';
     sheetEl.style.height = (cfg.h || 1550) + 'px';
     sheetEl.querySelectorAll('t').forEach(function(el){
-      var b = document.createElement('button');
-      b.className = 'trial'; b.type = 'button'; b.dataset.k = el.getAttribute('k'); b.textContent = el.textContent;
+      // An inline span, not a <button>: a button is an atomic box, so a long
+      // name jumped whole to the next line and left "(" or ")" stranded.
+      var b = document.createElement('span');
+      b.className = 'trial'; b.setAttribute('role', 'button'); b.tabIndex = 0;
+      b.dataset.k = el.getAttribute('k'); b.textContent = el.textContent;
       el.replaceWith(b);
     });
+    keepWhole(sheetEl);
     layout();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  }
+  // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "grade 3–4".
+  function keepWhole(root){
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [], n;
+    while ((n = w.nextNode())) if (/[-–]/.test(n.data) && !(n.parentNode.closest && n.parentNode.closest('svg, .trial'))) nodes.push(n);
+    nodes.forEach(function(node){
+      var parts = node.data.split(/(\S*\S[-–]\S+)/);
+      if (parts.length < 2) return;
+      var f = document.createDocumentFragment();
+      parts.forEach(function(t, i){
+        if (!t) return;
+        if (i % 2) { var s = document.createElement('span'); s.className = 'nw'; s.textContent = t; f.appendChild(s); }
+        else f.appendChild(document.createTextNode(t));
+      });
+      node.parentNode.replaceChild(f, node);
+    });
   }
   function q(id){ return sheetEl && sheetEl.querySelector('[id="' + id + '"]'); }
   function pos(el){
@@ -259,7 +279,7 @@
   function openCard(k, btn){
     var d = T[k]; if (!d) return;
     if (!card) makeCard();
-    sheetEl.querySelectorAll('button.trial.on').forEach(function(x){ x.classList.remove('on'); });
+    sheetEl.querySelectorAll('.trial.on').forEach(function(x){ x.classList.remove('on'); });
     btn.classList.add('on'); cardKey = k;
     card.querySelector('.t').textContent = d.n;
     var rows = [['Control arm', d.ctl], ['Patients', d.pts], ['Primary endpoint', d.ep], ['Result', d.res], ['OS', d.os]];
@@ -274,10 +294,10 @@
   function closeCard(){
     if (card) card.classList.remove('open');
     cardKey = null;
-    if (sheetEl) sheetEl.querySelectorAll('button.trial.on').forEach(function(x){ x.classList.remove('on'); });
+    if (sheetEl) sheetEl.querySelectorAll('.trial.on').forEach(function(x){ x.classList.remove('on'); });
   }
   document.addEventListener('click', function(e){
-    var tb = e.target.closest && e.target.closest('#map button.trial');
+    var tb = e.target.closest && e.target.closest('#map .trial');
     if (tb) {
       if (cardKey === tb.dataset.k && card && card.classList.contains('open')) closeCard();
       else openCard(tb.dataset.k, tb);
@@ -285,7 +305,11 @@
     }
     if (e.target.closest && e.target.closest('#om-card .ev')) closeCard();
   });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && cardKey) closeCard(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && cardKey) { closeCard(); return; }
+    var tb = (e.key === 'Enter' || e.key === ' ') && e.target.closest && e.target.closest('#map .trial');
+    if (tb) { e.preventDefault(); tb.click(); }
+  });
 
   /* ---- follow the view as it re-renders ---- */
   var t = null;

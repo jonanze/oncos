@@ -62,7 +62,7 @@ Object.assign(T, {
 });
 (window.oncosMapData = window.oncosMapData || {}).prostate = {
   map: {
-    w: 1600, h: 1550,
+    w: 1600, h: 1600,
     links: [
       {from:'k-denovo', to:'k-low'},
       {from:'k-denovo', to:'k-high'},
