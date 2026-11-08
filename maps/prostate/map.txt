@@ -6,8 +6,8 @@
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
 #   = text          the treatment for a branch
-#   + Trial | fig   OS benefit         ~ Trial | fig   surrogate only (PFS, response, single-arm)
-#   - Trial | fig   no benefit or harm * Trial | fig   no comparison drawn
+#   + Trial | fig   a trial line; the mark records the result and is not drawn:
+#                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
 #   fig with no digits is read from the Evidence row at each publish:
 #     OS HR, PFS HR   the HR on the row's OS or PFS line
 #     OS median       the medians on that line, "a vs b months"

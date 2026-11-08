@@ -54,17 +54,8 @@
 .om-world .ln.num[style]{padding-left:0}
 .om-world .band .ln.text,.om-world .panel .ln.text{margin-bottom:4px}
 .om-world .panel .ln.num,.om-world .band .ln.num{margin-top:6px}
-.om-world .trial{text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:2px;white-space:nowrap;cursor:pointer}
+.om-world .trial{color:var(--b-ink);text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:2px;white-space:nowrap;cursor:pointer}
 .om-world a.trial{cursor:pointer}
-.om-world .c-os{color:var(--accent-on-soft)}
-.om-world .c-sur{color:var(--status-warning)}
-.om-world .c-neg{color:var(--status-danger)}
-.om-world .c-none{color:var(--b-ink)}
-.om-world .key{font-size:12.5px;width:190px;white-space:nowrap}
-.om-world .key .sw{display:inline-block;width:12px;height:12px;margin-right:8px;vertical-align:-1px;background:currentColor}
-.om-world .key .sw.c-os{background:var(--accent-on-soft)}
-.om-world .key .sw.c-sur{background:var(--status-warning)}
-.om-world .key .sw.c-neg{background:var(--status-danger)}
 
 /* trial card: same ruled label | value cells as an open Evidence row */
 #om-card{position:fixed;z-index:60;display:none;flex-direction:column;background:var(--b-paper);color:var(--b-ink);border:1px solid var(--b-line)}
@@ -91,8 +82,8 @@
 }
 
 /* course maps: steps in time order */
-.om-world .step>.hd{display:block;white-space:normal;margin:0 0 8px;padding:4px 10px}
+.om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;white-space:normal;margin:0 0 8px;padding:4px 10px}
 .om-world .step .ln.tx{font-size:14.5px;margin-bottom:4px}
 .om-world .step .ln.text{font-weight:var(--w-bold);font-size:13px;margin-top:6px}
 .om-world .step .ln.num{margin-top:6px}
-.om-world .elab{font-size:12px;line-height:1.3}
+.om-world .elab{font-size:12px;line-height:1.3;white-space:nowrap}

@@ -13,8 +13,7 @@
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   var GX = 56, GY = 22, LEAF_W = 500, PANEL_W = 460, BAND_W = 560, M = 28;
-  var STEP_W = 440, CGX = 150, CGY = 36;
-  var CLS_NAME = {os:'OS benefit', sur:'Surrogate only', neg:'No benefit or harm'};
+  var STEP_W = 440, CGX = 170, CGY = 36, STUB = 28;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -23,7 +22,7 @@
   function lineHtml(l){
     var pad = l.level ? ' style="padding-left:' + (1.15 * l.level) + 'em"' : '';
     if (l.kind === 'trial') {
-      var name = esc(l.name), cls = 'trial c-' + l.cls;
+      var name = esc(l.name), cls = 'trial';
       var a = l.anchor
         ? '<span class="' + cls + '" role="button" tabindex="0" data-ev="' + esc(l.anchor) + '">' + name + '</span>'
         : '<a class="' + cls + '" href="https://pubmed.ncbi.nlm.nih.gov/' + esc(l.pmid) + '/" target="_blank" rel="noopener">' + name + '</a>';
@@ -61,17 +60,15 @@
     if (course) {
       nodes = steps;
       steps.forEach(function(n){
-        n.el = add('step', '<div class="box lbl hd">' + keep(n.label) + '</div>' + linesHtml(n.lines), STEP_W);
+        n.el = add('step', '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), STEP_W);
         n.hd = n.el.firstChild;
       });
-      steps.forEach(function(n){ n.next.forEach(function(e){ if (e.label) e.el = add('elab', keep(e.label), CGX - 36); }); });
+      steps.forEach(function(n){ n.next.forEach(function(e){ if (e.label) e.el = add('elab', keep(e.label)); }); });
     } else nodes.forEach(function(n){
       n.el = add('box lbl' + (n.depth ? '' : ' root'), keep(n.label));
       if (n.lines.length) { n.leaf = add('leaf', linesHtml(n.lines), LEAF_W); leaves.push(n); }
     });
     var bands = model.bands.map(function(b){ return add('band', '<h2>' + esc(b.title) + '</h2>' + linesHtml(b.lines), BAND_W); });
-    var key = add('key', '<h2>Trial result</h2>' + ['os', 'sur', 'neg'].map(function(c){
-      return '<div class="ln"><span class="sw c-' + c + '"></span>' + CLS_NAME[c] + '</div>'; }).join(''));
     var panels = model.panels.map(function(p){ p.el = add('panel', '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), PANEL_W); return p; });
 
     var W = 0, H = 0;
@@ -95,14 +92,20 @@
         if (n.preds.length || !n.next.length) return;
         n.col = Math.max(n.col, Math.min.apply(null, n.next.map(function(e){ return e.node.col; })) - 1);
       });
+      // every step heading the same height, so headings side by side share their top and middle
+      var hh = 0;
+      steps.forEach(function(n){ n.hd.style.minHeight = ''; hh = Math.max(hh, n.hd.offsetHeight); });
+      steps.forEach(function(n){ n.hd.style.minHeight = hh + 'px'; });
       var b = bandsRow(), cols = [];
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); });
       var panelTop = [];
       cols.forEach(function(list, c){
         var x = M + c * (STEP_W + CGX), cursor = b.top;
         list.forEach(function(n){
+          // level with the middle of the steps that lead here, so its main line runs straight
+          var ys = n.preds.map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
           n.hh = n.hd.offsetHeight;
-          n.want = n.preds.length ? n.preds.reduce(function(s, p){ return s + p.cy; }, 0) / n.preds.length : Infinity;
+          n.want = !ys.length ? Infinity : ys.length % 2 ? ys[h] : (ys[h - 1] + ys[h]) / 2;
         });
         list.sort(function(a, z){ return a.want === z.want ? a.k - z.k : a.want - z.want; });
         list.forEach(function(n){
@@ -115,10 +118,15 @@
       });
       steps.forEach(function(n){
         n.next.forEach(function(e){
-          var t = e.node, x1 = n.x + STEP_W, xm = x1 + 24, x2 = t.x;
-          if (t.col - n.col > 1) xm = x2 - CGX + 24;
+          // one source to several steps: the line divides next to the source, the label sits on the branch;
+          // several sources to one step: the lines join next to the step, the label sits on the source's own line
+          var t = e.node, x1 = n.x + STEP_W, x2 = t.x, split = n.next.length > 1 || t.preds.length < 2;
+          var xm = split ? x1 + STUB : x2 - STUB;
           svg += '<path d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
-          if (e.el) { e.el.style.left = (xm + 8) + 'px'; e.el.style.top = (t.cy - e.el.offsetHeight - 3) + 'px'; }
+          if (e.el) {
+            var lx = split ? xm : x1, ly = split ? t.cy : n.cy;
+            e.el.style.left = (lx + 8) + 'px'; e.el.style.top = (ly - e.el.offsetHeight - 2) + 'px';
+          }
         });
       });
       var right = M + cols.length * (STEP_W + CGX) - CGX, loose = b.top;
@@ -128,7 +136,6 @@
         if (n) { p.el.style.left = n.x + 'px'; p.el.style.top = panelTop[n.col] + 'px'; panelTop[n.col] += p.el.offsetHeight + CGY; }
         else { p.el.style.left = (right + CGX) + 'px'; p.el.style.top = loose + 'px'; loose += p.el.offsetHeight + CGY; }
       });
-      key.style.left = Math.max(b.x, right - key.offsetWidth) + 'px'; key.style.top = M + 'px';
     }
 
     function finish(){
@@ -151,7 +158,7 @@
       var textX = colX[maxDepth] + colW[maxDepth] + 20;
       nodes.forEach(function(n){ n.el.style.width = colW[n.depth] + 'px'; n.h = n.el.offsetHeight; n.x = colX[n.depth]; });
 
-      // bands, then the key, in one row above the tree
+      // bands in one row above the tree
       var b0 = bandsRow(), bx = b0.x, treeTop = b0.top;
 
       // vertical extents, bottom up: up/down from the node's own centre
@@ -177,7 +184,9 @@
       // wires: parent right edge to child left edge; a shallow leaf runs on to the text column
       svg = '';
       nodes.forEach(function(n){
-        n.children.forEach(function(c){ svg += '<line x1="' + (n.x + colW[n.depth]) + '" y1="' + n.cy + '" x2="' + c.x + '" y2="' + c.cy + '"/>'; });
+        // square lines: across from the parent, down the gap, across to each child
+        var px = n.x + colW[n.depth], gx = px + GX / 2;
+        n.children.forEach(function(c){ svg += '<path d="M' + px + ' ' + n.cy + ' H' + gx + ' V' + c.cy + ' H' + c.x + '"/>'; });
         if (n.leaf && n.depth < maxDepth) svg += '<line x1="' + (n.x + colW[n.depth]) + '" y1="' + n.cy + '" x2="' + (textX - 8) + '" y2="' + n.cy + '"/>';
       });
 
@@ -205,8 +214,6 @@
       });
       loose.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = (lastBottom + 24) + 'px'; lastBottom += 24 + p.el.offsetHeight; });
 
-      // the key sits top right, above the panels
-      key.style.left = Math.max(bx, right - key.offsetWidth) + 'px'; key.style.top = M + 'px';
     }
 
     /* ---- pan and zoom ---- */
