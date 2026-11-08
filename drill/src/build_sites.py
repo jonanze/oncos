@@ -1,0 +1,117 @@
+import json,re,itertools,copy
+C=json.load(open('cancers.json'))
+exec(open('build_sys.py').read().split('res={}')[0])  # reuse subs/expand
+HAND={'lung':['lung'],'colorectal':['crc'],'breast':['breast'],'oral-cavity':['oral'],'esophageal':['eso-c-scc','eso-c-ac','eso-p-scc','eso-p-ac','eso-yp']}
+INSITU={'Tis','Ta','T0','pTis'}
+SEC={'Gastrointestinal':'GI','Head & Neck':'H&N','Genitourinary':'GU','Gynaecological':'Gynae','Central Nervous System':'CNS','Thoracic':'Thoracic','Breast':'Breast','Skin':'Skin','Sarcoma':'Sarcoma','Lymphoma':'Lymphoma'}
+def auto(c,T=None,N=None,M=None,groups=None,fixes=None):
+    T=T or [x['cat'] for x in c['t']]; N=N or [x['cat'] for x in c['n']]; M=M or [x['cat'] for x in c['m']]
+    rules=[]
+    for g in (groups or c['stage_groups']):
+        nspec=re.sub(r'\s+or\s+NX','',g['n'])
+        tt,e1=expand(g['t'],T); nn,e2=expand(nspec,N); mm,e3=expand(g['m'],M)
+        assert not(e1 or e2 or e3),(c['id'],g)
+        rules.append([g['stage'],tt,nn,mm])
+    return finish(c['id'],T,N,M,rules)
+def finish(sid,T,N,M,rules,Q=None,label=None,short=None):
+    def qm(rq,q): return rq is None or all(q[k] in v for k,v in rq.items())
+    combos=[None]
+    if Q:
+        combos=[dict(zip(Q.keys(),vals)) for vals in itertools.product(*Q.values())]
+    invalid=[]; probs=[]
+    for t,n,m in itertools.product(T,N,M):
+        hitsets=[[r[0] for r in rules if t in r[1] and n in r[2] and m in r[3] and qm(r[4] if len(r)>4 else None,q)] for q in combos]
+        if all(len(h)==0 for h in hitsets) and t in INSITU and n!=N[0]: invalid.append([t,n,m]); continue
+        if all(len(h)==0 for h in hitsets) and t in INSITU and (m!=M[0] or t=='T0'): invalid.append([t,n,m]); continue
+        for q,h in zip(combos,hitsets):
+            if len(set(h))!=1: probs.append((t,n,m,q,h))
+    assert not probs,(sid,probs[:5])
+    return dict(T=T,N=N,M=M,Q=Q,rules=rules,invalid=invalid)
+
+CI={c['id']:c for c in C}
+SYS={}; notes={}
+for c in C:
+    sid=c['id']
+    if c['type']!='TNM' or sid in HAND or sid in('thyroid','gist','prostate','testis','soft-tissue-sarcoma','bone-sarcoma','appendix','mesothelioma','nasopharyngeal','merkel','bladder'): continue
+    SYS[sid]=auto(c)
+# mesothelioma: clinical T listed as cT1-cT4
+m=CI['mesothelioma']; 
+for x in m['t']: x['cat']=x['cat'][1:]
+m['t_title']='Primary tumour — clinical (cT)'
+SYS['mesothelioma']=auto(m)
+# NPC: drop parent M1; Tis is stage 0 only
+n=CI['nasopharyngeal']
+g=copy.deepcopy(n['stage_groups'])
+for x in g:
+    if x['t']=='T0–T2': x['t']='T0, T1, T2'
+SYS['nasopharyngeal']=auto(n,M=['M0','M1a','M1b'],groups=g)
+# Merkel: T0 (unknown primary) used in stage III
+mk=CI['merkel']; mk['t'].insert(0,{'cat':'T0','desc':'No evidence of primary tumour'})
+SYS['merkel']=auto(mk)
+# Bladder: AJCC 8th IVA is T4b any N M0; the Staging module lists T4b N0 only
+b=CI['bladder']; g=copy.deepcopy(b['stage_groups'])
+for x in g:
+    if x['stage']=='IVA' and x['t']=='T4b': x['n']='Any N'
+SYS['bladder']=auto(b,groups=g); notes['bladder']='T4b with N1–N3 M0 staged IVA here (AJCC 8th: T4b any N M0 = IVA); the Staging module lists T4b N0 only'
+# Thyroid (differentiated), age split
+SYS['thyroid']=finish('thyroid',['T1a','T1b','T2','T3a','T3b','T4a','T4b'],['N0','N1a','N1b'],['M0','M1'],[
+ ['I',['T1a','T1b','T2','T3a','T3b','T4a','T4b'],['N0','N1a','N1b'],['M0'],{'age':['<55']}],
+ ['II',['T1a','T1b','T2','T3a','T3b','T4a','T4b'],['N0','N1a','N1b'],['M1'],{'age':['<55']}],
+ ['I',['T1a','T1b','T2'],['N0'],['M0'],{'age':['≥55']}],
+ ['II',['T1a','T1b','T2'],['N1a','N1b'],['M0'],{'age':['≥55']}],
+ ['II',['T3a','T3b'],['N0','N1a','N1b'],['M0'],{'age':['≥55']}],
+ ['III',['T4a'],['N0','N1a','N1b'],['M0'],{'age':['≥55']}],
+ ['IVA',['T4b'],['N0','N1a','N1b'],['M0'],{'age':['≥55']}],
+ ['IVB',['T1a','T1b','T2','T3a','T3b','T4a','T4b'],['N0','N1a','N1b'],['M1'],{'age':['≥55']}]],Q={'age':['<55','≥55']})
+# Prostate, clinical T, PSA and Grade Group
+PT=['cT1a','cT1b','cT1c','cT2a','cT2b','cT2c','cT3a','cT3b','cT4']
+PSA=['<10','10–<20','≥20']; GG=['GG1','GG2','GG3','GG4','GG5']
+SYS['prostate']=finish('prostate',PT,['N0','N1'],['M0','M1a','M1b','M1c'],[
+ ['I',PT[:4],['N0'],['M0'],{'psa':['<10'],'gg':['GG1']}],
+ ['IIA',PT[:4],['N0'],['M0'],{'psa':['10–<20'],'gg':['GG1']}],
+ ['IIA',['cT2b','cT2c'],['N0'],['M0'],{'psa':['<10','10–<20'],'gg':['GG1']}],
+ ['IIB',PT[:6],['N0'],['M0'],{'psa':['<10','10–<20'],'gg':['GG2']}],
+ ['IIC',PT[:6],['N0'],['M0'],{'psa':['<10','10–<20'],'gg':['GG3','GG4']}],
+ ['IIIA',PT[:6],['N0'],['M0'],{'psa':['≥20'],'gg':['GG1','GG2','GG3','GG4']}],
+ ['IIIB',['cT3a','cT3b','cT4'],['N0'],['M0'],{'gg':['GG1','GG2','GG3','GG4']}],
+ ['IIIC',PT,['N0'],['M0'],{'gg':['GG5']}],
+ ['IVA',PT,['N1'],['M0']],
+ ['IVB',PT,['N0','N1'],['M1a','M1b','M1c']]],Q={'psa':PSA,'gg':GG})
+CI['prostate']['drill_t']=[['cT1a','Incidental histological finding in ≤5% of resected tissue'],['cT1b','Incidental histological finding in >5% of resected tissue'],['cT1c','Not palpable; found on needle biopsy for raised PSA'],['cT2a','Palpable, confined to prostate, ≤half of one lobe'],['cT2b','Palpable, confined to prostate, >half of one lobe, one lobe only'],['cT2c','Palpable, confined to prostate, both lobes'],['cT3a','Extraprostatic extension, unilateral or bilateral'],['cT3b','Invades seminal vesicle(s)'],['cT4','Fixed or invades structures other than seminal vesicles: external sphincter, rectum, bladder, levator muscles, pelvic wall']]
+notes['prostate']='Clinical T only; pT2 rows of the Staging module are not drilled'
+# Testis with S
+TT=['pTis','pT1','pT2','pT3','pT4']; TN=['N0','N1','N2','N3']
+SYS['testis']=finish('testis',TT,TN,['M0','M1a','M1b'],[
+ ['0',['pTis'],['N0'],['M0'],{'s':['S0']}],['IA',['pT1'],['N0'],['M0'],{'s':['S0']}],['IB',['pT2','pT3','pT4'],['N0'],['M0'],{'s':['S0']}],
+ ['IS',TT,['N0'],['M0'],{'s':['S1','S2','S3']}],
+ ['IIA',TT,['N1'],['M0'],{'s':['S0','S1']}],['IIB',TT,['N2'],['M0'],{'s':['S0','S1']}],['IIC',TT,['N3'],['M0'],{'s':['S0','S1']}],
+ ['IIIA',TT,TN,['M1a'],{'s':['S0','S1']}],['IIIB',TT,['N1','N2','N3'],['M0'],{'s':['S2']}],['IIIB',TT,TN,['M1a'],{'s':['S2']}],
+ ['IIIC',TT,['N1','N2','N3'],['M0'],{'s':['S3']}],['IIIC',TT,TN,['M1a'],{'s':['S3']}],['IIIC',TT,TN,['M1b']]],Q={'s':['S0','S1','S2','S3']})
+# Sarcomas with grade
+SYS['soft-tissue-sarcoma']=finish('sts',['T1','T2','T3','T4'],['N0','N1'],['M0','M1'],[
+ ['IA',['T1'],['N0'],['M0'],{'g':['G1']}],['IB',['T2','T3','T4'],['N0'],['M0'],{'g':['G1']}],['II',['T1'],['N0'],['M0'],{'g':['G2','G3']}],
+ ['IIIA',['T2'],['N0'],['M0'],{'g':['G2','G3']}],['IIIB',['T3','T4'],['N0'],['M0'],{'g':['G2','G3']}],['IV',['T1','T2','T3','T4'],['N1'],['M0']],['IV',['T1','T2','T3','T4'],['N0','N1'],['M1']]],Q={'g':['G1','G2','G3']})
+SYS['bone-sarcoma']=finish('bone',['T1','T2','T3'],['N0','N1'],['M0','M1a','M1b'],[
+ ['IA',['T1'],['N0'],['M0'],{'g':['G1']}],['IB',['T2','T3'],['N0'],['M0'],{'g':['G1']}],['IIA',['T1'],['N0'],['M0'],{'g':['G2','G3']}],
+ ['IIB',['T2'],['N0'],['M0'],{'g':['G2','G3']}],['III',['T3'],['N0'],['M0'],{'g':['G2','G3']}],['IVA',['T1','T2','T3'],['N0'],['M1a']],
+ ['IVB',['T1','T2','T3'],['N1'],['M0','M1a','M1b']],['IVB',['T1','T2','T3'],['N0'],['M1b']]],Q={'g':['G1','G2','G3']})
+# Appendix (v9) with histotype and grade for M1b
+a=CI['appendix']; AT=['Tis','T1','T2','T3','T4a','T4b']; AN=['N0','N1','N2']
+base=[[g['stage']]+[expand(g['t'],AT)[0],expand(g['n'],AN)[0],['M0']] for g in a['stage_groups'] if g['m']=='M0']
+SYS['appendix']=finish('appendix',AT,AN,['M0','M1a','M1b','M1c'],base+[
+ ['IVA',AT,AN,['M1a']],['IVA',AT,AN,['M1b'],{'hist':['Mucinous'],'g':['G1']}],['IVB',AT,AN,['M1b'],{'hist':['Non-mucinous'],'g':['G1']}],
+ ['IVB',AT,AN,['M1b'],{'g':['G2','G3']}],['IVC',AT,AN,['M1c']]],Q={'hist':['Mucinous','Non-mucinous'],'g':['G1','G2','G3']})
+# ---- output ----
+out=[]
+for c in C:
+    sid=c['id']
+    raw={k:c.get(k) for k in ('t','n','pn','m','stage_groups','stage_groups_title','stage_groups_q_title','n_title','pn_title','t_title','stages_other','stages_other_title','figo','matrix_tables','drill_t') if c.get(k)}
+    site=dict(id=sid,label=c['name'],section=SEC[c['section']],type=c['type'],system=c['system_label'],edition=c['edition'],source=c['source'],source_url=c['source_url'],notes=c.get('notes',''),raw=raw)
+    if sid in HAND: site['hand']=HAND[sid]
+    if sid in SYS: s=SYS[sid]; s['id']=sid; s['label']=c['name']; s['edition']=c['system_label']; site['auto']=s
+    if sid in notes: site['drill_note']=notes[sid]
+    out.append(site)
+open('drill/sites.js','w').write('window.DRILL_SITES='+json.dumps(out,ensure_ascii=False,separators=(',',':'))+';\n')
+print(len(out),'sites;',len(SYS),'auto systems;', sum(1 for s in out if 'hand' in s),'hand')
+for s in out:
+    if 'auto' not in s and 'hand' not in s: print('no system:',s['id'],s['type'])
