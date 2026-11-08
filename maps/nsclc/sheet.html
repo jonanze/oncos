@@ -1,30 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>oncOS — Advanced NSCLC map</title>
-<meta name="theme-color" content="#2a2f35">
-<script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
-<link rel="icon" href="/favicon.ico">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="../map.css">
-</head>
-<body>
-<header class="tb">
-  <div class="ttl">
-    <a href="/">oncOS</a><span class="sep">|</span><a href="/maps/">MAPS</a><span class="sep">|</span>ADVANCED NSCLC
-  </div>
-  <div class="tg">
-    <a href="/evidence/?group=Advanced%20NSCLC">Evidence</a>
-    <button id="zoom" aria-pressed="false"><span class="bx"></span>Actual size</button>
-    <button id="theme" aria-label="Theme"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="none" stroke="currentColor"/><path d="M7 1.5a5.5 5.5 0 0 1 0 11z" fill="currentColor"/></svg></button>
-  </div>
-</header>
-
-<div id="wrap">
-<div id="sheet">
-<svg id="wires" aria-hidden="true"></svg>
+<svg class="om-wires" aria-hidden="true"></svg>
 
 <!-- TESTING -->
 <div class="at box" id="k-test" style="left:28px;top:24px;width:640px">
@@ -130,30 +104,3 @@
     <li><span class="n">③</span>Local therapy to a single progressing site with the TKI continued; brain: radiosurgery (<t k="BROWN">Brown 2016</t>), or a TKI with CNS activity: osimertinib, alectinib, lorlatinib, brigatinib, entrectinib, selpercatinib</li>
   </ol>
 </div>
-
-</div>
-</div>
-
-<aside id="card" aria-live="polite">
-  <div class="hd"><span id="card-t"></span><button id="card-x" aria-label="Close">×</button></div>
-  <div class="cb"><table id="card-b"></table></div>
-</aside>
-
-<script src="trials.js"></script>
-<script>
-var MAP = {
-  w: 1600, h: 1610,
-  links: [
-    {from:'k-nodrv', to:'k-p50'},
-    {from:'k-nodrv', to:'k-p1'},
-    {from:'k-nodrv', to:'k-p0'}
-  ],
-  braces: [
-    {id:'br-single', x:1292, top:'d4', bottom:'d6', note:'k-single-note'},
-    {id:'br-late', x:1292, top:'d9', bottom:'d10', note:'k-late-note'}
-  ]
-};
-</script>
-<script src="../map.js"></script>
-</body>
-</html>

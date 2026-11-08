@@ -1,3 +1,7 @@
+/* oncOS board map data: nsclc. Read by /maps/evidence-maps.js.
+   map: sheet size, connector lines and braces (ids in sheet.html)
+   T:   trial cards {KEY:{n,ctl,pts,ep,res,os,ref:[[label,url,text]],ev?:'t-<slug>'}} */
+(function(){
 var PM = function(id){ return 'https://pubmed.ncbi.nlm.nih.gov/' + id + '/'; };
 var T = {
   IMMUNOT:{n:'IMMUNOTARGET',ctl:'–',pts:'551; advanced NSCLC with an oncogenic driver, treated with a PD-1 or PD-L1 antibody (retrospective registry)',ep:'PFS from checkpoint inhibitor start',res:'Response rate by driver: KRAS 26%, BRAF 24%, ROS1 17%, MET 16%, EGFR 12%, HER2 7%, RET 6%, ALK 0%. Median PFS 2.1 months for EGFR, 2.5 for ALK, 2.1 for RET',os:'Median 13.3 months for the whole cohort',ref:[['Mazieres 2019',PM(31125062),'PMID 31125062']]},
@@ -51,3 +55,19 @@ var T = {
   BROWN:{n:'Brown, NCCTG N0574',ctl:'Radiosurgery + whole brain radiotherapy',pts:'213; 1 to 3 brain metastases, mixed primaries',ep:'Cognitive deterioration at 3 months',res:'Radiosurgery alone. Cognitive deterioration 63.5% vs 91.7%. Intracranial failure sooner, HR 3.6. Quality of life better',os:'10.4 vs 7.4 months, HR 1.02, no difference',ref:[['Brown 2016',PM(27458945),'PMID 27458945']]},
   HENRY:{n:'Denosumab vs zoledronic acid',ctl:'Zoledronic acid 4 mg every 4 weeks',pts:'1,776; bone metastases from solid tumours other than breast and prostate (40% NSCLC) or myeloma',ep:'Time to first skeletal event, non-inferiority',res:'Denosumab 120 mg every 4 weeks. HR 0.84 (0.71–0.98), non-inferior; superiority not shown after adjustment',os:'–',ref:[['Henry 2011',PM(21343556),'PMID 21343556']]}
 };
+(window.oncosMapData = window.oncosMapData || {}).nsclc = {
+  map: {
+    w: 1600, h: 1610,
+    links: [
+      {from:'k-nodrv', to:'k-p50'},
+      {from:'k-nodrv', to:'k-p1'},
+      {from:'k-nodrv', to:'k-p0'}
+    ],
+    braces: [
+      {id:'br-single', x:1292, top:'d4', bottom:'d6', note:'k-single-note'},
+      {id:'br-late', x:1292, top:'d9', bottom:'d10', note:'k-late-note'}
+    ]
+  },
+  T: T
+};
+})();

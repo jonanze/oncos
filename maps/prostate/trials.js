@@ -1,3 +1,7 @@
+/* oncOS board map data: prostate. Read by /maps/evidence-maps.js.
+   map: sheet size, connector lines and braces (ids in sheet.html)
+   T:   trial cards {KEY:{n,ctl,pts,ep,res,os,ref:[[label,url,text]],ev?:'t-<slug>'}} */
+(function(){
 var PM = id => 'https://pubmed.ncbi.nlm.nih.gov/' + id + '/';
 var T = {
   PCWG3:{n:'PCWG3',ctl:'–',pts:'Consensus recommendations',ep:'Trial design and endpoints for metastatic disease',res:'Castration-sensitive and castration-resistant states',os:'–',ref:[['Scher 2016',PM(26903579),'PMID 26903579']]},
@@ -56,3 +60,19 @@ Object.assign(T, {
   HALT:{n:'Denosumab HALT',ctl:'Placebo',pts:'1,468; non-metastatic prostate cancer on ADT',ep:'Lumbar spine bone density at 24 months',res:'Denosumab 60 mg every 6 months: density +5.6% vs −1.0%',os:'New vertebral fractures at 36 months 1.5% vs 3.9%, RR 0.38',ref:[['Smith 2009',PM(19671656),'PMID 19671656']]},
   ROBINSON:{n:'Robinson 2015',ctl:'–',pts:'150 metastatic CRPC biopsies, whole-exome and transcriptome sequencing',ep:'Genomic landscape',res:'BRCA2, BRCA1 or ATM altered in 19.3%; 8% actionable germline alterations',os:'–',ref:[['Robinson 2015',PM(26000489),'PMID 26000489']]}
 });
+(window.oncosMapData = window.oncosMapData || {}).prostate = {
+  map: {
+    w: 1600, h: 1550,
+    links: [
+      {from:'k-denovo', to:'k-low'},
+      {from:'k-denovo', to:'k-high'},
+      {from:'tripw', to:'t1', dx1:4, dx2:-6, dy2:-4}
+    ],
+    braces: [
+      {id:'br-arsi', x:1296, top:'a2', bottom:'a3', note:'k-arsi-note'},
+      {id:'br-sel', x:1222, top:'s3', bottom:'s4', note:'k-sel-note'}
+    ]
+  },
+  T: T
+};
+})();

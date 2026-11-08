@@ -1,30 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>oncOS — Advanced prostate cancer map</title>
-<meta name="theme-color" content="#2a2f35">
-<script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
-<link rel="icon" href="/favicon.ico">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="../map.css">
-</head>
-<body>
-<header class="tb">
-  <div class="ttl">
-    <a href="/">oncOS</a><span class="sep">|</span><a href="/maps/">MAPS</a><span class="sep">|</span>ADVANCED PROSTATE CANCER
-  </div>
-  <div class="tg">
-    <a href="/evidence/?group=Advanced%20Prostate">Evidence</a>
-    <button id="zoom" aria-pressed="false"><span class="bx"></span>Actual size</button>
-    <button id="theme" aria-label="Theme"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="none" stroke="currentColor"/><path d="M7 1.5a5.5 5.5 0 0 1 0 11z" fill="currentColor"/></svg></button>
-  </div>
-</header>
-
-<div id="wrap">
-<div id="sheet">
-<svg id="wires" aria-hidden="true"></svg>
+<svg class="om-wires" aria-hidden="true"></svg>
 
 <!-- NOMENCLATURE -->
 <div class="at box" id="k-nom" style="left:28px;top:24px;width:640px">
@@ -174,30 +148,3 @@
   <div class="sub b sm"><t k="TALAPRO2">TALAPRO-2</t>: talazoparib + enzalutamide, first-line, ARSI-naive; OS 45.8 vs 37.0 months</div>
   <div class="sub b sm"><t k="PEACE3">PEACE-3</t>: enzalutamide + radium-223, bone-only; OS HR 0.76, bone-protecting agent required</div>
 </div>
-
-</div>
-</div>
-
-<aside id="card" aria-live="polite">
-  <div class="hd"><span id="card-t"></span><button id="card-x" aria-label="Close">×</button></div>
-  <div class="cb"><table id="card-b"></table></div>
-</aside>
-
-<script src="trials.js"></script>
-<script>
-var MAP = {
-  w: 1600, h: 1550,
-  links: [
-    {from:'k-denovo', to:'k-low'},
-    {from:'k-denovo', to:'k-high'},
-    {from:'tripw', to:'t1', dx1:4, dx2:-6, dy2:-4}
-  ],
-  braces: [
-    {id:'br-arsi', x:1296, top:'a2', bottom:'a3', note:'k-arsi-note'},
-    {id:'br-sel', x:1222, top:'s3', bottom:'s4', note:'k-sel-note'}
-  ]
-};
-</script>
-<script src="../map.js"></script>
-</body>
-</html>
