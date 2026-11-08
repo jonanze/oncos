@@ -11,14 +11,17 @@
    window.oncosView.navigation as the view sets it, so that the shell's first
    navigation.open() already understands #map.
 
-   Each map lives in /maps/<id>/: sheet.html (the drawing) and trials.js
-   (window.oncosMapData[<id>] = {map:{w,h,links,braces}, T:{cards}}).
-   A new map = a new folder + one line in MAPS. */
+   A map lives in /maps/<id>/. The current format is map.txt, an outline drawn
+   by /maps/canvas.js as a pan and zoom canvas; its trial cards are read from the
+   Evidence rows themselves. Older maps are sheet.html + trials.js, placed by hand.
+   A new map = a new folder with map.txt + one line in MAPS and CANVAS.
+   Run node maps/check.cjs before a release. */
 (function(){
   var MAPS = {
     'Advanced NSCLC': 'nsclc',
     'Advanced Prostate': 'prostate'
   };
+  var CANVAS = {nsclc: true};
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
 
@@ -109,10 +112,12 @@
     el.innerHTML = '<div class="wl-tabs" role="tablist" aria-label="Sheet view">' +
       '<button type="button" class="wl-tab" role="tab" data-om="trials">Trials</button>' +
       '<button type="button" class="wl-tab" role="tab" data-om="map">Map</button></div>' +
-      '<button type="button" class="om-zoom" aria-pressed="false"><span class="bx"></span>Actual size</button>';
+      '<button type="button" class="om-zoom" aria-pressed="false"><span class="bx"></span>Actual size</button>' +
+      '<button type="button" class="om-fit">Fit</button>';
     el.addEventListener('click', function(e){
       var b = e.target.closest('button'); if (!b) return;
       if (b.dataset.om) show(b.dataset.om === 'map');
+      else if (b.classList.contains('om-fit')) { if (ctrl) ctrl.fit(); }
       else if (b.classList.contains('om-zoom')) {
         actual = !actual;
         try { localStorage.setItem('oncos-map-actual', actual ? '1' : '0'); } catch(err){}
@@ -139,6 +144,7 @@
     // mapSheet can name the sheet a back or forward step is about to restore.
     var on = mapSheet === sheet;
     el.classList.toggle('on', on);
+    el.classList.toggle('cv', !!(on && CANVAS[MAPS[mapSheet]]));
     el.querySelectorAll('.wl-tab').forEach(function(b){ b.setAttribute('aria-selected', String((b.dataset.om === 'map') === on)); });
     el.querySelector('.om-zoom').setAttribute('aria-pressed', String(actual));
     setPane(results, on ? MAPS[mapSheet] : null);
@@ -162,7 +168,7 @@
     pane.hidden = false;
     if (drawn === id && pane.querySelector('.om-sheet')) { layout(); return; }
     drawn = id;
-    pane.innerHTML = '';
+    pane.innerHTML = ''; ctrl = null; sheetEl = null;
     load(id).then(function(html){
       if (drawn !== id || !document.body.contains(pane)) return;
       draw(pane, id, html);
@@ -171,8 +177,28 @@
     });
   }
 
+  function script(src){
+    return new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = src; s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+  var engine = null;
   function load(id){
     if (loaded[id]) return loaded[id];
+    if (CANVAS[id]) {
+      engine = engine || Promise.all([window.oncosOutline || script('/maps/outline.js'), window.oncosCanvas || script('/maps/canvas.js')]);
+      engine.catch(function(){ engine = null; });
+      var txt = fetch('/maps/' + id + '/map.txt', {credentials:'same-origin'}).then(function(r){
+        if (!r.ok) throw new Error(r.status); return r.text();
+      });
+      // The Evidence rows fill live figures; without them the map still draws, figures left blank.
+      var ev = evidenceRows().catch(function(){ return null; });
+      loaded[id] = Promise.all([txt, engine, ev]).then(function(v){ return {src: v[0], rows: v[2]}; });
+      loaded[id].catch(function(){ delete loaded[id]; });
+      return loaded[id];
+    }
     var data = new Promise(function(resolve, reject){
       if (window.oncosMapData && window.oncosMapData[id]) return resolve();
       var s = document.createElement('script');
@@ -190,8 +216,14 @@
   }
 
   /* ---- drawing ---- */
-  var cfg = null, T = {}, wrap = null, sheetEl = null;
+  var cfg = null, T = {}, wrap = null, sheetEl = null, ctrl = null;
   function draw(pane, id, html){
+    if (CANVAS[id]) {
+      var model = window.oncosOutline.parse(html.src);
+      window.oncosOutline.figures(model, html.rows);
+      ctrl = window.oncosCanvas.render(pane, model, {id: id});
+      return;
+    }
     var d = window.oncosMapData[id];
     cfg = d.map || {}; T = d.T || {};
     pane.innerHTML = '<div class="om-wrap"><div class="om-sheet">' + html + '</div></div>';
@@ -243,6 +275,7 @@
     return 'M'+x+' '+y1+' Q'+(x+d)+' '+y1+' '+(x+d)+' '+(y1+k)+' L'+(x+d)+' '+(m-k)+' Q'+(x+d)+' '+m+' '+(x+2*d)+' '+m+' Q'+(x+d)+' '+m+' '+(x+d)+' '+(m+k)+' L'+(x+d)+' '+(y2-k)+' Q'+(x+d)+' '+y2+' '+x+' '+y2;
   }
   function layout(){
+    if (ctrl) { if (ctrl.world.offsetParent) ctrl.resize(); return; }
     if (!sheetEl || !document.body.contains(sheetEl) || !sheetEl.offsetParent) return;
     var W = cfg.w || 1600, H = cfg.h || 1550;
     var s = actual ? 1 : Math.min(1, wrap.clientWidth / W);
@@ -276,6 +309,50 @@
     card.querySelector('.hd button').addEventListener('click', closeCard);
     document.body.appendChild(card);
   }
+  // Evidence rows: the TRIALS table of the Evidence view, read once from its file.
+  var rows = null;
+  function evidenceRows(){
+    if (rows) return rows;
+    rows = fetch('/views/evidence.html', {credentials:'same-origin'}).then(function(r){
+      if (!r.ok) throw new Error(r.status); return r.text();
+    }).then(function(src){
+      var i = src.indexOf('const TRIALS = ');
+      if (i < 0) throw new Error('no TRIALS');
+      var d = 0, j = i + 15, q = false, e = false;
+      for (; j < src.length; j++) { var c = src.charAt(j);
+        if (q) { if (e) e = false; else if (c === '\\') e = true; else if (c === '"') q = false; continue; }
+        if (c === '"') q = true; else if (c === '[' || c === '{') d++; else if (c === ']' || c === '}') { d--; if (!d) break; } }
+      var map = {};
+      JSON.parse(src.slice(i + 15, j + 1)).forEach(function(t){ map[t.anchor] = t; });
+      return map;
+    });
+    rows.catch(function(){ rows = null; });
+    return rows;
+  }
+  function multi(s){ return esc(s).replace(/\n/g, '<br>'); }
+  function openRowCard(anchor, btn){
+    if (!card) makeCard();
+    var pane = document.getElementById('map');
+    if (pane) pane.querySelectorAll('.trial.on').forEach(function(x){ x.classList.remove('on'); });
+    btn.classList.add('on'); cardKey = anchor;
+    card.querySelector('.t').textContent = btn.textContent;
+    card.querySelector('table').innerHTML = '';
+    var ev = card.querySelector('.ev');
+    ev.hidden = false; ev.setAttribute('href', '/evidence/#' + anchor);
+    card.classList.add('open');
+    evidenceRows().then(function(m){
+      if (cardKey !== anchor) return;
+      var t = m[anchor];
+      if (!t) { card.querySelector('table').innerHTML = ''; return; }
+      card.querySelector('.t').textContent = t.study + ' \u00b7 ' + t.year;
+      var ref = esc(t.ref) + (t.link ? ' \u00b7 <a href="' + esc(t.link) + '" target="_blank" rel="noopener">PubMed</a>' : '');
+      var f = [['Design', t.type], ['Population', t.population], ['Arms', t.arms], ['Endpoints', t.endpoint], ['Results', t.findings]];
+      card.querySelector('table').innerHTML = f.filter(function(r){ return r[1]; }).map(function(r){
+        return '<tr><th>' + r[0] + '</th><td>' + multi(r[1]) + '</td></tr>'; }).join('') +
+        '<tr><th>Reference</th><td>' + ref + '</td></tr>';
+      card.querySelector('.cb').scrollTop = 0;
+    }, function(){ if (cardKey === anchor) card.querySelector('table').innerHTML = ''; });
+  }
   function openCard(k, btn){
     var d = T[k]; if (!d) return;
     if (!card) makeCard();
@@ -294,13 +371,16 @@
   function closeCard(){
     if (card) card.classList.remove('open');
     cardKey = null;
-    if (sheetEl) sheetEl.querySelectorAll('.trial.on').forEach(function(x){ x.classList.remove('on'); });
+    var pane = document.getElementById('map');
+    if (pane) pane.querySelectorAll('.trial.on').forEach(function(x){ x.classList.remove('on'); });
   }
   document.addEventListener('click', function(e){
     var tb = e.target.closest && e.target.closest('#map .trial');
-    if (tb) {
-      if (cardKey === tb.dataset.k && card && card.classList.contains('open')) closeCard();
-      else openCard(tb.dataset.k, tb);
+    if (tb && tb.tagName !== 'A') {
+      var key = tb.dataset.ev || tb.dataset.k;
+      if (cardKey === key && card && card.classList.contains('open')) closeCard();
+      else if (tb.dataset.ev) openRowCard(key, tb);
+      else openCard(key, tb);
       return;
     }
     if (e.target.closest && e.target.closest('#om-card .ev')) closeCard();
