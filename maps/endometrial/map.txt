@@ -30,6 +30,7 @@
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
 #   Superseded trials go under off: unless an option still in use rests on them
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
+# * Labels on connecting lines start with a capital, like every other label
 
 map: Endometrial Cancer
 
@@ -62,7 +63,7 @@ course:
       ※ Chemotherapy alone gave the same relapse-free survival as chemoradiotherapy, with more pelvic and nodal relapses
       - KEYNOTE-B21 | DFS HR 1.02; MMR deficient HR 0.31
       ※ Pembrolizumab with adjuvant chemotherapy helped only MMR deficient tumours
-    next: Advanced or recurrent, first line | recurrence
+    next: Advanced or recurrent, first line | Recurrence
   Advanced or recurrent, first line
     Test MMR in every tumour and HER2 in serous carcinoma
     ① MMR deficient: carboplatin-paclitaxel with dostarlimab, pembrolizumab, durvalumab or atezolizumab; pembrolizumab alone is an option
@@ -82,7 +83,7 @@ course:
       + Fader et al. | OS HR 0.58
     ※ Carboplatin-paclitaxel replaced doxorubicin, cisplatin and paclitaxel
       ~ GOG 209 | non-inferior, OS HR 1.002
-    next: Progression after platinum | progression
+    next: Progression after platinum | Progression
   Progression after platinum
     ① No PD-1 or PD-L1 antibody before: lenvatinib with pembrolizumab
       + KEYNOTE-775 [t-keynote-775-study-309] | OS HR

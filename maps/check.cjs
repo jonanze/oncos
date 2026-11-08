@@ -6,6 +6,7 @@
    - a trial line's Evidence row is a clinical trial, a pooled analysis of trials or a meta-analysis
      (no cohort, retrospective, observational or genomic studies; the statement can stay as plain text)
    - map text uses plain wording: no arrows and none of the words in BANNED
+   - a label on a connecting line starts with a capital
    Writes maps/<id>/intake.txt and maps/<id>/unplaced.txt. Exits 1 on any failure. */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -33,6 +34,8 @@ for (const dir of fs.readdirSync(__dirname)) {
   const intake = []; live = 0;
   fs.readFileSync(f, 'utf8').split('\n').forEach((t, k) => {
     if (/^\s*#/.test(t)) return;
+    const lab = /^\s+next:.*\|\s*(.)/.exec(t);
+    if (lab && /[a-z]/.test(lab[1])) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' line label starts in lower case: "' + t.trim() + '"'); }
     const hit = BANNED.find(b => b.test(t));
     if (hit) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' wording: "' + t.trim().slice(0, 70) + '" matches ' + hit); }
   });
