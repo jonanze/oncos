@@ -1,6 +1,6 @@
 /* oncOS board maps: shared sheet logic.
    A map page defines, before this script runs:
-     T    trial cards  {KEY:{n,ctl,pts,ep,res,os,ref:[[label,url,text],...]}}
+     T    trial cards  {KEY:{n,ctl,pts,ep,res,os,ref:[[label,url,text],...],ev?:'t-<slug>' (Evidence row anchor)}}
      MAP  {w, h, links:[{from,to,fromSide?,toSide?,dx1?,dy1?,dx2?,dy2?}], braces:[{id,x,top,bottom,note?}]}
    <t k="KEY">label</t> in the body becomes a button that opens the card. */
 (function(){
@@ -27,6 +27,7 @@
     var rows = [['Control arm',d.ctl],['Patients',d.pts],['Primary endpoint',d.ep],['Result',d.res],['OS',d.os]];
     var h = rows.map(function(r){ return '<tr><th>'+r[0]+'</th><td>'+esc(r[1])+'</td></tr>'; }).join('');
     h += '<tr><th>Reference</th><td>'+d.ref.map(function(r){ return esc(r[0])+' · <a href="'+r[1]+'" target="_blank" rel="noopener">'+esc(r[2])+'</a>'; }).join('<br>')+'</td></tr>';
+    if(d.ev) h += '<tr><th>Evidence</th><td><a href="/evidence/#'+esc(d.ev)+'">Open the oncOS row</a></td></tr>';
     cardB.innerHTML = h; card.classList.add('open');
   }
   function closeCard(){ card.classList.remove('open'); current = null; document.querySelectorAll('button.trial.on').forEach(function(x){ x.classList.remove('on'); }); }

@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "sheets": {
+    "Advanced NSCLC": {"url": "/maps/nsclc/", "title": "Advanced NSCLC", "system": "Thoracic"},
+    "Advanced Prostate": {"url": "/maps/prostate/", "title": "Advanced prostate cancer", "system": "Genitourinary"}
+  }
+}
