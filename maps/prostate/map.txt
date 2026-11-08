@@ -1,0 +1,164 @@
+# oncOS board map: Advanced Prostate
+#
+# How to read and edit this file
+#   Indent 2 spaces per level.
+#   tree:   the decision tree; each plain line is a node, its children are indented under it
+#   band:   a block above the tree for the whole sheet
+#   panel:  a block beside the tree, joined by a brace to the node named after ">"
+#   = text          the treatment for a branch
+#   + Trial | fig   OS benefit         ~ Trial | fig   surrogate only (PFS, response, single-arm)
+#   - Trial | fig   no benefit or harm * Trial | fig   no comparison drawn
+#   fig with no digits is read from the Evidence row at each publish:
+#     OS HR, PFS HR   the HR on the row's OS or PFS line
+#     OS median       the medians on that line, "a vs b months"
+#     response        the first percentage on the ORR line
+#   fig with digits is shown as written; the map check fails if the row no longer has those numbers
+#   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
+#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
+#   ※ text          caveat             ° text          side effects, grey
+#   ① text          numbered item; plain lines in a band or panel are text
+#   off:            sheet rows left off on purpose: Trial [t-...] | reason
+
+map: Advanced Prostate
+
+band: States and volume
+  PCWG4 (2026): androgen pathway modulator naive, sensitive or resistant (APMN, APMS, APMR) replace castration-sensitive and castration-resistant (PCWG3, 2016)
+    * PCWG4 {pmid 41744290} | consensus
+    * PCWG3 {pmid 26903579} | consensus
+  CHAARTED high volume: 4 or more bone metastases with at least 1 beyond the spine and pelvis, or visceral metastases
+  LATITUDE high risk: at least 2 of Gleason 8 or more, 3 or more bone lesions, visceral metastases
+  ※ Both defined on CT and bone scan; PSMA PET finds more lesions and was not used for volume in these trials
+  De novo disease does worse than relapse after radical treatment
+    * Francini 2018 {pmid 29707790} | OS on ADT alone 92 months relapse, low volume vs 43 de novo, high volume
+
+band: ADT, testing and bone
+  ① Flutamide for 2 weeks before the first LHRH agonist injection prevents PSA flare
+    * Noguchi 2001 {pmid 11706524} | flare prevented
+    ※ Clinical harm from flare is poorly evidenced except with extensive spinal disease
+      * Krakowsky 2017 {pmid 28753828} | review
+  ② Relugolix: fewer major cardiovascular events than leuprolide
+    ~ HERO {pmid 32469183} | 2.9% vs 6.2%
+  ③ Intermittent ADT: non-inferior after radiotherapy relapse, not shown in metastatic disease
+    + PR.7 {pmid 22931259} | OS HR 1.02
+    - SWOG 9346 {pmid 23550669} | OS HR 1.10
+  ④ Germline panel and tumour testing in all metastatic disease; BRCA2, BRCA1 and mismatch repair genes first
+    * Philadelphia 2019 {pmid 32516092} | consensus
+  ⑤ Bone loss on ADT: denosumab 60 mg every 6 months
+    ~ HALT {pmid 19671656} | vertebral fractures 1.5% vs 3.9%
+  ⑥ Bone metastases in castration-resistant disease: denosumab 120 mg every 4 weeks
+    ~ Fizazi 2011 {pmid 21353695} | first skeletal event HR 0.82
+
+tree: Advanced prostate cancer
+  Rising PSA, no metastases on CT or bone scan
+    Castration-sensitive, PSA doubling 9 months or less
+      = Enzalutamide + leuprolide
+      + EMBARK | OS HR
+      ※ Enzalutamide alone delayed metastases but did not lengthen OS
+    Castration-resistant, PSA doubling 10 months or less
+      = Apalutamide, enzalutamide or darolutamide, with ADT
+      + SPARTAN | OS HR
+      + PROSPER | OS HR
+      + ARAMIS | OS HR
+      ※ Metastasis-free survival roughly doubled in each
+  Metastatic, castration-sensitive
+    De novo, low volume
+      = ADT + ARSI + radiotherapy to the prostate
+      + STAMPEDE arm H [t-stampede--advanced-prostate-3] | low burden OS HR 0.68
+      ※ Arm H gave ADT with or without docetaxel, no ARSI
+      ※ With abiraterone, radiotherapy lengthened rPFS but not OS, and reduced serious urinary events
+        ~ PEACE-1 radiotherapy [t-peace-1] | low volume rPFS HR 0.65
+      ※ Benefit confined to fewer than 5 bone metastases
+        - HORRAD {pmid 30266309} | OS HR 0.90
+        + STOPCAP {pmid 30826218} | 3-year OS 7% higher
+    De novo, high volume
+      = ADT + ARSI + docetaxel; ADT + ARSI if unfit for docetaxel
+      + PEACE-1 | OS HR
+      + ARASENS | OS HR
+      ° Grade 3 or higher hypertension 22% vs 13% (PEACE-1)
+      ※ Both compared with ADT + docetaxel; neither with ADT + ARSI
+      ※ Docetaxel with ADT alone: OS benefit in high volume, none in low volume
+        + CHAARTED | OS HR
+        + STAMPEDE docetaxel [t-stampede--advanced-prostate] | docetaxel OS HR 0.78
+        - GETUG-AFU 15 | OS HR
+    Relapse after radical treatment
+      = ADT + ARSI, any volume
+      ※ 1 to 3 metastases: stereotactic radiotherapy to every site delays progression; no OS endpoint
+        ~ ORIOLE {pmid 32215577} | PFS HR 0.30
+        ~ STOMP {pmid 29240541} | ADT-free survival 21 vs 13 months
+  Metastatic, castration-resistant
+    ARSI not yet given
+      = Abiraterone or enzalutamide; talazoparib + enzalutamide
+      + COU-AA-302 | OS HR
+      + PREVAIL | OS HR
+      + TALAPRO-2 | OS HR
+      ※ Olaparib or niraparib with abiraterone: PFS longer, OS not significantly longer
+        ~ PROpel | OS HR
+        ~ MAGNITUDE | BRCA rPFS HR 0.53
+      ※ Sipuleucel-T: OS longer with no effect on time to progression
+        + IMPACT [t-impact--advanced-prostate] | OS HR
+      ※ Most men now start an ARSI while castration-sensitive, so this branch is shrinking
+    HRR or BRCA altered, after an ARSI
+      = Olaparib; rucaparib if BRCA altered
+      + PROfound | OS HR
+      ~ TRITON3 | rPFS HR
+      ※ BRCA1, BRCA2 or ATM altered in 19% of metastatic CRPC
+        * Robinson 2015 {pmid 26000489} | 19%
+    Docetaxel not yet given
+      = Docetaxel 75 mg/m² every 3 weeks with prednisone
+      + TAX 327 | OS HR
+    After docetaxel and an ARSI
+      = Cabazitaxel
+      + TROPIC | OS HR
+      + CARD | OS HR
+      ※ CARD: cabazitaxel beat a second ARSI
+      ※ Abiraterone or enzalutamide after docetaxel if no ARSI given
+        + COU-AA-301 | OS HR
+        + AFFIRM | OS HR
+    PSMA PET positive
+      = Lu-177 PSMA-617 7.4 GBq every 6 weeks, after an ARSI and a taxane
+      + VISION [t-vision--advanced-prostate] | OS HR
+      ※ Before a taxane: rPFS longer, OS no different
+        ~ PSMAfore | rPFS HR
+    Bone metastases, no visceral disease
+      = Radium-223
+      + ALSYMPCA | OS HR
+      ※ Not with abiraterone: fractures 29% vs 11%
+        - ERA 223 {pmid 30738780} | fractures 29% vs 11%
+      ※ Added to enzalutamide with a bone-protecting agent: rPFS and OS longer at the interim analysis; fractures 24% vs 13%
+        + PEACE-3 {pmid 40450503} | OS HR 0.69
+
+panel: ARSI options > Metastatic, castration-sensitive
+  ① Abiraterone with prednisone 5 mg once daily
+    + LATITUDE | OS HR
+    + STAMPEDE arm G [t-stampede--advanced-prostate-2] | OS HR
+    ° Raised blood pressure, low potassium, oedema; liver tests often in the first 12 weeks
+  ② Enzalutamide
+    + ENZAMET | OS HR
+    + ARCHES | OS HR
+  ③ Apalutamide
+    + TITAN | OS HR
+    ° Rash 24%, hypothyroidism 8%, fracture 12% (SPARTAN)
+  ④ Darolutamide
+    ~ ARANOTE | rPFS HR
+    ° Fatigue 5.6%; low brain penetration
+  ※ Enzalutamide and apalutamide are strong CYP3A4 inducers: lower levels of simvastatin, atorvastatin and warfarin
+    * Gibbons 2015 {pmid 25929560} | enzalutamide, midazolam exposure 86% lower
+    * Duran 2020 {pmid 32338345} | apalutamide, midazolam exposure 92% lower
+  ※ Darolutamide raises rosuvastatin exposure; rosuvastatin at most 5 mg daily
+    * Zurth 2019 {pmid 31571146} | 5.2-fold
+  ※ Abiraterone inhibits CYP2D6
+    * Chi 2012 {pmid 23064959} | dextromethorphan exposure doubled
+  ※ Darolutamide crosses into the brain little
+    * Taavitsainen 2020 {pmid 32003293} | brain to blood ratio 0.079 in rats
+    * Williams 2023 {pmid 37103658} | no change in cerebral blood flow, unlike enzalutamide
+
+panel: Added to ADT + ARSI, no OS benefit yet > Metastatic, castration-sensitive
+  ① HRR altered: talazoparib + enzalutamide, or niraparib + abiraterone
+    ~ TALAPRO-3 | rPFS HR 0.48
+    ~ AMPLITUDE | rPFS HR 0.63
+    ° Grade 3 or higher anaemia 51% (TALAPRO-3)
+  ② PTEN deficient on IHC: capivasertib + abiraterone
+    ~ CAPItello-281 | rPFS HR
+    ※ OS HR 0.82 in a later analysis, descriptive
+  ③ PSMA PET positive: Lu-177 PSMA-617
+    ~ PSMAddition | rPFS HR

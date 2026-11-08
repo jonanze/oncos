@@ -11,17 +11,15 @@
    window.oncosView.navigation as the view sets it, so that the shell's first
    navigation.open() already understands #map.
 
-   A map lives in /maps/<id>/. The current format is map.txt, an outline drawn
-   by /maps/canvas.js as a pan and zoom canvas; its trial cards are read from the
-   Evidence rows themselves. Older maps are sheet.html + trials.js, placed by hand.
-   A new map = a new folder with map.txt + one line in MAPS and CANVAS.
+   A map lives in /maps/<id>/map.txt, an outline drawn by /maps/canvas.js as a
+   pan and zoom canvas; its trial cards and live figures are read from the
+   Evidence rows themselves. A new map = a new folder with map.txt + one line in MAPS.
    Run node maps/check.cjs before a release. */
 (function(){
   var MAPS = {
     'Advanced NSCLC': 'nsclc',
     'Advanced Prostate': 'prostate'
   };
-  var CANVAS = {nsclc: true};
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
 
@@ -29,8 +27,6 @@
   var mapSheet = null;    // sheet whose map is showing, or null for the trial table
   var loaded = {};        // id -> Promise of sheet markup
   var drawn = null;       // id currently drawn in the pane
-  var actual = false;
-  try { actual = localStorage.getItem('oncos-map-actual') === '1'; } catch(e){}
 
   var css = document.createElement('link');
   css.rel = 'stylesheet'; css.href = '/maps/map.css';
@@ -112,17 +108,11 @@
     el.innerHTML = '<div class="wl-tabs" role="tablist" aria-label="Sheet view">' +
       '<button type="button" class="wl-tab" role="tab" data-om="trials">Trials</button>' +
       '<button type="button" class="wl-tab" role="tab" data-om="map">Map</button></div>' +
-      '<button type="button" class="om-zoom" aria-pressed="false"><span class="bx"></span>Actual size</button>' +
       '<button type="button" class="om-fit">Fit</button>';
     el.addEventListener('click', function(e){
       var b = e.target.closest('button'); if (!b) return;
       if (b.dataset.om) show(b.dataset.om === 'map');
       else if (b.classList.contains('om-fit')) { if (ctrl) ctrl.fit(); }
-      else if (b.classList.contains('om-zoom')) {
-        actual = !actual;
-        try { localStorage.setItem('oncos-map-actual', actual ? '1' : '0'); } catch(err){}
-        layout();
-      }
     });
     top.appendChild(el);
     return el;
@@ -144,9 +134,7 @@
     // mapSheet can name the sheet a back or forward step is about to restore.
     var on = mapSheet === sheet;
     el.classList.toggle('on', on);
-    el.classList.toggle('cv', !!(on && CANVAS[MAPS[mapSheet]]));
     el.querySelectorAll('.wl-tab').forEach(function(b){ b.setAttribute('aria-selected', String((b.dataset.om === 'map') === on)); });
-    el.querySelector('.om-zoom').setAttribute('aria-pressed', String(actual));
     setPane(results, on ? MAPS[mapSheet] : null);
   }
 
@@ -168,7 +156,7 @@
     pane.hidden = false;
     if (drawn === id && pane.querySelector('.om-sheet')) { layout(); return; }
     drawn = id;
-    pane.innerHTML = ''; ctrl = null; sheetEl = null;
+    pane.innerHTML = ''; ctrl = null;
     load(id).then(function(html){
       if (drawn !== id || !document.body.contains(pane)) return;
       draw(pane, id, html);
@@ -187,116 +175,26 @@
   var engine = null;
   function load(id){
     if (loaded[id]) return loaded[id];
-    if (CANVAS[id]) {
-      engine = engine || Promise.all([window.oncosOutline || script('/maps/outline.js'), window.oncosCanvas || script('/maps/canvas.js')]);
-      engine.catch(function(){ engine = null; });
-      var txt = fetch('/maps/' + id + '/map.txt', {credentials:'same-origin'}).then(function(r){
-        if (!r.ok) throw new Error(r.status); return r.text();
-      });
-      // The Evidence rows fill live figures; without them the map still draws, figures left blank.
-      var ev = evidenceRows().catch(function(){ return null; });
-      loaded[id] = Promise.all([txt, engine, ev]).then(function(v){ return {src: v[0], rows: v[2]}; });
-      loaded[id].catch(function(){ delete loaded[id]; });
-      return loaded[id];
-    }
-    var data = new Promise(function(resolve, reject){
-      if (window.oncosMapData && window.oncosMapData[id]) return resolve();
-      var s = document.createElement('script');
-      s.src = '/maps/' + id + '/trials.js';
-      s.onload = function(){ window.oncosMapData && window.oncosMapData[id] ? resolve() : reject(); };
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
-    var html = fetch('/maps/' + id + '/sheet.html', {credentials:'same-origin'}).then(function(r){
+    engine = engine || Promise.all([window.oncosOutline || script('/maps/outline.js'), window.oncosCanvas || script('/maps/canvas.js')]);
+    engine.catch(function(){ engine = null; });
+    var txt = fetch('/maps/' + id + '/map.txt', {credentials:'same-origin'}).then(function(r){
       if (!r.ok) throw new Error(r.status); return r.text();
     });
-    loaded[id] = Promise.all([html, data]).then(function(v){ return v[0]; });
+    // The Evidence rows fill live figures; without them the map still draws, figures left blank.
+    var ev = evidenceRows().catch(function(){ return null; });
+    loaded[id] = Promise.all([txt, engine, ev]).then(function(v){ return {src: v[0], rows: v[2]}; });
     loaded[id].catch(function(){ delete loaded[id]; });
     return loaded[id];
   }
 
   /* ---- drawing ---- */
-  var cfg = null, T = {}, wrap = null, sheetEl = null, ctrl = null;
+  var ctrl = null;
   function draw(pane, id, html){
-    if (CANVAS[id]) {
-      var model = window.oncosOutline.parse(html.src);
-      window.oncosOutline.figures(model, html.rows);
-      ctrl = window.oncosCanvas.render(pane, model, {id: id});
-      return;
-    }
-    var d = window.oncosMapData[id];
-    cfg = d.map || {}; T = d.T || {};
-    pane.innerHTML = '<div class="om-wrap"><div class="om-sheet">' + html + '</div></div>';
-    wrap = pane.firstChild; sheetEl = wrap.firstChild;
-    sheetEl.style.width = (cfg.w || 1600) + 'px';
-    sheetEl.style.height = (cfg.h || 1550) + 'px';
-    sheetEl.querySelectorAll('t').forEach(function(el){
-      // An inline span, not a <button>: a button is an atomic box, so a long
-      // name jumped whole to the next line and left "(" or ")" stranded.
-      var b = document.createElement('span');
-      b.className = 'trial'; b.setAttribute('role', 'button'); b.tabIndex = 0;
-      b.dataset.k = el.getAttribute('k'); b.textContent = el.textContent;
-      el.replaceWith(b);
-    });
-    keepWhole(sheetEl);
-    layout();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    var model = window.oncosOutline.parse(html.src);
+    window.oncosOutline.figures(model, html.rows);
+    ctrl = window.oncosCanvas.render(pane, model, {id: id});
   }
-  // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "grade 3–4".
-  function keepWhole(root){
-    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [], n;
-    while ((n = w.nextNode())) if (/[-–]/.test(n.data) && !(n.parentNode.closest && n.parentNode.closest('svg, .trial'))) nodes.push(n);
-    nodes.forEach(function(node){
-      var parts = node.data.split(/(\S*\S[-–]\S+)/);
-      if (parts.length < 2) return;
-      var f = document.createDocumentFragment();
-      parts.forEach(function(t, i){
-        if (!t) return;
-        if (i % 2) { var s = document.createElement('span'); s.className = 'nw'; s.textContent = t; f.appendChild(s); }
-        else f.appendChild(document.createTextNode(t));
-      });
-      node.parentNode.replaceChild(f, node);
-    });
-  }
-  function q(id){ return sheetEl && sheetEl.querySelector('[id="' + id + '"]'); }
-  function pos(el){
-    var x = 0, y = 0, e = el;
-    while (e && e !== sheetEl) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
-    return {x:x, y:y, r:x + el.offsetWidth, b:y + el.offsetHeight, cx:x + el.offsetWidth/2, cy:y + el.offsetHeight/2};
-  }
-  function side(p, s){
-    if (s === 'l') return [p.x, p.cy];
-    if (s === 't') return [p.cx, p.y];
-    if (s === 'b') return [p.cx, p.b];
-    return [p.r, p.cy];
-  }
-  function bracePath(x, y1, y2, d){
-    var m = (y1 + y2) / 2, k = 6;
-    return 'M'+x+' '+y1+' Q'+(x+d)+' '+y1+' '+(x+d)+' '+(y1+k)+' L'+(x+d)+' '+(m-k)+' Q'+(x+d)+' '+m+' '+(x+2*d)+' '+m+' Q'+(x+d)+' '+m+' '+(x+d)+' '+(m+k)+' L'+(x+d)+' '+(y2-k)+' Q'+(x+d)+' '+y2+' '+x+' '+y2;
-  }
-  function layout(){
-    if (ctrl) { if (ctrl.world.offsetParent) ctrl.resize(); return; }
-    if (!sheetEl || !document.body.contains(sheetEl) || !sheetEl.offsetParent) return;
-    var W = cfg.w || 1600, H = cfg.h || 1550;
-    var s = actual ? 1 : Math.min(1, wrap.clientWidth / W);
-    sheetEl.style.transform = 'scale(' + s + ')';
-    wrap.style.height = actual ? 'auto' : Math.ceil(H * s) + 'px';
-    wrap.classList.toggle('actual', actual);
-    var out = '';
-    (cfg.links || []).forEach(function(L){
-      var a = q(L.from), b = q(L.to); if (!a || !b) return;
-      var p1 = side(pos(a), L.fromSide || 'r'), p2 = side(pos(b), L.toSide || 'l');
-      out += '<line x1="'+(p1[0]+(L.dx1||0))+'" y1="'+(p1[1]+(L.dy1||0))+'" x2="'+(p2[0]+(L.dx2||0))+'" y2="'+(p2[1]+(L.dy2||0))+'"/>';
-    });
-    var wires = sheetEl.querySelector('.om-wires'); if (wires) wires.innerHTML = out;
-    (cfg.braces || []).forEach(function(B){
-      var t = q(B.top), b = q(B.bottom), el = q(B.id); if (!t || !b || !el) return;
-      var y1 = pos(t).y, y2 = pos(b).b, h = y2 - y1 + 4;
-      el.style.left = B.x + 'px'; el.style.top = (y1 - 2) + 'px';
-      el.innerHTML = '<svg width="26" height="'+h+'" viewBox="0 0 26 '+h+'"><path d="'+bracePath(2, 2, h-2, 9)+'"/></svg>';
-      var n = B.note && q(B.note); if (n) n.style.top = ((y1 + y2)/2 - n.offsetHeight/2) + 'px';
-    });
-  }
+  function layout(){ if (ctrl && ctrl.world.offsetParent) ctrl.resize(); }
   window.addEventListener('resize', function(){ if (mapSheet) layout(); });
 
   /* ---- trial card ---- */
@@ -353,21 +251,6 @@
       card.querySelector('.cb').scrollTop = 0;
     }, function(){ if (cardKey === anchor) card.querySelector('table').innerHTML = ''; });
   }
-  function openCard(k, btn){
-    var d = T[k]; if (!d) return;
-    if (!card) makeCard();
-    sheetEl.querySelectorAll('.trial.on').forEach(function(x){ x.classList.remove('on'); });
-    btn.classList.add('on'); cardKey = k;
-    card.querySelector('.t').textContent = d.n;
-    var rows = [['Control arm', d.ctl], ['Patients', d.pts], ['Primary endpoint', d.ep], ['Result', d.res], ['OS', d.os]];
-    var h = rows.filter(function(r){ return r[1]; }).map(function(r){ return '<tr><th>' + r[0] + '</th><td>' + esc(r[1]) + '</td></tr>'; }).join('');
-    h += '<tr><th>Reference</th><td>' + (d.ref || []).map(function(r){ return esc(r[0]) + ' · <a href="' + esc(r[1]) + '" target="_blank" rel="noopener">' + esc(r[2]) + '</a>'; }).join('<br>') + '</td></tr>';
-    card.querySelector('table').innerHTML = h;
-    var ev = card.querySelector('.ev');
-    if (d.ev) { ev.hidden = false; ev.setAttribute('href', '/evidence/#' + d.ev); }
-    else { ev.hidden = true; ev.removeAttribute('href'); }
-    card.classList.add('open');
-  }
   function closeCard(){
     if (card) card.classList.remove('open');
     cardKey = null;
@@ -377,10 +260,9 @@
   document.addEventListener('click', function(e){
     var tb = e.target.closest && e.target.closest('#map .trial');
     if (tb && tb.tagName !== 'A') {
-      var key = tb.dataset.ev || tb.dataset.k;
+      var key = tb.dataset.ev;
       if (cardKey === key && card && card.classList.contains('open')) closeCard();
-      else if (tb.dataset.ev) openRowCard(key, tb);
-      else openCard(key, tb);
+      else if (key) openRowCard(key, tb);
       return;
     }
     if (e.target.closest && e.target.closest('#om-card .ev')) closeCard();

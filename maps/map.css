@@ -4,20 +4,13 @@
 #viewroot .om-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:0 0 16px}
 #viewroot .om-bar .wl-tabs{width:240px}
 #viewroot .om-bar .wl-tab{flex:1 1 0;min-width:0;justify-content:center;height:36px;padding:0 6px}
-#viewroot .om-bar .om-zoom{display:none;align-items:center;justify-content:center;gap:6px;height:38px;margin-left:auto;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
-#viewroot .om-bar.on .om-zoom{display:inline-flex}
 #viewroot .om-bar .om-fit{display:none;align-items:center;justify-content:center;height:38px;min-width:96px;margin-left:auto;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
-#viewroot .om-bar.on.cv .om-zoom{display:none}
-#viewroot .om-bar.on.cv .om-fit{display:inline-flex}
-#viewroot .om-bar .om-zoom .bx{width:10px;height:10px;border:1px solid var(--b-ink);display:inline-block}
-#viewroot .om-bar .om-zoom[aria-pressed="true"] .bx{background:var(--b-ink)}
-@media (hover:hover){#viewroot .om-bar .om-zoom:hover,#viewroot .om-bar .om-fit:hover{background:var(--b-cell)}}
-@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-zoom,#viewroot .om-bar .om-fit{margin-left:0;flex:1 1 100%}}
+#viewroot .om-bar.on .om-fit{display:inline-flex}
+@media (hover:hover){#viewroot .om-bar .om-fit:hover{background:var(--b-cell)}}
+@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-fit{margin-left:0;flex:1 1 100%}}
 
 #map{outline:none}
 #map[hidden]{display:none}
-.om-wrap{overflow:hidden;border:1px solid var(--b-line);background:var(--b-paper)}
-.om-wrap.actual{overflow:auto}
 .om-sheet{--om-wire:var(--b-mark);position:relative;transform-origin:0 0;background:var(--b-paper);color:var(--b-ink);font-size:14px;line-height:1.45}
 :root[data-theme="dark"] .om-sheet{--om-wire:#8c98a5}
 .om-sheet .om-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
