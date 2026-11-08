@@ -1,11 +1,15 @@
 /* oncOS board maps, drawn inside the Evidence view. Colours are the hub's own
    ruled-form tokens, so the map follows the site theme. */
-.om-bar .om-zoom{display:none;align-items:center;gap:6px;height:30px;margin-left:auto;padding:0 10px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
-.om-bar.on .om-zoom{display:inline-flex}
-.om-bar .om-zoom .bx{width:10px;height:10px;border:1px solid var(--b-ink);display:inline-block}
-.om-bar .om-zoom[aria-pressed="true"] .bx{background:var(--b-ink)}
-@media (hover:hover){.om-bar .om-zoom:hover{background:var(--b-band)}}
-@container oncos (max-width:740px){.om-bar .om-zoom{margin-left:0;height:40px;justify-content:center}}
+/* Trials | Map: the same two-cell pair as Staging's Tables | Practice (.st-tabs) */
+#viewroot .om-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:0 0 16px}
+#viewroot .om-bar .wl-tabs{width:240px}
+#viewroot .om-bar .wl-tab{flex:1 1 0;min-width:0;justify-content:center;height:36px;padding:0 6px}
+#viewroot .om-bar .om-zoom{display:none;align-items:center;justify-content:center;gap:6px;height:38px;margin-left:auto;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
+#viewroot .om-bar.on .om-zoom{display:inline-flex}
+#viewroot .om-bar .om-zoom .bx{width:10px;height:10px;border:1px solid var(--b-ink);display:inline-block}
+#viewroot .om-bar .om-zoom[aria-pressed="true"] .bx{background:var(--b-ink)}
+@media (hover:hover){#viewroot .om-bar .om-zoom:hover{background:var(--b-cell)}}
+@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-zoom{margin-left:0;flex:1 1 100%}}
 
 #map{outline:none}
 #map[hidden]{display:none}

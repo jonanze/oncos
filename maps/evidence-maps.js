@@ -105,7 +105,7 @@
     var el = top.querySelector('.om-bar');
     if (el) return el;
     el = document.createElement('div');
-    el.className = 'wl-bar om-bar';
+    el.className = 'om-bar';
     el.innerHTML = '<div class="wl-tabs" role="tablist" aria-label="Sheet view">' +
       '<button type="button" class="wl-tab" role="tab" data-om="trials">Trials</button>' +
       '<button type="button" class="wl-tab" role="tab" data-om="map">Map</button></div>' +
