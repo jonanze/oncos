@@ -221,11 +221,10 @@ def({
 def({
   id: 'eso-yp', site: 'eso', label: 'Oesophagus · ypTNM', short: 'ypTNM', edition: 'AJCC 8th', setting: 'yp', hist: 'any',
   T: ['T0', 'Tis', 'T1a', 'T1b', 'T2', 'T3', 'T4a', 'T4b'], N: ESO_N, M: ['M0', 'M1'],
-  // Rice 2017 primer text gives ypIIIB as ypT1-3 N2; ypT0/Tis N2 is not stated there, so those cells are left out
-  invalid: (t, n) => (t === 'T0' || t === 'Tis') && n === 'N2',
+  // Rice 2017 Figure 5: ypT0/Tis N2 is IIIB (the primer's text lists only ypT1-3 N2)
   rules: [
     ['I', 'T0..T2', 'N0', 'M0'], ['II', 'T3', 'N0', 'M0'], ['IIIA', 'T0..T2', 'N1', 'M0'],
-    ['IIIB', 'T3', 'N1', 'M0'], ['IIIB', 'T1a..T3', 'N2', 'M0'], ['IIIB', 'T4a', 'N0', 'M0'],
+    ['IIIB', 'T3', 'N1', 'M0'], ['IIIB', 'T0..T3', 'N2', 'M0'], ['IIIB', 'T4a', 'N0', 'M0'],
     ['IVA', 'T4a', 'N1..N2', 'M0'], ['IVA', 'T4b', 'N0..N2', 'M0'], ['IVA', 'T0..T4b', 'N3', 'M0'], ['IVB', '*', '*', 'M1']
   ]
 });

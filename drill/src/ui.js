@@ -80,7 +80,12 @@ function shell() {
   if (current && current.key === scopeKey()) return current.kind === 'vs' ? drawVs() : drawCase();
   newCase();
 }
-function setEd(text) { edEl.textContent = text || ''; if (tableLink) tableLink.href = HOST.tableHref(caseSite()); }
+// the Staging block for the case's grouping (oesophagus: cTNM, pTNM or ypTNM table)
+function caseAnchor() {
+  const s = caseSite(), a = s && SITEBY[s] && SITEBY[s].data.anchors;
+  return a && current && current.sys ? a[current.sys.id] || null : null;
+}
+function setEd(text) { edEl.textContent = text || ''; if (tableLink) tableLink.href = HOST.tableHref(caseSite(), caseAnchor()); }
 function optGrid(opts, onPick, marks, wide) {
   const cols = wide ? 1 : opts.length <= 3 ? opts.length : 4;
   const g = el('div', { class: 'opts', style: null }, opts.map((o, i) => el('button', { type: 'button', 'data-k': String(i + 1), class: marks ? (marks[o] || null) : null, text: o, disabled: marks ? '' : null, on: { click: () => onPick(o) } })));
@@ -269,7 +274,7 @@ function showTable() {
   if (r.figo) { body.appendChild(el('div', { class: 'band' }, ['FIGO'])); body.appendChild(tbl(['Stage', 'Definition'], r.figo.map(x => [x.stage, x.desc]))); }
   if (r.stages_other && !(vs && vs.only) && !(s.systems.length && /group/i.test(r.stages_other_title || ''))) { body.appendChild(el('div', { class: 'band' }, [r.stages_other_title || 'Stages'])); body.appendChild(tbl(['Stage', 'Definition'], r.stages_other.map(x => [x.stage, x.desc]))); }
   (r.matrix_tables || []).forEach(m => { body.appendChild(el('div', { class: 'band' }, [m.title])); body.appendChild(tbl(m.cols, m.rows)); });
-  if (s.id === 'esophageal') body.appendChild(el('div', { class: 'note', text: 'cTNM and ypTNM per Rice et al., J Thorac Oncol 2017;12:36; ypT0/Tis N2 not stated there and left out' }));
+  if (s.id === 'esophageal') body.appendChild(el('div', { class: 'note', text: 'cTNM and ypTNM per Rice et al., J Thorac Oncol 2017;12:36' }));
   const target = jumpSys && s.systems.length > 1 ? body.querySelector('[data-sys="' + jumpSys + '"]') : null;
   jumpSys = null;
   if (target) target.scrollIntoView({ block: 'start' }); else window.scrollTo(0, 0);

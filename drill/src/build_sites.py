@@ -125,13 +125,19 @@ base=[[g['stage']]+[expand(g['t'],AT)[0],expand(g['n'],AN)[0],['M0']] for g in a
 SYS['appendix']=finish('appendix',AT,AN,['M0','M1a','M1b','M1c'],base+[
  ['IVA',AT,AN,['M1a']],['IVA',AT,AN,['M1b'],{'hist':['Mucinous'],'g':['G1']}],['IVB',AT,AN,['M1b'],{'hist':['Non-mucinous'],'g':['G1']}],
  ['IVB',AT,AN,['M1b'],{'g':['G2','G3']}],['IVC',AT,AN,['M1c']]],Q={'hist':['Mucinous','Non-mucinous'],'g':['G1','G2','G3']})
+# Staging block for each hand system's grouping; Table in a case opens that block
+ANCHORS={'esophageal':{'eso-c-scc':'groups-c-scc','eso-c-ac':'groups-c-ac','eso-p-scc':'groups-p','eso-p-ac':'groups-p','eso-yp':'groups-yp'}}
+for sid,amap in ANCHORS.items():
+    have={CI[sid].get('stage_groups_id')}|{g['id'] for g in CI[sid].get('stage_groups_more') or []}
+    assert set(amap.values())<=have,(sid,set(amap.values())-have)
 # ---- output ----
 out=[]
 for c in C:
     sid=c['id']
-    raw={k:c.get(k) for k in ('t','n','pn','m','stage_groups','stage_groups_title','stage_groups_q_title','n_title','pn_title','t_title','stages_other','stages_other_title','figo','matrix_tables','drill_t') if c.get(k)}
+    raw={k:c.get(k) for k in ('t','n','pn','m','stage_groups','stage_groups_title','stage_groups_q_title','n_title','pn_title','t_title','stages_other','stages_other_title','figo','matrix_tables','drill_t','stage_groups_more') if c.get(k)}
     site=dict(id=sid,label=c['name'],section=SEC[c['section']],type=c['type'],system=c['system_label'],edition=c['edition'],source=c['source'],source_url=c['source_url'],notes=c.get('notes',''),raw=raw)
     if sid in HAND: site['hand']=HAND[sid]
+    if sid in ANCHORS: site['anchors']=ANCHORS[sid]
     if sid in SYS: s=SYS[sid]; s['id']=sid; s['label']=c['name']; s['edition']=c['system_label']; site['auto']=s
     if sid in notes: site['drill_note']=notes[sid]
     out.append(site)

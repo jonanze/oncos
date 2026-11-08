@@ -47,6 +47,22 @@ compare('oral', C['oral-cavity']);
 compare('breast', C.breast);
 compare('eso-p-scc', C.esophageal, g => g.stage.startsWith('SCC'), s => s.split(' · ')[1]);
 compare('eso-p-ac', C.esophageal, g => g.stage.startsWith('AC'), s => s.split(' · ')[1]);
+// oesophagus cTNM and ypTNM: both directions, so the hand grid and the Staging table are the same cells
+function both(sysId, table) {
+  if (!table) { bad(sysId + ' has no Staging table'); return; }
+  compare(sysId, { stage_groups: table.rows });
+  const S = D.SYS[sysId]; let miss = 0;
+  S.T.forEach(t => S.N.forEach(n => S.M.forEach(m => {
+    if (S.invalid && S.invalid(t, n, m, null)) return;
+    const hit = table.rows.some(g => exp(g.t, S.T).includes(t) && exp(g.n, S.N).includes(n) && exp(g.m, S.M).includes(m));
+    if (!hit) { miss++; bad(sysId + ' cell ' + t + ' ' + n + ' ' + m + ' missing from Staging'); }
+  })));
+  console.log('cover', sysId, miss ? miss + ' missing' : 'complete');
+}
+const MORE = Object.fromEntries((C.esophageal.stage_groups_more || []).map(g => [g.id, g]));
+both('eso-c-scc', MORE['groups-c-scc']);
+both('eso-c-ac', MORE['groups-c-ac']);
+both('eso-yp', MORE['groups-yp']);
 // 2. generators: 3000 cases per system
 for (const id in D.SYS) {
   const S = D.SYS[id];

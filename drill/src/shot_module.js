@@ -63,6 +63,35 @@ const OUT = process.argv[3] || '.';
         if (!row.inView) errs.push('Evidence row not in view ' + ev[1]);
         if (before !== after) errs.push('case changed on Back from Evidence');
       }
+      // Oesophagus: Table opens the block for the case's grouping (cTNM SCC/AC, pTNM, ypTNM)
+      if (scheme === 'light') {
+        await p.evaluate(() => localStorage.setItem('oncos-drill-ui', JSON.stringify({ mode: 'case', section: 'GI', site: '', sel: { GI: ['esophageal'] } })));
+        await p.goto(BASE + '/drill/'); await p.waitForSelector('#drill-app .opts button');
+        const seen = {};
+        for (let i = 0; i < 60 && Object.keys(seen).length < 4; i++) {
+          const href = await p.$eval('#drill-app .row.modes a', a => a.getAttribute('href'));
+          const anchor = decodeURIComponent((href.split('#')[1] || ''));
+          const label = await p.$eval('#drill-app .bar .ed', e => e.textContent);
+          if (!anchor) errs.push('oesophagus case without a block anchor: ' + label);
+          if (anchor && !seen[anchor]) {
+            const before = await p.$eval('#drill-app', e => e.innerText);
+            await p.click('#drill-app .row.modes a');
+            await p.waitForFunction(id => document.documentElement.getAttribute('data-view') === 'staging' && document.getElementById(id), anchor);
+            await p.waitForTimeout(300);
+            const pos = await p.evaluate(id => { const b = document.getElementById(id).getBoundingClientRect(); return { top: Math.round(b.top), h4: document.getElementById(id).querySelector('h4').textContent }; }, anchor);
+            seen[anchor] = label + ' -> ' + pos.h4 + ' (top ' + pos.top + ')';
+            if (pos.top < 0 || pos.top > 200) errs.push('block not at top: ' + anchor + ' ' + pos.top);
+            await p.screenshot({ path: `${OUT}/drill-${name}-${anchor}.png` });
+            await p.goBack();
+            await p.waitForFunction(() => document.documentElement.getAttribute('data-view') === 'drill' && document.querySelector('#drill-app .vig'));
+            if (before !== await p.$eval('#drill-app', e => e.innerText)) errs.push('case changed on Back from ' + anchor);
+          }
+          let g = 0; while (!(await p.$('#next')) && g++ < 6) await (await p.$$('#drill-app .opts button:not([disabled])'))[0].click();
+          await p.click('#next');
+        }
+        console.log(name, 'oesophagus blocks', JSON.stringify(seen, null, 1));
+        if (Object.keys(seen).length < 4) errs.push('oesophagus groupings seen: ' + Object.keys(seen).join(','));
+      }
       const before = await p.$eval('#drill-app', e => e.innerText);
       await p.evaluate(() => document.querySelector('.suite-link[data-nav="staging"]').click());
       await p.waitForFunction(() => document.documentElement.getAttribute('data-view') === 'staging');

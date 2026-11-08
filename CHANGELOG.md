@@ -7,6 +7,7 @@ All notable oncOS frontend releases are recorded here. Versions follow semantic 
 - Drill: a sixth module in the Appendix with staging case vignettes, built from the same staging tables as the Staging module.
 - In a drill case, Table opens that cancer in Staging; Back returns to the same case without advancing.
 - Staging: Merkel cell carcinoma lists T0 (no evidence of primary tumour).
+- Staging: oesophagus adds the clinical (cTNM) groups for squamous cell carcinoma and adenocarcinoma and the post-neoadjuvant (ypTNM) groups; Table in a drill case opens the matching table.
 
 ## [2.2.38] - 2026-11-01
 
