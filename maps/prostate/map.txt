@@ -23,26 +23,19 @@ map: Advanced Prostate
 
 band: States and volume
   PCWG4 (2026): androgen pathway modulator naive, sensitive or resistant (APMN, APMS, APMR) replace castration-sensitive and castration-resistant (PCWG3, 2016)
-    * PCWG4 {pmid 41744290} | consensus
-    * PCWG3 {pmid 26903579} | consensus
   CHAARTED high volume: 4 or more bone metastases with at least 1 beyond the spine and pelvis, or visceral metastases
   LATITUDE high risk: at least 2 of Gleason 8 or more, 3 or more bone lesions, visceral metastases
   ※ Both defined on CT and bone scan; PSMA PET finds more lesions and was not used for volume in these trials
-  De novo disease does worse than relapse after radical treatment
-    * Francini 2018 {pmid 29707790} | OS on ADT alone 92 months relapse, low volume vs 43 de novo, high volume
 
 band: ADT, testing and bone
   ① Flutamide for 2 weeks before the first LHRH agonist injection prevents PSA flare
     * Noguchi 2001 {pmid 11706524} | flare prevented
-    ※ Clinical harm from flare is poorly evidenced except with extensive spinal disease
-      * Krakowsky 2017 {pmid 28753828} | review
   ② Relugolix: fewer major cardiovascular events than leuprolide
     ~ HERO {pmid 32469183} | 2.9% vs 6.2%
   ③ Intermittent ADT: non-inferior after radiotherapy relapse, not shown in metastatic disease
     + PR.7 {pmid 22931259} | OS HR 1.02
     - SWOG 9346 {pmid 23550669} | OS HR 1.10
   ④ Germline panel and tumour testing in all metastatic disease; BRCA2, BRCA1 and mismatch repair genes first
-    * Philadelphia 2019 {pmid 32516092} | consensus
   ⑤ Bone loss on ADT: denosumab 60 mg every 6 months
     ~ HALT {pmid 19671656} | vertebral fractures 1.5% vs 3.9%
   ⑥ Bone metastases in castration-resistant disease: denosumab 120 mg every 4 weeks
@@ -126,8 +119,6 @@ course: Advanced prostate cancer
     ※ Docetaxel here rests on TAX 327 (①), in men who had never had an ARSI
     + PROfound | OS HR
     ~ TRITON3 | rPFS HR
-    ※ BRCA1, BRCA2 or ATM altered in 19% of metastatic CRPC
-      * Robinson 2015 {pmid 26000489} | 19%
     ※ Lu-177 PSMA-617 before a taxane: rPFS longer, OS no different
       ~ PSMAfore | rPFS HR
     ※ A second ARSI: in CARD, cabazitaxel did better (④)
@@ -153,16 +144,7 @@ panel: ARSI options > Metastatic at diagnosis, castration-sensitive
   ④ Darolutamide
     ~ ARANOTE | rPFS HR
     ° Fatigue 5.6%; low brain penetration
-  ※ Enzalutamide and apalutamide are strong CYP3A4 inducers: lower levels of simvastatin, atorvastatin and warfarin
-    * Gibbons 2015 {pmid 25929560} | enzalutamide, midazolam exposure 86% lower
-    * Duran 2020 {pmid 32338345} | apalutamide, midazolam exposure 92% lower
-  ※ Darolutamide raises rosuvastatin exposure; rosuvastatin at most 5 mg daily
-    * Zurth 2019 {pmid 31571146} | 5.2-fold
-  ※ Abiraterone inhibits CYP2D6
-    * Chi 2012 {pmid 23064959} | dextromethorphan exposure doubled
-  ※ Darolutamide crosses into the brain little
-    * Taavitsainen 2020 {pmid 32003293} | brain to blood ratio 0.079 in rats
-    * Williams 2023 {pmid 37103658} | no change in cerebral blood flow, unlike enzalutamide
+  ※ Enzalutamide and apalutamide are strong CYP3A4 inducers; darolutamide raises rosuvastatin levels; abiraterone inhibits CYP2D6
 
 panel: Added to ADT + ARSI, no OS benefit yet > Metastatic at diagnosis, castration-sensitive
   ① HRR altered: talazoparib + enzalutamide, or niraparib + abiraterone

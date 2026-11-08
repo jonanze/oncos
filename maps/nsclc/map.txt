@@ -24,7 +24,6 @@ map: Advanced NSCLC
 band: Before first line
   Tissue NGS, plasma if tissue is short: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK. PD-L1 TPS (22C3)
   ※ Checkpoint inhibitors do little in EGFR, ALK, RET and HER2 driven disease; KRAS and BRAF respond as often as unselected disease
-    * IMMUNOTARGET {pmid 31125062} | response 12%, 0%, 6%, 7%
 
 band: Local treatment and bone
   ① 3 or fewer metastases, no progression after first line: radiotherapy or surgery to every site
@@ -98,7 +97,6 @@ tree: Advanced NSCLC, first line
         ※ Divarasib beat sotorasib or adagrasib, including OS
           + Krascendo 1 | OS HR
         ※ Liver toxicity is common when sotorasib follows a PD-1 antibody
-          * Chour 2024 {pmid 38614068} | grade 2 or higher 76%
       HER2
         = After chemotherapy: trastuzumab deruxtecan 5.4 mg/kg, zongertinib or sevabertinib
         ~ DESTINY-Lung02 | response
