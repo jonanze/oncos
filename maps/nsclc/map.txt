@@ -1,0 +1,136 @@
+# oncOS board map: Advanced NSCLC
+#
+# How to read and edit this file
+#   Indent 2 spaces per level.
+#   tree:   the decision tree; each plain line is a node, its children are indented under it
+#   band:   a block above the tree for the whole sheet
+#   panel:  a block beside the tree, joined by a brace to the node named after ">"
+#   = text          the treatment for a branch
+#   + Trial | fig   OS benefit         ~ Trial | fig   surrogate only (PFS, response)
+#   - Trial | fig   no benefit or harm * Trial | fig   no comparison drawn
+#   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
+#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
+#   ※ text          caveat             ° text          side effects, grey
+#   ① text          numbered item; plain lines in a band or panel are text
+
+map: Advanced NSCLC
+
+band: Before first line
+  Tissue NGS, plasma if tissue is short: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK. PD-L1 TPS (22C3)
+  ※ Checkpoint inhibitors do little in EGFR, ALK, RET and HER2 driven disease; KRAS and BRAF respond as often as unselected disease
+    * IMMUNOTARGET {pmid 31125062} | response 12%, 0%, 6%, 7%
+
+band: Local treatment and bone
+  ① 3 or fewer metastases, no progression after first line: radiotherapy or surgery to every site
+    + Gomez {pmid 27789196} | OS 41.2 vs 17.0 months
+    ~ Iyengar {pmid 28973074} | PFS 9.7 vs 3.5 months
+    ※ Both phase 2, stopped early
+  ② 1 to 3 brain metastases: radiosurgery alone
+    * Brown 2016 {pmid 27458945} | cognitive decline 63.5% vs 91.7%
+  ③ Bone metastases: denosumab 120 mg every 4 weeks
+    ~ Henry 2011 {pmid 21343556} | first skeletal event HR 0.84
+
+tree: Advanced NSCLC, first line
+  Driver found
+    EGFR
+      Exon 19 or L858R
+        = Osimertinib, alone or with platinum + pemetrexed; or amivantamab + lazertinib
+        + FLAURA | OS HR 0.80
+        + FLAURA2 | OS HR 0.77
+        + MARIPOSA | OS HR 0.75
+        ° Grade 3 or higher events 70% vs 34% with chemotherapy added (FLAURA2)
+      Exon 20 insertion
+        = Amivantamab + carboplatin + pemetrexed
+        ~ PAPILLON | PFS HR 0.40
+    Fusion
+      ALK
+        = Alectinib, brigatinib or lorlatinib
+        ~ ALEX | PFS HR 0.47
+        ~ ALTA-1L | PFS HR 0.48
+        ~ CROWN | 7-year PFS 55% vs 3%
+        ° Lorlatinib: raised cholesterol and triglycerides
+      ROS1
+        = Crizotinib, entrectinib or repotrectinib
+        ~ PROFILE 1001 | response 72%
+        ~ STARTRK pooled [t-alka-372-001-startrk-1-and-startrk-2] | response 77%
+        ~ TRIDENT-1 | response 79%
+      RET
+        = Selpercatinib
+        ~ LIBRETTO-431 | PFS HR 0.46
+      NTRK
+        = Larotrectinib
+        ~ Larotrectinib [t-larotrectinib--tumour-agnostic-basket-trials] | response 75%
+    Mutation
+      BRAF V600E
+        = Dabrafenib + trametinib, or encorafenib + binimetinib
+        ~ BRF113928 | response 64%
+        ~ PHAROS | response 75%
+      MET exon 14
+        = Capmatinib or tepotinib
+        ~ GEOMETRY mono-1 | response 68%
+        ~ VISION | response 46%
+      KRAS G12C
+        = Chemotherapy + PD-1 antibody first; sotorasib or adagrasib at progression
+        ~ CodeBreaK 200 | PFS HR 0.66
+        ~ KRYSTAL-12 | PFS HR 0.58
+        ※ Liver toxicity is common when sotorasib follows a PD-1 antibody
+          * Chour 2024 {pmid 38614068} | grade 2 or higher 76%
+      HER2
+        = Trastuzumab deruxtecan 5.4 mg/kg after chemotherapy
+        ~ DESTINY-Lung02 | response 49.0%
+  No driver
+    PS 0–1
+      PD-L1 ≥50%
+        = PD-1 or PD-L1 antibody alone
+        + KEYNOTE-024 | 5-year OS 31.9% vs 16.3%
+        + EMPOWER-Lung 1 {pmid 33581821} | OS HR 0.57
+        + IMpower110 | OS 20.2 vs 13.1 months
+        ※ Chemotherapy + pembrolizumab is also an option: KEYNOTE-189 and KEYNOTE-407 took all PD-L1 levels
+        ※ Ivonescimab beat pembrolizumab on PFS; China only, OS awaited
+          ~ HARMONi-2 | PFS HR 0.51
+      PD-L1 1–49%
+        = Platinum doublet + pembrolizumab: pemetrexed for non-squamous, carboplatin + paclitaxel for squamous
+        + KEYNOTE-189 | OS HR 0.60
+        + KEYNOTE-407 | OS HR 0.71
+        ※ Pembrolizumab alone was tested from TPS 1%; the 1–49% group was not a primary analysis
+          + KEYNOTE-042 | OS HR 0.79
+      PD-L1 <1%
+        = Platinum doublet + pembrolizumab, or dual checkpoint blockade
+        + CheckMate 9LA | OS HR 0.74
+        + CheckMate 227 | 5-year OS 19% vs 7%
+        + POSEIDON | 5-year OS 15.7% vs 6.8%
+        ※ Each dual blockade trial was compared with chemotherapy alone, not with chemotherapy + pembrolizumab
+    PS 2 or frail
+      = Atezolizumab alone
+      + IPSOS {pmid 37423228} | OS HR 0.78
+
+panel: Course of treatment > No driver
+  Platinum doublet + PD-1 antibody for 4 cycles, then the PD-1 antibody alone or with pemetrexed for up to 35 cycles, about 2 years
+    + KEYNOTE-189 | 5-year OS 19.4% vs 11.3%
+  ※ Of those who finished 35 cycles, 82.1% were alive at 5 years, exploratory
+    * KEYNOTE-024 | 39 patients
+  Non-squamous: pemetrexed continues with the PD-1 antibody
+    + PARAMOUNT | OS HR 0.78
+
+panel: Second line > No driver
+  ① After chemotherapy + PD-1 antibody: docetaxel, with ramucirumab if fit
+    + REVEL | OS HR 0.86
+  ② After chemotherapy without a PD-1 antibody: nivolumab, pembrolizumab if TPS ≥1%, or atezolizumab
+    + CheckMate 017 {pmid 26028407} | OS HR 0.59
+    + CheckMate 057 {pmid 26412456} | OS HR 0.73
+    + KEYNOTE-010 {pmid 26712084} | OS HR 0.71
+    + OAK {pmid 27979383} | OS HR 0.73
+  ③ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C branch
+  ④ Not standard
+    ~ TROPION-Lung01 | PFS HR 0.75
+    + Lung-MAP S1800A {pmid 35658002} | OS HR 0.69
+
+panel: Later lines > Driver found
+  ① Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma
+  ② EGFR after osimertinib: amivantamab added to chemotherapy
+    ~ MARIPOSA-2 | PFS HR 0.48
+  ③ PD-1 antibodies add little after a TKI
+    - KEYNOTE-789 {pmid 39173098} | OS HR 0.84
+    ~ IMpower150 | PFS HR 0.59
+    ※ IMpower150: atezolizumab + bevacizumab + chemotherapy, EGFR or ALK subgroup, exploratory
+  ④ A single progressing site: local therapy with the TKI continued
