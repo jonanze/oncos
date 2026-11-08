@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.39">
+<meta name="application-version" content="2.2.40">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#faf9f5">
@@ -735,6 +735,22 @@ html[data-view="evidence"] #viewroot tr.secrow td, html:is([data-view="staging"]
 .oncos-rail .rail-foot{flex:1 1 auto;min-width:0;}
 .oncos-rail .rail-here{display:block;flex:1 1 auto;min-width:0;margin-right:auto;padding:0 8px 0 6px;
     font-size:13px;font-weight:var(--w-bold);line-height:1.25;color:var(--tb-icon);overflow-wrap:anywhere;}}
+.wl-tabs{display:flex;padding:0;gap:0;border:1px solid var(--b-line);border-radius:0;background:var(--b-paper);}
+.wl-tab{display:inline-flex;flex:1 1 0;min-width:0;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 6px;
+  border:0;border-radius:0;background:none;font:inherit;font-size:var(--t-sm);color:var(--b-ink);text-decoration:none;cursor:pointer;}
+.wl-tab + .wl-tab{border-left:1px solid var(--b-line);}
+.wl-tab[aria-selected="true"]{background:var(--b-band);font-weight:var(--w-bold);}
+@media (hover:hover){a.wl-tab:hover{background:var(--b-cell);}}
+.st-tabs{width:240px;margin:0 0 16px;}
+@container oncos (max-width:740px){.st-tabs{width:auto;}}
+.oncos-rail .rail-sheet-main{display:none;}
+@media (max-width:760px){.oncos-rail .rail-main{display:none;}
+.oncos-rail .rail-sheet-main{display:block;border-bottom:1px solid var(--b-line);}
+.oncos-rail .rail-sheet-main .suite-link{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
+    color:var(--b-ink);text-decoration:none;border-bottom:1px solid var(--b-grid);}
+.oncos-rail .rail-sheet-main .suite-link:last-child{border-bottom:0;}
+.oncos-rail .rail-sheet-main .suite-link[aria-current="page"]{background:var(--b-band);font-weight:var(--w-bold);box-shadow:inset 3px 0 0 var(--tb-mark);}
+:root[data-theme="dark"] .oncos-rail .rail-sheet-main .suite-link[aria-current="page"]{box-shadow:inset 3px 0 0 var(--b-ink);}}
 .global-search-dialog .global-search-filters{display:none;}
 @media (max-width:760px){.rail-back-strip, .rail-home-strip{display:inline-flex!important;}}
 :root[data-theme="dark"]{--b-bullet:var(--muted);}
@@ -792,15 +808,21 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
     <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path fill="currentColor" stroke="none" d="M4 4h16L4 20z"/><path d="M4 4h16v16H4z"/></svg></button>
     <button id="global-search-open" class="rail-icon global-search-open" type="button" aria-label="Search all oncOS" title="Search all oncOS (Cmd/Ctrl+K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
   </div>
+  <nav class="suite-nav rail-main" aria-label="Main">
+    <a class="suite-link" href="/evidence/" data-nav="evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM15 3v4h4M8 12h8M8 16h8"/></svg></span><span class="rail-label">Evidence</span></a><a class="suite-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 21h18M6 21v-6M12 21V10M18 21V5"/></svg></span><span class="rail-label">Staging</span></a>
+  </nav>
   <div class="rail-scroll">
     <div class="rail-section" id="railsection">
+      <div class="rail-sheet-main">
+        <a class="suite-link" href="/evidence/" data-nav="evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM15 3v4h4M8 12h8M8 16h8"/></svg></span><span class="rail-label">Evidence</span></a><a class="suite-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 21h18M6 21v-6M12 21V10M18 21V5"/></svg></span><span class="rail-label">Staging</span></a>
+      </div>
       <!-- Phone only: the Appendix lives in the Sections drawer, not in the
            strip (Jonan, 2026-09-23). Same links as the desktop group, so the
            router marks the current one in both places. -->
       <div id="viewnav"></div>
       <details class="rail-sheet-appendix" id="mobile-appendix">
         <summary>Appendix</summary>
-        <a class="suite-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 21h18M6 21v-6M12 21V10M18 21V5"/></svg></span><span class="rail-label">Staging</span></a><a class="suite-link" href="/drill/" data-nav="drill"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 4h16v16H4zM8 12l3 3 5-6"/></svg></span><span class="rail-label">Drill</span></a><a class="suite-link" href="/drugs/" data-nav="drugs"><span class="tico"><span class="tmark" aria-hidden="true">℞</span></span><span class="rail-label">Drugs</span></a><a class="suite-link" href="/tox/" data-nav="tox"><span class="tico"><span class="tmark" aria-hidden="true">⚠︎</span></span><span class="rail-label">Tox</span></a><a class="suite-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M2 12h5l2-6 4 12 2-6h7"/></svg></span><span class="rail-label">Acute</span></a>
+        <a class="suite-link" href="/drugs/" data-nav="drugs"><span class="tico"><span class="tmark" aria-hidden="true">℞</span></span><span class="rail-label">Drugs</span></a><a class="suite-link" href="/tox/" data-nav="tox"><span class="tico"><span class="tmark" aria-hidden="true">⚠︎</span></span><span class="rail-label">Tox</span></a><a class="suite-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M2 12h5l2-6 4 12 2-6h7"/></svg></span><span class="rail-label">Acute</span></a>
       </details>
     </div>
   </div>
@@ -811,7 +833,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
   <nav class="rail-more" aria-label="Appendix">
     <button class="rail-group" id="rail-appendix-toggle" type="button" aria-expanded="false" aria-controls="rail-appendix"><span class="fold" aria-hidden="true">▼</span><span class="rail-label">Appendix</span></button>
     <div class="rail-appendix" id="rail-appendix" role="group" aria-label="Appendix">
-      <a class="suite-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 21h18M6 21v-6M12 21V10M18 21V5"/></svg></span><span class="rail-label">Staging</span></a><a class="suite-link" href="/drill/" data-nav="drill"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 4h16v16H4zM8 12l3 3 5-6"/></svg></span><span class="rail-label">Drill</span></a><a class="suite-link" href="/drugs/" data-nav="drugs"><span class="tico"><span class="tmark" aria-hidden="true">℞</span></span><span class="rail-label">Drugs</span></a><a class="suite-link" href="/tox/" data-nav="tox"><span class="tico"><span class="tmark" aria-hidden="true">⚠︎</span></span><span class="rail-label">Tox</span></a><a class="suite-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M2 12h5l2-6 4 12 2-6h7"/></svg></span><span class="rail-label">Acute</span></a>
+      <a class="suite-link" href="/drugs/" data-nav="drugs"><span class="tico"><span class="tmark" aria-hidden="true">℞</span></span><span class="rail-label">Drugs</span></a><a class="suite-link" href="/tox/" data-nav="tox"><span class="tico"><span class="tmark" aria-hidden="true">⚠︎</span></span><span class="rail-label">Tox</span></a><a class="suite-link" href="/acute/" data-nav="acute"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M2 12h5l2-6 4 12 2-6h7"/></svg></span><span class="rail-label">Acute</span></a>
     </div>
   </nav>
   <div class="rail-foot">
@@ -990,7 +1012,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
   const fields = ['record','group','kind','phase','year','sort','dir'];
   const allowed = {
     hub:[], notes:['record','group'], evidence:['record','group','phase','year','sort','dir'],
-    staging:['record'], drill:[], drugs:['record'], tox:['record','kind','group'], acute:['record'],
+    staging:['record'], drill:['record'], drugs:['record'], tox:['record','kind','group'], acute:['record'],
   };
   function validText(value) {
     return typeof value === 'string' && value.length <= 500 && !/[\u0000-\u001f\u007f]/.test(value);
@@ -1058,7 +1080,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
   else root.oncosLocations = api;
 })(typeof window === 'undefined' ? globalThis : window);
 
-window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "staging": {"title": "Staging", "searchId": "q"}, "drill": {"title": "Drill", "searchId": "q"}, "drugs": {"title": "Drugs", "searchId": "search"}, "tox": {"title": "Tox", "searchId": "q"}, "acute": {"title": "Acute", "searchId": "q"}};
+window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "staging": {"title": "Staging", "searchId": "q"}, "drill": {"title": "Practice", "searchId": "q", "nav": "staging"}, "drugs": {"title": "Drugs", "searchId": "search"}, "tox": {"title": "Tox", "searchId": "q"}, "acute": {"title": "Acute", "searchId": "q"}};
 (function(){
   var VIEWS = window.oncosViews;
   var root = document.documentElement;
@@ -1149,6 +1171,8 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     // path open Evidence.
     return m ? m[1] : 'evidence';
   }
+  // A view without a link of its own marks its parent's (Practice marks Staging).
+  function navOf(name){ return (VIEWS[name] && VIEWS[name].nav) || name; }
   function searchEl(){ return document.querySelector('.barsearch'); }
   function drawerFocusables(){
     var rail = document.querySelector('.oncos-rail');
@@ -1229,7 +1253,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     // suite active state — masthead tabs and the mobile dropdown alike
     document.querySelectorAll('.suite-link, .drop-link').forEach(function(a){
       var to = pathToView(new URL(a.href, location.href).pathname);
-      if (to === name) a.setAttribute('aria-current','page');
+      if (to === navOf(name)) a.setAttribute('aria-current','page');
       else a.removeAttribute('aria-current');
     });
     // Appendix group: open it when the current view lives inside it, so the
@@ -1527,7 +1551,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     var markSuite = function(view){
       if (!document.querySelectorAll) return;
       document.querySelectorAll('.suite-link').forEach(function(a){
-        if (pathToView(new URL(a.href, location.href).pathname) === view) a.setAttribute('aria-current','page');
+        if (pathToView(new URL(a.href, location.href).pathname) === navOf(view)) a.setAttribute('aria-current','page');
         else a.removeAttribute('aria-current');
       });
     };

@@ -11,7 +11,8 @@ const HN_S = 'I T1 N0 · II T2 N0 · III T3 N0 or T1–3 N1 · IVA T4a or N2 · 
 const HN_TX = [
   [['0'], 'Excision and surveillance', ''],
   [['I', 'II'], 'Single modality, surgery or RT. Adjuvant RT after surgery for pT3–4, pN2–3, PNI, LVI or a close margin', ''],
-  [['III', 'IVA', 'IVB'], 'Surgery with adjuvant RT; cisplatin-RT if margin positive or ENE. Non-surgical: cisplatin-RT. Resectable with CPS ≥1: perioperative pembrolizumab ※', 'EORTC 22931 / RTOG 9501 pooled, KEYNOTE-689 ※'],
+  [['III', 'IVA'], 'Surgery with adjuvant RT; cisplatin-RT if margin positive or ENE. Non-surgical: cisplatin-RT. Resectable with CPS ≥1: perioperative pembrolizumab ※', 'EORTC 22931 / RTOG 9501 pooled, KEYNOTE-689 ※'],
+  [['IVB'], 'T4b is usually unresectable: cisplatin-RT. N3 with a resectable primary: surgery with neck dissection, then cisplatin-RT for ENE or a positive margin', 'EORTC 22931 / RTOG 9501 pooled'],
   [['IVC'], 'Pembrolizumab alone or with platinum-FU, by CPS', 'KEYNOTE-048'],
 ];
 const BIL_TX = [
@@ -260,8 +261,8 @@ const SITES = {
     N: HN_N, M: 'M1 distant', S: HN_S,
     tx: [
       HN_TX[0], HN_TX[1],
-      [['III', 'IVA', 'IVB'], 'Larynx preservation with concurrent cisplatin-RT. T4a with cartilage destruction: total laryngectomy, then adjuvant RT or chemoRT', 'RTOG 91-11'],
-      HN_TX[3],
+      [['III', 'IVA'], 'T3 and selected low-volume T4a: larynx preservation with concurrent cisplatin-RT. T4a with cartilage destruction or spread outside the larynx: total laryngectomy, then adjuvant RT, or cisplatin-RT for ENE or a positive margin', 'RTOG 91-11, EORTC 22931 / RTOG 9501 pooled'],
+      HN_TX[3], HN_TX[4],
     ],
   },
   sinonasal: {

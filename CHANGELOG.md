@@ -2,6 +2,13 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.40] - 2026-11-08
+
+- Staging is a main link under Evidence, in the sidebar's title block on desktop and at the top of the Sections sheet on phones; the Appendix keeps Drugs, Tox and Acute.
+- Staging has two tabs, Tables and Practice (the former Drill, still at /drill/). Each cancer's tables carry a Practise cell for that cancer.
+- Practice: the sidebar's tumour groups set which cancers are practised (on phones, a scope line above the case opens the same list); the case sits in the same left-aligned column as the tables, with the result and debrief beside it on wide screens; no dark bar in light mode.
+- The Watch list's ruled tab style is one shared rule for every tab pair.
+
 ## [2.2.39] - 2026-11-08
 
 - Drill: a sixth module in the Appendix with staging case vignettes, built from the same staging tables as the Staging module.
