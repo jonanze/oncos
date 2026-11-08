@@ -48,21 +48,33 @@ band: ADT, testing and bone
   ⑥ Bone metastases in castration-resistant disease: denosumab 120 mg every 4 weeks
     ~ Fizazi 2011 {pmid 21353695} | first skeletal event HR 0.82
 
-tree: Advanced prostate cancer
-  Rising PSA, no metastases on CT or bone scan
-    Castration-sensitive, PSA doubling 9 months or less
-      = Enzalutamide + leuprolide
-      + EMBARK | OS HR
-      ※ Enzalutamide alone delayed metastases but did not lengthen OS
-    Castration-resistant, PSA doubling 10 months or less
-      = Apalutamide, enzalutamide or darolutamide, with ADT
-      + SPARTAN | OS HR
-      + PROSPER | OS HR
-      + ARAMIS | OS HR
-      ※ Metastasis-free survival roughly doubled in each
-  Metastatic, castration-sensitive
-    De novo, low volume
-      = ADT + ARSI + radiotherapy to the prostate
+course: Advanced prostate cancer
+  Rising PSA after surgery or radiotherapy, no metastases on CT or bone scan
+    next: Metastatic relapse, castration-sensitive | metastases appear
+    next: Castration-resistant, no metastases on CT or bone scan | PSA rises on ADT
+    = PSA doubling 9 months or less: enzalutamide + leuprolide
+    + EMBARK | OS HR
+    ※ Enzalutamide alone delayed metastases but did not lengthen OS
+
+  Metastatic relapse, castration-sensitive
+    next: Metastatic, castration-resistant
+    = ADT + ARSI, any volume
+    ※ 1 to 3 metastases: stereotactic radiotherapy to every site delays progression; no OS endpoint
+      ~ ORIOLE {pmid 32215577} | PFS HR 0.30
+      ~ STOMP {pmid 29240541} | ADT-free survival 21 vs 13 months
+
+  Castration-resistant, no metastases on CT or bone scan
+    next: Metastatic, castration-resistant | metastases appear
+    = PSA doubling 10 months or less: apalutamide, enzalutamide or darolutamide, with ADT
+    + SPARTAN | OS HR
+    + PROSPER | OS HR
+    + ARAMIS | OS HR
+    ※ Metastasis-free survival roughly doubled in each
+    Metastases on this treatment: ③
+
+  Metastatic at diagnosis, castration-sensitive
+    next: Metastatic, castration-resistant
+    ① Low volume: ADT + ARSI + radiotherapy to the prostate
       + STAMPEDE arm H [t-stampede--advanced-prostate-3] | low burden OS HR 0.68
       ※ Arm H gave ADT with or without docetaxel, no ARSI
       ※ With abiraterone, radiotherapy lengthened rPFS but not OS, and reduced serious urinary events
@@ -70,8 +82,7 @@ tree: Advanced prostate cancer
       ※ Benefit confined to fewer than 5 bone metastases
         - HORRAD {pmid 30266309} | OS HR 0.90
         + STOPCAP {pmid 30826218} | 3-year OS 7% higher
-    De novo, high volume
-      = ADT + ARSI + docetaxel; ADT + ARSI if unfit for docetaxel
+    ② High volume: ADT + ARSI + docetaxel; ADT + ARSI if unfit for docetaxel
       + PEACE-1 | OS HR
       + ARASENS | OS HR
       ° Grade 3 or higher hypertension 22% vs 13% (PEACE-1)
@@ -80,54 +91,58 @@ tree: Advanced prostate cancer
         + CHAARTED | OS HR
         + STAMPEDE docetaxel [t-stampede--advanced-prostate] | docetaxel OS HR 0.78
         - GETUG-AFU 15 | OS HR
-    Relapse after radical treatment
-      = ADT + ARSI, any volume
-      ※ 1 to 3 metastases: stereotactic radiotherapy to every site delays progression; no OS endpoint
-        ~ ORIOLE {pmid 32215577} | PFS HR 0.30
-        ~ STOMP {pmid 29240541} | ADT-free survival 21 vs 13 months
-  Metastatic, castration-resistant
-    ARSI not yet given
-      = Abiraterone or enzalutamide; talazoparib + enzalutamide
-      + COU-AA-302 | OS HR
-      + PREVAIL | OS HR
-      + TALAPRO-2 | OS HR
-      ※ Olaparib or niraparib with abiraterone: PFS longer, OS not significantly longer
-        ~ PROpel | OS HR
-        ~ MAGNITUDE | BRCA rPFS HR 0.53
-      ※ Sipuleucel-T: OS longer with no effect on time to progression
-        + IMPACT [t-impact--advanced-prostate] | OS HR
-      ※ Most men now start an ARSI while castration-sensitive, so this branch is shrinking
-    HRR or BRCA altered, after an ARSI
-      = Olaparib; rucaparib if BRCA altered
-      + PROfound | OS HR
-      ~ TRITON3 | rPFS HR
-      ※ BRCA1, BRCA2 or ATM altered in 19% of metastatic CRPC
-        * Robinson 2015 {pmid 26000489} | 19%
-    Docetaxel not yet given
-      = Docetaxel 75 mg/m² every 3 weeks with prednisone
-      + TAX 327 | OS HR
-    After docetaxel and an ARSI
-      = Cabazitaxel
-      + TROPIC | OS HR
-      + CARD | OS HR
-      ※ CARD: cabazitaxel beat a second ARSI
-      ※ Abiraterone or enzalutamide after docetaxel if no ARSI given
-        + COU-AA-301 | OS HR
-        + AFFIRM | OS HR
-    PSMA PET positive
-      = Lu-177 PSMA-617 7.4 GBq every 6 weeks, after an ARSI and a taxane
-      + VISION [t-vision--advanced-prostate] | OS HR
-      ※ Before a taxane: rPFS longer, OS no different
-        ~ PSMAfore | rPFS HR
-    Bone metastases, no visceral disease
-      = Radium-223
-      + ALSYMPCA | OS HR
-      ※ Not with abiraterone: fractures 29% vs 11%
-        - ERA 223 {pmid 30738780} | fractures 29% vs 11%
-      ※ Added to enzalutamide with a bone-protecting agent: rPFS and OS longer at the interim analysis; fractures 24% vs 13%
-        + PEACE-3 {pmid 40450503} | OS HR 0.69
 
-panel: ARSI options > Metastatic, castration-sensitive
+  Metastatic, castration-resistant
+    next: ① After ADT alone
+    next: ② After ADT and docetaxel
+    next: ③ After ADT and an ARSI
+    next: ④ After ADT, an ARSI and docetaxel
+    = Progression on ADT with testosterone below 50 ng/dL
+    = The next treatment depends on what was given before
+    ※ Most trials for this stage enrolled men who had never had an ARSI
+
+  ① After ADT alone
+    = Abiraterone or enzalutamide; docetaxel; talazoparib + enzalutamide
+    + COU-AA-302 | OS HR
+    + PREVAIL | OS HR
+    + TAX 327 | OS HR
+    + TALAPRO-2 | OS HR
+    ※ Olaparib or niraparib with abiraterone: PFS longer, OS not significantly longer
+      ~ PROpel | OS HR
+      ~ MAGNITUDE | BRCA rPFS HR 0.53
+    ※ Sipuleucel-T: OS longer with no effect on time to progression
+      + IMPACT [t-impact--advanced-prostate] | OS HR
+    ※ Most men now start an ARSI while castration-sensitive, so few reach this step
+    After docetaxel: ②
+    After an ARSI: ③
+
+  ② After ADT and docetaxel
+    = Abiraterone or enzalutamide; cabazitaxel
+    + COU-AA-301 | OS HR
+    + AFFIRM | OS HR
+    + TROPIC | OS HR
+    ※ All three enrolled men before an ARSI was used for castration-sensitive disease
+    After an ARSI: ④
+
+  ③ After ADT and an ARSI
+    = Docetaxel; olaparib if HRR altered; rucaparib if BRCA altered
+    ※ Docetaxel here rests on TAX 327 (①), in men who had never had an ARSI
+    + PROfound | OS HR
+    ~ TRITON3 | rPFS HR
+    ※ BRCA1, BRCA2 or ATM altered in 19% of metastatic CRPC
+      * Robinson 2015 {pmid 26000489} | 19%
+    ※ Lu-177 PSMA-617 before a taxane: rPFS longer, OS no different
+      ~ PSMAfore | rPFS HR
+    ※ A second ARSI: in CARD, cabazitaxel did better (④)
+    After docetaxel: ④
+
+  ④ After ADT, an ARSI and docetaxel
+    = Cabazitaxel; Lu-177 PSMA-617 7.4 GBq every 6 weeks if PSMA PET positive
+    + CARD | OS HR
+    ※ CARD: cabazitaxel beat a second ARSI
+    + VISION [t-vision--advanced-prostate] | OS HR
+
+panel: ARSI options > Metastatic at diagnosis, castration-sensitive
   ① Abiraterone with prednisone 5 mg once daily
     + LATITUDE | OS HR
     + STAMPEDE arm G [t-stampede--advanced-prostate-2] | OS HR
@@ -152,7 +167,7 @@ panel: ARSI options > Metastatic, castration-sensitive
     * Taavitsainen 2020 {pmid 32003293} | brain to blood ratio 0.079 in rats
     * Williams 2023 {pmid 37103658} | no change in cerebral blood flow, unlike enzalutamide
 
-panel: Added to ADT + ARSI, no OS benefit yet > Metastatic, castration-sensitive
+panel: Added to ADT + ARSI, no OS benefit yet > Metastatic at diagnosis, castration-sensitive
   ① HRR altered: talazoparib + enzalutamide, or niraparib + abiraterone
     ~ TALAPRO-3 | rPFS HR 0.48
     ~ AMPLITUDE | rPFS HR 0.63
@@ -162,3 +177,11 @@ panel: Added to ADT + ARSI, no OS benefit yet > Metastatic, castration-sensitive
     ※ OS HR 0.82 in a later analysis, descriptive
   ③ PSMA PET positive: Lu-177 PSMA-617
     ~ PSMAddition | rPFS HR
+
+panel: Bone metastases, no visceral disease > Metastatic, castration-resistant
+  = Radium-223, at any step
+  + ALSYMPCA | OS HR
+  ※ Not with abiraterone: fractures 29% vs 11%
+    - ERA 223 {pmid 30738780} | fractures 29% vs 11%
+  ※ Added to enzalutamide with a bone-protecting agent: rPFS and OS longer at the interim analysis; fractures 24% vs 13%
+    + PEACE-3 {pmid 40450503} | OS HR 0.69

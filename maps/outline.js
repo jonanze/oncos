@@ -35,8 +35,8 @@
       if (/^\s*(#|$)/.test(raw)) return;
       var ind = raw.match(/^ */)[0].length, text = raw.trim();
       if (ind === 0) {
-        var h = /^(map|band|tree|panel|off):\s*(.*)$/.exec(text);
-        if (!h) { out.errors.push(at + ': expected map:, band:, tree:, panel: or off:'); sec = null; return; }
+        var h = /^(map|band|tree|course|panel|off):\s*(.*)$/.exec(text);
+        if (!h) { out.errors.push(at + ': expected map:, band:, tree:, course:, panel: or off:'); sec = null; return; }
         if (h[1] === 'map') { out.map = h[2]; sec = null; return; }
         if (h[1] === 'off') { sec = out.off; return; }
         if (h[1] === 'band') { sec = {title:h[2], lines:[]}; out.bands.push(sec); return; }
@@ -44,8 +44,8 @@
           var j = h[2].split(/\s+>\s+/);
           sec = {title:j[0], join:j[1] || null, lines:[]}; out.panels.push(sec); return;
         }
-        if (out.tree) out.errors.push(at + ': only one tree: per map');
-        sec = out.tree = {label:h[2], depth:0, children:[], lines:[], indent:0, at:at};
+        if (out.tree) out.errors.push(at + ': only one tree: or course: per map');
+        sec = out.tree = {label:h[2], depth:0, children:[], lines:[], indent:0, at:at, course:h[1] === 'course'};
         stack = [sec];
         return;
       }
@@ -61,6 +61,20 @@
         sec.lines.push(line(text, ind / 2 - 1, at));
         return;
       }
+      if (out.tree.course) {             // course: steps at 2 spaces; next: and content under them
+        if (ind === 2) {
+          if (/^next:/.test(text)) { out.errors.push(at + ': next: belongs under a step'); return; }
+          var st = {label:text, depth:1, children:[], lines:[], next:[], indent:2, at:at};
+          out.tree.children.push(st); stack = [out.tree, st];
+          return;
+        }
+        var step = stack[1];
+        if (!step) { out.errors.push(at + ': content before the first step'); return; }
+        var nx = /^next:\s*(.+?)\s*(?:\|\s*(.+))?$/.exec(text);
+        if (nx) { step.next.push({to:nx[1], label:nx[2] || '', at:at}); return; }
+        step.lines.push(line(text, ind / 2 - 2, at));
+        return;
+      }
       while (stack.length > 1 && stack[stack.length - 1].indent >= ind) stack.pop();
       var owner = stack[stack.length - 1];
       if (isContent(text)) {
@@ -71,9 +85,26 @@
       var node = {label:text, depth:owner.depth + 1, children:[], lines:[], indent:ind, at:at};
       owner.children.push(node); stack.push(node);
     });
-    if (!out.tree) out.errors.push('no tree:');
+    if (!out.tree) out.errors.push('no tree: or course:');
     var names = {};
     walk(out.tree, function(n){ (names[n.label] = names[n.label] || []).push(n); });
+    if (out.tree && out.tree.course) {
+      var seen = {}, busy = {};
+      out.tree.children.forEach(function(st){ st.next.forEach(function(e){
+        if (!names[e.to]) out.errors.push(e.at + ': next: no step "' + e.to + '"');
+        else if (names[e.to].length > 1) out.errors.push(e.at + ': next: step "' + e.to + '" is not unique');
+      }); });
+      (function loop(){
+        function visit(st){
+          if (busy[st.label]) { out.errors.push(st.at + ': next: steps loop back to "' + st.label + '"'); return; }
+          if (seen[st.label]) return;
+          seen[st.label] = busy[st.label] = true;
+          st.next.forEach(function(e){ var t = names[e.to]; if (t && t.length === 1) visit(t[0]); });
+          busy[st.label] = false;
+        }
+        out.tree.children.forEach(visit);
+      })();
+    }
     out.panels.forEach(function(p){
       if (p.join && !names[p.join]) out.errors.push('panel "' + p.title + '": no node "' + p.join + '"');
       else if (p.join && names[p.join].length > 1) out.errors.push('panel "' + p.title + '": node "' + p.join + '" is not unique');

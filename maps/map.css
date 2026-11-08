@@ -89,3 +89,10 @@
   #om-card th{width:7.5em}
   #om-card{left:0;right:0;bottom:0;max-height:62vh;border-left:0;border-right:0;padding-bottom:env(safe-area-inset-bottom,0px)}
 }
+
+/* course maps: steps in time order */
+.om-world .step>.hd{display:block;white-space:normal;margin:0 0 8px;padding:4px 10px}
+.om-world .step .ln.tx{font-size:14.5px;margin-bottom:4px}
+.om-world .step .ln.text{font-weight:var(--w-bold);font-size:13px;margin-top:6px}
+.om-world .step .ln.num{margin-top:6px}
+.om-world .elab{font-size:12px;line-height:1.3}
