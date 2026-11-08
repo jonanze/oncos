@@ -1,7 +1,7 @@
 {
   "name": "oncOS",
   "short_name": "oncOS",
-  "description": "The oncOS clinical reference suite in one app: Evidence, Staging, Drugs, Tox and Acute.",
+  "description": "The oncOS clinical reference suite in one app: Evidence, Staging, Drill, Drugs, Tox and Acute.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

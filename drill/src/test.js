@@ -1,5 +1,9 @@
 globalThis.window=globalThis; require('./sites.js'); require('./core.js'); const D = globalThis.Drill;
-const C = Object.fromEntries(require('../cancers.json').map(c => [c.id, c]));
+// Staging module data: node test.js <staging_data.json> (or STAGING_DATA=...)
+const SRC = process.argv[2] || process.env.STAGING_DATA;
+if (!SRC) { console.log('usage: node test.js <staging_data.json>'); process.exit(2); }
+const DOC = require(require('path').resolve(SRC));
+const C = Object.fromEntries((DOC.cancers || DOC).map(c => [c.id, c]));
 let fail = 0; const bad = (m) => { fail++; console.log('FAIL', m); };
 // 1. compare with Staging module tables (parse "A–B", "A / B", "Any")
 function exp(spec, order, alias) {

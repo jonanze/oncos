@@ -2,6 +2,12 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.39] - 2026-11-08
+
+- Drill: a sixth module in the Appendix with staging case vignettes, built from the same staging tables as the Staging module.
+- In a drill case, Table opens that cancer in Staging; Back returns to the same case without advancing.
+- Staging: Merkel cell carcinoma lists T0 (no evidence of primary tumour).
+
 ## [2.2.38] - 2026-11-01
 
 - Circled arm letters are drawn with BIZ UDPGothic's own ⓐ–ⓩ.

@@ -9,6 +9,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/drill",
+      "destination": "/index.html"
+    },
+    {
       "source": "/drugs",
       "destination": "/index.html"
     },
@@ -26,6 +30,10 @@
     },
     {
       "source": "/staging/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/drill/",
       "destination": "/index.html"
     },
     {

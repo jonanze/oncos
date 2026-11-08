@@ -1,6 +1,38 @@
-import json,re,itertools,copy
-C=json.load(open('cancers.json'))
-exec(open('build_sys.py').read().split('res={}')[0])  # reuse subs/expand
+#!/usr/bin/env python3
+"""Generate sites.js for the Drill module from the Staging module's staging_data.json.
+
+    python3 build_sites.py <staging_data.json> [out.js]
+
+Run at every release (the kit's drill view build calls it), so the drill's tables
+follow the Staging tables. Stage-group strings ("T1–T2", "Any N", "M1a / M1b") are
+expanded over each site's category list; sites whose grouping needs qualifiers
+(thyroid age, prostate PSA and Grade Group, testis S, sarcoma grade, appendix
+histotype) are written out below. The hand systems (lung, colorectal, breast,
+oral cavity, oesophagus) live in core.js.
+"""
+import json,re,itertools,copy,sys,os
+SRC=sys.argv[1] if len(sys.argv)>1 else os.path.join(os.path.dirname(os.path.abspath(__file__)),'staging_data.json')
+OUT=sys.argv[2] if len(sys.argv)>2 else os.path.join(os.path.dirname(os.path.abspath(__file__)),'sites.js')
+doc=json.load(open(SRC,encoding='utf-8'))
+C=doc['cancers'] if isinstance(doc,dict) else doc
+def _members(x,order):
+    x=x.strip()
+    return [o for o in order if o==x or (o.startswith(x) and re.fullmatch(r'[a-z0-9]+',o[len(x):] or '-') and o[len(x):]!='mi')]
+def expand(spec,order):
+    """Expand a stage-group cell over the ordered categories; returns (members, error)."""
+    spec=spec.strip()
+    if re.match(r'(?i)^any\b',spec): return list(order),False
+    out=[]
+    for part in re.split(r'\s*/\s*|\s*,\s*',spec):
+        if '–' in part:
+            a,b=part.split('–',1); A=_members(a,order); B=_members(b,order)
+            if not A or not B: return out,True
+            out+=order[order.index(A[0]):order.index(B[-1])+1]
+        else:
+            m=_members(part,order)
+            if not m: return out,True
+            out+=m
+    return [o for o in order if o in out],False
 HAND={'lung':['lung'],'colorectal':['crc'],'breast':['breast'],'oral-cavity':['oral'],'esophageal':['eso-c-scc','eso-c-ac','eso-p-scc','eso-p-ac','eso-yp']}
 INSITU={'Tis','Ta','T0','pTis'}
 SEC={'Gastrointestinal':'GI','Head & Neck':'H&N','Genitourinary':'GU','Gynaecological':'Gynae','Central Nervous System':'CNS','Thoracic':'Thoracic','Breast':'Breast','Skin':'Skin','Sarcoma':'Sarcoma','Lymphoma':'Lymphoma'}
@@ -32,7 +64,7 @@ CI={c['id']:c for c in C}
 SYS={}; notes={}
 for c in C:
     sid=c['id']
-    if c['type']!='TNM' or sid in HAND or sid in('thyroid','gist','prostate','testis','soft-tissue-sarcoma','bone-sarcoma','appendix','mesothelioma','nasopharyngeal','merkel','bladder'): continue
+    if c['type']!='TNM' or sid in HAND or sid in('thyroid','gist','prostate','testis','soft-tissue-sarcoma','bone-sarcoma','appendix','mesothelioma','nasopharyngeal'): continue
     SYS[sid]=auto(c)
 # mesothelioma: clinical T listed as cT1-cT4
 m=CI['mesothelioma']; 
@@ -45,14 +77,6 @@ g=copy.deepcopy(n['stage_groups'])
 for x in g:
     if x['t']=='T0–T2': x['t']='T0, T1, T2'
 SYS['nasopharyngeal']=auto(n,M=['M0','M1a','M1b'],groups=g)
-# Merkel: T0 (unknown primary) used in stage III
-mk=CI['merkel']; mk['t'].insert(0,{'cat':'T0','desc':'No evidence of primary tumour'})
-SYS['merkel']=auto(mk)
-# Bladder: AJCC 8th IVA is T4b any N M0; the Staging module lists T4b N0 only
-b=CI['bladder']; g=copy.deepcopy(b['stage_groups'])
-for x in g:
-    if x['stage']=='IVA' and x['t']=='T4b': x['n']='Any N'
-SYS['bladder']=auto(b,groups=g); notes['bladder']='T4b with N1–N3 M0 staged IVA here (AJCC 8th: T4b any N M0 = IVA); the Staging module lists T4b N0 only'
 # Thyroid (differentiated), age split
 SYS['thyroid']=finish('thyroid',['T1a','T1b','T2','T3a','T3b','T4a','T4b'],['N0','N1a','N1b'],['M0','M1'],[
  ['I',['T1a','T1b','T2','T3a','T3b','T4a','T4b'],['N0','N1a','N1b'],['M0'],{'age':['<55']}],
@@ -111,7 +135,7 @@ for c in C:
     if sid in SYS: s=SYS[sid]; s['id']=sid; s['label']=c['name']; s['edition']=c['system_label']; site['auto']=s
     if sid in notes: site['drill_note']=notes[sid]
     out.append(site)
-open('drill/sites.js','w').write('window.DRILL_SITES='+json.dumps(out,ensure_ascii=False,separators=(',',':'))+';\n')
+open(OUT,'w',encoding='utf-8').write('window.DRILL_SITES='+json.dumps(out,ensure_ascii=False,separators=(',',':'))+';\n')
 print(len(out),'sites;',len(SYS),'auto systems;', sum(1 for s in out if 'hand' in s),'hand')
 for s in out:
     if 'auto' not in s and 'hand' not in s: print('no system:',s['id'],s['type'])

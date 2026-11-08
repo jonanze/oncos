@@ -1,8 +1,9 @@
-# Staging drill sources
+# Drill sources
 
-Source of the staging recall drill (formerly staging-drill.vercel.app, artifact DY82TqvZRRweKenJzmcT82 v14).
+Master copy of the Drill module (oncos.vercel.app/drill/), formerly staging-drill.vercel.app. Excluded from the deployment by `.vercelignore`; the site serves `views/drill.html`.
 
-- `src/head.html` head and styles; `src/sites.js` generated tables (from `build_sites.py` over the Staging module data); `src/vignettes.js` finding bank; `src/core.js` generators and definitions; `src/debrief.js` debrief rules and treatment rows; `src/ui.js` interface.
-- Build (standalone page): `cd src && ./build.sh sites.js vignettes.js core.js debrief.js ui.js` writes `publish.html`.
-- Tests: `node test.js` (tables vs Staging data), `node dbtest.js` (every case has a debrief row), `node shot7.js` (Playwright fuzz).
-- `build_sites.py` should read the Staging module data at release time so the drill never drifts from the tables.
+- `src/head.html` styles; `src/vignettes.js` finding bank; `src/core.js` hand systems (lung, colorectal, breast, oral cavity, oesophagus), generators and definitions; `src/debrief.js` debrief rules and treatment rows; `src/evidence-links.json` trial name to Evidence row id; `src/ui.js` interface.
+- `src/sites.js` is generated: `python3 build_sites.py <staging_data.json> sites.js` expands the Staging module's stage groups. Never edit it by hand.
+- Module build (kit, `2026-07-18-oncos-one`): `ONCOS_SITE_OUT=<site> python3 fragmentize.py drill` regenerates `sites.js` from the Staging data, checks every Evidence link id against `search/evidence.json`, and writes `views/drill.html`; then `python3 build_shell.py`.
+- Inside the shell, Table opens the case's cancer in Staging (`/staging/?record=<id>`) and a linked trial opens its Evidence row (`/evidence/#<id>`); the open case is kept, so Back returns to it.
+- Tests: `node test.js <staging_data.json>` (tables against the Staging data, 3000 cases per system), `node dbtest.js` (debrief rows), `node shot_module.js <site URL>` (Chromium and WebKit in the shell: 180 cases, Table, Evidence and Appendix round trips). `node shot7.js` fuzzes the standalone page from `./build.sh sites.js vignettes.js core.js debrief.js ui.js`.

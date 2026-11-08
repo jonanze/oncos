@@ -3,10 +3,13 @@
 const D = window.Drill;
 const $ = (s, r) => (r || document).querySelector(s);
 const el = (tag, attrs, kids) => { const e = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === 'text') e.textContent = attrs[k]; else if (k === 'on') { for (const ev in attrs.on) e.addEventListener(ev, attrs.on[ev]); } else if (attrs[k] !== null && attrs[k] !== undefined && attrs[k] !== false) e.setAttribute(k, attrs[k]); } (kids || []).forEach(c => c && e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c)); return e; };
+// Host: inside oncOS the module passes its container and a link builder for the
+// Staging table (window.DrillHost); the standalone page uses #app and its own Table.
+const HOST = window.DrillHost || null;
 const KEY = 'oncos-drill-ui';
 let ui = { mode: 'case', section: 'All', site: '', sel: {} };
 try { const u = JSON.parse(localStorage.getItem(KEY) || 'null'); if (u) ui = Object.assign(ui, u); } catch (e) {}
-if (ui.mode !== 'table') ui.mode = 'case';
+if (ui.mode !== 'table' || HOST) ui.mode = 'case';
 if (!ui.sel || typeof ui.sel !== 'object' || Array.isArray(ui.sel)) ui.sel = {};
 function saveUi() { try { localStorage.setItem(KEY, JSON.stringify(ui)); } catch (e) {} }
 
@@ -37,7 +40,7 @@ const MODES = [['case', 'Case'], ['table', 'Table']];
 // approximate relative annual incidence (worldwide, rough); sets how often each site is drawn
 const W = { lung: 2480, breast: 2310, colorectal: 1930, prostate: 1470, gastric: 970, hcc: 700, thyroid: 820, cervix: 660, bladder: 580, lymphoma: 630, esophageal: 510, pancreas: 500, rcc: 430, endometrial: 420, 'oral-cavity': 390, melanoma: 330, ovarian: 320, glioma: 200, larynx: 190, gallbladder: 120, nasopharyngeal: 120, 'oropharynx-p16pos': 55, 'oropharynx-p16neg': 50, hypopharynx: 85, salivary: 55, 'cholangio-intrahepatic': 60, 'cholangio-perihilar': 40, 'cholangio-distal': 20, testis: 72, anal: 50, vulvar: 47, 'cutaneous-scc': 60, 'soft-tissue-sarcoma': 50, gist: 40, penile: 37, mesothelioma: 31, utuc: 30, 'bone-sarcoma': 20, gtn: 20, sinonasal: 20, vaginal: 18, 'net-gep': 20, 'net-pancreas': 15, 'net-rectal': 12, 'net-jejunoileal': 10, 'net-gastric': 8, 'net-appendiceal': 8, 'net-duodenal': 5, 'net-colonic': 4, 'small-bowel': 12, ampulla: 15, thymoma: 15, 'uterine-sarcoma': 15, appendix: 10, adrenal: 7, merkel: 3, urethral: 3 };
 function weighted(list) { const tot = list.reduce((a, s) => a + (W[s.id] || 10), 0); let r = Math.random() * tot; for (const s of list) { r -= W[s.id] || 10; if (r < 0) return s; } return list[list.length - 1]; }
-let body, edEl, current = null, lastId = null, jumpSys = null;
+let body, edEl, tableLink = null, current = null, lastId = null, jumpSys = null;
 const HANDSITE = { crc: 'colorectal', oral: 'oral-cavity', eso: 'esophageal' };
 function caseSite() {
   if (!current) return null;
@@ -46,9 +49,9 @@ function caseSite() {
 }
 
 function shell() {
-  const root = $('#app'); root.innerHTML = '';
+  const root = HOST ? HOST.root : $('#app'); root.innerHTML = '';
   const bar = el('div', { class: 'bar' }); bar.innerHTML = ICON; bar.appendChild(el('span', { text: 'Staging drill' })); edEl = el('span', { class: 'ed' }); bar.appendChild(edEl);
-  const modes = el('div', { class: 'row modes', role: 'group' }, MODES.map(m => el('button', { type: 'button', 'aria-pressed': String(ui.mode === m[0]), text: m[1], on: { click: () => {
+  const modes = el('div', { class: 'row modes', role: 'group' }, MODES.map(m => HOST && m[0] === 'table' ? (tableLink = el('a', { href: HOST.tableHref(caseSite()), text: m[1] })) : el('button', { type: 'button', 'aria-pressed': String(ui.mode === m[0]), text: m[1], on: { click: () => {
     if (m[0] === 'table' && ui.mode === 'case' && current) { const sid = caseSite(); if (sid) { ui.site = sid; jumpSys = current.sys ? current.sys.id : null; } }
     ui.mode = m[0]; saveUi(); shell();
   } } })));
@@ -77,7 +80,7 @@ function shell() {
   if (current && current.key === scopeKey()) return current.kind === 'vs' ? drawVs() : drawCase();
   newCase();
 }
-function setEd(text) { edEl.textContent = text || ''; }
+function setEd(text) { edEl.textContent = text || ''; if (tableLink) tableLink.href = HOST.tableHref(caseSite()); }
 function optGrid(opts, onPick, marks, wide) {
   const cols = wide ? 1 : opts.length <= 3 ? opts.length : 4;
   const g = el('div', { class: 'opts', style: null }, opts.map((o, i) => el('button', { type: 'button', 'data-k': String(i + 1), class: marks ? (marks[o] || null) : null, text: o, disabled: marks ? '' : null, on: { click: () => onPick(o) } })));
@@ -177,7 +180,7 @@ function debrief(siteId, x, wrong) {
   const B = window.Debrief, d = B && B.get(siteId);
   if (!d) return null;
   const EV = window.DrillEvidenceLinks || {}, local = /(^|\.)oncos\.vercel\.app$/.test(location.hostname);
-  const evHref = id => (local ? '' : 'https://oncos.vercel.app') + '/evidence/#' + id;
+  const evHref = id => (HOST || local ? '' : 'https://oncos.vercel.app') + '/evidence/#' + id;
   const trials = tr => el('span', { class: 'tr' }, tr.split(', ').flatMap((name, i) => { const id = EV[name.replace(/ ※$/, '')]; const node = id ? el('a', { href: evHref(id), text: name, 'data-evidence': id }) : document.createTextNode(name); return i ? [', ', node] : [node]; }));
   const cell = (k, v, cls, tr) => [el('div', { class: cls || null, text: k }), el('div', {}, [v, tr ? trials(tr) : null])];
   const top = [], rest = [];
@@ -271,6 +274,26 @@ function showTable() {
   jumpSys = null;
   if (target) target.scrollIntoView({ block: 'start' }); else window.scrollTo(0, 0);
 }
+
+// ---------- state (the host keeps the open case across module switches) ----------
+window.DrillState = {
+  get() {
+    let cur = null;
+    if (current && current.kind === 'case') cur = { kind: 'case', key: current.key, c: current.c, sys: current.sys.id, picks: current.picks, step: current.step, done: current.done };
+    else if (current && current.kind === 'vs') cur = { kind: 'vs', key: current.key, v: current.v, pick: current.pick, done: current.done };
+    return JSON.parse(JSON.stringify({ ui, cur }));
+  },
+  set(v) {
+    if (!v || typeof v !== 'object' || !v.ui || typeof v.ui !== 'object') return false;
+    const c = v.cur;
+    if (c && !(c.kind === 'case' && D.SYS[c.sys] && c.c && c.picks) && !(c.kind === 'vs' && c.v && SITEBY[c.v.site])) return false;
+    ui = Object.assign({ mode: 'case', section: 'All', site: '', sel: {} }, v.ui);
+    if (HOST) ui.mode = 'case';
+    current = !c ? null : c.kind === 'case' ? { kind: 'case', key: c.key, c: c.c, sys: D.SYS[c.sys], picks: c.picks, step: c.step, done: c.done } : { kind: 'vs', key: c.key, v: c.v, pick: c.pick, done: c.done };
+    saveUi(); shell();
+    return true;
+  }
+};
 
 // ---------- keyboard ----------
 document.addEventListener('keydown', e => {
