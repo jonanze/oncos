@@ -14,7 +14,9 @@ const [VW, VH] = (process.argv[4] || '390x1100').split('x').map(Number), PHONE =
     for (const scheme of ['light', 'dark']) {
       const ctx = await b.newContext({ viewport: { width: VW, height: VH }, colorScheme: scheme, serviceWorkers: 'block' });
       const p = await ctx.newPage();
-      p.on('pageerror', e => errs.push(e.message));
+      // WebKit reports a search index fetch cut off by the test's own page.goto as a
+      // page error; search_ui.js catches it, so it is not counted.
+      p.on('pageerror', e => { if (!/\/search\/\w+\.json due to access control checks/.test(e.message)) errs.push(e.message); });
       await p.goto(BASE + '/drill/'); await p.waitForSelector('#drill-app .opts button');
       // Staging's two tabs, the Practise cell and the sidebar scope
       if (scheme === 'light') {
@@ -44,6 +46,8 @@ const [VW, VH] = (process.argv[4] || '390x1100').split('x').map(Number), PHONE =
         let g = 0;
         while (!(await p.$('#next')) && g++ < 6) { const bs = await p.$$('#drill-app .opts button:not([disabled])'); await bs[bs.length > 2 ? 1 : 0].click(); }
         n++;
+        const arrows = await p.$eval('#drill-app', e => [...e.querySelectorAll('.verdict, .debrief')].map(x => x.innerText).join('\n').match(/[→←]/g));
+        if (arrows) errs.push('arrow in result or debrief: ' + await p.$eval('#drill-app .ed', e => e.textContent));
         if (await p.$('#drill-app .debrief')) withDb++; else errs.push('no debrief: ' + await p.$eval('#drill-app .ed', e => e.textContent));
         if (i === 3) await p.screenshot({ path: `${OUT}/drill-${name}-${scheme}.png`, fullPage: true });
         await p.click('#next');
