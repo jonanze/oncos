@@ -90,7 +90,6 @@ course: Advanced prostate cancer
       ※ Docetaxel with ADT alone: OS benefit in high volume, none in low volume
         + CHAARTED | OS HR
         + STAMPEDE docetaxel [t-stampede--advanced-prostate] | docetaxel OS HR 0.78
-        - GETUG-AFU 15 | OS HR
 
   Metastatic, castration-resistant
     next: ① After ADT alone
@@ -110,8 +109,6 @@ course: Advanced prostate cancer
     ※ Olaparib or niraparib with abiraterone: PFS longer, OS not significantly longer
       ~ PROpel | OS HR
       ~ MAGNITUDE | BRCA rPFS HR 0.53
-    ※ Sipuleucel-T: OS longer with no effect on time to progression
-      + IMPACT [t-impact--advanced-prostate] | OS HR
     ※ Most men now start an ARSI while castration-sensitive, so few reach this step
     After docetaxel: ②
     After an ARSI: ③
@@ -185,3 +182,7 @@ panel: Bone metastases, no visceral disease > Metastatic, castration-resistant
     - ERA 223 {pmid 30738780} | fractures 29% vs 11%
   ※ Added to enzalutamide with a bone-protecting agent: rPFS and OS longer at the interim analysis; fractures 24% vs 13%
     + PEACE-3 {pmid 40450503} | OS HR 0.69
+
+off:
+  GETUG-AFU 15 | ADT + docetaxel without an ARSI; replaced by the triplets (PEACE-1, ARASENS)
+  IMPACT [t-impact--advanced-prostate] | Sipuleucel-T; not available outside the US
