@@ -1,7 +1,8 @@
 /* Release check for the board maps: node maps/check.cjs
    - every map trial points at an Evidence row, or carries a PMID and is listed for intake
    - every key figure's numbers appear in that trial's Evidence row
-   Writes maps/<id>/intake.txt. Exits 1 on any failure. */
+   - lists the sheet's Evidence rows that are not on the map, newest first, for review
+   Writes maps/<id>/intake.txt and maps/<id>/unplaced.txt. Exits 1 on any failure. */
 'use strict';
 const fs = require('fs'), path = require('path');
 const O = (function(){ const m = {exports:{}}; new Function('module', fs.readFileSync(path.join(__dirname, 'outline.js'), 'utf8'))(m); return m.exports; })();
@@ -36,7 +37,14 @@ for (const dir of fs.readdirSync(__dirname)) {
   }
   fs.writeFileSync(path.join(__dirname, dir, 'intake.txt'),
     '# Trials on the ' + (m.map || dir) + ' map with no Evidence row yet (name, PMID, where on the map)\n' + intake.join('\n') + '\n');
-  console.log(dir + ': ' + O.trials(m).length + ' trials, ' + intake.length + ' for intake');
+  const on = new Set(O.trials(m).map(t => t.line.anchor));
+  const off = rows.filter(r => r.sheet === m.map && !on.has(r.anchor))
+    .sort((a, b) => String(b.pubdate || b.yearnum).localeCompare(String(a.pubdate || a.yearnum)));
+  fs.writeFileSync(path.join(__dirname, dir, 'unplaced.txt'),
+    '# ' + (m.map || dir) + ' Evidence rows not on the map, newest first (year, study, section, anchor)\n' +
+    off.map(r => [r.yearnum, r.study, r.subcat, r.anchor].join('\t')).join('\n') + '\n');
+  if (!rows.some(r => r.sheet === m.map)) { bad++; console.log(dir + ': no Evidence sheet named "' + m.map + '"'); }
+  console.log(dir + ': ' + O.trials(m).length + ' trials, ' + intake.length + ' for intake, ' + off.length + ' sheet rows not on the map');
 }
 if (bad) { console.log(bad + ' problem(s)'); process.exit(1); }
 console.log('maps check passed');

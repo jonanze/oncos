@@ -81,11 +81,14 @@ tree: Advanced NSCLC, first line
   No driver
     PS 0–1
       PD-L1 ≥50%
-        = PD-1 or PD-L1 antibody alone
+        = PD-1 or PD-L1 antibody alone, or pembrolizumab + platinum doublet
         + KEYNOTE-024 | 5-year OS 31.9% vs 16.3%
         + EMPOWER-Lung 1 {pmid 33581821} | OS HR 0.57
         + IMpower110 | OS 20.2 vs 13.1 months
-        ※ Chemotherapy + pembrolizumab is also an option: KEYNOTE-189 and KEYNOTE-407 took all PD-L1 levels
+        ※ Adding chemotherapy to pembrolizumab: longer PFS, OS not significantly longer in the one direct trial
+          ~ PERSEE | PFS HR 0.56
+          + Di Federico [t-di-federico-et-al] | indirect OS HR 0.74
+          ° Grade 3 or higher treatment-related events 54% vs 19% (PERSEE)
         ※ Ivonescimab beat pembrolizumab on PFS; China only, OS awaited
           ~ HARMONi-2 | PFS HR 0.51
       PD-L1 1–49%
