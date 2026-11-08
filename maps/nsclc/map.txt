@@ -25,8 +25,6 @@ band: Before first line
   Tissue NGS, plasma if tissue is short: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK. PD-L1 TPS (22C3)
   ※ Checkpoint inhibitors do little in EGFR, ALK, RET and HER2 driven disease; KRAS and BRAF respond as often as unselected disease
     * IMMUNOTARGET {pmid 31125062} | response 12%, 0%, 6%, 7%
-  ※ EGFR mutation, not clinical selection, predicts benefit from an EGFR TKI
-    ~ IPASS | PFS HR 0.48 mutated, 2.85 not mutated
 
 band: Local treatment and bone
   ① 3 or fewer metastases, no progression after first line: radiotherapy or surgery to every site
@@ -207,6 +205,7 @@ panel: Later lines > Driver found
   ⑧ A single progressing site: local therapy with the TKI continued
 
 off:
+  IPASS | Superseded: EGFR testing is routine, so clinical selection for a TKI is historical
   AENEAS2 | Repeats the FLAURA2 question with aumolertinib
   LUX-Lung 3 | Afatinib vs chemotherapy, superseded by FLAURA
   KCSG-LU15-09 | Osimertinib in uncommon EGFR; UNICORN covers it
