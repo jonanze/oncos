@@ -19,13 +19,14 @@
     if (m) return {kind:'trial', level:level, cls:CLS[m[1]], name:m[2], anchor:m[3] || (m[4] ? null : slug(m[2])),
                    pmid:m[4] || null, fig:m[5], at:at};
     var c = text.charAt(0);
+    if (c === '|') return {kind:'grid', level:level, cells:text.replace(/^\|\s*|\s*\|$/g, '').split(/\s*\|\s*/), at:at};
     if (c === '=') return {kind:'tx', level:level, text:text.replace(/^=\s*/, ''), at:at};
     if (c === '※') return {kind:'cv', level:level, text:text.replace(/^※\s*/, ''), at:at};
     if (c === '°') return {kind:'se', level:level, text:text.replace(/^°\s*/, ''), at:at};
     if (NUM.test(text)) return {kind:'num', level:level, n:text.charAt(0), text:text.slice(1).trim(), at:at};
     return {kind:'text', level:level, text:text, at:at};
   }
-  function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°]/.test(text) || NUM.test(text) || TRIAL.test(text); }
+  function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°|]/.test(text) || NUM.test(text) || TRIAL.test(text); }
 
   function parse(src){
     var out = {map:null, bands:[], tree:null, panels:[], off:[], errors:[]};

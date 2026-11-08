@@ -18,7 +18,8 @@
 (function(){
   var MAPS = {
     'Advanced NSCLC': 'nsclc',
-    'Advanced Prostate': 'prostate'
+    'Advanced Prostate': 'prostate',
+    'Endometrial Cancer': 'endometrial'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
