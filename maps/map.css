@@ -56,6 +56,10 @@
 .om-world .panel .ln.num,.om-world .band .ln.num{margin-top:6px}
 .om-world .trial{color:var(--b-ink);text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:2px;white-space:nowrap;cursor:pointer}
 .om-world a.trial{cursor:pointer}
+.om-world table.grid{width:100%;table-layout:fixed;border-collapse:collapse;margin:6px 0 10px;font-size:13px;line-height:1.4}
+.om-world table.grid th,.om-world table.grid td{border:1px solid var(--b-line);padding:5px 8px;text-align:left;vertical-align:top}
+.om-world table.grid tr:first-child th{background:var(--b-band);font-weight:var(--w-bold)}
+.om-world table.grid th{font-weight:var(--w-bold)}
 
 /* trial card: same ruled label | value cells as an open Evidence row */
 #om-card{position:fixed;z-index:60;display:none;flex-direction:column;background:var(--b-paper);color:var(--b-ink);border:1px solid var(--b-line)}

@@ -1,0 +1,104 @@
+# oncOS board map: Endometrial Cancer
+#
+# How to read and edit this file
+#   Indent 2 spaces per level.
+#   tree:   a decision tree; each plain line is a node, its children are indented under it
+#   course: a disease course instead of a tree; each line at 2 spaces is a step, everything indented
+#           under it is its content, and "next: Step | label" draws a line to a later step
+#   band:   a block above the tree for the whole sheet
+#   panel:  a block beside the tree, joined by a brace to the node named after ">"
+#   = text          the treatment for a branch
+#   + Trial | fig   a trial line; the mark records the result and is not drawn:
+#                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
+#   fig with no digits is read from the Evidence row at each publish:
+#     OS HR, PFS HR   the HR on the row's OS or PFS line
+#     OS median       the medians on that line, "a vs b months"
+#     response        the first percentage on the ORR line
+#   fig with digits is shown as written; the map check fails if the row no longer has those numbers
+#   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
+#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
+#   ※ text          caveat             ° text          side effects, grey
+#   ① text          numbered item; plain lines in a band or panel are text
+#   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
+#   off:            sheet rows left off on purpose: Trial [t-...] | reason
+#
+# Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
+#   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
+#   Square lines only; joins line up; no result colours (the marks above are kept as data, not drawn)
+# * Every sheet row is on the map or under off: with a reason
+# * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
+#   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
+#   Superseded trials go under off: unless an option still in use rests on them
+# * Plain clinical wording: no arrows, no metaphors such as "backbone"
+
+map: Endometrial Cancer
+
+course:
+  Stage III–IV, inoperable or with residual disease
+    next: Advanced or recurrent, first line
+  Newly diagnosed, after hysterectomy and staging
+    Classify in this order: POLE, then MMR, then p53; tumours with none of these are NSMP, split by ER and grade
+    | Risk group | POLE mutated | MMR deficient | NSMP, ER positive, grade 1–2 | p53 abnormal; NSMP, ER negative or grade 3 | Adjuvant treatment |
+    | Low | Stage I–II | Stage I–II without the features below | Stage I–II without the features below | - | None |
+    | Intermediate | - | Myometrial invasion 50% or more, or grade 3 with any invasion | Myometrial invasion 50% or more, or cervical stromal invasion | - | Vaginal brachytherapy |
+    | High-intermediate | - | Substantial LVSI, or cervical stromal invasion | Substantial LVSI | - | Pelvic EBRT, with or without vaginal brachytherapy |
+    | High | - | Stage III–IVA | Stage III–IVA | Any myometrial invasion, stage I–IVA | Chemoradiotherapy |
+    ※ Risk groups of ESGO-ESTRO-ESP 2025; POLE mutated stage III–IVA and p53 abnormal without myometrial invasion have no settled group
+    ※ Intermediate: no adjuvant treatment is an option under 60 years or in grade 1–2
+    ※ High-intermediate: vaginal brachytherapy alone if node-negative; no adjuvant treatment if node-negative, without LVSI and grade 1–2
+    ※ High: vaginal brachytherapy with chemotherapy is an option; MMR deficient stage III–IVA: chemotherapy with a PD-1 antibody, with or without EBRT
+    ① Intermediate risk: vaginal brachytherapy controls the vagina as well as pelvic EBRT, with fewer bowel effects
+      ~ PORTEC-1 | locoregional recurrence 4% vs 14%
+      ~ GOG 99 | recurrence 3% vs 12%
+      ※ Neither trial improved overall survival
+      ~ PORTEC-2 | vaginal recurrence 1.8% vs 1.6%
+    ② High-intermediate risk: pelvic EBRT; vaginal brachytherapy with chemotherapy was not better and left more nodal relapses
+      - GOG 249 | RFS HR 0.92
+    ③ High risk: chemoradiotherapy improved survival over radiotherapy alone, most in stage III and serous carcinoma
+      + PORTEC-3 | OS HR 0.70
+      + PORTEC-3 molecular | p53 abnormal OS HR 0.55
+      ※ Chemotherapy added nothing in MMR deficient tumours
+      - GOG 258 | RFS HR 0.90
+      ※ Chemotherapy alone gave the same relapse-free survival as chemoradiotherapy, with more pelvic and nodal relapses
+      - KEYNOTE-B21 | DFS HR 1.02; MMR deficient HR 0.31
+      ※ Pembrolizumab with adjuvant chemotherapy helped only MMR deficient tumours
+    next: Advanced or recurrent, first line | recurrence
+  Advanced or recurrent, first line
+    Test MMR in every tumour and HER2 in serous carcinoma
+    ① MMR deficient: carboplatin-paclitaxel with dostarlimab, pembrolizumab, durvalumab or atezolizumab; pembrolizumab alone is an option
+      + RUBY | MMR deficient OS HR 0.30
+      ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR deficient PFS HR 0.30
+      ~ DUO-E [t-duo-e] | MMR deficient PFS HR 0.42
+      ~ AtTEnd | MMR deficient PFS HR 0.36
+      ~ KEYNOTE-C93 [t-keynote-c93] | PFS HR
+      ※ KEYNOTE-C93: pembrolizumab alone against carboplatin-paclitaxel; OS not yet different
+    ② MMR proficient: carboplatin-paclitaxel with pembrolizumab or dostarlimab, or with durvalumab followed by durvalumab and olaparib
+      + RUBY | all patients OS HR 0.64, interim
+      ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR proficient PFS HR 0.54
+      ~ DUO-E [t-duo-e] | MMR proficient, with olaparib, PFS HR 0.57
+      ~ RUBY Part 2 | PFS HR 0.60; OS HR 1.2
+      ※ Niraparib added to dostarlimab maintenance improved PFS but not OS
+    ③ HER2-positive serous carcinoma: carboplatin-paclitaxel with trastuzumab
+      + Fader et al. | OS HR 0.58
+    ※ Carboplatin-paclitaxel replaced doxorubicin, cisplatin and paclitaxel
+      ~ GOG 209 | non-inferior, OS HR 1.002
+    next: Progression after platinum | progression
+  Progression after platinum
+    ① No PD-1 or PD-L1 antibody before: lenvatinib with pembrolizumab
+      + KEYNOTE-775 [t-keynote-775-study-309] | OS HR
+    ② MMR deficient, no PD-1 or PD-L1 antibody before: pembrolizumab or dostarlimab alone
+      * KEYNOTE-158 [t-keynote-158--endometrial-cancer] | response
+      * GARNET | response
+    ③ After a PD-1 or PD-L1 antibody: sacituzumab tirumotecan
+      + TroFuse-005 | OS HR 0.68
+      ※ No OS gain in MMR deficient tumours; carcinosarcoma did worse
+    ④ HER2 IHC 3+: trastuzumab deruxtecan
+      * DESTINY-PanTumor02 [t-destiny-pantumor02] | IHC 3+ response 84.6%
+
+off:
+  TCGA (Cancer Genome Atlas) [t-tcga] | Genomic study, not a trial; its four classes are the columns of the risk grid
+  GOG 122 | Whole-abdominal radiotherapy comparator no longer used; PORTEC-3 and GOG 258 set current options
+  GOG 177 | Doxorubicin, cisplatin and paclitaxel replaced by carboplatin-paclitaxel (GOG 209)
+  GOG-86P [t-gog-86p] | Bevacizumab, temsirolimus and ixabepilone not used; historical control only
+  MITO END-2 | Bevacizumab did not improve PFS and is not used
+  SIENDO / ENGOT-EN5 [t-siendo-engot-en5] | Selinexor maintenance not standard; TP53 wild-type benefit under confirmation

@@ -10,10 +10,11 @@
    - a step sits level with the steps that lead to it, pushed down to clear the step above
    - next: lines are drawn as ruled elbows, their label above the line
    - a panel sits below its step's column
+   - a step, band or panel holding a grid ("| a | b |" lines) widens to fit the grid's columns
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   var GX = 56, GY = 22, LEAF_W = 500, PANEL_W = 460, BAND_W = 560, M = 28;
-  var STEP_W = 440, CGX = 170, CGY = 36, STUB = 28;
+  var STEP_W = 440, CGX = 170, CGY = 36, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -34,7 +35,27 @@
     if (l.kind === 'num') return '<div class="ln num"' + pad + '><span class="n">' + esc(l.n) + '</span>' + keep(l.text) + '</div>';
     return '<div class="ln text"' + pad + '>' + keep(l.text) + '</div>';
   }
-  function linesHtml(ls){ return ls.map(lineHtml).join(''); }
+  // "| a | b |" lines in a row make one ruled table; the first row is the header, "-" leaves a cell empty
+  function gridHtml(rows){
+    return '<table class="grid">' + rows.map(function(r, i){
+      return '<tr>' + r.cells.map(function(c, j){ var tag = j && i ? 'td' : 'th'; return '<' + tag + '>' + (c === '-' ? '' : keep(c)) + '</' + tag + '>'; }).join('') + '</tr>';
+    }).join('') + '</table>';
+  }
+  function linesHtml(ls){
+    var out = '', run = [];
+    ls.forEach(function(l){
+      if (l.kind === 'grid') { run.push(l); return; }
+      if (run.length) { out += gridHtml(run); run = []; }
+      out += lineHtml(l);
+    });
+    return out + (run.length ? gridHtml(run) : '');
+  }
+  // a block holding a grid is as wide as the grid's columns need
+  function widthFor(ls, w){
+    var n = 0;
+    ls.forEach(function(l){ if (l.kind === 'grid') n = Math.max(n, l.cells.length); });
+    return n ? Math.max(w, n * GRID_COL) : w;
+  }
 
   function bracePath(x, y1, y2, d){
     var m = (y1 + y2) / 2, k = Math.min(6, (y2 - y1) / 4);
@@ -60,7 +81,8 @@
     if (course) {
       nodes = steps;
       steps.forEach(function(n){
-        n.el = add('step', '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), STEP_W);
+        n.w = widthFor(n.lines, STEP_W);
+        n.el = add('step', '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), n.w);
         n.hd = n.el.firstChild;
       });
       steps.forEach(function(n){ n.next.forEach(function(e){ if (e.label) e.el = add('elab', keep(e.label)); }); });
@@ -68,8 +90,8 @@
       n.el = add('box lbl' + (n.depth ? '' : ' root'), keep(n.label));
       if (n.lines.length) { n.leaf = add('leaf', linesHtml(n.lines), LEAF_W); leaves.push(n); }
     });
-    var bands = model.bands.map(function(b){ return add('band', '<h2>' + esc(b.title) + '</h2>' + linesHtml(b.lines), BAND_W); });
-    var panels = model.panels.map(function(p){ p.el = add('panel', '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), PANEL_W); return p; });
+    var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + linesHtml(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
+    var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel', '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
 
     var W = 0, H = 0;
     function layout(){ if (course) layoutCourse(); else layoutTree(); finish(); }
@@ -77,7 +99,7 @@
 
     function bandsRow(){
       var bx = M, bandH = 0;
-      bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = M + 'px'; bx += BAND_W + 40; bandH = Math.max(bandH, el.offsetHeight); });
+      bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = M + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
       return {x:bx, top:M + (bands.length ? bandH + 48 : 0)};
     }
 
@@ -99,8 +121,10 @@
       var b = bandsRow(), cols = [];
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); });
       var panelTop = [];
+      var colX = [M];
+      cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + CGX; });
       cols.forEach(function(list, c){
-        var x = M + c * (STEP_W + CGX), cursor = b.top;
+        var x = colX[c], cursor = b.top;
         list.forEach(function(n){
           // level with the middle of the steps that lead here, so its main line runs straight
           var ys = n.preds.map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
@@ -120,7 +144,7 @@
         n.next.forEach(function(e){
           // one source to several steps: the line divides next to the source, the label sits on the branch;
           // several sources to one step: the lines join next to the step, the label sits on the source's own line
-          var t = e.node, x1 = n.x + STEP_W, x2 = t.x, split = n.next.length > 1 || t.preds.length < 2;
+          var t = e.node, x1 = n.x + n.w, x2 = t.x, split = n.next.length > 1 || t.preds.length < 2;
           var xm = split ? x1 + STUB : x2 - STUB;
           svg += '<path d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
           if (e.el) {
@@ -129,9 +153,9 @@
           }
         });
       });
-      var right = M + cols.length * (STEP_W + CGX) - CGX, loose = b.top;
+      var right = colX[cols.length] - CGX, loose = b.top;
       panels.forEach(function(p){
-        p.el.style.width = STEP_W + 'px';
+        p.el.style.width = (p.w > PANEL_W ? p.w : STEP_W) + 'px';
         var n = p.join && by[p.join];
         if (n) { p.el.style.left = n.x + 'px'; p.el.style.top = panelTop[n.col] + 'px'; panelTop[n.col] += p.el.offsetHeight + CGY; }
         else { p.el.style.left = (right + CGX) + 'px'; p.el.style.top = loose + 'px'; loose += p.el.offsetHeight + CGY; }

@@ -2,7 +2,9 @@
 #
 # How to read and edit this file
 #   Indent 2 spaces per level.
-#   tree:   the decision tree; each plain line is a node, its children are indented under it
+#   tree:   a decision tree; each plain line is a node, its children are indented under it
+#   course: a disease course instead of a tree; each line at 2 spaces is a step, everything indented
+#           under it is its content, and "next: Step | label" draws a line to a later step
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
 #   = text          the treatment for a branch
@@ -17,7 +19,17 @@
 #   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
 #   ※ text          caveat             ° text          side effects, grey
 #   ① text          numbered item; plain lines in a band or panel are text
+#   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
 #   off:            sheet rows left off on purpose: Trial [t-...] | reason
+#
+# Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
+#   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
+#   Square lines only; joins line up; no result colours (the marks above are kept as data, not drawn)
+# * Every sheet row is on the map or under off: with a reason
+# * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
+#   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
+#   Superseded trials go under off: unless an option still in use rests on them
+# * Plain clinical wording: no arrows, no metaphors such as "backbone"
 
 map: Advanced NSCLC
 
@@ -61,7 +73,6 @@ tree: Advanced NSCLC, first line
         ~ LUX-Lung pooled [t-lux-lung-2-lux-lung-3-and-lux-lung-6] | response
         ~ UNICORN | response
         ※ Grouping by protein structure predicts TKI benefit better than grouping by exon
-          * Robichaux 2021 [t-robichaux-et-al] | TTF HR 0.23, second vs third generation
     Fusion
       ALK
         = Alectinib, brigatinib or lorlatinib
@@ -114,7 +125,6 @@ tree: Advanced NSCLC, first line
           + Di Federico [t-di-federico-et-al] | indirect OS HR 0.74
           ° Grade 3 or higher treatment-related events 54% vs 19% (PERSEE)
         ※ TPS 90–100% did better than 50–89% on pembrolizumab alone, retrospective
-          * Aguilar 2019 [t-aguilar-et-al] | response 60.0% vs 32.7%
         ※ Newer agents beat pembrolizumab alone on PFS from TPS 1%; China only, OS awaited
           ~ HARMONi-2 | PFS HR
           ~ OptiTROP-Lung05 | PFS HR
@@ -195,13 +205,15 @@ panel: Later lines > Driver found
     ~ ATTLAS | PFS HR
     ※ IMpower150: atezolizumab + bevacizumab + chemotherapy, EGFR or ALK subgroup, exploratory; ATTLAS: same regimen, OS no different
   ⑦ Transformation to small cell: platinum-etoposide
-    * Marcoux 2018 [t-marcoux-et-al] | response
   ⑧ A single progressing site: local therapy with the TKI continued
 
 off:
   PROFILE 1014 | Crizotinib vs chemotherapy for ALK; replaced by ALEX and CROWN
   BR.21 | Erlotinib in unselected second-line disease; no longer used
   PARAMOUNT | Pemetrexed maintenance after chemotherapy alone; now part of KEYNOTE-189
+  Robichaux 2021 [t-robichaux-et-al] | Retrospective cohort; maps cite trials only, the statement stays
+  Aguilar 2019 [t-aguilar-et-al] | Retrospective cohort; maps cite trials only, the statement stays
+  Marcoux 2018 [t-marcoux-et-al] | Retrospective cohort; maps cite trials only, the statement stays
   IPASS | Superseded: EGFR testing is routine, so clinical selection for a TKI is historical
   AENEAS2 | Repeats the FLAURA2 question with aumolertinib
   LUX-Lung 3 | Afatinib vs chemotherapy, superseded by FLAURA
