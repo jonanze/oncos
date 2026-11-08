@@ -57,7 +57,7 @@ var T = {
 };
 (window.oncosMapData = window.oncosMapData || {}).nsclc = {
   map: {
-    w: 1600, h: 1620,
+    w: 1600, h: 1675,
     links: [
       {from:'k-nodrv', to:'k-p50'},
       {from:'k-nodrv', to:'k-p1'},

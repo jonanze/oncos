@@ -36,11 +36,6 @@
 .om-sheet .brace{position:absolute;z-index:2}
 .om-sheet .brace svg{display:block;overflow:visible}
 .om-sheet .brace path{stroke:var(--om-wire);stroke-width:1.3;fill:none}
-.om-sheet .tl svg{display:block}
-.om-sheet .tl text{font-family:inherit;fill:var(--b-ink);font-size:12px}
-.om-sheet .tl .ax{stroke:var(--om-wire);stroke-width:1.2}
-.om-sheet .tl .psa{fill:none;stroke:var(--b-ink);stroke-width:1.5}
-.om-sheet .tl .tick,.om-sheet .tl .span{stroke:var(--b-ink);stroke-width:1.2}
 .om-sheet .nw{white-space:nowrap}
 .om-sheet .trial{white-space:nowrap;cursor:pointer;text-decoration:underline;text-decoration-color:var(--b-line);text-underline-offset:2px}
 .om-sheet .trial:focus-visible{outline:1px solid var(--b-ink);outline-offset:1px}
