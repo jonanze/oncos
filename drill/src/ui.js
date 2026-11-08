@@ -176,7 +176,10 @@ const AX = { T: 'T', N: 'N', M: 'M', S: 'Stage' };
 function debrief(siteId, x, wrong) {
   const B = window.Debrief, d = B && B.get(siteId);
   if (!d) return null;
-  const cell = (k, v, cls, tr) => [el('div', { class: cls || null, text: k }), el('div', {}, [v, tr ? el('span', { class: 'tr', text: tr }) : null])];
+  const EV = window.DrillEvidenceLinks || {}, local = /(^|\.)oncos\.vercel\.app$/.test(location.hostname);
+  const evHref = id => (local ? '' : 'https://oncos.vercel.app') + '/evidence/#' + id;
+  const trials = tr => el('span', { class: 'tr' }, tr.split(', ').flatMap((name, i) => { const id = EV[name.replace(/ ※$/, '')]; const node = id ? el('a', { href: evHref(id), text: name, 'data-evidence': id }) : document.createTextNode(name); return i ? [', ', node] : [node]; }));
+  const cell = (k, v, cls, tr) => [el('div', { class: cls || null, text: k }), el('div', {}, [v, tr ? trials(tr) : null])];
   const top = [], rest = [];
   top.push(...cell('Logic', d.logic));
   ['T', 'N', 'M', 'S'].forEach(k => { if (!d[k]) return; (wrong.includes(k) ? top : rest).push(...cell((wrong.includes(k) ? '✕ ' : '') + AX[k], d[k], wrong.includes(k) ? 'x' : null)); });

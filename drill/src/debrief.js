@@ -58,7 +58,7 @@ const SITES = {
     S: 'I T1 N0 · II T1 N1 or T2 N0 · IIIA T3, or T1–2 with more nodal disease · IIIB T4 · IV M1',
     tx: [
       [x => !M1(x), 'Systemic therapy. Extended pleurectomy-decortication worsened survival in MARS 2', 'MARS 2, CheckMate 743'],
-      [M1, 'Nivolumab-ipilimumab (greatest gain in non-epithelioid) or chemotherapy with pembrolizumab', 'CheckMate 743, KEYNOTE-483'],
+      [M1, 'Nivolumab-ipilimumab (greatest gain in non-epithelioid) or chemotherapy with pembrolizumab', 'CheckMate 743, IND.227 / KEYNOTE-483'],
     ],
   },
   thymoma: {
@@ -133,7 +133,7 @@ const SITES = {
     S: '0 single ≤2 cm, preserved liver function, ECOG 0 · A single of any size, or 2–3 nodules each ≤3 cm, ECOG 0 · B multinodular beyond A, ECOG 0, no vascular invasion or spread · C portal vein invasion, extrahepatic spread, or cancer-related ECOG 1–2 · D end-stage liver function or ECOG 3–4',
     tx: [
       [['0'], 'Ablation. Resection if ablation is not suitable', 'BCLC 2022 (Reig, J Hepatol 2022)'],
-      [['A'], 'Single nodule: resection if no clinically significant portal hypertension and an adequate remnant. 2–3 nodules ≤3 cm: transplant if eligible, otherwise ablation. No adjuvant therapy has shown durable benefit', 'BCLC 2022, IMbrave050 ※'],
+      [['A'], 'Single nodule: resection if no clinically significant portal hypertension and an adequate remnant. 2–3 nodules ≤3 cm: transplant if eligible, otherwise ablation. No adjuvant therapy has shown durable benefit; the early RFS gain with atezolizumab-bevacizumab was lost on follow-up', 'BCLC 2022, IMbrave050'],
       [['B'], 'Within extended transplant criteria: transplant. Well-defined nodules with preserved portal flow: TACE. Diffuse, infiltrative or extensive bilobar disease: systemic therapy', 'BCLC 2022'],
       [['C'], 'Atezolizumab-bevacizumab or durvalumab-tremelimumab. Sorafenib, lenvatinib or durvalumab if these are unsuitable', 'IMbrave150, HIMALAYA'],
       [['D'], 'Best supportive care. Child-Pugh C within Milan criteria without other contraindications: transplant assessment', 'BCLC 2022'],
@@ -336,7 +336,7 @@ const SITES = {
     S: '0a Ta · 0is Tis · I T1 · II T2 · IIIA T3–4a N0, or N1 · IIIB N2–3 · IVA T4b or M1a · IVB M1b',
     tx: [
       [['0a', '0is', 'I'], 'TURBT, then intravesical BCG for high grade, carcinoma in situ or T1. BCG-unresponsive: cystectomy, or bladder-sparing options', ''],
-      [['II', 'IIIA', 'IIIB'], 'Neoadjuvant cisplatin-based chemotherapy, with perioperative durvalumab, then cystectomy; or trimodality therapy. Cisplatin-ineligible: perioperative enfortumab vedotin with pembrolizumab ※. Adjuvant nivolumab for ypT2 or higher, or node-positive', 'SWOG 8710, VESPER, NIAGARA, KEYNOTE-905 ※, CheckMate 274'],
+      [['II', 'IIIA', 'IIIB'], 'Neoadjuvant cisplatin-based chemotherapy, with perioperative durvalumab, then cystectomy; or trimodality therapy. Cisplatin-ineligible: perioperative enfortumab vedotin with pembrolizumab. Adjuvant nivolumab for ypT2 or higher, or node-positive', 'SWOG 8710, VESPER, NIAGARA, KEYNOTE-905, CheckMate 274'],
       [['IVA', 'IVB'], 'Enfortumab vedotin with pembrolizumab', 'EV-302'],
     ],
   },
@@ -428,7 +428,7 @@ const SITES = {
     M: 'M1a skin, soft tissue or distant node · M1b lung · M1c other sites',
     S: 'I T1 N0 · IIA T2–3 N0 · IIB T4 N0 · III node-positive · IV M1',
     tx: [
-      [x => !M1(x), 'Wide excision with sentinel node biopsy. RT to the bed or nodal basin by risk. Adjuvant immunotherapy is unproven ※', 'ADMEC-O ※, STAMP ※'],
+      [x => !M1(x), 'Wide excision with sentinel node biopsy. RT to the bed or nodal basin by risk. Adjuvant nivolumab improved disease-free survival in a phase 2 trial only; phase 3 data are awaited ※', 'ADMEC-O, STAMP ※'],
       [M1, 'Avelumab or pembrolizumab', 'JAVELIN Merkel 200, KEYNOTE-017'],
     ],
   },
@@ -439,7 +439,7 @@ const SITES = {
     S: 'I T1 N0 · II T2 N0 · III T3 N0, or T1–3 N1 · IV T4, N2–3 or M1',
     tx: [
       [['0', 'I', 'II'], 'Excision or Mohs surgery', ''],
-      [x => !M1(x), 'Surgery with adjuvant RT for high-risk disease, then cemiplimab ※. Neoadjuvant cemiplimab is investigational', 'C-POST ※'],
+      [x => !M1(x), 'Surgery with adjuvant RT for high-risk disease, then adjuvant cemiplimab. Neoadjuvant cemiplimab is investigational', 'C-POST'],
       [M1, 'Cemiplimab', ''],
     ],
   },
