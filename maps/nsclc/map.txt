@@ -222,4 +222,4 @@ off:
   RATIONALE-304 | Tislelizumab + chemotherapy, PFS only; same class as KEYNOTE-189
   RATIONALE-307 | Same, squamous
   EAST-LC | S-1 vs docetaxel, Japan only
-  TROPION-Lung01 | Datopotamab deruxtecan after first line; not a standard option
+  TROPION-Lung01 | Unselected non-squamous second line: US and EU applications withdrawn; the US approval is for EGFR-mutated disease, shown under TROPION-Lung05
