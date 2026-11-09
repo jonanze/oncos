@@ -29,6 +29,7 @@
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
 #   Superseded trials go under off: unless an option still in use rests on them
+#   Standard options only; trials of options not in standard use go under off: (Jonan 2026-11-09, Lung-MAP)
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 # * Labels on connecting lines start with a capital, like every other label
 
@@ -175,9 +176,6 @@ panel: Second line > No driver
   ③ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C branch
   ④ Docetaxel beat supportive care
     + Shepherd 2000 [t-shepherd-et-al] | OS 7.5 vs 4.6 months
-  ⑤ Not standard
-    ~ TROPION-Lung01 | PFS HR
-    + Lung-MAP S1800A {pmid 35658002} | OS HR 0.69
 
 panel: Later lines > Driver found
   ① Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma
@@ -224,3 +222,4 @@ off:
   RATIONALE-304 | Tislelizumab + chemotherapy, PFS only; same class as KEYNOTE-189
   RATIONALE-307 | Same, squamous
   EAST-LC | S-1 vs docetaxel, Japan only
+  TROPION-Lung01 | Datopotamab deruxtecan after first line; not a standard option
