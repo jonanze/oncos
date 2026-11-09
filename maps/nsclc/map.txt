@@ -193,11 +193,12 @@ panel: Later lines > Driver found
     ~ SACHI | PFS HR
     ~ SAVANNAH | response
     ~ INSIGHT 2 | tepotinib + osimertinib, response 50.0%
-  ⑤ EGFR after a TKI: antibody–drug conjugates beat platinum doublet
-    + OptiTROP-Lung04 | OS HR
-    ~ HERON-Lung01 | PFS HR
-    ~ PANKU-Lung01 | PFS HR
+  ⑤ EGFR after a TKI and platinum chemotherapy: datopotamab deruxtecan, approved in the US
     ~ TROPION-Lung05 | response
+    ※ After a TKI, before chemotherapy: three antibody–drug conjugates beat platinum + pemetrexed on PFS; China only
+      + OptiTROP-Lung04 | OS HR
+      ~ HERON-Lung01 | PFS HR
+      ~ PANKU-Lung01 | PFS HR
   ⑥ PD-1 antibodies add little after a TKI
     - KEYNOTE-789 {pmid 39173098} | OS HR 0.84
     ~ IMpower150 | PFS HR 0.59
