@@ -1,5 +1,6 @@
 /* Release check for the board maps: node maps/check.cjs
-   - every map trial points at an Evidence row, or carries a PMID (or, before PubMed lists it, a {url}) and is listed for intake
+   - every map trial points at an Evidence row, or carries a PMID (or, before PubMed lists it, a {url}) and is listed for intake;
+     a PMID already filed in any sheet fails, naming the row to link
    - a live figure ("OS HR", "PFS median", "response") resolves from its Evidence row
    - every written key figure's numbers appear in that trial's Evidence row
    - every row of the sheet is on the map or under off: with a reason; the rest are listed in unplaced.txt and fail
@@ -43,7 +44,10 @@ for (const dir of fs.readdirSync(__dirname)) {
   });
   for (const {line, where} of O.trials(m)) {
     const tag = dir + '/map.txt:' + line.at + ' ' + line.name;
-    if (line.pmid && !line.anchor) { intake.push(line.name + '\tPMID ' + line.pmid + '\t' + where); continue; }
+    if (line.pmid && !line.anchor) {
+      const pm = new RegExp('(^|\\D)' + line.pmid + '(\\D|$)'), filed = rows.find(r => pm.test(JSON.stringify(r)));
+      if (filed) { bad++; console.log(tag + ': PMID ' + line.pmid + ' is already filed as ' + filed.study + ' [' + filed.anchor + '] in ' + filed.sheet + '; give that anchor'); continue; }
+      intake.push(line.name + '\tPMID ' + line.pmid + '\t' + where); continue; }
     if (line.url && !line.anchor) { intake.push(line.name + '\tno PMID yet ' + line.url + '\t' + where); continue; }
     const r = byAnchor.get(line.anchor);
     if (!r) { bad++; console.log(tag + ': no Evidence row ' + line.anchor + ' (give [t-...] or {pmid N})'); continue; }

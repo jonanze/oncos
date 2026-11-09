@@ -1,11 +1,2 @@
 # Trials on the Advanced NSCLC map with no Evidence row yet (name, PMID, where on the map)
-Gomez	PMID 27789196	Local treatment and bone
-Brown 2016	PMID 27458945	Local treatment and bone
-Henry 2011	PMID 21343556	Local treatment and bone
-EMPOWER-Lung 1	PMID 33581821	PD-L1 ≥50%
-IPSOS	PMID 37423228	PS 2 or frail
-CheckMate 017	PMID 26028407	Second line
-CheckMate 057	PMID 26412456	Second line
-KEYNOTE-010	PMID 26712084	Second line
-OAK	PMID 27979383	Second line
-KEYNOTE-789	PMID 39173098	Later lines
+
