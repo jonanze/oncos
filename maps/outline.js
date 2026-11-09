@@ -9,6 +9,8 @@
   var NUM = /^[①-⑳]/;              // ① to ⑳
   var TRIAL = /^([+~\-*])\s+(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*(?:\{pmid\s+(\d+)\})?\s*\|\s*(.+)$/;
   var CLS = {'+':'os', '~':'sur', '-':'neg', '*':'none'};
+  // 〔ESGO II, A〕 at the end of a statement: it rests on the guideline declared by "source: ESGO [t-...]"
+  var TAG = /〔([^\s〕]+)\s+([^〕]+)〕/g;
 
   function slug(name){
     return 't-' + String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -29,16 +31,23 @@
   function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°|]/.test(text) || NUM.test(text) || TRIAL.test(text); }
 
   function parse(src){
-    var out = {map:null, bands:[], tree:null, panels:[], off:[], errors:[]};
+    var out = {map:null, bands:[], tree:null, panels:[], off:[], sources:{}, errors:[]};
     var sec = null, stack = null;
     String(src).split(/\r?\n/).forEach(function(raw, i){
       var at = i + 1;
       if (/^\s*(#|$)/.test(raw)) return;
       var ind = raw.match(/^ */)[0].length, text = raw.trim();
       if (ind === 0) {
-        var h = /^(map|band|tree|course|panel|off):\s*(.*)$/.exec(text);
-        if (!h) { out.errors.push(at + ': expected map:, band:, tree:, course:, panel: or off:'); sec = null; return; }
+        var h = /^(map|source|band|tree|course|panel|off):\s*(.*)$/.exec(text);
+        if (!h) { out.errors.push(at + ': expected map:, source:, band:, tree:, course:, panel: or off:'); sec = null; return; }
         if (h[1] === 'map') { out.map = h[2]; sec = null; return; }
+        if (h[1] === 'source') {
+          // a guideline with an Evidence row: "ESGO [t-...]"; one held only as a link: "ESMO {url https://...}"
+          var sm = /^(\S+)\s+(?:\[(t-[^\]\s]+)\]|\{url\s+(https:\/\/[^\s}]+)\})$/.exec(h[2]);
+          if (!sm) out.errors.push(at + ': source: lines are "Name [t-...]" or "Name {url https://...}"');
+          else out.sources[sm[1]] = {name:sm[1], anchor:sm[2] || null, url:sm[3] || null, at:at};
+          sec = null; return;
+        }
         if (h[1] === 'off') { sec = out.off; return; }
         if (h[1] === 'band') { sec = {title:h[2], lines:[]}; out.bands.push(sec); return; }
         if (h[1] === 'panel') {
@@ -106,6 +115,9 @@
         out.tree.children.forEach(visit);
       })();
     }
+    tags(out).forEach(function(t){
+      if (!out.sources[t.source]) out.errors.push(t.at + ': 〔' + t.source + ' …〕 has no source: line');
+    });
     out.panels.forEach(function(p){
       if (p.join && !names[p.join]) out.errors.push('panel "' + p.title + '": no node "' + p.join + '"');
       else if (p.join && names[p.join].length > 1) out.errors.push('panel "' + p.title + '": node "' + p.join + '" is not unique');
@@ -119,6 +131,16 @@
     model.bands.forEach(function(b){ b.lines.forEach(add(b.title)); });
     walk(model.tree, function(n){ n.lines.forEach(add(n.label)); });
     model.panels.forEach(function(p){ p.lines.forEach(add(p.title)); });
+    return all;
+  }
+  // every 〔Source level, grade〕 tag on the map, with the line it sits on
+  function tags(model){
+    var all = [];
+    function scan(text, at){ String(text || '').replace(TAG, function(m, src, grade){ all.push({source:src, grade:grade, at:at}); return m; }); }
+    function lines(ls){ ls.forEach(function(l){ scan(l.text || l.fig, l.at); (l.cells || []).forEach(function(c){ scan(c, l.at); }); }); }
+    model.bands.forEach(function(b){ lines(b.lines); });
+    walk(model.tree, function(n){ scan(n.label, n.at); lines(n.lines); });
+    model.panels.forEach(function(p){ lines(p.lines); });
     return all;
   }
   /* Live figures. A figure with no digits names what to read from the Evidence row:
@@ -170,5 +192,5 @@
     });
     return miss;
   }
-  return {parse:parse, walk:walk, trials:trials, slug:slug, live:live, figure:figure, figures:figures};
+  return {parse:parse, walk:walk, trials:trials, tags:tags, TAG:TAG, slug:slug, live:live, figure:figure, figures:figures};
 });
