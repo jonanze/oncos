@@ -18,15 +18,16 @@
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
-  // A 〔ESGO II, A〕 tag opens the guideline's Evidence card, like a trial name.
+  // A 〔ESGO II, A〕 tag opens the guideline's Evidence card, like a trial name; a source held only as a link opens the link.
   var SRC = {};
   function keep(s){
     var t = String(s == null ? '' : s), out = '', k = 0, m, re = new RegExp(window.oncosOutline.TAG.source, 'g');
     function plain(x){ return esc(x).replace(/(\S*\S[-–]\S+)/g, '<span class="nw">$1</span>'); }
     while ((m = re.exec(t))) {
       var src = SRC[m[1]], label = esc(m[1] + ' ' + m[2]);
-      out += plain(t.slice(k, m.index)) + '<span class="tag">〔' + (src
+      out += plain(t.slice(k, m.index)) + '<span class="tag">〔' + (src && src.anchor
         ? '<span class="trial src" role="button" tabindex="0" data-ev="' + esc(src.anchor) + '">' + label + '</span>'
+        : src && src.url ? '<a class="trial src" href="' + esc(src.url) + '" target="_blank" rel="noopener">' + label + '</a>'
         : label) + '〕</span>';
       k = re.lastIndex;
     }

@@ -23,6 +23,7 @@
 #   off:            sheet rows left off on purpose: Trial [t-...] | reason
 #   source: ESGO [t-...]   a guideline row; 〔ESGO II, A〕 at the end of a statement marks it as resting on
 #                   that guideline, with its printed level of evidence and grade, and opens its Evidence card
+#   source: ESMO {url https://...}   the same for a guideline held only as a link; the tag opens the link
 #
 # Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a tree where care branches on tests, a course where one state follows another

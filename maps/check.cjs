@@ -7,7 +7,8 @@
      (no cohort, retrospective, observational or genomic studies; the statement can stay as plain text)
    - map text uses plain wording: no arrows and none of the words in BANNED
    - a label on a connecting line starts with a capital
-   - a source: line names an Evidence row (a guideline) that the map's 〔Name level, grade〕 tags rest on; it counts as placed
+   - a source: line names an Evidence row (a guideline) that the map's 〔Name level, grade〕 tags rest on; it counts as placed.
+     A guideline with no Evidence row is given as a link instead: source: ESMO {url https://...}
    Writes maps/<id>/intake.txt and maps/<id>/unplaced.txt. Exits 1 on any failure. */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -64,6 +65,7 @@ for (const dir of fs.readdirSync(__dirname)) {
   const on = new Set(O.trials(m).map(t => t.line.anchor));
   const used = new Set(O.tags(m).map(t => t.source));
   Object.values(m.sources).forEach(sr => {
+    if (sr.url && !sr.anchor) { if (!used.has(sr.name)) { bad++; console.log(dir + '/map.txt:' + sr.at + ' source ' + sr.name + ' has no 〔' + sr.name + ' …〕 tag on the map'); } return; }
     if (!byAnchor.has(sr.anchor)) { bad++; console.log(dir + '/map.txt:' + sr.at + ' source: no Evidence row ' + sr.anchor); }
     else if (!used.has(sr.name)) { bad++; console.log(dir + '/map.txt:' + sr.at + ' source ' + sr.name + ' has no 〔' + sr.name + ' …〕 tag on the map'); }
     on.add(sr.anchor);

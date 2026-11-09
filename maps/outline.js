@@ -42,9 +42,10 @@
         if (!h) { out.errors.push(at + ': expected map:, source:, band:, tree:, course:, panel: or off:'); sec = null; return; }
         if (h[1] === 'map') { out.map = h[2]; sec = null; return; }
         if (h[1] === 'source') {
-          var sm = /^(\S+)\s+\[(t-[^\]\s]+)\]$/.exec(h[2]);
-          if (!sm) out.errors.push(at + ': source: lines are "Name [t-...]"');
-          else out.sources[sm[1]] = {name:sm[1], anchor:sm[2], at:at};
+          // a guideline with an Evidence row: "ESGO [t-...]"; one held only as a link: "ESMO {url https://...}"
+          var sm = /^(\S+)\s+(?:\[(t-[^\]\s]+)\]|\{url\s+(https:\/\/[^\s}]+)\})$/.exec(h[2]);
+          if (!sm) out.errors.push(at + ': source: lines are "Name [t-...]" or "Name {url https://...}"');
+          else out.sources[sm[1]] = {name:sm[1], anchor:sm[2] || null, url:sm[3] || null, at:at};
           sec = null; return;
         }
         if (h[1] === 'off') { sec = out.off; return; }
