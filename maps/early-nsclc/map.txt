@@ -1,0 +1,154 @@
+# oncOS board map: Early & Locally Adv NSCLC
+#
+# How to read and edit this file
+#   Indent 2 spaces per level.
+#   tree:   a decision tree; each plain line is a node, its children are indented under it
+#   course: a disease course instead of a tree; each line at 2 spaces is a step, everything indented
+#           under it is its content, and "next: Step | label" draws a line to a later step
+#   band:   a block above the tree for the whole sheet
+#   panel:  a block beside the tree, joined by a brace to the node named after ">"
+#   = text          the treatment for a branch
+#   + Trial | fig   a trial line; the mark records the result and is not drawn:
+#                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
+#   fig with no digits is read from the Evidence row at each publish:
+#     OS HR, PFS HR   the HR on the row's OS or PFS line
+#     OS median       the medians on that line, "a vs b months"
+#     response        the first percentage on the ORR line
+#   fig with digits is shown as written; the map check fails if the row no longer has those numbers
+#   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
+#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
+#   ※ text          caveat             ° text          side effects, grey
+#   ① text          numbered item; plain lines in a band or panel are text
+#   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
+#   off:            sheet rows left off on purpose: Trial [t-...] | reason
+#   source: ESGO [t-...]   a guideline row; 〔ESGO II, A〕 at the end of a statement marks it as resting on
+#                   that guideline, with its printed level of evidence and grade, and opens its Evidence card
+#   source: ESMO {url https://...}   the same for a guideline held only as a link; the tag opens the link
+#
+# Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
+#   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
+#   Square lines only; joins line up; no result colours (the marks above are kept as data, not drawn)
+# * Every sheet row is on the map or under off: with a reason
+# * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
+#   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
+#   Superseded trials go under off: unless an option still in use rests on them
+#   Standard options only; trials of options not in standard use go under off: (Jonan 2026-11-09, Lung-MAP)
+# * Plain clinical wording: no arrows, no metaphors such as "backbone"
+# * Labels on connecting lines start with a capital, like every other label
+#   A statement that rests on a guideline rather than a trial carries its 〔source level, grade〕 tag;
+#   where a trial and the guideline disagree, or the trial came later, a ※ line says so
+
+map: Early & Locally Adv NSCLC
+source: ESMO {url https://www.esmo.org/guidelines/living-guidelines/esmo-living-guideline-early-and-locally-advanced-nsclc}
+source: ACCP {url https://doi.org/10.1016/j.chest.2025.06.023}
+
+band: Staging before treatment
+  ① CT and PET-CT before surgery, for nodal staging 〔ESMO I, A〕
+    ~ PLUS [t-plus-trial] | futile thoracotomy 41% vs 21%
+    ~ Fischer 2009 [t-fischer-et-al] | futile thoracotomy 21% vs 42%
+    ~ Maziak 2009 [t-maziak-et-al] | more patients correctly upstaged
+  ② Nodes abnormal on CT or PET: endosonography with needle aspiration first 〔ESMO I, A〕
+    ~ ASTER | N2 or N3 sensitivity 79% vs 94%
+  ③ Mediastinoscopy can be left out after negative systematic endosonography
+    ~ MEDIASTrial | unforeseen N2 8.8% vs 7.7%
+    ※ ESMO 1.3 does not address mediastinoscopy after negative endosonography
+  ④ Peripheral cN0 tumour of 3 cm or less: no invasive staging. cN1, central, larger than 3 cm or PET-negative: invasive staging, EBUS first 〔ESMO I, A〕
+  ⑤ Brain MRI in stage II–III before curative treatment 〔ESMO III, A〕
+  ⑥ N2 disease: the MDT chooses between surgery and definitive chemoradiotherapy 〔ESMO V, A〕
+
+band: Testing before treatment
+  ① EGFR and RET from stage IB, ALK from stage II at 4 cm or more 〔ESMO I, A〕
+  ② PD-L1 before neoadjuvant chemo-immunotherapy 〔ESMO IV, A〕
+  ③ Results come before any treatment, so that a tumour with a driver is not given neoadjuvant immunotherapy; the MDT sets the order 〔ESMO V, A〕
+  ④ ctDNA is not used to add or withhold adjuvant treatment 〔ESMO IV, E〕
+
+tree: Early and locally advanced NSCLC
+  Stage I
+    Operable
+      Peripheral, node-negative, 2 cm or less
+        = Sublobar resection, segmentectomy rather than wedge 〔ESMO I, A〕
+        + JCOG0802 {pmid 35461558} | OS HR 0.66
+        ~ CALGB 140503 {pmid 36780674} | DFS HR 1.01
+        ※ ACCP rates lobectomy, segmentectomy and wedge resection as equivalent here 〔ACCP conditional, moderate〕
+      Solid and larger than 2 cm, or central
+        = Lobectomy 〔ESMO II, B〕
+        ※ Sample at least 3 mediastinal and 3 hilar node stations 〔ESMO III, A〕
+      After resection, no EGFR or RET
+        = No adjuvant treatment for tumours under 4 cm 〔ACCP strong, moderate〕
+        ※ Carboplatin and paclitaxel did not improve survival overall; the benefit in tumours of 4 cm or more came from an unplanned analysis
+          - CALGB 9633 | OS median
+    Inoperable
+      = SBRT; central or ultracentral tumours get more fractions 〔ESMO II, A〕
+      + CHISEL {pmid 30770291} | local failure HR 0.32
+      ※ Operable stage I: surgery is preferred over SBRT 〔ACCP conditional, low〕
+  Resectable stage II–III
+    EGFR exon 19 or L858R
+      = Surgery, then osimertinib for 3 years, stage IB–IIIA 〔ESMO I, A〕
+      + ADAURA | OS HR
+      ※ Osimertinib before surgery raised major pathological response only; EFS immature; not in ESMO 1.3
+        ~ NeoADAURA | MPR 26% vs 25% vs 2%
+    ALK
+      = Surgery, then alectinib for 2 years, stage II (4 cm or more) to IIIA 〔ESMO I, A〕
+      ~ ALINA | DFS HR
+      ※ Ensartinib also improved DFS; not in ESMO 1.3
+        ~ ELEVATE | DFS HR
+    RET
+      = Surgery or radiotherapy, then selpercatinib for 3 years, stage IB–IIIA 〔ESMO I, A〕
+      ~ LIBRETTO-432 | 2-year EFS 92% vs 61%
+    No driver
+      Chemo-immunotherapy before surgery only
+        = Nivolumab with platinum chemotherapy for 3 cycles; EU licence PD-L1 1% or more 〔ESMO I, A〕
+        + CheckMate 816 | EFS HR
+      Chemo-immunotherapy before and after surgery
+        = Pembrolizumab, durvalumab, nivolumab (PD-L1 1% or more) or tislelizumab (EU), with platinum chemotherapy before surgery and alone after 〔ESMO I, A〕
+        + KEYNOTE-671 | OS HR
+        ~ AEGEAN | EFS HR
+        ~ CheckMate 77T | 18-month EFS 70.2% vs 50.0%
+        + RATIONALE-315 | OS HR
+        ※ ESMO states no preference between treatment before surgery only and before and after
+        ※ Toripalimab improved EFS; trial in China; not in ESMO 1.3
+          ~ Neotorch | EFS HR
+      Surgery first
+        = Cisplatin doublet, then atezolizumab for 1 year if PD-L1 1% or more (EU licence 50% or more), or pembrolizumab for 1 year whatever the PD-L1 〔ESMO I, A〕
+        ~ IMpower010 | DFS HR
+        ~ PEARLS/KEYNOTE-091 [t-pearls-keynote-091] | DFS HR
+        ※ Cisplatin doublet alone when chemo-immunotherapy is not suitable 〔ESMO I, A〕
+          + LACE meta-analysis | OS HR
+          + Preoperative chemotherapy meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group] | OS HR
+        ※ Adjuvant nivolumab did not improve DFS
+          - ANVIL | DFS HR
+  Unresectable stage III
+    Chemoradiotherapy
+      = Concurrent chemoradiotherapy, 60 Gy in daily fractions, with 2–3 cycles of a platinum doublet 〔ESMO I, A〕
+      + Concurrent vs sequential meta-analysis [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis] | 3-year OS 23.8% vs 18.1%
+      + RTOG 9410 | OS median
+      ※ Unfit for concurrent treatment: sequential chemoradiotherapy or radiotherapy alone 〔ESMO I, A〕
+      ※ 74 Gy was worse than 60 Gy
+        - RTOG 0617 | OS 28.7 vs 20.3 months, 60 vs 74 Gy
+      ※ Pemetrexed with radiotherapy was no better than etoposide or paclitaxel regimens
+        - PROCLAIM | OS median
+    After chemoradiotherapy, no progression
+      EGFR exon 19 or L858R
+        = Osimertinib until progression 〔ESMO I, A〕
+        ~ LAURA | PFS HR
+      No driver
+        = Durvalumab for 12 months, starting within 42 days of concurrent chemoradiotherapy; EU licence PD-L1 1% or more 〔ESMO I, A〕
+        + PACIFIC | OS HR
+        = Or sugemalimab for up to 24 months, after concurrent or sequential chemoradiotherapy; trial in China, EU licence PD-L1 1% or more 〔ESMO I, A〕
+        ~ GEMSTONE-301 {pmid 35038429} | PFS HR 0.64
+        ※ After sequential chemoradiotherapy: durvalumab 〔ESMO II, B〕
+          ~ PACIFIC-5 | PFS HR
+        ※ Durvalumab during chemoradiotherapy, or nivolumab with or without ipilimumab during and after it, gave no benefit
+          - PACIFIC-2 | PFS HR
+          - CheckMate 73L | PFS HR
+
+panel: Radiotherapy after resection > Resectable stage II–III
+  ① No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕
+    - Lung ART | 3-year DFS 47% vs 44%
+  ② Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕
+
+off:
+  IALT | Pooled in the LACE meta-analysis
+  JBR.10 | Pooled in the LACE meta-analysis
+  ANITA | Pooled in the LACE meta-analysis
+  LORIN | Single-arm phase II; maps cite randomised trials only
