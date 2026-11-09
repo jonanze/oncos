@@ -36,7 +36,7 @@
 #   Adjuvant, maintenance and consolidation choices are a later step after the primary treatment,
 #   never a branch beside it (Jonan 2026-11-09)
 #   Columns follow the decisions in order: surgery or no surgery; treatment before surgery or
-#   surgery first; treatment after the primary treatment (Jonan 2026-11-09)
+#   upfront resection; treatment after the primary treatment (Jonan 2026-11-09)
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 # * Labels on connecting lines start with a capital, like every other label
 #   A statement that rests on a guideline rather than a trial carries its 〔source level, grade〕 tag;
@@ -76,7 +76,7 @@ course: Early and locally advanced NSCLC
     ② Solid and larger than 2 cm, or central: lobectomy 〔ESMO II, B〕
     ※ Sample at least 3 mediastinal and 3 hilar node stations 〔ESMO III, A〕
     next: Treatment before surgery
-    next: Surgery first
+    next: Upfront resection
   No surgery
     Medically inoperable or declining surgery, or stage III that cannot be completely resected
     ※ Operable stage I: surgery is preferred over SBRT 〔ACCP conditional, low〕
@@ -85,15 +85,15 @@ course: Early and locally advanced NSCLC
   Treatment before surgery
     Stage II–III with no EGFR, ALK or RET alteration: platinum doublet with a PD-1 or PD-L1 antibody for 3 or 4 cycles, then surgery 〔ESMO I, A〕
       + CheckMate 816 | EFS HR
-    ※ EGFR or ALK: osimertinib or lorlatinib before surgery raised pathological response; no survival data yet; not in ESMO 1.3, where surgery comes first
+    ※ EGFR or ALK: osimertinib or lorlatinib before surgery raised pathological response; no survival data yet; not in ESMO 1.3, where resection comes first
       ~ NeoADAURA | MPR 26% vs 25% vs 2%
       ~ LORIN [t-lorin] | pCR 46.9%, single arm; 75.0% of unresectable stage III became operable
     next: After chemo-immunotherapy and surgery
-  Surgery first
+  Upfront resection
     ① Stage I
     ② Stage II–III with EGFR, ALK or RET: the targeted drug follows surgery 〔ESMO I, A〕
     ③ Stage II–III when chemo-immunotherapy before surgery is not suitable
-    next: After surgery first
+    next: After upfront resection
   SBRT
     Stage I, node-negative; central or ultracentral tumours get more fractions 〔ESMO II, A〕
       + CHISEL [t-chisel] | local control HR
@@ -121,7 +121,7 @@ course: Early and locally advanced NSCLC
     ※ ESMO states no preference between treatment before surgery only and treatment before and after
     ※ Toripalimab improved EFS; trial in China; not in ESMO 1.3
       ~ Neotorch | EFS HR
-  After surgery first
+  After upfront resection
     Chosen by pathological stage and driver
     ① EGFR exon 19 or L858R, stage IB–IIIA: osimertinib for 3 years 〔ESMO I, A〕
       + ADAURA | OS HR
