@@ -100,7 +100,7 @@ tree: Early and locally advanced NSCLC
         = Nivolumab with platinum chemotherapy for 3 cycles; EU licence PD-L1 1% or more 〔ESMO I, A〕
         + CheckMate 816 | EFS HR
       Chemo-immunotherapy before and after surgery
-        = Pembrolizumab, durvalumab, nivolumab (PD-L1 1% or more) or tislelizumab (EU), with platinum chemotherapy before surgery and alone after 〔ESMO I, A〕
+        = Pembrolizumab, durvalumab, nivolumab (PD-L1 1% or more) or tislelizumab (EU licence, trial in China), with platinum chemotherapy before surgery and alone after 〔ESMO I, A〕
         + KEYNOTE-671 | OS HR
         ~ AEGEAN | EFS HR
         ~ CheckMate 77T | 18-month EFS 70.2% vs 50.0%
