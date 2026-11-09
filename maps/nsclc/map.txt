@@ -92,8 +92,9 @@ tree: Advanced NSCLC, first line
         = Selpercatinib
         ~ LIBRETTO-431 | PFS HR
       NTRK
-        = Larotrectinib
+        = Larotrectinib or entrectinib
         ~ Larotrectinib [t-larotrectinib--tumour-agnostic-basket-trials] | response
+        ~ Entrectinib [t-entrectinib-integrated-ntrk-fusion-analysis] | response
     Mutation
       BRAF V600E
         = Dabrafenib + trametinib, or encorafenib + binimetinib
