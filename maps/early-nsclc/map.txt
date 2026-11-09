@@ -87,6 +87,10 @@ course: Early and locally advanced NSCLC
     ③ No driver: sugemalimab for up to 24 months, after concurrent or sequential chemoradiotherapy; trial in China, EU licence PD-L1 1% or more 〔ESMO I, A〕
       ~ GEMSTONE-301 {pmid 35038429} | PFS HR 0.64
 
+  Stage I, inoperable
+    SBRT; central or ultracentral tumours get more fractions 〔ESMO II, A〕
+      + CHISEL [t-chisel] | local control HR
+    ※ Operable stage I: surgery is preferred over SBRT 〔ACCP conditional, low〕
   Stage I, operable
     ① Peripheral, node-negative, 2 cm or less: sublobar resection, segmentectomy rather than wedge 〔ESMO I, A〕
       + JCOG0802 {pmid 35461558} | OS HR 0.66
@@ -95,10 +99,6 @@ course: Early and locally advanced NSCLC
     ② Solid and larger than 2 cm, or central: lobectomy 〔ESMO II, B〕
     ※ Sample at least 3 mediastinal and 3 hilar node stations 〔ESMO III, A〕
     next: After surgery | Surgery
-  Stage I, inoperable
-    SBRT; central or ultracentral tumours get more fractions 〔ESMO II, A〕
-      + CHISEL [t-chisel] | local control HR
-    ※ Operable stage I: surgery is preferred over SBRT 〔ACCP conditional, low〕
   Resectable stage II–III, EGFR, ALK or RET
     Surgery first 〔ESMO I, A〕
     ※ Osimertinib before surgery raised major pathological response only; EFS immature; not in ESMO 1.3
