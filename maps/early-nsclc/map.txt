@@ -75,24 +75,32 @@ course: Early and locally advanced NSCLC
       ※ ACCP rates lobectomy, segmentectomy and wedge resection as equivalent here 〔ACCP conditional, moderate〕
     ② Solid and larger than 2 cm, or central: lobectomy 〔ESMO II, B〕
     ※ Sample at least 3 mediastinal and 3 hilar node stations 〔ESMO III, A〕
-    next: Treatment before surgery
+    next: Neoadjuvant or perioperative
     next: Upfront resection
   No surgery
     Medically inoperable or declining surgery, or stage III that cannot be completely resected
     ※ Operable stage I: surgery is preferred over SBRT 〔ACCP conditional, low〕
     next: SBRT
     next: Chemoradiotherapy
-  Treatment before surgery
+  Neoadjuvant or perioperative
     Stage II–III with no EGFR, ALK or RET alteration: platinum doublet with a PD-1 or PD-L1 antibody for 3 or 4 cycles, then surgery 〔ESMO I, A〕
+    ① Neoadjuvant only: nivolumab; EU licence PD-L1 1% or more 〔ESMO I, A〕
       + CheckMate 816 | EFS HR
+    ② Perioperative: pembrolizumab, durvalumab, nivolumab (PD-L1 1% or more) or tislelizumab (EU licence, trial in China), continued after surgery 〔ESMO I, A〕
+      + KEYNOTE-671 | OS HR
+      ~ AEGEAN | EFS HR
+      ~ CheckMate 77T | 18-month EFS 70.2% vs 50.0%
+      + RATIONALE-315 | OS HR
+      ※ Toripalimab improved EFS; trial in China; not in ESMO 1.3
+        ~ Neotorch | EFS HR
+    ※ ESMO states no preference between neoadjuvant only and perioperative treatment
     ※ EGFR or ALK: osimertinib or lorlatinib before surgery raised pathological response; no survival data yet; not in ESMO 1.3, where resection comes first
       ~ NeoADAURA | MPR 26% vs 25% vs 2%
       ~ LORIN [t-lorin] | pCR 46.9%, single arm; 75.0% of unresectable stage III became operable
+    ※ Chemotherapy alone before surgery improved survival, when immunotherapy is not suitable
+      + Preoperative chemotherapy meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group] | OS HR
     next: After chemo-immunotherapy and surgery
   Upfront resection
-    ① Stage I
-    ② Stage II–III with EGFR, ALK or RET: the targeted drug follows surgery 〔ESMO I, A〕
-    ③ Stage II–III when chemo-immunotherapy before surgery is not suitable
     next: After upfront resection
   SBRT
     Stage I, node-negative; central or ultracentral tumours get more fractions 〔ESMO II, A〕
@@ -111,50 +119,45 @@ course: Early and locally advanced NSCLC
       - CheckMate 73L | PFS HR
     next: After chemoradiotherapy, no progression | No progression
   After chemo-immunotherapy and surgery
-    Chosen by the antibody given before surgery
-    ① Nivolumab: no further treatment 〔ESMO I, A〕
-    ② Pembrolizumab, durvalumab, nivolumab (PD-L1 1% or more) or tislelizumab (EU licence, trial in China): the same antibody alone for up to 1 year 〔ESMO I, A〕
-      + KEYNOTE-671 | OS HR
-      ~ AEGEAN | EFS HR
-      ~ CheckMate 77T | 18-month EFS 70.2% vs 50.0%
-      + RATIONALE-315 | OS HR
-    ※ ESMO states no preference between treatment before surgery only and treatment before and after
-    ※ Toripalimab improved EFS; trial in China; not in ESMO 1.3
-      ~ Neotorch | EFS HR
+    ① After neoadjuvant nivolumab: no further treatment 〔ESMO I, A〕
+    ② After a perioperative regimen: the same antibody alone for up to 1 year 〔ESMO I, A〕
   After upfront resection
-    Chosen by pathological stage and driver
-    ① EGFR exon 19 or L858R, stage IB–IIIA: osimertinib for 3 years 〔ESMO I, A〕
+    Chosen by pathological stage
+    ① Stage II–IIIA: cisplatin doublet for 4 cycles 〔ESMO I, A〕
+      + LACE meta-analysis | OS HR 0.89; 5-year OS +5.4%
+        ※ By stage: IA HR 1.40, IB 0.93, II 0.83, III 0.83; benefit significant in stage II and III only
+      + IALT | OS HR
+      + JBR.10 | OS HR 0.69; stage II 0.59, stage IB not significant
+      + ANITA | OS HR 0.80; stage II 0.71, IIIA 0.69, IB 1.10
+      ※ Stage I under 4 cm without EGFR or RET: no adjuvant treatment 〔ACCP strong, moderate〕
+      ※ Carboplatin and paclitaxel in stage IB did not improve survival; the benefit in tumours of 4 cm or more came from an unplanned analysis
+        - CALGB 9633 | OS median
+    ② No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕
+      - Lung ART | 3-year DFS 47% vs 44%
+    ③ Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕
+    next: No driver
+    next: EGFR, ALK or RET
+  No driver
+    Stage II–IIIA, after chemotherapy: atezolizumab for 1 year if PD-L1 1% or more (EU licence 50% or more), or pembrolizumab for 1 year whatever the PD-L1 〔ESMO I, A〕
+      ~ IMpower010 | DFS HR
+      ~ PEARLS/KEYNOTE-091 [t-pearls-keynote-091] | DFS HR
+      ※ Adjuvant nivolumab did not improve DFS
+        - ANVIL | DFS HR
+  EGFR, ALK or RET
+    ① EGFR exon 19 or L858R, stage IB–IIIA: osimertinib for 3 years, after chemotherapy where given 〔ESMO I, A〕
       + ADAURA | OS HR
-    ② ALK, stage II (4 cm or more) to IIIA: alectinib for 2 years 〔ESMO I, A〕
+    ② ALK, stage II (4 cm or more) to IIIA: alectinib for 2 years in place of chemotherapy 〔ESMO I, A〕; chemotherapy first may be considered 〔ESMO II, C〕
       ~ ALINA | DFS HR
       ※ Ensartinib also improved DFS; not in ESMO 1.3
         ~ ELEVATE | DFS HR
     ③ RET, stage IB–IIIA: selpercatinib for 3 years, also after radiotherapy 〔ESMO I, A〕
       ~ LIBRETTO-432 | 2-year EFS 92% vs 61%
-    ④ No driver, stage II–IIIA: cisplatin doublet, then atezolizumab for 1 year if PD-L1 1% or more (EU licence 50% or more), or pembrolizumab for 1 year whatever the PD-L1 〔ESMO I, A〕
-      ~ IMpower010 | DFS HR
-      ~ PEARLS/KEYNOTE-091 [t-pearls-keynote-091] | DFS HR
-      ※ Cisplatin doublet alone when chemo-immunotherapy is not suitable 〔ESMO I, A〕
-        + LACE meta-analysis | OS HR
-        + Preoperative chemotherapy meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group] | OS HR
-      ※ Adjuvant nivolumab did not improve DFS
-        - ANVIL | DFS HR
-    ⑤ Stage I under 4 cm without EGFR or RET: no adjuvant treatment 〔ACCP strong, moderate〕
-      ※ Carboplatin and paclitaxel did not improve survival overall; the benefit in tumours of 4 cm or more came from an unplanned analysis
-        - CALGB 9633 | OS median
-    ⑥ No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕
-      - Lung ART | 3-year DFS 47% vs 44%
-    ⑦ Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕
   After chemoradiotherapy, no progression
     ① EGFR exon 19 or L858R: osimertinib until progression 〔ESMO I, A〕
       ~ LAURA | PFS HR
     ② No driver: durvalumab for 12 months, starting within 42 days of concurrent chemoradiotherapy; EU licence PD-L1 1% or more 〔ESMO I, A〕
       + PACIFIC | OS HR
-      ※ After sequential chemoradiotherapy: durvalumab 〔ESMO II, B〕
-        ~ PACIFIC-5 | PFS HR
     ③ No driver: sugemalimab for up to 24 months, after concurrent or sequential chemoradiotherapy; trial in China, EU licence PD-L1 1% or more 〔ESMO I, A〕
       ~ GEMSTONE-301 {pmid 35038429} | PFS HR 0.64
-off:
-  IALT | Pooled in the LACE meta-analysis
-  JBR.10 | Pooled in the LACE meta-analysis
-  ANITA | Pooled in the LACE meta-analysis
+    ※ After sequential chemoradiotherapy: durvalumab 〔ESMO II, B〕; not approved for this use. Smaller PFS benefit than PACIFIC; no OS benefit at interim; similar effect after sequential and concurrent chemoradiotherapy, neither subgroup powered
+      ~ PACIFIC-5 | PFS HR 0.75, OS HR 0.87; after sequential 0.75 (0.49–1.18), after concurrent 0.76
