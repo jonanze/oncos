@@ -29,6 +29,7 @@
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
 #   Superseded trials go under off: unless an option still in use rests on them
+#   Standard options only; trials of options not in standard use go under off: (Jonan 2026-11-09, Lung-MAP)
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 # * Labels on connecting lines start with a capital, like every other label
 
@@ -41,7 +42,7 @@ band: Before first line
 band: Local treatment and bone
   ① 3 or fewer metastases, no progression after first line: radiotherapy or surgery to every site
     + Gomez {pmid 27789196} | OS 41.2 vs 17.0 months
-    ~ Iyengar {pmid 28973074} | PFS 9.7 vs 3.5 months
+    ~ Iyengar [t-iyengar-et-al] | PFS 9.7 vs 3.5 months
     ※ Both phase 2, stopped early
     ※ With osimertinib, radiotherapy to the sites left after 8–10 weeks: single-arm
       ~ Sampath 2025 [t-sampath-et-al] | PFS 32.3 months
@@ -175,9 +176,6 @@ panel: Second line > No driver
   ③ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C branch
   ④ Docetaxel beat supportive care
     + Shepherd 2000 [t-shepherd-et-al] | OS 7.5 vs 4.6 months
-  ⑤ Not standard
-    ~ TROPION-Lung01 | PFS HR
-    + Lung-MAP S1800A {pmid 35658002} | OS HR 0.69
 
 panel: Later lines > Driver found
   ① Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma
@@ -195,11 +193,12 @@ panel: Later lines > Driver found
     ~ SACHI | PFS HR
     ~ SAVANNAH | response
     ~ INSIGHT 2 | tepotinib + osimertinib, response 50.0%
-  ⑤ EGFR after a TKI: antibody–drug conjugates beat platinum doublet
-    + OptiTROP-Lung04 | OS HR
-    ~ HERON-Lung01 | PFS HR
-    ~ PANKU-Lung01 | PFS HR
+  ⑤ EGFR after a TKI and platinum chemotherapy: datopotamab deruxtecan, approved in the US
     ~ TROPION-Lung05 | response
+    ※ After a TKI, before chemotherapy: three antibody–drug conjugates beat platinum + pemetrexed on PFS; China only
+      + OptiTROP-Lung04 | OS HR
+      ~ HERON-Lung01 | PFS HR
+      ~ PANKU-Lung01 | PFS HR
   ⑥ PD-1 antibodies add little after a TKI
     - KEYNOTE-789 {pmid 39173098} | OS HR 0.84
     ~ IMpower150 | PFS HR 0.59
@@ -224,3 +223,4 @@ off:
   RATIONALE-304 | Tislelizumab + chemotherapy, PFS only; same class as KEYNOTE-189
   RATIONALE-307 | Same, squamous
   EAST-LC | S-1 vs docetaxel, Japan only
+  TROPION-Lung01 | Unselected non-squamous second line: US and EU applications withdrawn; the US approval is for EGFR-mutated disease, shown under TROPION-Lung05

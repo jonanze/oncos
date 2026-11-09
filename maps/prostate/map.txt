@@ -29,6 +29,7 @@
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
 #   Superseded trials go under off: unless an option still in use rests on them
+#   Standard options only; trials of options not in standard use go under off: (Jonan 2026-11-09, Lung-MAP)
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 # * Labels on connecting lines start with a capital, like every other label
 

@@ -19,6 +19,7 @@
   var MAPS = {
     'Advanced NSCLC': 'nsclc',
     'Advanced Prostate': 'prostate',
+    'Early & Locally Adv NSCLC': 'early-nsclc',
     'Endometrial Cancer': 'endometrial'
   };
   var ANCHOR = 'map';
