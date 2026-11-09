@@ -11,10 +11,11 @@
 
 #map{outline:none}
 #map[hidden]{display:none}
-.om-sheet{--om-wire:var(--b-mark);position:relative;transform-origin:0 0;background:var(--b-paper);color:var(--b-ink);font-size:14px;line-height:1.45}
-:root[data-theme="dark"] .om-sheet{--om-wire:#8c98a5}
+.om-sheet{--om-wire:#5f6f84;--om-t1:#1f2933;--om-t1-fg:#fff;position:relative;transform-origin:0 0;background:var(--b-paper);color:var(--b-ink);font-size:14px;line-height:1.38}
+:root[data-theme="dark"] .om-sheet{--om-wire:#8c98a5;--om-t1:#3d4754}
 .om-sheet .om-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
-.om-sheet .om-wires line,.om-sheet .om-wires path{stroke:var(--om-wire);stroke-width:1.3;fill:none}
+.om-sheet .om-wires line,.om-sheet .om-wires path{stroke:var(--om-wire);stroke-width:1.2;fill:none}
+.om-sheet .om-wires path.main{stroke:var(--b-ink);stroke-width:2}
 .om-sheet .at{position:absolute;z-index:2}
 .om-sheet .box{border:1.3px solid var(--b-line);padding:6px 10px;background:var(--b-paper)}
 .om-sheet .box.lbl{display:inline-block;padding:3px 10px;font-weight:var(--w-bold);white-space:nowrap;background:var(--b-band)}
@@ -31,7 +32,7 @@
 .om-sheet .row{display:flex;align-items:flex-start;gap:10px}
 .om-sheet .brace{position:absolute;z-index:2}
 .om-sheet .brace svg{display:block;overflow:visible}
-.om-sheet .brace path{stroke:var(--om-wire);stroke-width:1.3;fill:none}
+.om-sheet .brace path{stroke:var(--om-wire);stroke-width:1.2;fill:none}
 .om-sheet .nw{white-space:nowrap}
 .om-sheet .trial{white-space:nowrap;cursor:pointer;text-decoration:underline;text-decoration-color:var(--b-line);text-underline-offset:2px}
 .om-sheet .trial:focus-visible{outline:1px solid var(--b-ink);outline-offset:1px}
@@ -43,12 +44,30 @@
 .om-view:focus-visible{outline:1px solid var(--b-ink);outline-offset:-1px}
 .om-world{position:absolute;left:0;top:0;transform-origin:0 0}
 .om-world .blk{position:absolute;z-index:2}
-.om-world .box.lbl{text-align:left}
-.om-world .ln{margin:0 0 3px}
-.om-world .leaf .ln.tx{font-size:14.5px;margin-bottom:4px}
-.om-world .ln.tr{font-size:13px}
-.om-world .ln.cv,.om-world .ln.se{font-size:12.5px}
-.om-world .ln.se{color:var(--muted)}
+.om-world .box.lbl{box-sizing:border-box;text-align:left;border:1.5px solid var(--b-ink)}
+/* three tiers: the root and course step headings are title blocks; decision nodes ruled cells; the rest open text */
+.om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border-color:var(--om-t1);letter-spacing:.02em}
+.om-world .ln{margin:0 0 2px}
+.om-world .ln.tx{font-weight:var(--w-bold);font-size:14.5px;margin-bottom:5px}
+.om-world .ln.tx::before{content:"★ "}
+.om-world .ln.cv{font-size:12.5px}
+.om-world .ln.se{font-size:12px;color:var(--muted)}
+/* trial lines in a row: one ruled grid, trial name | key figure */
+.om-world .trials{display:grid;grid-template-columns:minmax(9em,max-content) 1fr;margin:2px 0 6px;border-top:1px solid var(--b-cell)}
+.om-world .trials>div{padding:2px 8px 2px 0;border-bottom:1px solid var(--b-cell);font-size:13px}
+.om-world .trials>.fg{font-weight:var(--w-bold);font-variant-numeric:tabular-nums;padding-left:8px;border-left:1px solid var(--b-cell)}
+/* bands and panels: closed ruled cells with a 【TITLE】 band */
+.om-world .band,.om-world .panel{box-sizing:border-box;border:1.3px solid var(--b-line);padding:0 10px 8px;background:var(--b-paper)}
+.om-world .band>h2,.om-world .panel>h2{margin:0 -10px 8px;padding:4px 10px;background:var(--b-band);border-bottom:1px solid var(--b-line);text-decoration:none;font-size:12.5px;letter-spacing:.06em}
+.om-world .band>h2::before,.om-world .panel>h2::before{content:"【"}
+.om-world .band>h2::after,.om-world .panel>h2::after{content:"】"}
+/* title block at the top left of the canvas */
+.om-world .tblk{display:grid;grid-template-columns:max-content minmax(0,max-content);border:1.3px solid var(--b-line);font-size:12px;background:var(--b-paper)}
+.om-world .tblk>div{padding:3px 9px;border-bottom:1px solid var(--b-line)}
+.om-world .tblk>div:nth-child(odd){border-right:1px solid var(--b-line)}
+.om-world .tblk>div:nth-last-child(-n+2){border-bottom:0}
+.om-world .tblk .k{background:var(--b-band);font-weight:var(--w-bold);text-transform:uppercase;letter-spacing:.04em}
+.om-world .tblk .v{font-weight:var(--w-bold);font-size:13px}
 .om-world .ln.num{position:relative;padding-left:1.6em}
 .om-world .ln.num .n{position:absolute;left:0;top:0;font-weight:var(--w-bold)}
 .om-world .ln.num[style]{padding-left:0}
@@ -94,7 +113,38 @@
 
 /* course maps: steps in time order */
 .om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;white-space:normal;margin:0 0 8px;padding:4px 10px}
-.om-world .step .ln.tx{font-size:14.5px;margin-bottom:4px}
 .om-world .step .ln.text{font-weight:var(--w-bold);font-size:13px;margin-top:6px}
 .om-world .step .ln.num{margin-top:6px}
-.om-world .elab{font-size:12px;line-height:1.3;white-space:nowrap}
+.om-world .elab{z-index:3;font-size:12px;line-height:1.3;white-space:nowrap;border:1px solid var(--b-line);background:var(--b-paper);padding:1px 6px}
+
+/* phone: a row of the main headings above the canvas, scrolling with the page; a tap moves the map there */
+.om-idx{display:none}
+@media (max-width:740px){
+  .om-idx{display:flex;overflow-x:auto;white-space:nowrap;border:1px solid var(--b-line);border-bottom:0;background:var(--b-cell)}
+  .om-idx button{flex:none;font:inherit;font-size:12px;padding:6px 9px;border:0;border-right:1px solid var(--b-line);background:var(--b-cell);color:var(--b-ink);cursor:pointer}
+  .om-idx button:last-child{border-right:0}
+  .om-idx button.on{background:#1f2933;color:#fff;font-weight:var(--w-bold)}
+}
+
+/* risk groups (scale: line): four hues, one meaning on every map; never a trial result, grade or disease state */
+.om-sheet{--om-c1:#2a5db0;--om-c2:#2f7d4f;--om-c3:#a86a12;--om-c4:#a8402f;--om-c1t:rgba(42,93,176,.12);--om-c2t:rgba(47,125,79,.12);--om-c3t:rgba(168,106,18,.12);--om-c4t:rgba(168,64,47,.12);--om-c1l:#2a5db0;--om-c2l:#2f7d4f;--om-c3l:#a86a12;--om-c4l:#a8402f}
+:root[data-theme="dark"] .om-sheet{--om-c1:#3b6fc4;--om-c2:#3a8a5c;--om-c3:#9a6a1f;--om-c4:#b85a49;--om-c1t:rgba(91,143,224,.2);--om-c2t:rgba(90,168,119,.2);--om-c3t:rgba(217,162,74,.2);--om-c4t:rgba(229,154,136,.2);--om-c1l:#8db3f0;--om-c2l:#8fcfa5;--om-c3l:#e3b86a;--om-c4l:#e59a88}
+.om-world table.grid tr.t1r{background:var(--om-c1t)}.om-world table.grid tr.t2r{background:var(--om-c2t)}
+.om-world table.grid tr.t3r{background:var(--om-c3t)}.om-world table.grid tr.t4r{background:var(--om-c4t)}
+.om-world table.grid tr[class] .tc{font-weight:var(--w-bold)}
+.om-world table.grid tr.t1r .tc{color:var(--om-c1l)}.om-world table.grid tr.t2r .tc{color:var(--om-c2l)}
+.om-world table.grid tr.t3r .tc{color:var(--om-c3l)}.om-world table.grid tr.t4r .tc{color:var(--om-c4l)}
+.om-world table.grid tr[class] .tc .tag{font-weight:400}
+.om-world .ln.t1b,.om-world .ln.t2b,.om-world .ln.t3b,.om-world .ln.t4b{border-left:3px solid;padding-left:6px}
+.om-world .ln.num.t1b,.om-world .ln.num.t2b,.om-world .ln.num.t3b,.om-world .ln.num.t4b{padding-left:calc(1.6em + 6px)}
+.om-world .ln.num[class*=" t"] .n{left:6px}
+.om-world .ln.t1b{border-color:var(--om-c1)}.om-world .ln.t2b{border-color:var(--om-c2)}
+.om-world .ln.t3b{border-color:var(--om-c3)}.om-world .ln.t4b{border-color:var(--om-c4)}
+.om-world .tblk .keys{display:flex;flex-wrap:wrap;gap:3px}
+.om-world .tblk .key{padding:0 6px;color:#fff;font-weight:var(--w-bold);font-size:11.5px}
+.om-world .tblk .t1k{background:var(--om-c1)}.om-world .tblk .t2k{background:var(--om-c2)}
+.om-world .tblk .t3k{background:var(--om-c3)}.om-world .tblk .t4k{background:var(--om-c4)}
+
+/* inside a ruled grid a cell is narrow: a guideline tag may take its own line, and a long word breaks rather than spill */
+.om-world table.grid .nw{white-space:normal}
+.om-world table.grid th,.om-world table.grid td{overflow-wrap:break-word}

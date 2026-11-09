@@ -20,7 +20,8 @@
     'Advanced NSCLC': 'nsclc',
     'Advanced Prostate': 'prostate',
     'Early & Locally Adv NSCLC': 'early-nsclc',
-    'Endometrial Cancer': 'endometrial'
+    'Endometrial Cancer': 'endometrial',
+    'SCLC': 'sclc'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
@@ -194,7 +195,7 @@
   function draw(pane, id, html){
     var model = window.oncosOutline.parse(html.src);
     window.oncosOutline.figures(model, html.rows);
-    ctrl = window.oncosCanvas.render(pane, model, {id: id});
+    ctrl = window.oncosCanvas.render(pane, model, {id: id, figures: html.rows ? 'Evidence' + (rowsDate ? ' ' + rowsDate : ', live') : 'Evidence did not load'});
   }
   function layout(){ if (ctrl && ctrl.world.offsetParent) ctrl.resize(); }
   window.addEventListener('resize', function(){ if (mapSheet) layout(); });
@@ -210,11 +211,14 @@
     document.body.appendChild(card);
   }
   // Evidence rows: the TRIALS table of the Evidence view, read once from its file.
-  var rows = null;
+  var rows = null, rowsDate = null;
   function evidenceRows(){
     if (rows) return rows;
     rows = fetch('/views/evidence.html', {credentials:'same-origin'}).then(function(r){
-      if (!r.ok) throw new Error(r.status); return r.text();
+      if (!r.ok) throw new Error(r.status);
+      var d = new Date(r.headers.get('last-modified') || '');
+      rowsDate = isNaN(d) ? null : d.toISOString().slice(0, 10);
+      return r.text();
     }).then(function(src){
       var i = src.indexOf('const TRIALS = ');
       if (i < 0) throw new Error('no TRIALS');

@@ -7,7 +7,8 @@
   else root.oncosOutline = api;
 })(typeof self !== 'undefined' ? self : this, function(){
   var NUM = /^[①-⑳]/;              // ① to ⑳
-  var TRIAL = /^([+~\-*])\s+(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*(?:\{pmid\s+(\d+)\})?\s*\|\s*(.+)$/;
+  // Trial [t-...] {pmid N} {url https://...} | fig : a trial with no PubMed record yet (a congress abstract) gives a link
+  var TRIAL = /^([+~\-*])\s+(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*(?:\{pmid\s+(\d+)\})?\s*(?:\{url\s+(https:\/\/[^\s}]+)\})?\s*\|\s*(.+)$/;
   var CLS = {'+':'os', '~':'sur', '-':'neg', '*':'none'};
   // 〔ESGO II, A〕 at the end of a statement: it rests on the guideline declared by "source: ESGO [t-...]"
   var TAG = /〔([^\s〕]+)\s+([^〕]+)〕/g;
@@ -18,8 +19,8 @@
 
   function line(text, level, at){
     var m = TRIAL.exec(text);
-    if (m) return {kind:'trial', level:level, cls:CLS[m[1]], name:m[2], anchor:m[3] || (m[4] ? null : slug(m[2])),
-                   pmid:m[4] || null, fig:m[5], at:at};
+    if (m) return {kind:'trial', level:level, cls:CLS[m[1]], name:m[2], anchor:m[3] || (m[4] || m[5] ? null : slug(m[2])),
+                   pmid:m[4] || null, url:m[5] || null, fig:m[6], at:at};
     var c = text.charAt(0);
     if (c === '|') return {kind:'grid', level:level, cells:text.replace(/^\|\s*|\s*\|$/g, '').split(/\s*\|\s*/), at:at};
     if (c === '=') return {kind:'tx', level:level, text:text.replace(/^=\s*/, ''), at:at};
@@ -38,9 +39,11 @@
       if (/^\s*(#|$)/.test(raw)) return;
       var ind = raw.match(/^ */)[0].length, text = raw.trim();
       if (ind === 0) {
-        var h = /^(map|source|band|tree|course|panel|off):\s*(.*)$/.exec(text);
-        if (!h) { out.errors.push(at + ': expected map:, source:, band:, tree:, course:, panel: or off:'); sec = null; return; }
+        var h = /^(map|source|scale|band|tree|course|panel|off):\s*(.*)$/.exec(text);
+        if (!h) { out.errors.push(at + ': expected map:, source:, scale:, band:, tree:, course:, panel: or off:'); sec = null; return; }
         if (h[1] === 'map') { out.map = h[2]; sec = null; return; }
+        // scale: the four risk groups of an adjuvant or local-treatment decision, lowest first
+        if (h[1] === 'scale') { out.scale = h[2].split('|').map(function(x){ return x.trim(); }).filter(Boolean); out.scaleAt = at; sec = null; return; }
         if (h[1] === 'source') {
           // a guideline with an Evidence row: "ESGO [t-...]"; one held only as a link: "ESMO {url https://...}"
           var sm = /^(\S+)\s+(?:\[(t-[^\]\s]+)\]|\{url\s+(https:\/\/[^\s}]+)\})$/.exec(h[2]);
@@ -73,15 +76,16 @@
       }
       if (out.tree.course) {             // course: steps at 2 spaces; next: and content under them
         if (ind === 2) {
-          if (/^next:/.test(text)) { out.errors.push(at + ': next: belongs under a step'); return; }
+          if (/^(next|join):/.test(text)) { out.errors.push(at + ': next: and join: belong under a step'); return; }
           var st = {label:text, depth:1, children:[], lines:[], next:[], indent:2, at:at};
           out.tree.children.push(st); stack = [out.tree, st];
           return;
         }
         var step = stack[1];
         if (!step) { out.errors.push(at + ': content before the first step'); return; }
-        var nx = /^next:\s*(.+?)\s*(?:\|\s*(.+))?$/.exec(text);
-        if (nx) { step.next.push({to:nx[1], label:nx[2] || '', at:at}); return; }
+        // join: draws the same line as next:, but the two steps stay in separate branches
+        var nx = /^(next|join):\s*(.+?)\s*(?:\|\s*(.+))?$/.exec(text);
+        if (nx) { step.next.push({to:nx[2], label:nx[3] || '', join:nx[1] === 'join', at:at}); return; }
         step.lines.push(line(text, ind / 2 - 2, at));
         return;
       }
@@ -122,6 +126,15 @@
       if (p.join && !names[p.join]) out.errors.push('panel "' + p.title + '": no node "' + p.join + '"');
       else if (p.join && names[p.join].length > 1) out.errors.push('panel "' + p.title + '": node "' + p.join + '" is not unique');
     });
+    if (out.scale) {
+      if (out.scale.length !== 4) out.errors.push(out.scaleAt + ': scale: names four risk groups, lowest first');
+      var rowNames = {};
+      var grid = function(l){ if (l.kind === 'grid') rowNames[l.cells[0]] = true; };
+      out.bands.forEach(function(b){ b.lines.forEach(grid); });
+      walk(out.tree, function(n){ n.lines.forEach(grid); });
+      out.panels.forEach(function(p){ p.lines.forEach(grid); });
+      out.scale.forEach(function(x){ if (!rowNames[x]) out.errors.push(out.scaleAt + ': risk group "' + x + '" names no grid row'); });
+    }
     return out;
   }
   function walk(n, f){ if (!n) return; f(n); n.children.forEach(function(c){ walk(c, f); }); }

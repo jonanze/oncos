@@ -4,10 +4,12 @@
 #   Indent 2 spaces per level.
 #   tree:   a decision tree; each plain line is a node, its children are indented under it
 #   course: a disease course instead of a tree; each line at 2 spaces is a step, everything indented
-#           under it is its content, and "next: Step | label" draws a line to a later step
+#           under it is its content, and "next: Step | label" draws a line to a later step;
+#           "join: Step | label" draws the same line but keeps the two steps in separate branches,
+#           and several join: lines to one step with one label share an upright and that label
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
-#   = text          the treatment for a branch
+#   = text          the treatment for a branch, drawn bold after ★
 #   + Trial | fig   a trial line; the mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
 #   fig with no digits is read from the Evidence row at each publish:
@@ -17,6 +19,8 @@
 #   fig with digits is shown as written; the map check fails if the row no longer has those numbers
 #   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
 #   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
+#   Trial {url https://...}  a randomised trial with no PubMed record yet (congress abstract): link, listed for intake
+#   trial lines in a row draw as one ruled grid: trial name | key figure
 #   ※ text          caveat             ° text          side effects, grey
 #   ① text          numbered item; plain lines in a band or panel are text
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
@@ -24,10 +28,14 @@
 #   source: ESGO [t-...]   a guideline row; 〔ESGO II, A〕 at the end of a statement marks it as resting on
 #                   that guideline, with its printed level of evidence and grade, and opens its Evidence card
 #   source: ESMO {url https://...}   the same for a guideline held only as a link; the tag opens the link
+#   scale: Low | Intermediate | High-intermediate | High   four risk groups of an adjuvant or local-treatment
+#                   decision, lowest first, each naming a grid row; those rows, and the ① and ※ lines in
+#                   the same block that open with a risk group, take that group's colour. Nothing else is coloured
 #
 # Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
-#   Square lines only; joins line up; no result colours (the marks above are kept as data, not drawn)
+#   Square lines only; joins line up; no result colours (the marks above are kept as data, not drawn);
+#   colour only for risk groups, through scale: (Jonan 2026-11-09)
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
