@@ -77,23 +77,24 @@ course: Early and locally advanced NSCLC
       ※ ACCP rates lobectomy, segmentectomy and wedge resection as equivalent here 〔ACCP conditional, moderate〕
     ② Solid and larger than 2 cm, or central: lobectomy 〔ESMO II, B〕
     ※ Sample at least 3 mediastinal and 3 hilar node stations 〔ESMO III, A〕
-    next: Chemo-immunotherapy, then surgery
+    next: Treatment before surgery
     next: Surgery first
   No surgery
     Medically inoperable or declining surgery, or stage III that cannot be completely resected
     ※ Operable stage I: surgery is preferred over SBRT 〔ACCP conditional, low〕
     next: SBRT
     next: Chemoradiotherapy
-  Chemo-immunotherapy, then surgery
+  Treatment before surgery
     Stage II–III with no EGFR, ALK or RET alteration: platinum doublet with a PD-1 or PD-L1 antibody for 3 or 4 cycles, then surgery 〔ESMO I, A〕
       + CheckMate 816 | EFS HR
+    ※ EGFR or ALK: osimertinib or lorlatinib before surgery raised pathological response; no survival data yet; not in ESMO 1.3, where surgery comes first
+      ~ NeoADAURA | MPR 26% vs 25% vs 2%
+      ~ LORIN [t-lorin] | pCR 46.9%, single arm; 75.0% of unresectable stage III became operable
     next: After chemo-immunotherapy and surgery
   Surgery first
     ① Stage I
     ② Stage II–III with EGFR, ALK or RET: the targeted drug follows surgery 〔ESMO I, A〕
     ③ Stage II–III when chemo-immunotherapy before surgery is not suitable
-    ※ Osimertinib before surgery raised major pathological response only; EFS immature; not in ESMO 1.3
-      ~ NeoADAURA | MPR 26% vs 25% vs 2%
     next: After surgery first
   SBRT
     Stage I, node-negative; central or ultracentral tumours get more fractions 〔ESMO II, A〕
@@ -159,4 +160,3 @@ off:
   IALT | Pooled in the LACE meta-analysis
   JBR.10 | Pooled in the LACE meta-analysis
   ANITA | Pooled in the LACE meta-analysis
-  LORIN | Single-arm phase II; maps cite randomised trials only
