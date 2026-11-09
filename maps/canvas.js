@@ -10,61 +10,91 @@
    - a step sits level with the steps that lead to it, pushed down to clear the step above;
      a step a few pixels above the one step it leads to moves down to meet it, so the line runs straight
    - steps joined by lines form a branch; separate branches are drawn one below the other with a wider gap
-   - next: lines are drawn as ruled elbows, their label above the line
+   - next: lines are drawn as ruled elbows; a straight one is the spine, drawn heavier; its label sits in a ruled cell on the line
+   - join: lines to one step with one label share an upright and carry the label once, on it
    - a panel sits below its step's column
    - a step, band or panel holding a grid ("| a | b |" lines) widens to fit the grid's columns
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
-  var GX = 56, GY = 22, LEAF_W = 500, PANEL_W = 460, BAND_W = 560, M = 28;
+  var GX = 44, GY = 16, LEAF_W = 480, PANEL_W = 440, BAND_W = 520, M = 28;
   var STEP_W = 440, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
   // A 〔ESGO II, A〕 tag opens the guideline's Evidence card, like a trial name; a source held only as a link opens the link.
-  var SRC = {};
+  var SRC = {}, SCALE = [];
+  // ⑨ colour: the risk group of an adjuvant or local-treatment decision, from the map's scale: line; nothing else is coloured
+  function tierExact(x){ return SCALE.indexOf(String(x).trim()) + 1; }
+  function tierLead(x){
+    var t = String(x), best = 0, len = 0;
+    SCALE.forEach(function(n, i){
+      if (n.length > len && t.indexOf(n) === 0 && !/[A-Za-z-]/.test(t.charAt(n.length))) { best = i + 1; len = n.length; }
+    });
+    return best;
+  }
   function keep(s){
     var t = String(s == null ? '' : s), out = '', k = 0, m, re = new RegExp(window.oncosOutline.TAG.source, 'g');
     function plain(x){ return esc(x).replace(/(\S*\S[-–]\S+)/g, '<span class="nw">$1</span>'); }
     while ((m = re.exec(t))) {
       var src = SRC[m[1]], label = esc(m[1] + ' ' + m[2]);
-      out += plain(t.slice(k, m.index)) + '<span class="tag">〔' + (src && src.anchor
+      // the word before a tag stays on the tag's line, so a tag never wraps alone
+      var before = t.slice(k, m.index), w = /(\S+\s*)$/.exec(before), lead = w ? before.slice(0, w.index) : before;
+      out += plain(lead) + '<span class="nw">' + (w ? plain(w[1]) : '') + '<span class="tag">〔' + (src && src.anchor
         ? '<span class="trial src" role="button" tabindex="0" data-ev="' + esc(src.anchor) + '">' + label + '</span>'
         : src && src.url ? '<a class="trial src" href="' + esc(src.url) + '" target="_blank" rel="noopener">' + label + '</a>'
-        : label) + '〕</span>';
+        : label) + '〕</span></span>';
       k = re.lastIndex;
     }
     return out + plain(t.slice(k));
   }
 
-  function lineHtml(l){
+  function trialLink(l){
+    var name = esc(l.name);
+    return l.anchor
+      ? '<span class="trial" role="button" tabindex="0" data-ev="' + esc(l.anchor) + '">' + name + '</span>'
+      : '<a class="trial" href="' + (l.pmid ? 'https://pubmed.ncbi.nlm.nih.gov/' + esc(l.pmid) + '/' : esc(l.url)) + '" target="_blank" rel="noopener">' + name + '</a>';
+  }
+  // trial lines in a row make one two-column ruled grid: trial name | key figure
+  function trialsHtml(ts){
+    var pad = ts[0].level ? ' style="margin-left:' + (1.15 * ts[0].level) + 'em"' : '';
+    return '<div class="trials"' + pad + '>' + ts.map(function(l){
+      return '<div class="tn">' + trialLink(l) + '</div><div class="fg">' + (l.fig ? keep(l.fig) : '') + '</div>';
+    }).join('') + '</div>';
+  }
+  function lineHtml(l, tiered){
     var pad = l.level ? ' style="padding-left:' + (1.15 * l.level) + 'em"' : '';
-    if (l.kind === 'trial') {
-      var name = esc(l.name), cls = 'trial';
-      var a = l.anchor
-        ? '<span class="' + cls + '" role="button" tabindex="0" data-ev="' + esc(l.anchor) + '">' + name + '</span>'
-        : '<a class="' + cls + '" href="https://pubmed.ncbi.nlm.nih.gov/' + esc(l.pmid) + '/" target="_blank" rel="noopener">' + name + '</a>';
-      return '<div class="ln tr"' + pad + '>' + a + (l.fig ? '<span class="fig"> · ' + keep(l.fig) + '</span>' : '') + '</div>';
-    }
+    if (l.kind === 'trial') return trialsHtml([l]);
+    var k = tiered && (l.kind === 'num' || l.kind === 'cv') ? tierLead(l.text) : 0;
     if (l.kind === 'tx') return '<div class="ln tx"' + pad + '>' + keep(l.text) + '</div>';
-    if (l.kind === 'cv') return '<div class="ln cv"' + pad + '>※ ' + keep(l.text) + '</div>';
+    if (l.kind === 'cv') return '<div class="ln cv' + (k ? ' t' + k + 'b' : '') + '"' + pad + '>※ ' + keep(l.text) + '</div>';
     if (l.kind === 'se') return '<div class="ln se"' + pad + '>' + keep(l.text) + '</div>';
-    if (l.kind === 'num') return '<div class="ln num"' + pad + '><span class="n">' + esc(l.n) + '</span>' + keep(l.text) + '</div>';
+    if (l.kind === 'num') return '<div class="ln num' + (k ? ' t' + k + 'b' : '') + '"' + pad + '><span class="n">' + esc(l.n) + '</span>' + keep(l.text) + '</div>';
     return '<div class="ln text"' + pad + '>' + keep(l.text) + '</div>';
   }
   // "| a | b |" lines in a row make one ruled table; the first row is the header, "-" leaves a cell empty
   function gridHtml(rows){
     return '<table class="grid">' + rows.map(function(r, i){
-      return '<tr>' + r.cells.map(function(c, j){ var tag = j && i ? 'td' : 'th'; return '<' + tag + '>' + (c === '-' ? '' : keep(c)) + '</' + tag + '>'; }).join('') + '</tr>';
+      var k = i ? tierExact(r.cells[0]) : 0, last = r.cells.length - 1;
+      return '<tr' + (k ? ' class="t' + k + 'r"' : '') + '>' + r.cells.map(function(c, j){
+        var tag = j && i ? 'td' : 'th', cls = k && (j === 0 || j === last) ? ' class="tc"' : '';
+        return '<' + tag + cls + '>' + (c === '-' ? '' : keep(c)) + '</' + tag + '>';
+      }).join('') + '</tr>';
     }).join('') + '</table>';
   }
   function linesHtml(ls){
-    var out = '', run = [];
+    var out = '', run = [], trs = [];
+    // a block whose grid has risk-group rows also marks its ①②③ and ※ lines that open with a risk group
+    var tiered = SCALE.length && ls.some(function(l){ return l.kind === 'grid' && tierExact(l.cells[0]); });
+    function grids(){ if (run.length) { out += gridHtml(run); run = []; } }
+    function trials(){ if (trs.length) { out += trialsHtml(trs); trs = []; } }
     ls.forEach(function(l){
-      if (l.kind === 'grid') { run.push(l); return; }
-      if (run.length) { out += gridHtml(run); run = []; }
-      out += lineHtml(l);
+      if (l.kind === 'grid') { trials(); run.push(l); return; }
+      if (l.kind === 'trial') { grids(); if (trs.length && trs[0].level !== l.level) trials(); trs.push(l); return; }
+      grids(); trials();
+      out += lineHtml(l, tiered);
     });
-    return out + (run.length ? gridHtml(run) : '');
+    grids(); trials();
+    return out;
   }
   // a block holding a grid is as wide as the grid's columns need
   function widthFor(ls, w){
@@ -82,9 +112,9 @@
   function render(host, model, opts){
     opts = opts || {};
     var O = window.oncosOutline;
-    SRC = model.sources || {};
-    host.innerHTML = '<div class="om-view" tabindex="0" aria-label="Board map"><div class="om-world om-sheet"><svg class="om-wires" aria-hidden="true"></svg></div></div>';
-    var view = host.firstChild, world = view.firstChild, wires = world.firstChild;
+    SRC = model.sources || {}; SCALE = model.scale || [];
+    host.innerHTML = '<div class="om-idx"></div><div class="om-view" tabindex="0" aria-label="Board map"><div class="om-world om-sheet"><svg class="om-wires" aria-hidden="true"></svg></div></div>';
+    var idx = host.firstChild, view = idx.nextSibling, world = view.firstChild, wires = world.firstChild;
     var nodes = [], leaves = [], maxDepth = 0;
     O.walk(model.tree, function(n){ nodes.push(n); if (n.depth > maxDepth) maxDepth = n.depth; });
 
@@ -102,11 +132,27 @@
         n.el = add('step', '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), n.w);
         n.hd = n.el.firstChild;
       });
-      steps.forEach(function(n){ n.next.forEach(function(e){ if (e.label) e.el = add('elab', keep(e.label)); }); });
+      // join: lines to one step with one label carry that label once, on their shared line
+      var joinLab = {};
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        if (!e.label) return;
+        if (e.join) { var key = e.to + '|' + e.label; if (joinLab[key]) { joinLab[key].push(e); return; } joinLab[key] = [e]; e.joins = joinLab[key]; }
+        e.el = add('elab', keep(e.label));
+      }); });
     } else nodes.forEach(function(n){
       n.el = add('box lbl' + (n.depth ? '' : ' root'), keep(n.label));
       if (n.lines.length) { n.leaf = add('leaf', linesHtml(n.lines), LEAF_W); leaves.push(n); }
     });
+    // title block: map name, its guideline source and where the figures come from
+    var srcs = Object.keys(model.sources || {}).map(function(k){
+      var x = model.sources[k];
+      return x.anchor ? '<span class="trial" role="button" tabindex="0" data-ev="' + esc(x.anchor) + '">' + esc(x.name) + '</span>'
+        : x.url ? '<a class="trial" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.name) + '</a>' : esc(x.name);
+    });
+    var tblk = add('tblk', '<div class="k">Map</div><div class="v">' + esc(model.map || '') + '</div>' +
+      (srcs.length ? '<div class="k">Source</div><div>' + srcs.join(' · ') + '</div>' : '') +
+      '<div class="k">Figures</div><div>' + esc(opts.figures || 'Evidence rows') + '</div>' +
+      (SCALE.length ? '<div class="k">Risk</div><div class="keys">' + SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; }).join('') + '</div>' : ''));
     var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + linesHtml(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
     var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel', '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
 
@@ -115,10 +161,14 @@
     var svg = '';
 
     function bandsRow(){
-      var bx = M, bandH = 0;
-      bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = M + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
-      return {x:bx, top:M + (bands.length ? bandH + 48 : 0)};
+      tblk.style.left = M + 'px'; tblk.style.top = M + 'px';
+      var bx = M, bandH = 0, top = M + tblk.offsetHeight + 28;
+      bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = top + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
+      return {x:bx, top:top + (bands.length ? bandH + 28 : 0)};
     }
+
+    // a label cell centred on an upright, kept clear of the steps on either side of the gap
+    function inGap(left, w, x1, x2){ return Math.max(x1 + 4, Math.min(left, x2 - 4 - w)); }
 
     function layoutCourse(){
       svg = '';
@@ -127,15 +177,17 @@
       steps.forEach(function(n){ n.next.forEach(function(e){ e.node = by[e.to]; e.node.preds.push(n); }); });
       function col(n){ if (n.col === null) { n.col = 0; n.preds.forEach(function(p){ n.col = Math.max(n.col, col(p) + 1); }); } return n.col; }
       steps.forEach(col);
-      // steps joined by lines, in either direction, form one branch; separate branches are drawn
-      // one below the other, set apart by a wider gap, so that no branch runs beside another
+      // steps joined by next: lines, in either direction, form one branch; separate branches are drawn
+      // one below the other, set apart by a wider gap, so that no branch runs beside another.
+      // A join: line keeps its two steps in separate branches; it runs from the branch above down to its step.
       var g = 0;
       steps.forEach(function(n){ n.group = null; });
       steps.forEach(function(n){
         if (n.group !== null) return;
         (function mark(m){
           if (m.group !== null) return; m.group = g;
-          m.next.forEach(function(e){ mark(e.node); }); m.preds.forEach(mark);
+          m.next.forEach(function(e){ if (!e.join) mark(e.node); });
+          m.preds.forEach(function(p){ if (!p.next.some(function(e){ return e.node === m && e.join; })) mark(p); });
         })(n);
         g++;
       });
@@ -156,7 +208,8 @@
           var mine = list.filter(function(n){ return n.group === gi; });
           mine.forEach(function(n){
             // level with the middle of the steps that lead here, so its main line runs straight
-            var ys = n.preds.map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
+            var own = n.preds.filter(function(p){ return p.group === n.group; });
+            var ys = (own.length ? own : n.preds).map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
             n.hh = n.hd.offsetHeight;
             n.want = !ys.length ? Infinity : ys.length % 2 ? ys[h] : (ys[h - 1] + ys[h]) / 2;
           });
@@ -191,12 +244,32 @@
           // one source to several steps: the line divides next to the source, the label sits on the branch;
           // several sources to one step: the lines join next to the step, the label sits on the source's own line
           var t = e.node, x1 = n.x + n.w, x2 = t.x, split = n.next.length > 1 || t.preds.length < 2;
-          var xm = split ? x1 + STUB : x2 - STUB;
-          svg += '<path d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
-          if (e.el) {
-            var lx = split ? xm : x1, ly = split ? t.cy : n.cy;
-            e.el.style.left = (lx + 8) + 'px'; e.el.style.top = (ly - e.el.offsetHeight - 2) + 'px';
+          var xm = split ? x1 + STUB : x2 - STUB, level = Math.abs(t.cy - n.cy) < 1;
+          // the course spine (a straight next: line) is drawn heavier than the lines that branch off it
+          svg += '<path' + (level && !e.join ? ' class="main"' : '') + ' d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
+          e.xm = xm; e.cy = n.cy;
+          if (e.el && !e.join) {
+            // a label sits in a ruled cell on its own run of the line: the straight run, or the upright
+            // between the previous turn and its step, so it never stands beside another step's line
+            var h = e.el.offsetHeight, w = e.el.offsetWidth;
+            if (level || !split) {
+              e.el.style.left = inGap((split ? xm : x1) + 8, w, x1, x2) + 'px'; e.el.style.top = ((split ? t.cy : n.cy) - h / 2) + 'px';
+            } else {
+              var prev = n.cy;
+              n.next.forEach(function(o){ var y = o.node.cy; if ((y - n.cy) * (t.cy - n.cy) > 0 && Math.abs(y - n.cy) < Math.abs(t.cy - n.cy) && Math.abs(y - n.cy) > Math.abs(prev - n.cy)) prev = y; });
+              e.el.style.left = inGap(xm - w / 2, w, x1, x2) + 'px'; e.el.style.top = ((prev + t.cy) / 2 - h / 2) + 'px';
+            }
           }
+        });
+      });
+      // the label of join: lines sits beside their shared upright, halfway between the nearest source and the step
+      steps.forEach(function(n){
+        n.next.forEach(function(e){
+          if (!e.joins || !e.el) return;
+          var ty = e.node.cy, ys = e.joins.map(function(j){ return j.cy; });
+          var near = ty >= Math.max.apply(null, ys) ? Math.max.apply(null, ys) : Math.min.apply(null, ys);
+          var w = e.el.offsetWidth, x1 = Math.max.apply(null, e.node.preds.map(function(p){ return p.x + p.w; }));
+          e.el.style.left = inGap(e.xm - w / 2, w, x1, e.node.x) + 'px'; e.el.style.top = ((near + ty) / 2 - e.el.offsetHeight / 2) + 'px';
         });
       });
       var right = colX[cols.length] - CGX, loose = b.top;
@@ -368,12 +441,34 @@
       e.preventDefault();
     });
 
+    // the map opens at reading size: a course on its first step, a tree on its root; Fit shows the whole map
+    var heads = course ? steps : [model.tree].concat(model.tree.children);
+    function read(n){
+      size();
+      st.s = 1;
+      st.x = 16 - n.x;
+      st.y = course ? 16 - n.y : view.clientHeight / 2 - (n.y + n.el.offsetHeight / 2);
+      apply();
+    }
+    // phone: a row of the main headings above the canvas; a tap moves the map to that heading
+    idx.innerHTML = heads.map(function(n, k){ return '<button type="button" data-k="' + k + '">' + esc(n.label) + '</button>'; }).join('');
+    idx.addEventListener('click', function(e){
+      var b = e.target.closest && e.target.closest('button');
+      if (!b) return;
+      Array.prototype.forEach.call(idx.children, function(x){ x.classList.toggle('on', x === b); });
+      read(heads[+b.dataset.k]);
+    });
     function start(){
       layout(); size();
-      if (saved && saved.s) { st = saved; saved = null; apply(); } else fit();
+      if (saved && saved.s) { st = saved; saved = null; apply(); } else { read(heads[0]); opened = JSON.stringify(st); }
     }
+    var opened = null;
     start();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ var s = JSON.stringify(st); layout(); size(); st = JSON.parse(s); apply(); });
+    // once the web font is in, steps change height: an untouched opening view is taken again from the new layout
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){
+      var s = JSON.stringify(st); layout(); size();
+      if (s === opened) read(heads[0]); else { st = JSON.parse(s); apply(); }
+    });
     return {
       fit: fit,
       resize: function(){ size(); apply(); },

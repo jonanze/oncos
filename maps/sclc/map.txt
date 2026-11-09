@@ -1,0 +1,125 @@
+# oncOS board map: SCLC  (DRAFT for review, not released)
+# Format and rules: see the header of maps/early-nsclc/map.txt
+#   join: Step | label  the line of next:, but the two steps stay in separate branches (limited stage runs down to relapse)
+#   Trial {url https://...}  a randomised trial with no PubMed record yet (congress abstract): link, listed for intake
+#
+# Rules (Jonan 2026-11-08/09; node maps/check.cjs enforces the starred ones)
+#   Layout fits the disease: a course, limited stage and extensive stage, both ending in relapse
+#   Square lines only; no result colours
+# * Every sheet row is on the map or under off: with a reason
+# * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses only
+#   Standard options only (DeLLphi-305 on the main line before licence: Jonan 2026-11-09); an EU or US licensed option in standard use that ESMO 2021 predates stays on the main line with its licence noted; no tag means ESMO 2021 does not grade it
+#   Consolidation, PCI and maintenance are a later step after the primary treatment, never a branch beside it
+# * Plain clinical wording
+
+map: SCLC
+source: ESMO {url https://doi.org/10.1016/j.annonc.2021.03.207}
+
+band: Staging before treatment
+  ① TNM 8th edition; trials use limited stage (one hemithorax and regional nodes, within one radiotherapy field) and extensive stage 〔ESMO IV, A〕
+  ② Contrast CT of chest and abdomen 〔ESMO IV, A〕
+  ③ Brain MRI in limited stage 〔ESMO III, A〕, and in extensive stage when PCI is not given 〔ESMO II, B〕
+  ④ PET-CT optional for staging; a finding that changes treatment is confirmed by biopsy 〔ESMO II, C〕. PET-CT for radiotherapy planning 〔ESMO III, A〕. Bone scintigraphy in limited stage when PET-CT is not done 〔ESMO V, B〕
+  ⑤ No PD-L1 or tumour mutational burden testing 〔ESMO I, D〕
+
+course: Small-cell lung cancer
+  Limited stage
+    Stage I–III, encompassable in one radiotherapy field
+    next: Surgery | Clinical T1–2 N0
+    next: Chemoradiotherapy | T1–4 N0–3, PS 0–1
+  Extensive stage, first line
+    Platinum and etoposide for 4 cycles with atezolizumab (carboplatin only) or durvalumab (cisplatin or carboplatin), PS 0–1 〔ESMO I, A〕
+      + IMpower133 | OS HR
+      + CASPIAN | OS HR
+    ※ Serplulimab with carboplatin and etoposide: EU licence 2025; trial mostly in China
+      + ASTRUM-005 | OS HR
+    ※ Pembrolizumab improved PFS but OS missed its significance boundary; not licensed
+      ~ KEYNOTE-604 | PFS HR
+    ※ Immunotherapy contraindicated, or PS 2 due to SCLC: platinum and etoposide for 4–6 cycles 〔ESMO I, A〕; carboplatin can replace cisplatin 〔ESMO I, B〕
+    ※ Irinotecan with cisplatin is an alternative 〔ESMO II, C〕; the survival gain in Japan was not confirmed in North America
+      + JCOG9511 | OS median
+      - SWOG S0124 {pmid 19349543} | OS 9.9 vs 9.1 months
+    next: Extensive stage, after induction | No progression
+  Surgery
+    By MDT decision 〔ESMO III, B〕, after pathological mediastinal staging 〔ESMO IV, A〕
+    ① Complete resection 〔ESMO III, A〕 with systematic nodal dissection 〔ESMO IV, A〕; sublobar resection is not recommended 〔ESMO V, E〕
+    next: After resection
+  Chemoradiotherapy
+    Concurrent chemotherapy and thoracic radiotherapy 〔ESMO I, A〕
+    Cisplatin and etoposide for 4 cycles 〔ESMO I, A〕, carboplatin when cisplatin is contraindicated 〔ESMO II, A〕
+      + Sundstrøm 2002 [t-sundstr-m-et-al] | limited stage 2-year OS 25% vs 8%, against CEV
+    Thoracic radiotherapy with chemotherapy improves survival
+      + Pignon 1992 [t-pignon-et-al] | 3-year OS 14.3% vs 8.9%
+    ※ Concurrent radiotherapy gave longer survival than sequential radiotherapy, a difference that was not significant
+      - JCOG9104 {pmid 12118018} | median OS 27.2 vs 19.7 months, P 0.097
+    ① 45 Gy in 30 fractions twice daily 〔ESMO I, A〕, starting with chemotherapy cycle 1 or 2 〔ESMO II, A〕, or with cycle 3 when PS or organ doses do not allow an earlier start 〔ESMO II, B〕
+      + Intergroup 0096 | 5-year OS 26% vs 16%
+    ② 66 Gy in 33 daily fractions when twice daily is not possible
+      - CONVERT | OS HR 1.18 for once daily against twice daily, not significant
+    ※ 70 Gy daily was no better than 45 Gy twice daily
+      - CALGB 30610 {pmid 36623230} | OS HR 0.94
+    ※ 60 Gy in 40 fractions twice daily raised 2-year OS in a randomised phase II trial
+      + Grønberg 2021 {pmid 33662285} | 2-year OS 74.2% vs 48.1%
+    ※ Unfit for concurrent treatment: sequential chemoradiotherapy 〔ESMO V, B〕
+    next: Limited stage, after chemoradiotherapy | No progression
+  After resection
+    ① Adjuvant platinum and etoposide 〔ESMO IV, A〕
+    ② N2 or R1–R2: radiotherapy with the chemotherapy, preferably concurrent 〔ESMO IV, A〕
+    ※ PCI after resection of stage I–II: shared decision 〔ESMO V, C〕
+    join: Recurrent/progressive disease | Relapse
+  Limited stage, after chemoradiotherapy
+    ① PCI 25 Gy in 10 fractions after response, PS 0–1 〔ESMO I, A〕; PS 2 may be considered 〔ESMO III, B〕
+      + Aupérin 1999 [t-aup-rin-et-al] | 3-year OS 20.7% vs 15.3%
+      - PCI 99-01 {pmid 19386548} | 2-year OS 42% vs 37% for 25 Gy against 36 Gy
+      ※ Stage I–II, over 70 or frail: shared decision 〔ESMO V, C〕
+      ※ MRI surveillance without PCI improved cognitive failure-free survival, the primary endpoint; OS and brain metastasis-free survival did not differ at a preliminary analysis after 128 of 190 planned deaths; limited and extensive stage; congress abstract
+        ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | cognitive failure-free survival HR 0.60; OS HR 0.90
+    ② Durvalumab every 4 weeks for up to 24 months, after PCI where given; EU licence 2025
+      + ADRIATIC | OS HR
+      ※ Atezolizumab with and after chemoradiotherapy did not improve OS (phase III); atezolizumab for 1 year after chemoradiotherapy did not improve PFS or OS (randomised phase II)
+        - LU005 {pmid 41529214} | OS HR 1.03
+        - ACHILES | OS HR
+    join: Recurrent/progressive disease | Relapse
+  Extensive stage, after induction
+    ① Continue atezolizumab or durvalumab
+    ② After induction with atezolizumab: atezolizumab with lurbinectedin; US licence 2025, EU licence 2026
+      + IMforte | OS HR
+    ③ After induction with durvalumab: tarlatamab with durvalumab; not licensed as of November 2026
+      + DeLLphi-305 | OS HR
+    ※ Nivolumab with or without ipilimumab after chemotherapy alone did not improve OS
+      - CheckMate 451 | OS HR 0.92
+    ※ Thoracic radiotherapy 30 Gy in 10 fractions after response, PS 0–2 〔ESMO II, C〕; with immunotherapy, shared decision 〔ESMO IV, C〕
+      ~ CREST | 1-year OS 33% vs 28%, not significant; 2-year OS 13% vs 3%
+    ※ PCI 20 Gy in 5 or 25 Gy in 10 fractions under 75, PS 0–2, when MRI staging and MRI follow-up are not available 〔ESMO II, B〕; may be left out when MRI after chemotherapy is clear and MRI follow-up is possible 〔ESMO II, B〕
+      + EORTC 22993-08993 | OS HR
+      - Takahashi 2017 [t-takahashi-et-al] | OS HR
+      ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | cognitive failure-free survival HR 0.60; OS HR 0.90
+    next: Recurrent/progressive disease | Progression
+  Recurrent/progressive disease
+    Platinum-sensitive, relapse 3 months or more after platinum
+    ① Carboplatin and etoposide again 〔ESMO II, B〕, or tarlatamab; the two have not been compared
+      ~ GFPC 01–13 [t-groupe-fran-ais-de-pneumo-canc-rologie-01-13] | PFS HR
+    ※ ESMO and GFPC 01–13 use 3 months; other guidelines use 6 months for rechallenge. In GFPC 01–13 the PFS gain was significant only for relapse 180 days or more after chemotherapy
+    ② Topotecan oral or intravenous; CAV is an alternative 〔ESMO II, B〕
+      + O'Brien 2006 {pmid 17135646} | OS 25.9 vs 13.9 weeks, against supportive care
+      - von Pawel 1999 [t-von-pawel-et-al] | response 24.3% vs 18.3%, against CAV
+    Platinum-resistant, relapse within 3 months
+    ① Tarlatamab; US accelerated licence 2024, full licence 2025; EU licence 2026
+      + DeLLphi-304 | OS HR
+    ② Topotecan oral or intravenous 〔ESMO II, B〕
+    Platinum-refractory, progression during platinum
+    ① Tarlatamab; DeLLphi-304 included progression during first-line platinum
+    ※ Before tarlatamab, ESMO advised a clinical trial or supportive care 〔ESMO II, C〕
+    Any interval
+    ※ B7-H3 antibody-drug conjugates improved OS over topotecan in second line at interim analyses: tambotatug pelitecan and risvutatug rezetecan; both trials in China; neither licensed
+      + TAISHAN-302 | OS HR
+      + ARTEMIS-008 {url https://www.gsk.com/media/txxdafj4/gsk-wclc-ris-rez-data-press-release_final.pdf} | OS HR 0.46, 18.5 vs 10.3 months
+    ※ Lurbinectedin alone did not improve OS over topotecan or irinotecan, and the US second-line indication is being withdrawn; ESMO 2021 had listed it 〔ESMO III, C〕
+      - LAGOON {url https://www.targetedonc.com/view/phase-3-lagoon-trial-fails-to-confirm-survival-benefit-of-lurbinectedin-in-relapsed-sclc} | OS HR 1.19 against topotecan or irinotecan
+
+off:
+  Roth 1992 [t-roth-et-al] | CAV and alternating regimens no longer used; platinum and etoposide is standard
+  Fukuoka 1991 [t-fukuoka-et-al] | CAV and alternating regimens no longer used; platinum and etoposide is standard
+  DeLLphi-301 | Phase II dose selection in third line; DeLLphi-304 set tarlatamab after platinum
+  PM1183-B-005-14 | Single-arm phase II behind the US accelerated approval of lurbinectedin alone; LAGOON did not confirm it and the second-line indication is being withdrawn
+  BL-B01D1-101 | Single-arm phase Ib in China; izalontamab brengitecan not licensed

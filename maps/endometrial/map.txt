@@ -40,6 +40,7 @@
 
 map: Endometrial Cancer
 source: ESGO [t-esgo-estro-esp-endometrial-carcinoma-management-guidelines]
+scale: Low | Intermediate | High-intermediate | High
 
 band: Diagnosis and surgery
   ① Total hysterectomy, bilateral salpingo-oophorectomy and sentinel node biopsy, by minimally invasive surgery 〔ESGO I, A〕

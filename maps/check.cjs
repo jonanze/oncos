@@ -1,5 +1,5 @@
 /* Release check for the board maps: node maps/check.cjs
-   - every map trial points at an Evidence row, or carries a PMID and is listed for intake
+   - every map trial points at an Evidence row, or carries a PMID (or, before PubMed lists it, a {url}) and is listed for intake
    - a live figure ("OS HR", "PFS median", "response") resolves from its Evidence row
    - every written key figure's numbers appear in that trial's Evidence row
    - every row of the sheet is on the map or under off: with a reason; the rest are listed in unplaced.txt and fail
@@ -36,7 +36,7 @@ for (const dir of fs.readdirSync(__dirname)) {
   const intake = []; live = 0;
   fs.readFileSync(f, 'utf8').split('\n').forEach((t, k) => {
     if (/^\s*#/.test(t)) return;
-    const lab = /^\s+next:.*\|\s*(.)/.exec(t);
+    const lab = /^\s+(?:next|join):.*\|\s*(.)/.exec(t);
     if (lab && /[a-z]/.test(lab[1])) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' line label starts in lower case: "' + t.trim() + '"'); }
     const hit = BANNED.find(b => b.test(t));
     if (hit) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' wording: "' + t.trim().slice(0, 70) + '" matches ' + hit); }
@@ -44,6 +44,7 @@ for (const dir of fs.readdirSync(__dirname)) {
   for (const {line, where} of O.trials(m)) {
     const tag = dir + '/map.txt:' + line.at + ' ' + line.name;
     if (line.pmid && !line.anchor) { intake.push(line.name + '\tPMID ' + line.pmid + '\t' + where); continue; }
+    if (line.url && !line.anchor) { intake.push(line.name + '\tno PMID yet ' + line.url + '\t' + where); continue; }
     const r = byAnchor.get(line.anchor);
     if (!r) { bad++; console.log(tag + ': no Evidence row ' + line.anchor + ' (give [t-...] or {pmid N})'); continue; }
     if (!TRIAL_TYPE.test(r.type) || (NOT_TRIAL.test(r.type) && !/clinical trial|randomi/i.test(r.type))) {
