@@ -45,7 +45,7 @@ band: ADT, testing and bone
   ① Flutamide for 2 weeks before the first LHRH agonist injection prevents PSA flare
     * Noguchi 2001 {pmid 11706524} | flare prevented
   ② Relugolix: fewer major cardiovascular events than leuprolide
-    ~ HERO {pmid 32469183} | 2.9% vs 6.2%
+    ~ HERO [t-hero] | 2.9% vs 6.2%
   ③ Intermittent ADT: non-inferior after radiotherapy relapse, not shown in metastatic disease
     + PR.7 {pmid 22931259} | OS HR 1.02
     - SWOG 9346 [t-hussain-et-al] | OS HR

@@ -41,7 +41,7 @@ band: Before first line
 
 band: Local treatment and bone
   ① 3 or fewer metastases, no progression after first line: radiotherapy or surgery to every site
-    + Gomez {pmid 27789196} | OS 41.2 vs 17.0 months
+    + Gomez [t-gomez-et-al] | PFS HR
     ~ Iyengar [t-iyengar-et-al] | PFS 9.7 vs 3.5 months
     ※ Both phase 2, stopped early
     ※ With osimertinib, radiotherapy to the sites left after 8–10 weeks: single-arm
@@ -120,7 +120,7 @@ tree: Advanced NSCLC, first line
       PD-L1 ≥50%
         = PD-1 or PD-L1 antibody alone, or pembrolizumab + platinum doublet
         + KEYNOTE-024 | 5-year OS 31.9% vs 16.3%
-        + EMPOWER-Lung 1 {pmid 33581821} | OS HR 0.57
+        + EMPOWER-Lung 1 [t-empower-lung-1] | OS HR 0.57
         + IMpower110 | OS median
         ※ Adding chemotherapy to pembrolizumab: longer PFS, OS not significantly longer in the one direct trial
           ~ PERSEE | PFS HR
@@ -153,7 +153,7 @@ tree: Advanced NSCLC, first line
           ~ OptiTROP-Lung06 | PFS HR
     PS 2 or frail
       = Atezolizumab alone
-      + IPSOS {pmid 37423228} | OS HR 0.78
+      + IPSOS [t-ipsos] | OS HR 0.78
 
 panel: Course of treatment > No driver
   Platinum doublet + PD-1 antibody for 4 cycles, then the PD-1 antibody alone or with pemetrexed for up to 35 cycles, about 2 years
@@ -168,10 +168,10 @@ panel: Second line > No driver
   ① After chemotherapy + PD-1 antibody: docetaxel, with ramucirumab if fit
     + REVEL | OS HR
   ② After chemotherapy without a PD-1 antibody: nivolumab, pembrolizumab if TPS ≥1%, or atezolizumab
-    + CheckMate 017 {pmid 26028407} | OS HR 0.59
-    + CheckMate 057 {pmid 26412456} | OS HR 0.73
-    + KEYNOTE-010 {pmid 26712084} | OS HR 0.71
-    + OAK {pmid 27979383} | OS HR 0.73
+    + CheckMate 017 [t-checkmate-017] | OS HR 0.59
+    + CheckMate 057 [t-checkmate-057] | OS HR 0.73
+    + KEYNOTE-010 [t-keynote-010] | OS HR 0.71
+    + OAK [t-oak] | OS HR 0.73
     + RATIONALE-303 | OS HR
   ③ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C branch
   ④ Docetaxel beat supportive care
@@ -200,7 +200,7 @@ panel: Later lines > Driver found
       ~ HERON-Lung01 | PFS HR
       ~ PANKU-Lung01 | PFS HR
   ⑥ PD-1 antibodies add little after a TKI
-    - KEYNOTE-789 {pmid 39173098} | OS HR 0.84
+    - KEYNOTE-789 [t-keynote-789] | OS HR 0.84
     ~ IMpower150 | PFS HR 0.59
     ~ ATTLAS | PFS HR
     ※ IMpower150: atezolizumab + bevacizumab + chemotherapy, EGFR or ALK subgroup, exploratory; ATTLAS: same regimen, OS no different

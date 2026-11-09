@@ -1,4 +1,2 @@
 # Trials on the Early & Locally Adv NSCLC map with no Evidence row yet (name, PMID, where on the map)
-JCOG0802	PMID 35461558	Surgery
-CALGB 140503	PMID 36780674	Surgery
-GEMSTONE-301	PMID 35038429	After chemoradiotherapy, no progression
+
