@@ -11,7 +11,6 @@
    - next: lines are drawn as ruled elbows, their label above the line
    - a panel sits below its step's column
    - a step, band or panel holding a grid ("| a | b |" lines) widens to fit the grid's columns
-   - "ask: a | b | c" heads each column with the question its steps answer
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   var GX = 56, GY = 22, LEAF_W = 500, PANEL_W = 460, BAND_W = 560, M = 28;
@@ -102,7 +101,6 @@
         n.hd = n.el.firstChild;
       });
       steps.forEach(function(n){ n.next.forEach(function(e){ if (e.label) e.el = add('elab', keep(e.label)); }); });
-      var asks = (model.tree.asks || []).map(function(q){ return add('ask', keep(q)); });
     } else nodes.forEach(function(n){
       n.el = add('box lbl' + (n.depth ? '' : ' root'), keep(n.label));
       if (n.lines.length) { n.leaf = add('leaf', linesHtml(n.lines), LEAF_W); leaves.push(n); }
@@ -140,17 +138,6 @@
       var panelTop = [];
       var colX = [M];
       cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + CGX; });
-      // ask: one question over each column, all one height, the steps below them
-      if (asks.length) {
-        var ah = 0;
-        asks.forEach(function(el, c){
-          el.style.minHeight = ''; el.style.left = colX[c] + 'px'; el.style.top = b.top + 'px';
-          el.style.width = ((colX[c + 1] || colX[c] + STEP_W + CGX) - CGX - colX[c]) + 'px';
-          ah = Math.max(ah, el.offsetHeight);
-        });
-        asks.forEach(function(el){ el.style.minHeight = ah + 'px'; });
-        b.top += ah + CGY;
-      }
       cols.forEach(function(list, c){
         var x = colX[c], cursor = b.top;
         list.forEach(function(n){

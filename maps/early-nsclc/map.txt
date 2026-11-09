@@ -4,8 +4,7 @@
 #   Indent 2 spaces per level.
 #   tree:   a decision tree; each plain line is a node, its children are indented under it
 #   course: a disease course instead of a tree; each line at 2 spaces is a step, everything indented
-#           under it is its content, and "next: Step | label" draws a line to a later step;
-#           "ask: ① … | ② … | ③ …" at 2 spaces heads each column with the question its steps answer
+#           under it is its content, and "next: Step | label" draws a line to a later step
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
 #   = text          the treatment for a branch
@@ -36,8 +35,8 @@
 #   Standard options only; trials of options not in standard use go under off: (Jonan 2026-11-09, Lung-MAP)
 #   Adjuvant, maintenance and consolidation choices are a later step after the primary treatment,
 #   never a branch beside it (Jonan 2026-11-09)
-#   Columns follow the decisions in order, each headed by its question: surgery or no surgery;
-#   treatment before surgery or surgery first; treatment after the primary treatment (Jonan 2026-11-09)
+#   Columns follow the decisions in order: surgery or no surgery; treatment before surgery or
+#   surgery first; treatment after the primary treatment (Jonan 2026-11-09)
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 # * Labels on connecting lines start with a capital, like every other label
 #   A statement that rests on a guideline rather than a trial carries its 〔source level, grade〕 tag;
@@ -66,7 +65,6 @@ band: Testing before treatment
   ④ ctDNA is not used to add or withhold adjuvant treatment 〔ESMO IV, E〕
 
 course: Early and locally advanced NSCLC
-  ask: ① Surgery or no surgery | ② Treatment before surgery, or surgery first | ③ Treatment after the primary treatment
   Surgery
     Operable, and the MDT judges complete resection possible: stage I–II, and selected stage III
     ※ N2 disease: the MDT chooses between surgery and definitive chemoradiotherapy 〔ESMO V, A〕

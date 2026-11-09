@@ -72,12 +72,6 @@
         return;
       }
       if (out.tree.course) {             // course: steps at 2 spaces; next: and content under them
-        var ask = /^ask:\s*(.+)$/.exec(text);
-        if (ask) {                       // ask: the question each column answers, one per column, split by |
-          if (ind !== 2) { out.errors.push(at + ': ask: sits at 2 spaces, before the steps'); return; }
-          out.tree.asks = ask[1].split(/\s*\|\s*/);
-          return;
-        }
         if (ind === 2) {
           if (/^next:/.test(text)) { out.errors.push(at + ': next: belongs under a step'); return; }
           var st = {label:text, depth:1, children:[], lines:[], next:[], indent:2, at:at};
