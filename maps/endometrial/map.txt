@@ -31,6 +31,7 @@
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
 #   Superseded trials go under off: unless an option still in use rests on them
+#   Standard options only; trials of options not in standard use go under off: (Jonan 2026-11-09, Lung-MAP)
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 # * Labels on connecting lines start with a capital, like every other label
 #   A statement that rests on a guideline rather than a trial carries its 〔source level, grade〕 tag;
@@ -99,15 +100,10 @@ course:
       + RUBY | MMR deficient OS HR 0.30
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR deficient PFS HR 0.30
       ~ DUO-E [t-duo-e] | MMR deficient PFS HR 0.42
-      ~ AtTEnd | MMR deficient PFS HR 0.36
-      ~ KEYNOTE-C93 [t-keynote-c93] | PFS HR
-      ※ KEYNOTE-C93: pembrolizumab alone against carboplatin-paclitaxel; OS not yet different. ESGO 2025 came before it and does not list pembrolizumab alone
     ② MMR proficient: carboplatin-paclitaxel 〔ESGO I, A〕; adding pembrolizumab or dostarlimab, or durvalumab followed by durvalumab with olaparib, can be considered 〔ESGO I, B〕
       + RUBY | all patients OS HR 0.64, interim
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR proficient PFS HR 0.54
       ~ DUO-E [t-duo-e] | MMR proficient, with olaparib, PFS HR 0.57
-      ~ RUBY Part 2 | PFS HR 0.60; OS HR 1.2
-      ※ Niraparib added to dostarlimab maintenance improved PFS but not OS
     ③ HER2 3+, when a checkpoint inhibitor cannot be given: carboplatin-paclitaxel with trastuzumab 〔ESGO II, B〕
       + Fader et al. | OS HR 0.58
       ※ Fader et al. enrolled serous carcinoma only
@@ -124,8 +120,6 @@ course:
     ② MMR proficient, no checkpoint inhibitor before: lenvatinib with pembrolizumab 〔ESGO I, A〕
       + KEYNOTE-775 [t-keynote-775-study-309] | OS HR
     ③ After a checkpoint inhibitor: platinum rechallenge, doxorubicin, weekly paclitaxel or endocrine therapy 〔ESGO IV, B〕
-      + TroFuse-005 | OS HR 0.68
-      ※ TroFuse-005, reported after ESGO 2025: sacituzumab tirumotecan improved OS over chemotherapy; no OS gain in MMR deficient tumours, and carcinosarcoma did worse
     ④ HER2 2+ or 3+: trastuzumab deruxtecan 〔ESGO III, B〕
       * DESTINY-PanTumor02 [t-destiny-pantumor02] | IHC 3+ response 84.6%
       ※ HER2 3+ with platinum rechallenge possible: carboplatin-paclitaxel with trastuzumab 〔ESGO II, B〕
@@ -136,3 +130,7 @@ off:
   GOG-86P [t-gog-86p] | Bevacizumab, temsirolimus and ixabepilone not used; historical control only
   MITO END-2 | Bevacizumab did not improve PFS and is not used
   SIENDO / ENGOT-EN5 [t-siendo-engot-en5] | Selinexor maintenance not standard; TP53 wild-type benefit under confirmation
+  AtTEnd | Atezolizumab with chemotherapy; not a standard option and not listed in ESGO 2025
+  KEYNOTE-C93 [t-keynote-c93] | Pembrolizumab alone in first line; not a standard option and not in ESGO 2025
+  RUBY Part 2 | Niraparib added to dostarlimab maintenance; not a standard option, no OS gain
+  TroFuse-005 | Sacituzumab tirumotecan after platinum and a checkpoint inhibitor; not a standard option
