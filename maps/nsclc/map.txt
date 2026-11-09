@@ -47,9 +47,9 @@ band: Local treatment and bone
     ※ With osimertinib, radiotherapy to the sites left after 8–10 weeks: single-arm
       ~ Sampath 2025 [t-sampath-et-al] | PFS 32.3 months
   ② 1 to 3 brain metastases: radiosurgery alone
-    * Brown 2016 {pmid 27458945} | cognitive decline 63.5% vs 91.7%
+    * NCCTG N0574 [t-ncctg-n0574] | cognitive decline 63.5% vs 91.7%
   ③ Bone metastases: denosumab 120 mg every 4 weeks
-    ~ Henry 2011 {pmid 21343556} | first skeletal event HR 0.84
+    ~ Henry 2011 [t-henry-et-al] | first skeletal event HR 0.84
   ④ Up to 5 sites progressing on systemic therapy: radiotherapy to them, systemic therapy continued
     ~ CURB | NSCLC PFS 2.2 vs 10.0 months
 

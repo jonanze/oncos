@@ -1,3 +1,2 @@
 # Trials on the Advanced Prostate map with no Evidence row yet (name, PMID, where on the map)
 Noguchi 2001	PMID 11706524	ADT, testing and bone
-PR.7	PMID 22931259	ADT, testing and bone
