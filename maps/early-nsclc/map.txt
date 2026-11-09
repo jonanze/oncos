@@ -46,7 +46,6 @@ band: Staging before treatment
   ① CT and PET-CT before surgery, for nodal staging 〔ESMO I, A〕
     ~ PLUS [t-plus-trial] | futile thoracotomy 41% vs 21%
     ~ Fischer 2009 [t-fischer-et-al] | futile thoracotomy 21% vs 42%
-    ~ Maziak 2009 [t-maziak-et-al] | more patients correctly upstaged
   ② Nodes abnormal on CT or PET: endosonography with needle aspiration first 〔ESMO I, A〕
     ~ ASTER | N2 or N3 sensitivity 79% vs 94%
   ③ Mediastinoscopy can be left out after negative systematic endosonography
@@ -79,7 +78,7 @@ tree: Early and locally advanced NSCLC
           - CALGB 9633 | OS median
     Inoperable
       = SBRT; central or ultracentral tumours get more fractions 〔ESMO II, A〕
-      + CHISEL {pmid 30770291} | local failure HR 0.32
+      + CHISEL [t-chisel] | local control HR
       ※ Operable stage I: surgery is preferred over SBRT 〔ACCP conditional, low〕
   Resectable stage II–III
     EGFR exon 19 or L858R

@@ -1,5 +1,4 @@
 # Trials on the Early & Locally Adv NSCLC map with no Evidence row yet (name, PMID, where on the map)
 JCOG0802	PMID 35461558	Peripheral, node-negative, 2 cm or less
 CALGB 140503	PMID 36780674	Peripheral, node-negative, 2 cm or less
-CHISEL	PMID 30770291	Inoperable
 GEMSTONE-301	PMID 35038429	No driver
