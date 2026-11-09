@@ -7,14 +7,16 @@
    A course: map is drawn in time order instead:
    - each step one column right of the latest step that leads to it; a step nothing leads to
      sits one column before the step it leads to
-   - a step sits level with the steps that lead to it, pushed down to clear the step above
+   - a step sits level with the steps that lead to it, pushed down to clear the step above;
+     a step a few pixels above the one step it leads to moves down to meet it, so the line runs straight
+   - steps joined by lines form a branch; separate branches are drawn one below the other with a wider gap
    - next: lines are drawn as ruled elbows, their label above the line
    - a panel sits below its step's column
    - a step, band or panel holding a grid ("| a | b |" lines) widens to fit the grid's columns
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   var GX = 56, GY = 22, LEAF_W = 500, PANEL_W = 460, BAND_W = 560, M = 28;
-  var STEP_W = 440, CGX = 170, CGY = 36, STUB = 28, GRID_COL = 176;
+  var STEP_W = 440, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -125,9 +127,17 @@
       steps.forEach(function(n){ n.next.forEach(function(e){ e.node = by[e.to]; e.node.preds.push(n); }); });
       function col(n){ if (n.col === null) { n.col = 0; n.preds.forEach(function(p){ n.col = Math.max(n.col, col(p) + 1); }); } return n.col; }
       steps.forEach(col);
+      // steps joined by lines, in either direction, form one branch; separate branches are drawn
+      // one below the other, set apart by a wider gap, so that no branch runs beside another
+      var g = 0;
+      steps.forEach(function(n){ n.group = null; });
       steps.forEach(function(n){
-        if (n.preds.length || !n.next.length) return;
-        n.col = Math.max(n.col, Math.min.apply(null, n.next.map(function(e){ return e.node.col; })) - 1);
+        if (n.group !== null) return;
+        (function mark(m){
+          if (m.group !== null) return; m.group = g;
+          m.next.forEach(function(e){ mark(e.node); }); m.preds.forEach(mark);
+        })(n);
+        g++;
       });
       // every step heading the same height, so headings side by side share their top and middle
       var hh = 0;
@@ -138,22 +148,43 @@
       var panelTop = [];
       var colX = [M];
       cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + CGX; });
+      var top0 = b.top, colEnd = [];
+      for (var gi = 0; gi < g; gi++) {
+        var bottom = top0;
+        cols.forEach(function(list, c){
+          var x = colX[c], cursor = top0;
+          var mine = list.filter(function(n){ return n.group === gi; });
+          mine.forEach(function(n){
+            // level with the middle of the steps that lead here, so its main line runs straight
+            var ys = n.preds.map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
+            n.hh = n.hd.offsetHeight;
+            n.want = !ys.length ? Infinity : ys.length % 2 ? ys[h] : (ys[h - 1] + ys[h]) / 2;
+          });
+          mine.sort(function(a, z){ return a.want === z.want ? a.k - z.k : a.want - z.want; });
+          mine.forEach(function(n){
+            var top = n.want === Infinity ? cursor : Math.max(cursor, n.want - n.hh / 2);
+            n.x = x; n.y = top; n.cy = top + n.hh / 2;
+            n.el.style.left = x + 'px'; n.el.style.top = top + 'px';
+            cursor = top + n.el.offsetHeight + CGY;
+            bottom = Math.max(bottom, top + n.el.offsetHeight);
+          });
+          if (mine.length) colEnd[c] = cursor;
+        });
+        top0 = bottom + BGY;
+      }
       cols.forEach(function(list, c){
-        var x = colX[c], cursor = b.top;
-        list.forEach(function(n){
-          // level with the middle of the steps that lead here, so its main line runs straight
-          var ys = n.preds.map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
-          n.hh = n.hd.offsetHeight;
-          n.want = !ys.length ? Infinity : ys.length % 2 ? ys[h] : (ys[h - 1] + ys[h]) / 2;
+        list.sort(function(a, z){ return a.y - z.y; });
+        panelTop[c] = (colEnd[c] || b.top) + 12;
+      });
+      // a step with one line to one step, a few pixels above it: move it down so the line runs straight
+      cols.forEach(function(list){
+        list.forEach(function(n, k){
+          if (n.next.length !== 1 || n.next[0].node.preds.length !== 1) return;
+          var dy = n.next[0].node.cy - n.cy, below = list[k + 1];
+          if (dy <= 0 || dy >= CGY) return;
+          if (below && n.y + dy + n.el.offsetHeight + CGY / 2 > below.y) return;
+          n.y += dy; n.cy += dy; n.el.style.top = n.y + 'px';
         });
-        list.sort(function(a, z){ return a.want === z.want ? a.k - z.k : a.want - z.want; });
-        list.forEach(function(n){
-          var top = n.want === Infinity ? cursor : Math.max(cursor, n.want - n.hh / 2);
-          n.x = x; n.y = top; n.cy = top + n.hh / 2;
-          n.el.style.left = x + 'px'; n.el.style.top = top + 'px';
-          cursor = top + n.el.offsetHeight + CGY;
-        });
-        panelTop[c] = cursor + 12;
       });
       steps.forEach(function(n){
         n.next.forEach(function(e){
