@@ -75,7 +75,7 @@ course: Unresectable pleural mesothelioma
     ② Platinum and pemetrexed for up to 6 cycles with pembrolizumab, pembrolizumab continued for up to 2 years 〔ASCO High, Strong〕 〔NCCN 1, preferred〕; EU licence for non-epithelioid only
       + KEYNOTE-483 | OS HR
     ③ Platinum and pemetrexed 〔ESMO I, A〕, only when immunotherapy is contraindicated 〔ASCO High, Strong〕; with or without bevacizumab 〔NCCN 1, other〕
-    ④ Immunotherapy not suitable: pegargiminase added to platinum and pemetrexed 〔ASCO Moderate, Conditional〕; not licensed, the US application was withdrawn in 2026; NCCN does not list it
+    ※ Pegargiminase added to platinum and pemetrexed when immunotherapy is not suitable 〔ASCO Moderate, Conditional〕; never licensed, the US application was withdrawn in 2026; NCCN does not list it
       + ATOMIC-Meso {pmid 38358753} | OS 9.3 vs 7.7 months; HR 0.71
     ※ Non-epithelioid subgroups: OS HR 0.46 in CheckMate 743 and 0.57 in KEYNOTE-483
     ※ ESMO 2022 predates KEYNOTE-483 and lists chemotherapy as an option in all histologies; ASCO 2025 does not for non-epithelioid disease
