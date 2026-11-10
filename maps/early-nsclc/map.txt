@@ -126,6 +126,7 @@ course: Early and locally advanced NSCLC
       - PROCLAIM | OS median
     ※ Durvalumab or nivolumab during chemoradiotherapy gave no benefit
       - PACIFIC-2 | PFS HR
+      - CheckMate 73L | PFS HR
     next: After chemoradiotherapy, no progression | No progression
   After chemo-immunotherapy and surgery
     ① After neoadjuvant nivolumab: no further treatment 〔ESMO I, A〕
@@ -171,7 +172,3 @@ course: Early and locally advanced NSCLC
       ~ GEMSTONE-301 [t-gemstone-301] | PFS HR 0.64
     ※ After sequential chemoradiotherapy: durvalumab 〔ESMO II, B〕; not approved for this use. Smaller PFS benefit than PACIFIC; no OS benefit at interim; similar effect after sequential and concurrent chemoradiotherapy, neither subgroup powered
       ~ PACIFIC-5 | PFS HR 0.75, OS HR 0.87; after sequential 0.75 (0.49–1.18), after concurrent 0.76
-
-off:
-  CheckMate 73L | Class C, negative (excluded.txt); row awaits a decision on existing rows
-  ANVIL | Class C, negative (excluded.txt); row awaits a decision on existing rows
