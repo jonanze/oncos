@@ -25,21 +25,9 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 [data-view="acute"] #results{transition:opacity .15s var(--mo-ease,cubic-bezier(.3,0,.1,1)),
            transform .15s var(--mo-ease,cubic-bezier(.3,0,.1,1));}
 [data-view="acute"] #results.vfade{opacity:0;transform:translateY(5px);}
-[data-view="acute"] .backbtn{display:inline-flex;align-items:center;gap:7px;margin:0 0 14px;
-    padding:7px 15px;font:inherit;font-size:var(--t-base);font-weight:var(--w-name);
-    color:var(--slate);background:var(--panel,var(--paper));border:1px solid var(--hair);
-    border-radius:999px;cursor:pointer;}
-@media (hover: hover){[data-view="acute"] .backbtn:hover{color:var(--teal);border-color:var(--teal);background:var(--accent-soft);}}
 [data-view="acute"] .topbar{margin-bottom:12px;}
 [data-view="acute"] .crumbs{display:none;}
 [data-view="acute"] .crumbs b{color:var(--ink);}
-[data-view="acute"] .t{display:inline-flex;align-items:center;justify-content:center;
-    height:20px;padding:0 11px;box-sizing:border-box;
-    font-size:var(--chip-fs);font-weight:var(--w-name);letter-spacing:var(--track-badge);text-transform:uppercase;line-height:1;
-    white-space:nowrap;border-radius:999px;border:1px solid transparent;
-    color:var(--slate);background:var(--accent-soft);font-family:var(--font-mono);}
-[data-view="acute"] .t.grade{background:var(--status-info-soft);color:var(--status-info);}
-[data-view="acute"] .t.new{background:var(--accent-soft);color:var(--slate);}
 [data-view="acute"] table.list{width:100%;border-collapse:collapse;background:var(--panel,var(--paper));}
 [data-view="acute"] table.list > thead th{text-align:left;font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
     padding:11px 12px;border-bottom:1.2px solid var(--rule);background:var(--ground,transparent);white-space:nowrap;font-weight:var(--w-name);}
@@ -54,31 +42,6 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 [data-view="acute"] .secrow td{background:var(--ground,var(--accent-soft));font-weight:var(--w-strong);font-size:var(--t-xs);letter-spacing:.05em;
     text-transform:uppercase;color:var(--slate);padding:7px 12px;}
 [data-view="acute"] .secrow td::after{content:"";display:inline-block;width:100%;height:1px;background:var(--rule);vertical-align:middle;margin-left:12px;margin-right:-100%;}
-[data-view="acute"] .dvhead{margin:2px 0 18px;padding-bottom:14px;border-bottom:1.2px solid var(--rule);}
-[data-view="acute"] .dvhead h2{margin:0 0 8px;font-family:var(--font-serif);font-size:var(--t-3xl);font-weight:var(--w-name);letter-spacing:-.01em;}
-[data-view="acute"] .dvmeta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--muted);font-size:var(--t-base);}
-[data-view="acute"] .dvcat{color:var(--muted);font-size:var(--t-sm);font-weight:var(--w-name);letter-spacing:.04em;text-transform:uppercase;}
-[data-view="acute"] .actnow{margin:0 0 18px;border:1px solid color-mix(in oklab, var(--status-danger) 30%, var(--grid));background:var(--status-danger-soft);
-    border-radius:9px;padding:13px 15px;}
-[data-view="acute"] .actnow .lbl{font-size:var(--t-2xs);font-weight:var(--w-strong);letter-spacing:1.5px;text-transform:uppercase;
-    color:var(--status-danger);display:block;margin-bottom:6px;}
-[data-view="acute"] .actnow ol{margin:0;padding-left:20px;}
-[data-view="acute"] .actnow li{margin:5px 0;font-size:var(--t-md);}
-[data-view="acute"] .dvbody .sec{padding:14px 0;border-bottom:1px solid var(--grid);}
-[data-view="acute"] .dvbody .sec:last-of-type{border-bottom:none;}
-[data-view="acute"] .dvbody .sec h4{margin:0 0 6px;font-family:var(--font-sans);font-size:var(--t-sm);font-weight:var(--w-strong);
-    letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
-[data-view="acute"] .dvbody .sec p{margin:6px 0;}
-[data-view="acute"] .dvbody .sec ul{margin:6px 0;padding-left:20px;}
-[data-view="acute"] .dvbody .sec li{margin:4px 0;}
-[data-view="acute"] ul.grade{list-style:none;padding-left:0;}
-[data-view="acute"] ul.grade li{margin:6px 0;padding-left:2px;}
-[data-view="acute"] ul.grade .g{display:inline-block;min-width:30px;font-weight:var(--w-strong);color:var(--slate);font-family:var(--font-mono);}
-[data-view="acute"] .related{margin:14px 0 0;font-size:var(--t-base);color:var(--muted);font-style:italic;}
-[data-view="acute"] .sources{margin:14px 0 0;font-size:var(--t-sm);color:var(--muted);line-height:1.6;
-    border-top:1px solid var(--grid);padding-top:11px;}
-[data-view="acute"] .sources .lbl{font-weight:var(--w-strong);letter-spacing:.5px;text-transform:uppercase;font-size:var(--t-2xs);
-    color:var(--slate);margin-right:6px;}
 [data-view="acute"] .empty{text-align:center;color:var(--muted);padding:50px;}
 [data-view="acute"] footer.disc{margin-top:36px;text-align:center;color:var(--muted);font-size:var(--t-sm);line-height:1.6;
     border-top:1px solid var(--grid);padding-top:18px;}
@@ -95,8 +58,7 @@ html[data-view="acute"]{--red:#e00020; --orange:#f05010}
 [data-view="acute"] table.list tr.row td.name{flex:1 1 0;min-width:0;}
 [data-view="acute"] #results:has(> table.list){background:transparent;border:none;border-radius:0;overflow:visible;box-shadow:none;}}
 @media (max-width:520px){[data-view="acute"] .dvhead h2{font-size:var(--t-2xl);}}
-@media print{[data-view="acute"] .backbtn{display:none !important;}
-[data-view="acute"] main{padding:0;}}
+@media print{[data-view="acute"] main{padding:0;}}
 [data-view="acute"] .dvbody .sec>p, [data-view="acute"] .dvbody .sec>ul, [data-view="acute"] .dvbody .sec>ol{max-width:85ch;}
 [data-view="acute"] .dvbody .sources, [data-view="acute"] .dvbody .related{max-width:100ch;}
 @container oncos (min-width:1000px){[data-view="acute"] .dvbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 40px;align-items:start;}
@@ -183,28 +145,56 @@ function selectEmerg(id){
 
 function filtered(){ return EMERGENCIES.filter(e => !state.q || e._hay.includes(state.q)); }
 
-function detailBadges(e){
-  let b = '';
-  if (e.grade) b += `<span class="t grade">${esc(e.grade)}</span>`;
-  if (e.post2016) b += `<span class="t new">post-2016</span>`;
-  return b;
+// Emergency page: one ruled form (site review 2026-11-10). Title | category,
+// 【ACT NOW】 as ① rows, then label | value rows. Section text is unchanged:
+// lists become ① rows under Manage and ・ rows elsewhere, and a later paragraph
+// that opens with a short label ("Severity (corrected Ca): ...") splits at its
+// colon into label | text.
+const CIRCLED = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
+function rfRows(items, numbered){
+  return `<div class="rf-rows${numbered?' rf-num':''}">` + items.map((h,i) => numbered
+    ? `<div class="rf-r"><div>${CIRCLED[i]||String(i+1)}</div><div>${h}</div></div>`
+    : `<div class="rf-line">・${h}</div>`).join('') + '</div>';
+}
+function rfSection(sec){
+  const t = document.createElement('template'); t.innerHTML = sec.body;
+  const numbered = /^Manage/.test(sec.h), parts = [];
+  let first = true, labelled = null;
+  t.content.childNodes.forEach(n => {
+    if (n.nodeType === 3) { if (n.textContent.trim()) { parts.push(`<div class="rf-line">${esc(n.textContent)}</div>`); labelled = null; } return; }
+    if (n.nodeType !== 1) return;
+    if (n.tagName === 'UL' && n.classList.contains('grade')) {
+      parts.push('<div class="rf-rows rf-by">' + [...n.children].map(li => {
+        const g = li.querySelector(':scope > .g'); const label = g ? g.innerHTML : ''; if (g) g.remove();
+        return `<div class="rf-r"><div>${label}</div><div>${li.innerHTML.trim()}</div></div>`;
+      }).join('') + '</div>');
+      labelled = null; first = false; return;
+    }
+    if (n.tagName === 'UL' || n.tagName === 'OL') { parts.push(rfRows([...n.children].map(li => li.innerHTML), numbered)); labelled = null; first = false; return; }
+    const m = n.tagName === 'P' && !first && /^([^<:]{1,40}): ([\s\S]+)$/.exec(n.innerHTML);
+    first = false;
+    if (m) {
+      const row = `<div class="rf-r"><div>${m[1]}</div><div>${m[2]}</div></div>`;
+      if (labelled !== null) parts[labelled] = parts[labelled].replace(/<\/div>$/, row + '</div>');
+      else { labelled = parts.length; parts.push(`<div class="rf-rows rf-by">${row}</div>`); }
+      return;
+    }
+    labelled = null;
+    parts.push(`<div class="rf-line">${n.tagName === 'P' ? n.innerHTML : n.outerHTML}</div>`);
+  });
+  return `<div class="rf-kv"><div class="rf-k">${esc(sec.h)}</div><div class="rf-v rf-flush">${parts.join('')}</div></div>`;
 }
 
 function renderDetail(e){
   document.getElementById('crumbs').innerHTML = `${esc(e.category)} &rsaquo; <b>${esc(e.name)}</b>`;
-  const act = e.act_now.map(s => `<li>${s}</li>`).join('');
-  const secs = e.sections.map(s => `<div class="sec"><h4>${esc(s.h)}</h4>${s.body}</div>`).join('');
-  const related = e.related ? `<p class="related">${e.related}</p>` : '';
-  const sources = e.sources ? `<p class="sources"><span class="lbl">Sources</span>${e.sources}</p>` : '';
-  document.getElementById('results').innerHTML = `
-    <button class="backbtn" id="backbtn" type="button">&#8592; All emergencies</button>
-    <div class="dvhead">
-      <h2>${esc(e.name)}</h2>
-      <div class="dvmeta"><span class="dvcat">${esc(e.category)}</span>${detailBadges(e)}</div>
-    </div>
-    <div class="actnow"><span class="lbl">Act now</span><ol>${act}</ol></div>
-    <div class="dvbody">${secs}${related}${sources}</div>`;
-  document.getElementById('backbtn').onclick = () => { state.view='index'; state.id=null; render(true); window.scrollTo(0,0); };
+  const kv = (k, cls, v) => `<div class="rf-kv"><div class="rf-k">${k}</div><div class="rf-v ${cls}">${v}</div></div>`;
+  const related = e.related ? kv('Related', 'related', e.related.replace(/^Related:\s*/, '')) : '';
+  const sources = e.sources ? kv('Sources', 'rf-note sources', '※ ' + e.sources.replace(/<\/?(em|i)>/g, '')) : '';
+  const meta = [e.category, e.grade, e.post2016 ? 'post-2016' : ''].filter(Boolean).map(x => `<span class="rf-sub">${esc(x)}</span>`).join('');
+  document.getElementById('results').innerHTML = `<article class="rf">
+    <div class="rf-h"><h2>${esc(e.name)}</h2>${meta}</div>
+    <h3 class="rf-b">ACT NOW</h3>${rfRows(e.act_now, true)}
+    ${e.sections.map(rfSection).join('')}${related}${sources}</article>`;
 }
 
 function render(fade){

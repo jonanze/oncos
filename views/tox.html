@@ -84,26 +84,6 @@ html[data-view="tox"][data-theme="dark"] mark{background:#5a4a12; color:#f3e6b0}
 [data-view="tox"] .ctlink{display:inline-flex;align-items:center;gap:5px;font-size:var(--t-xs);font-weight:var(--w-name);color:var(--teal);background:var(--paper);border:1px solid var(--hair);border-radius:0;padding:3px 8px;cursor:pointer}
 @media (hover: hover){[data-view="tox"] .ctlink:hover{border-color:var(--teal);background:var(--accent-soft)}}
 [data-view="tox"] .ctlink.calc{border-left:3px solid var(--g2)}
-[data-view="tox"] .ipanel{background:var(--accent-soft);border:1px solid var(--hair);margin:13px 0 4px;padding:11px 14px}
-[data-view="tox"] .ifrow{display:grid;grid-template-columns:100px 1fr;gap:9px;padding:3px 0;font-size:var(--t-base);line-height:1.5}
-[data-view="tox"] .ifrow .fl{font-size:var(--t-2xs);font-weight:var(--w-strong);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:2px}
-[data-view="tox"] .ifrow.rf .fl{color:var(--g4)}
-[data-view="tox"] .ifrow.rc .fl{color:var(--slate)}
-[data-view="tox"] .iseclabel{font-size:var(--t-2xs);font-weight:var(--w-strong);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:13px 0 2px}
-[data-view="tox"] .igblock{border:1px solid var(--hair);border-left-width:4px;margin:10px 0 0;padding:10px 14px 11px}
-[data-view="tox"] .ig1{border-left-color:var(--g1)}
-[data-view="tox"] .ig2{border-left-color:var(--g2)}
-[data-view="tox"] .ig3{border-left-color:var(--g3)}
-[data-view="tox"] .ig4{border-left-color:var(--g4)}
-[data-view="tox"] .ighead{display:flex;align-items:center;gap:9px;margin:0 0 6px}
-[data-view="tox"] .igchip{font-weight:var(--w-strong);font-size:var(--t-xs);padding:2px 8px;border:1px solid}
-[data-view="tox"] .igchip.c1{background:var(--g1s);color:var(--g1);border-color:var(--g1)}
-[data-view="tox"] .igchip.c2{background:var(--g2s);color:var(--g2);border-color:var(--g2)}
-[data-view="tox"] .igchip.c3{background:var(--g3s);color:var(--g3);border-color:var(--g3)}
-[data-view="tox"] .igchip.c4{background:var(--g4s);color:var(--g4);border-color:var(--g4)}
-[data-view="tox"] .igdesc{color:var(--muted);font-size:var(--t-sm)}
-[data-view="tox"] .isrc{font-size:var(--t-xs);font-style:italic;margin-top:6px;color:var(--muted)}
-[data-view="tox"] .isrc .l{color:var(--slate)}
 [data-view="tox"] .idivg{color:var(--slate)}
 [data-view="tox"] .iorgh{display:flex;align-items:baseline;gap:10px;margin:0 0 8px;border-bottom:1.4px solid var(--rule);padding-bottom:6px}
 [data-view="tox"] .iorgh h2{font-family:var(--font-serif);font-size:var(--t-lg);font-weight:var(--w-name);margin:0}
@@ -370,17 +350,11 @@ html[data-view="tox"][data-theme="dark"] mark{background:#5a4a12; color:#f3e6b0}
 [data-view="tox"] .term, [data-view="tox"] .icard{border-radius:12px;box-shadow:var(--shadow)}
 [data-view="tox"] .calc, [data-view="tox"] .fnpx{border-radius:var(--radius-sm)}
 [data-view="tox"] .icard>summary{background:var(--ground)}
-[data-view="tox"] .gchip, [data-view="tox"] .igchip, [data-view="tox"] .gtag{font-family:var(--font-mono)}
+[data-view="tox"] .gchip, [data-view="tox"] .gtag{font-family:var(--font-mono)}
 [data-view="tox"] .itag, [data-view="tox"] .chip, [data-view="tox"] .csc, [data-view="tox"] .aert, [data-view="tox"] .mucpill, [data-view="tox"] .loc, [data-view="tox"] .srfacet{border-radius:999px}
 [data-view="tox"] .calc-in input, [data-view="tox"] .lookrow input, [data-view="tox"] .cv-field input, [data-view="tox"] .cv-field select{border-radius:var(--radius-sm)}
 [data-view="tox"] #list{transition:opacity .15s var(--mo-ease,cubic-bezier(.3,0,.1,1)),transform .15s var(--mo-ease,cubic-bezier(.3,0,.1,1))}
 [data-view="tox"] #list.vfade{opacity:0;transform:translateY(5px)}
-[data-view="tox"] .backbtn{display:inline-flex;align-items:center;gap:7px;margin:0 0 14px;padding:7px 15px;font:inherit;font-size:var(--t-base);font-weight:var(--w-name);color:var(--slate);background:var(--paper);border:1px solid var(--hair);border-radius:999px;cursor:pointer}
-@media (hover: hover){[data-view="tox"] .backbtn:hover{color:var(--teal);border-color:var(--teal);background:var(--accent-soft)}}
-[data-view="tox"] .tixgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:6px 0 26px}
-[data-view="tox"] .tixcard{display:flex;align-items:center;justify-content:center;text-align:center;padding:26px 18px;font:inherit;cursor:pointer;background:var(--paper);border:1px solid var(--grid);border-radius:14px;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
-@media (hover: hover){[data-view="tox"] .tixcard:hover{border-color:color-mix(in oklab, var(--teal) 45%, var(--grid));transform:translateY(-2px)}}
-[data-view="tox"] .tixname{font-weight:var(--w-name);font-size:var(--t-sm);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
 [data-view="tox"] .fhead{margin:0 0 12px}
 [data-view="tox"] .fhead .h-title{font-family:var(--font-serif);font-size:var(--t-3xl);font-weight:var(--w-name);margin:0;letter-spacing:-.01em}
 [data-view="tox"] .fhead .lede{color:var(--slate);font-size:var(--t-sm);margin:6px 0 0;max-width:660px;line-height:1.55}
@@ -631,30 +605,32 @@ function computeCalc(w){
 
 // ---- irAE lens ----
 function ctLinks(e){
- return (e.ctcae||[]).map(c=>`<button class="ctlink${c.calc?' calc':''}" data-tid="${c.term_id}" `+
-   `title="Open CTCAE grading${c.calc?' + calculator':''}">${esc(c.term)}${c.calc?' · calc':''}</button>`).join(' ');
+ return (e.ctcae||[]).map(c=>`<button class="ctlink${c.calc?' calc':''}" type="button" data-tid="${c.term_id}">${esc(c.term)}${c.calc?' · calc':''}</button>`).join(' ');
 }
 function iraeCause(e){
  const ag=(e.io||[]).map(k=>IOC[k]?IOC[k].label+': '+IOC[k].agents.join(', '):k).join('  |  ');
  return `<span class="itag" title="${esc(ag)}">Cause: ${esc(e.cause)}</span>`;
 }
-// irAE detail page (master-detail): dvhead + graded-by cross-links, then the
-// shared-features panel + management-by-grade blocks (content unchanged; the
-// ICI-class "cause" identifier is intentionally dropped — any agent/combination
-// can cause any irAE, so it is not a clinically useful discriminator).
+// irAE detail page: one ruled form (site review 2026-11-10). Title | organ,
+// label | value rows, then management by grade as one grid on wide screens
+// (grades across, actions down) and one form per grade on phones. Content is
+// unchanged; the ICI-class "cause" is not shown (any agent can cause any irAE).
+function rfKv(k,v){ return `<div class="rf-kv"><div class="rf-k">${esc(k)}</div><div class="rf-v">${v}</div></div>`; }
 function iraeDetailHTML(e){
- const panel='<div class="ipanel">'+(e.shared||[]).map(r=>
-   `<div class="ifrow ${r[2]||''}"><span class="fl">${esc(r[0])}</span><span>${esc(r[1])}</span></div>`).join('')+'</div>';
- const grades=(e.grades||[]).map(g=>{
-   const rows=(g[3]||[]).map(f=>`<div class="ifrow"><span class="fl">${esc(f[0])}</span><span>${esc(f[1])}</span></div>`).join('');
-   const sp=String(g[4]).split(' · NCCN');
-   const src=`<p class="isrc"><span class="l">${esc(sp[0])}</span>${sp.length>1?esc(' · NCCN'+sp.slice(1).join(' · NCCN')):''}</p>`;
-   return `<div class="igblock ig${String(g[1]).replace('c','')}"><div class="ighead"><span class="igchip ${g[1]}">${esc(g[0])}</span><span class="igdesc">${esc(g[2])}</span></div>${rows}${src}</div>`;
- }).join('');
- return `<div class="dvhead"><h2>${esc(e.name)}</h2>`+
-   `<div class="dvmeta"><span class="dvcat">${esc(e.organ)}</span>`+
-   `<span class="k">Graded by</span> ${ctLinks(e)}</div></div>`+
-   panel+`<div class="iseclabel">Management by grade</div>${grades}`;
+ const grades=e.grades||[], labels=[];
+ grades.forEach(g=>(g[3]||[]).forEach(f=>{ if(!labels.includes(f[0])) labels.push(f[0]); }));
+ const cell=(g,l)=>{ const f=(g[3]||[]).find(x=>x[0]===l); return f?esc(f[1]):''; };
+ let mx='<div class="rf-mxwrap"><table class="rf-mx"><caption class="sr-only">Management by grade</caption><thead><tr><th scope="col"><span class="sr-only">Action</span></th>'
+   +grades.map(g=>`<th scope="col">${esc(g[0])}</th>`).join('')+'</tr></thead><tbody>'
+   +'<tr><th scope="row">Grade</th>'+grades.map(g=>`<td>${esc(g[2])}</td>`).join('')+'</tr>';
+ labels.forEach(l=>{ mx+=`<tr><th scope="row">${esc(l)}</th>`+grades.map(g=>`<td>${cell(g,l)}</td>`).join('')+'</tr>'; });
+ mx+='<tr class="rf-note"><th scope="row"><span class="sr-only">Source</span></th>'+grades.map(g=>`<td>※ ${esc(g[4])}</td>`).join('')+'</tr></tbody></table></div>';
+ const byg='<div class="rf-byg">'+grades.map(g=>`<h4 class="rf-b rf-plain">${esc(g[0])} · ${esc(g[2])}</h4>`
+   +(g[3]||[]).map(f=>rfKv(f[0],esc(f[1]))).join('')+`<div class="rf-line rf-note">※ ${esc(g[4])}</div>`).join('')+'</div>';
+ return `<article class="rf"><div class="rf-h"><h2>${esc(e.name)}</h2><span class="rf-sub">${esc(e.organ)}</span></div>`
+   +rfKv('Graded by',`<div class="rf-chips">${ctLinks(e)}</div>`)
+   +(e.shared||[]).map(r=>rfKv(r[0],esc(r[1]))).join('')
+   +`<h3 class="rf-b">MANAGEMENT BY GRADE</h3>${mx}${byg}</article>`;
 }
 function iraeGradedBy(e){ return (e.ctcae||[]).map(c=>c.term).join(', '); }
 function renderIraeTable(list){
@@ -663,13 +639,15 @@ function renderIraeTable(list){
  const by={}; IRAE.forEach(e=>(by[e.organ]=by[e.organ]||[]).push(e));
  let h='<div class="listcard"><table class="list"><caption class="sr-only">irAE by organ</caption><thead><tr><th scope="col">irAE</th></tr></thead><tbody>';
  (MODEL.irae_groups||[]).forEach(g=>{ const ents=by[g.organ]; if(!ents||!ents.length)return;
-   h+=`<tr class="secrow"><td>${esc(g.organ)}</td></tr>`;
+   h+=`<tr class="secrow" data-organ="${esc(g.organ)}"><td>${esc(g.organ)}</td></tr>`;
    ents.forEach(e=>{
      h+=`<tr class="row" data-id="${esc(e.id)}"><td class="name"><button class="rowtoggle" type="button">${hi(e.name)}</button></td></tr>`; });
  });
  h+='</tbody></table></div>';
  list.insertAdjacentHTML('beforeend', h);
  list.querySelectorAll('tr.row').forEach(tr=>tr.onclick=ev=>{ if(ev.target.closest('a,input,select'))return; setMode('irae',tr.dataset.id); });
+ if(pendingOrgan){ const organ=pendingOrgan; pendingOrgan='';
+  requestAnimationFrame(()=>{ const r=[...list.querySelectorAll('tr.secrow')].find(x=>x.dataset.organ===organ); if(r) r.scrollIntoView({block:'start'}); }); }
 }
 function renderIraeDetail(list,id){
  const e=IRAE.find(x=>x.id===id); if(!e){ renderIraeTable(list); return; }
@@ -1278,43 +1256,29 @@ function renderSupportiveDetail(list,id){
 }
 
 
+// Opening page: one index form of everything in Tox (site review 2026-11-10).
+let pendingOrgan='';
 function renderIndex(list){
- $('#htitle').textContent=''; 
- let h='<div class="tixgrid">';
- h+=`<button class="tixcard" data-ix="ctcae"><span class="tixname">CTCAE grading</span></button>`;
- h+=`<button class="tixcard" data-ix="irae"><span class="tixname">irAE management</span></button>`;
- h+=`<button class="tixcard" data-ix="supportive"><span class="tixname">Supportive care</span></button>`;
- h+='</div>';
+ $('#htitle').textContent='';
+ const row=(attrs,name,count)=>`<div class="rf-r"><button type="button" class="rf-link" ${attrs}>${esc(name)}</button>`+(count==null?'':`<div>${count}</div>`)+'</div>';
+ const byOrg={}; IRAE.forEach(e=>(byOrg[e.organ]=(byOrg[e.organ]||0)+1));
+ let h='<article class="rf"><div class="rf-h"><h2>Tox</h2></div><div class="rf-three">';
+ h+='<section><h3 class="rf-b">SUPPORTIVE CARE</h3><div class="rf-rows rf-cnt">'
+   +((SUPP&&SUPP.topics)||[]).map(t=>row(`data-ix="supportive" data-key="${esc(t.id)}"`,t.name,'')).join('')+'</div></section>';
+ h+='<section><h3 class="rf-b">IRAE BY ORGAN</h3><div class="rf-rows rf-cnt">'
+   +(MODEL.irae_groups||[]).filter(g=>byOrg[g.organ]).map(g=>row(`data-ix="irae" data-key="${esc(g.organ)}"`,g.organ,byOrg[g.organ])).join('')+'</div></section>';
+ h+='<section><h3 class="rf-b">CTCAE V6.0 GRADING</h3><div class="rf-rows rf-cnt">'
+   +MODEL.socs.filter(x=>x.terms.length).map(x=>row(`data-ix="ctcae" data-key="${esc(x.soc)}"`,x.short,x.terms.length)).join('')
+   +row('data-ix="ctcae" data-key=""','All terms',MODEL.meta.n_terms)
+   +'<div class="rf-line rf-note">※ NCI CTCAE v6.0, 22 Jul 2025 (MedDRA 28.0); grades verbatim; four non-oncology classes omitted</div></div></section>';
+ h+='</div></article>';
  list.insertAdjacentHTML('beforeend', h);
- list.querySelectorAll('.tixcard').forEach(b=>b.onclick=()=>{
-  const m=b.dataset.ix; setMode(m, '');
+ list.querySelectorAll('.rf-link[data-ix]').forEach(b=>b.onclick=()=>{
+  const m=b.dataset.ix, key=b.dataset.key;
+  if(m==='irae'){ pendingOrgan=key; setMode('irae',''); } else setMode(m,key);
  });
 }
 function goIndex(){ mode='index'; query=''; $('#q').value=''; returnTo=null; fadeRender(); window.scrollTo(0,0); }
-function addBack(list){
- list.insertAdjacentHTML('afterbegin','<button class="backbtn" type="button">\u2190 Index</button>');
- list.querySelector('.backbtn').onclick=goIndex;
-}
-// Back from a master-detail page \u2192 its facet's table (one level up from Index).
-function addFacetBack(list,facet){
- let label, fn;
- if(facet==='irae'){ label='\u2190 All irAEs'; fn=()=>setMode('irae',''); }
- else if(facet==='supportive'){ label='\u2190 Supportive care'; fn=()=>setMode('supportive',''); }
- else if(returnTo){
-  // Term opened via a cross-link from an irAE entity / Supportive topic \u2192 back
-  // to that exact entry (not the CTCAE table).
-  const rt=returnTo;
-  const name = rt.mode==='irae'
-    ? ((IRAE.find(e=>e.id===rt.key)||{}).name||'irAE')
-    : (((SUPP&&SUPP.topics||[]).find(t=>t.id===rt.key)||{}).name||'topic');
-  label='\u2190 '+name;
-  fn=()=>{ returnTo=null; ctcaeTerm='';
-    if(rt.mode==='irae'){ mode='irae'; iraeEntity=rt.key; } else { mode='supportive'; activeTopic=rt.key; }
-    fadeRender(); window.scrollTo(0,0); };
- } else { label='\u2190 CTCAE grading'; fn=()=>{ ctcaeTerm=''; fadeRender(); window.scrollTo(0,0); }; }  // keep activeSoc filter
- list.insertAdjacentHTML('afterbegin',`<button class="backbtn" type="button">${esc(label)}</button>`);
- list.querySelector('.backbtn').onclick=fn;
-}
 function fadeRender(){
  // Under reduced motion there's no transition to show, so the 150ms hold would
  // just be dead time — swap instantly instead.
@@ -1331,18 +1295,18 @@ function render(){
  $('#lede').style.display='none';
  if(mode==='index'){ renderIndex(list); $('#empty').style.display='none'; return; }
  if(mode==='irae'){
-  if(iraeEntity){ renderIraeDetail(list,iraeEntity); $('#empty').style.display='none'; addFacetBack(list,'irae'); }
-  else { renderIraeTable(list); $('#empty').style.display='none'; addBack(list); }
+  if(iraeEntity) renderIraeDetail(list,iraeEntity); else renderIraeTable(list);
+  $('#empty').style.display='none';
   return;
  }
  if(mode==='supportive'){
-  if(activeTopic){ renderSupportiveDetail(list,activeTopic); $('#empty').style.display='none'; addFacetBack(list,'supportive'); }
-  else { renderSupportiveTable(list); $('#empty').style.display='none'; addBack(list); }
+  if(activeTopic) renderSupportiveDetail(list,activeTopic); else renderSupportiveTable(list);
+  $('#empty').style.display='none';
   return;
  }
  // CTCAE — grouped table + master-detail, same style/format as irAE
- if(ctcaeTerm){ renderCtcaeDetail(list,ctcaeTerm); $('#empty').style.display='none'; addFacetBack(list,'ctcae'); return; }
- renderCtcaeTable(list); addBack(list);
+ if(ctcaeTerm){ renderCtcaeDetail(list,ctcaeTerm); $('#empty').style.display='none'; return; }
+ renderCtcaeTable(list);
 }
 function renderCtcaeTable(list){
  facetHead(list,'CTCAE v6.0', MODEL.meta.source);
