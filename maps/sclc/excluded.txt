@@ -1,4 +1,2 @@
 # SCLC trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
 # Trial | identifier | screened | class and result | reason
-NRG LU005 | PMID 41529214 | 2026-11-10 | C, negative | Atezolizumab with and after chemoradiotherapy in limited stage; OS not improved
-ACHILES | https://doi.org/10.1200/JCO.2025.43.17_suppl.LBA8005 | 2026-11-10 | C, negative | Atezolizumab for 1 year after chemoradiotherapy, randomised phase II; PFS and OS not improved; congress abstract only

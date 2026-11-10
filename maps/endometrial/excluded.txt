@@ -1,4 +1,2 @@
 # Endometrial cancer trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
 # Trial | identifier | screened | class and result | reason
-GOG-86P | PMID 29804638 | 2026-11-10 | C, negative | Bevacizumab, temsirolimus or ixabepilone with chemotherapy against a historical control; PFS not improved
-MITO END-2 | PMID 31677820 | 2026-11-10 | C, negative | Bevacizumab added to carboplatin and paclitaxel; PFS not improved
