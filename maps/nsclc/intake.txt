@@ -1,6 +1,6 @@
 # Trials on the Advanced NSCLC map with no Evidence row yet (name, PMID, where on the map)
 eXalt3	PMID 34473194	ALK
 ARROW	PMID 34118197	RET
-EMPOWER-Lung 3	PMID 36008722	PD-L1 1–49%
-GEMSTONE-302	PMID 35038432	PD-L1 1–49%
+EMPOWER-Lung 3	PMID 36008722	Chemotherapy + antibody, any PD-L1
+GEMSTONE-302	PMID 35038432	Chemotherapy + antibody, any PD-L1
 LUMINOSITY	PMID 38843488	Second line

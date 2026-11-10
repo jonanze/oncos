@@ -36,8 +36,8 @@
 #   Standard options only; an EU or US licensed option that a guideline does not list stays on the
 #     line with its licence noted and says which guidelines leave it out
 #   Option order follows the guidelines' preference; where they disagree a ※ line names each
-#   East Asian guidelines come first in Jonan's practice (2026-11-10): a JLCS option licensed in Japan sits on a
-#     ※ line, never under off:
+#   East Asian guidelines come first in Jonan's practice (2026-11-10): a JLCS option licensed in Japan is a numbered
+#     option with its tag and a licence note, never a ※ line or under off:
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 # * Labels on connecting lines start with a capital, like every other label
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
@@ -165,53 +165,57 @@ tree: Advanced NSCLC, first line
         ※ ESMO and JLCS keep chemotherapy with or without immunotherapy first line 〔ESMO IV, B〕; zongertinib and sevabertinib after earlier treatment: US licence, not EU 〔ESMO III, B〕; NCCN lists them for tyrosine kinase domain mutations
   No driver
     PS 0–1
-      PD-L1 ≥50%
-        = PD-1 or PD-L1 antibody alone: pembrolizumab, cemiplimab or atezolizumab 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕; pembrolizumab, or atezolizumab with PD-L1 SP142 TC3 or IC3 〔JLCS A, 1〕
-        = Or platinum doublet + pembrolizumab or cemiplimab 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕; platinum doublet + a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
-        + KEYNOTE-024 | 5-year OS 31.9% vs 16.3%
-        + EMPOWER-Lung 1 [t-empower-lung-1] | OS HR 0.57
-        + IMpower110 | OS median
-        ※ Adding chemotherapy to pembrolizumab: longer PFS, OS not significantly longer in the one direct trial
-          ~ PERSEE | PFS HR
-          * Di Federico [t-di-federico-et-al] | Indirect OS HR 0.74
-          ° Grade 3 or higher treatment-related events 54% vs 19% (PERSEE)
-        ※ Dual checkpoint blockade with chemotherapy: nivolumab + ipilimumab 〔NCCN 1, other recommended〕, durvalumab + tremelimumab 〔NCCN 2B, other recommended〕, both 〔ESMO IV, B〕; nivolumab + ipilimumab without chemotherapy 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕, US licence only; ASCO grades all of them the same 〔ASCO Moderate, Conditional〕; JLCS finds too little evidence to recommend it
-        ※ TPS 90–100% did better than 50–89% on pembrolizumab alone, retrospective
-        ※ Newer agents beat pembrolizumab alone on PFS from TPS 1%; China only, OS awaited
-          ~ HARMONi-2 | PFS HR
-          ~ OptiTROP-Lung05 | PFS HR
-          ~ CAMPASS | PFS HR
-      PD-L1 1–49%
-        = Platinum doublet + pembrolizumab or cemiplimab: pemetrexed for non-squamous, carboplatin + paclitaxel for squamous 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕; platinum doublet + a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
+      By PD-L1
+        | Regimen | ≥50% | 1–49% | <1% |
+        | Chemotherapy + antibody | Preferred | Preferred | Preferred |
+        | Antibody alone | Preferred | Chemotherapy unsuitable | - |
+        | Dual blockade | Other | Other | Other |
+      Chemotherapy + antibody, any PD-L1
+        = Platinum doublet + pembrolizumab or cemiplimab: pemetrexed for non-squamous, carboplatin + paclitaxel for squamous 〔NCCN 1, preferred〕 〔ESMO I, A〕; platinum doublet + a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
+        ※ ASCO grades it by PD-L1: 1–49% 〔ASCO Moderate, Strong〕; 50% or more, and under 1% 〔ASCO Moderate, Conditional〕
         + KEYNOTE-189 | OS HR
         + KEYNOTE-407 | OS HR
         + EMPOWER-Lung 3 {pmid 36008722} | OS 21.9 vs 13.0 months; HR 0.71
         ※ Cemiplimab with chemotherapy: US licence at any PD-L1, EU licence from PD-L1 1%
-        ※ Pembrolizumab alone was tested from TPS 1%; the 1–49% group was not a primary analysis; US licence from TPS 1%, EU licence TPS 50% or more. For those unable to have a combination 〔NCCN 2B, useful in certain circumstances〕 〔ASCO Moderate, Conditional〕; ESMO advises against it below 50% 〔ESMO I, D〕; JLCS finds too little evidence to recommend it
-          + KEYNOTE-042 | OS HR 0.79
+        ※ PD-L1 50% or more, adding chemotherapy to pembrolizumab: longer PFS, OS not significantly longer in the one direct trial
+          ~ PERSEE | PFS HR
+          * Di Federico [t-di-federico-et-al] | Indirect OS HR 0.74
+          ° Grade 3 or higher treatment-related events 54% vs 19% (PERSEE)
         ※ Other PD-1 or PD-L1 antibodies with chemotherapy, any PD-L1. Non-squamous: atezolizumab with carboplatin, paclitaxel and bevacizumab 〔NCCN 1, other recommended〕, or with carboplatin and nab-paclitaxel 〔NCCN 2A, other recommended〕; both 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕. Sugemalimab, either histology 〔ESMO I, A〕; tislelizumab, squamous 〔ESMO I, A〕, non-squamous only with PD-L1 50% or more 〔ESMO IV, B〕; both EU licence, no US licence for NSCLC; NCCN and ASCO do not list them
           + IMpower130 | OS HR
           ~ RATIONALE-304 | PFS HR
           ~ RATIONALE-307 | PFS HR
           ~ GEMSTONE-302 {pmid 35038432} | PFS HR 0.48, trial in China
-        ※ Dual checkpoint blockade, with 2 cycles of chemotherapy or without (PD-L1 1% or more) 〔NCCN 1, other recommended〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕 〔JLCS C, 2〕
         ※ Atezolizumab with platinum and pemetrexed, non-squamous: PFS improved, OS not; not licensed
           ~ IMpower132 | PFS HR
         ※ Squamous, any PD-L1: ivonescimab + chemotherapy beat tislelizumab + chemotherapy; China only
           + HARMONi-6 | OS HR
-      PD-L1 <1%
-        = Platinum doublet + pembrolizumab or cemiplimab 〔NCCN 1, preferred〕; platinum doublet + a PD-1 or PD-L1 antibody 〔JLCS B, 1〕; or dual checkpoint blockade with chemotherapy 〔NCCN 1, other recommended〕; chemotherapy with one or two checkpoint inhibitors 〔ESMO I, A〕; ASCO grades all of these, and dual blockade alone, the same 〔ASCO Moderate, Conditional〕
+        ※ PD-L1 under 1%, non-squamous: sacituzumab tirumotecan beat platinum + pemetrexed, both with pembrolizumab; China only, OS immature
+          ~ OptiTROP-Lung06 | PFS HR
+      Antibody alone, PD-L1 ≥50%
+        = Pembrolizumab, cemiplimab or atezolizumab 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕; pembrolizumab, or atezolizumab with PD-L1 SP142 TC3 or IC3 〔JLCS A, 1〕
+        + KEYNOTE-024 | 5-year OS 31.9% vs 16.3%
+        + EMPOWER-Lung 1 [t-empower-lung-1] | OS HR 0.57
+        + IMpower110 | OS median
+        ※ TPS 90–100% did better than 50–89% on pembrolizumab alone, retrospective
+        ※ PD-L1 1–49%: pembrolizumab alone was tested from TPS 1%; the 1–49% group was not a primary analysis; US licence from TPS 1%, EU licence TPS 50% or more. For those unable to have a combination 〔NCCN 2B, useful in certain circumstances〕 〔ASCO Moderate, Conditional〕; ESMO advises against it below 50% 〔ESMO I, D〕; JLCS finds too little evidence to recommend it
+          + KEYNOTE-042 | OS HR 0.79
+        ※ Newer agents beat pembrolizumab alone on PFS from TPS 1%; China only, OS awaited
+          ~ HARMONi-2 | PFS HR
+          ~ OptiTROP-Lung05 | PFS HR
+          ~ CAMPASS | PFS HR
+      Dual checkpoint blockade, any PD-L1
+        = Nivolumab + ipilimumab with 2 cycles of chemotherapy 〔NCCN 1, other recommended〕; durvalumab + tremelimumab with chemotherapy: 〔NCCN 2B, other recommended〕 at PD-L1 50% or more, 〔NCCN 1, other recommended〕 below; both 〔ASCO Moderate, Conditional〕; ESMO 〔ESMO IV, B〕 at 50% or more, 〔ESMO I, A〕 below; JLCS weak below 50% 〔JLCS C, 2〕, too little evidence at 50% or more
         + CheckMate 9LA | OS HR
         ~ CheckMate 227 | PD-L1 <1%, descriptive: 5-year OS 19% vs 7%
         + POSEIDON | 5-year OS 15.7% vs 6.8%
-        ※ Each dual blockade trial was compared with chemotherapy alone, not with chemotherapy + pembrolizumab; JLCS grades dual blockade weak 〔JLCS C, 2〕
-        ※ Nivolumab and ipilimumab without chemotherapy: US licence for PD-L1 1% or more only; not licensed in the EU; ESMO lists it only from PD-L1 1%; NCCN lists it at any PD-L1 〔NCCN 2A, other recommended〕
-        ※ Non-squamous: sacituzumab tirumotecan beat platinum + pemetrexed, both with pembrolizumab; China only, OS immature
-          ~ OptiTROP-Lung06 | PFS HR
+        ※ Each trial compared dual blockade with chemotherapy alone, not with chemotherapy + pembrolizumab
+        ※ Without chemotherapy, nivolumab + ipilimumab: PD-L1 1% or more 〔ESMO I, A〕 〔JLCS C, 2〕 〔ASCO Moderate, Conditional〕; NCCN at any PD-L1, 〔NCCN 1, useful in certain circumstances〕 at 50% or more and 〔NCCN 2A, other recommended〕 below; US licence for PD-L1 1% or more only, not licensed in the EU
     PS 2 or frail
-      = Atezolizumab alone when platinum doublet is unsuitable, any PD-L1 〔ESMO I, B〕; EU licence, not in the US label
+      = PD-1 or PD-L1 antibody alone 〔JLCS B, 2〕; ESMO only at PD-L1 50% or more 〔ESMO II, B〕, as in KEYNOTE-024, which enrolled PS 0–1 only
+      = Platinum doublet unsuitable, any PD-L1: atezolizumab alone 〔ESMO I, B〕; EU licence, not in the US label
       + IPSOS [t-ipsos] | OS HR 0.78
-      ※ PS 2: carboplatin doublet 〔ESMO I, A〕 〔JLCS B, 2〕; PD-1 or PD-L1 antibody alone 〔JLCS B, 2〕, with PD-L1 50% or more 〔ESMO II, B〕; one drug alone 〔JLCS A, 2〕; ESMO does not recommend chemotherapy with immunotherapy at PS 2, as it is untested; NCCN uses the PS 0–1 options at PS 2
+      ※ Carboplatin doublet 〔ESMO I, A〕 〔JLCS B, 2〕; one drug alone 〔JLCS A, 2〕; ESMO does not recommend chemotherapy with immunotherapy at PS 2, as it is untested; NCCN uses the PS 0–1 options at PS 2
       ※ PS 3: atezolizumab 〔NCCN 2A〕; PS 3–4: no drug treatment 〔JLCS D, 1〕, best supportive care 〔ESMO III, A〕
 
 panel: Course of treatment > No driver
