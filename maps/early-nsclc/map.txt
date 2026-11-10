@@ -41,6 +41,8 @@
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
 #   Superseded trials go under off: unless an option still in use rests on them
 #   Standard options only; trials of options not in standard use go under off: (Jonan 2026-11-09, Lung-MAP)
+#   Which trials go in the database and on a map: maps/inclusion.txt (Jonan 2026-11-10); trials screened
+#   and left out are listed in the map folder's excluded.txt
 #   Adjuvant, maintenance and consolidation choices are a later step after the primary treatment,
 #   never a branch beside it (Jonan 2026-11-09)
 #   Columns follow the decisions in order: surgery or no surgery; treatment before surgery or

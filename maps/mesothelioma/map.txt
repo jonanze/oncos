@@ -6,6 +6,7 @@
 #   Square lines only; no result colours
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses only
+#   Inclusion: maps/inclusion.txt; trials left out are in excluded.txt
 #   Standard options only; an option a guideline recommends but no licence covers stays on the line with that noted
 #   ESMO-recommended options sit on the main line; where ESMO 2022 and ASCO 2025 disagree a ※ line says so
 #   Maintenance is a later step after the primary treatment, never a branch beside it
