@@ -7,7 +7,7 @@
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses only
 #   Inclusion: maps/inclusion.txt; trials left out are in excluded.txt
-#   ATOMIC-Meso off the map under ⑦ (recommended by ASCO 2025 only; no licence; Jonan 2026-11-10)
+#   ATOMIC-Meso out under ⑦ (recommended by ASCO 2025 only; no licence; row removed; in excluded.txt; Jonan 2026-11-10)
 #   BEAT-meso kept under ⑥f (atezolizumab combined with bevacizumab and chemotherapy, each standard here) (Jonan 2026-11-10)
 #   Standard options only; an option a guideline recommends but no licence covers stays on the line with that noted
 #   ESMO-recommended options sit on the main line; where ESMO 2022 and ASCO 2025 disagree a ※ line says so
@@ -31,9 +31,10 @@ band: Diagnosis and staging
   ① Thoracoscopic biopsy when treatment is planned 〔ESMO III, B〕 〔ASCO High, Strong〕 〔NCCN 2A, preferred〕 〔STS 1.1〕, with as few incisions as possible, placed in line with any later thoracotomy 〔STS 1.2〕; biopsy even when pleural fluid cytology is negative 〔STS 1.4〕; core needle biopsy when thoracoscopy or open biopsy is not possible 〔ASCO Moderate, Strong〕
   ② Report the subtype: epithelioid, sarcomatoid or biphasic 〔ESMO IV, A〕 〔ASCO High, Strong〕; the sarcomatoid percentage in biphasic tumours 〔ASCO Moderate, Strong〕; BAP1 and MTAP immunohistochemistry when the diagnosis is uncertain, including suspected mesothelioma in situ 〔ESMO IV, A〕 〔ASCO Moderate, Conditional〕
   ③ Contrast CT of chest and upper abdomen 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; PET-CT at staging, may be omitted when surgery is not considered 〔ASCO Moderate, Strong〕; required when surgery is considered 〔ESMO III, B〕; in every patient 〔STS 2.1〕
-  ④ Response by modified RECIST 1.1 for mesothelioma 〔ASCO Moderate, Strong〕
-  ⑤ PD-L1, tumour mutational burden and MSI do not select patients for immunotherapy 〔ASCO Moderate, Conditional〕; PD-L1 and tumour mutational burden 〔ESMO I, D〕
-  ⑥ Offer germline testing to every patient 〔ASCO High, Strong〕; consider it 〔NCCN 2A〕, with pretest genetic counselling 〔ASCO Low, Strong〕
+  ④ EBUS or mediastinoscopy when imaging suggests nodal disease; laparoscopy when abdominal disease is suspected 〔ASCO Moderate, Strong〕 〔STS 2.2, 11.1〕
+  ⑤ Response by modified RECIST 1.1 for mesothelioma 〔ASCO Moderate, Strong〕
+  ⑥ PD-L1, tumour mutational burden and MSI do not select patients for immunotherapy 〔ASCO Moderate, Conditional〕; PD-L1 and tumour mutational burden 〔ESMO I, D〕
+  ⑦ Offer germline testing to every patient 〔ASCO High, Strong〕; consider it 〔NCCN 2A〕, with pretest genetic counselling 〔ASCO Low, Strong〕
   ※ ESMO 2022 advises against germline testing for a BAP1-deficient tumour without a family history suggesting BAP1 syndrome 〔ESMO V, D〕
   ※ Tumour genomic testing: not routine 〔ESMO III, D〕; not part of standard care 〔ASCO Low, Conditional〕; NCCN recommends a multigene panel, including NTRK and ALK 〔NCCN 2A〕
 
@@ -46,7 +47,7 @@ band: Surgery
   ※ Pleurectomy decortication or extended pleurectomy decortication added to chemotherapy shortened survival and increased serious adverse events
     - MARS 2 | OS 19.3 vs 24.8 months; HR 1.28 to 42 months; serious adverse events 318 vs 169
   ※ ESMO 2022 predates MARS 2; it lists sarcomatoid histology, contralateral or supraclavicular nodes and extrathoracic disease against surgery, without a stage limit; NCCN 1.2027 notes no evidence that surgery added to systemic therapy improves survival
-  ※ STS 2026 keeps lung-sparing surgery for selected patients and attributes the MARS 2 result to CT-only staging and 9% 90-day mortality; it allows surgery for confirmed ipsilateral N1 disease 〔STS 11.2〕, after EBUS or mediastinoscopy when imaging suggests N1 〔STS 11.1〕, but not for contralateral or supraclavicular N2 disease 〔STS 11.3〕
+  ※ STS 2026 keeps lung-sparing surgery for selected patients and attributes the MARS 2 result to CT-only staging and 9% 90-day mortality; it allows surgery for confirmed ipsilateral N1 disease 〔STS 11.2〕, after EBUS or mediastinoscopy when imaging suggests N1 〔STS 11.1〕, but not for contralateral or supraclavicular N2 disease 〔STS 11.3〕; it cites NCCN 2.2026 text on surgery in N1 and N2 disease that NCCN 1.2027 removed
   ※ Extrapleural pneumonectomy within trimodal therapy gave no benefit and possible harm; ASCO still allows it in highly selected patients in expert centres 〔ASCO Moderate, Strong〕; STS only when pleurectomy decortication cannot clear the tumour and prognostic factors are favourable 〔STS 7.2〕
     - MARS | OS HR 1.90 (0.92–3.93); 50 patients
   ※ Adjuvant hemithoracic radiotherapy is not standard; it can be considered in expert centres 〔ESMO II, D〕; after extrapleural pneumonectomy 〔ASCO Moderate, Strong〕
@@ -54,7 +55,7 @@ band: Surgery
   ※ After pleurectomy decortication or lung-sparing surgery: hemithoracic IMRT 〔ASCO Moderate, Conditional〕, in experienced centres 〔NCCN 2A〕; no radiotherapy before lung-sparing surgery 〔ASCO Low, Strong〕
     + Trovo 2021 {pmid 33259933} | 2-year OS 58% vs 28%; HR 0.54, against palliative radiotherapy
   ※ Neoadjuvant immunotherapy may be offered 〔ASCO Low, Conditional〕; ESMO 2022 calls its role unknown; NCCN marks nivolumab and ipilimumab suitable before surgery; evidence for adjuvant immunotherapy is insufficient 〔ASCO Very Low, Conditional〕
-  ※ Intraoperative regional treatment (chemotherapy, povidone-iodine lavage or photodynamic therapy) may be considered 〔STS 12.1〕; no randomised comparison
+  ※ Intraoperative regional treatment (chemotherapy, povidone-iodine lavage or photodynamic therapy) may be considered 〔STS 12.1〕; no randomised comparison; ASCO calls its benefit unproven 〔ASCO Low, Conditional〕
 
 band: Effusion and radiotherapy
   ① Recurrent effusion: talc poudrage at thoracoscopy, preferred over VATS partial pleurectomy 〔ESMO I, A〕; or an indwelling pleural catheter 〔ESMO I, B〕, except in candidates for surgery because of tract seeding 〔ASCO Moderate, Strong〕; NCCN: drainage when disease may be operable, drainage or pleurodesis when it is not 〔NCCN 2A〕
@@ -136,5 +137,4 @@ course: Unresectable pleural mesothelioma
     ※ After two lines, ESMO 2022 finds no evidence for routine further treatment; consider a clinical trial 〔ESMO V, C〕
 
 off:
-  ATOMIC-Meso [t-atomic-meso] | Pegargiminase recommended by ASCO 2025 only; no EU or US licence (US application withdrawn May 2026); not in NCCN
   KEYNOTE-158 | Single-arm cohort of pembrolizumab alone; PROMISE-meso is the randomised evidence for pembrolizumab alone and sits on the map
