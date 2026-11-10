@@ -115,12 +115,13 @@
   function bar(top){
     var el = top.querySelector('.om-bar');
     if (el) return el;
+    styles();
     el = document.createElement('div');
     el.className = 'om-bar';
     el.innerHTML = '<div class="wl-tabs" role="tablist" aria-label="Sheet view">' +
       '<button type="button" class="wl-tab" role="tab" data-om="trials">Trials</button>' +
       '<button type="button" class="wl-tab" role="tab" data-om="map">Map</button></div>' +
-      '<button type="button" class="om-fit">Fit</button>';
+      '<button type="button" class="om-fit" hidden>Fit</button>';
     el.addEventListener('click', function(e){
       var b = e.target.closest('button'); if (!b) return;
       if (b.dataset.om) show(b.dataset.om === 'map');
@@ -146,6 +147,7 @@
     // mapSheet can name the sheet a back or forward step is about to restore.
     var on = mapSheet === sheet;
     el.classList.toggle('on', on);
+    el.querySelector('.om-fit').hidden = !on;
     el.querySelectorAll('.wl-tab').forEach(function(b){ b.setAttribute('aria-selected', String((b.dataset.om === 'map') === on)); });
     setPane(results, on ? MAPS[mapSheet] : null);
   }
