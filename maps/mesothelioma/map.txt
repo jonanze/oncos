@@ -68,8 +68,6 @@ course: Unresectable pleural mesothelioma
     ③ Platinum and pemetrexed 〔ESMO I, A〕, only when immunotherapy is contraindicated 〔ASCO High, Strong〕
     ※ Non-epithelioid subgroups: OS HR 0.46 in CheckMate 743 and 0.57 in KEYNOTE-483
     ※ ESMO 2022 predates KEYNOTE-483 and lists chemotherapy as an option in all histologies; ASCO 2025 does not for non-epithelioid disease
-    ※ Pegargiminase added to platinum and pemetrexed may be offered when immunotherapy is not possible 〔ASCO Moderate, Conditional〕; not licensed, US application withdrawn May 2026
-      + ATOMIC-Meso {pmid 38358753} | OS HR 0.71
     Epithelioid, PS 0–1
     ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕
     ② Platinum and pemetrexed with pembrolizumab 〔ASCO High, Strong〕; US licence, the EU licence does not cover epithelioid
@@ -83,12 +81,6 @@ course: Unresectable pleural mesothelioma
     PS 2 or more
     ① PS 2: single-agent chemotherapy or palliative care alone; PS 3 or more: palliative care 〔ASCO Low, Strong〕
     ※ ESMO 2022 offers platinum and pemetrexed, with or without bevacizumab, up to PS 2
-    Not standard
-    ※ Atezolizumab added to bevacizumab, carboplatin and pemetrexed did not improve OS; not licensed
-      - BEAT-meso {pmid 39814199} | OS HR 0.84
-    ※ Durvalumab with platinum and pemetrexed: trial closed early, result inconclusive; congress abstract
-      - DREAM3R {url https://www.onclive.com/view/durvalumab-plus-chemo-yields-inconclusive-results-in-advanced-pleural-mesothelioma} | OS HR 0.92
-    ※ Tumour treating fields with platinum and pemetrexed: evidence insufficient for a recommendation 〔ASCO Very Low, NA〕
     next: Maintenance or observation | No progression
     next: Second line and beyond
   Maintenance or observation
@@ -97,23 +89,18 @@ course: Unresectable pleural mesothelioma
       ~ NVALT19 {pmid 33515500} | PFS HR 0.48
     ※ No pemetrexed maintenance 〔ESMO II, E〕 〔ASCO Moderate, Strong〕
       - CALGB 30901 {pmid 32727707} | PFS HR 0.99; OS HR 0.86, not significant
-    ※ Dendritic cell maintenance did not improve OS
-      - DENIM {pmid 38848742} | OS HR 1.10
     next: Second line and beyond | Progression
   Second line and beyond
     After chemotherapy alone
     ① Immunotherapy: nivolumab and ipilimumab 〔ESMO II, C〕 〔ASCO Moderate, Strong〕, or nivolumab alone 〔ESMO I, A〕 〔ASCO High, Strong〕, or pembrolizumab alone 〔ESMO II, C〕; none licensed in this setting in the EU or US
       ~ MAPS2 | 12-week disease control 44% and 50%
       ~ CONFIRM | PFS HR 0.65; OS HR 0.81, not significant
-      - PROMISE-meso {pmid 32976938} | Pembrolizumab against gemcitabine or vinorelbine: PFS HR 1.06; OS HR 1.12
     ② Gemcitabine with ramucirumab 〔ESMO III, C〕 〔ASCO Moderate, Strong〕; ramucirumab is not licensed for mesothelioma
       + RAMES {pmid 34499874} | Randomised phase II: OS 13.8 vs 7.5 months; HR 0.71
     ③ Vinorelbine or gemcitabine alone 〔ESMO II, B〕; oral vinorelbine 〔ASCO Moderate, Strong〕; PFS gain, no OS gain
       ~ VIM | PFS HR
     ④ Platinum and pemetrexed again in selected patients 〔ESMO II, B〕, after disease control of more than 6 months 〔ASCO Low, Strong〕
     ※ Both guideline grades for nivolumab alone predate the final CONFIRM analysis, in which OS was not significant
-    ※ Adding the UV1 vaccine to nivolumab and ipilimumab did not improve PFS
-      - NIPU {pmid 38447379} | PFS HR 1.01; OS HR 0.73, not significant
     After nivolumab and ipilimumab
     ① Platinum and pemetrexed, with or without bevacizumab 〔ASCO Low, Conditional〕
     ※ No randomised trial after first-line nivolumab and ipilimumab; ESMO 2022 routes these patients to first-line chemotherapy, whose grade comes from untreated patients
@@ -124,4 +111,4 @@ course: Unresectable pleural mesothelioma
     ※ After two lines, ESMO 2022 finds no evidence for routine further treatment; consider a clinical trial 〔ESMO V, C〕
 
 off:
-  KEYNOTE-158 | Single-arm cohort of pembrolizumab alone; PROMISE-meso is the randomised evidence for pembrolizumab alone and sits on the map
+  KEYNOTE-158 | Single-arm cohort of pembrolizumab alone; in PROMISE-meso pembrolizumab gave no PFS or OS gain over chemotherapy
