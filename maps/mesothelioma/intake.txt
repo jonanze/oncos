@@ -1,0 +1,16 @@
+# Trials on the Mesothelioma map with no Evidence row yet (name, PMID, where on the map)
+EORTC 1205	PMID 38843916	Surgery
+SAKK 17/04	PMID 26538423	Surgery
+MesoVATS	PMID 24942631	Effusion and radiotherapy
+SMART	PMID 27345639	Effusion and radiotherapy
+PIT	PMID 30920878	Effusion and radiotherapy
+CheckMate 743, 5 years	PMID 41734361	First line
+ATOMIC-Meso	PMID 38358753	First line
+BEAT-meso	PMID 39814199	First line
+DREAM3R	no PMID yet https://www.onclive.com/view/durvalumab-plus-chemo-yields-inconclusive-results-in-advanced-pleural-mesothelioma	First line
+NVALT19	PMID 33515500	After chemotherapy, no progression
+CALGB 30901	PMID 32727707	After chemotherapy, no progression
+DENIM	PMID 38848742	After chemotherapy, no progression
+PROMISE-meso	PMID 32976938	Progression
+RAMES	PMID 34499874	Progression
+NIPU	PMID 38447379	Progression

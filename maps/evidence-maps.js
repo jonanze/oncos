@@ -21,6 +21,7 @@
     'Advanced Prostate': 'prostate',
     'Early & Locally Adv NSCLC': 'early-nsclc',
     'Endometrial Cancer': 'endometrial',
+    'Mesothelioma': 'mesothelioma',
     'SCLC': 'sclc'
   };
   var ANCHOR = 'map';
