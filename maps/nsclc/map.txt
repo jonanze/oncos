@@ -223,7 +223,7 @@ panel: Second line > No driver
     + REVEL | OS HR
     ※ Not ramucirumab at age 75 or over, or PS 2 〔JLCS D, 2〕; pemetrexed, nab-paclitaxel or gemcitabine 〔NCCN 2A〕 〔ASCO Low, Conditional〕; pemetrexed for non-squamous or nab-paclitaxel 〔JLCS A, 1〕
     ※ Nintedanib with docetaxel for adenocarcinoma: EU licence 〔ESMO II, B〕; NCCN, ASCO and JLCS do not list it
-    ※ S-1 was non-inferior to docetaxel for OS in a trial in Japan; JLCS lists it with docetaxel 〔JLCS A, 1〕; licensed for NSCLC in Japan, not in the EU or US; NCCN, ASCO and ESMO do not list it
+    ※ S-1 was non-inferior to docetaxel for OS in a trial in East Asia; JLCS lists it with docetaxel 〔JLCS A, 1〕; licensed for NSCLC in Japan, not in the EU or US; NCCN, ASCO and ESMO do not list it
       - EAST-LC | OS HR
   ② After chemotherapy without a PD-1 antibody: nivolumab, pembrolizumab if TPS ≥1%, or atezolizumab 〔NCCN 1, preferred〕 〔ESMO I, A〕 〔JLCS BQ10, A〕; tislelizumab: EU licence 〔ESMO I, A〕
     + CheckMate 017 [t-checkmate-017] | OS HR 0.59
