@@ -69,6 +69,7 @@
     if (l.kind === 'tx') return '<div class="ln tx"' + pad + '>' + keep(l.text) + '</div>';
     if (l.kind === 'cv') return '<div class="ln cv' + (k ? ' t' + k + 'b' : '') + '"' + pad + '>※ ' + keep(l.text) + '</div>';
     if (l.kind === 'se') return '<div class="ln se"' + pad + '>' + keep(l.text) + '</div>';
+    if (l.kind === 'sub') return '<div class="ln sub"' + pad + '>' + keep(l.text) + '</div>';
     if (l.kind === 'num') return '<div class="ln num' + (k ? ' t' + k + 'b' : '') + '"' + pad + '><span class="n">' + esc(l.n) + '</span>' + keep(l.text) + '</div>';
     return '<div class="ln text"' + pad + '>' + keep(l.text) + '</div>';
   }
@@ -126,6 +127,7 @@
       world.appendChild(el); return el;
     }
     var course = !!model.tree.course, steps = course ? model.tree.children : null, elabs = [];
+    var plabs = {};   // labels on panel next: lines, made once and moved on each layout
     if (course) {
       nodes = steps;
       steps.forEach(function(n){
@@ -351,10 +353,12 @@
           n.up = n.h / 2; n.down = Math.max(n.h / 2, lh - n.h / 2); return;
         }
         n.children.forEach(ext);
-        var k = n.children, S = 0;
-        for (var i = 0; i + 1 < k.length; i++) S = Math.max(S, k[i].down + k[i + 1].up + GY);
-        var pc = (k.length - 1) * S / 2, top = Infinity, bot = -Infinity;
-        k.forEach(function(c, i){ c.off = i * S - pc; top = Math.min(top, c.off - c.up); bot = Math.max(bot, c.off + c.down); });
+        // each branch sits just below the one above it, so a tall branch leaves no gap between short ones
+        var k = n.children, at = 0, top = Infinity, bot = -Infinity;
+        k.forEach(function(c, i){ if (i) at += k[i - 1].down + c.up + GY; c.off = at; });
+        // the node sits level with its middle branch, or halfway between the two middle ones
+        var mi = (k.length - 1) / 2, pc = (k[Math.floor(mi)].off + k[Math.ceil(mi)].off) / 2;
+        k.forEach(function(c){ c.off -= pc; top = Math.min(top, c.off - c.up); bot = Math.max(bot, c.off + c.down); });
         n.up = Math.max(n.h / 2, -top); n.down = Math.max(n.h / 2, bot);
       })(model.tree);
       // the root sits level with its first branch (Jonan 2026-11-10), so the two open together;
@@ -399,6 +403,30 @@
         svg += '<path d="M' + (braceX + 22) + ' ' + mid + ' H' + (rx - 10) + (ty === mid ? '' : ' V' + ty) + ' H' + rx + '"/>';
       });
       loose.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = (lastBottom + 24) + 'px'; lastBottom += 24 + p.el.offsetHeight; });
+
+      // a panel's next: line leaves its header to the right, runs down beside the panel column and enters the
+      // named panel's header; lines to one panel with one label share an upright and one label
+      var colR = panels.reduce(function(m, p){ return Math.max(m, p.el.offsetLeft + p.el.offsetWidth); }, 0), lanes = [];
+      panels.forEach(function(p){ (p.next || []).forEach(function(e){
+        var t = panels.filter(function(q){ return q.title === e.to; })[0];
+        if (!t) return;
+        var L = lanes.filter(function(l){ return l.t === t && l.label === e.label; })[0];
+        if (!L) { L = {t:t, label:e.label, src:[], x:colR + 28 + 20 * lanes.length}; lanes.push(L); }
+        L.src.push(p);
+      }); });
+      lanes.forEach(function(L){
+        var hy = function(p){ return p.el.offsetTop + p.el.firstChild.offsetHeight / 2; };
+        var ty = hy(L.t), ys = L.src.map(hy), lo = Math.min.apply(null, ys.concat(ty)), hi = Math.max.apply(null, ys.concat(ty));
+        L.src.forEach(function(p, i){ svg += '<path d="M' + (p.el.offsetLeft + p.el.offsetWidth) + ' ' + ys[i] + ' H' + L.x + '"/>'; });
+        svg += '<path d="M' + L.x + ' ' + lo + ' V' + hi + '"/>';
+        svg += '<path d="M' + L.x + ' ' + ty + ' H' + (L.t.el.offsetLeft + L.t.el.offsetWidth) + '"/>';
+        if (L.label) {
+          var key = L.t.title + '|' + L.label, el = plabs[key] || (plabs[key] = add('elab', keep(L.label)));
+          el.style.whiteSpace = 'nowrap'; el.style.maxWidth = 'none';
+          el.style.left = (L.x + 10) + 'px';
+          el.style.top = ((Math.max.apply(null, ys) + ty) / 2 - el.offsetHeight / 2) + 'px';
+        }
+      });
 
     }
 

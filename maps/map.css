@@ -1,7 +1,7 @@
 /* oncOS board maps, drawn inside the Evidence view. Colours are the hub's own
    ruled-form tokens, so the map follows the site theme. */
 /* Trials | Map: the same two-cell pair as Staging's Tables | Practice (.st-tabs) */
-#viewroot .om-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:0 0 16px}
+#viewroot .om-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:0 0 16px;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 #viewroot .om-bar .wl-tabs{width:240px}
 #viewroot .om-bar .wl-tab{flex:1 1 0;min-width:0;justify-content:center;height:36px;padding:0 6px}
 #viewroot .om-bar .om-fit{display:none;align-items:center;justify-content:center;height:38px;min-width:96px;margin-left:auto;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
@@ -52,6 +52,8 @@
 .om-world .ln.tx::before{content:"★ "}
 .om-world .ln.cv{font-size:12.5px}
 .om-world .ln.se{font-size:12px;color:var(--muted)}
+/* ・ one statement under the line above (the ・ comes from .om-sheet .sub) */
+.om-world .ln.sub{font-size:13px;margin:-1px 0 3px 1.15em}
 /* trial lines in a row: one ruled grid, trial name | key figure */
 .om-world .trials{display:grid;grid-template-columns:minmax(9em,max-content) 1fr;margin:2px 0 6px;border-top:1px solid var(--b-cell)}
 .om-world .trials>div{padding:2px 8px 2px 0;border-bottom:1px solid var(--b-cell);font-size:13px}

@@ -26,10 +26,12 @@
     if (c === '=') return {kind:'tx', level:level, text:text.replace(/^=\s*/, ''), at:at};
     if (c === '※') return {kind:'cv', level:level, text:text.replace(/^※\s*/, ''), at:at};
     if (c === '°') return {kind:'se', level:level, text:text.replace(/^°\s*/, ''), at:at};
+    // ・ one statement under the line above it, e.g. one guideline's position on an option
+    if (c === '・') return {kind:'sub', level:level, text:text.replace(/^・\s*/, ''), at:at};
     if (NUM.test(text)) return {kind:'num', level:level, n:text.charAt(0), text:text.slice(1).trim(), at:at};
     return {kind:'text', level:level, text:text, at:at};
   }
-  function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°|]/.test(text) || NUM.test(text) || TRIAL.test(text); }
+  function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°|・]/.test(text) || NUM.test(text) || TRIAL.test(text); }
 
   function parse(src){
     var out = {map:null, bands:[], tree:null, panels:[], off:[], sources:{}, errors:[]};
@@ -71,6 +73,9 @@
         return;
       }
       if (sec !== out.tree) {            // band or panel: every line is content
+        // a panel's "next: Panel | label" draws a line from it to another panel
+        var pn = sec.join !== undefined && /^next:\s*(.+?)\s*(?:\|\s*(.+))?$/.exec(text);
+        if (pn) { (sec.next = sec.next || []).push({to:pn[1], label:pn[2] || '', at:at}); return; }
         sec.lines.push(line(text, ind / 2 - 1, at));
         return;
       }
@@ -123,6 +128,9 @@
       if (!out.sources[t.source]) out.errors.push(t.at + ': 〔' + t.source + ' …〕 has no source: line');
     });
     out.panels.forEach(function(p){
+      (p.next || []).forEach(function(e){
+        if (!out.panels.some(function(q){ return q.title === e.to; })) out.errors.push(e.at + ': next: no panel "' + e.to + '"');
+      });
       if (p.join && !names[p.join]) out.errors.push('panel "' + p.title + '": no node "' + p.join + '"');
       else if (p.join && names[p.join].length > 1) out.errors.push('panel "' + p.title + '": node "' + p.join + '" is not unique');
     });
