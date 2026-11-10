@@ -200,7 +200,13 @@
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); });
       var panelTop = [];
       var colX = [M];
-      cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + CGX; });
+      // the gap after a column is wide enough for the widest label on a line from it to the next column,
+      // so that no label runs into a step
+      var gapW = cols.map(function(){ return CGX; });
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        if (e.el && e.node.col === n.col + 1) gapW[n.col] = Math.max(gapW[n.col], e.el.offsetWidth + STUB + 32);
+      }); });
+      cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + gapW[c]; });
       var top0 = b.top, colEnd = [];
       for (var gi = 0; gi < g; gi++) {
         var bottom = top0;
@@ -220,25 +226,34 @@
             n.x = x; n.y = top; n.cy = top + n.hh / 2;
             n.el.style.left = x + 'px'; n.el.style.top = top + 'px';
             cursor = top + n.el.offsetHeight + CGY;
-            bottom = Math.max(bottom, top + n.el.offsetHeight);
           });
-          if (mine.length) colEnd[c] = cursor;
+        });
+        // a step with one line to one step that was pushed lower (by a step above it in its column):
+        // move it down level with that step so the line runs straight, when the line into it bends
+        // already or there is none, and no step below it is in the way; right to left, so a move can carry on
+        for (var c = cols.length - 1; c >= 0; c--) {
+          var mine = cols[c].filter(function(n){ return n.group === gi; }).sort(function(a, z){ return a.y - z.y; });
+          mine.forEach(function(n, k){
+            if (n.next.length !== 1 || n.next[0].join || n.next[0].node.preds.length !== 1) return;
+            var dy = n.next[0].node.cy - n.cy, below = mine[k + 1];
+            if (dy <= 0) return;
+            if (n.preds.some(function(p){ return p.next.length === 1 && Math.abs(p.cy - n.cy) < 1; })) return;
+            if (below && n.y + dy + n.el.offsetHeight + CGY > below.y) return;
+            n.y += dy; n.cy += dy; n.el.style.top = n.y + 'px';
+          });
+        }
+        cols.forEach(function(list, c){
+          list.forEach(function(n){
+            if (n.group !== gi) return;
+            bottom = Math.max(bottom, n.y + n.el.offsetHeight);
+            colEnd[c] = Math.max(colEnd[c] || 0, n.y + n.el.offsetHeight + CGY);
+          });
         });
         top0 = bottom + BGY;
       }
       cols.forEach(function(list, c){
         list.sort(function(a, z){ return a.y - z.y; });
         panelTop[c] = (colEnd[c] || b.top) + 12;
-      });
-      // a step with one line to one step, a few pixels above it: move it down so the line runs straight
-      cols.forEach(function(list){
-        list.forEach(function(n, k){
-          if (n.next.length !== 1 || n.next[0].node.preds.length !== 1) return;
-          var dy = n.next[0].node.cy - n.cy, below = list[k + 1];
-          if (dy <= 0 || dy >= CGY) return;
-          if (below && n.y + dy + n.el.offsetHeight + CGY / 2 > below.y) return;
-          n.y += dy; n.cy += dy; n.el.style.top = n.y + 'px';
-        });
       });
       steps.forEach(function(n){
         n.next.forEach(function(e){
