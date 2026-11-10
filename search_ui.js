@@ -133,49 +133,17 @@ async function bootstrap() {
   }));
 }
 
-function snippet(record, query) {
-  let text = String(record.body || record.keywords || record.subtitle || '').replace(/\s+/g, ' ').trim();
-  if(record.module==='tox'&&record.kind==='irAE'){
-    // The derived catalogue prefixes clinical sections with relationship IDs
-    // and Boolean flags. Display from the first section used by the irAE page.
-    const clinicalStart=text.indexOf('Exclude ');
-    if(clinicalStart>0)text=text.slice(clinicalStart);
-  }
-  if (!text) return '';
-  // Keep offsets in the original text: spelling/alias normalization changes
-  // string lengths and must never be used as an index into the display text.
-  const terms = searchCore.displayTerms(query);
-  let at = -1;
-  for (const term of terms) {
-    const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const match = new RegExp(`\\b${escaped}${term.length <= 3 ? '\\b' : ''}`, 'i').exec(text);
-    if (match) { at = match.index; break; }
-  }
-  let start = Math.max(0, at < 0 ? 0 : at - 70);
-  if (start) start = text.lastIndexOf(' ', start) + 1;
-  let end = Math.min(text.length, start + 210);
-  if (end < text.length) {
-    const boundary = text.lastIndexOf(' ', end);
-    if (boundary > start) end = boundary;
-  }
-  return `${start ? '…' : ''}${text.slice(start, end).trim()}${end < text.length ? '…' : ''}`;
-}
-
-function resultLabel(record) {
-  if (record.module !== 'tox') return LABELS[record.module];
-  return {CTCAE:'Tox · CTCAE grading', irAE:'Tox · irAE management', Supportive:'Tox · Supportive care'}[record.kind] || LABELS.tox;
-}
-
-function resultSubtitle(record) {
-  if (record.module !== 'tox') return record.subtitle;
-  return String(record.subtitle || '').replace(/^(CTCAE grading|irAE management|Supportive care)(?: · |$)/i, '');
-}
-
-function isExactName(record, query) {
-  const clean = value => searchCore.normalize(value).replace(/\s/g, '');
-  const value = clean(query);
-  return value && (clean(record.title) === value || clean(record.id) === value ||
-    (record.kind === 'drug' && clean(record.keywords) === value));
+// Result rows (site review E2): Name | Sheet and section | Phase · year, grouped
+// under one band per module in order of each module's best hit. An Evidence
+// subtitle is "sheet · section · trial type · year"; the type is shortened to
+// its phase where it names one.
+function resultColumns(record) {
+  const parts = String(record.subtitle || '').split(' · ').filter(Boolean);
+  if (record.module !== 'evidence') return [parts.join(' · '), ''];
+  const year = /^\d{4}$/.test(parts[parts.length - 1] || '') ? parts.pop() : '';
+  const type = parts.length >= 3 ? parts.pop() : '';
+  const phase = /\(phase ([^)]+)\)/i.exec(type);
+  return [parts.join(' · '), [phase ? `Phase ${phase[1]}` : type, year].filter(Boolean).join(' · ')];
 }
 
 function appendText(parent, className, text) {
@@ -191,7 +159,7 @@ function render(query) {
   const hits = ready ? searchCore.search(records, query, {limit: Infinity}) : [];
   results.replaceChildren();
   resultStatus.textContent = query.trim() && ready && hits.length
-    ? `${hits.length > shownLimit ? `Showing ${shownLimit} of ${hits.length}` : hits.length} result${hits.length === 1 ? '' : 's'}` : '';
+    ? (hits.length > shownLimit ? `${shownLimit} of ${hits.length}` : String(hits.length)) : '';
   let message = '';
   if (bootstrapState === 'loading') message = 'Preparing search…';
   else if (!ready) message = 'Search unavailable';
@@ -226,22 +194,32 @@ function render(query) {
     }
     return;
   }
+  const groups = new Map();
   for (const record of hits.slice(0, shownLimit)) {
-    const button = document.createElement('button');
-    button.type = 'button'; button.className = `gs-result m-${record.module}`;
-    button.dataset.module = record.module;
-    button.dataset.recordId = record.id;
-    appendText(button, 'gs-module', resultLabel(record));
-    appendText(button, 'gs-title', record.title);
-    const subtitle = resultSubtitle(record);
-    if (subtitle) appendText(button, 'gs-subtitle', subtitle);
-    const preview = isExactName(record, query) ? '' : snippet(record, query);
-    if (preview) appendText(button, 'gs-preview', preview);
-    button.addEventListener('click', () => {
-      hideDialog();
-      document.dispatchEvent(new CustomEvent('oncos:open-search-result', {detail: record}));
-    });
-    results.appendChild(button);
+    if (!groups.has(record.module)) groups.set(record.module, []);
+    groups.get(record.module).push(record);
+  }
+  const head = document.createElement('div');
+  head.className = 'gs-row gs-head'; head.setAttribute('aria-hidden', 'true');
+  ['Name', 'Sheet and section', 'Phase · year'].forEach(text => appendText(head, 'gs-cell', text));
+  results.appendChild(head);
+  for (const [module, list] of groups) {
+    appendText(results, 'gs-band', LABELS[module].toUpperCase());
+    for (const record of list) {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = `gs-row gs-result m-${record.module}`;
+      button.dataset.module = record.module;
+      button.dataset.recordId = record.id;
+      const [where, when] = resultColumns(record);
+      appendText(button, 'gs-cell gs-title', record.title);
+      appendText(button, 'gs-cell gs-where', where);
+      appendText(button, 'gs-cell gs-when', when);
+      button.addEventListener('click', () => {
+        hideDialog();
+        document.dispatchEvent(new CustomEvent('oncos:open-search-result', {detail: record}));
+      });
+      results.appendChild(button);
+    }
   }
   if (hits.length > shownLimit) {
     const more = document.createElement('button'); more.type = 'button';
