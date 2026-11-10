@@ -43,7 +43,7 @@
 #     〔NCCN category, preference〕 NCCN Non-Small Cell Lung Cancer 9.2026 (22 September 2026), stage IV
 #       pages NSCL-19 to 39, NSCL-J and NSCL-K; category 2A unless stated; options NCCN alone lists sit on ※ lines
 #     〔ASCO quality, strength〕 ASCO living guidelines for stage IV NSCLC, version 2026.3.4 (30 September 2026):
-#       with driver alterations (Reuss) on the Driver found branch and Later lines panel, without driver
+#       with driver alterations (Reuss) on the Driver found branch and Later lines panels, without driver
 #       alterations (Puri) on the No driver branch and Second line panel; the tag links ASCO's guideline list
 #     〔ESMO evidence, grade〕 ESMO living guidelines: oncogene-addicted metastatic NSCLC v1.3 (February 2026)
 #       and non-oncogene-addicted metastatic NSCLC v1.2 (January 2025), read on esmo.org; the tag links
@@ -142,6 +142,7 @@ tree: Advanced NSCLC, first line
         = Dabrafenib + trametinib, or encorafenib + binimetinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕; dabrafenib + trametinib 〔JLCS C, 1〕
         ~ BRF113928 | Response
         ~ PHAROS | Response
+        ※ After the BRAF and MEK inhibitors: platinum doublet 〔ESMO IV, A〕
       MET exon 14
         = Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕; capmatinib, tepotinib or gumarontinib 〔JLCS C, 1〕
         ※ Gumarontinib: licensed in Japan and China, not in the EU or US; NCCN, ASCO and ESMO do not list it
@@ -242,22 +243,22 @@ panel: Second line > No driver
   ⑥ Docetaxel beat supportive care
     + Shepherd 2000 [t-shepherd-et-al] | OS 7.5 vs 4.6 months
 
-panel: Later lines > Driver found
-  ① Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma: EGFR and ALK 〔ESMO III, A〕; ROS1 and BRAF 〔ESMO IV, A〕
-    ※ Continuing osimertinib with the chemotherapy delayed progression; platinum chemotherapy with or without osimertinib 〔ASCO Moderate, Conditional〕
-      ~ COMPEL | PFS HR
-  ② EGFR T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
+panel: Later lines, EGFR > EGFR
+  ① T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
     ~ AURA3 | PFS HR
-  ③ EGFR after osimertinib: amivantamab added to carboplatin + pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
+  ② After osimertinib: amivantamab added to carboplatin + pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
     ~ MARIPOSA-2 | PFS HR
     ※ Ivonescimab + chemotherapy improved OS in a trial in China; in the global trial PFS improved, OS did not; licensed in China only
       + HARMONi-A | OS HR
       ~ HARMONi | PFS HR
-  ※ EGFR with MET amplification or overexpression after osimertinib: osimertinib + savolitinib improved outcomes; ASCO recommends osimertinib with savolitinib or tepotinib for MET amplification 〔ASCO Low, Conditional〕; not licensed in the EU or US; NCCN, ESMO and JLCS do not list it
+  ※ MET amplification or overexpression after osimertinib: osimertinib + savolitinib improved outcomes; ASCO recommends osimertinib with savolitinib or tepotinib for MET amplification 〔ASCO Low, Conditional〕; not licensed in the EU or US; NCCN, ESMO and JLCS do not list it
     + SAFFRON | OS HR
     ~ SACHI | PFS HR
     ~ INSIGHT 2 [t-insight-2] | Response
-  ④ EGFR after a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕; US licence, not EU 〔ESMO III, B〕
+  ③ Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma 〔ESMO III, A〕
+    ※ Continuing osimertinib with the chemotherapy delayed progression; platinum chemotherapy with or without osimertinib 〔ASCO Moderate, Conditional〕
+      ~ COMPEL | PFS HR
+  ④ After a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕; US licence, not EU 〔ESMO III, B〕
     ~ TROPION-Lung05 | Response
     ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel; US and EU applications withdrawn
       ~ TROPION-Lung01 | PFS HR
@@ -271,11 +272,13 @@ panel: Later lines > Driver found
     ~ IMpower150 | PFS HR 0.59
     ~ ATTLAS | PFS HR
     ※ IMpower150: EGFR or ALK subgroup, exploratory; ATTLAS: OS no different
-  ⑥ EGFR exon 20 after platinum: amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕, or sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕; sunvozertinib: US licence, not EU 〔ESMO III, B〕
-  ⑦ ALK after a second-generation TKI: lorlatinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕; after alectinib: brigatinib, lorlatinib or ceritinib 〔JLCS C, 2〕; after lorlatinib: platinum + pemetrexed 〔ESMO III, A〕
-  ⑧ ROS1 after crizotinib or entrectinib: repotrectinib or taletrectinib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕; repotrectinib after crizotinib 〔ESMO III, A〕; NCCN also lists lorlatinib and zidesamtinib
-  ⑨ Transformation to small cell: platinum-etoposide; rebiopsy at progression to look for it
-  ⑩ A single progressing site: local therapy with the TKI continued 〔NCCN 2A〕 〔ESMO IV, C〕
+  ⑥ Exon 20 after platinum: amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕, or sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕; sunvozertinib: US licence, not EU 〔ESMO III, B〕
+  ⑦ Transformation to small cell, mostly after EGFR TKIs: platinum-etoposide; rebiopsy at progression to look for it
+
+panel: Later lines, ALK and ROS1 > Fusion
+  ① Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma: ALK 〔ESMO III, A〕; ROS1 〔ESMO IV, A〕
+  ② ALK after a second-generation TKI: lorlatinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕; after alectinib: brigatinib, lorlatinib or ceritinib 〔JLCS C, 2〕; after lorlatinib: platinum + pemetrexed 〔ESMO III, A〕
+  ③ ROS1 after crizotinib or entrectinib: repotrectinib or taletrectinib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕; repotrectinib after crizotinib 〔ESMO III, A〕; NCCN also lists lorlatinib and zidesamtinib
 
 off:
   PROFILE 1014 | Crizotinib vs chemotherapy for ALK; replaced by ALEX and CROWN
