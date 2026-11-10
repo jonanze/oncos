@@ -992,8 +992,8 @@ const EVIDENCE_WATCH = ctx.data.watch;
   // Guidelines: by tumour category, then newest publication first, then title; the title opens the guideline.
   const category = g => g.category || 'Other';
   const topic = g => g.title || String(g.study || '').replace(/^(ASCO|ESMO) (Living|Clinical Practice) Guideline:\s*/i, '').replace(/,?\s*Version\s+[\d.]+\s*$/i, '');
-  // Living guidelines carry their current version in the citation line.
-  const livingVersion = g => /-living$/.test(g.track || '') ? (g.status === 'newer' ? g.latest : g.filed || g.latest) || '' : '';
+  // Living guidelines and NCCN Guidelines carry their current version in the citation line.
+  const livingVersion = g => g.track === 'nccn' ? g.latest || '' : /-living$/.test(g.track || '') ? (g.status === 'newer' ? g.latest : g.filed || g.latest) || '' : '';
   function guidelineRows() {
     const list = guidelines.filter(g => inCategory(g, pick.guidelines));
     const cats = [...new Set(list.map(category))].sort((x, y) => order(x) - order(y) || x.localeCompare(y));
