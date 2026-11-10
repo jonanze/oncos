@@ -7,6 +7,7 @@
 #           under it is its content, and "next: Step | label" draws a line to a later step
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
+#           "next: Panel | label" in a panel draws a line from it to the named panel (tree maps)
 #   = text          the treatment for a branch
 #   + Trial | fig   a trial line; the mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
@@ -228,19 +229,20 @@ panel: Second line > No driver
     + REVEL | OS HR
     ※ Not ramucirumab at age 75 or over, or PS 2 〔JLCS D, 2〕; pemetrexed, nab-paclitaxel or gemcitabine 〔NCCN 2A〕 〔ASCO Low, Conditional〕; pemetrexed for non-squamous or nab-paclitaxel 〔JLCS A, 1〕
     ※ Nintedanib with docetaxel for adenocarcinoma: EU licence 〔ESMO II, B〕; NCCN, ASCO and JLCS do not list it
-    ※ S-1 was non-inferior to docetaxel for OS in a trial in East Asia; JLCS lists it with docetaxel 〔JLCS A, 1〕; licensed for NSCLC in Japan, not in the EU or US; NCCN, ASCO and ESMO do not list it
-      - EAST-LC | OS HR
-  ② After chemotherapy without a PD-1 antibody: nivolumab, pembrolizumab if TPS ≥1%, or atezolizumab 〔NCCN 1, preferred〕 〔ESMO I, A〕 〔JLCS BQ10, A〕; tislelizumab: EU licence 〔ESMO I, A〕
+  ② After chemotherapy, in place of docetaxel: S-1 〔JLCS A, 1〕; licensed for NSCLC in Japan, not in the EU or US; NCCN, ASCO and ESMO do not list it
+    - EAST-LC | OS HR
+    ※ Non-inferior to docetaxel for OS, in a trial in East Asia
+  ③ After chemotherapy without a PD-1 antibody: nivolumab, pembrolizumab if TPS ≥1%, or atezolizumab 〔NCCN 1, preferred〕 〔ESMO I, A〕 〔JLCS BQ10, A〕; tislelizumab: EU licence 〔ESMO I, A〕
     + CheckMate 017 [t-checkmate-017] | OS HR 0.59
     + CheckMate 057 [t-checkmate-057] | OS HR 0.73
     + KEYNOTE-010 [t-keynote-010] | OS HR 0.71
     + OAK [t-oak] | OS HR 0.73
     + RATIONALE-303 | OS HR
-  ③ After a PD-1 antibody alone: platinum doublet 〔ASCO Low, Strong〕
-  ④ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C branch
-  ⑤ HER2 IHC 3+: trastuzumab deruxtecan 〔NCCN 2A, other recommended〕 〔ASCO Very Low, Conditional〕; c-Met IHC 3+ in 50% or more of cells, non-squamous: telisotuzumab vedotin 〔NCCN 2A, other recommended〕 〔ASCO Low, Conditional〕; both US licence, not EU 〔ESMO III, B〕
+  ④ After a PD-1 antibody alone: platinum doublet 〔ASCO Low, Strong〕
+  ⑤ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C branch
+  ⑥ HER2 IHC 3+: trastuzumab deruxtecan 〔NCCN 2A, other recommended〕 〔ASCO Very Low, Conditional〕; c-Met IHC 3+ in 50% or more of cells, non-squamous: telisotuzumab vedotin 〔NCCN 2A, other recommended〕 〔ASCO Low, Conditional〕; both US licence, not EU 〔ESMO III, B〕
     ~ LUMINOSITY {pmid 38843488} | Response 34.6% with c-Met high
-  ⑥ Docetaxel beat supportive care
+  ⑦ Docetaxel beat supportive care
     + Shepherd 2000 [t-shepherd-et-al] | OS 7.5 vs 4.6 months
 
 panel: Later lines, EGFR > EGFR
@@ -274,11 +276,13 @@ panel: Later lines, EGFR > EGFR
     ※ IMpower150: EGFR or ALK subgroup, exploratory; ATTLAS: OS no different
   ⑥ Exon 20 after platinum: amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕, or sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕; sunvozertinib: US licence, not EU 〔ESMO III, B〕
   ⑦ Transformation to small cell, mostly after EGFR TKIs: platinum-etoposide; rebiopsy at progression to look for it
+  next: Second line | After TKIs and platinum chemotherapy
 
 panel: Later lines, ALK and ROS1 > Fusion
   ① Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma: ALK 〔ESMO III, A〕; ROS1 〔ESMO IV, A〕
   ② ALK after a second-generation TKI: lorlatinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕; after alectinib: brigatinib, lorlatinib or ceritinib 〔JLCS C, 2〕; after lorlatinib: platinum + pemetrexed 〔ESMO III, A〕
   ③ ROS1 after crizotinib or entrectinib: repotrectinib or taletrectinib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕; repotrectinib after crizotinib 〔ESMO III, A〕; NCCN also lists lorlatinib and zidesamtinib
+  next: Second line | After TKIs and platinum chemotherapy
 
 off:
   PROFILE 1014 | Crizotinib vs chemotherapy for ALK; replaced by ALEX and CROWN

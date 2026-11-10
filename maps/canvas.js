@@ -126,6 +126,7 @@
       world.appendChild(el); return el;
     }
     var course = !!model.tree.course, steps = course ? model.tree.children : null, elabs = [];
+    var plabs = {};   // labels on panel next: lines, made once and moved on each layout
     if (course) {
       nodes = steps;
       steps.forEach(function(n){
@@ -401,6 +402,30 @@
         svg += '<path d="M' + (braceX + 22) + ' ' + mid + ' H' + (rx - 10) + (ty === mid ? '' : ' V' + ty) + ' H' + rx + '"/>';
       });
       loose.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = (lastBottom + 24) + 'px'; lastBottom += 24 + p.el.offsetHeight; });
+
+      // a panel's next: line leaves its header to the right, runs down beside the panel column and enters the
+      // named panel's header; lines to one panel with one label share an upright and one label
+      var colR = panels.reduce(function(m, p){ return Math.max(m, p.el.offsetLeft + p.el.offsetWidth); }, 0), lanes = [];
+      panels.forEach(function(p){ (p.next || []).forEach(function(e){
+        var t = panels.filter(function(q){ return q.title === e.to; })[0];
+        if (!t) return;
+        var L = lanes.filter(function(l){ return l.t === t && l.label === e.label; })[0];
+        if (!L) { L = {t:t, label:e.label, src:[], x:colR + 28 + 20 * lanes.length}; lanes.push(L); }
+        L.src.push(p);
+      }); });
+      lanes.forEach(function(L){
+        var hy = function(p){ return p.el.offsetTop + p.el.firstChild.offsetHeight / 2; };
+        var ty = hy(L.t), ys = L.src.map(hy), lo = Math.min.apply(null, ys.concat(ty)), hi = Math.max.apply(null, ys.concat(ty));
+        L.src.forEach(function(p, i){ svg += '<path d="M' + (p.el.offsetLeft + p.el.offsetWidth) + ' ' + ys[i] + ' H' + L.x + '"/>'; });
+        svg += '<path d="M' + L.x + ' ' + lo + ' V' + hi + '"/>';
+        svg += '<path d="M' + L.x + ' ' + ty + ' H' + (L.t.el.offsetLeft + L.t.el.offsetWidth) + '"/>';
+        if (L.label) {
+          var key = L.t.title + '|' + L.label, el = plabs[key] || (plabs[key] = add('elab', keep(L.label)));
+          el.style.whiteSpace = 'nowrap'; el.style.maxWidth = 'none';
+          el.style.left = (L.x + 10) + 'px';
+          el.style.top = ((Math.max.apply(null, ys) + ty) / 2 - el.offsetHeight / 2) + 'px';
+        }
+      });
 
     }
 

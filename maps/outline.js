@@ -71,6 +71,9 @@
         return;
       }
       if (sec !== out.tree) {            // band or panel: every line is content
+        // a panel's "next: Panel | label" draws a line from it to another panel
+        var pn = sec.join !== undefined && /^next:\s*(.+?)\s*(?:\|\s*(.+))?$/.exec(text);
+        if (pn) { (sec.next = sec.next || []).push({to:pn[1], label:pn[2] || '', at:at}); return; }
         sec.lines.push(line(text, ind / 2 - 1, at));
         return;
       }
@@ -123,6 +126,9 @@
       if (!out.sources[t.source]) out.errors.push(t.at + ': 〔' + t.source + ' …〕 has no source: line');
     });
     out.panels.forEach(function(p){
+      (p.next || []).forEach(function(e){
+        if (!out.panels.some(function(q){ return q.title === e.to; })) out.errors.push(e.at + ': next: no panel "' + e.to + '"');
+      });
       if (p.join && !names[p.join]) out.errors.push('panel "' + p.title + '": no node "' + p.join + '"');
       else if (p.join && names[p.join].length > 1) out.errors.push('panel "' + p.title + '": node "' + p.join + '" is not unique');
     });
