@@ -29,7 +29,8 @@
 
 # Named by Jonan under maps/inclusion.txt: DeLLphi-305 on the main line before licence (③, 2026-11-09);
 #   KEYNOTE-604 and CheckMate 451 kept although negative experimental trials (⑥c: PD-1 alone, and as
-#   maintenance, does not work in extensive stage); TAISHAN-302 on a ※ line (③, trial in China) (2026-11-10)
+#   maintenance, does not work in extensive stage); TAISHAN-302 on a ※ line (③, trial in China) (2026-11-10);
+#   LAGOON has no trial line until an abstract or paper appears; the FDA withdrawal ※ line stays (2026-11-10)
 
 map: SCLC
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
@@ -150,8 +151,7 @@ course: Small-cell lung cancer
     ※ Progression in the brain only: continue systemic treatment and give brain radiotherapy 〔NCCN 2A〕
     ※ A B7-H3 antibody-drug conjugate, tambotatug pelitecan, improved OS over topotecan in second line at an interim analysis; trial in China; not licensed
       + TAISHAN-302 | OS HR
-    ※ Lurbinectedin alone did not improve OS over topotecan or irinotecan in company topline results, not yet presented or published; the FDA withdrew the second-line indication on 30 September 2026; NCCN 1.2027 and ASCO, both earlier, still list it as preferred
-      - LAGOON {url https://www.targetedonc.com/view/phase-3-lagoon-trial-fails-to-confirm-survival-benefit-of-lurbinectedin-in-relapsed-sclc} | OS HR 1.19 against topotecan or irinotecan
+    ※ The FDA withdrew the second-line indication of lurbinectedin alone on 30 September 2026, after LAGOON, a phase III trial against topotecan or irinotecan reported only in company topline results, did not improve OS; NCCN 1.2027 and ASCO, both earlier, still list it as preferred
 
 off:
   Roth 1992 [t-roth-et-al] | CAV and alternating regimens no longer used; platinum and etoposide is standard
