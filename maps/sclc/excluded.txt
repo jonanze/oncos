@@ -1,2 +1,3 @@
 # SCLC trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
 # Trial | identifier | screened | class and result | reason
+ARTEMIS-008 | WCLC 2026 abstract PL02.04 (no paper yet) | 2026-11-10 | C, positive (risvutatug rezetecan against topotecan, China only) | congress abstract only; a ※ line under the ③ standing naming once a peer-reviewed report appears

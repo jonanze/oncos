@@ -1,2 +1,2 @@
 # Early & Locally Adv NSCLC Evidence rows neither on the map nor under off:, newest first (year, study, section, anchor)
-
+2026	SWOG S1914 / NRG S1914	SABR/SBRT	t-swog-s1914-nrg-s1914

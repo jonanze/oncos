@@ -1,4 +1,7 @@
 # Trials on the SCLC map with no Evidence row yet (name, PMID, where on the map)
+JCOG1201/TORG1528	PMID 37156212	Extensive stage, first line
+Yu 2024	PMID 39146944	Chemoradiotherapy
+Qiu 2021	PMID 33992717	Chemoradiotherapy
 MAVERICK	no PMID yet https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard	Limited stage, after chemoradiotherapy
 MAVERICK	no PMID yet https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard	Extensive stage, after induction
-LAGOON	no PMID yet https://www.targetedonc.com/view/phase-3-lagoon-trial-fails-to-confirm-survival-benefit-of-lurbinectedin-in-relapsed-sclc	Recurrent/progressive disease
+JCOG0605	PMID 27312053	Recurrent/progressive disease
