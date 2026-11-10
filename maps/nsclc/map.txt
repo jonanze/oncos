@@ -223,6 +223,8 @@ panel: Second line > No driver
     + REVEL | OS HR
     ※ Not ramucirumab at age 75 or over, or PS 2 〔JLCS D, 2〕; pemetrexed, nab-paclitaxel or gemcitabine 〔NCCN 2A〕 〔ASCO Low, Conditional〕; pemetrexed for non-squamous or nab-paclitaxel 〔JLCS A, 1〕
     ※ Nintedanib with docetaxel for adenocarcinoma: EU licence 〔ESMO II, B〕; NCCN, ASCO and JLCS do not list it
+    ※ S-1 was non-inferior to docetaxel for OS in a trial in Japan; JLCS lists it with docetaxel 〔JLCS A, 1〕; licensed for NSCLC in Japan, not in the EU or US; NCCN, ASCO and ESMO do not list it
+      - EAST-LC | OS HR
   ② After chemotherapy without a PD-1 antibody: nivolumab, pembrolizumab if TPS ≥1%, or atezolizumab 〔NCCN 1, preferred〕 〔ESMO I, A〕 〔JLCS BQ10, A〕; tislelizumab: EU licence 〔ESMO I, A〕
     + CheckMate 017 [t-checkmate-017] | OS HR 0.59
     + CheckMate 057 [t-checkmate-057] | OS HR 0.73
@@ -283,7 +285,6 @@ off:
   KCSG-LU15-09 | Osimertinib in uncommon EGFR; UNICORN covers it
   CHRYSALIS-2 Cohort C | Small single-arm cohort; amivantamab + lazertinib in uncommon EGFR is recommended by ASCO alone 〔ASCO Low, Conditional〕, with no licence or NCCN listing in that group
   DESTINY-Lung01 | 6.4 mg/kg dose; DESTINY-Lung02 set 5.4 mg/kg
-  EAST-LC | S-1 second line: JLCS alone recommends it 〔JLCS A, 1〕; not licensed for NSCLC in the EU or US, no NCCN listing
   POD1UM-304 | Retifanlimab with chemotherapy: ASCO alone recommends it 〔ASCO Moderate, Conditional〕, with no EU or US licence for NSCLC and no NCCN listing
   Sampath 2025 [t-sampath-et-al] | Non-randomised; no licence or recommendation rests on it
   SAVANNAH | Non-randomised with randomised evidence available (SAFFRON, SACHI)
