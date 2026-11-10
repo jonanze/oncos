@@ -6,7 +6,6 @@ MesoVATS	PMID 24942631	Effusion and radiotherapy
 SMART	PMID 27345639	Effusion and radiotherapy
 PIT	PMID 30920878	Effusion and radiotherapy
 CheckMate 743, 5 years	PMID 41734361	First line
-ATOMIC-Meso	PMID 38358753	First line
 BEAT-meso	PMID 39814199	First line
 NVALT19	PMID 33515500	Maintenance or observation
 CALGB 30901	PMID 32727707	Maintenance or observation

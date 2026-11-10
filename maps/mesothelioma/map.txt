@@ -7,6 +7,7 @@
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses only
 #   Inclusion: maps/inclusion.txt; trials left out are in excluded.txt
+#   ATOMIC-Meso off the map under ⑦ (recommended by ASCO 2025 only; no licence; Jonan 2026-11-10)
 #   BEAT-meso kept under ⑥f (atezolizumab combined with bevacizumab and chemotherapy, each standard here) (Jonan 2026-11-10)
 #   Standard options only; an option a guideline recommends but no licence covers stays on the line with that noted
 #   ESMO-recommended options sit on the main line; where ESMO 2022 and ASCO 2025 disagree a ※ line says so
@@ -75,8 +76,6 @@ course: Unresectable pleural mesothelioma
     ② Platinum and pemetrexed for up to 6 cycles with pembrolizumab, pembrolizumab continued for up to 2 years 〔ASCO High, Strong〕 〔NCCN 1, preferred〕; EU licence for non-epithelioid only
       + KEYNOTE-483 | OS HR
     ③ Platinum and pemetrexed 〔ESMO I, A〕, only when immunotherapy is contraindicated 〔ASCO High, Strong〕; with or without bevacizumab 〔NCCN 1, other〕
-    ※ Pegargiminase added to platinum and pemetrexed when immunotherapy is not suitable 〔ASCO Moderate, Conditional〕; never licensed, the US application was withdrawn in 2026; NCCN does not list it
-      + ATOMIC-Meso {pmid 38358753} | OS 9.3 vs 7.7 months; HR 0.71
     ※ Non-epithelioid subgroups: OS HR 0.46 in CheckMate 743 and 0.57 in KEYNOTE-483
     ※ ESMO 2022 predates KEYNOTE-483 and lists chemotherapy as an option in all histologies; ASCO 2025 does not for non-epithelioid disease
     Epithelioid, PS 0–1
