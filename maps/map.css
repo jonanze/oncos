@@ -148,5 +148,3 @@
 /* inside a ruled grid a cell is narrow: a guideline tag may take its own line, and a long word breaks rather than spill */
 .om-world table.grid .nw{white-space:normal}
 .om-world table.grid th,.om-world table.grid td{overflow-wrap:break-word}
-/* a leaf keeps its fixed width, so its grid sizes columns to their words rather than splitting them evenly */
-.om-world .leaf table.grid{table-layout:auto}
