@@ -56,12 +56,12 @@ source: ACCP {url https://doi.org/10.1016/j.chest.2025.06.023}
 
 band: Staging before treatment
   ① CT and PET-CT before surgery, for nodal staging 〔ESMO I, A〕
-    ~ PLUS [t-plus-trial] | futile thoracotomy 41% vs 21%
-    ~ Fischer 2009 [t-fischer-et-al] | futile thoracotomy 21% vs 42%
+    ~ PLUS [t-plus-trial] | Futile thoracotomy 41% vs 21%
+    ~ Fischer 2009 [t-fischer-et-al] | Futile thoracotomy 21% vs 42%
   ② Nodes abnormal on CT or PET: endosonography with needle aspiration first 〔ESMO I, A〕
     ~ ASTER | N2 or N3 sensitivity 79% vs 94%
   ③ Mediastinoscopy can be left out after negative systematic endosonography
-    ~ MEDIASTrial | unforeseen N2 8.8% vs 7.7%
+    ~ MEDIASTrial | Unforeseen N2 8.8% vs 7.7%
     ※ ESMO 1.3 does not address mediastinoscopy after negative endosonography
   ④ Peripheral cN0 tumour of 3 cm or less: no invasive staging. cN1, central, larger than 3 cm or PET-negative: invasive staging, EBUS first 〔ESMO I, A〕
   ⑤ Brain MRI in stage II–III before curative treatment 〔ESMO III, A〕
@@ -80,14 +80,14 @@ course: Early and locally advanced NSCLC
     ① Peripheral, node-negative, 2 cm or less: sublobar resection, segmentectomy rather than wedge 〔ESMO I, A〕
       + JCOG0802 [t-jcog-0802-wjog-4607l] | OS HR 0.663
       ~ CALGB 140503 [t-calgb-140503] | DFS HR 1.01
-      ※ ACCP rates lobectomy, segmentectomy and wedge resection as equivalent here 〔ACCP conditional, moderate〕
+      ※ ACCP rates lobectomy, segmentectomy and wedge resection as equivalent here 〔ACCP Conditional, Moderate〕
     ② Solid and larger than 2 cm, or central: lobectomy 〔ESMO II, B〕
     ※ Sample at least 3 mediastinal and 3 hilar node stations 〔ESMO III, A〕
     next: Neoadjuvant or perioperative
     next: Upfront resection
   No surgery
     Medically inoperable or declining surgery, or stage III that cannot be completely resected
-    ※ Operable stage I: surgery is preferred over SBRT 〔ACCP conditional, low〕
+    ※ Operable stage I: surgery is preferred over SBRT 〔ACCP Conditional, Low〕
     next: SBRT
     next: Chemoradiotherapy
   Neoadjuvant or perioperative
@@ -112,7 +112,7 @@ course: Early and locally advanced NSCLC
     next: After upfront resection
   SBRT
     Stage I, node-negative; central or ultracentral tumours get more fractions 〔ESMO II, A〕
-      + CHISEL [t-chisel] | local control HR
+      + CHISEL [t-chisel] | Local control HR
   Chemoradiotherapy
     Concurrent chemoradiotherapy, 60 Gy in daily fractions, with 2–3 cycles of a platinum doublet 〔ESMO I, A〕
       + Concurrent vs sequential meta-analysis [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis] | 3-year OS 23.8% vs 18.1%
@@ -137,7 +137,7 @@ course: Early and locally advanced NSCLC
       + IALT | OS HR
       + JBR.10 | OS HR 0.69; stage II 0.59, stage IB not significant
       + ANITA | OS HR 0.80; stage II 0.71, IIIA 0.69, IB 1.10
-      ※ Stage I under 4 cm without EGFR or RET: no adjuvant treatment 〔ACCP strong, moderate〕
+      ※ Stage I under 4 cm without EGFR or RET: no adjuvant treatment 〔ACCP Strong, Moderate〕
       ※ Carboplatin and paclitaxel in stage IB did not improve survival; the benefit in tumours of 4 cm or more came from an unplanned analysis
         - CALGB 9633 | OS median
     ② No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕

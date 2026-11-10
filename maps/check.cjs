@@ -1,7 +1,7 @@
 /* Release check for the board maps: node maps/check.cjs
    - every map trial points at an Evidence row, or carries a PMID (or, before PubMed lists it, a {url}) and is listed for intake;
      a PMID already filed in any sheet fails, naming the row to link
-   - a live figure ("OS HR", "PFS median", "response") resolves from its Evidence row
+   - a live figure ("OS HR", "PFS median", "Response") resolves from its Evidence row
    - every written key figure's numbers appear in that trial's Evidence row
    - every row of the sheet is on the map or under off: with a reason; the rest are listed in unplaced.txt and fail
    - a trial line's Evidence row is a clinical trial, a pooled analysis of trials or a meta-analysis

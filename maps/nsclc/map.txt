@@ -47,9 +47,9 @@ band: Local treatment and bone
     ※ With osimertinib, radiotherapy to the sites left after 8–10 weeks: single-arm
       ~ Sampath 2025 [t-sampath-et-al] | PFS 32.3 months
   ② 1 to 3 brain metastases: radiosurgery alone
-    * NCCTG N0574 [t-ncctg-n0574] | cognitive decline 63.5% vs 91.7%
+    * NCCTG N0574 [t-ncctg-n0574] | Cognitive decline 63.5% vs 91.7%
   ③ Bone metastases: denosumab 120 mg every 4 weeks
-    ~ Henry 2011 [t-henry-et-al] | first skeletal event HR 0.84
+    ~ Henry 2011 [t-henry-et-al] | First skeletal event HR 0.84
   ④ Up to 5 sites progressing on systemic therapy: radiotherapy to them, systemic therapy continued
     ~ CURB | NSCLC PFS 2.2 vs 10.0 months
 
@@ -72,8 +72,8 @@ tree: Advanced NSCLC, first line
       Uncommon: G719X, L861Q, S768I
         = Afatinib or osimertinib
         ~ ACHILLES | PFS HR
-        ~ LUX-Lung pooled [t-lux-lung-2-lux-lung-3-and-lux-lung-6] | response
-        ~ UNICORN | response
+        ~ LUX-Lung pooled [t-lux-lung-2-lux-lung-3-and-lux-lung-6] | Response
+        ~ UNICORN | Response
         ※ Grouping by protein structure predicts TKI benefit better than grouping by exon
     Fusion
       ALK
@@ -84,26 +84,26 @@ tree: Advanced NSCLC, first line
         ° Lorlatinib: raised cholesterol and triglycerides
       ROS1
         = Crizotinib, entrectinib, repotrectinib or taletrectinib
-        ~ PROFILE 1001 | response
-        ~ STARTRK pooled [t-alka-372-001-startrk-1-and-startrk-2] | response
-        ~ TRIDENT-1 | response
-        ~ TRUST-I and II [t-trust-i-and-trust-ii-integrated-analysis] | response
+        ~ PROFILE 1001 | Response
+        ~ STARTRK pooled [t-alka-372-001-startrk-1-and-startrk-2] | Response
+        ~ TRIDENT-1 | Response
+        ~ TRUST-I and II [t-trust-i-and-trust-ii-integrated-analysis] | Response
       RET
         = Selpercatinib
         ~ LIBRETTO-431 | PFS HR
       NTRK
         = Larotrectinib or entrectinib
-        ~ Larotrectinib [t-larotrectinib--tumour-agnostic-basket-trials] | response
-        ~ Entrectinib [t-entrectinib-integrated-ntrk-fusion-analysis] | response
+        ~ Larotrectinib [t-larotrectinib--tumour-agnostic-basket-trials] | Response
+        ~ Entrectinib [t-entrectinib-integrated-ntrk-fusion-analysis] | Response
     Mutation
       BRAF V600E
         = Dabrafenib + trametinib, or encorafenib + binimetinib
-        ~ BRF113928 | response
-        ~ PHAROS | response
+        ~ BRF113928 | Response
+        ~ PHAROS | Response
       MET exon 14
         = Capmatinib or tepotinib
-        ~ GEOMETRY mono-1 | response 68%
-        ~ VISION | response
+        ~ GEOMETRY mono-1 | Response 68%
+        ~ VISION | Response
       KRAS G12C
         = Chemotherapy + PD-1 antibody first; sotorasib or adagrasib at progression
         ~ CodeBreaK 200 | PFS HR
@@ -113,9 +113,9 @@ tree: Advanced NSCLC, first line
         ※ Liver toxicity is common when sotorasib follows a PD-1 antibody
       HER2
         = After chemotherapy: trastuzumab deruxtecan 5.4 mg/kg, zongertinib or sevabertinib
-        ~ DESTINY-Lung02 | response
-        ~ Beamion LUNG-1 | response
-        ~ SOHO-01 | response
+        ~ DESTINY-Lung02 | Response
+        ~ Beamion LUNG-1 | Response
+        ~ SOHO-01 | Response
   No driver
     PS 0–1
       PD-L1 ≥50%
@@ -125,7 +125,7 @@ tree: Advanced NSCLC, first line
         + IMpower110 | OS median
         ※ Adding chemotherapy to pembrolizumab: longer PFS, OS not significantly longer in the one direct trial
           ~ PERSEE | PFS HR
-          + Di Federico [t-di-federico-et-al] | indirect OS HR 0.74
+          + Di Federico [t-di-federico-et-al] | Indirect OS HR 0.74
           ° Grade 3 or higher treatment-related events 54% vs 19% (PERSEE)
         ※ TPS 90–100% did better than 50–89% on pembrolizumab alone, retrospective
         ※ Newer agents beat pembrolizumab alone on PFS from TPS 1%; China only, OS awaited
@@ -162,7 +162,7 @@ panel: Course of treatment > No driver
   ※ Of those who finished 35 cycles, 82.1% were alive at 5 years, exploratory
     * KEYNOTE-024 | 39 patients
   Pemetrexed for non-squamous only: better than gemcitabine in adenocarcinoma, worse in squamous
-    + Scagliotti 2008 [t-scagliotti-et-al] | adenocarcinoma OS HR 0.84, squamous 1.23
+    + Scagliotti 2008 [t-scagliotti-et-al] | Adenocarcinoma OS HR 0.84, squamous 1.23
   Non-squamous: pemetrexed continues with the PD-1 antibody
 
 panel: Second line > No driver
@@ -192,10 +192,10 @@ panel: Later lines > Driver found
   ④ EGFR with MET amplification or overexpression after osimertinib: osimertinib + savolitinib
     + SAFFRON | OS HR
     ~ SACHI | PFS HR
-    ~ SAVANNAH | response
-    ~ INSIGHT 2 | tepotinib + osimertinib, response 50.0%
+    ~ SAVANNAH | Response
+    ~ INSIGHT 2 | Tepotinib + osimertinib, response 50.0%
   ⑤ EGFR after a TKI and platinum chemotherapy: datopotamab deruxtecan, approved in the US
-    ~ TROPION-Lung05 | response
+    ~ TROPION-Lung05 | Response
     ※ After a TKI, before chemotherapy: three antibody–drug conjugates beat platinum + pemetrexed on PFS; China only
       + OptiTROP-Lung04 | OS HR
       ~ HERON-Lung01 | PFS HR
