@@ -200,18 +200,11 @@
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); });
       var panelTop = [];
       var colX = [M];
-      // the gap after a column is wide enough for the widest label on a line from it to the next column,
-      // so that no label runs into a step
-      var gapW = cols.map(function(){ return CGX; });
-      steps.forEach(function(n){ n.next.forEach(function(e){
-        if (e.el && e.node.col === n.col + 1) gapW[n.col] = Math.max(gapW[n.col], e.el.offsetWidth + STUB + 32);
-      }); });
-      cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + gapW[c]; });
       var top0 = b.top, colEnd = [];
       for (var gi = 0; gi < g; gi++) {
         var bottom = top0;
         cols.forEach(function(list, c){
-          var x = colX[c], cursor = top0;
+          var x = colX[c] || 0, cursor = top0;
           var mine = list.filter(function(n){ return n.group === gi; });
           mine.forEach(function(n){
             // level with the middle of the steps that lead here, so its main line runs straight
@@ -255,12 +248,38 @@
         list.sort(function(a, z){ return a.y - z.y; });
         panelTop[c] = (colEnd[c] || b.top) + 12;
       });
+      // a line label is centred on its own run: on the straight run beyond the divide, on the upright of a
+      // line that divides or joins (the upright moves out from the step far enough to carry it), or on the
+      // run from a source to the turn. The gap after a column is made wide enough for the labels in it.
+      var gapW = cols.map(function(){ return CGX; });
+      steps.forEach(function(n){ n.stub = STUB; n.jstub = STUB; });
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        var t = e.node;
+        e.split = n.next.length > 1 || t.preds.length < 2; e.level = Math.abs(t.cy - n.cy) < 1;
+        if (!e.el) return;
+        var w = e.el.offsetWidth;
+        if (e.split && !e.level) n.stub = Math.max(n.stub, w / 2 + 12);
+        if (e.joins) t.jstub = Math.max(t.jstub, w / 2 + 12);
+      }); });
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        var t = e.node, c = t.col - 1;
+        if (!e.el || (!e.joins && e.join) || c < 0) return;
+        var w = e.el.offsetWidth, need;
+        if (e.joins) need = t.jstub + w / 2 + 12;
+        else if (n.col !== c) return;
+        else if (e.split) need = e.level ? n.stub + w + 32 : n.stub + w / 2 + 12;
+        else need = t.jstub + w + 32;
+        gapW[c] = Math.max(gapW[c], need);
+      }); });
+      colX = [M];
+      cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + gapW[c]; });
+      steps.forEach(function(n){ n.x = colX[n.col]; n.el.style.left = n.x + 'px'; });
       steps.forEach(function(n){
         n.next.forEach(function(e){
           // one source to several steps: the line divides next to the source, the label sits on the branch;
           // several sources to one step: the lines join next to the step, the label sits on the source's own line
-          var t = e.node, x1 = n.x + n.w, x2 = t.x, split = n.next.length > 1 || t.preds.length < 2;
-          var xm = split ? x1 + STUB : x2 - STUB, level = Math.abs(t.cy - n.cy) < 1;
+          var t = e.node, x1 = n.x + n.w, x2 = t.x, split = e.split, level = e.level;
+          var xm = split ? x1 + n.stub : x2 - t.jstub;
           // the course spine (a straight next: line) is drawn heavier than the lines that branch off it
           svg += '<path' + (level && !e.join ? ' class="main"' : '') + ' d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
           e.xm = xm; e.cy = n.cy;
@@ -268,11 +287,11 @@
             // a label sits in a ruled cell on its own run of the line: the straight run, or the upright
             // between the previous turn and its step, so it never stands beside another step's line
             var h = e.el.offsetHeight, w = e.el.offsetWidth;
-            // centred along its own run: from the divide (or the source) to the step on a straight line,
-            // from the source to the turn on a line that joins others next to its step
+            // centred along its own run: from the divide to the step on a line that divides, and from the
+            // source to the turn where it meets the other lines into its step
             if (level) {
-              var a = split ? xm : x1;
-              e.el.style.left = inGap((a + x2 - w) / 2, w, a, x2) + 'px'; e.el.style.top = (t.cy - h / 2) + 'px';
+              var a = split ? xm : x1, z = split ? x2 : xm;
+              e.el.style.left = inGap((a + z - w) / 2, w, a, z) + 'px'; e.el.style.top = (t.cy - h / 2) + 'px';
             } else if (!split) {
               e.el.style.left = inGap((x1 + xm - w) / 2, w, x1, xm) + 'px'; e.el.style.top = (n.cy - h / 2) + 'px';
             } else {
