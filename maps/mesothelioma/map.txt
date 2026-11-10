@@ -95,6 +95,7 @@ course: Unresectable pleural mesothelioma
     ① Immunotherapy: nivolumab and ipilimumab 〔ESMO II, C〕 〔ASCO Moderate, Strong〕, or nivolumab alone 〔ESMO I, A〕 〔ASCO High, Strong〕, or pembrolizumab alone 〔ESMO II, C〕; none licensed in this setting in the EU or US
       ~ MAPS2 | 12-week disease control 44% and 50%
       ~ CONFIRM | PFS HR 0.65; OS HR 0.81, not significant
+      - PROMISE-meso {pmid 32976938} | Pembrolizumab against gemcitabine or vinorelbine: PFS HR 1.06; OS HR 1.12
     ② Gemcitabine with ramucirumab 〔ESMO III, C〕 〔ASCO Moderate, Strong〕; ramucirumab is not licensed for mesothelioma
       + RAMES {pmid 34499874} | Randomised phase II: OS 13.8 vs 7.5 months; HR 0.71
     ③ Vinorelbine or gemcitabine alone 〔ESMO II, B〕; oral vinorelbine 〔ASCO Moderate, Strong〕; PFS gain, no OS gain
@@ -111,4 +112,4 @@ course: Unresectable pleural mesothelioma
     ※ After two lines, ESMO 2022 finds no evidence for routine further treatment; consider a clinical trial 〔ESMO V, C〕
 
 off:
-  KEYNOTE-158 | Single-arm cohort of pembrolizumab alone; in PROMISE-meso pembrolizumab gave no PFS or OS gain over chemotherapy
+  KEYNOTE-158 | Single-arm cohort of pembrolizumab alone; PROMISE-meso is the randomised evidence for pembrolizumab alone and sits on the map
