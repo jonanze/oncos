@@ -14,28 +14,35 @@
 # * Plain clinical wording
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
 #     〔ESMO level, grade〕 ESMO 2022 (Popat); 〔ASCO quality, strength〕 ASCO 2025 (Kindler);
-#     〔PSOGI quality, strength〕 PSOGI 2024 peritoneal consensus
+#     〔PSOGI quality, strength〕 PSOGI 2024 peritoneal consensus;
+#     〔STS consensus〕 STS 2026 multimodal treatment consensus (Velotta): statements are ungraded, each reached ≥75% Delphi agreement
 #   Independent review 2026-11-10; accepted items applied
 
 map: Mesothelioma
 source: ESMO {url https://doi.org/10.1016/j.annonc.2021.11.005}
 source: ASCO {url https://doi.org/10.1200/JCO-24-02425}
 source: PSOGI {url https://doi.org/10.1002/jso.27947}
+source: STS {url https://doi.org/10.1016/j.athoracsur.2026.03.074}
 
 band: Diagnosis and staging
-  ① Thoracoscopic biopsy when treatment is planned 〔ESMO III, B〕 〔ASCO High, Strong〕; core needle biopsy when thoracoscopy or open biopsy is not possible 〔ASCO Moderate, Strong〕
+  ① Thoracoscopic biopsy when treatment is planned 〔ESMO III, B〕 〔ASCO High, Strong〕; core needle biopsy when thoracoscopy or open biopsy is not possible 〔ASCO Moderate, Strong〕; surgical biopsy from several sites through one or two incisions in line with a future thoracotomy, also after negative cytology 〔STS consensus〕
   ② Report the subtype: epithelioid, sarcomatoid or biphasic 〔ESMO IV, A〕 〔ASCO High, Strong〕; the sarcomatoid percentage in biphasic tumours 〔ASCO Moderate, Strong〕; BAP1 and MTAP immunohistochemistry when the diagnosis is uncertain, including suspected mesothelioma in situ 〔ESMO IV, A〕 〔ASCO Moderate, Conditional〕
-  ③ Contrast CT of chest and upper abdomen 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; PET-CT at staging, may be omitted when surgery is not considered 〔ASCO Moderate, Strong〕; required when surgery is considered 〔ESMO III, B〕
+  ③ Contrast CT of chest and upper abdomen 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; PET-CT at staging, may be omitted when surgery is not considered 〔ASCO Moderate, Strong〕; required when surgery is considered 〔ESMO III, B〕; PET-CT for every patient 〔STS consensus〕
   ④ Response by modified RECIST 1.1 for mesothelioma 〔ASCO Moderate, Strong〕
   ⑤ PD-L1 and tumour mutational burden do not select patients for immunotherapy 〔ESMO I, D〕; nor does MSI 〔ASCO Moderate, Conditional〕
   ⑥ Offer germline testing to every patient 〔ASCO High, Strong〕, with pretest genetic counselling 〔ASCO Low, Strong〕
+  ⑦ Before surgery: EBUS or mediastinoscopy when imaging suggests nodal disease 〔ASCO Moderate, Strong〕 〔STS consensus〕; laparoscopy when abdominal disease is suspected 〔ASCO Moderate, Strong〕 〔STS consensus〕
+  ⑧ Treatment decided at a multidisciplinary meeting that includes a thoracic surgeon experienced in mesothelioma 〔STS consensus〕
   ※ ESMO 2022 advises against germline BAP1 testing without a family history suggesting BAP1 syndrome 〔ESMO V, D〕
 
 band: Surgery
-  ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕
-  ② Extended pleurectomy decortication rather than extrapleural pneumonectomy 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; no surgery for sarcomatoid disease 〔ASCO Moderate, Strong〕
-  ③ Platinum and pemetrexed for 4 to 6 cycles, before or after surgery; surgery alone is not enough 〔ASCO Moderate, Strong〕
+  ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕; assessment at a high-volume centre, with acceptable cardiopulmonary function, nutrition and performance status 〔STS consensus〕
+  ② Pleurectomy decortication or extended pleurectomy decortication rather than extrapleural pneumonectomy 〔ESMO III, B〕 〔ASCO Moderate, Strong〕 〔STS consensus〕; extrapleural pneumonectomy only when lung-sparing surgery cannot clear the disease and prognostic factors are favourable 〔STS consensus〕; no surgery for sarcomatoid disease 〔ASCO Moderate, Strong〕
+  ③ Platinum and pemetrexed for 4 to 6 cycles, before or after surgery; surgery alone is not enough 〔ASCO Moderate, Strong〕; the multidisciplinary team sets the timing, and patients operated on first receive systemic therapy afterwards 〔STS consensus〕
     ~ EORTC 1205 {pmid 38843916} | Feasibility only; no preferred sequence
+  ④ Aim for macroscopic complete resection; no partial resection or debulking by any approach 〔STS consensus〕; sample hilar, mediastinal and pleural nodal stations: pericardial, diaphragmatic, intercostal and internal mammary 〔STS consensus〕
+  ※ STS 2026 allows surgery with confirmed ipsilateral N1 disease within multimodality treatment and advises against it with contralateral N2 or supraclavicular nodes 〔STS consensus〕; ASCO limits surgery to N0 disease 〔ASCO Moderate, Strong〕; STS cites NCCN 2.2026 text on N1 and N2 disease that NCCN 1.2027 removed
+  ※ Intraoperative regional therapy (chemotherapy, povidone-iodine or photodynamic therapy) may be considered 〔STS consensus〕; its benefit is unproven and it is best given in a trial 〔ASCO Low, Conditional〕
   ※ Pleurectomy decortication or extended pleurectomy decortication added to chemotherapy shortened survival and increased serious adverse events
     - MARS 2 | OS 19.3 vs 24.8 months; HR 1.28 to 42 months; serious adverse events 318 vs 169
   ※ ESMO 2022 predates MARS 2 and does not limit surgery by stage or histology
@@ -52,6 +59,7 @@ band: Effusion and radiotherapy
   ③ No prophylactic radiotherapy to procedure tracts 〔ESMO I, D〕 〔ASCO High, Strong〕
     - SMART {pmid 27345639} | Tract metastases 9% vs 16%, not significant
     - PIT {pmid 30920878} | Chest wall metastases 3.2% vs 5.3% at 6 months, not significant
+  ④ Recurrence after surgery: resection of an isolated chest wall or pleural recurrence 〔STS consensus〕; stereotactic radiotherapy for an isolated pleural recurrence 〔STS consensus〕; conventional or mildly hypofractionated radiotherapy for diffuse or bulky pleural recurrence in selected patients 〔STS consensus〕; radiotherapy for a localised asymptomatic recurrence 〔ASCO Low, Conditional〕
 
 band: Peritoneal mesothelioma
   ① Selected patients with completely resectable disease, fit for surgery: cytoreductive surgery with HIPEC in an expert centre 〔PSOGI Very Low, Strong〕

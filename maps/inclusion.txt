@@ -62,6 +62,10 @@ Rules
     ※ caveat). Every other row goes under off: with a reason: superseded; no licence or
     recommendation; non-randomised with randomised evidence available; not a map statement.
     Conflicting trials on one statement are both cited
+    Single-guideline options: a drug or device option recommended by only one of the map's source guidelines goes on
+      the map only if it has a current EU or US licence in that setting or the current NCCN guideline
+      lists it; otherwise its row goes under off: with the reason "one guideline only; no EU or US
+      licence; not in NCCN" (Jonan 2026-11-10, ATOMIC-Meso)
   ⑧ Where EU and US licences, or reference guidelines, disagree, the trial is included and the line
     says so
   ⑨ Re-apply the rule to a sheet when a reference guideline is updated, a licence is granted,
