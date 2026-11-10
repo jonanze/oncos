@@ -14,7 +14,6 @@
 <meta name="apple-mobile-web-app-title" content="oncOS">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
-<script src="/maps/evidence-maps.js"></script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script>try{if(localStorage.getItem('oncos-rail')==='collapsed')document.documentElement.classList.add('rail-collapsed');}catch(e){}</script>
@@ -371,21 +370,13 @@ html[data-view="tox"] #viewroot input:focus, html[data-view="tox"] #viewroot sel
 .global-search-panel{width:100%;height:100%;max-height:100%;border:0;border-radius:0;}
 .global-search-head{padding-top:calc(10px + env(safe-area-inset-top));}
 .global-search-results{padding:14px;}}
-.global-search-filters{display:flex;gap:6px;flex-wrap:wrap;padding:12px 14px 4px;flex-shrink:0;}
-.global-search-filters .gs-filter{min-height:44px;padding:7px 10px;background:var(--paper);border:1px solid var(--hair);border-radius:9px;color:var(--ink);font:inherit;font-size:var(--t-sm);cursor:pointer;}
-.global-search-filters .gs-filter[aria-pressed="true"]{border-color:var(--hair);color:var(--ink);background:var(--press);}
 .global-search-status{padding:4px 18px 0;font-size:var(--t-sm);color:var(--muted);flex-shrink:0;}
 .global-search-results .gs-module{font-size:var(--t-xs);font-weight:var(--w-name);color:var(--muted);}
 .global-search-results .gs-retry{display:block;margin:0 auto 20px;min-height:44px;padding:8px 14px;border:1px solid var(--hair);border-radius:9px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;}
 .global-search-head input{height:44px;font-size:16px;}
 .global-search-close{width:44px;height:44px;}
-.global-search-filters{gap:4px;}
-.global-search-filters .gs-filter{border-color:transparent;border-radius:999px;background:transparent;color:var(--slate);
-  padding:5px 12px;transition:background 110ms var(--ease),color 110ms var(--ease);}
-@media (hover:hover){.global-search-filters .gs-filter:hover{background:var(--hover);color:var(--ink);}}
 .global-search-close{border:0;background:transparent;color:var(--slate);border-radius:var(--r-sm);}
 @media (hover:hover){.global-search-close:hover{background:var(--hover);color:var(--ink);}}
-@media (hover:hover) and (pointer:fine){.global-search-filters .gs-filter{min-height:32px;}}
 #viewroot{min-height:60vh;}
 .view-error{max-width:560px;margin:48px auto;padding:24px;color:var(--ink);}
 .view-error h1{font-size:24px;line-height:1.3;}
@@ -696,11 +687,10 @@ html:is([data-view="acute"],[data-view="tox"]) #viewroot :is(.dvbody .sec,.ipane
 html[data-view="acute"] #viewroot .dvbody .sec > h4{grid-row:auto;border-right:0;border-bottom:1px solid var(--b-line);}
 html[data-view="acute"] #viewroot .dvbody .sec > :not(h4){grid-column:1;}
 html[data-view="tox"] #viewroot :is(.ipanel,.igblock) .ifrow > .fl{border-right:0;border-bottom:1px solid var(--b-grid);}}
-.global-search-panel, .global-search-head input, .global-search-close, .global-search-filters .gs-filter, .global-search-results .gs-retry{border-radius:0;}
+.global-search-panel, .global-search-head input, .global-search-close, .global-search-results .gs-retry{border-radius:0;}
 .global-search-panel{background:var(--b-paper);border-color:var(--b-line);}
 .global-search-head{background:var(--b-cell);border-bottom:1px solid var(--b-line);}
 .global-search-head input{border-color:var(--b-line);background:var(--b-paper);}
-.global-search-filters .gs-filter[aria-pressed="true"]{background:var(--b-band);color:var(--b-ink);font-weight:var(--w-bold);}
 .gs-group{border:1px solid var(--b-line);}
 .gs-group h3{margin:0;padding:6px 14px;background:var(--b-band);border-bottom:1px solid var(--b-line);
   color:var(--b-ink);font-size:var(--t-base);letter-spacing:0;text-transform:none;}
@@ -752,7 +742,6 @@ html[data-view="evidence"] #viewroot tr.secrow td, html:is([data-view="staging"]
 .oncos-rail .rail-sheet-main .suite-link:last-child{border-bottom:0;}
 .oncos-rail .rail-sheet-main .suite-link[aria-current="page"]{background:var(--b-band);font-weight:var(--w-bold);box-shadow:inset 3px 0 0 var(--tb-mark);}
 :root[data-theme="dark"] .oncos-rail .rail-sheet-main .suite-link[aria-current="page"]{box-shadow:inset 3px 0 0 var(--b-ink);}}
-.global-search-dialog .global-search-filters{display:none;}
 @media (max-width:760px){.rail-back-strip, .rail-home-strip{display:inline-flex!important;}}
 :root[data-theme="dark"]{--b-bullet:var(--muted);}
 .oncos-rail svg, .rail-float svg{stroke-linecap:square;stroke-linejoin:miter;}
@@ -863,7 +852,6 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
       <input id="global-search-query" type="search" autocomplete="off" aria-label="Search all oncOS">
       <button class="global-search-close" id="global-search-close" type="button" aria-label="Close search">&times;</button>
     </div>
-    <div class="global-search-filters" id="global-search-filters" role="group" aria-label="Filter search by module"></div>
     <div class="global-search-status" id="global-search-status" role="status"></div>
     <div class="global-search-results" id="global-search-results" aria-live="polite"></div>
   </section>
@@ -1088,6 +1076,8 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   var viewroot = document.getElementById('viewroot');
   var viewnav = document.getElementById('viewnav');
   var cache = {};          // name -> parsed fragment + compiled view script
+  var kept = {};           // name -> a mounted view held in memory while another shows (B5)
+  var loads = {};          // url -> one shared download (data files, view scripts)
   var current = null;      // active view name
   var remembered = {};     // current-tab presentation snapshots; never persisted
   var active = null;       // active window.oncosView
@@ -1234,6 +1224,28 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     });
     capt = [];
   }
+  // One download per file for the page's life, shared by a view, the search and
+  // the maps: the Evidence rows are fetched and parsed once (site review B2).
+  window.oncosLoad = function(url){
+    if (!loads[url]) {
+      loads[url] = fetch(url, {credentials:'same-origin'}).then(function(r){
+        if (!r.ok) throw new Error(url+' '+r.status);
+        return r.json();
+      });
+      loads[url].catch(function(){ delete loads[url]; });
+    }
+    return loads[url];
+  };
+  function loadScript(src){
+    if (!loads[src]) {
+      loads[src] = new Promise(function(resolve, reject){
+        var s = document.createElement('script');
+        s.src = src; s.onload = resolve; s.onerror = function(){ delete loads[src]; reject(new Error(src)); };
+        document.head.appendChild(s);
+      });
+    }
+    return loads[src];
+  }
   function fetchView(name){
     if (cache[name]) return Promise.resolve(cache[name]);
     return fetch('/views/'+name+'.html', {credentials:'same-origin'}).then(function(r){
@@ -1241,9 +1253,19 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
       return r.text();
     }).then(function(t){
       var doc = new DOMParser().parseFromString(t, 'text/html');
-      var vs = doc.querySelector('script');
-      cache[name] = { doc:doc, run:vs ? new Function(vs.textContent) : null };
-      return cache[name];
+      // A view names the data file and helper scripts it needs; both are ready
+      // before its script runs.
+      var data = doc.querySelector('link[data-view-data]');
+      var scripts = Array.prototype.map.call(doc.querySelectorAll('link[data-view-script]'), function(l){ return l.getAttribute('href'); });
+      return Promise.all([data ? window.oncosLoad(data.getAttribute('href')) : null,
+        // A helper script that cannot load (offline before it was stored) leaves
+        // the view working without it; only the data file is required.
+        scripts.reduce(function(p, src){ return p.then(function(){ return loadScript(src).catch(function(){}); }); }, Promise.resolve())])
+        .then(function(ready){
+          var vs = doc.querySelector('script');
+          cache[name] = { doc:doc, data:ready[0], run:vs ? new Function(vs.textContent) : null };
+          return cache[name];
+        });
     });
   }
   function syncSuiteChrome(name){
@@ -1379,6 +1401,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
 
   function showViewError(name, loading){
     if (active && active.destroy) { try { active.destroy(); } catch (_) {} }
+    delete kept[name];
     releaseCaptured(); active = null; window.oncosView = null; failedView = true;
     current = name; root.setAttribute('data-view', name); syncSuiteChrome(name);
     viewnav.replaceChildren(); viewroot.replaceChildren(); viewroot.classList.remove('leaving');
@@ -1485,13 +1508,48 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     });
   }).observe(viewnav, {subtree:true, childList:true, attributes:true, attributeOldValue:true, attributeFilter:['class']});
 
+  // Leaving a view keeps it whole (site review B5): its page and sidebar nodes
+  // are detached with their own listeners, its document and window listeners
+  // are taken off and kept, and returning puts all of it back unchanged. The
+  // page is built again only in a new release, which shows at the next open.
+  function keepActive(){
+    if (!active || !current || failedView) return false;
+    kept[current] = {view:active, root:Array.prototype.slice.call(viewroot.childNodes),
+      nav:Array.prototype.slice.call(viewnav.childNodes), listeners:capt,
+      labelled:viewroot.getAttribute('aria-labelledby')};
+    capt.forEach(function(c){ (c[0]==='d'?document:window).removeEventListener(c[1],c[2],c[3]); });
+    capt = [];
+    return true;
+  }
+  function restoreKept(name){
+    var k = kept[name]; delete kept[name];
+    viewroot.replaceChildren.apply(viewroot, k.root);
+    viewnav.replaceChildren.apply(viewnav, k.nav);
+    if (k.labelled) viewroot.setAttribute('aria-labelledby', k.labelled);
+    k.listeners.forEach(function(c){ (c[0]==='d'?document:window).addEventListener(c[1],c[2],c[3]); });
+    capt = k.listeners;
+    active = k.view; window.oncosView = k.view;
+  }
   function mount(name, prepared){
-    // teardown
-    if (active && active.destroy) { try{ active.destroy(); }catch(e){} }
-    releaseCaptured();
+    // teardown: a working view is kept for the return; anything else is destroyed
+    if (!keepActive()) {
+      if (active && active.destroy) { try{ active.destroy(); }catch(e){} }
+      releaseCaptured();
+    }
     document.body.classList.remove('nav-open');
     freshChrome();
     active = null; window.oncosView = null;
+    if (kept[name]) {
+      root.setAttribute('data-view', name);
+      var kq = searchEl();
+      if (kq) { kq.value=''; kq.id = (VIEWS[name] && VIEWS[name].searchId) || 'q'; }
+      restoreKept(name);
+      viewnav.querySelectorAll('.active,.on').forEach(function(n){ focusGroup(n); });
+      syncSuiteChrome(name);
+      failedView = false;
+      document.dispatchEvent(new CustomEvent('oncos:view-mounted', {detail:{name:name, kept:true}}));
+      return;
+    }
 
     // swap
     root.setAttribute('data-view', name);
@@ -1522,7 +1580,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
           if (window.oncosView && window.oncosView.init) {
             active = window.oncosView;
             var owner = active;
-            active.init({root:viewroot, nav:viewnav, search:searchEl(),
+            active.init({root:viewroot, nav:viewnav, search:searchEl(), data:prepared.data,
               transition:function(action, options){return localTransition(owner,action,options);}});
           }
         } finally { restore(); }
@@ -1531,6 +1589,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     viewnav.querySelectorAll('.active,.on').forEach(function(n){ focusGroup(n); });
     syncSuiteChrome(name);
     failedView = false;
+    document.dispatchEvent(new CustomEvent('oncos:view-mounted', {detail:{name:name, kept:false}}));
   }
   // `hash` is carried only for a cross-view deep link (/evidence/#t-<slug>): the
   // pushed URL has to keep it, or mount() has nothing to re-apply and the anchor
@@ -1583,7 +1642,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     // fade before it is built. Only a view that still has to be downloaded
     // dims the old page meanwhile; the new page fades in briefly (CSS).
     markSuite(name);
-    if (name !== 'hub' && !(typeof cache !== 'undefined' && cache[name])) {
+    if (name !== 'hub' && !(typeof cache !== 'undefined' && cache[name]) && !kept[name]) {
       viewroot.classList.add('leaving'); showViewLoading(name);
     }
     var fetched = name==='hub' ? Promise.resolve(null) : fetchView(name);

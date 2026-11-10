@@ -15,14 +15,8 @@
 const fs = require('fs'), path = require('path');
 const O = (function(){ const m = {exports:{}}; new Function('module', fs.readFileSync(path.join(__dirname, 'outline.js'), 'utf8'))(m); return m.exports; })();
 const root = path.join(__dirname, '..');
-const src = fs.readFileSync(path.join(root, 'views/evidence.html'), 'utf8');
-const i = src.indexOf('const TRIALS = ');
-if (i < 0) { console.error('views/evidence.html: no TRIALS'); process.exit(1); }
-const rows = (function(){ let d = 0, j = i + 15, q = false, e = false;
-  for (; j < src.length; j++) { const c = src[j];
-    if (q) { if (e) e = false; else if (c === '\\') e = true; else if (c === '"') q = false; continue; }
-    if (c === '"') q = true; else if (c === '[' || c === '{') d++; else if (c === ']' || c === '}') { d--; if (!d) break; } }
-  return JSON.parse(src.slice(i + 15, j + 1)); })();
+// The Evidence rows: data/evidence.json, the file the view, search and maps read.
+const rows = JSON.parse(fs.readFileSync(path.join(root, 'data/evidence.json'), 'utf8')).trials;
 const byAnchor = new Map(rows.map(r => [r.anchor, r]));
 const TRIAL_TYPE = /randomi|meta-analys|pooled analysis|joint analysis|clinical trial/i;
 const NOT_TRIAL = /cohort study|retrospective|observational|registry|case series|review|consensus|genomic/i;

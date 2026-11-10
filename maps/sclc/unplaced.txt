@@ -1,2 +1,8 @@
 # SCLC Evidence rows neither on the map nor under off:, newest first (year, study, section, anchor)
-
+2026	NRG LU005	Limited-stage SCLC (LS-SCLC) — consolidation immunotherapy	t-nrg-lu005
+2023	CALGB 30610 / RTOG 0538	Limited-stage SCLC (LS-SCLC) — chemoradiation	t-calgb-30610-rtog-0538
+2021	THORA	Limited-stage SCLC (LS-SCLC) — chemoradiation	t-thora
+2009	PCI 99-01, EORTC 22003-08004, RTOG 0212, IFCT 99-01	Limited-stage SCLC (LS-SCLC) — prophylactic cranial irradiation (PCI)	t-pci-99-01-eortc-22003-08004-rtog-0212-ifct-99-01
+2009	SWOG S0124	Extensive-stage SCLC (ES-SCLC) — first-line chemotherapy	t-swog-s0124
+2006	O'Brien et al.	Second-line & relapsed/refractory therapy	t-o-brien-et-al
+2002	JCOG 9104	Limited-stage SCLC (LS-SCLC) — chemoradiation	t-jcog-9104
