@@ -17,6 +17,7 @@
 #     〔ESMO level, grade〕 ESMO 2022 (Popat); 〔ASCO quality, strength〕 ASCO 2025 (Kindler);
 #     〔PSOGI quality, strength〕 PSOGI 2024 peritoneal consensus;
 #     〔NCCN category, preference〕 NCCN Mesothelioma: Pleural and Peritoneal 1.2027 (28 Oct 2026); options NCCN alone lists sit on ※ lines
+#     〔STS statement〕 STS 2026 expert consensus on multimodal treatment (Velotta); statements are ungraded (Delphi, at least 75% agreement), so the tag gives the statement number
 #   Independent review 2026-11-10; accepted items applied
 
 map: Mesothelioma
@@ -24,11 +25,12 @@ source: ESMO {url https://doi.org/10.1016/j.annonc.2021.11.005}
 source: ASCO {url https://doi.org/10.1200/JCO-24-02425}
 source: PSOGI {url https://doi.org/10.1002/jso.27947}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: STS {url https://doi.org/10.1016/j.athoracsur.2026.03.074}
 
 band: Diagnosis and staging
-  ① Thoracoscopic biopsy when treatment is planned 〔ESMO III, B〕 〔ASCO High, Strong〕 〔NCCN 2A, preferred〕; core needle biopsy when thoracoscopy or open biopsy is not possible 〔ASCO Moderate, Strong〕
+  ① Thoracoscopic biopsy when treatment is planned 〔ESMO III, B〕 〔ASCO High, Strong〕 〔NCCN 2A, preferred〕 〔STS 1.1〕, with as few incisions as possible, placed in line with any later thoracotomy 〔STS 1.2〕; biopsy even when pleural fluid cytology is negative 〔STS 1.4〕; core needle biopsy when thoracoscopy or open biopsy is not possible 〔ASCO Moderate, Strong〕
   ② Report the subtype: epithelioid, sarcomatoid or biphasic 〔ESMO IV, A〕 〔ASCO High, Strong〕; the sarcomatoid percentage in biphasic tumours 〔ASCO Moderate, Strong〕; BAP1 and MTAP immunohistochemistry when the diagnosis is uncertain, including suspected mesothelioma in situ 〔ESMO IV, A〕 〔ASCO Moderate, Conditional〕
-  ③ Contrast CT of chest and upper abdomen 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; PET-CT at staging, may be omitted when surgery is not considered 〔ASCO Moderate, Strong〕; required when surgery is considered 〔ESMO III, B〕
+  ③ Contrast CT of chest and upper abdomen 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; PET-CT at staging, may be omitted when surgery is not considered 〔ASCO Moderate, Strong〕; required when surgery is considered 〔ESMO III, B〕; in every patient 〔STS 2.1〕
   ④ Response by modified RECIST 1.1 for mesothelioma 〔ASCO Moderate, Strong〕
   ⑤ PD-L1, tumour mutational burden and MSI do not select patients for immunotherapy 〔ASCO Moderate, Conditional〕; PD-L1 and tumour mutational burden 〔ESMO I, D〕
   ⑥ Offer germline testing to every patient 〔ASCO High, Strong〕; consider it 〔NCCN 2A〕, with pretest genetic counselling 〔ASCO Low, Strong〕
@@ -36,20 +38,23 @@ band: Diagnosis and staging
   ※ Tumour genomic testing: not routine 〔ESMO III, D〕; not part of standard care 〔ASCO Low, Conditional〕; NCCN recommends a multigene panel, including NTRK and ALK 〔NCCN 2A〕
 
 band: Surgery
-  ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕; NCCN limits surgery to cT1–2 N0 epithelioid disease 〔NCCN 2A〕
-  ② Extended pleurectomy decortication rather than extrapleural pneumonectomy 〔ESMO III, B〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕; no surgery for sarcomatoid disease 〔ASCO Moderate, Strong〕
-  ③ Platinum and pemetrexed before or after surgery 〔ASCO High, Strong〕, 4 to 6 cycles; surgery alone is not enough 〔ASCO Moderate, Strong〕
+  ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕 〔STS 3.1, 4.1〕; NCCN limits surgery to cT1–2 N0 epithelioid disease 〔NCCN 2A〕
+  ② Extended pleurectomy decortication rather than extrapleural pneumonectomy 〔ESMO III, B〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕; pleurectomy decortication or extended pleurectomy decortication 〔STS 7.1〕, aiming at complete macroscopic resection 〔STS 9.1〕, with no partial debulking by any approach 〔STS 9.3〕; no surgery for sarcomatoid disease 〔ASCO Moderate, Strong〕
+  ③ Platinum and pemetrexed before or after surgery 〔ASCO High, Strong〕 〔STS 5〕, 4 to 6 cycles; surgery alone is not enough 〔ASCO Moderate, Strong〕; adjuvant treatment after upfront surgery 〔STS 6〕
+  ④ Lymph node dissection at surgery, including hilar, mediastinal, internal mammary, diaphragmatic, pericardial and intercostal stations 〔STS 8.1, 8.2〕
     ~ EORTC 1205 [t-eortc-1205] | Feasibility only; no preferred sequence
   ※ Pleurectomy decortication or extended pleurectomy decortication added to chemotherapy shortened survival and increased serious adverse events
     - MARS 2 | OS 19.3 vs 24.8 months; HR 1.28 to 42 months; serious adverse events 318 vs 169
   ※ ESMO 2022 predates MARS 2; it lists sarcomatoid histology, contralateral or supraclavicular nodes and extrathoracic disease against surgery, without a stage limit; NCCN 1.2027 notes no evidence that surgery added to systemic therapy improves survival
-  ※ Extrapleural pneumonectomy within trimodal therapy gave no benefit and possible harm; ASCO still allows it in highly selected patients in expert centres 〔ASCO Moderate, Strong〕
+  ※ STS 2026 keeps lung-sparing surgery for selected patients and attributes the MARS 2 result to CT-only staging and 9% 90-day mortality; it allows surgery for confirmed ipsilateral N1 disease 〔STS 11.2〕, after EBUS or mediastinoscopy when imaging suggests N1 〔STS 11.1〕, but not for contralateral or supraclavicular N2 disease 〔STS 11.3〕
+  ※ Extrapleural pneumonectomy within trimodal therapy gave no benefit and possible harm; ASCO still allows it in highly selected patients in expert centres 〔ASCO Moderate, Strong〕; STS only when pleurectomy decortication cannot clear the tumour and prognostic factors are favourable 〔STS 7.2〕
     - MARS | OS HR 1.90 (0.92–3.93); 50 patients
   ※ Adjuvant hemithoracic radiotherapy is not standard; it can be considered in expert centres 〔ESMO II, D〕; after extrapleural pneumonectomy 〔ASCO Moderate, Strong〕
     - SAKK 17/04 [t-sakk-17-04] | Locoregional relapse-free survival 9.4 vs 7.6 months with and without radiotherapy; no between-arm test
   ※ After pleurectomy decortication or lung-sparing surgery: hemithoracic IMRT 〔ASCO Moderate, Conditional〕, in experienced centres 〔NCCN 2A〕; no radiotherapy before lung-sparing surgery 〔ASCO Low, Strong〕
     + Trovo 2021 {pmid 33259933} | 2-year OS 58% vs 28%; HR 0.54, against palliative radiotherapy
   ※ Neoadjuvant immunotherapy may be offered 〔ASCO Low, Conditional〕; ESMO 2022 calls its role unknown; NCCN marks nivolumab and ipilimumab suitable before surgery; evidence for adjuvant immunotherapy is insufficient 〔ASCO Very Low, Conditional〕
+  ※ Intraoperative regional treatment (chemotherapy, povidone-iodine lavage or photodynamic therapy) may be considered 〔STS 12.1〕; no randomised comparison
 
 band: Effusion and radiotherapy
   ① Recurrent effusion: talc poudrage at thoracoscopy, preferred over VATS partial pleurectomy 〔ESMO I, A〕; or an indwelling pleural catheter 〔ESMO I, B〕, except in candidates for surgery because of tract seeding 〔ASCO Moderate, Strong〕; NCCN: drainage when disease may be operable, drainage or pleurodesis when it is not 〔NCCN 2A〕
@@ -58,6 +63,7 @@ band: Effusion and radiotherapy
   ③ No prophylactic radiotherapy to procedure tracts 〔ESMO I, D〕 〔ASCO High, Strong〕 〔NCCN 2A〕
     - SMART [t-smart] | Tract metastases 8.8% vs 15.8%; OR 0.51, not significant
     - PIT [t-pit] | Chest wall metastases 3.2% vs 5.3% at 6 months, not significant
+  ※ Recurrence after surgery: resection of an isolated recurrence 〔STS 13.1〕 or SBRT to an isolated pleural recurrence 〔STS 13.2〕; conventionally fractionated or mildly hypofractionated radiotherapy for diffuse or bulky recurrence in selected patients 〔STS 13.3〕
 
 band: Peritoneal mesothelioma
   ① Selected patients with completely resectable disease, fit for surgery: cytoreductive surgery with HIPEC in an expert centre 〔PSOGI Very Low, Strong〕; epithelioid without high-risk features 〔NCCN 2A〕
