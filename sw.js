@@ -37,7 +37,7 @@ const ASSETS = [
   ['./fonts/oncOSMarks-rx.woff2', 'c402a52167b48643'],
   ['./fonts/oncOSMarks-warn.woff2', '895e5a81fd1c4518']
 ];
-const WARM = ['./maps/evidence-maps.js'];
+const WARM = ['./maps/evidence-maps.js', './maps/map.css'];
 const SCOPE = self.registration.scope;
 const KEY = new Map(ASSETS.map(([path, hash]) => [new URL(path, SCOPE).href, new URL(path, SCOPE).href + '?v=' + hash]));
 const SHELL = new URL('./index.html', SCOPE).href;
