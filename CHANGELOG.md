@@ -2,6 +2,17 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.41] - 2026-11-10
+
+- Opens from storage: a repeat visit no longer waits for the network; a new release shows at the next open.
+- Dark mode is charcoal (ground #1f2327, title block #181b1f, cells #272c31, bands #30363d) in place of near-black.
+- Light mode greys are blue-grey throughout; the cream browser bar colour and the warm greys of the paper palette are gone.
+- Text uses the two weights BIZ UDPGothic has, 400 and 700; buttons and fields use the page face.
+- Montserrat and Inter are no longer shipped; the unused Evidence change log is no longer carried in the view.
+- No tooltips on the sidebar or title-block icons; search shows nothing until a query is typed and "No matches" when nothing is found.
+- Maps: the root block and step headings are blue-grey bands with a heavier rule; a tree map opens on its root and first branch at reading size.
+- /algorithms/ is removed.
+
 ## [2.2.40] - 2026-11-08
 
 - Staging is a main link under Evidence, in the sidebar's title block on desktop and at the top of the Sections sheet on phones; the Appendix keeps Drugs, Tox and Acute.

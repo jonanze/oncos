@@ -162,15 +162,14 @@ function render(query) {
     button.setAttribute('aria-pressed', String(selectedModule === module));
   }
   results.replaceChildren();
-  resultStatus.textContent = query.trim() && ready
-    ? `${hits.length > shownLimit ? `Showing ${shownLimit} of ${hits.length}` : hits.length} result${hits.length === 1 ? '' : 's'}${bootstrapState === 'saved' ? ' · Using saved search index' : ''}` : '';
+  resultStatus.textContent = query.trim() && ready && hits.length
+    ? `${hits.length > shownLimit ? `Showing ${shownLimit} of ${hits.length}` : hits.length} result${hits.length === 1 ? '' : 's'}` : '';
   let message = '';
   if (bootstrapState === 'loading') message = 'Preparing search…';
-  else if (!ready) message = 'Search is unavailable. Reconnect and try again.';
-  else if (!query.trim()) message = 'Find a trial, drug, cancer or clinical topic.';
+  else if (!ready) message = 'Search unavailable';
   else if (!hits.length) message = selectedModule === 'all'
-    ? 'No matches. Try a shorter name or a different keyword.'
-    : `No matches in ${LABELS[selectedModule]}. Try all oncOS.`;
+    ? 'No matches'
+    : `No matches in ${LABELS[selectedModule]}`;
   if (message) {
     const empty = document.createElement('p');
     empty.className = 'gs-empty';

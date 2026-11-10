@@ -3,46 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.40">
+<meta name="application-version" content="2.2.41">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
-<meta name="theme-color" content="#faf9f5">
+<meta name="theme-color" content="#dfe4ea">
 <link rel="apple-touch-icon" href="/apple-touch-icon-180.png?v=e8be7250de40">
 <link rel="icon" type="image/png" href="/icon-192.png?v=e8be7250de40">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="oncOS">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="preload" href="/fonts/Montserrat-normal-700.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <script src="/maps/evidence-maps.js"></script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script>try{if(localStorage.getItem('oncos-rail')==='collapsed')document.documentElement.classList.add('rail-collapsed');}catch(e){}</script>
 <style>
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Montserrat-normal-700.woff2) format('woff2');}
 @font-face{font-family:'BIZ UDPGothic';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/BIZUDPGothic-normal-400.woff2) format('woff2');}
 @font-face{font-family:'BIZ UDPGothic';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/BIZUDPGothic-normal-700.woff2) format('woff2');}
 @font-face{font-family:'BIZ UDPGothic';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/BIZUDPGothic-letters-400.woff2) format('woff2');unicode-range:U+24B6-24E9;}
 @font-face{font-family:'BIZ UDPGothic';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/BIZUDPGothic-letters-700.woff2) format('woff2');unicode-range:U+24B6-24E9;}
-@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-normal-100_900-v41.woff2) format('woff2');}
-@font-face{font-family:'Inter';font-style:italic;font-weight:100 900;font-display:swap;src:url(/fonts/Inter-italic-100_900-v41.woff2) format('woff2');}
 :root{
     --m:#1967d2; --teal:var(--m);
     
     
-    --ink:#1f1e1d; --slate:#52514d; --muted:#71706c;
-    --hair:#e5e4df; --grid:#eeede8;
+    
+    --ink:#1b222a; --slate:#4c5663; --muted:#626c78;
+    --hair:#dfe3e8; --grid:#e8ebef;
     --accent-soft:rgba(25,103,210,.12);
     
     --accent-on-soft:#185abc;
-    --paper:#ffffff; --ground:#faf9f5; --raised:#f5f4ef;
+    --paper:#ffffff; --ground:#f4f6f8; --raised:#eef0f2;
     
-    --rail:#f0efe9;
+    --rail:#ffffff;
     
-    --solid:#2b2926; --solid-text:#faf9f5;
+    --solid:#1b222a; --solid-text:#ffffff;
     
-    --hover:rgba(40,36,30,.05); --press:rgba(40,36,30,.09);
+    --hover:rgba(30,40,55,.05); --press:rgba(30,40,55,.09);
     
     --status-success:#3b7347; --status-success-soft:rgba(63,122,75,.12);
     --status-warning:#85601f; --status-warning-soft:rgba(138,100,32,.12);
@@ -52,9 +49,9 @@
     
     --chip-h:20px; --chip-r:999px; --chip-fs:10.5px; --chip-pad:9px;
     
-    --font-serif:'BIZ UDPGothic','Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
-    --font-sans:'BIZ UDPGothic','Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
-    --font-mono:'BIZ UDPGothic','Inter',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    --font-serif:'BIZ UDPGothic',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    --font-sans:'BIZ UDPGothic',-apple-system,'Helvetica Neue',system-ui,sans-serif;
+    --font-mono:'BIZ UDPGothic',-apple-system,'Helvetica Neue',system-ui,sans-serif;
     
     --font-num:var(--font-sans);
     
@@ -62,13 +59,14 @@
     --t-lg:16px; --t-xl:18px; --t-2xl:20px; --t-3xl:22px;
     --t-display:30px; --t-display-lg:36px; --t-wordmark:46px;
     
-    --w-body:400; --w-dense:450; --w-label:500; --w-name:550; --w-strong:600;
+    
+    --w-body:400; --w-dense:400; --w-label:400; --w-name:700; --w-strong:700;
     --w-bold:700;
     
     --track-caps:.06em; --track-badge:.04em;
-    --rule:#e5e4df;
+    --rule:#dfe3e8;
     
-    --btn-ink:#faf9f5;
+    --btn-ink:#ffffff;
     
     --r-sm:6px; --r-md:10px; --r-lg:14px; --r-pill:999px;
     --radius:var(--r-lg); --radius-sm:var(--r-md);
@@ -79,34 +77,35 @@
     --ease:cubic-bezier(.2,0,0,1);
     
     --shadow:none;
-    --shadow-pop:0 16px 44px rgba(60,50,35,.13);
-    --glass:rgba(250,249,245,.8);
+    --shadow-pop:none;
+    --glass:rgba(244,246,248,.8);
     color-scheme:light;
   }
 :root[data-theme="dark"]{
     --m:#7aa2f7; --teal:var(--m);
     
-    --ink:#f3f3f3;
-    --slate:#c0c1be;
-    --muted:#8c8c8c;
-    --hair:#2e2e2e; --grid:#232323;
+    
+    --ink:#e9ecef;
+    --slate:#bcc4cc;
+    --muted:#9aa4ae;
+    --hair:#3a4149; --grid:#30363d;
     --accent-soft:rgba(122,162,247,.14);
     --accent-on-soft:#7aa2f7;          
-    --ground:#151515; --paper:#1f1f1f; --raised:#212121;
-    --raised-2:#2a2a2a;
-    --rail:#111111;
-    --solid:#f3f3f3; --solid-text:#151515;
+    --ground:#1f2327; --paper:#23282d; --raised:#272c31;
+    --raised-2:#30363d;
+    --rail:#181b1f;
+    --solid:#e9ecef; --solid-text:#1f2327;
     --hover:rgba(255,255,255,.05); --press:rgba(255,255,255,.14);
     
     --status-success:#8fbf92; --status-success-soft:rgba(143,191,146,.14);
     --status-warning:#d9ae6a; --status-warning-soft:rgba(217,174,106,.14);
     --status-danger:#e59a88;  --status-danger-soft:rgba(229,154,136,.14);
     --status-info:#b0aea6;    --status-info-soft:rgba(176,174,166,.14);
-    --rule:#2e2e2e; --btn-ink:#151515;
+    --rule:#3a4149; --btn-ink:#1f2327;
     
     --shadow:none;
-    --shadow-pop:0 16px 48px rgba(0,0,0,.45);
-    --glass:rgba(21,21,21,.75);
+    --shadow-pop:none;
+    --glass:rgba(31,35,39,.75);
     color-scheme:dark;
   }
 :root{ font-variant-numeric:tabular-nums; }
@@ -132,7 +131,8 @@ footer.disclaimer strong, footer.disc strong, .foot strong{
                   transform .22s var(--mo-ease, ease);
     }}
 :focus-visible{ outline:2px solid var(--m, var(--teal)); outline-offset:2px; border-radius:4px; }
-.wm{ font-family:'Montserrat',var(--font-sans); font-weight:700; letter-spacing:-.03em; }
+.wm{ font-family:var(--font-sans); font-weight:700; letter-spacing:-.03em; }
+button, input, select, textarea{ font-family:inherit; }
 .wm .os{ background-image:none; -webkit-background-clip:initial;
     background-clip:initial; color:#1967d2; }
 :root[data-theme="dark"] .wm .os{ background-image:none; color:#7aa2f7; }
@@ -505,13 +505,13 @@ html[data-view="acute"] #viewroot table.list tr.row, html[data-view="tox"] #view
     border:0;border-bottom:1px solid var(--grid);border-radius:0;box-shadow:none;margin:0;background:transparent;}
 html[data-view="tox"] #viewroot .listcard{margin-inline:-14px;}
 #viewnav{padding-bottom:var(--s-4);}}
-:root{--b-ink:#111;--b-paper:#fff;--b-line:#9aa3ad;--b-grid:#c3c9d0;--b-cell:#eef0f2;--b-band:#dfe4ea;
-  --b-open:#f4f6f8;--b-sub:#f7f8f9;--b-note:#5b6066;
+:root{--b-ink:var(--ink);--b-paper:#fff;--b-line:#9aa3ad;--b-grid:#c3c9d0;--b-cell:#eef0f2;--b-band:#dfe4ea;
+  --b-open:#f4f6f8;--b-sub:#f7f8f9;--b-note:#4c5663;
   --tb:#dfe4ea;--tb-cur:#c9d1db;--tb-rule:#c3c9d0;--tb-edge:#9aa3ad;--tb-text:#3d4754;--tb-icon:#4f6178;--tb-on:#1f2933;--tb-mark:#5f6f84;--b-mark:#5f6f84;
   --tb-hover:rgba(30,40,55,.06);--tb-press:rgba(30,40,55,.12);}
-:root[data-theme="dark"]{--b-ink:var(--ink);--b-paper:#151515;--b-line:#454b53;--b-grid:#2c3137;--b-cell:#1f2226;
-  --b-band:#282c32;--b-open:#1b1e22;--b-sub:#1a1d20;--b-note:#9a9fa6;
-  --tb:#0a0b0d;--tb-cur:#272b32;--tb-rule:#1c1f24;--tb-edge:#000;--tb-text:#a7adb6;--tb-icon:#d8dce1;--tb-on:#fff;--tb-mark:#0a0b0d;--b-mark:var(--b-ink);
+:root[data-theme="dark"]{--b-ink:var(--ink);--b-paper:#1f2327;--b-line:#59616b;--b-grid:#3a4149;--b-cell:#272c31;
+  --b-band:#30363d;--b-open:#23282d;--b-sub:#22272b;--b-note:#a4adb7;
+  --tb:#181b1f;--tb-cur:#2c3238;--tb-rule:#262b30;--tb-edge:#101215;--tb-text:#aeb6bf;--tb-icon:#d8dce1;--tb-on:#fff;--tb-mark:#181b1f;--b-mark:var(--b-ink);
   --tb-hover:rgba(255,255,255,.07);--tb-press:rgba(255,255,255,.13);}
 html[data-view="evidence"] body{background:var(--b-paper);}
 html[data-view="evidence"] #viewroot thead th{background:var(--b-cell);border-bottom:1px solid var(--b-line);border-right:1px solid var(--b-grid);}
@@ -801,13 +801,13 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
      #viewnav receives each view's nav, #burger is the phone Sections button. -->
 <div class="oncos-rail" role="complementary" aria-label="oncOS navigation">
   <div class="rail-top">
-    <button class="rail-icon rail-collapse" id="rail-collapse" type="button" aria-label="Hide sidebar" aria-expanded="true" title="Hide sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 4h18v16H3zM9 4v16"/></svg></button>
-    <button class="rail-icon" id="rail-back" type="button" aria-label="Back" title="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
-    <button class="rail-icon" id="rail-forward" type="button" aria-label="Forward" title="Forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
-    <a class="rail-icon rail-home" href="/evidence/" aria-label="Watch list" title="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
+    <button class="rail-icon rail-collapse" id="rail-collapse" type="button" aria-label="Hide sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 4h18v16H3zM9 4v16"/></svg></button>
+    <button class="rail-icon" id="rail-back" type="button" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+    <button class="rail-icon" id="rail-forward" type="button" aria-label="Forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+    <a class="rail-icon rail-home" href="/evidence/" aria-label="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
     <span class="rail-top-fill"></span>
-    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path fill="currentColor" stroke="none" d="M4 4h16L4 20z"/><path d="M4 4h16v16H4z"/></svg></button>
-    <button id="global-search-open" class="rail-icon global-search-open" type="button" aria-label="Search all oncOS" title="Search all oncOS (Cmd/Ctrl+K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path fill="currentColor" stroke="none" d="M4 4h16L4 20z"/><path d="M4 4h16v16H4z"/></svg></button>
+    <button id="global-search-open" class="rail-icon global-search-open" type="button" aria-label="Search all oncOS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
   </div>
   <nav class="suite-nav rail-main" aria-label="Main">
     <a class="suite-link" href="/evidence/" data-nav="evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM15 3v4h4M8 12h8M8 16h8"/></svg></span><span class="rail-label">Evidence</span></a><a class="suite-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 21h18M6 21v-6M12 21V10M18 21V5"/></svg></span><span class="rail-label">Staging</span></a>
@@ -843,17 +843,17 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
          apply unchanged: module nav clicks call closeNav(), Esc closes it, and
          syncDrawer() keeps aria-expanded in step. -->
     <span class="rail-here" id="rail-here"></span>
-    <a class="rail-icon rail-home rail-home-strip" href="/evidence/" aria-label="Watch list" title="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
+    <a class="rail-icon rail-home rail-home-strip" href="/evidence/" aria-label="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
     <button class="rail-icon rail-back-strip" type="button" aria-label="Back" onclick="history.back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
     <button id="burger" class="rail-icon rail-sections" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="railsection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
     <button class="rail-icon rail-search-strip" type="button" aria-label="Search all oncOS" onclick="document.getElementById('global-search-open').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
-    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path fill="currentColor" stroke="none" d="M4 4h16L4 20z"/><path d="M4 4h16v16H4z"/></svg></button>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path fill="currentColor" stroke="none" d="M4 4h16L4 20z"/><path d="M4 4h16v16H4z"/></svg></button>
   </div>
 </div>
 <!-- Sidebar hidden: only the show icon remains, at the hide icon's exact
      position; hovering it slides the sidebar in over the page (peek). -->
 <div class="rail-float" aria-label="Sidebar controls">
-  <button class="rail-icon" type="button" aria-label="Show sidebar" title="Show sidebar" data-rail-show><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 4h18v16H3zM9 4v16"/></svg></button>
+  <button class="rail-icon" type="button" aria-label="Show sidebar" data-rail-show><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 4h18v16H3zM9 4v16"/></svg></button>
 </div>
 <input id="q" type="hidden" class="barsearch">
 <div class="global-search-dialog" id="global-search-dialog" role="dialog" aria-modal="true" aria-labelledby="global-search-label" hidden>
@@ -879,7 +879,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
      the section nav from keyboard and assistive tech. -->
 <div hidden aria-hidden="true" data-chrome-stubs><div id="backdrop" class="backdrop"></div></div>
 <main id="viewroot"></main>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#111111',L=(m&&m.getAttribute('content'))||'#faf9f5';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0,pS=-1e9;function pOn(){pT=null;if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){pOff();if(e.touches.length!==1||Date.now()-pS<150)return;var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r&&r!==t)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;pT=setTimeout(pOn,120);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls,shown=!pT;clearTimeout(pT);pT=null;pEls=null;var off=function(){els.forEach(function(n){n.classList.remove('is-pressed');});};if(shown){off();return;}els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(off,100);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',function(){pS=Date.now();pOff();},{passive:true,capture:true});}})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#181b1f',L=(m&&m.getAttribute('content'))||'#dfe4ea';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0,pS=-1e9;function pOn(){pT=null;if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){pOff();if(e.touches.length!==1||Date.now()-pS<150)return;var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r&&r!==t)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;pT=setTimeout(pOn,120);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls,shown=!pT;clearTimeout(pT);pT=null;pEls=null;var off=function(){els.forEach(function(n){n.classList.remove('is-pressed');});};if(shown){off();return;}els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(off,100);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',function(){pS=Date.now();pOff();},{passive:true,capture:true});}})();</script>
 <script>
 // Sidebar controls: hide/show (remembered, applied before first paint by the
 // head script), and back/forward — the installed app has no browser buttons.
@@ -1386,15 +1386,13 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     var box = document.createElement('section'); box.className = 'view-error';
     var heading = document.createElement('h1'); heading.id = 'view-title';
     heading.textContent = loading ? 'Unable to load this page' : 'Entry unavailable';
-    var message = document.createElement('p');
-    message.textContent = loading ? 'Check your connection and try again.' : 'This link does not match an entry in the current catalogue.';
     var button = document.createElement('button'); button.type = 'button';
     button.textContent = loading ? 'Try again' : 'Browse ' + ((VIEWS[name] || {}).title || 'oncOS');
     button.onclick = function(){
       if (loading) go(name, false);
       else go(name, true, '', {});
     };
-    box.append(heading,message,button); viewroot.appendChild(box);
+    box.append(heading,button); viewroot.appendChild(box);
     viewroot.setAttribute('aria-labelledby','view-title');
     window.scrollTo(0,0);
     heading.tabIndex = -1; heading.focus({preventScroll:true});
@@ -1531,14 +1529,6 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
       }
     }
     viewnav.querySelectorAll('.active,.on').forEach(function(n){ focusGroup(n); });
-    // Sidebar rows are single-line with an ellipsis (the app's pattern); give
-    // each a tooltip carrying its full name so no clinical label is lost.
-    viewnav.querySelectorAll('button, a').forEach(function(el){
-      if (el.title) return;
-      var label = el.querySelector('span') || el;
-      var text = label.textContent.replace(/\s+/g,' ').trim();
-      if (text) el.title = text;
-    });
     syncSuiteChrome(name);
     failedView = false;
   }

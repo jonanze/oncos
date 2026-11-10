@@ -323,12 +323,15 @@
         k.forEach(function(c, i){ c.off = i * S - pc; top = Math.min(top, c.off - c.up); bot = Math.max(bot, c.off + c.down); });
         n.up = Math.max(n.h / 2, -top); n.down = Math.max(n.h / 2, bot);
       })(model.tree);
+      // the root sits level with its first branch (Jonan 2026-11-10), so the two open together;
+      // the other branches hang below on the same square lines
+      var root = model.tree, k0 = root.children[0], lift = k0 ? k0.off : 0;
       (function place(n, cy){
         n.cy = cy; n.y = cy - n.h / 2;
         n.el.style.left = n.x + 'px'; n.el.style.top = n.y + 'px';
         if (n.leaf) { n.leaf.style.left = textX + 'px'; n.leaf.style.top = n.y + 'px'; }
-        n.children.forEach(function(c){ place(c, cy + c.off); });
-      })(model.tree, treeTop + model.tree.up);
+        n.children.forEach(function(c){ place(c, cy + c.off - (n === root ? lift : 0)); });
+      })(root, treeTop + (k0 ? Math.max(root.h / 2, k0.up) : root.up));
 
       // wires: parent right edge to child left edge; a shallow leaf runs on to the text column
       svg = '';
@@ -447,7 +450,7 @@
       e.preventDefault();
     });
 
-    // the map opens at reading size: a course on its first step, a tree on its root; Fit shows the whole map
+    // reading size: a course opens on its first step, a tree on its root and first branch; Fit shows the whole map
     var heads = course ? steps : [model.tree].concat(model.tree.children);
     function read(n){
       size();
@@ -464,16 +467,30 @@
       Array.prototype.forEach.call(idx.children, function(x){ x.classList.toggle('on', x === b); });
       read(heads[+b.dataset.k]);
     });
+    // opening view of a tree: the root and its first branch together, at reading size (Jonan 2026-11-10);
+    // on a phone the scale drops just enough for both to fit across, never below 0.75
+    function open(){
+      var r = model.tree, c = !course && r.children && r.children[0];
+      if (!c) { read(heads[0]); return; }
+      size();
+      var vw = view.clientWidth;
+      var x0 = Math.min(r.x, c.x), x1 = Math.max(r.x + r.el.offsetWidth, c.x + c.el.offsetWidth);
+      var y0 = Math.min(r.y, c.y), y1 = Math.max(r.y + r.el.offsetHeight, c.y + c.el.offsetHeight);
+      st.s = Math.max(0.75, Math.min(1, (vw - 32) / (x1 - x0)));
+      st.x = 16 - x0 * st.s;
+      st.y = 16 - y0 * st.s;
+      apply();
+    }
     function start(){
       layout(); size();
-      if (saved && saved.s) { st = saved; saved = null; apply(); } else { read(heads[0]); opened = JSON.stringify(st); }
+      if (saved && saved.s) { st = saved; saved = null; apply(); } else { open(); opened = JSON.stringify(st); }
     }
     var opened = null;
     start();
     // once the web font is in, steps change height: an untouched opening view is taken again from the new layout
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){
       var s = JSON.stringify(st); layout(); size();
-      if (s === opened) read(heads[0]); else { st = JSON.parse(s); apply(); }
+      if (s === opened) { open(); opened = JSON.stringify(st); } else { st = JSON.parse(s); apply(); }
     });
     return {
       fit: fit,
