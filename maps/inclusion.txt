@@ -4,7 +4,9 @@
 
 Definitions
   Setting: disease, stage or line of treatment, and biomarker or histology group
-  Reference sources: the guideline versions on the map's source: lines, the current NCCN guideline for the
+  Reference sources: the guideline versions on the map's source: lines, chosen for each map by Jonan from a
+    dated list of candidates (a guideline that predates a licence or randomised trial changing a numbered
+    option on the map is marked stale there; see the spec, Building a new map), the current NCCN guideline for the
     disease (database and maps; an option NCCN alone lists sits on a ※ line with its NCCN tag; Jonan
     2026-11-10), and current EU and US licences;
     other regulators only where Jonan names them for a disease (China for sugemalimab)
