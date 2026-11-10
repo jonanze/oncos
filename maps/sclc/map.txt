@@ -66,7 +66,7 @@ course: Small-cell lung cancer
     ① Adjuvant platinum and etoposide 〔ESMO IV, A〕
     ② N2 or R1–R2: radiotherapy with the chemotherapy, preferably concurrent 〔ESMO IV, A〕
     ※ PCI after resection of stage I–II: shared decision 〔ESMO V, C〕
-    join: Recurrent/progressive disease | Relapse
+    join: Second line and beyond | Relapse
   Limited stage, after chemoradiotherapy
     ① PCI 25 Gy in 10 fractions after response, PS 0–1 〔ESMO I, A〕; PS 2 may be considered 〔ESMO III, B〕
       + Aupérin 1999 [t-aup-rin-et-al] | 3-year OS 20.7% vs 15.3%
@@ -79,7 +79,7 @@ course: Small-cell lung cancer
       ※ Atezolizumab with and after chemoradiotherapy did not improve OS (phase III); atezolizumab for 1 year after chemoradiotherapy did not improve PFS or OS (randomised phase II)
         - LU005 {pmid 41529214} | OS HR 1.03
         - ACHILES | OS HR
-    join: Recurrent/progressive disease | Relapse
+    join: Second line and beyond | Relapse
   Extensive stage, after induction
     ① Continue atezolizumab or durvalumab
     ② After induction with atezolizumab: atezolizumab with lurbinectedin; US licence 2025, EU licence 2026
@@ -94,8 +94,8 @@ course: Small-cell lung cancer
       + EORTC 22993-08993 | OS HR
       - Takahashi 2017 [t-takahashi-et-al] | OS HR
       ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | Cognitive failure-free survival HR 0.60; OS HR 0.90
-    next: Recurrent/progressive disease | Progression
-  Recurrent/progressive disease
+    next: Second line and beyond | Progression
+  Second line and beyond
     Platinum-sensitive, relapse 3 months or more after platinum
     ① Carboplatin and etoposide again 〔ESMO II, B〕, or tarlatamab; the two have not been compared
       ~ GFPC 01–13 [t-groupe-fran-ais-de-pneumo-canc-rologie-01-13] | PFS HR

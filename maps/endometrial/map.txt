@@ -86,7 +86,7 @@ course:
       ※ Chemotherapy alone gave the same relapse-free survival as chemoradiotherapy, with more pelvic and nodal relapses
       - KEYNOTE-B21 | DFS HR 1.02; MMR deficient HR 0.31
       ※ Pembrolizumab with adjuvant chemotherapy helped only MMR deficient tumours
-    next: Recurrence | Recurrence
+    next: Recurrence
   Recurrence
     Vaginal, pelvic or in a few sites: local treatment first
     ① No radiotherapy before: EBRT with image-guided brachytherapy, with or without chemotherapy 〔ESGO IV, A〕
@@ -113,8 +113,8 @@ course:
     ※ MMR proficient relapse after adjuvant chemotherapy, when chemotherapy cannot be given: lenvatinib with pembrolizumab can be considered 〔ESGO III, C〕
     ※ Carboplatin-paclitaxel replaced doxorubicin, cisplatin and paclitaxel
       ~ GOG 209 | Non-inferior, OS HR 1.002
-    next: Progression after platinum | Progression
-  Progression after platinum
+    next: Second line and beyond | Progression
+  Second line and beyond
     Repeat MMR testing on the relapse when feasible 〔ESGO IV, B〕
     ① MMR deficient, no checkpoint inhibitor before: pembrolizumab or dostarlimab alone 〔ESGO III, A〕; lenvatinib with pembrolizumab is an option 〔ESGO I, B〕
       * KEYNOTE-158 [t-keynote-158--endometrial-cancer] | Response

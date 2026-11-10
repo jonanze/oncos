@@ -8,9 +8,9 @@ CheckMate 743, 5 years	PMID 41734361	First line
 ATOMIC-Meso	PMID 38358753	First line
 BEAT-meso	PMID 39814199	First line
 DREAM3R	no PMID yet https://www.onclive.com/view/durvalumab-plus-chemo-yields-inconclusive-results-in-advanced-pleural-mesothelioma	First line
-NVALT19	PMID 33515500	After chemotherapy, no progression
-CALGB 30901	PMID 32727707	After chemotherapy, no progression
-DENIM	PMID 38848742	After chemotherapy, no progression
-PROMISE-meso	PMID 32976938	Progression
-RAMES	PMID 34499874	Progression
-NIPU	PMID 38447379	Progression
+NVALT19	PMID 33515500	Maintenance or observation
+CALGB 30901	PMID 32727707	Maintenance or observation
+DENIM	PMID 38848742	Maintenance or observation
+PROMISE-meso	PMID 32976938	Second line and beyond
+RAMES	PMID 34499874	Second line and beyond
+NIPU	PMID 38447379	Second line and beyond
