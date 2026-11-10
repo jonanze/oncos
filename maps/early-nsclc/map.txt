@@ -156,15 +156,15 @@ course: Early and locally advanced NSCLC
       + JBR.10 | OS HR 0.69; stage II 0.59, stage IB not significant
       + ANITA | OS HR 0.80; stage II 0.71, IIIA 0.69, IB 1.10
       ※ Stage I under 4 cm without EGFR or RET: no adjuvant treatment 〔ACCP Moderate, Strong〕
-      ※ Node-negative, over 2 cm, pathological stage IA3 or more: tegafur-uracil for 2 years; adenocarcinoma 〔JLCS A, 1〕, other histology 〔JLCS C, 2〕; licensed in Japan, not in the EU or US; NCCN, ESMO and ACCP do not list it
-        + Kato 2004 {pmid 15102997} | OS improved in stage I adenocarcinoma, P = 0.04
-        + Tegafur-uracil meta-analysis 2005 {pmid 16051951} | OS HR 0.74; 5-year OS 81.5% vs 77.2%
       ※ Carboplatin and paclitaxel in stage IB did not improve survival; the benefit in tumours of 4 cm or more came from an unplanned analysis
         - CALGB 9633 | OS median
-    ② No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕; pathological stage I–II 〔JLCS A, 1〕
+    ② Node-negative, over 2 cm, pathological stage IA3 or more: tegafur-uracil for 2 years; adenocarcinoma 〔JLCS A, 1〕, other histology 〔JLCS C, 2〕; licensed in Japan, not in the EU or US; NCCN, ESMO and ACCP do not list it
+      + Kato 2004 {pmid 15102997} | OS improved in stage I adenocarcinoma, P = 0.04
+      + Tegafur-uracil meta-analysis 2005 {pmid 16051951} | OS HR 0.74; 5-year OS 81.5% vs 77.2%
+    ③ No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕; pathological stage I–II 〔JLCS A, 1〕
       ※ NCCN allows PORT for selected high-risk N2, such as extranodal extension or several stations involved 〔NCCN 2A〕; JLCS finds the evidence in N2 insufficient
       - Lung ART | 3-year DFS 47% vs 44%
-    ③ Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕; re-resection preferred where possible 〔NCCN 2A〕
+    ④ Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕; re-resection preferred where possible 〔NCCN 2A〕
     next: No driver
     next: EGFR, ALK or RET
   No driver
