@@ -18,18 +18,23 @@ Definitions
     disease in another line or biomarker group
   Result: positive, prespecified primary endpoint met (non-inferiority: margin met); negative, not met;
     mixed, co-primary endpoints split; a subgroup result does not change the label; a trial closed
-    early with fewer than half its planned events is inconclusive
+    early with fewer than half its planned events is inconclusive; mixed is judged at the final analysis,
+    so an interim split is not yet mixed
 
 Rules
   ① Designs: randomised trials in patients, pooled analyses of them and meta-analyses, with a
     peer-reviewed report. Non-randomised data only when a current licence or reference-guideline
-    recommendation rests on them and no randomised trial exists for that option in that setting,
-    shown on ※ lines
+    recommendation rests on them and no randomised trial exists for that option in that setting;
+    they stay ordinary trial lines marked ~, as the map format defines. A congress abstract is allowed
+    for a class A or B trial on a ※ line that says "congress abstract"; a company or society press
+    release is not
   ② Class A or B: in the database whatever the result. This covers practice-changing and
     practice-informing trials, negative trials that affirm or stop a practice, non-inferiority trials,
     and trials showing harm from a standard or former standard treatment
   ③ Class C, positive: in the database, off the map with the reason "no licence or recommendation"
-    until it becomes class A; Jonan may name one for a ※ line earlier
+    until it becomes class A; Jonan may name one for a ※ line earlier. Standing naming (Jonan
+    2026-11-09): positive trials run in one country only, such as China, stay as ※ lines that say so
+    and say the drug is not licensed in the EU or US. Other namings are listed in the map header
   ④ Class C, negative, mixed or inconclusive: not in the database and not on the map; listed in the
     map folder's excluded.txt. A positive subgroup does not change this unless a licence or
     reference-guideline recommendation follows for that subgroup
@@ -41,7 +46,8 @@ Rules
     c. Jonan names it, with a one-line reason (for example a trial that ended a drug class)
   ⑦ Map: a row is on the map only if it supports a statement there (an option, a "do not" line or a
     ※ caveat). Every other row goes under off: with a reason: superseded; no licence or
-    recommendation; non-randomised with randomised evidence available; not a map statement.
+    recommendation; non-randomised with randomised evidence available; not a map statement; class C
+    negative, listed in excluded.txt, while the row awaits Jonan's decision on existing rows.
     Conflicting trials on one statement are both cited
   ⑧ Where EU and US licences, or reference guidelines, disagree, the trial is included and the line
     says so
