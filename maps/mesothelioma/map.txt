@@ -34,7 +34,7 @@ band: Diagnosis and staging
   ※ ESMO 2022 advises against germline BAP1 testing without a family history suggesting BAP1 syndrome 〔ESMO V, D〕
 
 band: Surgery
-  ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕
+  ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕; NCCN limits surgery to clinical stage I epithelioid disease, PS 0–2 〔NCCN 2A〕
   ② Extended pleurectomy decortication rather than extrapleural pneumonectomy 〔ESMO III, B〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕; no surgery for sarcomatoid disease 〔ASCO Moderate, Strong〕
   ③ Platinum and pemetrexed for 4 to 6 cycles, before or after surgery; surgery alone is not enough 〔ASCO Moderate, Strong〕
     ~ EORTC 1205 {pmid 38843916} | Feasibility only; no preferred sequence
