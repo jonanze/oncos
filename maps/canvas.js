@@ -69,6 +69,7 @@
     if (l.kind === 'tx') return '<div class="ln tx"' + pad + '>' + keep(l.text) + '</div>';
     if (l.kind === 'cv') return '<div class="ln cv' + (k ? ' t' + k + 'b' : '') + '"' + pad + '>※ ' + keep(l.text) + '</div>';
     if (l.kind === 'se') return '<div class="ln se"' + pad + '>' + keep(l.text) + '</div>';
+    if (l.kind === 'sub') return '<div class="ln sub"' + pad + '>' + keep(l.text) + '</div>';
     if (l.kind === 'num') return '<div class="ln num' + (k ? ' t' + k + 'b' : '') + '"' + pad + '><span class="n">' + esc(l.n) + '</span>' + keep(l.text) + '</div>';
     return '<div class="ln text"' + pad + '>' + keep(l.text) + '</div>';
   }

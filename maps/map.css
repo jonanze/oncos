@@ -52,6 +52,8 @@
 .om-world .ln.tx::before{content:"★ "}
 .om-world .ln.cv{font-size:12.5px}
 .om-world .ln.se{font-size:12px;color:var(--muted)}
+/* ・ one statement under the line above (the ・ comes from .om-sheet .sub) */
+.om-world .ln.sub{font-size:13px;margin:-1px 0 3px 1.15em}
 /* trial lines in a row: one ruled grid, trial name | key figure */
 .om-world .trials{display:grid;grid-template-columns:minmax(9em,max-content) 1fr;margin:2px 0 6px;border-top:1px solid var(--b-cell)}
 .om-world .trials>div{padding:2px 8px 2px 0;border-bottom:1px solid var(--b-cell);font-size:13px}

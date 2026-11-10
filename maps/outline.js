@@ -26,10 +26,12 @@
     if (c === '=') return {kind:'tx', level:level, text:text.replace(/^=\s*/, ''), at:at};
     if (c === '※') return {kind:'cv', level:level, text:text.replace(/^※\s*/, ''), at:at};
     if (c === '°') return {kind:'se', level:level, text:text.replace(/^°\s*/, ''), at:at};
+    // ・ one statement under the line above it, e.g. one guideline's position on an option
+    if (c === '・') return {kind:'sub', level:level, text:text.replace(/^・\s*/, ''), at:at};
     if (NUM.test(text)) return {kind:'num', level:level, n:text.charAt(0), text:text.slice(1).trim(), at:at};
     return {kind:'text', level:level, text:text, at:at};
   }
-  function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°|]/.test(text) || NUM.test(text) || TRIAL.test(text); }
+  function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°|・]/.test(text) || NUM.test(text) || TRIAL.test(text); }
 
   function parse(src){
     var out = {map:null, bands:[], tree:null, panels:[], off:[], sources:{}, errors:[]};
