@@ -1,5 +1,2 @@
 # Advanced NSCLC trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
 # Trial | identifier | screened | class and result | reason
-IMpower132 | PMID 33333328 | 2026-11-10 | C, mixed | Atezolizumab added to platinum and pemetrexed; PFS improved, co-primary OS not met; regimen not licensed
-HARMONi | PMID 42636833 | 2026-11-10 | C, mixed | Ivonescimab added to chemotherapy after EGFR TKI; PFS improved, co-primary OS not met
-TROPION-Lung01 | PMID 39250535 | 2026-11-10 | C, mixed | Datopotamab deruxtecan against docetaxel, unselected; PFS improved, co-primary OS not met; EU and US applications withdrawn

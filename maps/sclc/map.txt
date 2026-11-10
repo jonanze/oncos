@@ -80,6 +80,9 @@ course: Small-cell lung cancer
         ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | OS HR 0.90, primary; cognitive failure-free survival HR 0.60
     ② Durvalumab every 4 weeks for up to 24 months, after PCI where given; EU licence 2025
       + ADRIATIC | OS HR
+    ※ Atezolizumab with and after chemoradiotherapy, or for 1 year after it, did not improve OS; ACHILES is a congress abstract
+      - NRG LU005 [t-nrg-lu005] | OS HR
+      - ACHILES [t-achiles] | OS HR
     join: Recurrent/progressive disease | Relapse
   Extensive stage, after induction
     ① Continue atezolizumab or durvalumab
@@ -123,5 +126,3 @@ off:
   DeLLphi-301 | Phase II dose selection in third line; DeLLphi-304 set tarlatamab after platinum
   PM1183-B-005-14 | Single-arm phase II behind the US accelerated approval of lurbinectedin alone; LAGOON did not confirm it and the second-line indication is being withdrawn
   BL-B01D1-101 | Single-arm phase Ib in China; izalontamab brengitecan not licensed
-  NRG LU005 [t-nrg-lu005] | Class C, negative (excluded.txt); row awaits a decision on existing rows
-  ACHILES [t-achiles] | Class C, negative (excluded.txt); congress abstract only; row awaits a decision on existing rows

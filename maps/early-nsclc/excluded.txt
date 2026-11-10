@@ -1,4 +1,2 @@
 # Early and locally advanced NSCLC trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
 # Trial | identifier | screened | class and result | reason
-CheckMate 73L | PMID 42129521 | 2026-11-10 | C, negative | Nivolumab with chemoradiotherapy then nivolumab with or without ipilimumab, against chemoradiotherapy then durvalumab; PFS not improved
-ANVIL | PMID 42224490 | 2026-11-10 | C, negative | Adjuvant nivolumab against observation; DFS not improved

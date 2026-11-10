@@ -1,7 +1,6 @@
 # Mesothelioma trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
 # Trial | identifier | screened | class and result | reason
 DENIM | PMID 38848742 | 2026-11-10 | C, negative | Dendritic cell maintenance; OS not improved
-BEAT-meso | PMID 39814199 | 2026-11-10 | C, negative | Atezolizumab added to bevacizumab and chemotherapy; OS not improved; non-epithelioid subgroup does not change this
 DREAM3R | https://www.onclive.com/view/durvalumab-plus-chemo-yields-inconclusive-results-in-advanced-pleural-mesothelioma | 2026-11-10 | C, inconclusive | Durvalumab with chemotherapy; closed early; congress abstract only
 NIPU | PMID 38447379 | 2026-11-10 | C, negative | UV1 vaccine added to nivolumab and ipilimumab; PFS not improved
 STELLAR | - | 2026-11-10 | non-randomised | Tumour treating fields; single-arm; US humanitarian device exemption is not a licence (inclusion ①)
