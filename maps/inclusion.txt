@@ -5,8 +5,8 @@
 Definitions
   Setting: disease, stage or line of treatment, and biomarker or histology group
   Reference sources: the guideline versions on the map's source: lines, the current NCCN guideline for the
-    disease (for the database class only; map options follow the map's source: lines; Jonan 2026-11-10),
-    and current EU and US licences;
+    disease (database and maps; an option NCCN alone lists sits on a ※ line with its NCCN tag; Jonan
+    2026-11-10), and current EU and US licences;
     other regulators only where Jonan names them for a disease (China for sugemalimab)
   Licence: a current full, conditional or accelerated marketing authorisation in that setting;
     a withdrawn licence or a humanitarian device exemption is not current
@@ -59,7 +59,9 @@ Rules
        classes each standard there (COMBI-i, BEAT-meso); duration or omission of a standard class
        (GeparNuevo); or an intervention in wide use without randomised evidence there (aspirin in ASAC)
   ⑦ Map: a row is on the map only if it supports a statement there (an option, a "do not" line or a
-    ※ caveat). Every other row goes under off: with a reason: superseded; no licence or
+    ※ caveat). A drug or device recommended by one reference guideline only, with no EU or US licence and
+    no NCCN listing, is not a map option; its trial goes under off: with that reason (Jonan 2026-11-10,
+    pegargiminase). Every other row goes under off: with a reason: superseded; no licence or
     recommendation; non-randomised with randomised evidence available; not a map statement.
     Conflicting trials on one statement are both cited
   ⑧ Where EU and US licences, or reference guidelines, disagree, the trial is included and the line

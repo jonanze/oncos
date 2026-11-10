@@ -4,3 +4,4 @@ DENIM | PMID 38848742 | 2026-11-10 | C, negative | Dendritic cell maintenance; O
 DREAM3R | https://www.onclive.com/view/durvalumab-plus-chemo-yields-inconclusive-results-in-advanced-pleural-mesothelioma | 2026-11-10 | C, inconclusive | Durvalumab with chemotherapy; closed early; congress abstract only
 NIPU | PMID 38447379 | 2026-11-10 | C, negative | UV1 vaccine added to nivolumab and ipilimumab; PFS not improved
 STELLAR | - | 2026-11-10 | non-randomised | Tumour treating fields; single-arm; US humanitarian device exemption is not a licence (inclusion ①)
+ATOMIC-Meso | PMID 38358753 | 2026-11-10 | A (ASCO 2025 only), positive | Pegargiminase with chemotherapy, non-epithelioid; one guideline only, no EU or US licence (US application withdrawn May 2026), not in NCCN; row removed by Jonan (⑦)

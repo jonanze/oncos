@@ -7,6 +7,7 @@
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses only
 #   Inclusion: maps/inclusion.txt; trials left out are in excluded.txt
+#   ATOMIC-Meso out under ⑦ (recommended by ASCO 2025 only; no licence; row removed; in excluded.txt; Jonan 2026-11-10)
 #   BEAT-meso kept under ⑥f (atezolizumab combined with bevacizumab and chemotherapy, each standard here) (Jonan 2026-11-10)
 #   Standard options only; an option a guideline recommends but no licence covers stays on the line with that noted
 #   ESMO-recommended options sit on the main line; where ESMO 2022 and ASCO 2025 disagree a ※ line says so
@@ -14,105 +15,125 @@
 # * Plain clinical wording
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
 #     〔ESMO level, grade〕 ESMO 2022 (Popat); 〔ASCO quality, strength〕 ASCO 2025 (Kindler);
-#     〔PSOGI quality, strength〕 PSOGI 2024 peritoneal consensus
+#     〔PSOGI quality, strength〕 PSOGI 2024 peritoneal consensus;
+#     〔NCCN category, preference〕 NCCN Mesothelioma: Pleural and Peritoneal 1.2027 (28 Oct 2026); options NCCN alone lists sit on ※ lines
+#     〔STS statement〕 STS 2026 expert consensus on multimodal treatment (Velotta); statements are ungraded (Delphi, at least 75% agreement), so the tag gives the statement number
 #   Independent review 2026-11-10; accepted items applied
 
 map: Mesothelioma
 source: ESMO {url https://doi.org/10.1016/j.annonc.2021.11.005}
 source: ASCO {url https://doi.org/10.1200/JCO-24-02425}
 source: PSOGI {url https://doi.org/10.1002/jso.27947}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: STS {url https://doi.org/10.1016/j.athoracsur.2026.03.074}
 
 band: Diagnosis and staging
-  ① Thoracoscopic biopsy when treatment is planned 〔ESMO III, B〕 〔ASCO High, Strong〕; core needle biopsy when thoracoscopy or open biopsy is not possible 〔ASCO Moderate, Strong〕
+  ① Thoracoscopic biopsy when treatment is planned 〔ESMO III, B〕 〔ASCO High, Strong〕 〔NCCN 2A, preferred〕 〔STS 1.1〕, with as few incisions as possible, placed in line with any later thoracotomy 〔STS 1.2〕; biopsy even when pleural fluid cytology is negative 〔STS 1.4〕; core needle biopsy when thoracoscopy or open biopsy is not possible 〔ASCO Moderate, Strong〕
   ② Report the subtype: epithelioid, sarcomatoid or biphasic 〔ESMO IV, A〕 〔ASCO High, Strong〕; the sarcomatoid percentage in biphasic tumours 〔ASCO Moderate, Strong〕; BAP1 and MTAP immunohistochemistry when the diagnosis is uncertain, including suspected mesothelioma in situ 〔ESMO IV, A〕 〔ASCO Moderate, Conditional〕
-  ③ Contrast CT of chest and upper abdomen 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; PET-CT at staging, may be omitted when surgery is not considered 〔ASCO Moderate, Strong〕; required when surgery is considered 〔ESMO III, B〕
-  ④ Response by modified RECIST 1.1 for mesothelioma 〔ASCO Moderate, Strong〕
-  ⑤ PD-L1 and tumour mutational burden do not select patients for immunotherapy 〔ESMO I, D〕; nor does MSI 〔ASCO Moderate, Conditional〕
-  ⑥ Offer germline testing to every patient 〔ASCO High, Strong〕, with pretest genetic counselling 〔ASCO Low, Strong〕
-  ※ ESMO 2022 advises against germline BAP1 testing without a family history suggesting BAP1 syndrome 〔ESMO V, D〕
+  ③ Contrast CT of chest and upper abdomen 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; PET-CT at staging, may be omitted when surgery is not considered 〔ASCO Moderate, Strong〕; required when surgery is considered 〔ESMO III, B〕; in every patient 〔STS 2.1〕
+  ④ EBUS or mediastinoscopy when imaging suggests nodal disease; laparoscopy when abdominal disease is suspected 〔ASCO Moderate, Strong〕 〔STS 2.2, 11.1〕
+  ⑤ Response by modified RECIST 1.1 for mesothelioma 〔ASCO Moderate, Strong〕
+  ⑥ PD-L1, tumour mutational burden and MSI do not select patients for immunotherapy 〔ASCO Moderate, Conditional〕; PD-L1 and tumour mutational burden 〔ESMO I, D〕
+  ⑦ Offer germline testing to every patient 〔ASCO High, Strong〕; consider it 〔NCCN 2A〕, with pretest genetic counselling 〔ASCO Low, Strong〕
+  ※ ESMO 2022 advises against germline testing for a BAP1-deficient tumour without a family history suggesting BAP1 syndrome 〔ESMO V, D〕
+  ※ Tumour genomic testing: not routine 〔ESMO III, D〕; not part of standard care 〔ASCO Low, Conditional〕; NCCN recommends a multigene panel, including NTRK and ALK 〔NCCN 2A〕
 
 band: Surgery
-  ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕
-  ② Extended pleurectomy decortication rather than extrapleural pneumonectomy 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; no surgery for sarcomatoid disease 〔ASCO Moderate, Strong〕
-  ③ Platinum and pemetrexed for 4 to 6 cycles, before or after surgery; surgery alone is not enough 〔ASCO Moderate, Strong〕
-    ~ EORTC 1205 {pmid 38843916} | Feasibility only; no preferred sequence
+  ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕 〔STS 3.1, 4.1〕; NCCN limits surgery to cT1–2 N0 epithelioid disease 〔NCCN 2A〕
+  ② Extended pleurectomy decortication rather than extrapleural pneumonectomy 〔ESMO III, B〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕; pleurectomy decortication or extended pleurectomy decortication 〔STS 7.1〕, aiming at complete macroscopic resection 〔STS 9.1〕, with no partial debulking by any approach 〔STS 9.3〕; no surgery for sarcomatoid disease 〔ASCO Moderate, Strong〕
+  ③ Platinum and pemetrexed before or after surgery 〔ASCO High, Strong〕 〔STS 5〕, 4 to 6 cycles; surgery alone is not enough 〔ASCO Moderate, Strong〕; adjuvant treatment after upfront surgery 〔STS 6〕
+  ④ Lymph node dissection at surgery, including hilar, mediastinal, internal mammary, diaphragmatic, pericardial and intercostal stations 〔STS 8.1, 8.2〕
+    ~ EORTC 1205 [t-eortc-1205] | Feasibility only; no preferred sequence
   ※ Pleurectomy decortication or extended pleurectomy decortication added to chemotherapy shortened survival and increased serious adverse events
     - MARS 2 | OS 19.3 vs 24.8 months; HR 1.28 to 42 months; serious adverse events 318 vs 169
-  ※ ESMO 2022 predates MARS 2 and does not limit surgery by stage or histology
-  ※ Extrapleural pneumonectomy within trimodal therapy gave no benefit and possible harm; ASCO still allows it in highly selected patients in expert centres 〔ASCO Moderate, Strong〕
+  ※ ESMO 2022 predates MARS 2; it lists sarcomatoid histology, contralateral or supraclavicular nodes and extrathoracic disease against surgery, without a stage limit; NCCN 1.2027 notes no evidence that surgery added to systemic therapy improves survival
+  ※ STS 2026 keeps lung-sparing surgery for selected patients and attributes the MARS 2 result to CT-only staging and 9% 90-day mortality; it allows surgery for confirmed ipsilateral N1 disease 〔STS 11.2〕, after EBUS or mediastinoscopy when imaging suggests N1 〔STS 11.1〕, but not for contralateral or supraclavicular N2 disease 〔STS 11.3〕; it cites NCCN 2.2026 text on surgery in N1 and N2 disease that NCCN 1.2027 removed
+  ※ Extrapleural pneumonectomy within trimodal therapy gave no benefit and possible harm; ASCO still allows it in highly selected patients in expert centres 〔ASCO Moderate, Strong〕; STS only when pleurectomy decortication cannot clear the tumour and prognostic factors are favourable 〔STS 7.2〕
     - MARS | OS HR 1.90 (0.92–3.93); 50 patients
   ※ Adjuvant hemithoracic radiotherapy is not standard; it can be considered in expert centres 〔ESMO II, D〕; after extrapleural pneumonectomy 〔ASCO Moderate, Strong〕
-    - SAKK 17/04 {pmid 26538423} | Locoregional relapse-free survival 9.4 vs 7.6 months, not significant, 54 patients
-  ※ Neoadjuvant immunotherapy may be offered 〔ASCO Low, Conditional〕; evidence for adjuvant immunotherapy is insufficient 〔ASCO Very Low, Conditional〕
+    - SAKK 17/04 [t-sakk-17-04] | Locoregional relapse-free survival 9.4 vs 7.6 months with and without radiotherapy; no between-arm test
+  ※ After pleurectomy decortication or lung-sparing surgery: hemithoracic IMRT 〔ASCO Moderate, Conditional〕, in experienced centres 〔NCCN 2A〕; no radiotherapy before lung-sparing surgery 〔ASCO Low, Strong〕
+    + Trovo 2021 {pmid 33259933} | 2-year OS 58% vs 28%; HR 0.54, against palliative radiotherapy
+  ※ Neoadjuvant immunotherapy may be offered 〔ASCO Low, Conditional〕; ESMO 2022 calls its role unknown; NCCN marks nivolumab and ipilimumab suitable before surgery; evidence for adjuvant immunotherapy is insufficient 〔ASCO Very Low, Conditional〕
+  ※ Intraoperative regional treatment (chemotherapy, povidone-iodine lavage or photodynamic therapy) may be considered 〔STS 12.1〕; no randomised comparison; ASCO calls its benefit unproven 〔ASCO Low, Conditional〕
 
 band: Effusion and radiotherapy
-  ① Recurrent effusion: talc poudrage at thoracoscopy, preferred over VATS partial pleurectomy 〔ESMO I, A〕; or an indwelling pleural catheter 〔ESMO I, B〕, except in candidates for surgery because of tract seeding 〔ASCO Moderate, Strong〕
-    - MesoVATS {pmid 24942631} | OS HR 1.04 for VATS partial pleurectomy against talc pleurodesis
-  ② Palliative radiotherapy to painful or symptomatic sites 〔ESMO III, B〕 〔ASCO Moderate, Strong〕
-  ③ No prophylactic radiotherapy to procedure tracts 〔ESMO I, D〕 〔ASCO High, Strong〕
-    - SMART {pmid 27345639} | Tract metastases 9% vs 16%, not significant
-    - PIT {pmid 30920878} | Chest wall metastases 3.2% vs 5.3% at 6 months, not significant
+  ① Recurrent effusion: talc poudrage at thoracoscopy, preferred over VATS partial pleurectomy 〔ESMO I, A〕; or an indwelling pleural catheter 〔ESMO I, B〕, except in candidates for surgery because of tract seeding 〔ASCO Moderate, Strong〕; NCCN: drainage when disease may be operable, drainage or pleurodesis when it is not 〔NCCN 2A〕
+    - MesoVATS [t-mesovats] | OS HR 1.04 for VATS partial pleurectomy against talc pleurodesis
+  ② Palliative radiotherapy to painful or symptomatic sites 〔ESMO III, B〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕
+  ③ No prophylactic radiotherapy to procedure tracts 〔ESMO I, D〕 〔ASCO High, Strong〕 〔NCCN 2A〕
+    - SMART [t-smart] | Tract metastases 8.8% vs 15.8%; OR 0.51, not significant
+    - PIT [t-pit] | Chest wall metastases 3.2% vs 5.3% at 6 months, not significant
+  ※ Recurrence after surgery: resection of an isolated recurrence 〔STS 13.1〕 or SBRT to an isolated pleural recurrence 〔STS 13.2〕; conventionally fractionated or mildly hypofractionated radiotherapy for diffuse or bulky recurrence in selected patients 〔STS 13.3〕
 
 band: Peritoneal mesothelioma
-  ① Selected patients with completely resectable disease, fit for surgery: cytoreductive surgery with HIPEC in an expert centre 〔PSOGI Very Low, Strong〕
-  ② Unresectable disease or unfit for surgery: systemic treatment as for pleural disease; the immunotherapy licences cover pleural disease only
+  ① Selected patients with completely resectable disease, fit for surgery: cytoreductive surgery with HIPEC in an expert centre 〔PSOGI Very Low, Strong〕; epithelioid without high-risk features 〔NCCN 2A〕
+  ② Unresectable disease or unfit for surgery: systemic treatment largely as for pleural disease, all 〔NCCN 2A〕, including nivolumab and ipilimumab as preferred; no gemcitabine with ramucirumab; the EU and US immunotherapy licences cover pleural disease only
+  ※ Biphasic or sarcomatoid histology, nodal disease or PCI over 17: systemic treatment first, then reassess for cytoreduction 〔NCCN 2A〕
+  ※ After progression, without a checkpoint inhibitor before: atezolizumab with bevacizumab; NCCN only 〔NCCN 2A, other〕
   ※ No randomised trial of cytoreductive surgery with HIPEC; the evidence is cohort studies
   ※ CheckMate 743 and KEYNOTE-483 enrolled pleural disease only; CONFIRM included peritoneal disease
 
 course: Unresectable pleural mesothelioma
   First line
     Non-epithelioid, PS 0–1
-    ① Nivolumab and ipilimumab for up to 2 years 〔ESMO I, A〕 〔ASCO High, Strong〕
+    ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕, for up to 2 years 〔ASCO Moderate, Strong〕
       + CheckMate 743 | OS HR
-      + CheckMate 743, 5 years {pmid 41734361} | 5-year OS 14% vs 6%; HR 0.74
-    ② Platinum and pemetrexed for up to 6 cycles with pembrolizumab, pembrolizumab continued for up to 2 years 〔ASCO High, Strong〕; EU licence for non-epithelioid only
+      + CheckMate 743, 5 years [t-checkmate-743] | 5-year OS 14% vs 6%; HR 0.74
+    ② Platinum and pemetrexed for up to 6 cycles with pembrolizumab, pembrolizumab continued for up to 2 years 〔ASCO High, Strong〕 〔NCCN 1, preferred〕; EU licence for non-epithelioid only
       + KEYNOTE-483 | OS HR
-    ③ Platinum and pemetrexed 〔ESMO I, A〕, only when immunotherapy is contraindicated 〔ASCO High, Strong〕
+    ③ Platinum and pemetrexed 〔ESMO I, A〕, only when immunotherapy is contraindicated 〔ASCO High, Strong〕; with or without bevacizumab 〔NCCN 1, other〕
     ※ Non-epithelioid subgroups: OS HR 0.46 in CheckMate 743 and 0.57 in KEYNOTE-483
     ※ ESMO 2022 predates KEYNOTE-483 and lists chemotherapy as an option in all histologies; ASCO 2025 does not for non-epithelioid disease
     Epithelioid, PS 0–1
-    ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕
-    ② Platinum and pemetrexed with pembrolizumab 〔ASCO High, Strong〕; US licence, the EU licence does not cover epithelioid
-    ③ Cisplatin and pemetrexed with folic acid and vitamin B12, 4 to 6 cycles 〔ESMO I, A〕 〔ASCO High, Strong〕, with or without bevacizumab; when given, bevacizumab continues until progression 〔ESMO I, A〕; not licensed for mesothelioma
+    ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
+    ② Platinum and pemetrexed, with or without bevacizumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕, 4 to 6 cycles 〔ASCO Low, Strong〕, with folic acid and vitamin B12; when given, bevacizumab continues until progression 〔ESMO I, A〕; bevacizumab is not licensed for mesothelioma
       + EMPHACIS | OS HR
       + MAPS | OS HR
-    ④ Asymptomatic, minimal disease, not for surgery: observation before chemotherapy may be offered 〔ASCO Low, Conditional〕
-    ※ The order of ①②③ is not a ranking; epithelioid subgroups: OS HR 0.86 (0.69–1.08) in CheckMate 743 and 0.89 (0.70–1.13) in KEYNOTE-483
+    ③ Platinum and pemetrexed with pembrolizumab 〔ASCO High, Strong〕 〔NCCN 1, other〕, moved down from preferred in NCCN 1.2027; US licence, the EU licence does not cover epithelioid
+    ④ Asymptomatic, minimal disease, not for surgery: observation before chemotherapy may be offered 〔ASCO Low, Conditional〕 〔NCCN 2A〕
+    ※ The order of ①②③ is not a ranking; ASCO calls nivolumab and ipilimumab or chemotherapy equally reasonable; epithelioid subgroups: OS HR 0.86 (0.69–1.08) in CheckMate 743 and 0.89 (0.70–1.13) in KEYNOTE-483
     ※ Carboplatin can replace cisplatin 〔ESMO I, A〕 〔ASCO Moderate, Strong〕; CheckMate 743 and KEYNOTE-483 allowed either
-    ※ No bevacizumab at PS 2 or more, age over 75, cardiovascular disease or bleeding risk 〔ASCO Moderate, Strong〕
-    ※ Atezolizumab added to carboplatin, pemetrexed and bevacizumab did not improve OS; non-epithelioid subgroup better, prespecified; not licensed
-      - BEAT-meso {pmid 39814199} | OS HR 0.84 (0.66–1.06); non-epithelioid 0.51
+    ※ No bevacizumab at PS 2 or more, age over 75, cardiovascular disease or bleeding risk 〔ASCO Moderate, Strong〕; ASCO allows it in fit patients over 75
+    ※ Stopping immunotherapy for severe toxicity does not lose its benefit 〔ASCO Moderate, Strong〕
+    ※ Tumour treating fields with platinum and pemetrexed: insufficient evidence 〔ASCO Very Low, NA〕; NCCN does not list it
+    ※ Atezolizumab added to carboplatin, pemetrexed and bevacizumab did not improve OS; non-epithelioid subgroup better, prespecified; not licensed; NCCN names it as not included
+      - BEAT-meso [t-beat-meso] | OS HR 0.84 (0.66–1.06); non-epithelioid 0.50
     PS 2 or more
     ① PS 2: single-agent chemotherapy or palliative care alone; PS 3 or more: palliative care 〔ASCO Low, Strong〕
     ※ ESMO 2022 offers platinum and pemetrexed, with or without bevacizumab, up to PS 2
+    ※ Pemetrexed not possible: platinum with gemcitabine; unfit for a platinum doublet: pemetrexed or vinorelbine alone 〔NCCN 2A, certain circumstances〕
     next: Maintenance or observation | No progression
     next: Second line and beyond
   Maintenance or observation
-    ① After bevacizumab with cisplatin and pemetrexed: continue bevacizumab 〔ESMO I, A〕
+    ① After bevacizumab with cisplatin and pemetrexed: continue bevacizumab 〔ESMO I, A〕, graded in the ESMO algorithm only; MAPS did not test maintenance separately
     ② Otherwise a break after 4 to 6 cycles 〔ASCO Low, Strong〕; switch maintenance gemcitabine can be considered, not routine 〔ESMO II, C〕 〔ASCO Moderate, Conditional〕; gemcitabine improved PFS, not OS
-      ~ NVALT19 {pmid 33515500} | PFS HR 0.48
+      ~ NVALT19 [t-nvalt-19] | PFS HR 0.48
     ※ No pemetrexed maintenance 〔ESMO II, E〕 〔ASCO Moderate, Strong〕
-      - CALGB 30901 {pmid 32727707} | PFS HR 0.99; OS HR 0.86, not significant
+      - CALGB 30901 [t-calgb-30901] | PFS HR 0.99; OS HR 0.86, not significant
     next: Second line and beyond | Progression
   Second line and beyond
     After chemotherapy alone
-    ① Immunotherapy: nivolumab and ipilimumab 〔ESMO II, C〕 〔ASCO Moderate, Strong〕, or nivolumab alone 〔ESMO I, A〕 〔ASCO High, Strong〕, or pembrolizumab alone 〔ESMO II, C〕; none licensed in this setting in the EU or US
+    ① Immunotherapy: nivolumab and ipilimumab 〔ESMO II, C〕 〔ASCO Moderate, Strong〕, or nivolumab alone 〔ESMO I, A〕 〔ASCO High, Strong〕, or pembrolizumab alone 〔ESMO II, C〕; nivolumab, or nivolumab and ipilimumab 〔NCCN 2A, preferred〕; NCCN does not support pembrolizumab alone; none licensed in this setting in the EU or US
       ~ MAPS2 | 12-week disease control 44% and 50%
       ~ CONFIRM | PFS HR 0.65; OS HR 0.81, not significant
-      - PROMISE-meso {pmid 32976938} | Pembrolizumab against gemcitabine or vinorelbine: PFS HR 1.06; OS HR 1.12
-    ② Gemcitabine with ramucirumab 〔ESMO III, C〕 〔ASCO Moderate, Strong〕; ramucirumab is not licensed for mesothelioma
-      + RAMES {pmid 34499874} | Randomised phase II: OS 13.8 vs 7.5 months; HR 0.71
-    ③ Vinorelbine or gemcitabine alone 〔ESMO II, B〕; oral vinorelbine 〔ASCO Moderate, Strong〕; PFS gain, no OS gain
+      - PROMISE-meso [t-promise-meso] | Pembrolizumab against gemcitabine or vinorelbine: PFS HR 1.06; OS HR 1.12
+    ② Gemcitabine with ramucirumab 〔ESMO III, C〕 〔ASCO Moderate, Strong〕 〔NCCN 2A, other〕; ramucirumab is not licensed for mesothelioma
+      + RAMES [t-rames] | Randomised phase II: OS 13.8 vs 7.5 months; HR 0.71
+    ③ Vinorelbine or gemcitabine alone 〔ESMO II, B〕 〔NCCN 2A, other〕; oral vinorelbine 〔ASCO Moderate, Strong〕; PFS gain, no OS gain
       ~ VIM | PFS HR
-    ④ Platinum and pemetrexed again in selected patients 〔ESMO II, B〕, after disease control of more than 6 months 〔ASCO Low, Strong〕
+    ④ Pemetrexed alone if not given before 〔ESMO III, C〕 〔NCCN 1, other〕
+      ~ Jassem 2008 {pmid 18375898} | Response 18.7% vs 1.7%; OS 8.4 vs 9.7 months, against supportive care
+    ⑤ Platinum and pemetrexed again in selected patients 〔ESMO II, B〕, after disease control of more than 6 months 〔ASCO Low, Strong〕; after a good response 〔NCCN 2A〕
     ※ Both guideline grades for nivolumab alone predate the final CONFIRM analysis, in which OS was not significant
     After nivolumab and ipilimumab
-    ① Platinum and pemetrexed, with or without bevacizumab 〔ASCO Low, Conditional〕
+    ① Platinum and pemetrexed, with or without bevacizumab 〔ESMO II, B〕 〔ASCO Low, Conditional〕 〔NCCN 2A, preferred〕
     ※ No randomised trial after first-line nivolumab and ipilimumab; ESMO 2022 routes these patients to first-line chemotherapy, whose grade comes from untreated patients
     After pembrolizumab with chemotherapy, or chemotherapy then immunotherapy
     ① Vinorelbine or gemcitabine, with or without ramucirumab 〔ASCO Low, Conditional〕
     ② Platinum and pemetrexed again after disease control of more than 6 months 〔ASCO Low, Strong〕
     ③ Immunotherapy again when disease was controlled and progressed after treatment had been completed 〔ASCO Very Low, Conditional〕
+    ※ After pembrolizumab with chemotherapy: nivolumab and ipilimumab; NCCN only, new in 1.2027, no trial in this setting 〔NCCN 2A, preferred〕
     ※ After two lines, ESMO 2022 finds no evidence for routine further treatment; consider a clinical trial 〔ESMO V, C〕
 
 off:
