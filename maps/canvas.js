@@ -351,10 +351,12 @@
           n.up = n.h / 2; n.down = Math.max(n.h / 2, lh - n.h / 2); return;
         }
         n.children.forEach(ext);
-        var k = n.children, S = 0;
-        for (var i = 0; i + 1 < k.length; i++) S = Math.max(S, k[i].down + k[i + 1].up + GY);
-        var pc = (k.length - 1) * S / 2, top = Infinity, bot = -Infinity;
-        k.forEach(function(c, i){ c.off = i * S - pc; top = Math.min(top, c.off - c.up); bot = Math.max(bot, c.off + c.down); });
+        // each branch sits just below the one above it, so a tall branch leaves no gap between short ones
+        var k = n.children, at = 0, top = Infinity, bot = -Infinity;
+        k.forEach(function(c, i){ if (i) at += k[i - 1].down + c.up + GY; c.off = at; });
+        // the node sits level with its middle branch, or halfway between the two middle ones
+        var mi = (k.length - 1) / 2, pc = (k[Math.floor(mi)].off + k[Math.ceil(mi)].off) / 2;
+        k.forEach(function(c){ c.off -= pc; top = Math.min(top, c.off - c.up); bot = Math.max(bot, c.off + c.down); });
         n.up = Math.max(n.h / 2, -top); n.down = Math.max(n.h / 2, bot);
       })(model.tree);
       // the root sits level with its first branch (Jonan 2026-11-10), so the two open together;
