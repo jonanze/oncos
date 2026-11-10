@@ -34,7 +34,7 @@ band: Surgery
   ① Surgery is not offered on anatomic resectability alone 〔ASCO High, Strong〕; only for highly selected patients with clinical T1–3 N0 epithelioid disease 〔ASCO Moderate, Strong〕, within multimodality treatment after MDT review in an expert centre 〔ESMO III, C〕
   ② Extended pleurectomy decortication rather than extrapleural pneumonectomy 〔ESMO III, B〕 〔ASCO Moderate, Strong〕; no surgery for sarcomatoid disease 〔ASCO Moderate, Strong〕
   ③ Platinum and pemetrexed for 4 to 6 cycles, before or after surgery; surgery alone is not enough 〔ASCO Moderate, Strong〕
-    ~ EORTC 1205 {pmid 38843916} | Non-comparative; success at 20 weeks 70% with surgery first and 50% with chemotherapy first
+    ~ EORTC 1205 {pmid 38843916} | Feasibility only; no preferred sequence
   ※ Pleurectomy decortication or extended pleurectomy decortication added to chemotherapy shortened survival and increased serious adverse events
     - MARS 2 | OS 19.3 vs 24.8 months; HR 1.28 to 42 months; serious adverse events 318 vs 169
   ※ ESMO 2022 predates MARS 2 and does not limit surgery by stage or histology

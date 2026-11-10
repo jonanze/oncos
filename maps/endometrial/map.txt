@@ -71,6 +71,8 @@ course:
     ※ High-intermediate: vaginal brachytherapy instead, especially if node-negative 〔ESGO II, B〕; no adjuvant treatment if node-negative, low grade and without substantial LVSI 〔ESGO IV, B〕
     ※ High: sequential chemotherapy and radiotherapy, or chemotherapy with or without vaginal brachytherapy, are alternatives 〔ESGO I, B〕
     ※ High, MMR deficient stage III–IVA: chemotherapy with a checkpoint inhibitor, with or without EBRT 〔ESGO II, B〕
+      - KEYNOTE-B21 | DFS HR 1.02; MMR deficient HR 0.31
+      ※ Pembrolizumab with adjuvant chemotherapy did not improve DFS in all patients; the ESGO statement rests on the MMR deficient subgroup
     ① Intermediate risk: vaginal brachytherapy controls the vagina as well as pelvic EBRT, with fewer bowel effects
       ~ PORTEC-1 | Locoregional recurrence 4% vs 14%
       ~ GOG 99 | Recurrence 3% vs 12%
@@ -84,8 +86,6 @@ course:
       ※ Chemotherapy added nothing in MMR deficient tumours; ESGO 2025 judged this too little evidence to omit it in stage III
       - GOG 258 | RFS HR 0.90
       ※ Chemotherapy alone gave the same relapse-free survival as chemoradiotherapy, with more pelvic and nodal relapses
-      - KEYNOTE-B21 | DFS HR 1.02; MMR deficient HR 0.31
-      ※ Pembrolizumab with adjuvant chemotherapy helped only MMR deficient tumours
     next: Recurrence | Recurrence
   Recurrence
     Vaginal, pelvic or in a few sites: local treatment first
@@ -99,11 +99,11 @@ course:
   Advanced or recurrent, first line
     Choose by MMR status; six cycles of carboplatin-paclitaxel is the standard chemotherapy 〔ESGO I, A〕
     ① MMR deficient: carboplatin-paclitaxel with dostarlimab, durvalumab or pembrolizumab, then the antibody as maintenance 〔ESGO I, A〕
-      + RUBY | MMR deficient OS HR 0.30
+      ~ RUBY | MMR deficient PFS HR 0.28
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR deficient PFS HR 0.30
       ~ DUO-E [t-duo-e] | MMR deficient PFS HR 0.42
     ② MMR proficient: carboplatin-paclitaxel 〔ESGO I, A〕; adding pembrolizumab or dostarlimab, or durvalumab followed by durvalumab with olaparib, can be considered 〔ESGO I, B〕
-      + RUBY | All patients OS HR 0.64, interim
+      ~ RUBY | All patients PFS HR 0.64; OS HR 0.64 at first interim, boundary not met
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR proficient PFS HR 0.54
       ~ DUO-E [t-duo-e] | MMR proficient, with olaparib, PFS HR 0.57
     ③ HER2 3+, when a checkpoint inhibitor cannot be given: carboplatin-paclitaxel with trastuzumab 〔ESGO II, B〕
@@ -129,10 +129,10 @@ course:
 off:
   GOG 122 | Whole-abdominal radiotherapy comparator no longer used; PORTEC-3 and GOG 258 set current options
   GOG 177 | Doxorubicin, cisplatin and paclitaxel replaced by carboplatin-paclitaxel (GOG 209)
-  GOG-86P [t-gog-86p] | Bevacizumab, temsirolimus and ixabepilone not used; historical control only
-  MITO END-2 | Bevacizumab did not improve PFS and is not used
-  SIENDO / ENGOT-EN5 [t-siendo-engot-en5] | Selinexor maintenance not standard; TP53 wild-type benefit under confirmation
-  AtTEnd | Atezolizumab with chemotherapy; not a standard option and not listed in ESGO 2025
+  GOG-86P [t-gog-86p] | Class C, negative (excluded.txt); row awaits a decision on existing rows
+  MITO END-2 | Class C, negative (excluded.txt); row awaits a decision on existing rows
+  SIENDO / ENGOT-EN5 [t-siendo-engot-en5] | No licence or recommendation; selinexor maintenance; TP53 wild-type benefit under confirmation
+  AtTEnd | No licence or recommendation; atezolizumab with chemotherapy, not listed in ESGO 2025
   KEYNOTE-C93 [t-keynote-c93] | Pembrolizumab alone in first line; not a standard option and not in ESGO 2025
-  RUBY Part 2 | Niraparib added to dostarlimab maintenance; not a standard option, no OS gain
-  TroFuse-005 | Sacituzumab tirumotecan after platinum and a checkpoint inhibitor; not a standard option
+  RUBY Part 2 | No licence or recommendation; niraparib added to dostarlimab maintenance, no OS gain
+  TroFuse-005 | No licence or recommendation; sacituzumab tirumotecan after platinum and a checkpoint inhibitor
