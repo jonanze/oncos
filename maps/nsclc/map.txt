@@ -247,6 +247,9 @@ panel: Later lines > Driver found
     ※ Ivonescimab + chemotherapy improved OS in a trial in China; in the global trial PFS improved, OS did not; licensed in China only
       + HARMONi-A | OS HR
       ~ HARMONi | PFS HR
+  ※ EGFR with MET amplification or overexpression after osimertinib: osimertinib + savolitinib improved outcomes; ASCO recommends osimertinib with savolitinib or tepotinib for MET amplification 〔ASCO Low, Conditional〕; not licensed in the EU or US; NCCN, ESMO and JLCS do not list it
+    + SAFFRON | OS HR
+    ~ SACHI | PFS HR
   ④ EGFR after a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕; US licence, not EU 〔ESMO III, B〕
     ~ TROPION-Lung05 | Response
     ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel; US and EU applications withdrawn
@@ -281,9 +284,7 @@ off:
   CHRYSALIS-2 Cohort C | Small single-arm cohort; amivantamab + lazertinib in uncommon EGFR is recommended by ASCO alone 〔ASCO Low, Conditional〕, with no licence or NCCN listing in that group
   DESTINY-Lung01 | 6.4 mg/kg dose; DESTINY-Lung02 set 5.4 mg/kg
   EAST-LC | S-1 second line: JLCS alone recommends it 〔JLCS A, 1〕; not licensed for NSCLC in the EU or US, no NCCN listing
-  SAFFRON | Osimertinib + savolitinib for MET amplification after osimertinib: ASCO alone recommends it, with tepotinib as an alternative 〔ASCO Low, Conditional〕; no EU or US licence, no NCCN listing
-  SACHI | The same combination; trial in China; no EU or US licence, no NCCN listing
   POD1UM-304 | Retifanlimab with chemotherapy: ASCO alone recommends it 〔ASCO Moderate, Conditional〕, with no EU or US licence for NSCLC and no NCCN listing
   Sampath 2025 [t-sampath-et-al] | Non-randomised; no licence or recommendation rests on it
-  SAVANNAH | Non-randomised; the combination is off the map (see SAFFRON)
+  SAVANNAH | Non-randomised with randomised evidence available (SAFFRON, SACHI)
   INSIGHT 2 | Non-randomised; no licence or recommendation rests on it
