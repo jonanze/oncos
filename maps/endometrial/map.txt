@@ -37,7 +37,6 @@
 # * Labels on connecting lines start with a capital, like every other label
 #   A statement that rests on a guideline rather than a trial carries its 〔source level, grade〕 tag;
 #   where a trial and the guideline disagree, or the trial came later, a ※ line says so
-#   Inclusion: maps/inclusion.txt; GOG-86P kept under ⑥d and ⑥e, MITO END-2 under ⑥d (Jonan 2026-11-10)
 
 map: Endometrial Cancer
 source: ESGO [t-esgo-estro-esp-endometrial-carcinoma-management-guidelines]
@@ -114,9 +113,6 @@ course:
     ※ MMR proficient relapse after adjuvant chemotherapy, when chemotherapy cannot be given: lenvatinib with pembrolizumab can be considered 〔ESGO III, C〕
     ※ Carboplatin-paclitaxel replaced doxorubicin, cisplatin and paclitaxel
       ~ GOG 209 | Non-inferior, OS HR 1.002
-    ※ Bevacizumab added to carboplatin-paclitaxel did not improve PFS; in exploratory analyses of GOG-86P, TP53-mutated or p53-overexpressing tumours did better with bevacizumab; not licensed
-      - GOG-86P [t-gog-86p] | PFS HR 0.81 against a historical control
-      - MITO END-2 | PFS 13.7 vs 10.5 months; HR 0.84
     next: Progression after platinum | Progression
   Progression after platinum
     Repeat MMR testing on the relapse when feasible 〔ESGO IV, B〕
@@ -133,6 +129,8 @@ course:
 off:
   GOG 122 | Whole-abdominal radiotherapy comparator no longer used; PORTEC-3 and GOG 258 set current options
   GOG 177 | Doxorubicin, cisplatin and paclitaxel replaced by carboplatin-paclitaxel (GOG 209)
+  GOG-86P [t-gog-86p] | Class C, negative (excluded.txt); row awaits a decision on existing rows
+  MITO END-2 | Class C, negative (excluded.txt); row awaits a decision on existing rows
   SIENDO / ENGOT-EN5 [t-siendo-engot-en5] | No licence or recommendation; selinexor maintenance; TP53 wild-type benefit under confirmation
   AtTEnd | No licence or recommendation; atezolizumab with chemotherapy, not listed in ESGO 2025
   KEYNOTE-C93 [t-keynote-c93] | Pembrolizumab alone in first line; not a standard option and not in ESGO 2025

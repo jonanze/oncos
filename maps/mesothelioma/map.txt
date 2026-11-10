@@ -7,7 +7,6 @@
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses only
 #   Inclusion: maps/inclusion.txt; trials left out are in excluded.txt
-#   BEAT-meso kept under ⑥f (atezolizumab combined with bevacizumab and chemotherapy, each standard here) (Jonan 2026-11-10)
 #   Standard options only; an option a guideline recommends but no licence covers stays on the line with that noted
 #   ESMO-recommended options sit on the main line; where ESMO 2022 and ASCO 2025 disagree a ※ line says so
 #   Maintenance is a later step after the primary treatment, never a branch beside it
@@ -80,8 +79,6 @@ course: Unresectable pleural mesothelioma
     ※ The order of ①②③ is not a ranking; epithelioid subgroups: OS HR 0.86 (0.69–1.08) in CheckMate 743 and 0.89 (0.70–1.13) in KEYNOTE-483
     ※ Carboplatin can replace cisplatin 〔ESMO I, A〕 〔ASCO Moderate, Strong〕; CheckMate 743 and KEYNOTE-483 allowed either
     ※ No bevacizumab at PS 2 or more, age over 75, cardiovascular disease or bleeding risk 〔ASCO Moderate, Strong〕
-    ※ Atezolizumab added to carboplatin, pemetrexed and bevacizumab did not improve OS; non-epithelioid subgroup better, prespecified; not licensed
-      - BEAT-meso {pmid 39814199} | OS HR 0.84 (0.66–1.06); non-epithelioid 0.51
     PS 2 or more
     ① PS 2: single-agent chemotherapy or palliative care alone; PS 3 or more: palliative care 〔ASCO Low, Strong〕
     ※ ESMO 2022 offers platinum and pemetrexed, with or without bevacizumab, up to PS 2

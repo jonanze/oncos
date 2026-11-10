@@ -141,8 +141,6 @@ tree: Advanced NSCLC, first line
           ~ RATIONALE-304 | PFS HR
           ~ RATIONALE-307 | PFS HR
           + POD1UM-304 | OS HR
-        ※ Atezolizumab with platinum and pemetrexed, non-squamous: PFS improved, OS not; not licensed
-          ~ IMpower132 | PFS HR
         ※ Squamous, any PD-L1: ivonescimab + chemotherapy beat tislelizumab + chemotherapy; China only
           + HARMONi-6 | OS HR
       PD-L1 <1%
@@ -188,16 +186,13 @@ panel: Later lines > Driver found
     ~ AURA3 | PFS HR
   ③ EGFR after osimertinib: amivantamab added to chemotherapy
     ~ MARIPOSA-2 | PFS HR
-    ※ Ivonescimab + chemotherapy improved OS in a trial in China; in the global trial PFS improved, OS did not; licensed in China only
+    ※ Ivonescimab + chemotherapy improved OS in a trial in China; licensed in China only
       + HARMONi-A | OS HR
-      ~ HARMONi | PFS HR
   ※ EGFR with MET amplification or overexpression after osimertinib: osimertinib + savolitinib improved outcomes; not licensed in the EU or US
     + SAFFRON | OS HR
     ~ SACHI | PFS HR
   ④ EGFR after a TKI and platinum chemotherapy: datopotamab deruxtecan, approved in the US
     ~ TROPION-Lung05 | Response
-    ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel; US and EU applications withdrawn
-      ~ TROPION-Lung01 | PFS HR
     ※ After a TKI, before chemotherapy: three antibody–drug conjugates beat platinum + pemetrexed on PFS; China only
       + OptiTROP-Lung04 | OS HR
       ~ HERON-Lung01 | PFS HR
@@ -225,6 +220,9 @@ off:
   CHRYSALIS-2 Cohort C | Amivantamab + lazertinib in uncommon EGFR, small single-arm cohort
   DESTINY-Lung01 | 6.4 mg/kg dose; DESTINY-Lung02 set 5.4 mg/kg
   EAST-LC | No licence or recommendation: S-1 is licensed for NSCLC in Japan only
+  TROPION-Lung01 | Unselected non-squamous second line: US and EU applications withdrawn; the US approval is for EGFR-mutated disease, shown under TROPION-Lung05
   Sampath 2025 [t-sampath-et-al] | Non-randomised; no licence or recommendation rests on it
   SAVANNAH | Non-randomised with randomised evidence available (SAFFRON, SACHI)
   INSIGHT 2 | Non-randomised; no licence or recommendation rests on it
+  IMpower132 | Class C, mixed (excluded.txt); row awaits a decision on existing rows
+  HARMONi | Class C, mixed (excluded.txt); row awaits a decision on existing rows

@@ -1,10 +1,11 @@
 # oncOS inclusion rule: which trials go in the Evidence database and on the board maps
-# Jonan 2026-11-10, after independent review and the audit of all 49 sheets; applies to every sheet and map
+# Jonan 2026-11-10, after independent review; applies to every sheet and every map
 # Canonical here; oncos-automation agents/references/curator-discovery.md points to this file
 
 Definitions
   Setting: disease, stage or line of treatment, and biomarker or histology group
-  Reference sources: the guideline versions on the map's source: lines, and current EU and US licences;
+  Reference sources: the guideline versions on the map's source: lines, the current NCCN guideline for the
+    disease (Jonan 2026-11-10), and current EU and US licences;
     other regulators only where Jonan names them for a disease (China for sugemalimab)
   Licence: a current full, conditional or accelerated marketing authorisation in that setting;
     a withdrawn licence or a humanitarian device exemption is not current
@@ -12,18 +13,14 @@ Definitions
   Class A, standard option: licensed in that setting, or recommended at any grade by a reference
     guideline in that setting; trials of dose, duration, schedule, sequence or omission of a standard
     option, and trials comparing two standard options, are class A
-    Class A also covers a treatment licensed or recommended in the same disease in another stage, line or
-      biomarker group, tested to extend its use (an approved drug expanding its indication, as LORIN)
   Class B, former or addressed practice: class A under an earlier guideline version or a withdrawn
     licence; or a reference guideline recommends against it; or the trial combines two class A treatments
-  Class C, experimental: a treatment with no licence or reference-guideline recommendation anywhere in
-    that disease
+  Class C, experimental: everything else, including a drug licensed in another disease, or in the same
+    disease in another line or biomarker group
   Result: positive, prespecified primary endpoint met (non-inferiority: margin met); negative, not met;
     mixed, co-primary endpoints split; a subgroup result does not change the label; a trial closed
     early with fewer than half its planned events is inconclusive; mixed is judged at the final analysis,
     so an interim split is not yet mixed
-  China-only phase III trials: included in the database in their own right; on the map as ※ lines
-    while class C
 
 Rules
   ① Designs: randomised trials in patients, pooled analyses of them and meta-analyses, with a
@@ -48,17 +45,10 @@ Rules
     a. the trial shows that a biomarker used to select a standard option does not predict benefit
     b. a regulator restricted or withdrew a licence because of it
     c. Jonan names it, with a one-line reason (for example a trial that ended a drug class)
-    d. the drug is licensed or recommended in a cancer of the same organ system or lineage, and the
-       trial is randomised evidence on using it in this disease (bevacizumab in endometrial cancer);
-       the drug itself counts, not its class
-    e. a published analysis of the trial's patients reports a prognostic or predictive result for a
-       biomarker that a reference guideline uses in that disease (p53 in GOG-86P)
-    f. the trial answers a question about standard care in that setting: combining two treatment
-       classes each standard there (COMBI-i, BEAT-meso); duration or omission of a standard class
-       (GeparNuevo); or an intervention in wide use without randomised evidence there (aspirin in ASAC)
   ⑦ Map: a row is on the map only if it supports a statement there (an option, a "do not" line or a
     ※ caveat). Every other row goes under off: with a reason: superseded; no licence or
-    recommendation; non-randomised with randomised evidence available; not a map statement.
+    recommendation; non-randomised with randomised evidence available; not a map statement; class C
+    negative, listed in excluded.txt, while the row awaits Jonan's decision on existing rows.
     Conflicting trials on one statement are both cited
   ⑧ Where EU and US licences, or reference guidelines, disagree, the trial is included and the line
     says so
