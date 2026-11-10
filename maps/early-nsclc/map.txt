@@ -125,7 +125,7 @@ course: Early and locally advanced NSCLC
     ※ Durvalumab during chemoradiotherapy, or nivolumab with or without ipilimumab during and after it, gave no benefit
       - PACIFIC-2 | PFS HR
       - CheckMate 73L | PFS HR
-    next: Consolidation | No progression
+    next: After chemoradiotherapy, no progression | No progression
   After chemo-immunotherapy and surgery
     ① After neoadjuvant nivolumab: no further treatment 〔ESMO I, A〕
     ② After a perioperative regimen: the same antibody alone for up to 1 year 〔ESMO I, A〕
@@ -160,7 +160,7 @@ course: Early and locally advanced NSCLC
         ~ ELEVATE | DFS HR
     ③ RET, stage IB–IIIA: selpercatinib for 3 years, also after radiotherapy 〔ESMO I, A〕
       ~ LIBRETTO-432 | 2-year EFS 92% vs 61%
-  Consolidation
+  After chemoradiotherapy, no progression
     ① EGFR exon 19 or L858R: osimertinib until progression 〔ESMO I, A〕
       ~ LAURA | PFS HR
     ② No driver: durvalumab for 12 months, starting within 42 days of concurrent chemoradiotherapy; EU licence PD-L1 1% or more 〔ESMO I, A〕
