@@ -10,7 +10,8 @@
    - a step sits level with the steps that lead to it, pushed down to clear the step above;
      a step a few pixels above the one step it leads to moves down to meet it, so the line runs straight
    - steps joined by lines form a branch; separate branches are drawn one below the other with a wider gap
-   - next: lines are drawn as ruled elbows; a straight one is the spine, drawn heavier; its label sits in a ruled cell on the line
+   - next: lines are drawn as ruled elbows; a straight one is the spine, drawn heavier; its label sits in a ruled cell
+     centred along its run of the line
    - join: lines to one step with one label share an upright and carry the label once, on it
    - a panel sits below its step's column
    - a step, band or panel holding a grid ("| a | b |" lines) widens to fit the grid's columns
@@ -252,8 +253,13 @@
             // a label sits in a ruled cell on its own run of the line: the straight run, or the upright
             // between the previous turn and its step, so it never stands beside another step's line
             var h = e.el.offsetHeight, w = e.el.offsetWidth;
-            if (level || !split) {
-              e.el.style.left = inGap((split ? xm : x1) + 8, w, x1, x2) + 'px'; e.el.style.top = ((split ? t.cy : n.cy) - h / 2) + 'px';
+            // centred along its own run: from the divide (or the source) to the step on a straight line,
+            // from the source to the turn on a line that joins others next to its step
+            if (level) {
+              var a = split ? xm : x1;
+              e.el.style.left = inGap((a + x2 - w) / 2, w, a, x2) + 'px'; e.el.style.top = (t.cy - h / 2) + 'px';
+            } else if (!split) {
+              e.el.style.left = inGap((x1 + xm - w) / 2, w, x1, xm) + 'px'; e.el.style.top = (n.cy - h / 2) + 'px';
             } else {
               var prev = n.cy;
               n.next.forEach(function(o){ var y = o.node.cy; if ((y - n.cy) * (t.cy - n.cy) > 0 && Math.abs(y - n.cy) < Math.abs(t.cy - n.cy) && Math.abs(y - n.cy) > Math.abs(prev - n.cy)) prev = y; });
