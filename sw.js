@@ -2,7 +2,7 @@
  * Cache name is a content hash of the app files, so each release ships a fresh
  * cache. STORAGE FIRST (Jonan, 2026-11-10): the release in storage opens at
  * once; a new release installs in the background and shows at the next open. */
-const CACHE = 'oncos-one-6a307892b41f';
+const CACHE = 'oncos-one-36f84abd9a5a';
 const CACHE_PREFIX = 'oncos-one-';
 const ASSETS = [
   './',
