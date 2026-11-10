@@ -35,6 +35,8 @@
 #   Standard options only; an EU or US licensed option that a guideline does not list stays on the
 #     line with its licence noted and says which guidelines leave it out
 #   Option order follows the guidelines' preference; where they disagree a ※ line names each
+#   East Asian guidelines come first in Jonan's practice (2026-11-10): a JLCS option licensed in Japan sits on a
+#     ※ line, never under off:
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 # * Labels on connecting lines start with a capital, like every other label
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
@@ -105,6 +107,7 @@ tree: Advanced NSCLC, first line
         ~ LUX-Lung pooled [t-lux-lung-2-lux-lung-3-and-lux-lung-6] | Response
         ~ UNICORN | Response
         ※ Grouping by protein structure predicts TKI benefit better than grouping by exon
+        ※ T790M before any TKI: osimertinib 〔JLCS D, 2〕
     Fusion
       ALK
         = Alectinib, brigatinib, ensartinib or lorlatinib 〔NCCN 1, preferred〕; alectinib, brigatinib or lorlatinib 〔ESMO I, A〕; ensartinib: US licence, not EU 〔ESMO I, B〕
@@ -140,7 +143,8 @@ tree: Advanced NSCLC, first line
         ~ BRF113928 | Response
         ~ PHAROS | Response
       MET exon 14
-        = Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
+        = Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕; capmatinib, tepotinib or gumarontinib 〔JLCS C, 1〕
+        ※ Gumarontinib: licensed in Japan and China, not in the EU or US; NCCN, ASCO and ESMO do not list it
         ~ GEOMETRY mono-1 | Response 68%
         ~ VISION | Response
       KRAS G12C
@@ -252,6 +256,7 @@ panel: Later lines > Driver found
   ※ EGFR with MET amplification or overexpression after osimertinib: osimertinib + savolitinib improved outcomes; ASCO recommends osimertinib with savolitinib or tepotinib for MET amplification 〔ASCO Low, Conditional〕; not licensed in the EU or US; NCCN, ESMO and JLCS do not list it
     + SAFFRON | OS HR
     ~ SACHI | PFS HR
+    ~ INSIGHT 2 [t-insight-2] | Response
   ④ EGFR after a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕; US licence, not EU 〔ESMO III, B〕
     ~ TROPION-Lung05 | Response
     ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel; US and EU applications withdrawn
@@ -288,4 +293,3 @@ off:
   POD1UM-304 | Retifanlimab with chemotherapy: ASCO alone recommends it 〔ASCO Moderate, Conditional〕, with no EU or US licence for NSCLC and no NCCN listing
   Sampath 2025 [t-sampath-et-al] | Non-randomised; no licence or recommendation rests on it
   SAVANNAH | Non-randomised with randomised evidence available (SAFFRON, SACHI)
-  INSIGHT 2 | Non-randomised; no licence or recommendation rests on it

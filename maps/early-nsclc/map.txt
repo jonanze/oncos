@@ -53,13 +53,15 @@
 #   where a trial and the guideline disagree, or the trial came later, a ※ line says so
 #   Rule ⑦ (Jonan 2026-11-10): an option one guideline recommends, with no EU or US licence and no NCCN
 #     listing, is not a map option; options NCCN alone lists sit on ※ lines
+#   East Asian guidelines come first in Jonan's practice (2026-11-10): a JLCS option licensed in Japan sits on a
+#     ※ line, never under off:
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
 #     〔NCCN category〕 NCCN Non-Small Cell Lung Cancer 9.2026 (22 September 2026), stage I–III pages,
 #       NSCL-B, NSCL-C and NSCL-E; category 2A unless stated
 #     〔ESMO evidence, grade〕 ESMO living guideline, early and locally advanced NSCLC v1.3 (August 2026)
 #     〔JLCS evidence, strength〕 Japan Lung Cancer Society guideline 2025 (web edition, 6 November 2025),
 #       chapter Ⅰ CQ23–25 and chapter Ⅱ sections 1–6; strength 1 strong or 2 weak, evidence A to D;
-#       errata of 28 November 2025 and 15 January 2026 checked; tegafur-uracil (CQ25–26, Japan only) left out by rule ⑦
+#       errata of 28 November 2025 and 15 January 2026 checked
 #     〔ACCP evidence, strength〕 ACCP stage I NSCLC guideline 2025
 
 map: Early & Locally Adv NSCLC
@@ -154,6 +156,9 @@ course: Early and locally advanced NSCLC
       + JBR.10 | OS HR 0.69; stage II 0.59, stage IB not significant
       + ANITA | OS HR 0.80; stage II 0.71, IIIA 0.69, IB 1.10
       ※ Stage I under 4 cm without EGFR or RET: no adjuvant treatment 〔ACCP Moderate, Strong〕
+      ※ Node-negative, over 2 cm, pathological stage IA3 or more: tegafur-uracil for 2 years; adenocarcinoma 〔JLCS A, 1〕, other histology 〔JLCS C, 2〕; licensed in Japan, not in the EU or US; NCCN, ESMO and ACCP do not list it
+        + Kato 2004 {pmid 15102997} | OS improved in stage I adenocarcinoma, P = 0.04
+        + Tegafur-uracil meta-analysis 2005 {pmid 16051951} | OS HR 0.74; 5-year OS 81.5% vs 77.2%
       ※ Carboplatin and paclitaxel in stage IB did not improve survival; the benefit in tumours of 4 cm or more came from an unplanned analysis
         - CALGB 9633 | OS median
     ② No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕; pathological stage I–II 〔JLCS A, 1〕
