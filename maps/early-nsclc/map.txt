@@ -70,8 +70,7 @@ source: JLCS {url https://www.haigan.gr.jp/publication/guideline/examination/202
 
 band: Staging before treatment
   ① CT and PET-CT before surgery, for nodal staging 〔ESMO I, A〕 〔NCCN 2A〕 〔JLCS A, 1〕
-    ~ PLUS [t-plus-trial] | Futile thoracotomy 41% vs 21%
-    ~ Fischer 2009 [t-fischer-et-al] | Futile thoracotomy 21% vs 42%
+    ~ Fischer 2009 [t-fischer-et-al] | Futile thoracotomy 21% vs 42%, PET-CT vs conventional staging; PLUS found the same with PET
   ② Nodes abnormal on CT or PET: endosonography with needle aspiration first 〔ESMO I, A〕 〔JLCS A, 1〕
     ~ ASTER | N2 or N3 sensitivity 79% vs 94%
   ③ Mediastinoscopy can be left out after negative systematic endosonography
@@ -189,3 +188,6 @@ course: Early and locally advanced NSCLC
       ~ GEMSTONE-301 [t-gemstone-301] | PFS HR 0.64
     ※ After sequential chemoradiotherapy: durvalumab 〔ESMO II, B〕 〔NCCN 2A〕, or osimertinib with EGFR exon 19 or L858R 〔NCCN 2A〕; durvalumab not approved for this use. Smaller PFS benefit than PACIFIC; no OS benefit at interim; similar effect after sequential and concurrent chemoradiotherapy, neither subgroup powered
       ~ PACIFIC-5 | PFS HR 0.75, OS HR 0.87; after sequential 0.75 (0.49–1.18), after concurrent 0.76
+
+off:
+  PLUS [t-plus-trial] | Same finding as Fischer 2009, with PET alone; its figure is on the Fischer 2009 line
