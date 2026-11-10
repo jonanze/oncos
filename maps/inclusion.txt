@@ -58,7 +58,8 @@ Rules
        (GeparNuevo); or an intervention in wide use without randomised evidence there (aspirin in ASAC)
   ⑦ Map: a row is on the map only if it supports a statement there (an option, a "do not" line or a
     ※ caveat). Every other row goes under off: with a reason: superseded; no licence or
-    recommendation; non-randomised with randomised evidence available; not a map statement.
+    recommendation; non-randomised with randomised evidence available; not a map statement; class C
+    negative, listed in excluded.txt, while the row awaits Jonan's decision on existing rows.
     Conflicting trials on one statement are both cited
   ⑧ Where EU and US licences, or reference guidelines, disagree, the trial is included and the line
     says so

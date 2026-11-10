@@ -126,3 +126,5 @@ off:
   DeLLphi-301 | Phase II dose selection in third line; DeLLphi-304 set tarlatamab after platinum
   PM1183-B-005-14 | Single-arm phase II behind the US accelerated approval of lurbinectedin alone; LAGOON did not confirm it and the second-line indication is being withdrawn
   BL-B01D1-101 | Single-arm phase Ib in China; izalontamab brengitecan not licensed
+  NRG LU005 [t-nrg-lu005] | Class C, negative (excluded.txt); row awaits a decision on existing rows
+  ACHILES [t-achiles] | Class C, negative (excluded.txt); congress abstract only; row awaits a decision on existing rows
