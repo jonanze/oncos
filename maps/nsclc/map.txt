@@ -59,14 +59,14 @@ source: ESMO {url https://www.esmo.org/guidelines/living-guidelines}
 source: JLCS {url https://www.haigan.gr.jp/publication/guideline/examination/2025/1/2/250102070100.html}
 
 band: Before first line
-  Tissue NGS, with plasma when tissue is short, before first line: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK, NRG1; RNA-based NGS for fusions 〔NCCN 2A〕 〔ASCO High, Strong〕 〔ESMO III, A〕
+  Tissue NGS, with plasma when tissue is short, before first line: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK, NRG1 〔NCCN 2A〕 〔ASCO High, Strong〕 〔ESMO III, A〕; RNA-based NGS for fusions 〔ESMO III, B〕
   PD-L1 TPS (22C3), and HER2 and c-Met protein by IHC 〔ASCO High, Strong〕; PD-L1 〔ESMO I, A〕
   ※ Negative plasma test: tissue still needed 〔ESMO II, A〕
   ※ Driver found at PS 2: targeted treatment 〔JLCS C, 1〕; PS 3–4 〔JLCS C, 2〕; PS over 2 〔ASCO Low, Conditional〕
   ※ Checkpoint inhibitor alone does not work in EGFR-mutant disease 〔ASCO Moderate, Strong〕 〔JLCS BQ3, C〕; it does little in ALK, RET and HER2 driven disease; KRAS and BRAF respond as often as unselected disease
 
 band: Local treatment and bone
-  ① 3 or fewer metastases, no progression after first line: radiotherapy or surgery to every site 〔ESMO II, B〕
+  ① Oligometastatic disease, up to 5 sites in ESMO: local radical treatment added to systemic treatment 〔ESMO II, B〕
     + Gomez [t-gomez-et-al] | OS 41.2 vs 17.0 months
     ~ Iyengar [t-iyengar-et-al] | PFS 9.7 vs 3.5 months
     ※ Both phase 2, stopped early
@@ -86,10 +86,11 @@ tree: Advanced NSCLC, first line
         + FLAURA2 | OS HR
         + MARIPOSA | OS HR
         ° Grade 3 or higher events 70% vs 34% with chemotherapy added (FLAURA2)
-        ※ ASCO advises osimertinib alone for those not choosing a combination; ESMO advises a combination with brain metastases 〔ESMO II, B〕
+        ※ ASCO advises osimertinib alone for those not choosing a combination; ESMO keeps a TKI alone as a standard 〔ESMO I, A〕 and advises a combination with brain metastases 〔ESMO II, B〕
+        ※ Gefitinib with carboplatin and pemetrexed 〔ESMO I, B〕 〔JLCS BQ2, A〕; NCCN and ASCO do not list it
         ※ With a TP53 co-mutation, adding chemotherapy to osimertinib lengthened PFS
           ~ Zhou 2026 [t-zhou-et-al] | PFS HR
-        ※ Afatinib, dacomitinib, erlotinib or gefitinib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, B〕; erlotinib with ramucirumab or bevacizumab 〔NCCN 2A, useful in certain circumstances〕 〔ESMO I, B〕 〔JLCS A, 2〕
+        ※ Afatinib, dacomitinib, erlotinib or gefitinib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, B〕; erlotinib with ramucirumab or bevacizumab 〔NCCN 2A, useful in certain circumstances〕 〔ESMO I, B〕 〔JLCS A, 2〕; with bevacizumab: EU licence, not US
         ※ Lazertinib alone where osimertinib is not available 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Low, Conditional〕; licensed only with amivantamab in the EU and US
         ※ PS 2–4: EGFR TKI alone 〔JLCS C, 1〕; TKIs at PS 2 or worse 〔ESMO III, A〕
       Exon 20 insertion
@@ -97,7 +98,7 @@ tree: Advanced NSCLC, first line
         ~ PAPILLON | PFS HR
         ※ Sunvozertinib alone beat chemotherapy; OS immature; ASCO recommends it first line with the same grade 〔ASCO Moderate, Strong〕; NCCN and ESMO list it only after platinum chemotherapy; first line not licensed in the EU or US
           ~ WU-KONG28 | PFS HR
-        ※ Older EGFR TKIs alone do not work here 〔JLCS C, 1〕
+        ※ JLCS advises against an EGFR TKI alone first line 〔JLCS C, 1〕
       Uncommon: G719X, L861Q, S768I
         = Afatinib or osimertinib 〔NCCN 2A, preferred〕; afatinib 〔ASCO Moderate, Strong〕 〔ESMO I, B〕 〔JLCS B, 1〕; osimertinib 〔ASCO Low, Conditional〕 〔ESMO III, B〕 〔JLCS C, 2〕
         ~ ACHILLES | PFS HR
@@ -129,7 +130,7 @@ tree: Advanced NSCLC, first line
         = Larotrectinib, entrectinib or repotrectinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕; larotrectinib or entrectinib 〔ESMO III, A〕 〔JLCS D, 1〕
         ~ Larotrectinib [t-larotrectinib--tumour-agnostic-basket-trials] | Response
         ~ Entrectinib [t-entrectinib-integrated-ntrk-fusion-analysis] | Response
-        ※ JLCS starts first line as without a driver; ESMO uses chemotherapy first only when no NTRK inhibitor is available 〔ESMO IV, B〕; repotrectinib after an earlier NTRK inhibitor 〔ESMO III, A〕
+        ※ JLCS starts first line as without a driver; ESMO uses chemotherapy first only when no NTRK inhibitor is available 〔ESMO IV, B〕; repotrectinib after an earlier NTRK inhibitor 〔ESMO III, A〕 〔ASCO Low, Conditional〕
       NRG1
         = After first line: zenocutuzumab 〔NCCN 2A〕 〔ASCO Low, Strong〕; US licence, not EU 〔ESMO III, B〕
         ~ eNRGy [t-enrgy] | Response
@@ -139,7 +140,7 @@ tree: Advanced NSCLC, first line
         ~ BRF113928 | Response
         ~ PHAROS | Response
       MET exon 14
-        = Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕; capmatinib first line: US licence, not EU
+        = Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
         ~ GEOMETRY mono-1 | Response 68%
         ~ VISION | Response
       KRAS G12C
@@ -155,12 +156,12 @@ tree: Advanced NSCLC, first line
         ~ DESTINY-Lung02 | Response
         ~ Beamion LUNG-1 | Response
         ~ SOHO-01 | Response
-        ※ ESMO and JLCS keep chemotherapy with or without immunotherapy first line 〔ESMO IV, B〕; zongertinib and sevabertinib: US licence, not EU 〔ESMO III, B〕
+        ※ ESMO and JLCS keep chemotherapy with or without immunotherapy first line 〔ESMO IV, B〕; zongertinib and sevabertinib after earlier treatment: US licence, not EU 〔ESMO III, B〕; NCCN lists them for tyrosine kinase domain mutations
   No driver
     PS 0–1
       PD-L1 ≥50%
-        = PD-1 or PD-L1 antibody alone: pembrolizumab, cemiplimab or atezolizumab 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕; pembrolizumab or atezolizumab 〔JLCS A, 1〕
-        = Or platinum doublet + pembrolizumab or cemiplimab 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕 〔JLCS B, 1〕
+        = PD-1 or PD-L1 antibody alone: pembrolizumab, cemiplimab or atezolizumab 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕; pembrolizumab, or atezolizumab with PD-L1 SP142 TC3 or IC3 〔JLCS A, 1〕
+        = Or platinum doublet + pembrolizumab or cemiplimab 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕; platinum doublet + a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
         + KEYNOTE-024 | 5-year OS 31.9% vs 16.3%
         + EMPOWER-Lung 1 [t-empower-lung-1] | OS HR 0.57
         + IMpower110 | OS median
@@ -168,21 +169,21 @@ tree: Advanced NSCLC, first line
           ~ PERSEE | PFS HR
           * Di Federico [t-di-federico-et-al] | Indirect OS HR 0.74
           ° Grade 3 or higher treatment-related events 54% vs 19% (PERSEE)
-        ※ Dual checkpoint blockade, with or without chemotherapy: NCCN and ASCO list it 〔NCCN 1, other recommended〕 〔ASCO Moderate, Conditional〕; ESMO for PS 0–1 〔ESMO IV, B〕; JLCS finds too little evidence to recommend it
+        ※ Dual checkpoint blockade with chemotherapy: nivolumab + ipilimumab 〔NCCN 1, other recommended〕, durvalumab + tremelimumab 〔NCCN 2B, other recommended〕, both 〔ESMO IV, B〕; nivolumab + ipilimumab without chemotherapy 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕, US licence only; ASCO grades all of them the same 〔ASCO Moderate, Conditional〕; JLCS finds too little evidence to recommend it
         ※ TPS 90–100% did better than 50–89% on pembrolizumab alone, retrospective
         ※ Newer agents beat pembrolizumab alone on PFS from TPS 1%; China only, OS awaited
           ~ HARMONi-2 | PFS HR
           ~ OptiTROP-Lung05 | PFS HR
           ~ CAMPASS | PFS HR
       PD-L1 1–49%
-        = Platinum doublet + pembrolizumab or cemiplimab: pemetrexed for non-squamous, carboplatin + paclitaxel for squamous 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
+        = Platinum doublet + pembrolizumab or cemiplimab: pemetrexed for non-squamous, carboplatin + paclitaxel for squamous 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕; platinum doublet + a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
         + KEYNOTE-189 | OS HR
         + KEYNOTE-407 | OS HR
         + EMPOWER-Lung 3 {pmid 36008722} | OS 21.9 vs 13.0 months; HR 0.71
         ※ Cemiplimab with chemotherapy: US licence at any PD-L1, EU licence from PD-L1 1%
         ※ Pembrolizumab alone was tested from TPS 1%; the 1–49% group was not a primary analysis; US licence from TPS 1%, EU licence TPS 50% or more. For those unable to have a combination 〔NCCN 2B, useful in certain circumstances〕 〔ASCO Moderate, Conditional〕; ESMO advises against it below 50% 〔ESMO I, D〕; JLCS finds too little evidence to recommend it
           + KEYNOTE-042 | OS HR 0.79
-        ※ Other PD-1 or PD-L1 antibodies with chemotherapy, any PD-L1: atezolizumab with carboplatin and nab-paclitaxel, or with carboplatin, paclitaxel and bevacizumab 〔NCCN 1, other recommended〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕; tislelizumab and sugemalimab: EU licence, not licensed in the US 〔ESMO I, A〕; NCCN does not list them
+        ※ Other PD-1 or PD-L1 antibodies with chemotherapy, any PD-L1. Non-squamous: atezolizumab with carboplatin, paclitaxel and bevacizumab 〔NCCN 1, other recommended〕, or with carboplatin and nab-paclitaxel 〔NCCN 2A, other recommended〕; both 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕. Sugemalimab, either histology 〔ESMO I, A〕; tislelizumab, squamous 〔ESMO I, A〕, non-squamous only with PD-L1 50% or more 〔ESMO IV, B〕; both EU licence, no US licence for NSCLC; NCCN and ASCO do not list them
           + IMpower130 | OS HR
           ~ RATIONALE-304 | PFS HR
           ~ RATIONALE-307 | PFS HR
@@ -193,12 +194,12 @@ tree: Advanced NSCLC, first line
         ※ Squamous, any PD-L1: ivonescimab + chemotherapy beat tislelizumab + chemotherapy; China only
           + HARMONi-6 | OS HR
       PD-L1 <1%
-        = Platinum doublet + pembrolizumab or cemiplimab 〔NCCN 1, preferred〕 〔JLCS B, 1〕, or dual checkpoint blockade with chemotherapy 〔NCCN 1, other recommended〕; chemotherapy with one or two checkpoint inhibitors 〔ESMO I, A〕; ASCO grades all of these, and dual blockade alone, the same 〔ASCO Moderate, Conditional〕
+        = Platinum doublet + pembrolizumab or cemiplimab 〔NCCN 1, preferred〕; platinum doublet + a PD-1 or PD-L1 antibody 〔JLCS B, 1〕; or dual checkpoint blockade with chemotherapy 〔NCCN 1, other recommended〕; chemotherapy with one or two checkpoint inhibitors 〔ESMO I, A〕; ASCO grades all of these, and dual blockade alone, the same 〔ASCO Moderate, Conditional〕
         + CheckMate 9LA | OS HR
         ~ CheckMate 227 | PD-L1 <1%, descriptive: 5-year OS 19% vs 7%
         + POSEIDON | 5-year OS 15.7% vs 6.8%
         ※ Each dual blockade trial was compared with chemotherapy alone, not with chemotherapy + pembrolizumab; JLCS grades dual blockade weak 〔JLCS C, 2〕
-        ※ Nivolumab and ipilimumab without chemotherapy: US licence for PD-L1 1% or more only; not licensed in the EU; ESMO lists it only from PD-L1 1%
+        ※ Nivolumab and ipilimumab without chemotherapy: US licence for PD-L1 1% or more only; not licensed in the EU; ESMO lists it only from PD-L1 1%; NCCN lists it at any PD-L1 〔NCCN 2A, other recommended〕
         ※ Non-squamous: sacituzumab tirumotecan beat platinum + pemetrexed, both with pembrolizumab; China only, OS immature
           ~ OptiTROP-Lung06 | PFS HR
     PS 2 or frail
@@ -208,6 +209,7 @@ tree: Advanced NSCLC, first line
       ※ PS 3: atezolizumab 〔NCCN 2A〕; PS 3–4: no drug treatment 〔JLCS D, 1〕, best supportive care 〔ESMO III, A〕
 
 panel: Course of treatment > No driver
+  Immunotherapy contraindicated: platinum doublet alone 〔NCCN 2A〕 〔ASCO High, Strong〕 〔ESMO I, A〕
   Platinum doublet + PD-1 antibody for 4 cycles, then the PD-1 antibody alone or with pemetrexed for up to 35 cycles, about 2 years 〔NCCN 2A〕; stopping at 2 years 〔ESMO I, B〕
     + KEYNOTE-189 | 5-year OS 19.4% vs 11.3%
   ※ Of those who finished 35 cycles, 82.1% were alive at 5 years, exploratory
@@ -217,9 +219,10 @@ panel: Course of treatment > No driver
   Non-squamous: pemetrexed continues with the PD-1 antibody 〔NCCN 1〕; pemetrexed maintenance after platinum and pemetrexed 〔JLCS BQ9, B〕
 
 panel: Second line > No driver
-  ① After chemotherapy + PD-1 antibody: docetaxel, with ramucirumab if fit 〔NCCN 2A, other recommended〕 〔ASCO Low, Strong〕; ramucirumab with docetaxel 〔ESMO I, B〕 〔JLCS B, 2〕
+  ① After chemotherapy + PD-1 antibody: docetaxel, with ramucirumab if fit 〔NCCN 2A, other recommended〕 〔ASCO Low, Strong〕; docetaxel 〔JLCS A, 1〕; ramucirumab with docetaxel 〔JLCS B, 2〕, and 〔ESMO I, B〕 as graded after chemotherapy alone
     + REVEL | OS HR
-    ※ Not ramucirumab at age 75 or over, or PS 2 〔JLCS D, 2〕; pemetrexed, nab-paclitaxel or gemcitabine 〔ASCO Low, Conditional〕
+    ※ Not ramucirumab at age 75 or over, or PS 2 〔JLCS D, 2〕; pemetrexed, nab-paclitaxel or gemcitabine 〔NCCN 2A〕 〔ASCO Low, Conditional〕; pemetrexed for non-squamous or nab-paclitaxel 〔JLCS A, 1〕
+    ※ Nintedanib with docetaxel for adenocarcinoma: EU licence 〔ESMO II, B〕; NCCN, ASCO and JLCS do not list it
   ② After chemotherapy without a PD-1 antibody: nivolumab, pembrolizumab if TPS ≥1%, or atezolizumab 〔NCCN 1, preferred〕 〔ESMO I, A〕 〔JLCS BQ10, A〕; tislelizumab: EU licence 〔ESMO I, A〕
     + CheckMate 017 [t-checkmate-017] | OS HR 0.59
     + CheckMate 057 [t-checkmate-057] | OS HR 0.73
@@ -234,19 +237,16 @@ panel: Second line > No driver
     + Shepherd 2000 [t-shepherd-et-al] | OS 7.5 vs 4.6 months
 
 panel: Later lines > Driver found
-  ① Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma 〔ESMO III, A〕
+  ① Platinum doublet once the TKIs are exhausted; pemetrexed-based for adenocarcinoma: EGFR and ALK 〔ESMO III, A〕; ROS1 and BRAF 〔ESMO IV, A〕
     ※ Continuing osimertinib with the chemotherapy delayed progression; platinum chemotherapy with or without osimertinib 〔ASCO Moderate, Conditional〕
       ~ COMPEL | PFS HR
-  ② EGFR T790M after an earlier-generation TKI: osimertinib 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
+  ② EGFR T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
     ~ AURA3 | PFS HR
   ③ EGFR after osimertinib: amivantamab added to carboplatin + pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
     ~ MARIPOSA-2 | PFS HR
     ※ Ivonescimab + chemotherapy improved OS in a trial in China; in the global trial PFS improved, OS did not; licensed in China only
       + HARMONi-A | OS HR
       ~ HARMONi | PFS HR
-  ※ EGFR with MET amplification after osimertinib: osimertinib + savolitinib improved outcomes; osimertinib with tepotinib or savolitinib 〔ASCO Low, Conditional〕; not licensed in the EU or US; NCCN does not list it
-    + SAFFRON | OS HR
-    ~ SACHI | PFS HR
   ④ EGFR after a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕; US licence, not EU 〔ESMO III, B〕
     ~ TROPION-Lung05 | Response
     ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel; US and EU applications withdrawn
@@ -255,15 +255,15 @@ panel: Later lines > Driver found
       + OptiTROP-Lung04 | OS HR
       ~ HERON-Lung01 | PFS HR
       ~ PANKU-Lung01 | PFS HR
-  ⑤ After a TKI: pembrolizumab added to chemotherapy did not improve PFS or OS; a PD-1 or PD-L1 antibody, with or without chemotherapy, is not advised 〔ASCO High, Strong〕
+  ⑤ After a TKI: pembrolizumab added to chemotherapy did not improve PFS or OS; a PD-1 or PD-L1 antibody, with or without chemotherapy, is not advised 〔ASCO High, Strong〕; ESMO allows one alone only after TKIs and chemotherapy 〔ESMO IV, C〕
     - KEYNOTE-789 [t-keynote-789] | OS HR 0.84
   ※ Atezolizumab with bevacizumab and chemotherapy after a TKI improved PFS, not OS; EU licence after targeted therapy, not in the US label; ESMO 〔ESMO III, B〕 and JLCS 〔JLCS B, 2〕 list it; ASCO advises against immunotherapy after an EGFR TKI
     ~ IMpower150 | PFS HR 0.59
     ~ ATTLAS | PFS HR
     ※ IMpower150: EGFR or ALK subgroup, exploratory; ATTLAS: OS no different
   ⑥ EGFR exon 20 after platinum: amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕, or sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕; sunvozertinib: US licence, not EU 〔ESMO III, B〕
-  ⑦ ALK after a second-generation TKI: lorlatinib 〔ASCO Low, Strong〕 〔ESMO III, A〕; after alectinib: brigatinib, lorlatinib or ceritinib 〔JLCS C, 2〕; after lorlatinib: platinum + pemetrexed 〔ESMO III, A〕
-  ⑧ ROS1 after crizotinib or entrectinib: repotrectinib or taletrectinib 〔ASCO Moderate, Strong〕; repotrectinib after crizotinib 〔ESMO III, A〕
+  ⑦ ALK after a second-generation TKI: lorlatinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕; after alectinib: brigatinib, lorlatinib or ceritinib 〔JLCS C, 2〕; after lorlatinib: platinum + pemetrexed 〔ESMO III, A〕
+  ⑧ ROS1 after crizotinib or entrectinib: repotrectinib or taletrectinib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕; repotrectinib after crizotinib 〔ESMO III, A〕; NCCN also lists lorlatinib and zidesamtinib
   ⑨ Transformation to small cell: platinum-etoposide; rebiopsy at progression to look for it
   ⑩ A single progressing site: local therapy with the TKI continued 〔NCCN 2A〕 〔ESMO IV, C〕
 
@@ -278,10 +278,12 @@ off:
   AENEAS2 | No licence or recommendation: aumolertinib is not licensed in the EU or US
   LUX-Lung 3 | Afatinib vs chemotherapy, superseded by FLAURA
   KCSG-LU15-09 | Osimertinib in uncommon EGFR; UNICORN covers it
-  CHRYSALIS-2 Cohort C | Amivantamab + lazertinib in uncommon EGFR: ASCO alone recommends it 〔ASCO Low, Conditional〕, with no EU or US licence and no NCCN listing; small single-arm cohort
+  CHRYSALIS-2 Cohort C | Small single-arm cohort; amivantamab + lazertinib in uncommon EGFR is recommended by ASCO alone 〔ASCO Low, Conditional〕, with no licence or NCCN listing in that group
   DESTINY-Lung01 | 6.4 mg/kg dose; DESTINY-Lung02 set 5.4 mg/kg
-  EAST-LC | S-1 second line: JLCS alone recommends it 〔JLCS A, 1〕; licensed for NSCLC in Japan only, no NCCN listing
+  EAST-LC | S-1 second line: JLCS alone recommends it 〔JLCS A, 1〕; not licensed for NSCLC in the EU or US, no NCCN listing
+  SAFFRON | Osimertinib + savolitinib for MET amplification after osimertinib: ASCO alone recommends it, with tepotinib as an alternative 〔ASCO Low, Conditional〕; no EU or US licence, no NCCN listing
+  SACHI | The same combination; trial in China; no EU or US licence, no NCCN listing
   POD1UM-304 | Retifanlimab with chemotherapy: ASCO alone recommends it 〔ASCO Moderate, Conditional〕, with no EU or US licence for NSCLC and no NCCN listing
   Sampath 2025 [t-sampath-et-al] | Non-randomised; no licence or recommendation rests on it
-  SAVANNAH | Non-randomised with randomised evidence available (SAFFRON, SACHI)
+  SAVANNAH | Non-randomised; the combination is off the map (see SAFFRON)
   INSIGHT 2 | Non-randomised; no licence or recommendation rests on it
