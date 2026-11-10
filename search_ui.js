@@ -11,10 +11,7 @@ const dialogQuery = document.getElementById('global-search-query');
 const results = document.getElementById('global-search-results');
 const closeButton = document.getElementById('global-search-close');
 const directButton = document.getElementById('global-search-open');
-const filters = document.getElementById('global-search-filters');
 const resultStatus = document.getElementById('global-search-status');
-const moduleButtons = new Map();
-let selectedModule = 'all';
 let bootstrapState = 'loading';
 const DISPLAY_LIMIT = 120;
 let shownLimit = DISPLAY_LIMIT;
@@ -34,11 +31,45 @@ async function sha256(text) {
   return hex(await crypto.subtle.digest('SHA-256', bytes));
 }
 
-async function fetchSnapshot(manifest) {
+// Evidence search entries are made from the one Evidence data file the view and
+// the maps read (site review B2), with the fields the generator's search_records()
+// used for search/evidence.json.
+function evidenceRecords(data) {
+  const text = value => String(value == null ? '' : value);
+  return data.trials.map(trial => ({
+    module: 'evidence', id: text(trial.anchor).trim(), kind: 'trial',
+    title: text(trial.study).trim(),
+    subtitle: [trial.sheet, trial.subcat, trial.type, trial.year].map(v => text(v || '')).filter(Boolean).join(' · ').trim(),
+    body: ['population', 'arms', 'endpoint', 'findings'].map(k => text(trial[k] || '')).join(' ').trim(),
+    keywords: (trial.refs || []).map(ref => ['text', 'descriptor', 'pmid'].map(k => text(ref[k] == null ? '' : ref[k])).join(' ')).join(' ').trim(),
+  }));
+}
+
+function loadJSON(url) {
+  if (window.oncosLoad) return window.oncosLoad(url);
+  return fetch(url, {credentials: 'same-origin'}).then(r => {
+    if (!r.ok) throw new Error(`${url} returned ${r.status}`);
+    return r.json();
+  });
+}
+
+// Only catalogues whose hash changed since the stored snapshot are downloaded (B6).
+async function fetchSnapshot(manifest, previous) {
   const found = [];
+  const before = previous && previous.manifest && previous.manifest.modules || {};
   for (const module of MODULES) {
     const descriptor = manifest.modules && manifest.modules[module];
     if (!descriptor) throw new Error(`search manifest missing ${module}`);
+    if (before[module] && before[module].sha256 === descriptor.sha256 && before[module].url === descriptor.url) {
+      const same = previous.records.filter(record => record.module === module);
+      if (same.length === descriptor.records) { found.push(...same); continue; }
+    }
+    if (descriptor.derive === 'evidence') {
+      const records = evidenceRecords(await loadJSON(descriptor.url));
+      if (records.length !== descriptor.records) throw new Error('invalid search payload: evidence');
+      found.push(...records);
+      continue;
+    }
     const response = await fetch(descriptor.url, {credentials: 'same-origin'});
     if (!response.ok) throw new Error(`search ${module} returned ${response.status}`);
     const text = await response.text();
@@ -71,7 +102,7 @@ async function bootstrap() {
     if (active && active.manifest && active.manifest.build === manifest.build) {
       records = active.records;
     } else {
-      const next = await fetchSnapshot(manifest);
+      const next = await fetchSnapshot(manifest, active);
       try {
         await store.installSnapshot(manifest, next);
       } catch (_) {
@@ -90,8 +121,10 @@ async function bootstrap() {
   }
   const sourceState = bootstrapState;
   bootstrapState = 'loading';
+  // Prepared in idle time unless the panel is open and waiting (B4).
   await searchCore.prime(records, () => document.hidden ? Promise.resolve() :
-    new Promise(resolve => setTimeout(resolve, 0)));
+    new Promise(resolve => !dialog.hidden || !window.requestIdleCallback ? setTimeout(resolve, 0) :
+      window.requestIdleCallback(() => resolve(), {timeout: 500})), dialog.hidden ? 20 : 80);
   ready = records.length > 0;
   bootstrapState = ready ? (sourceState === 'saved' ? 'saved' : 'ready') : 'unavailable';
   if (!dialog.hidden) render(dialogQuery.value);
@@ -100,49 +133,17 @@ async function bootstrap() {
   }));
 }
 
-function snippet(record, query) {
-  let text = String(record.body || record.keywords || record.subtitle || '').replace(/\s+/g, ' ').trim();
-  if(record.module==='tox'&&record.kind==='irAE'){
-    // The derived catalogue prefixes clinical sections with relationship IDs
-    // and Boolean flags. Display from the first section used by the irAE page.
-    const clinicalStart=text.indexOf('Exclude ');
-    if(clinicalStart>0)text=text.slice(clinicalStart);
-  }
-  if (!text) return '';
-  // Keep offsets in the original text: spelling/alias normalization changes
-  // string lengths and must never be used as an index into the display text.
-  const terms = searchCore.displayTerms(query);
-  let at = -1;
-  for (const term of terms) {
-    const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const match = new RegExp(`\\b${escaped}${term.length <= 3 ? '\\b' : ''}`, 'i').exec(text);
-    if (match) { at = match.index; break; }
-  }
-  let start = Math.max(0, at < 0 ? 0 : at - 70);
-  if (start) start = text.lastIndexOf(' ', start) + 1;
-  let end = Math.min(text.length, start + 210);
-  if (end < text.length) {
-    const boundary = text.lastIndexOf(' ', end);
-    if (boundary > start) end = boundary;
-  }
-  return `${start ? '…' : ''}${text.slice(start, end).trim()}${end < text.length ? '…' : ''}`;
-}
-
-function resultLabel(record) {
-  if (record.module !== 'tox') return LABELS[record.module];
-  return {CTCAE:'Tox · CTCAE grading', irAE:'Tox · irAE management', Supportive:'Tox · Supportive care'}[record.kind] || LABELS.tox;
-}
-
-function resultSubtitle(record) {
-  if (record.module !== 'tox') return record.subtitle;
-  return String(record.subtitle || '').replace(/^(CTCAE grading|irAE management|Supportive care)(?: · |$)/i, '');
-}
-
-function isExactName(record, query) {
-  const clean = value => searchCore.normalize(value).replace(/\s/g, '');
-  const value = clean(query);
-  return value && (clean(record.title) === value || clean(record.id) === value ||
-    (record.kind === 'drug' && clean(record.keywords) === value));
+// Result rows (site review E2): Name | Sheet and section | Phase · year, grouped
+// under one band per module in order of each module's best hit. An Evidence
+// subtitle is "sheet · section · trial type · year"; the type is shortened to
+// its phase where it names one.
+function resultColumns(record) {
+  const parts = String(record.subtitle || '').split(' · ').filter(Boolean);
+  if (record.module !== 'evidence') return [parts.join(' · '), ''];
+  const year = /^\d{4}$/.test(parts[parts.length - 1] || '') ? parts.pop() : '';
+  const type = parts.length >= 3 ? parts.pop() : '';
+  const phase = /\(phase ([^)]+)\)/i.exec(type);
+  return [parts.join(' · '), [phase ? `Phase ${phase[1]}` : type, year].filter(Boolean).join(' · ')];
 }
 
 function appendText(parent, className, text) {
@@ -154,23 +155,15 @@ function appendText(parent, className, text) {
 }
 
 function render(query) {
-  const allHits = ready ? searchCore.search(records, query, {limit: Infinity}) : [];
-  const hits = selectedModule === 'all' ? allHits : allHits.filter(hit => hit.module === selectedModule);
-  for (const [module, button] of moduleButtons) {
-    const count = module === 'all' ? allHits.length : allHits.filter(hit => hit.module === module).length;
-    button.textContent = `${module === 'all' ? 'All' : LABELS[module]}${query.trim() && ready ? ` (${count})` : ''}`;
-    button.setAttribute('aria-pressed', String(selectedModule === module));
-  }
+  if (!dialog.hidden) start();
+  const hits = ready ? searchCore.search(records, query, {limit: Infinity}) : [];
   results.replaceChildren();
-  resultStatus.textContent = query.trim() && ready
-    ? `${hits.length > shownLimit ? `Showing ${shownLimit} of ${hits.length}` : hits.length} result${hits.length === 1 ? '' : 's'}${bootstrapState === 'saved' ? ' · Using saved search index' : ''}` : '';
+  resultStatus.textContent = query.trim() && ready && hits.length
+    ? (hits.length > shownLimit ? `${shownLimit} of ${hits.length}` : String(hits.length)) : '';
   let message = '';
   if (bootstrapState === 'loading') message = 'Preparing search…';
-  else if (!ready) message = 'Search is unavailable. Reconnect and try again.';
-  else if (!query.trim()) message = 'Find a trial, drug, cancer or clinical topic.';
-  else if (!hits.length) message = selectedModule === 'all'
-    ? 'No matches. Try a shorter name or a different keyword.'
-    : `No matches in ${LABELS[selectedModule]}. Try all oncOS.`;
+  else if (!ready) message = 'Search unavailable';
+  else if (!hits.length) message = 'No matches';
   if (message) {
     const empty = document.createElement('p');
     empty.className = 'gs-empty';
@@ -183,7 +176,7 @@ function render(query) {
     } else empty.textContent = message;
     results.appendChild(empty);
     if (ready && query.trim() && !hits.length) {
-      for (const suggestion of searchCore.suggest(records, query, {module:selectedModule})) {
+      for (const suggestion of searchCore.suggest(records, query)) {
         const choice = document.createElement('button'); choice.type = 'button';
         choice.className = 'gs-retry'; choice.textContent = `Search for “${suggestion.title}”`;
         choice.onclick = () => {
@@ -196,32 +189,37 @@ function render(query) {
     if (!ready && bootstrapState !== 'loading') {
       const retry = document.createElement('button'); retry.type = 'button';
       retry.className = 'gs-retry'; retry.textContent = 'Try again';
-      retry.onclick = () => { bootstrapState = 'loading'; render(query); bootstrap(); };
+      retry.onclick = () => { bootstrapState = 'loading'; started = null; render(query); };
       results.appendChild(retry);
-    } else if (query.trim() && !hits.length && selectedModule !== 'all') {
-      const broaden = document.createElement('button'); broaden.type = 'button';
-      broaden.className = 'gs-retry'; broaden.textContent = 'Search all oncOS';
-      broaden.onclick = () => { setModule('all'); dialogQuery.focus(); };
-      results.appendChild(broaden);
     }
     return;
   }
+  const groups = new Map();
   for (const record of hits.slice(0, shownLimit)) {
-    const button = document.createElement('button');
-    button.type = 'button'; button.className = `gs-result m-${record.module}`;
-    button.dataset.module = record.module;
-    button.dataset.recordId = record.id;
-    appendText(button, 'gs-module', resultLabel(record));
-    appendText(button, 'gs-title', record.title);
-    const subtitle = resultSubtitle(record);
-    if (subtitle) appendText(button, 'gs-subtitle', subtitle);
-    const preview = isExactName(record, query) ? '' : snippet(record, query);
-    if (preview) appendText(button, 'gs-preview', preview);
-    button.addEventListener('click', () => {
-      hideDialog();
-      document.dispatchEvent(new CustomEvent('oncos:open-search-result', {detail: record}));
-    });
-    results.appendChild(button);
+    if (!groups.has(record.module)) groups.set(record.module, []);
+    groups.get(record.module).push(record);
+  }
+  const head = document.createElement('div');
+  head.className = 'gs-row gs-head'; head.setAttribute('aria-hidden', 'true');
+  ['Name', 'Sheet and section', 'Phase · year'].forEach(text => appendText(head, 'gs-cell', text));
+  results.appendChild(head);
+  for (const [module, list] of groups) {
+    appendText(results, 'gs-band', LABELS[module].toUpperCase());
+    for (const record of list) {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = `gs-row gs-result m-${record.module}`;
+      button.dataset.module = record.module;
+      button.dataset.recordId = record.id;
+      const [where, when] = resultColumns(record);
+      appendText(button, 'gs-cell gs-title', record.title);
+      appendText(button, 'gs-cell gs-where', where);
+      appendText(button, 'gs-cell gs-when', when);
+      button.addEventListener('click', () => {
+        hideDialog();
+        document.dispatchEvent(new CustomEvent('oncos:open-search-result', {detail: record}));
+      });
+      results.appendChild(button);
+    }
   }
   if (hits.length > shownLimit) {
     const more = document.createElement('button'); more.type = 'button';
@@ -236,29 +234,11 @@ function render(query) {
   }
 }
 
-function readModule(url) {
-  const value = url.searchParams.get('searchModule');
-  return MODULES.includes(value) ? value : 'all';
-}
-
 function updateSearchURL() {
   const url = new URL(location.href);
   url.searchParams.set('search', dialogQuery.value.trim());
-  if (selectedModule === 'all') url.searchParams.delete('searchModule');
-  else url.searchParams.set('searchModule', selectedModule);
+  url.searchParams.delete('searchModule');
   history.replaceState({...history.state, oncosSearch: dialogQuery.value.trim()}, '', url);
-}
-
-function setModule(module) {
-  selectedModule = module; shownLimit = DISPLAY_LIMIT;
-  render(dialogQuery.value); results.scrollTop = 0;
-  updateSearchURL();
-}
-
-for (const module of ['all', ...MODULES]) {
-  const button = document.createElement('button'); button.type = 'button';
-  button.className = 'gs-filter'; button.onclick = () => setModule(module);
-  moduleButtons.set(module, button); filters.appendChild(button);
 }
 
 function setBackgroundInert(on) {
@@ -279,7 +259,6 @@ function showDialog(query, pushHistory) {
   const alreadyInSearch = existingURL.searchParams.has('search');
   const clean = (pushHistory && alreadyInSearch ? existingURL.searchParams.get('search') : query).trim();
   if (dialog.hidden) returnFocus = document.activeElement;
-  selectedModule = pushHistory ? 'all' : readModule(new URL(location.href));
   shownLimit = DISPLAY_LIMIT;
   if (pushHistory) {
     const url = new URL(location.href);
@@ -373,7 +352,16 @@ window.addEventListener('popstate', () => {
   else hideDialog();
 });
 
-bootstrap().then(() => {
-  const url = new URL(location.href);
-  if (url.searchParams.has('search')) showDialog(url.searchParams.get('search'), false);
-});
+// Search is prepared when the browser is idle after load, or at once when the
+// panel opens or the address carries a search (site review B4).
+let started = null;
+function start() {
+  if (!started) started = bootstrap();
+  return started;
+}
+if (new URL(location.href).searchParams.has('search')) {
+  start().then(() => showDialog(new URL(location.href).searchParams.get('search'), false));
+} else {
+  const idle = () => window.requestIdleCallback ? window.requestIdleCallback(() => start(), {timeout: 10000}) : setTimeout(start, 4000);
+  if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle, {once: true});
+}

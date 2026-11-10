@@ -80,12 +80,12 @@ function contains(text, term) {
   return term.word ? term.word.test(text) : text.includes(term.text);
 }
 
-async function prime(records, yieldTurn = () => Promise.resolve()) {
-  for (let offset = 0; offset < records.length; offset += 80) {
-    for (const record of records.slice(offset, offset + 80)) {
+async function prime(records, yieldTurn = () => Promise.resolve(), size = 80) {
+  for (let offset = 0; offset < records.length; offset += size) {
+    for (const record of records.slice(offset, offset + size)) {
       if (record && typeof record.title === 'string' && typeof record.module === 'string') prepare(record);
     }
-    if (offset + 80 < records.length) await yieldTurn();
+    if (offset + size < records.length) await yieldTurn();
   }
 }
 

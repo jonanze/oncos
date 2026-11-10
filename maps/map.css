@@ -11,8 +11,8 @@
 
 #map{outline:none}
 #map[hidden]{display:none}
-.om-sheet{--om-wire:#5f6f84;--om-t1:#1f2933;--om-t1-fg:#fff;position:relative;transform-origin:0 0;background:var(--b-paper);color:var(--b-ink);font-size:14px;line-height:1.38}
-:root[data-theme="dark"] .om-sheet{--om-wire:#8c98a5;--om-t1:#3d4754}
+.om-sheet{--om-wire:#5f6f84;--om-t1:var(--b-band);--om-t1-fg:var(--b-ink);position:relative;transform-origin:0 0;background:var(--b-paper);color:var(--b-ink);font-size:14px;line-height:1.38}
+:root[data-theme="dark"] .om-sheet{--om-wire:#8c98a5}
 .om-sheet .om-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
 .om-sheet .om-wires line,.om-sheet .om-wires path{stroke:var(--om-wire);stroke-width:1.2;fill:none}
 .om-sheet .om-wires path.main{stroke:var(--b-ink);stroke-width:2}
@@ -46,7 +46,7 @@
 .om-world .blk{position:absolute;z-index:2}
 .om-world .box.lbl{box-sizing:border-box;text-align:left;border:1.5px solid var(--b-ink)}
 /* three tiers: the root and course step headings are title blocks; decision nodes ruled cells; the rest open text */
-.om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border-color:var(--om-t1);letter-spacing:.02em}
+.om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border:2.5px solid var(--b-ink);letter-spacing:.02em}
 .om-world .ln{margin:0 0 2px}
 .om-world .ln.tx{font-weight:var(--w-bold);font-size:14.5px;margin-bottom:5px}
 .om-world .ln.tx::before{content:"★ "}
@@ -123,7 +123,7 @@
   .om-idx{display:flex;overflow-x:auto;white-space:nowrap;border:1px solid var(--b-line);border-bottom:0;background:var(--b-cell)}
   .om-idx button{flex:none;font:inherit;font-size:12px;padding:6px 9px;border:0;border-right:1px solid var(--b-line);background:var(--b-cell);color:var(--b-ink);cursor:pointer}
   .om-idx button:last-child{border-right:0}
-  .om-idx button.on{background:#1f2933;color:#fff;font-weight:var(--w-bold)}
+  .om-idx button.on{background:var(--b-band);color:var(--b-ink);font-weight:var(--w-bold);box-shadow:inset 0 -2.5px 0 var(--b-ink)}
 }
 
 /* risk groups (scale: line): four hues, one meaning on every map; never a trial result, grade or disease state */

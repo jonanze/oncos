@@ -1,6 +1,0 @@
-__pycache__/
-.DS_Store
-
-# Internal project docs — not for the public deploy repo
-CLAUDE.md
-memory.md
