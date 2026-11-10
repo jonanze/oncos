@@ -2,6 +2,21 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.42] - 2026-11-10
+
+- Evidence rows come from one data file, read by the sheet, the search and the maps, and stored once; after an Evidence publish a returning visit downloads about 0.7 MB instead of about 2.2 MB.
+- The Watch list landing no longer builds the hidden trial table; a sheet opens with its rows drawn once.
+- A view you leave is kept as it was and shown again at once when you come back.
+- The service worker stores each file under its own hash and fetches only the files a release changed.
+- Search prepares its index when the browser is idle, and reuses each unchanged module from the saved copy.
+- Drugs: each drug is a ruled form, renal and hepatic doses as condition | dose rows, pharmacokinetics and evidence in one group.
+- Tox: the opening page is one index of supportive care, irAE by organ and CTCAE classes with counts; each irAE page is one form with management by grade as a grid (grades across) on wide screens and one form per grade on phones.
+- Acute: each emergency is one form, Act now as numbered rows at the top, then label | value rows.
+- Back buttons on Tox and Acute pages are removed; the sidebar and the back icon do this.
+- Search results are a ruled table: Name | Sheet and section | Phase · year, one band per module, a count line and one × that closes; the panel sits on the blue-grey ground.
+- Four text sizes and one heading size; nothing under 11 px; no slanted text; buttons and fields use the page font; square corners throughout.
+- Evidence detail forms stop at 900 px on wide screens; tabs and selects are at least 44 px high on phones.
+
 ## [2.2.41] - 2026-11-10
 
 - Opens from storage: a repeat visit no longer waits for the network; a new release shows at the next open.
