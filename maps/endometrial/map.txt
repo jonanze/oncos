@@ -72,10 +72,10 @@ course:
     ※ High: sequential chemotherapy and radiotherapy, or chemotherapy with or without vaginal brachytherapy, are alternatives 〔ESGO I, B〕
     ※ High, MMR deficient stage III–IVA: chemotherapy with a checkpoint inhibitor, with or without EBRT 〔ESGO II, B〕
     ① Intermediate risk: vaginal brachytherapy controls the vagina as well as pelvic EBRT, with fewer bowel effects
-      ~ PORTEC-1 | locoregional recurrence 4% vs 14%
-      ~ GOG 99 | recurrence 3% vs 12%
+      ~ PORTEC-1 | Locoregional recurrence 4% vs 14%
+      ~ GOG 99 | Recurrence 3% vs 12%
       ※ Neither trial improved overall survival
-      ~ PORTEC-2 | vaginal recurrence 1.8% vs 1.6%
+      ~ PORTEC-2 | Vaginal recurrence 1.8% vs 1.6%
     ② High-intermediate risk: pelvic EBRT; vaginal brachytherapy with chemotherapy was not better and left more nodal relapses
       - GOG 249 | RFS HR 0.92
     ③ High risk: chemoradiotherapy improved survival over radiotherapy alone, most in stage III and serous carcinoma
@@ -103,7 +103,7 @@ course:
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR deficient PFS HR 0.30
       ~ DUO-E [t-duo-e] | MMR deficient PFS HR 0.42
     ② MMR proficient: carboplatin-paclitaxel 〔ESGO I, A〕; adding pembrolizumab or dostarlimab, or durvalumab followed by durvalumab with olaparib, can be considered 〔ESGO I, B〕
-      + RUBY | all patients OS HR 0.64, interim
+      + RUBY | All patients OS HR 0.64, interim
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR proficient PFS HR 0.54
       ~ DUO-E [t-duo-e] | MMR proficient, with olaparib, PFS HR 0.57
     ③ HER2 3+, when a checkpoint inhibitor cannot be given: carboplatin-paclitaxel with trastuzumab 〔ESGO II, B〕
@@ -112,13 +112,13 @@ course:
     ④ Low grade, ER positive, low volume or slowly growing: a progestin, medroxyprogesterone or megestrol 〔ESGO III, A〕; an aromatase inhibitor or tamoxifen are alternatives 〔ESGO IV, C〕
     ※ MMR proficient relapse after adjuvant chemotherapy, when chemotherapy cannot be given: lenvatinib with pembrolizumab can be considered 〔ESGO III, C〕
     ※ Carboplatin-paclitaxel replaced doxorubicin, cisplatin and paclitaxel
-      ~ GOG 209 | non-inferior, OS HR 1.002
+      ~ GOG 209 | Non-inferior, OS HR 1.002
     next: Progression after platinum | Progression
   Progression after platinum
     Repeat MMR testing on the relapse when feasible 〔ESGO IV, B〕
     ① MMR deficient, no checkpoint inhibitor before: pembrolizumab or dostarlimab alone 〔ESGO III, A〕; lenvatinib with pembrolizumab is an option 〔ESGO I, B〕
-      * KEYNOTE-158 [t-keynote-158--endometrial-cancer] | response
-      * GARNET | response
+      * KEYNOTE-158 [t-keynote-158--endometrial-cancer] | Response
+      * GARNET | Response
     ② MMR proficient, no checkpoint inhibitor before: lenvatinib with pembrolizumab 〔ESGO I, A〕
       + KEYNOTE-775 [t-keynote-775-study-309] | OS HR
     ③ After a checkpoint inhibitor: platinum rechallenge, doxorubicin, weekly paclitaxel or endocrine therapy 〔ESGO IV, B〕

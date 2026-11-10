@@ -43,7 +43,7 @@ band: States and volume
 
 band: ADT, testing and bone
   ① Flutamide for 2 weeks before the first LHRH agonist injection prevents PSA flare
-    * Noguchi 2001 {pmid 11706524} | flare prevented
+    * Noguchi 2001 {pmid 11706524} | Flare prevented
   ② Relugolix: fewer major cardiovascular events than leuprolide
     ~ HERO [t-hero] | 2.9% vs 6.2%
   ③ Intermittent ADT: non-inferior after radiotherapy relapse, not shown in metastatic disease
@@ -51,9 +51,9 @@ band: ADT, testing and bone
     - SWOG 9346 [t-hussain-et-al] | OS HR
   ④ Germline panel and tumour testing in all metastatic disease; BRCA2, BRCA1 and mismatch repair genes first
   ⑤ Bone loss on ADT: denosumab 60 mg every 6 months
-    ~ HALT [t-halt] | vertebral fractures 1.5% vs 3.9%
+    ~ HALT [t-halt] | Vertebral fractures 1.5% vs 3.9%
   ⑥ Bone metastases in castration-resistant disease: denosumab 120 mg every 4 weeks
-    ~ Fizazi 2011 [t-fizazi-et-al] | first skeletal event HR 0.82
+    ~ Fizazi 2011 [t-fizazi-et-al] | First skeletal event HR 0.82
 
 course: Advanced prostate cancer
   Rising PSA after surgery or radiotherapy, no metastases on CT or bone scan
@@ -82,10 +82,10 @@ course: Advanced prostate cancer
   Metastatic at diagnosis, castration-sensitive
     next: Metastatic, castration-resistant
     ① Low volume: ADT + ARSI + radiotherapy to the prostate
-      + STAMPEDE arm H [t-stampede--advanced-prostate-3] | low burden OS HR 0.68
+      + STAMPEDE arm H [t-stampede--advanced-prostate-3] | Low burden OS HR 0.68
       ※ Arm H gave ADT with or without docetaxel, no ARSI
       ※ With abiraterone, radiotherapy lengthened rPFS but not OS, and reduced serious urinary events
-        ~ PEACE-1 radiotherapy [t-peace-1] | low volume rPFS HR 0.65
+        ~ PEACE-1 radiotherapy [t-peace-1] | Low volume rPFS HR 0.65
       ※ Benefit confined to fewer than 5 bone metastases
         - HORRAD [t-horrad] | OS HR
         + STOPCAP [t-stopcap-m1-prostate-radiotherapy-meta-analysis] | 3-year OS 7% higher
@@ -96,7 +96,7 @@ course: Advanced prostate cancer
       ※ Both compared with ADT + docetaxel; neither with ADT + ARSI
       ※ Docetaxel with ADT alone: OS benefit in high volume, none in low volume
         + CHAARTED | OS HR
-        + STAMPEDE docetaxel [t-stampede--advanced-prostate] | docetaxel OS HR 0.78
+        + STAMPEDE docetaxel [t-stampede--advanced-prostate] | Docetaxel OS HR 0.78
 
   Metastatic, castration-resistant
     next: ① After ADT alone
@@ -175,7 +175,7 @@ panel: Bone metastases, no visceral disease > Metastatic, castration-resistant
   = Radium-223, at any step
   + ALSYMPCA | OS HR
   ※ Not with abiraterone: fractures 29% vs 11%
-    - ERA 223 [t-era-223] | fractures 29% vs 11%
+    - ERA 223 [t-era-223] | Fractures 29% vs 11%
   ※ Added to enzalutamide with a bone-protecting agent: rPFS and OS longer at the interim analysis; fractures 24% vs 13%
     + PEACE-3 [t-peace-3] | OS HR
 

@@ -47,11 +47,11 @@ course: Small-cell lung cancer
   Chemoradiotherapy
     Concurrent chemotherapy and thoracic radiotherapy 〔ESMO I, A〕
     Cisplatin and etoposide for 4 cycles 〔ESMO I, A〕, carboplatin when cisplatin is contraindicated 〔ESMO II, A〕
-      + Sundstrøm 2002 [t-sundstr-m-et-al] | limited stage 2-year OS 25% vs 8%, against CEV
+      + Sundstrøm 2002 [t-sundstr-m-et-al] | Limited stage 2-year OS 25% vs 8%, against CEV
     Thoracic radiotherapy with chemotherapy improves survival
       + Pignon 1992 [t-pignon-et-al] | 3-year OS 14.3% vs 8.9%
     ※ Concurrent radiotherapy gave longer survival than sequential radiotherapy, a difference that was not significant
-      - JCOG9104 {pmid 12118018} | median OS 27.2 vs 19.7 months, P 0.097
+      - JCOG9104 {pmid 12118018} | Median OS 27.2 vs 19.7 months, P 0.097
     ① 45 Gy in 30 fractions twice daily 〔ESMO I, A〕, starting with chemotherapy cycle 1 or 2 〔ESMO II, A〕, or with cycle 3 when PS or organ doses do not allow an earlier start 〔ESMO II, B〕
       + Intergroup 0096 | 5-year OS 26% vs 16%
     ② 66 Gy in 33 daily fractions when twice daily is not possible
@@ -73,7 +73,7 @@ course: Small-cell lung cancer
       - PCI 99-01 {pmid 19386548} | 2-year OS 42% vs 37% for 25 Gy against 36 Gy
       ※ Stage I–II, over 70 or frail: shared decision 〔ESMO V, C〕
       ※ MRI surveillance without PCI improved cognitive failure-free survival, the primary endpoint; OS and brain metastasis-free survival did not differ at a preliminary analysis after 128 of 190 planned deaths; limited and extensive stage; congress abstract
-        ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | cognitive failure-free survival HR 0.60; OS HR 0.90
+        ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | Cognitive failure-free survival HR 0.60; OS HR 0.90
     ② Durvalumab every 4 weeks for up to 24 months, after PCI where given; EU licence 2025
       + ADRIATIC | OS HR
       ※ Atezolizumab with and after chemoradiotherapy did not improve OS (phase III); atezolizumab for 1 year after chemoradiotherapy did not improve PFS or OS (randomised phase II)
@@ -93,7 +93,7 @@ course: Small-cell lung cancer
     ※ PCI 20 Gy in 5 or 25 Gy in 10 fractions under 75, PS 0–2, when MRI staging and MRI follow-up are not available 〔ESMO II, B〕; may be left out when MRI after chemotherapy is clear and MRI follow-up is possible 〔ESMO II, B〕
       + EORTC 22993-08993 | OS HR
       - Takahashi 2017 [t-takahashi-et-al] | OS HR
-      ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | cognitive failure-free survival HR 0.60; OS HR 0.90
+      ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | Cognitive failure-free survival HR 0.60; OS HR 0.90
     next: Recurrent/progressive disease | Progression
   Recurrent/progressive disease
     Platinum-sensitive, relapse 3 months or more after platinum
@@ -102,7 +102,7 @@ course: Small-cell lung cancer
     ※ ESMO and GFPC 01–13 use 3 months; other guidelines use 6 months for rechallenge. In GFPC 01–13 the PFS gain was significant only for relapse 180 days or more after chemotherapy
     ② Topotecan oral or intravenous; CAV is an alternative 〔ESMO II, B〕
       + O'Brien 2006 {pmid 17135646} | OS 25.9 vs 13.9 weeks, against supportive care
-      - von Pawel 1999 [t-von-pawel-et-al] | response 24.3% vs 18.3%, against CAV
+      - von Pawel 1999 [t-von-pawel-et-al] | Response 24.3% vs 18.3%, against CAV
     Platinum-resistant, relapse within 3 months
     ① Tarlatamab; US accelerated licence 2024, full licence 2025; EU licence 2026
       + DeLLphi-304 | OS HR

@@ -159,14 +159,14 @@
   /* Live figures. A figure with no digits names what to read from the Evidence row:
        "OS HR"        HR on the row's findings line labelled OS        renders "OS HR 0.80"
        "PFS median"   the ⓐ vs ⓑ medians on the PFS line              renders "PFS 11.4 vs 6.7 months"
-       "response"     first percentage on the ORR (or cORR) line       renders "response 72%"
+       "Response"     first percentage on the ORR (or cORR) line       renders "Response 72%"
      A label matches the line whose label is that word, or starts with it then a space, comma or bracket.
      A figure with digits is shown as written and checked against the row. */
-  var LIVE = /^(?:(.+?)\s+)?(HR|median|response)$/;
+  var LIVE = /^(?:(.+?)\s+)?(HR|median|[Rr]esponse)$/;
   function live(fig){
     if (/\d/.test(fig)) return null;
     var m = LIVE.exec(String(fig).trim());
-    return m ? {label:m[1] || '', kind:m[2]} : null;
+    return m ? {label:m[1] || '', kind:m[2].toLowerCase() === 'response' ? 'response' : m[2]} : null;
   }
   function findingsLine(row, label){
     var lines = String(row && row.findings || '').replace(/·/g, '.').split('\n'), L = label.toLowerCase();
@@ -188,7 +188,7 @@
       if (spec.kind === 'median' && (m = /(?:ⓐ\s*)?(?:median\s+)?(\d+(?:\.\d+)?|NR|NE|not reached)\s+vs\s+(?:ⓑ\s*)?(\d+(?:\.\d+)?|NR|NE|not reached)\s*mo/i.exec(t)))
         return {text:spec.label + ' ' + m[1] + ' vs ' + m[2] + ' months', live:true, ok:true};
       if (spec.kind === 'response' && (m = /(\d+(?:\.\d+)?)%/.exec(t)))
-        return {text:'response ' + m[1] + '%', live:true, ok:true};
+        return {text:'Response ' + m[1] + '%', live:true, ok:true};
     }
     return {text:'', live:true, ok:false};
   }
