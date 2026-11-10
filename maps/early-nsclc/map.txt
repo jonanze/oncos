@@ -115,6 +115,8 @@ course: Early and locally advanced NSCLC
   SBRT
     Stage I, node-negative; central or ultracentral tumours get more fractions 〔ESMO II, A〕
       + CHISEL [t-chisel] | Local control HR
+    ※ Atezolizumab added to SBRT did not improve survival and caused more grade 3 or higher toxicity
+      - SWOG S1914 [t-swog-s1914-nrg-s1914] | OS HR
   Chemoradiotherapy
     Concurrent chemoradiotherapy, 60 Gy in daily fractions, with 2–3 cycles of a platinum doublet 〔ESMO I, A〕
       + Concurrent vs sequential meta-analysis [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis] | 3-year OS 23.8% vs 18.1%
