@@ -262,10 +262,12 @@ panel: ARSI options > Metastatic at diagnosis, castration-sensitive
     ・Abiraterone inhibits CYP2D6
 
 panel: Emerging upfront triplet options > Metastatic at diagnosis, castration-sensitive
-  ① BRCA2 altered: niraparib with abiraterone 〔NCCN 2A, useful in certain circumstances〕
-    ・Low volume 〔NCCN 2B, useful in certain circumstances〕
+  ① BRCA1 or BRCA2 altered: niraparib with abiraterone
+    ・BRCA2 only, high volume 〔NCCN 2A, useful in certain circumstances〕
+    ・BRCA2 only, low volume 〔NCCN 2B, useful in certain circumstances〕
     ・ESMO does not list it
-    ~ AMPLITUDE | rPFS HR 0.63
+    ~ AMPLITUDE | BRCA rPFS HR 0.52, all HRR 0.63
+    ※ Other HRR genes gave rPFS HR 0.81, not significant, in a post hoc analysis
   ② HRR altered: talazoparib with enzalutamide
     ・ESMO and NCCN do not list it
     ~ TALAPRO-3 | rPFS HR 0.48
