@@ -18,7 +18,7 @@
    trial chips. Every chip edge is at least 3:1 against its block and all text at least 4.5:1, in light and dark. */
 .om-sheet{--wb-paper:#fff;--wb-ink:#2b3542;--wb-text:#14212f;--wb-soft:rgba(20,33,47,.66);--wb-grid:rgba(20,33,47,.04);
   --wb-plain:#d3d9e1;--br1:#9fbde3;--br2:#c2b3e2;--br3:#a3d4bf;--br4:#e6b6c6;
-  --wb-chip:#1f3a5f;--wb-chip-t:#fff;--wb-rule:#b3bdc9;--wb-head:#d3d9e1;
+  --wb-chip:#1f3a5f;--wb-hair:rgba(20,33,47,.32);--wb-chip-t:#fff;--wb-rule:#b3bdc9;--wb-head:#d3d9e1;
   --om-c1:#6aabf1;--om-c2:#72d071;--om-c3:#f5d515;--om-c4:#ed953d;
   position:relative;transform-origin:0 0;background:var(--wb-paper);color:var(--wb-text);font-size:15px;line-height:1.35}
 :root[data-theme="dark"] .om-sheet{--wb-paper:#1e2228;--wb-ink:#c9d1db;--wb-grid:rgba(255,255,255,.045)}
@@ -38,8 +38,10 @@
 .om-world .step,.om-world .leaf,.om-world .band,.om-world .panel,.om-world .box.lbl{box-sizing:border-box;border:0;border-radius:8px;background:var(--brc,var(--wb-plain));color:var(--wb-text);padding:14px 16px}
 .om-world .box.lbl{display:inline-block;font-weight:700;font-size:15px;white-space:nowrap;text-wrap:balance}
 .om-world .box.lbl.root{font-size:18px}
-.om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;margin:0 0 2px;padding:0;background:none;border:0;border-radius:0;font-weight:700;font-size:15px;white-space:normal;text-wrap:balance}
-.om-world .band>h2,.om-world .panel>h2{margin:0 0 4px;padding:0;border:0;background:none;font-size:15px;font-weight:700;letter-spacing:0;text-transform:none;text-decoration:none}
+/* a block's title: larger, bold, set off from the body by a hairline (Jonan 2026-11-11, "more visually distinct") */
+.om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;margin:0 0 10px;padding:0 0 7px;background:none;border:0;border-bottom:1px solid var(--wb-hair);border-radius:0;font-weight:700;font-size:17px;line-height:1.3;white-space:normal;text-wrap:balance}
+.om-world .band>h2,.om-world .panel>h2{margin:0 0 10px;padding:0 0 7px;border:0;border-bottom:1px solid var(--wb-hair);background:none;font-size:17px;line-height:1.3;font-weight:700;letter-spacing:0;text-transform:none;text-decoration:none}
+.om-world .panel.open>h2{border-bottom:0;padding-bottom:0;margin-bottom:0}
 .om-world .br1{--brc:var(--br1)}.om-world .br2{--brc:var(--br2)}.om-world .br3{--brc:var(--br3)}.om-world .br4{--brc:var(--br4)}
 
 /* a band's items side by side */
@@ -62,11 +64,14 @@
 .om-world .ln.text,.om-world .ln.se{padding-left:var(--p,0px)}
 .om-world .ln.text{font-size:15px;margin-top:0}
 .om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
-.om-world .ln.num{position:relative;padding-left:calc(var(--p,0px) + 20px);margin-top:0}
+/* numbered options are bold, their tags stay regular; spacing between points as in the ruleset of 2026-11-11 */
+.om-world .ln.num{position:relative;padding-left:calc(var(--p,0px) + 20px);margin-top:12px;font-weight:700}
+.om-world .ln.num .tag{font-weight:400}
 .om-world .ln.num .n{position:absolute;left:var(--p,0px);top:0;font-weight:700}
-.om-world .ln.tx{margin-top:0}
+.om-world .ln.tx{margin-top:12px}
 .om-world .ln.cv{font-size:15px;padding-left:calc(var(--p,0px) + 1.3em);text-indent:-1.3em;margin-top:0}
 .om-world .ln.se{font-size:13px;color:var(--wb-soft)}
+.om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
 .om-world .ln.subl{font-size:15px;margin:0}
 .om-world .ln.subl .sb{margin-left:calc(var(--p,0px) + 20px);padding-left:1.1em;text-indent:-1.1em}
 .om-world .ln.subl .sb::before{content:"・"}
@@ -85,7 +90,9 @@
 .om-world .trials>.tch.ni{background:none;color:var(--wb-chip);outline:1.2px dashed var(--wb-chip);outline-offset:-1.2px}
 :root[data-theme="dark"] .om-world .panel.open .trials>.tch{background:#dfe6ee;color:var(--wb-text)}
 :root[data-theme="dark"] .om-world .panel.open .trials>.tch.ni{background:none;color:#dfe6ee;outline-color:#dfe6ee}
-.om-world .ln.cv+.trials{margin-top:4px}
+.om-world .ln.cv+.trials{margin-top:8px}
+.om-world .trials+.ln.cv{margin-top:0}
+.om-world .ln.subl+.ln.cv,.om-world .ln.cv+.ln.cv{margin-top:4px}
 .om-world .ln.subl+.trials{margin-top:5px}
 .om-world .trial{color:inherit;text-decoration:none;cursor:pointer;white-space:nowrap}
 .om-world .trial:focus-visible{outline:2px solid currentColor;outline-offset:1px;border-radius:4px}
