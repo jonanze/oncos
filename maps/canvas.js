@@ -68,7 +68,8 @@
   // trial lines in a row make one row of ruled name cells; a tap opens the trial's card with its results
   // (Jonan 2026-11-11: no figures on the map). A trial with no Evidence row yet has a dashed cell.
   function trialsHtml(ts){
-    var pad = ts[0].level ? ' style="--p:' + (LV * ts[0].level + (ts[0].off || 0)) + 'px"' : '';
+    // a chip row starts where the words of its parent line start, after the ① or ※ (Jonan 2026-11-11, "standardise the indent")
+    var lv = Math.max(0, (ts[0].level || 0) - 1), pad = (lv || ts[0].off) ? ' style="--p:' + (LV * lv + (ts[0].off || 0)) + 'px"' : '';
     return '<div class="trials"' + pad + '>' + ts.map(function(l){
       return '<span class="tch' + (l.anchor ? '' : ' ni') + '">' + trialLink(l) + '</span>';
     }).join('') + '</div>';
@@ -246,9 +247,10 @@
           y += n.el.offsetHeight + SG;
         });
       });
-      // as on the whiteboard, every line is drawn on its own: lines that share a side of a step leave or enter it
-      // 16 apart around the middle, each turns on its own upright 12 apart, and corners are rounded
-      var SP = 16, LG = 12;
+      // as on the whiteboard, lines that fan out from one step or into one step share its middle and one upright,
+      // so they read as one trunk with rounded turns (Jonan 2026-11-11, "why are these lines broken").
+      // Fans of different steps in one gap keep their own uprights, 12 apart.
+      var SP = 0, LG = 12;
       function spread(list, key){ list.sort(function(a, z){ return key(a) - key(z); }); return function(e){ return (list.indexOf(e) - (list.length - 1) / 2) * SP; }; }
       var outs = [], ins = [];
       steps.forEach(function(n){
@@ -260,16 +262,26 @@
         var o = spread(inn.slice(), function(e){ return e.ya; });
         inn.forEach(function(e){ e.yb = t.cy + o(e); e.src = e.src || null; });
       });
+      // a line between two steps whose middles differ by a few pixels runs straight, not with a small kink
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        var t = e.node; if (Math.abs(e.yb - e.ya) >= 14) return;
+        var y = t.preds.length < 2 ? e.ya : n.next.length < 2 ? e.yb : null;
+        if (y === null) return;
+        if (y < Math.max(n.y, t.y) + 20 || y > Math.min(n.y + n.el.offsetHeight, t.y + t.el.offsetHeight) - 20) return;
+        e.ya = e.yb = y;
+      }); });
       cols.forEach(function(list, c){
         var es = []; list.forEach(function(n){ n.next.forEach(function(e){ e.from = n; es.push(e); }); });
         var mid = colX[c] + colW[c] + gapW[c] / 2;
         // a line that runs further up or down turns nearer the side where its lines fan out, so none cross
-        ['up', 'down', 'flat'].forEach(function(dir){
-          var g = es.filter(function(e){ var d = e.yb - e.ya; return dir === 'flat' ? Math.abs(d) < 0.5 : dir === 'up' ? d <= -0.5 : d >= 0.5; });
-          var fanIn = g.length > 1 && g.every(function(e){ return e.node === g[0].node; });
-          g.sort(function(a, z){ return Math.abs(z.yb - z.ya) - Math.abs(a.yb - a.ya); });
-          g.forEach(function(e, i){ var k = (i - (g.length - 1) / 2) * LG; e.xm = mid + (fanIn ? -k : k); });
+        // one upright per fan: a step's lines out, or the lines into a step
+        var fans = [];
+        es.forEach(function(e){
+          var key = e.from.next.length > 1 ? e.from : e.node;
+          if (fans.indexOf(key) < 0) fans.push(key);
+          e.fan = key;
         });
+        es.forEach(function(e){ e.xm = mid + (fans.indexOf(e.fan) - (fans.length - 1) / 2) * LG; });
       });
       function elbow(x1, y1, xm, y2, x2){
         if (Math.abs(y2 - y1) < 0.5) return '<path d="M' + x1 + ' ' + y1 + ' H' + x2 + '"/>';

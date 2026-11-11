@@ -13,6 +13,8 @@
 #   〔ESMO evidence, grade〕 ESMO localised colon cancer 2020 (Ann Oncol 2020;31:1291-305, PMID 32702383)
 #     with the 2026 Express Update grades where they replace it
 #   Japan-only options (S-1, UFT with leucovorin) sit on a ※ line (Jonan 2026-11-11)
+#   No testing band (Jonan 2026-11-11: PI3K testing need not come before the adjuvant decision).
+#   MMR sits in the first step; DPYD testing "can be considered" (lower DPYD deficiency in East Asian patients)
 
 map: Early CRC
 source: JSCCR {url https://doi.org/10.1007/s10147-025-02899-8}
@@ -21,15 +23,11 @@ source: NCCN {url https://www.nccn.org/guidelines/category_1}
 branch: pMMR | pMMR or MSS
 branch: dMMR | dMMR or MSI-H
 
-band: Testing before treatment
-  ① MMR or MSI in every tumour 〔NCCN 2A〕 〔JSCCR A, 1〕
-  ② PI3K pathway testing, stage II–III 〔NCCN 2A〕
-  ③ DPYD testing before a fluoropyrimidine
-
 course: Localised colon cancer
   Clinical stage I to III
-    MMR status on the biopsy
+    MMR or MSI on the biopsy of every tumour 〔NCCN 2A〕 〔JSCCR A, 1〕
     Non-obstructing T1–3: straight to colectomy
+    ※ DPYD testing can be considered before a fluoropyrimidine
     next: Obstructing cancer
     next: cT4b or bulky nodes, pMMR
     next: T4 or bulky, dMMR
@@ -74,6 +72,9 @@ course: Localised colon cancer
     ③ High-risk II: fluoropyrimidine, CAPOX or FOLFOX, or observation 〔NCCN 2A〕 〔ESMO I, C〕 〔JSCCR B, 2〕
     + QUASAR
     - MOSAIC
+    ※ Stage II: ctDNA-guided treatment was non-inferior in one randomised phase 2 trial
+      ・Not for treatment decisions outside a trial 〔NCCN 2A〕
+      ~ DYNAMIC
     next: Exercise and aspirin after resection
   Stage III, pMMR
     branch: pMMR
@@ -125,16 +126,34 @@ panel: Not recommended after resection > Stage III, pMMR
   ※ Cetuximab 〔NCCN 2A〕
     - NCCTG N0147
     - PETACC-8
-  ※ Treatment decisions on ctDNA 〔NCCN 2A〕
-    ~ DYNAMIC
+  ※ Treatment decisions on ctDNA outside a trial 〔NCCN 2A〕
     - DYNAMIC-III
     - ALTAIR
+
+panel: High-risk stage II > Stage I and II, pMMR
+  | Feature | NCCN | ESMO | JSCCR |
+  | T4, including perforation | ✓ | Major | ✓ |
+  | Fewer than 12 nodes examined | ✓ | Major | ✓ |
+  | Poor differentiation, not MSI-H | ✓ | Minor | ✓ |
+  | Bowel obstruction | ✓ | Minor | - |
+  | Lymphatic or vascular invasion | ✓ | Minor | - |
+  | Perineural invasion | ✓ | Minor | - |
+  | Close or positive margins | ✓ | - | - |
+  | High-grade tumour budding | ✓ | - | - |
+  | CEA above 5 ng/mL (5 µg/L) before surgery | - | Minor | - |
+  | High risk | Any one | Any major, or several minor | Not defined |
+  ※ ESMO: one minor feature alone is intermediate risk
+
+panel: High-risk stage III > Stage III, pMMR
+  | Risk group | T and N |
+  | Low risk | T1–3 N1 |
+  | High risk | T4 or N2 |
 
 panel: Duration of CAPOX or FOLFOX > Stage III, pMMR
   | Risk group | CAPOX | FOLFOX |
   | High-risk stage II | 3 months | 6 months |
-  | Low-risk stage III, T1–3 N1 | 3 months | 3 to 6 months |
-  | High-risk stage III, T4 or N2 | 3 to 6 months | 6 months |
+  | Low-risk stage III | 3 months | 3 to 6 months |
+  | High-risk stage III | 3 to 6 months | 6 months |
   ~ IDEA [t-idea-collaboration]
   ~ SCOT
   ~ ACHIEVE {pmid 31513248}
