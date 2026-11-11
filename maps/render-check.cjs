@@ -98,7 +98,7 @@ function measure(){
     while (grew) { grew = false; same.forEach(s => { if (s.a <= z + .5 && s.b >= a - .5 && (s.a < a - .5 || s.b > z + .5)) { a = Math.min(a, s.a); z = Math.max(z, s.b); grew = true; } }); }
     const stops = [a, z];
     boxes.forEach(bx => { if (h ? (k >= bx.t && k <= bx.b) : (k >= bx.l && k <= bx.r)) stops.push(h ? bx.l : bx.t, h ? bx.r : bx.b); });
-    segs.filter(s => s.h !== (h ? 1 : 0)).forEach(s => { if (s.a <= k + .5 && s.b >= k - .5 && s.k > a + .5 && s.k < z - .5) stops.push(s.k); });
+    segs.filter(s => s.h !== (h ? 1 : 0)).forEach(s => { if (s.a <= k + 12 && s.b >= k - 12 && s.k > a + .5 && s.k < z - .5) stops.push(s.k); });
     const lo = Math.max(...stops.filter(v => v <= pos - 1)), hi = Math.min(...stops.filter(v => v >= pos + 1));
     const off = pos - (lo + hi) / 2, cross = B.length ? 0 : (h ? cy - k : cx - k);
     if (Math.abs(off) > T || Math.abs(cross) > T)

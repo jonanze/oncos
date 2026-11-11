@@ -1,5 +1,5 @@
 # Trials on the Advanced CRC map with no Evidence row yet (name, PMID, where on the map)
 JCOG0603	PMID 34520230	Resectable liver or lung metastases
-CAIRO5	PMID 37329889	Unresectable metastases, peritoneum and the primary tumour
-JCOG1007	PMID 33560877	Unresectable metastases, peritoneum and the primary tumour
+CAIRO5	PMID 37329889	Potentially resectable metastases
+JCOG1007	PMID 33560877	Peritoneum and the primary tumour
 AVEX	PMID 24028813	Not fit for combination chemotherapy

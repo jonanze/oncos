@@ -196,6 +196,7 @@
       // within a quarter of an even share), otherwise one column fewer: a block is never wider than its text
       // (Jonan 2026-11-11, "boxes are widened but without any text filling the space")
       b.cols = function(n){
+        el.classList.remove('one');
         // a block with a grid widens as a whole while each step makes it at least a seventh shorter
         if (b.grid) {
           put(1); var k = 1, h = el.offsetHeight;
@@ -210,6 +211,10 @@
         }
         put(1);
       };
+      // a band can instead give each numbered option or ※ group a column of its own, tops aligned
+      // (Jonan 2026-11-11: no option spilling under another, no lone ※ column)
+      b.groups = box ? box.children.length : 0;
+      b.split = function(){ b.cols(1); el.classList.add('one'); put(b.groups); };
       put(1); b.c1 = box ? box.offsetHeight : 0; blocks.push(b); return b;
     }
     var course = !!model.tree.course, steps = course ? model.tree.children : null, elabs = [];
@@ -225,6 +230,11 @@
       var joinLab = {};
       steps.forEach(function(n){ n.next.forEach(function(e){
         if (!e.label) return;
+        // a step whose lines out all carry one label shows it once, on the stem before the lines divide
+        if (!e.join && n.next.some(function(o){ return o !== e && !o.join && o.label === e.label; })) {
+          e.shared = true;
+          if (n.next.filter(function(o){ return !o.join && o.label === e.label; })[0] !== e) return;
+        }
         if (e.join) { var key = e.to + '|' + e.label; if (joinLab[key]) { joinLab[key].push(e); return; } joinLab[key] = [e]; e.joins = joinLab[key]; }
         e.el = add('elab', keep(e.label));
       }); });
@@ -256,7 +266,15 @@
       if (!ok) return false;
       function col(n){ if (n.col === null) { n.col = 0; n.preds.forEach(function(p){ n.col = Math.max(n.col, col(p) + 1); }); } return n.col; }
       steps.forEach(col);
-      return steps.every(function(n){ return n.next.every(function(e){ return e.node.col === n.col + 1; }); });
+      // a line may pass a column (a step that also leads to later steps, as second line to the biomarker steps
+      // and to the standard refractory step); it runs through a gap left for it in that column
+      // only through a column of two or more steps, so the line has a gap between them
+      var size = []; steps.forEach(function(n){ size[n.col] = (size[n.col] || 0) + 1; });
+      return steps.every(function(n){ return n.next.every(function(e){
+        if (e.node.col <= n.col) return false;
+        for (var c = n.col + 1; c < e.node.col; c++) if (size[c] < 2) return false;
+        return true;
+      }); });
     }
     var board = boardShape();
     function layoutOnce(){
@@ -284,7 +302,7 @@
     }
     var svg = '';
 
-    function bandsRow(span){
+    function bandsRow(span, split){
       if (tblk) { tblk.style.left = M + 'px'; tblk.style.top = M + 'px'; }
       var bx = M, bandH = 0, top = M + (tblk ? tblk.offsetHeight + 28 : 0);
       // the bands share one row; while the row is narrower than the map below it, the tallest band takes
@@ -293,6 +311,10 @@
         var bb = blocks.filter(function(b){ return bands.indexOf(b.el) >= 0; });
         var rowW = function(){ return bb.reduce(function(t, b){ return t + b.width(b.n); }, 0) + 40 * (bb.length - 1); };
         bb.forEach(function(b){ b.full = false; });
+        // on a board, first every band with two to four groups takes one column per group, tallest first, while the row fits
+        if (split) bb.filter(function(b){ return !b.grid && b.groups > 1 && b.groups <= COL_MAX; })
+          .sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })
+          .forEach(function(b){ if (rowW() + (b.groups - b.n) * (COL_W + COL_GAP) <= span) { b.split(); b.full = true; } });
         for (var guard = 0; guard < 24; guard++) {
           var tall = bb.filter(function(b){ return !b.grid && !b.full && b.n < COL_MAX; }).sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })[0];
           if (!tall || rowW() + COL_W + COL_GAP > span) break;
@@ -322,7 +344,7 @@
       cols.forEach(function(list, c){ colX[c + 1] = colX[c] + colW[c] + gapW[c]; });
       var width = colX[cols.length] - gapW[cols.length - 1] - M;
       // bands share one row above the columns, as on a course
-      var b = bandsRow(width);
+      var b = bandsRow(width, true);
       var colH = cols.map(function(list){ return list.reduce(function(h, n){ return h + n.el.offsetHeight; }, 0) + SG * (list.length - 1); });
       var axis = b.top + Math.max.apply(null, colH) / 2;
       cols.forEach(function(list, c){
@@ -333,6 +355,56 @@
           y += n.el.offsetHeight + SG;
         });
       });
+      // each later column is centred on the middles of the steps that lead into it, so a trunk runs evenly
+      // above and below the box it leaves or enters (Jonan 2026-11-11, "asymmetric line branch placement").
+      // A column that a line passes through is split about that line: the steps above and below come out
+      // near even, and their outer middles sit at the same distance from it
+      function hgt(n){ return n.el.offsetHeight; }
+      function stack(list, y){ list.forEach(function(n){ n.y = y; n.cy = y + hgt(n) / 2; y += hgt(n) + SG; }); }
+      function move(list, d){ list.forEach(function(n){ n.y += d; n.cy += d; }); }
+      for (var c = 1; c < cols.length; c++) {
+        var list = cols[c]; if (!list) continue;
+        var ins = []; list.forEach(function(t){ t.preds.forEach(function(p){ ins.push(p.cy); }); });
+        var pass = []; steps.forEach(function(n){ if (n.col < c) n.next.forEach(function(e){ if (e.node.col > c) pass.push(n.cy); }); });
+        if (pass.length) {
+          var ys = pass[0], GAP = 80, best = list.length > 1 ? 1 : 0, bd = Infinity;
+          for (var k = 1; k < list.length; k++) {
+            var up = list.slice(0, k).reduce(function(t, n){ return t + hgt(n); }, 0), dn = list.slice(k).reduce(function(t, n){ return t + hgt(n); }, 0);
+            if (Math.abs(up - dn) < bd) { bd = Math.abs(up - dn); best = k; }
+          }
+          var U = list.slice(0, best), L = list.slice(best);
+          if (U.length) { stack(U, 0); var ub = U[U.length - 1]; move(U, ys - GAP / 2 - (ub.y + hgt(ub))); }
+          if (L.length) stack(L, ys + GAP / 2);
+          if (U.length && L.length) {
+            var dU = ys - U[0].cy, dL = L[L.length - 1].cy - ys;
+            if (dU < dL) move(U, dU - dL); else move(L, dU - dL);
+          }
+        } else if (ins.length) {
+          var mid = (Math.min.apply(null, ins) + Math.max.apply(null, ins)) / 2;
+          move(list, mid - (list[0].cy + list[list.length - 1].cy) / 2);
+        }
+        // a step at the end of a single line moves level with its source, as far as the steps beside it in
+        // the column allow, so the line runs straight and its label fits (Jonan 2026-11-11, early NSCLC:
+        // "Why not just move the entire box down?")
+        list.forEach(function(t, k){
+          if (t.preds.length !== 1 || t.preds[0].next.length !== 1) return;
+          var dy = t.preds[0].cy - t.cy, up = list[k - 1], dn = list[k + 1];
+          if (dy > 0 && dn) dy = Math.min(dy, dn.y - SG - (t.y + hgt(t)));
+          if (dy < 0 && up) dy = Math.max(dy, up.y + hgt(up) + SG - t.y);
+          if (Math.abs(dy) > 0.5) move([t], dy);
+        });
+      }
+      // a first step centres on the steps it leads to, as far as the steps beside it allow
+      (cols[0] || []).forEach(function(n, k, list){
+        if (!n.next.length) return;
+        var ts = n.next.map(function(e){ return e.node.cy; });
+        var dy = (Math.min.apply(null, ts) + Math.max.apply(null, ts)) / 2 - n.cy, up = list[k - 1], dn = list[k + 1];
+        if (dy > 0 && dn) dy = Math.min(dy, dn.y - SG - (n.y + hgt(n)));
+        if (dy < 0 && up) dy = Math.max(dy, up.y + hgt(up) + SG - n.y);
+        if (Math.abs(dy) > 0.5) move([n], dy);
+      });
+      var lift = b.top - Math.min.apply(null, steps.map(function(n){ return n.y; }));
+      steps.forEach(function(n){ n.y += lift; n.cy += lift; n.el.style.top = n.y + 'px'; });
       // as on the whiteboard, lines that fan out from one step or into one step share its middle and one upright,
       // so they read as one trunk with rounded turns (Jonan 2026-11-11, "why are these lines broken").
       // Fans of different steps in one gap keep their own uprights, 12 apart.
@@ -382,7 +454,9 @@
         var t = e.node, x1 = n.x + n.w, x2 = t.x;
         svg += elbow(x1, e.ya, e.xm, e.yb, x2);
         if (e.el) {
-          var w = e.el.offsetWidth, h = e.el.offsetHeight, into = t.preds.length < 2;
+          var w = e.el.offsetWidth, h = e.el.offsetHeight, into = t.preds.length < 2 && !e.shared;
+          // a label on a shared stem stays between the step and the upright where its lines divide
+          if (e.shared) e.el.dataset.stop = e.xm; else delete e.el.dataset.stop;
           e.el.style.left = ((into ? e.xm + x2 : x1 + e.xm) / 2 - w / 2) + 'px';
           e.el.style.top = ((into ? e.yb : e.ya) - h / 2) + 'px';
         }
@@ -664,7 +738,8 @@
       var lo = a, hi = z;
       function stop(v){ if (v < pos - 1 && v > lo) lo = v; if (v > pos + 1 && v < hi) hi = v; }
       boxes.forEach(function(r){ if (h ? (k >= r.t && k <= r.b) : (k >= r.l && k <= r.r)) { stop(h ? r.l : r.t); stop(h ? r.r : r.b); } });
-      segs.forEach(function(s){ if (s.h !== h && s.a <= k + 0.5 && s.b >= k - 0.5) stop(s.k); });
+      // an upright that crosses the run, or turns off it on a rounded corner (a T where lines divide), ends it
+      segs.forEach(function(s){ if (s.h !== h && s.a <= k + 12 && s.b >= k - 12) stop(s.k); });
       return {a:lo, z:hi};
     }
 

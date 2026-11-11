@@ -32,31 +32,33 @@ band: Resectable liver or lung metastases
     ・Adjuvant chemotherapy after hepatectomy 〔JSCCR B, 2〕
     ~ EPOC
     ~ JCOG0603 {pmid 34520230}
+    ※ Do not add cetuximab to chemotherapy around liver resection 〔NCCN 2A〕
+      - New EPOC
   ③ Thermal ablation for liver metastases of 3 cm or less 〔NCCN 2A〕 〔ESMO II, B〕
     ・Ablation first for resectable liver metastases is not recommended 〔JSCCR C, 1〕
     ・Ablation or SBRT for lung metastases, with or instead of resection 〔ESMO III, B〕
   ④ SBRT for liver metastases that cannot be resected or ablated 〔ESMO III, B〕 〔ASCO Low, Weak〕
-  ※ Do not add cetuximab to chemotherapy around liver resection 〔NCCN 2A〕
-    - New EPOC
 
-band: Unresectable metastases, peritoneum and the primary tumour
-  ① Potentially resectable metastases: first-line treatment, then resection as soon as it is feasible 〔NCCN 2A〕
+band: Potentially resectable metastases
+  ① First-line treatment, then resection as soon as it is feasible 〔NCCN 2A〕
     ・Resectability is reassessed every 2 to 3 months 〔ESMO IV, A〕
     ~ CAIRO5 {pmid 37329889}
-  ② Peritoneal metastases only: complete cytoreductive surgery in a specialised centre 〔ESMO II, A〕 〔ASCO Moderate, Weak〕
-    ・JSCCR recommends complete resection of limited peritoneal metastases
-  ③ Asymptomatic primary tumour with unresectable metastases: systemic treatment without resection 〔JSCCR B, 2〕 〔ESMO I, D〕
-    ・A symptomatic primary tumour is resected first 〔JSCCR C, 1〕
-    - JCOG1007 {pmid 33560877}
-  ※ Do not add oxaliplatin HIPEC to cytoreductive surgery 〔ESMO II, D〕 〔ASCO Moderate, Strong〕
-    - PRODIGE 7
-  ※ Debulking of multiorgan disease is not recommended 〔NCCN 2A〕
-    - ORCHESTRA
+    ※ Debulking of multiorgan disease is not recommended 〔NCCN 2A〕
+      - ORCHESTRA
   ※ Liver transplantation with chemotherapy for unresectable liver-only metastases in selected patients 〔ESMO II, A〕
     ・ESMO selects on BRAF wild-type, CEA below 80 ng/mL (80 µg/L), disease control for 3 months and no extrahepatic disease
     ・JSCCR, NCCN and ASCO do not address transplantation
     + TransMet
   ※ SIRT is not routinely recommended 〔ASCO Low, Weak〕
+
+band: Peritoneum and the primary tumour
+  ① Peritoneal metastases only: complete cytoreductive surgery in a specialised centre 〔ESMO II, A〕 〔ASCO Moderate, Weak〕
+    ・JSCCR recommends complete resection of limited peritoneal metastases
+    ※ Do not add oxaliplatin HIPEC to cytoreductive surgery 〔ESMO II, D〕 〔ASCO Moderate, Strong〕
+      - PRODIGE 7
+  ② Asymptomatic primary tumour with unresectable metastases: systemic treatment without resection 〔JSCCR B, 2〕 〔ESMO I, D〕
+    ・A symptomatic primary tumour is resected first 〔JSCCR C, 1〕
+    - JCOG1007 {pmid 33560877}
 
 course: Metastatic colorectal cancer
   Unresectable metastatic disease
@@ -171,10 +173,10 @@ course: Metastatic colorectal cancer
       ・NCCN advises against adding binimetinib
     + BEACON [t-beacon-crc]
     ※ An anti-EGFR antibody is not continued or switched after progression on one 〔NCCN 2A〕
+    next: HER2-positive | Progression
+    next: KRAS G12C | Progression
+    next: NTRK or RET fusion | Progression
     next: After oxaliplatin and irinotecan | Progression
-    next: HER2-positive
-    next: KRAS G12C
-    next: NTRK or RET fusion
   After oxaliplatin and irinotecan
     ① Trifluridine/tipiracil with bevacizumab 〔JSCCR A, 1〕 〔NCCN 2A〕 〔ESMO I, A〕
     + SUNLIGHT
@@ -207,6 +209,7 @@ course: Metastatic colorectal cancer
     ~ MOUNTAINEER
     ② IHC 3+, any RAS: trastuzumab deruxtecan 5.4 mg/kg 〔NCCN 2A〕 〔ESMO III, B〕
     ~ DESTINY-CRC02
+    next: After oxaliplatin and irinotecan
   KRAS G12C
     branch: G12C
     ① Sotorasib with panitumumab, or adagrasib with cetuximab 〔NCCN 2A〕
@@ -216,6 +219,7 @@ course: Metastatic colorectal cancer
       ・JSCCR 2024 does not address KRAS G12C
     ~ CodeBreaK 300
     ~ KRYSTAL-1
+    next: After oxaliplatin and irinotecan
   NTRK or RET fusion
     branch: FUS
     ① NTRK fusion: larotrectinib or entrectinib 〔NCCN 2A〕 〔ESMO III, B〕
@@ -223,6 +227,7 @@ course: Metastatic colorectal cancer
     ~ Entrectinib [t-entrectinib-integrated-ntrk-fusion-analysis]
     ② RET fusion: selpercatinib 〔NCCN 2A〕 〔ESMO III, B〕
     ~ LIBRETTO-001
+    next: After oxaliplatin and irinotecan
 
 panel: Choice of chemotherapy > RAS mutant, or wild-type and right-sided
   ① FOLFOX, CAPOX or FOLFIRI 〔NCCN 2A〕 〔ASCO Moderate, Strong〕
