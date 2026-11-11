@@ -9,7 +9,6 @@
 #           and several join: lines to one step with one label share an upright and that label
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
-#   = text          the treatment for a branch, drawn bold after ★
 #   + Trial | fig   a trial line; the mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
 #   fig with no digits is read from the Evidence row at each publish:
@@ -24,7 +23,8 @@
 #   ※ text          caveat             ° text          side effects, grey
 #   ・ text          one statement under the line above (a guideline's position, a licence, a condition);
 #                   one statement per line, no chains of clauses joined by semicolons (Jonan 2026-11-10)
-#   ① text          numbered item; plain lines in a band or panel are text
+#   ① text          a numbered option or item, in order of guideline preference, in every step, node,
+#                   band and panel. A single option is ① too (Jonan 2026-11-11)
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
 #   off:            sheet rows left off on purpose: Trial [t-...] | reason
 #   source: ESMO {url https://...}   a guideline, held as a link; 〔ESMO I, A〕 at the end of a statement marks it as
@@ -60,6 +60,22 @@
 #   East Asian guidelines come first in Jonan's practice (2026-11-10): a JLCS option licensed in Japan and marketed
 #     internationally is a numbered option with its tag and a licence note, never ※-only or under off: (S-1).
 #     A drug licensed in China only, with no international marketing, stays on a ※ line (Jonan 2026-11-11)
+#   Presentation (Jonan 2026-11-11). node maps/render-check.cjs checks the drawn map and must report 0 faults
+#     on every draft and release, with node maps/check.cjs
+#     Square lines with no arrowheads. Every line label is centred on the line as drawn. No line runs under
+#       a box or crosses another line
+#     Steps are named, never numbered. Text never points to a step or an option by its number
+#     No restated lines. Guidelines that agree share one line with all their tags. A ・ line is only for a
+#       real disagreement
+#     Options with the same population and guideline support merge into one line, with any licence
+#       difference on a ・ line
+#     One disease state is one step. Differences within it, such as de novo and metachronous disease, go on
+#       ・ lines under the shared option
+#     A vague guideline term such as "selected men" is defined from the guideline's text. Where a paraphrase
+#       reads unclear, the guideline's own words are used
+#     A laboratory threshold gives the SI unit beside the conventional unit: 50 ng/dL (1.7 nmol/L)
+#     A wrapped line starts under its text. No word is carried down to a tag's line. An untagged statement
+#       keeps no single word alone on its last line. Each trial name has a ・ bullet and never wraps
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
 #     〔NCCN category〕 NCCN Non-Small Cell Lung Cancer 9.2026 (22 September 2026), stage I–III pages,
 #       NSCL-B, NSCL-C and NSCL-E; category 2A unless stated

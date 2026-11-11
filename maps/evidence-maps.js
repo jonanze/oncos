@@ -16,7 +16,7 @@
    pan and zoom canvas; its trial cards and live figures are read from the
    Evidence rows in /data/evidence.json, the file the view itself reads, and the
    title block carries that file's publish date. A new map = a new folder with map.txt + one line in MAPS.
-   Run node maps/check.cjs before a release. */
+   Run node maps/check.cjs and node maps/render-check.cjs before every draft and release. */
 (function(){
   var MAPS = {
     'Advanced NSCLC': 'nsclc',
