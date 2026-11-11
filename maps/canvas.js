@@ -232,10 +232,9 @@
       n.el = add('box lbl' + (n.depth ? '' : ' root') + brc(n), keep(n.label));
       if (n.lines.length) { n.leaf = add('leaf' + brc(n), colsHtml(n.lines)); sized(n.leaf, n.lines, function(w){ n.leafW = w; }); leaves.push(n); }
     });
-    // no title block: the map opens on the flowsheet itself (Jonan 2026-11-11, "remove the title altogether").
-    // A map with a risk scale keeps its colour key in that place
-    var keys = SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; });
-    var tblk = keys.length ? add('tblk', '<div class="keys">' + keys.join('') + '</div>') : null;
+    // no title block: the map opens on the flowsheet itself (Jonan 2026-11-11, "remove the title altogether"),
+    // and no colour key either: the risk grid names its rows (Jonan 2026-11-11, "I also don't need this")
+    var tblk = null;
     var bands = model.bands.map(function(b){
       var el = add('band', '<h2>' + esc(b.title) + '</h2>' + colsHtml(b.lines));
       sized(el, b.lines, function(w){ el.w = w; }).band = true; return el;
