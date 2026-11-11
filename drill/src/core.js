@@ -40,7 +40,22 @@ function expand(spec, order) {
 
 // System: {id, site, label, short, edition, T, N, M, Q (optional {key: [values]}), rules, invalid(t,n,m,q)}
 // rule: [stage, tSpec, nSpec, mSpec, qSpec]; qSpec {key: [values]} or undefined
+// Cells the tables allow but that do not occur clinically: in situ with nodes or M1, no primary with no nodes,
+// resection specimens with unresectable or metastatic disease. Practice never draws these.
+function implausible(s, t, n, m, q) {
+  const m1 = m !== s.M[0], n0 = n === s.N[0];
+  if (/^p?(Tis|Ta)$/.test(t) && s.site !== 'testis' && (!n0 || m1)) return true;
+  if (t === 'T1mi' && m1) return true;
+  if (t === 'T0' && n0 && s.id !== 'eso-yp') return true;
+  if (s.id === 'breast' && t === 'T0' && n === 'N1mi') return true;
+  if ((s.setting === 'p' || s.setting === 'yp') && (t === 'T4b' || m1)) return true;
+  if (s.site === 'appendix' && q && q.hist === 'Non-mucinous' && m === 'M1a') return true;
+  if (s.site === 'merkel' && t === 'T0' && n !== 'N1b') return true;
+  return false;
+}
 function buildSystem(s) {
+  const inv0 = s.invalid;
+  s.invalid = (t, n, m, q) => !!(inv0 && inv0(t, n, m, q)) || implausible(s, t, n, m, q);
   s.rules = s.rules.map(r => ({
     stage: r[0], t: expand(r[1], s.T), n: expand(r[2], s.N), m: expand(r[3], s.M), q: r[4] || null
   }));
@@ -96,7 +111,7 @@ function cards(sys) {
     if (stages.size === 1) out.push({ id: sys.id + '|' + t + '|' + n + '|' + m0, sys: sys.id, t, n, m: m0, q: null });
     else combos.forEach(q => out.push({ id: sys.id + '|' + t + '|' + n + '|' + m0 + '|' + Object.keys(q).map(k => q[k]).join('/'), sys: sys.id, t, n, m: m0, q }));
   }));
-  sys.M.slice(1).forEach(m => out.push({ id: sys.id + '|*|*|' + m, sys: sys.id, t: '*', n: '*', m, q: null }));
+  sys.M.slice(1).forEach(m => sys.T.some(t => sys.N.some(n => !sys.invalid(t, n, m, null))) && out.push({ id: sys.id + '|*|*|' + m, sys: sys.id, t: '*', n: '*', m, q: null }));
   return out;
 }
 
@@ -272,6 +287,33 @@ const DESC = {
 };
 
 
+// ---------- pathological stage for melanoma and Merkel (AJCC 8th) ----------
+// The vignettes report sentinel node and dissection results, so these sites are practised on pathological groups.
+const MEL_T = ['Tis', 'T1a', 'T1b', 'T2a', 'T2b', 'T3a', 'T3b', 'T4a', 'T4b'];
+const PATHO = {
+  melanoma: {
+    edition: 'AJCC 8th ed. (pathological TNM)',
+    T: MEL_T, N: ['N0', 'N1a', 'N1b', 'N1c', 'N2a', 'N2b', 'N2c', 'N3a', 'N3b', 'N3c'], M: ['M0', 'M1a', 'M1b', 'M1c', 'M1d'],
+    rules: [
+      ['0', 'Tis', 'N0', 'M0'], ['IA', 'T1a..T1b', 'N0', 'M0'], ['IB', 'T2a', 'N0', 'M0'], ['IIA', 'T2b..T3a', 'N0', 'M0'],
+      ['IIB', 'T3b..T4a', 'N0', 'M0'], ['IIC', 'T4b', 'N0', 'M0'],
+      ['IIIA', 'T1a..T2a', 'N1a,N2a', 'M0'],
+      ['IIIB', 'T1a..T2a', 'N1b,N1c,N2b', 'M0'], ['IIIB', 'T2b..T3a', 'N1a..N2b', 'M0'],
+      ['IIIC', 'T1a..T3a', 'N2c..N3c', 'M0'], ['IIIC', 'T3b..T4a', 'N1a..N3c', 'M0'], ['IIIC', 'T4b', 'N1a..N2c', 'M0'],
+      ['IIID', 'T4b', 'N3a..N3c', 'M0'], ['IV', '*', '*', 'M1a..M1d']
+    ]
+  },
+  merkel: {
+    edition: 'AJCC 8th ed. (pathological TNM)',
+    T: ['T0', 'T1', 'T2', 'T3', 'T4'], N: ['N0', 'N1a(sn)', 'N1a', 'N1b', 'N2', 'N3'], M: ['M0', 'M1a', 'M1b', 'M1c'],
+    rules: [
+      ['I', 'T1', 'N0', 'M0'], ['IIA', 'T2..T3', 'N0', 'M0'], ['IIB', 'T4', 'N0', 'M0'],
+      ['IIIA', 'T1..T4', 'N1a(sn),N1a', 'M0'], ['IIIA', 'T0', 'N1b', 'M0'],
+      ['IIIB', 'T1..T4', 'N1b..N3', 'M0'], ['IV', '*', '*', 'M1a..M1c']
+    ]
+  }
+};
+
 // ---------- all sites from the Staging module ----------
 const HANDDESC = { lung: 'lung', colorectal: 'crc', breast: 'breast', 'oral-cavity': 'oral', esophageal: 'eso' };
 const SITES = [];
@@ -281,9 +323,9 @@ function uniq(a) { return a.filter((x, i) => a.indexOf(x) === i); }
   const site = { id: d.id, label: d.label, section: d.section, data: d, systems: [] };
   if (d.hand) site.systems = d.hand;
   if (d.auto) {
-    const a = d.auto, inv = new Set((a.invalid || []).map(x => x.join('|')));
+    const a = PATHO[d.id] ? Object.assign({}, d.auto, PATHO[d.id]) : d.auto, inv = new Set((a.invalid || []).map(x => x.join('|')));
     def({ id: d.id, site: d.id, label: d.label, short: d.label, edition: a.edition, T: a.T, N: a.N, M: a.M, Q: a.Q || undefined,
-      invalid: (t, n, m) => inv.has(t + '|' + n + '|' + m), rules: a.rules.map(r => r.length > 4 && r[4] ? r : r.slice(0, 4)), generic: true, note: d.drill_note || null });
+      invalid: (t, n, m) => inv.has(t + '|' + n + '|' + m), rules: a.rules.map(r => r.length > 4 && r[4] ? r : r.slice(0, 4)), generic: true, note: d.drill_note || null, patho: !!PATHO[d.id] });
     site.systems = [d.id];
   }
   SITES.push(site);
@@ -352,7 +394,7 @@ function genGeneric(target) {
   if (target.q) Object.keys(target.q).forEach(k => f.push(qField(k, target.q[k], site.id)));
   const tt = td ? instantiate(td.desc) : target.t, nt = nd ? instantiate(nd.desc) : target.n, mt = md ? instantiate(md.desc) : target.m;
   f.push(['Primary', tt], ['Nodes', nt], ['Distant', mt]);
-  return { sys: sys.id, fields: f, t: target.t, n: target.n, m: target.m, q: target.q, why: { T: (td ? td.desc : '') + ' → ' + target.t, N: (nd ? nd.desc : '') + ' → ' + target.n, M: (md ? md.desc : '') + ' → ' + target.m, X: sys.note } };
+  return { sys: sys.id, fields: f, t: target.t, n: target.n, m: target.m, q: target.q, why: { T: (td ? td.desc : '') + ' → ' + target.t, N: (nd ? nd.desc : defOf(site.id, 'N', target.n)) + ' → ' + target.n, M: (md ? md.desc : '') + ' → ' + target.m, X: sys.note } };
 }
 
 // ---------- case generators ----------
@@ -372,12 +414,20 @@ function genLung(target) {
   const f = [['Patient', sexAge()]];
   if (t !== 'Tis' && t !== 'T1mi') { const r = LUNG_H === 'sclc' ? 0.95 : LUNG_H === 'nsclc' ? rnd() * 0.9 : rnd(); f.push(['Histology', r < 0.5 ? 'Adenocarcinoma' : r < 0.78 ? 'Squamous cell carcinoma' : r < 0.86 ? 'Non-small cell carcinoma, NOS' : r < 0.9 ? 'Large cell carcinoma' : 'Small cell carcinoma']); }
   let tumour, why;
-  const T2F = ['visceral pleural invasion on resection', 'involves the main bronchus 1.5 cm from the carina', 'obstructive pneumonitis extending to the hilum', 'invades the adjacent lobe across the fissure'];
-  const T3F = ['invades the parietal pleura', 'invades the chest wall at the 5th rib', 'invades the phrenic nerve', 'invades the parietal pericardium', 'invades the azygos vein', 'separate tumour nodule in the same lobe'];
-  const T4F = ['invades the diaphragm', 'invades the mediastinal fat and superior vena cava', 'invades the carina', 'invades the oesophageal wall', 'encases the left recurrent laryngeal nerve with vocal cord palsy', 'invades a vertebral body', 'separate nodule of the same histology in a different ipsilateral lobe'];
-  const sizeBins = { T1a: [0, 1], T1b: [1, 2], T1c: [2, 3], T2a: [3, 4], T2b: [4, 5], T3: [5, 7], T4: [7, 10] };
-  if (t === 'Tis') { const sz = inRange(0.5, 3); tumour = cm(sz) + ' nodule in the ' + lobe + '; resection: adenocarcinoma in situ, pure lepidic, no invasion'; why = 'Adenocarcinoma in situ ≤3 cm → Tis'; }
-  else if (t === 'T1mi') { const sz = inRange(0.8, 3); const inv = ri(1, 5); tumour = cm(sz) + ' part-solid nodule in the ' + lobe + '; resection: lepidic-predominant adenocarcinoma, invasive focus ' + inv + ' mm'; why = 'Lepidic ≤3 cm, invasion ≤5 mm → T1mi'; }
+  const hist = (f.find(x => x[0] === 'Histology') || [])[1] || '';
+  // [short reason, full sentence]
+  const T2F = [['Visceral pleural invasion', 'Resection shows visceral pleural invasion'], ['Main bronchus involved, carina spared', 'The tumour involves the main bronchus 1.5 cm from the carina'],
+    ['Obstructive pneumonitis to the hilum', 'There is obstructive pneumonitis extending to the hilum'], ['Invades the adjacent lobe across the fissure', 'The tumour invades the adjacent lobe across the fissure']];
+  const T3F = [['Parietal pleura', 'The tumour invades the parietal pleura'], ['Chest wall', 'The tumour invades the chest wall at the 5th rib'], ['Phrenic nerve', 'The tumour invades the phrenic nerve'],
+    ['Parietal pericardium', 'The tumour invades the parietal pericardium'], ['Azygos vein', 'The tumour invades the azygos vein'], ['Separate nodule in the same lobe', 'There is a separate tumour nodule in the same lobe']];
+  const T4F = [['Diaphragm', 'The tumour invades the diaphragm'], ['Mediastinal fat and superior vena cava', 'The tumour invades the mediastinal fat and the superior vena cava'], ['Carina', 'The tumour invades the carina'],
+    ['Oesophageal wall', 'The tumour invades the oesophageal wall'], ['Recurrent laryngeal nerve', 'The tumour encases the left recurrent laryngeal nerve, with vocal cord palsy'], ['Vertebral body', 'The tumour invades a vertebral body'],
+    ['Separate nodule in another ipsilateral lobe', 'There is a separate nodule of the same histology in a different ipsilateral lobe']];
+  // T1a starts at 0.5 cm: a smaller lesion is not called a mass and is rarely staged by size alone
+  const sizeBins = { T1a: [0.4, 1], T1b: [1, 2], T1c: [2, 3], T2a: [3, 4], T2b: [4, 5], T3: [5, 7], T4: [7, 10] };
+  const lesion = sz => cm(sz) + (sz > 3 ? ' mass' : ' nodule');
+  if (t === 'Tis') { const sz = inRange(0.5, 3); tumour = lesion(sz) + ' in the ' + lobe + '; resection: adenocarcinoma in situ, pure lepidic, with no invasion'; why = 'Adenocarcinoma in situ ≤3 cm → Tis'; }
+  else if (t === 'T1mi') { const sz = inRange(0.8, 3); const inv = ri(1, 5); tumour = cm(sz) + ' part-solid nodule in the ' + lobe + '; resection: lepidic-predominant adenocarcinoma with an invasive focus of ' + inv + ' mm'; why = 'Lepidic ≤3 cm, invasion ≤5 mm → T1mi'; }
   else {
     const byFeature = (t === 'T2a' && chance(0.5)) || (t === 'T3' && chance(0.55)) || (t === 'T4' && chance(0.6));
     let sz, feat = null;
@@ -394,31 +444,38 @@ function genLung(target) {
     let extra = null;
     if (!feat && (t === 'T2b' || t === 'T3' || t === 'T4') && chance(0.35)) extra = pick(T2F);
     if (feat && t === 'T4' && chance(0.3)) extra = pick(T3F);
-    const solid = (t === 'T1a' || t === 'T1b' || t === 'T1c') && chance(0.3);
-    tumour = (solid ? 'Part-solid ' + cm(sz + inRange(0.3, 1.5)) + ' nodule, solid (invasive) component ' + cm(sz) : cm(sz) + ' mass') + ' in the ' + lobe;
-    if (feat) tumour += '; ' + feat;
-    if (extra) tumour += '; ' + extra;
-    if (feat) why = cap(feat) + ' → ' + t + (t === 'T2a' ? ' (size ≤4 cm)' : '');
-    else why = 'Size ' + cm(sz) + ' → ' + t + ' (' + rangeText(sizeBins[t], 'cm') + ')' + (extra ? '; T2 feature does not raise it' : '');
+    // part-solid wording only for adenocarcinoma
+    const solid = (t === 'T1a' || t === 'T1b' || t === 'T1c') && hist === 'Adenocarcinoma' && chance(0.3);
+    tumour = (solid ? 'part-solid ' + cm(sz + inRange(0.3, 1.5)) + ' nodule with a solid (invasive) component of ' + cm(sz) : lesion(sz)) + ' in the ' + lobe;
+    if (feat) tumour += '; ' + feat[1];
+    if (extra) tumour += '; ' + extra[1];
+    if (feat) why = feat[0] + ' → ' + t + (t === 'T2a' ? ' (size ≤4 cm)' : '');
+    else why = 'Size ' + cm(sz) + ' → ' + t + ' (' + rangeText(sizeBins[t][0] < 1 ? [0, 1] : sizeBins[t], 'cm') + ')' + (extra ? '; T2 feature does not raise it' : '');
   }
   f.push(['Primary', tumour]);
-  // Nodes
+  // Nodes: EBUS reaches stations 2, 4, 7, 10 and 11; 5 and 6 need mediastinoscopy or VATS; 8 and 9 need EUS
   const ipsiN1 = [s === 'R' ? '10R' : '10L', s === 'R' ? '11R' : '11L', '12' + s];
   const ipsiN2 = s === 'R' ? ['2R', '4R', '7', '8R', '9R'] : ['2L', '4L', '5', '6', '7', '8L', '9L'];
+  const ebusN2 = ipsiN2.filter(x => /^(2|4|7)/.test(x));
   const contra = s === 'R' ? ['2L', '4L', '10L'] : ['2R', '4R', '10R'];
+  const how = st => /^(5|6)$/.test(st) ? 'VATS biopsy of station ' + st : /^(8|9)/.test(st) ? 'EUS-FNA of station ' + st : 'EBUS-TBNA of station ' + st;
+  const list = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
   let nodes, nwhy;
-  if (n === 'N0') { nodes = 'EBUS: stations ' + sampleK(ipsiN2, 2).concat(sampleK(ipsiN1, 1)).join(', ') + ' negative'; nwhy = 'No nodal metastasis → N0'; }
-  else if (n === 'N1') { const st = sampleK(ipsiN1, ri(1, 2)); nodes = 'Station ' + st.join(' and ') + ' positive; mediastinal stations negative'; nwhy = 'Ipsilateral hilar/intrapulmonary only → N1'; }
-  else if (n === 'N2a') { const st = pick(ipsiN2); const n1 = chance(0.4) ? ' and ' + pick(ipsiN1) : ''; nodes = 'EBUS-TBNA positive at station ' + st + n1 + '; other mediastinal stations negative'; nwhy = 'Single ipsilateral mediastinal/subcarinal station (' + st + ') → N2a'; }
-  else if (n === 'N2b') { const st = sampleK(ipsiN2, ri(2, 3)); nodes = 'EBUS-TBNA positive at stations ' + st.join(', '); nwhy = 'Multiple ipsilateral mediastinal stations → N2b'; }
-  else { const o = chance(0.5) ? 'contralateral station ' + pick(contra) : pick(['ipsilateral', 'contralateral']) + ' supraclavicular node'; nodes = 'Positive ' + o + (chance(0.5) ? '; station ' + pick(ipsiN2) + ' also positive' : ''); nwhy = 'Contralateral mediastinal/hilar or any supraclavicular → N3'; }
+  if (n === 'N0') { nodes = 'EBUS-TBNA of stations ' + list(sampleK(ebusN2, 2).concat([pick(ipsiN1.slice(0, 2))])) + ' is negative'; nwhy = 'No nodal metastasis → N0'; }
+  else if (n === 'N1') { const st = sampleK(ipsiN1.slice(0, 2), ri(1, 2)); nodes = 'EBUS-TBNA is positive at station' + (st.length > 1 ? 's ' : ' ') + list(st) + ', and the mediastinal stations are negative'; nwhy = 'Ipsilateral hilar/intrapulmonary only → N1'; }
+  else if (n === 'N2a') { const st = pick(ipsiN2); const n1 = chance(0.4) ? ' Station ' + pick(ipsiN1.slice(0, 2)) + ' is also positive.' : ''; nodes = how(st) + ' is positive, and the other mediastinal stations are negative.' + n1; nwhy = 'Single ipsilateral mediastinal/subcarinal station (' + st + ') → N2a'; }
+  else if (n === 'N2b') { const st = sampleK(ebusN2, Math.min(ebusN2.length, ri(2, 3))); nodes = 'EBUS-TBNA is positive at stations ' + list(st); nwhy = 'Multiple ipsilateral mediastinal stations → N2b'; }
+  else {
+    const o = chance(0.5) ? 'EBUS-TBNA is positive at contralateral station ' + pick(contra) : 'Ultrasound-guided FNA of a ' + pick(['ipsilateral', 'contralateral']) + ' supraclavicular node is positive';
+    nodes = o + (chance(0.5) ? ', and station ' + pick(ebusN2) + ' is also positive' : ''); nwhy = 'Contralateral mediastinal/hilar or any supraclavicular → N3';
+  }
   f.push(['Nodes', nodes]);
   let mets, mwhy;
-  if (m === 'M0') { mets = pick(['PET-CT and brain MRI: no distant disease', 'No pleural effusion; brain MRI and PET-CT clear']); mwhy = 'No distant metastasis → M0'; }
-  else if (m === 'M1a') { mets = pick(['Cytology-positive pleural effusion', 'Pleural nodules at thoracoscopy', 'Separate nodule of the same histology in the contralateral lung', 'Malignant pericardial effusion']); mwhy = 'Intrathoracic spread (contralateral lung, pleura, pericardium) → M1a'; }
-  else if (m === 'M1b') { mets = pick(['Single 1.4 cm brain metastasis', 'Solitary left adrenal metastasis', 'Single liver metastasis', 'Single lytic lesion in the T10 vertebra']); mwhy = 'Single extrathoracic metastasis → M1b'; }
-  else if (m === 'M1c1') { mets = pick(['Four brain metastases', 'Multiple liver metastases', 'Bone metastases in the spine, pelvis and ribs', 'Bilateral adrenal metastases']); mwhy = 'Multiple metastases in one organ system → M1c1'; }
-  else { mets = pick(['Liver and bone metastases', 'Brain metastasis and adrenal metastasis', 'Bone metastases and a liver metastasis']); mwhy = 'Metastases in more than one organ system → M1c2'; }
+  if (m === 'M0') { mets = pick(['PET-CT and brain MRI show no distant disease', 'There is no pleural effusion, and PET-CT and brain MRI show no distant disease']); mwhy = 'No distant metastasis → M0'; }
+  else if (m === 'M1a') { mets = pick(['Pleural fluid cytology shows malignant cells', 'Thoracoscopy shows pleural nodules, and biopsy is positive', 'There is a separate nodule of the same histology in the contralateral lung', 'Pericardial fluid cytology shows malignant cells']); mwhy = 'Intrathoracic spread (contralateral lung, pleura, pericardium) → M1a'; }
+  else if (m === 'M1b') { mets = pick(['Brain MRI shows a single 1.4 cm metastasis', 'PET-CT shows a solitary left adrenal metastasis', 'PET-CT shows a single liver metastasis', 'PET-CT shows a single lytic lesion in the T10 vertebra']); mwhy = 'Single extrathoracic metastasis → M1b'; }
+  else if (m === 'M1c1') { mets = pick(['Brain MRI shows four metastases', 'PET-CT shows multiple liver metastases', 'PET-CT shows bone metastases in the spine, pelvis and ribs', 'PET-CT shows bilateral adrenal metastases']); mwhy = 'Multiple metastases in one organ system → M1c1'; }
+  else { mets = pick(['PET-CT shows liver and bone metastases', 'Brain MRI shows a metastasis, and PET-CT shows an adrenal metastasis', 'PET-CT shows bone metastases and a liver metastasis']); mwhy = 'Metastases in more than one organ system → M1c2'; }
   f.push(['Distant', mets]);
   return { sys: 'lung', fields: f, t, n, m, q: null, why: { T: why, N: nwhy, M: mwhy } };
 }
@@ -429,16 +486,26 @@ function rangeText(b, u) { return b[0] === 0 ? '≤' + b[1] + ' ' + u : '>' + b[
 // Colorectal
 function genCrc(target) {
   const { t, n, m } = target;
+  const sex = pick(['M', 'F']);
   const colon = ['caecum', 'ascending colon', 'hepatic flexure', 'transverse colon', 'descending colon', 'sigmoid colon'];
   const siteName = t === 'T4a' ? pick(colon) : pick(colon.concat(['rectum, 8 cm from the anal verge', 'upper rectum']));
-  const f = [['Patient', sexAge()], ['Specimen', 'Resection · ' + siteName]];
+  const rectal = /rectum/.test(siteName);
+  const f = [['Patient', sex + ' · ' + ri(42, 81)], ['Specimen', 'Resection · ' + siteName]];
   let tt, why;
-  if (t === 'Tis') { tt = 'Adenocarcinoma invading the lamina propria; muscularis mucosae intact'; why = 'Intramucosal → Tis'; }
-  else if (t === 'T1') { tt = 'Invades into the submucosa; muscularis propria free'; why = 'Submucosa → T1'; }
-  else if (t === 'T2') { tt = 'Invades into, not through, the muscularis propria'; why = 'Muscularis propria → T2'; }
-  else if (t === 'T3') { tt = 'Extends ' + ri(1, 12) + ' mm beyond the muscularis propria into ' + pick(['pericolic fat', 'subserosa', 'mesorectal fat']) + (chance(0.25) ? '; serosal surface free of tumour' : ''); why = 'Through muscularis propria, peritoneum intact → T3'; }
-  else if (t === 'T4a') { const o = pick(['Tumour cells on the serosal surface with mesothelial reaction', 'Perforation through the tumour', 'Tumour reaches the visceral peritoneal surface']); tt = o; why = 'Visceral peritoneum penetrated (incl. perforation through tumour) → T4a'; }
-  else { const o = pick(['Invades the urinary bladder wall, confirmed histologically', 'Adherent to a loop of small bowel, tumour present in the adhesion', 'Invades the left ovary', 'Invades the abdominal wall muscle']); tt = o; why = 'Invades or adheres to an adjacent organ (tumour in adhesion) → T4b'; }
+  if (t === 'Tis') { tt = 'The adenocarcinoma invades the lamina propria, and the muscularis mucosae is intact'; why = 'Intramucosal → Tis'; }
+  else if (t === 'T1') { tt = 'The tumour invades the submucosa, and the muscularis propria is free'; why = 'Submucosa → T1'; }
+  else if (t === 'T2') { tt = 'The tumour invades into, but not through, the muscularis propria'; why = 'Muscularis propria → T2'; }
+  else if (t === 'T3') {
+    const tissue = rectal ? 'the mesorectal fat' : pick(['the pericolic fat', 'the subserosa']);
+    tt = 'The tumour extends ' + ri(1, 12) + ' mm beyond the muscularis propria into ' + tissue + (!rectal && chance(0.25) ? '; The serosal surface is free of tumour' : ''); why = 'Through muscularis propria, peritoneum intact → T3';
+  }
+  else if (t === 'T4a') { tt = pick(['Tumour cells are present on the serosal surface with a mesothelial reaction', 'There is perforation through the tumour', 'The tumour reaches the visceral peritoneal surface']); why = 'Visceral peritoneum penetrated (incl. perforation through tumour) → T4a'; }
+  else {
+    const o = ['The tumour invades the urinary bladder wall, confirmed on histology', 'The tumour is adherent to a loop of small bowel, with tumour present in the adhesion', 'The tumour invades the abdominal wall muscle'];
+    if (sex === 'F') o.push(rectal ? 'The tumour invades the posterior vaginal wall' : 'The tumour invades the left ovary');
+    if (sex === 'M' && rectal) o.push('The tumour invades the prostate');
+    tt = pick(o); why = 'Invades or adheres to an adjacent organ (tumour in adhesion) → T4b';
+  }
   f.push(['Depth', tt]);
   const total = ri(12, 34);
   let pos, dep = 0, nwhy;
@@ -452,12 +519,12 @@ function genCrc(target) {
   if (!nwhy) nwhy = pos + ' positive node' + (pos > 1 ? 's' : '') + ' → ' + n + (dep ? '; deposits do not change N when nodes are positive' : '');
   f.push(['Nodes', pos + '/' + total + ' positive' + (dep ? ' · tumour deposits: ' + dep : ' · tumour deposits: none')]);
   let mets, mwhy;
-  if (m === 'M0') { mets = 'CT chest, abdomen, pelvis: no distant disease'; mwhy = 'M0'; }
-  else if (m === 'M1a') { mets = pick(['Three liver metastases', 'Single liver metastasis', 'Two lung metastases, both lungs']); mwhy = 'One organ, no peritoneum → M1a'; }
-  else if (m === 'M1b') { mets = pick(['Liver and lung metastases', 'Liver metastases and a bone metastasis']); mwhy = 'Two or more organs, no peritoneum → M1b'; }
-  else { mets = pick(['Peritoneal deposits on the omentum', 'Peritoneal nodules and liver metastases', 'Ovarian Krukenberg-type deposit and peritoneal disease']); mwhy = 'Peritoneal metastasis → M1c'; }
+  if (m === 'M0') { mets = 'CT of the chest, abdomen and pelvis shows no distant disease'; mwhy = 'M0'; }
+  else if (m === 'M1a') { mets = pick(['CT shows three liver metastases', 'CT shows a single liver metastasis', 'CT shows two lung metastases, one in each lung']); mwhy = 'One organ, no peritoneum → M1a'; }
+  else if (m === 'M1b') { mets = pick(['CT shows liver and lung metastases', 'CT shows liver metastases and a bone metastasis']); mwhy = 'Two or more organs, no peritoneum → M1b'; }
+  else { mets = pick(['CT shows peritoneal deposits on the omentum', 'CT shows peritoneal nodules and liver metastases'].concat(sex === 'F' ? ['CT shows a Krukenberg-type ovarian deposit and peritoneal disease'] : [])); mwhy = 'Peritoneal metastasis → M1c'; }
   f.push(['Distant', mets]);
-  return { sys: 'crc', fields: f, t, n, m, q: null, why: { T: why, N: nwhy, M: mwhy } };
+  return { sys: 'crc', fields: f, t, n, m, q: null, rectal, why: { T: why, N: nwhy, M: mwhy } };
 }
 
 // Breast
@@ -472,49 +539,51 @@ function genBreast(target) {
   const f = [['Patient', 'F · ' + ri(34, 79)], ['Setting', setting === 'p' ? 'Surgical specimen' : 'Clinical and imaging']];
   const sizes = { T1a: [1, 5], T1b: [5, 10], T1c: [10, 20], T2: [20, 50], T3: [50, 90] };
   let tt, why;
-  if (t === 'T0') { tt = 'No primary lesion on mammography, ultrasound or MRI'; why = 'No primary identified → T0'; }
-  else if (t === 'Tis') { tt = 'DCIS ' + ri(8, 60) + ' mm, grade ' + ri(1, 3) + ', no invasion'; why = 'DCIS without invasion → Tis'; }
-  else if (t === 'T1mi') { tt = 'DCIS ' + ri(15, 50) + ' mm with an invasive focus of 0.' + ri(3, 9) + ' mm'; why = 'Invasion ≤1 mm → T1mi'; }
+  if (t === 'T0') { tt = 'Mammography, ultrasound and MRI show no primary tumour in the breast'; why = 'No primary identified → T0'; }
+  else if (t === 'Tis') { tt = 'DCIS of ' + ri(8, 60) + ' mm, grade ' + ri(1, 3) + ', with no invasion'; why = 'DCIS without invasion → Tis'; }
+  else if (t === 'T1mi') { tt = 'DCIS of ' + ri(15, 50) + ' mm with an invasive focus of 0.' + ri(3, 9) + ' mm'; why = 'Invasion ≤1 mm → T1mi'; }
   else if (sizes[t]) {
     const b = sizes[t]; const sz = inRange(b[0], b[1], 1);
     if (chance(0.25) && sz > 6) { const other = ri(2, Math.max(3, sz - 2)); tt = 'Two invasive foci, ' + sz + ' mm and ' + other + ' mm'; why = 'Largest focus ' + sz + ' mm, not the sum → ' + t + ' (' + rangeText(b, 'mm') + ')'; }
-    else { tt = 'Invasive carcinoma ' + sz + ' mm' + (chance(0.25) ? ' with surrounding DCIS to ' + (sz + ri(10, 30)) + ' mm' : ''); why = 'Invasive size ' + sz + ' mm → ' + t + ' (' + rangeText(b, 'mm') + ')' + (/DCIS to/.test(tt) ? '; DCIS extent not counted' : ''); }
-    if (chance(0.15)) { tt += '; invades the pectoralis major, ribs free'; why += '; pectoralis invasion alone is not T4a'; }
+    else { tt = 'Invasive carcinoma ' + sz + ' mm' + (setting === 'p' && chance(0.25) ? ' with surrounding DCIS to ' + (sz + ri(10, 30)) + ' mm' : ''); why = 'Invasive size ' + sz + ' mm → ' + t + ' (' + rangeText(b, 'mm') + ')' + (/DCIS to/.test(tt) ? '; DCIS extent not counted' : ''); }
+    if (sz >= 15 && chance(0.15)) { tt += '; The tumour invades the pectoralis major, and the ribs and intercostal muscles are free'; why += '; pectoralis invasion alone is not T4a'; }
   }
-  else if (t === 'T4a') { tt = ri(25, 70) + ' mm mass fixed to the ' + pick(['ribs', 'intercostal muscles', 'serratus anterior']) + '; skin intact'; why = 'Chest wall extension → T4a'; }
-  else if (t === 'T4b') { tt = ri(25, 70) + ' mm mass with ' + pick(['skin ulceration', 'ipsilateral satellite skin nodules', 'localised peau d’orange over the mass, no erythema']); why = 'Skin involvement short of inflammatory → T4b'; }
+  else if (t === 'T4a') { tt = ri(25, 70) + ' mm mass fixed to the ' + pick(['ribs', 'intercostal muscles', 'serratus anterior']) + ', with intact skin'; why = 'Chest wall extension → T4a'; }
+  else if (t === 'T4b') { tt = ri(25, 70) + ' mm mass with ' + pick(['skin ulceration', 'ipsilateral satellite skin nodules', 'localised peau d’orange over the mass and no erythema']); why = 'Skin involvement short of inflammatory → T4b'; }
   else if (t === 'T4c') { tt = ri(35, 80) + ' mm mass fixed to the ribs with skin ulceration'; why = 'Chest wall plus skin → T4c'; }
-  else { tt = 'Diffuse erythema and oedema over ' + pick(['half', 'two-thirds', 'most']) + ' of the breast, onset over ' + ri(3, 8) + ' weeks'; why = 'Erythema and oedema ≥1/3 of breast skin, rapid onset → T4d'; }
+  else { tt = 'Diffuse erythema and oedema over ' + pick(['half', 'two-thirds', 'most']) + ' of the breast, which developed over ' + ri(3, 8) + ' weeks'; why = 'Erythema and oedema ≥1/3 of breast skin, rapid onset → T4d'; }
   f.push(['Primary', tt]);
   // Fine N consistent with anatomic N
   const cOpts = { N0: ['cN0'], N1: ['cN1'], N2: ['cN2a', 'cN2b'], N3: ['cN3a', 'cN3b', 'cN3c'] };
   const pOpts = { N0: ['pN0'], N1mi: ['pN1mi'], N1: ['pN1a', 'pN1b', 'pN1c'], N2: ['pN2a', 'pN2b'], N3: ['pN3a', 'pN3b', 'pN3c'] };
   const fineN = setting === 'p' ? pick(pOpts[anat]) : pick(cOpts[anat]);
+  const k = ri(1, 4), sn = k === 1 ? 'The single sentinel node is negative' : 'All ' + k + ' sentinel nodes are negative';
+  const ax = (a, b) => { const p = ri(a[0], a[1]), tot = ri(b[0], b[1]); return p + ' of ' + tot + ' axillary nodes ' + (p === 1 ? 'is' : 'are') + ' positive'; };
   const NTXT = {
-    cN0: ['No palpable or sonographically abnormal axillary nodes', 'Normal axillary ultrasound'],
-    cN1: ['Mobile palpable level I axillary node, core biopsy positive', 'Two mobile level II nodes on ultrasound, FNA positive'],
-    cN2a: ['Matted level I/II axillary nodes fixed to each other, biopsy positive'],
-    cN2b: ['Biopsy-proven internal mammary node on MRI; axillary ultrasound normal'],
-    cN3a: ['Biopsy-positive infraclavicular (level III) node'],
-    cN3b: ['Biopsy-positive internal mammary node and level I axillary nodes'],
-    cN3c: ['Biopsy-positive ipsilateral supraclavicular node'],
-    pN0: ['0/' + ri(1, 4) + ' sentinel nodes', 'Sentinel node with isolated tumour cells, 0.1' + ri(0, 9) + ' mm'],
-    pN1mi: ['1/' + ri(2, 4) + ' sentinel nodes with a ' + (0.3 + ri(0, 16) / 10).toFixed(1) + ' mm metastasis'],
-    pN1a: [ri(1, 3) + '/' + ri(8, 16) + ' axillary nodes positive, largest deposit ' + ri(3, 12) + ' mm'],
-    pN1b: ['Internal mammary sentinel node with a 4 mm metastasis; 0/3 axillary sentinel nodes'],
-    pN1c: ['2/14 axillary nodes positive (6 mm) and a positive internal mammary sentinel node'],
-    pN2a: [ri(4, 9) + '/' + ri(14, 22) + ' axillary nodes positive, largest deposit ' + ri(4, 15) + ' mm'],
-    pN2b: ['Clinically detected internal mammary node, biopsy positive; 0/12 axillary nodes'],
-    pN3a: [ri(10, 18) + '/' + ri(19, 26) + ' axillary nodes positive', 'Level III (infraclavicular) node positive; 2/14 level I/II nodes'],
-    pN3b: ['5/16 axillary nodes positive and a clinically detected internal mammary node'],
-    pN3c: ['Ipsilateral supraclavicular node positive; 3/15 axillary nodes']
+    cN0: ['No axillary nodes are palpable, and axillary ultrasound is normal', 'Axillary ultrasound is normal'],
+    cN1: ['A mobile level I axillary node is palpable, and core biopsy is positive', 'Ultrasound shows two mobile level II nodes, and FNA is positive'],
+    cN2a: ['Level I and II axillary nodes are matted together, and biopsy is positive'],
+    cN2b: ['MRI shows an internal mammary node, and biopsy is positive. Axillary ultrasound is normal'],
+    cN3a: ['An infraclavicular (level III) node is biopsy positive'],
+    cN3b: ['An internal mammary node and level I axillary nodes are biopsy positive'],
+    cN3c: ['An ipsilateral supraclavicular node is biopsy positive'],
+    pN0: [sn, 'The sentinel node contains isolated tumour cells measuring 0.1' + ri(0, 9) + ' mm'],
+    pN1mi: ['1 of ' + ri(2, 4) + ' sentinel nodes contains a ' + (0.3 + ri(0, 16) / 10).toFixed(1) + ' mm metastasis'],
+    pN1a: [ax([1, 3], [8, 16]) + ', and the largest deposit is ' + ri(3, 12) + ' mm'],
+    pN1b: ['An internal mammary sentinel node contains a 4 mm metastasis, and all 3 axillary sentinel nodes are negative'],
+    pN1c: ['2 of 14 axillary nodes are positive, with deposits up to 6 mm, and an internal mammary sentinel node is also positive'],
+    pN2a: [ax([4, 9], [14, 22]) + ', and the largest deposit is ' + ri(4, 15) + ' mm'],
+    pN2b: ['A clinically detected internal mammary node is biopsy positive, and all 12 axillary nodes are negative'],
+    pN3a: [ax([10, 18], [19, 26]), 'An infraclavicular (level III) node is positive, and 2 of 14 level I and II nodes are positive'],
+    pN3b: ['5 of 16 axillary nodes are positive, and a clinically detected internal mammary node is also positive'],
+    pN3c: ['An ipsilateral supraclavicular node is positive, and 3 of 15 axillary nodes are positive']
   };
   const ntxt = pick(NTXT[fineN]);
   f.push(['Nodes', ntxt]);
   const nwhy = (/isolated tumour cells/.test(ntxt) ? 'Isolated tumour cells ≤0.2 mm are pN0(i+) → ' : '') + fineN + ' → anatomic ' + anat;
   let mets, mwhy;
-  if (m === 'M0') { mets = pick(['Staging CT and bone scan negative', 'No distant disease on PET-CT']); mwhy = 'M0'; }
-  else { mets = pick(['Biopsy-proven liver metastases', 'Multiple bone metastases on PET-CT', 'Lung nodules, biopsy confirmed', 'Biopsy-positive contralateral axillary node']); mwhy = 'Distant metastasis' + (/contralateral axillary/.test(mets) ? ' (contralateral axilla is non-regional)' : '') + ' → M1'; }
+  if (m === 'M0') { mets = pick(['Staging CT and bone scan are negative', 'PET-CT shows no distant disease']); mwhy = 'M0'; }
+  else { mets = pick(['CT shows liver metastases, and biopsy confirms them', 'PET-CT shows multiple bone metastases', 'CT shows lung nodules, and biopsy confirms metastasis', 'A contralateral axillary node is biopsy positive']); mwhy = 'Distant metastasis' + (/contralateral axillary/.test(mets) ? ' (contralateral axilla is non-regional)' : '') + ' → M1'; }
   f.push(['Distant', mets]);
   return { sys: 'breast', fields: f, t, n: anat, nFine: fineN, setting, m, q: null, why: { T: why, N: nwhy, M: mwhy } };
 }
@@ -532,11 +601,11 @@ function genOral(target) {
   const side = pick(['Left', 'Right']);
   const f = [['Patient', sexAge()], ['Primary site', side + ' ' + sub]];
   let tt, why;
-  if (t === 'Tis') { tt = 'Biopsy: carcinoma in situ, no invasion'; why = 'In situ → Tis'; }
+  if (t === 'Tis') { tt = 'Biopsy: carcinoma in situ with no invasion'; why = 'In situ → Tis'; }
   else if (t === 'T4b') { tt = cm(inRange(2, 6)) + ' tumour ' + pick(['invading the masticator space', 'invading the pterygoid plates', 'extending to the skull base', 'encasing the internal carotid artery']); why = 'Masticator space, pterygoid plates, skull base or ICA encasement → T4b'; }
   else if (t === 'T4a' && chance(0.5)) {
-    const feat = sub === 'buccal mucosa' ? 'invading the skin of the cheek' : sub === 'hard palate' ? 'invading the maxillary sinus' : (sub === 'lower gingiva' || sub === 'retromolar trigone') ? 'eroding through the mandibular cortex into medullary bone' : pick(['eroding through the mandibular cortex into medullary bone']);
-    tt = cm(inRange(1, 4)) + ' tumour, MRI DOI ' + ri(4, 10) + ' mm, ' + feat; why = 'Through cortical bone, maxillary sinus or facial skin → T4a';
+    const feat = sub === 'buccal mucosa' ? 'invades the skin of the cheek' : sub === 'hard palate' ? 'invades the maxillary sinus' : 'erodes through the mandibular cortex into medullary bone';
+    tt = cm(inRange(1, 4)) + ' tumour with an MRI depth of invasion of ' + ri(4, 10) + ' mm, which ' + feat; why = 'Through cortical bone, maxillary sinus or facial skin → T4a';
   } else {
     // size/DOI pair consistent with target
     let sz, doi, guard = 0;
@@ -545,22 +614,23 @@ function genOral(target) {
     } while (oralT(sz, doi) !== t && guard < 500);
     tt = cm(sz) + ' tumour, depth of invasion ' + doi + ' mm on MRI';
     let note = '';
-    if ((sub === 'lower gingiva' || sub === 'retromolar trigone') && chance(0.3)) { tt += '; superficial erosion of the tooth socket only'; note = '; superficial bone erosion by a gingival primary is not T4'; }
+    if ((sub === 'lower gingiva' || sub === 'retromolar trigone') && chance(0.3)) { tt += '; There is superficial erosion of the tooth socket only'; note = '; superficial bone erosion by a gingival primary is not T4'; }
     why = cm(sz) + ' with DOI ' + doi + ' mm → ' + t + note;
   }
   f.push(['Tumour', tt]);
   const contra = side === 'Left' ? 'right' : 'left', ipsi = side.toLowerCase();
   const lv = () => pick(['IB', 'IIA', 'III', 'IV']);
   let nodes, nwhy;
-  if (n === 'N0') { nodes = 'No suspicious neck nodes on CT and ultrasound'; nwhy = 'N0'; }
-  else if (n === 'N1') { const s = inRange(1, 3); nodes = 'Single ' + ipsi + ' level ' + lv() + ' node ' + cm(s) + ', mobile, no clinical ENE'; nwhy = 'Single ipsilateral ≤3 cm, ENE− → N1'; }
-  else if (n === 'N2a') { const s = inRange(3, 6); nodes = 'Single ' + ipsi + ' level ' + lv() + ' node ' + cm(s) + ', mobile, no clinical ENE'; nwhy = 'Single ipsilateral >3 to ≤6 cm, ENE− → N2a'; }
-  else if (n === 'N2b') { const k = ri(2, 4); nodes = k + ' ' + ipsi + ' level II–III nodes, largest ' + cm(inRange(1, 6)) + ', no clinical ENE'; nwhy = 'Multiple ipsilateral ≤6 cm, ENE− → N2b'; }
-  else if (n === 'N2c') { nodes = pick([contra + ' level II node ' + cm(inRange(1, 6)), 'Bilateral level II nodes, largest ' + cm(inRange(1, 6))]) + ', no clinical ENE'; nwhy = 'Contralateral or bilateral ≤6 cm, ENE− → N2c'; }
-  else if (n === 'N3a') { nodes = ipsi + ' level II nodal mass ' + cm(inRange(6, 8.5)) + ', mobile, skin free'; nodes = cap(nodes); nwhy = 'Node >6 cm, ENE− → N3a'; }
-  else { nodes = cap(ipsi) + ' level II node ' + cm(inRange(1.5, 4)) + ' ' + pick(['fixed to the overlying skin with skin involvement', 'with marginal mandibular nerve palsy', 'fixed to the sternocleidomastoid and deep muscle']); nwhy = 'Clinically overt ENE → N3b, whatever the size'; }
+  const NW = ['two', 'three', 'four'];
+  if (n === 'N0') { nodes = 'CT and ultrasound show no suspicious neck nodes'; nwhy = 'N0'; }
+  else if (n === 'N1') { const s = inRange(1, 3); nodes = 'a single mobile ' + cm(s) + ' ' + ipsi + ' level ' + lv() + ' node with no clinical ENE'; nwhy = 'Single ipsilateral ≤3 cm, ENE− → N1'; }
+  else if (n === 'N2a') { const s = inRange(3, 6); nodes = 'a single mobile ' + cm(s) + ' ' + ipsi + ' level ' + lv() + ' node with no clinical ENE'; nwhy = 'Single ipsilateral >3 to ≤6 cm, ENE− → N2a'; }
+  else if (n === 'N2b') { nodes = pick(NW) + ' ' + ipsi + ' level II–III nodes, the largest ' + cm(inRange(1, 6)) + ', with no clinical ENE'; nwhy = 'Multiple ipsilateral ≤6 cm, ENE− → N2b'; }
+  else if (n === 'N2c') { nodes = pick(['a ' + cm(inRange(1, 6)) + ' ' + contra + ' level II node', 'bilateral level II nodes, the largest ' + cm(inRange(1, 6)) + ',']) + ' with no clinical ENE'; nwhy = 'Contralateral or bilateral ≤6 cm, ENE− → N2c'; }
+  else if (n === 'N3a') { nodes = 'a mobile ' + cm(inRange(6, 8.5)) + ' ' + ipsi + ' level II nodal mass, with the overlying skin free'; nwhy = 'Node >6 cm, ENE− → N3a'; }
+  else { nodes = 'a ' + cm(inRange(1.5, 4)) + ' ' + ipsi + ' level II node ' + pick(['fixed to the overlying skin, with skin involvement', 'with marginal mandibular nerve palsy', 'fixed to the sternocleidomastoid and deep muscle']); nwhy = 'Clinically overt ENE → N3b, whatever the size'; }
   f.push(['Neck', nodes]);
-  const mets = m === 'M0' ? 'CT chest: no metastases' : pick(['Multiple lung metastases', 'Bone metastasis in the T8 vertebra']);
+  const mets = m === 'M0' ? 'CT of the chest shows no metastases' : pick(['CT of the chest shows multiple lung metastases', 'MRI shows a bone metastasis in the T8 vertebra']);
   f.push(['Distant', mets]);
   return { sys: 'oral', fields: f, t, n, m, q: null, why: { T: why, N: nwhy, M: m === 'M0' ? 'M0' : 'Distant metastasis → M1' } };
 }
@@ -585,7 +655,7 @@ function genEso(target) {
   const g = target.q && target.q.g ? target.q.g : pick(['G1', 'G2', 'G3']);
   if (setting === 'p') f.push(['Grade', { G1: 'Well differentiated (G1)', G2: 'Moderately differentiated (G2)', G3: 'Poorly differentiated (G3)' }[g]]);
   const layer = {
-    T0: 'No residual tumour in the oesophageal wall', Tis: 'High-grade dysplasia only, no invasion',
+    T0: 'No residual tumour in the oesophageal wall', Tis: 'High-grade dysplasia only, with no invasion',
     T1a: pick(['Invades the lamina propria', 'Invades the muscularis mucosae']), T1b: 'Invades the submucosa',
     T2: 'Invades the muscularis propria', T3: 'Invades the adventitia',
     T4a: pick(['Invades the pleura', 'Invades the pericardium', 'Invades the azygos vein', 'Invades the diaphragm']),
@@ -593,9 +663,9 @@ function genEso(target) {
   }[t];
   f.push(['Depth', (setting === 'c' ? 'EUS/CT: ' : '') + layer]);
   const k = { N0: 0, N1: ri(1, 2), N2: ri(3, 6), N3: ri(7, 11) }[n];
-  const nodes = setting === 'c' ? (k === 0 ? 'No suspicious regional nodes on EUS and PET' : k + ' suspicious regional node' + (k > 1 ? 's' : '') + ' on EUS and PET' + (chance(0.3) ? ', including a coeliac node' : '')) : k + '/' + ri(Math.max(15, k + 5), 38) + ' regional nodes positive';
+  const nodes = setting === 'c' ? (k === 0 ? 'EUS and PET show no suspicious regional nodes' : k + ' suspicious regional node' + (k > 1 ? 's' : '') + ' on EUS and PET' + (chance(0.3) ? ', including a coeliac node' : '')) : k + '/' + ri(Math.max(15, k + 5), 38) + ' regional nodes positive';
   f.push(['Nodes', nodes]);
-  const mets = m === 'M0' ? 'No distant disease on PET-CT' : pick(['Liver metastases', 'Lung metastases', 'Bone metastases']);
+  const mets = m === 'M0' ? 'PET-CT shows no distant disease' : pick(['PET-CT shows liver metastases', 'PET-CT shows lung metastases', 'PET-CT shows bone metastases']);
   f.push(['Distant', mets]);
   const q = sys.Q ? (sys.Q.loc ? { g, loc } : { g }) : null;
   const tw = { T0: 'No residual tumour → ypT0', Tis: 'High-grade dysplasia → Tis', T1a: 'Lamina propria/muscularis mucosae → T1a', T1b: 'Submucosa → T1b', T2: 'Muscularis propria → T2', T3: 'Adventitia → T3', T4a: 'Pleura, pericardium, azygos, diaphragm or peritoneum → T4a', T4b: 'Aorta, vertebral body or airway → T4b' }[t];
@@ -611,8 +681,17 @@ const VB = VBK.VB || {}, VS = VBK.VS || {};
 const AGE = { testis: [18, 45], gtn: [20, 42], cervix: [28, 72], 'bone-sarcoma': [14, 40], nasopharyngeal: [30, 70] };
 function cap(s) { s = String(s).trim(); return s.charAt(0).toUpperCase() + s.slice(1); }
 function lc(s) { return /^[A-Z][a-z]/.test(s) && !/^(EUS|CT|PET|MRI|DCIS|EBUS|IDH|Ki|TURP)/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
-function art(s) { return /^(\d|single|small|part|large|left|right|bilateral|diffuse|two|three)/i.test(s) && !/^\d+ (of|suspicious|regional|sentinel|axillary)/.test(s) ? (/^[aeiou8]|^11 |^18 /i.test(s) ? 'an ' : 'a ') + s : s; }
-function sent(s) { s = cap(s).replace(/\b1 of (\d+) ([a-z -]+?) are\b/g, '1 of $1 $2 is').replace(/\bA (8\d|11|18)\b/g, 'An $1'); return /[.!?]$/.test(s) ? s : s + '.'; }
+// article before a noun phrase that starts with a size or a singular modifier; none before plurals or counts
+function art(s) {
+  if (/^\d/.test(s)) return /^\d+(\.\d+)? ?(cm|mm)\b/.test(s) ? (/^(8|11 |11\.|18 |18\.)/.test(s) ? 'an ' : 'a ') + s : s;
+  return /^(single|small|part|large|left|right|mobile|fixed)\b/i.test(s) ? 'a ' + s : s;
+}
+function sent(s) {
+  s = cap(s).replace(/\b1 of (\d+) ([a-z -]+?) are\b/g, '1 of $1 $2 is').replace(/\b1 of (\d+) ([a-z -]+?) contain\b/g, '1 of $1 $2 contains')
+    .replace(/(^|\.\s)1 ([a-z][a-z -]*?)nodes are\b/g, (m, p, w) => p + 'One ' + w + 'node is')
+    .replace(/(^|\.\s)1 ([a-z][a-z -]*?)nodes\b/g, (m, p, w) => p + 'One ' + w + 'node').replace(/\bOne ([a-z][a-z -]*?)nodes are\b/g, 'One $1node is').replace(/\bA (8\d|11|18)\b/g, 'An $1');
+  return /[.!?]$/.test(s) ? s : s + '.';
+}
 function alts(str, sex) {
   const all = String(str).split(' | ');
   const ok = all.filter(a => !(a[0] === '♂' && sex === 'F') && !(a[0] === '♀' && sex === 'M'));
@@ -625,16 +704,24 @@ function fillText(s, ctx) {
   s = s.replace(/\{(\d+(?:\.\d+)?)~(\d+(?:\.\d+)?)\}/g, (m, a, b) => { const lo = +a, hi = +b; return (lo + 0.1 * ri(0, Math.round((hi - lo) * 10))).toFixed(1); });
   return s.replace(/\{side\}/g, ctx.side).replace(/\{contra\}/g, ctx.side === 'left' ? 'right' : 'left');
 }
-function person(age, sex) { return 'A ' + age + '-year-old ' + (sex === 'M' ? 'man' : 'woman'); }
+function person(age, sex) { return (/^(8|11|18)$/.test(String(age)) || /^8\d$/.test(String(age)) ? 'An ' : 'A ') + age + '-year-old ' + (age < 18 ? (sex === 'M' ? 'boy' : 'girl') : (sex === 'M' ? 'man' : 'woman')); }
 function qSentence(k, v, siteId) {
   if (k === 'age') return null;
   if (k === 'psa') return 'PSA is ' + (v === '<10' ? inRange(2, 9.9) : v === '10–<20' ? inRange(10, 19.9) : inRange(20, 80, 1)) + ' ng/mL';
   if (k === 'gg') return 'Biopsy shows Gleason ' + ({ GG1: '3+3', GG2: '3+4', GG3: '4+3', GG4: pick(['4+4', '3+5', '5+3']), GG5: pick(['4+5', '5+4', '5+5']) })[v];
   if (k === 's') return 'Post-orchiectomy markers: ' + qField('s', v, siteId)[1];
   if (k === 'g' && siteId === 'soft-tissue-sarcoma') return 'The tumour is FNCLCC grade ' + v.slice(1);
-  if (k === 'g' && siteId === 'bone-sarcoma') return 'The tumour is ' + ({ G1: 'well differentiated, low grade', G2: 'moderately differentiated, high grade', G3: 'poorly differentiated, high grade' })[v];
+  if (k === 'g' && siteId === 'bone-sarcoma') return 'The tumour is ' + ({ G1: 'well differentiated and low grade', G2: 'moderately differentiated and high grade', G3: 'poorly differentiated and high grade' })[v];
   if (k === 'g') return 'The tumour is ' + ({ G1: 'well', G2: 'moderately', G3: 'poorly' })[v] + ' differentiated';
   if (k === 'hist') return 'Histology shows ' + (v === 'Mucinous' ? 'a mucinous' : 'a non-mucinous') + ' adenocarcinoma';
+  return null;
+}
+// sex implied by the organs named in the findings
+function sexOf(texts) {
+  for (const x of texts) { if (!x) continue; if (x[0] === '♂') return 'M'; if (x[0] === '♀') return 'F'; }
+  const all = texts.filter(Boolean).join(' ');
+  if (/prostat|penil|penis|seminal|scrot|testi(s|cular)/i.test(all)) return 'M';
+  if (/ovar|vagin(?!alis)|uter(us|ine)|vulv|fallopian/i.test(all)) return 'F';
   return null;
 }
 function genVignette(target) {
@@ -642,64 +729,93 @@ function genVignette(target) {
   const base = genGeneric(target);
   if (!b) return base;
   const ctx = { side: pick(['left', 'right']) };
-  let sex = b.sex || null;
-  const tAlt = b.T[target.t] ? pick(alts(b.T[target.t], sex)) : null;
-  if (!sex && tAlt && tAlt[0] === '♂') sex = 'M';
-  if (!sex && tAlt && tAlt[0] === '♀') sex = 'F';
-  if (!sex) sex = pick(['M', 'F']);
-  const ar = AGE[site.id] || [38, 82];
-  const age = target.q && target.q.age ? (target.q.age === '<55' ? ri(22, 54) : ri(55, 84)) : ri(ar[0], ar[1]);
-  const parts = [person(age, sex) + ' ' + fillText(pick(alts(b.intro, sex)), ctx)];
-  if (target.q) ['hist', 'g', 'psa', 'gg', 's'].forEach(k => { if (target.q[k] !== undefined) { const q = qSentence(k, target.q[k], site.id); if (q) parts.push(q); } });
-  const nb = b.N || {}, mb = b.M || {};
-  parts.push(tAlt ? fillText(tAlt, ctx) : base.fields.find(f => f[0] === 'Primary')[1]);
+  // an override replaces the intro, nodes or distant text for some cells (unresectable or metastatic disease, in situ)
+  const ov = (b.over || []).find(o => o.when(target)) || {};
+  const nb = Object.assign({}, b.N || {}, ov.N || {}), mb = Object.assign({}, b.M || {}, ov.M || {});
+  const tS = b.T[target.t] || null;
   const nS = nb[target.n] || (target.n === 'N0' ? VBK.N0 : null), mS = mb[target.m] || (target.m === 'M0' ? VBK.M0 : /^M1/.test(target.m) ? VBK.M1 : null);
-  parts.push(nS ? fillText(pick(alts(nS, sex)), ctx) : base.fields.find(f => f[0] === 'Nodes')[1]);
-  parts.push(mS ? fillText(pick(alts(mS, sex)), ctx) : base.fields.find(f => f[0] === 'Distant')[1]);
+  // choose findings first, then fix sex from them, then the intro
+  let tAlt = tS ? pick(alts(tS, b.sex || null)) : null;
+  let nAlt = nS ? pick(alts(nS, b.sex || null)) : null, mAlt = mS ? pick(alts(mS, b.sex || null)) : null;
+  let sex = b.sex || sexOf([tAlt, nAlt, mAlt]);
+  if (!sex) sex = pick(['M', 'F']);
+  if (tS && sexOf([tAlt]) && sexOf([tAlt]) !== sex) tAlt = pick(alts(tS, sex));
+  let intros = alts(ov.intro || b.intro, sex);
+  // the opening line must not promise a node that the findings deny, and no primary needs a node
+  if (target.n === 'N0') intros = intros.filter(x => !/neck lump|enlarged node|node biopsy/i.test(x)).concat([]);
+  if (target.t === 'T0') intros = intros.filter(x => /neck lump|node/i.test(x));
+  if (!intros.length) intros = alts(ov.intro || b.intro, sex);
+  const intro = fillText(pick(intros), ctx);
+  const ar = AGE[site.id] || [38, 82];
+  let age = target.q && target.q.age ? (target.q.age === '<55' ? ri(22, 54) : ri(55, 84)) : ri(ar[0], ar[1]);
+  if (/chondrosarcoma/i.test(intro)) age = ri(35, 75);
+  const parts = [person(age, sex) + ' ' + intro];
+  if (target.q) ['hist', 'g', 'psa', 'gg', 's'].forEach(k => { if (target.q[k] !== undefined) { const q = qSentence(k, target.q[k], site.id); if (q) parts.push(q); } });
+  parts.push(tAlt ? fillText(tAlt, ctx) : base.fields.find(f => f[0] === 'Primary')[1]);
+  parts.push(nAlt ? fillText(nAlt, ctx) : base.fields.find(f => f[0] === 'Nodes')[1]);
+  parts.push(mAlt ? fillText(mAlt, ctx) : base.fields.find(f => f[0] === 'Distant')[1]);
   base.text = parts.map(sent).join(' ');
   return base;
 }
 // hand-generator fields to one paragraph
 function verbLead(s) { return /^(invades|involves|encases|extends|reaches|penetrates|perforates)\b/i.test(s) ? 'The tumour ' + lc(s) : s; }
-function distantS(s) { return /^(no |ct|pet|staging|brain mri|.*:)/i.test(s) ? s : 'Staging shows ' + lc(s); }
 function nodeFrac(s) { return s.replace(/^(\d+)\/(\d+) /, (m, a, b) => a + ' of ' + b + ' '); }
 function composeHand(sysId, c) {
   const F = Object.fromEntries(c.fields), out = [];
-  const [sx, ag] = F.Patient.split(' · '); const who = person(ag, sx);
+  const [sx, ag] = F.Patient.split(' · '); const who = person(+ag, sx);
   if (sysId === 'lung') {
     const pr = F.Primary.split(/;\s*/);
     out.push(who + ' has ' + art(lc(pr[0])));
     if (F.Histology) out.push('Biopsy shows ' + lc(F.Histology));
     pr.slice(1).forEach(x => out.push(/^resection: /.test(x) ? 'Resection shows ' + x.slice(11) : verbLead(x)));
-    out.push(F.Nodes); out.push(distantS(F.Distant));
+    out.push(F.Nodes); out.push(F.Distant);
   } else if (sysId === 'crc') {
     out.push(who + ' undergoes resection of an adenocarcinoma of the ' + F.Specimen.replace(/^Resection · /, ''));
     F.Depth.split(/;\s*/).forEach(x => out.push(verbLead(x)));
     const m = F.Nodes.match(/^(\d+)\/(\d+) positive · tumour deposits: (.*)$/);
-    out.push(m ? (m[1] + ' of ' + m[2] + ' nodes ' + (m[1] === '1' ? 'is' : 'are') + ' positive, with ' + (m[3] === 'none' ? 'no tumour deposits' : m[3] + ' tumour deposit' + (m[3] === '1' ? '' : 's'))) : F.Nodes);
-    out.push(distantS(F.Distant));
+    if (m) {
+      const dep = m[3] === 'none' ? 0 : +m[3], depS = dep === 1 ? 'there is 1 tumour deposit' : 'there are ' + dep + ' tumour deposits';
+      if (m[1] === '0') out.push('All ' + m[2] + ' nodes are negative, ' + (dep ? 'but ' + depS : 'and there are no tumour deposits'));
+      else out.push(m[1] + ' of ' + m[2] + ' nodes ' + (m[1] === '1' ? 'is' : 'are') + ' positive, ' + (dep ? 'and ' + depS : 'and there are no tumour deposits'));
+    } else out.push(F.Nodes);
+    out.push(F.Distant);
   } else if (sysId === 'breast') {
-    const surg = /Surgical/.test(F.Setting);
-    out.push(who + (surg ? ' undergoes surgery for breast cancer' : ' presents with breast cancer'));
-    out.push((surg ? 'Pathology shows ' : 'Examination and imaging show ') + art(lc(F.Primary)));
-    let n = F.Nodes, m;
-    if ((m = n.match(/^(\d+)\/(\d+) (sentinel|axillary) nodes( positive)?(.*)$/))) n = m[1] + ' of ' + m[2] + ' ' + m[3] + ' nodes ' + (m[1] === '0' ? 'are negative' : (m[1] === '1' ? 'is' : 'are') + ' positive') + m[5].replace(/^ with/, ', with');
-    out.push(n); out.push(distantS(F.Distant));
+    const surg = /Surgical/.test(F.Setting), pr = F.Primary.split(/;\s*/);
+    if (c.t === 'T0') {
+      out.push(who + ' presents with a biopsy-proven regional node metastasis of breast origin');
+      out.push(pr[0]);
+    } else if (surg) {
+      out.push(who + ' undergoes surgery for breast cancer');
+      out.push('Pathology shows ' + pr[0].replace(/^Invasive carcinoma (\d+) mm/, 'an invasive carcinoma of $1 mm').replace(/^Two invasive foci, /, 'two invasive foci of ').replace(/ with surrounding DCIS to /, ' with surrounding DCIS extending to '));
+    } else {
+      out.push(who + ' presents with breast cancer');
+      const p0 = pr[0];
+      let mm;
+      if ((mm = p0.match(/^Invasive carcinoma (\d+) mm/))) out.push('Ultrasound shows a ' + mm[1] + ' mm mass, and core biopsy shows invasive carcinoma');
+      else if ((mm = p0.match(/^Two invasive foci, (\d+) mm and (\d+) mm/))) out.push('Ultrasound shows two masses of ' + mm[1] + ' mm and ' + mm[2] + ' mm, and core biopsy of both shows invasive carcinoma');
+      else out.push('Examination shows ' + art(lc(p0)));
+    }
+    pr.slice(1).forEach(x => out.push(x));
+    out.push(F.Nodes); out.push(F.Distant);
   } else if (sysId === 'oral') {
     out.push(who + ' has squamous cell carcinoma of the ' + lc(F['Primary site']));
-    const t = F.Tumour;
-    out.push(/^Biopsy: /.test(t) ? 'Biopsy shows ' + t.slice(8) : 'Examination and imaging show ' + art(lc(t)));
-    out.push(/^No /.test(F.Neck) ? F.Neck : 'Neck imaging shows ' + art(lc(F.Neck)));
-    out.push(distantS(F.Distant));
+    const tp = F.Tumour.split(/;\s*/), t = tp[0];
+    out.push(/^Biopsy: /.test(t) ? 'Biopsy shows ' + t.slice(8) : 'Examination and imaging show ' + art(t.replace(/^(\S+ cm) tumour, depth of invasion (\d+) mm on MRI/, '$1 tumour with a depth of invasion of $2 mm on MRI')));
+    tp.slice(1).forEach(x => out.push(x));
+    out.push(/^CT /.test(F.Neck) ? F.Neck : 'Examination and neck imaging show ' + F.Neck);
+    out.push(F.Distant);
   } else {
     out.push(who + ' has ' + lc(F.Histology) + ' of the oesophagus');
     const L = F.Location; out.push(/^Epicentre/.test(L) ? 'The epicentre is' + L.slice(9) : 'The tumour is in the ' + lc(L));
-    const st = F.Setting;
-    out.push(/^Clinical/.test(st) ? 'Staging is by EUS, CT and PET' : /no neoadjuvant/.test(st) ? 'Oesophagectomy is done without neoadjuvant therapy' : 'Oesophagectomy is done after neoadjuvant chemoradiotherapy');
+    const st = F.Setting, clin = /^Clinical/.test(st);
+    out.push(clin ? 'Staging is by EUS, CT and PET' : /no neoadjuvant/.test(st) ? 'Oesophagectomy is done without neoadjuvant therapy' : 'Oesophagectomy is done after neoadjuvant chemoradiotherapy');
     if (F.Grade) out.push('The tumour is ' + lc(F.Grade));
-    const d = F.Depth.replace(/^EUS\/CT: /, ''); out.push(/^Clinical/.test(st) ? 'EUS and CT show the tumour ' + lc(d).replace(/^invades/, 'invading') : verbLead(d));
-    out.push(/^\d+\/\d+/.test(F.Nodes) ? nodeFrac(F.Nodes).replace(/ positive$/, ' are positive') : /^No /.test(F.Nodes) ? F.Nodes : 'There ' + (/^1 /.test(F.Nodes) ? 'is ' : 'are ') + F.Nodes);
-    out.push(distantS(F.Distant));
+    const d = F.Depth.replace(/^EUS\/CT: /, '');
+    if (/dysplasia/.test(d)) out.push(clin ? 'Biopsy and EUS show high-grade dysplasia with no invasion' : 'Pathology shows high-grade dysplasia only, with no invasion');
+    else if (/^No residual/.test(d)) out.push('There is no residual tumour in the oesophageal wall');
+    else out.push(clin ? 'EUS and CT show the tumour ' + lc(d).replace(/^invades/, 'invading') : verbLead(d));
+    out.push(/^0\/\d+/.test(F.Nodes) ? 'All ' + F.Nodes.match(/^0\/(\d+)/)[1] + ' regional nodes are negative' : /^\d+\/\d+/.test(F.Nodes) ? nodeFrac(F.Nodes).replace(/ positive$/, ' are positive') : /^EUS /.test(F.Nodes) ? F.Nodes : 'There ' + (/^1 /.test(F.Nodes) ? 'is ' : 'are ') + F.Nodes);
+    out.push(F.Distant);
   }
   return out.map(sent).join(' ');
 }
@@ -725,7 +841,21 @@ function defOf(siteId, axis, cat) {
     'nasopharyngeal|T|T0': 'No primary identified, EBV-positive cervical node(s)',
     'oral-cavity|T|Tis': 'Carcinoma in situ',
     'oropharynx-p16pos|T|T0': 'No primary identified, p16-positive node',
-    'merkel|T|T0': 'No evidence of primary tumour'
+    'merkel|T|T0': 'No evidence of primary tumour',
+    'melanoma|N|N1a': 'One clinically occult node, found by sentinel node biopsy',
+    'melanoma|N|N1b': 'One clinically detected node',
+    'melanoma|N|N1c': 'In-transit, satellite or microsatellite metastasis, with no nodes',
+    'melanoma|N|N2a': '2–3 clinically occult nodes, found by sentinel node biopsy',
+    'melanoma|N|N2b': '2–3 nodes, at least one clinically detected',
+    'melanoma|N|N2c': 'One node, occult or detected, with in-transit, satellite or microsatellite metastasis',
+    'melanoma|N|N3a': '4 or more clinically occult nodes',
+    'melanoma|N|N3b': '4 or more nodes with at least one clinically detected, or matted nodes',
+    'melanoma|N|N3c': '2 or more nodes, or matted nodes, with in-transit, satellite or microsatellite metastasis',
+    'merkel|N|N1a(sn)': 'Clinically occult node metastasis, found by sentinel node biopsy',
+    'merkel|N|N1a': 'Clinically occult node metastasis, found by node dissection',
+    'merkel|N|N1b': 'Clinically or radiologically detected node metastasis, confirmed on pathology',
+    'merkel|N|N2': 'In-transit metastasis without node metastasis',
+    'merkel|N|N3': 'In-transit metastasis with node metastasis'
   };
   if (EXTRA[siteId + '|' + axis + '|' + cat]) return EXTRA[siteId + '|' + axis + '|' + cat];
   if (axis === 'S' && VS[siteId] && VS[siteId].D && VS[siteId].D[cat]) return VS[siteId].D[cat];
@@ -742,22 +872,23 @@ function defOf(siteId, axis, cat) {
 const GEN = { generic: genGeneric, lung: genLung, crc: genCrc, breast: genBreast, oral: genOral, 'eso-c-scc': genEso, 'eso-c-ac': genEso, 'eso-p-scc': genEso, 'eso-p-ac': genEso, 'eso-yp': genEso };
 
 // Pick a valid target cell for a system; M1 in about 12% of cases
+function randQ(sys) { return sys.Q ? Object.fromEntries(Object.keys(sys.Q).map(k => [k, pick(sys.Q[k])])) : null; }
+function drawCell(sys, m, fixT, fixN, fixQ) {
+  for (let g = 0; g < 400; g++) {
+    const t = fixT || pick(sys.T), n = fixN || pick(sys.N), q = fixQ || randQ(sys);
+    if (!(sys.invalid && sys.invalid(t, n, m, q))) return { sys: sys.id, t, n, m, q };
+  }
+  return null;
+}
 function randomTarget(sys) {
-  const m = chance(0.12) ? pick(sys.M.slice(1)) : sys.M[0];
-  let t, n, q, guard = 0;
-  do {
-    t = pick(sys.T); n = pick(sys.N);
-    q = sys.Q ? Object.fromEntries(Object.keys(sys.Q).map(k => [k, pick(sys.Q[k])])) : null;
-    guard++;
-  } while (sys.invalid && sys.invalid(t, n, m, q) && guard < 200);
-  return { sys: sys.id, t, n, m, q };
+  const m1 = sys.M.slice(1).filter(m => sys.T.some(t => sys.N.some(n => !sys.invalid(t, n, m, null) || sys.Q)));
+  const m = m1.length && chance(0.12) ? pick(m1) : sys.M[0];
+  return drawCell(sys, m) || drawCell(sys, sys.M[0]);
 }
 function targetFromCard(sys, card) {
-  if (card.t === '*') {
-    let t, n; do { t = pick(sys.T); n = pick(sys.N); } while (sys.invalid && sys.invalid(t, n, card.m, null));
-    return { sys: sys.id, t, n, m: card.m, q: null };
-  }
-  const q = card.q || (sys.Q ? Object.fromEntries(Object.keys(sys.Q).map(k => [k, pick(sys.Q[k])])) : null);
+  if (card.t === '*') return drawCell(sys, card.m) || randomTarget(sys);
+  const c = card.q ? null : drawCell(sys, card.m, card.t, card.n);
+  const q = card.q || (c ? c.q : randQ(sys));
   return { sys: sys.id, t: card.t, n: card.n, m: card.m, q };
 }
 function makeCase(target) {
