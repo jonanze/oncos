@@ -77,16 +77,22 @@
 .om-world .tag .trial.src{color:inherit;text-decoration:none}
 
 /* trial names: a plain list, as on the board; a tap opens the trial's card. (intake) marks a trial with no row yet */
-.om-world .trials{margin:0 0 0 var(--p,0px)}
-.om-world .trials>.tch{white-space:nowrap}
-.om-world .trials .ik{opacity:.75}
+.om-world .trials{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0 3px var(--p,0px)}
+.om-world .trials>.tch{padding:1px 9px;border-radius:999px;background:var(--wb-pill);font-size:13px;white-space:nowrap}
+.om-world .trials>.tch.ni{background:none;outline:1.2px dashed rgba(25,25,25,.55);outline-offset:-1.2px}
+.om-world .panel.open .trials>.tch{background:var(--wb-plain);color:var(--wb-text)}
+.om-world .panel.open .trials>.tch.ni{background:none;color:var(--wb-ink);outline-color:color-mix(in srgb,var(--wb-ink) 60%,transparent)}
+.om-world .ln.cv+.trials{margin-top:4px}
+.om-world .ln.subl+.trials{margin-top:5px}
 .om-world .trial{color:inherit;text-decoration:none;cursor:pointer;white-space:nowrap}
 .om-world .trial:focus-visible{outline:2px solid currentColor;outline-offset:1px;border-radius:4px}
-@media (hover:hover){.om-world .trials .trial:hover{text-decoration:underline}}
+@media (hover:hover){.om-world .trials>.tch:hover{background:rgba(255,255,255,.9)}}
 
 /* a panel holding a table: the table stands on the paper with its title above it */
 .om-world .panel.open{background:none;color:var(--wb-ink);padding:0}
-.om-world .panel.open table.grid{background:none;color:var(--wb-ink);margin-top:10px}
+.om-world .panel.open table.grid{background:var(--wb-plain);color:var(--wb-text);margin-top:10px}
+.om-world .panel.open table.grid th,.om-world .panel.open table.grid td{border-color:rgba(25,25,25,.22)}
+.om-world .panel.open table.grid tr:first-child th{background:rgba(255,255,255,.45)}
 
 /* line labels: a plain pill on the line */
 .om-world .elab{z-index:3;font-size:13px;line-height:1.3;max-width:240px;text-align:center;border:0;border-radius:999px;background:var(--wb-paper);color:var(--wb-ink);padding:2px 9px}

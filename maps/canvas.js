@@ -69,9 +69,9 @@
   // (Jonan 2026-11-11: no figures on the map). A trial with no Evidence row yet has a dashed cell.
   function trialsHtml(ts){
     var pad = ts[0].level ? ' style="--p:' + (LV * ts[0].level + (ts[0].off || 0)) + 'px"' : '';
-    return '<div class="trials"' + pad + '>' + ts.map(function(l, i){
-      return '<span class="tch">' + trialLink(l) + (l.anchor ? '' : ' <span class="ik">(intake)</span>') + (i < ts.length - 1 ? ',' : '') + '</span>';
-    }).join(' ') + '</div>';
+    return '<div class="trials"' + pad + '>' + ts.map(function(l){
+      return '<span class="tch' + (l.anchor ? '' : ' ni') + '">' + trialLink(l) + '</span>';
+    }).join('') + '</div>';
   }
   function lineHtml(l, tiered){
     var pad = l.level ? ' style="--p:' + (LV * l.level + (l.off || 0)) + 'px"' : '';
