@@ -261,17 +261,21 @@ panel: ARSI options > Metastatic at diagnosis, castration-sensitive
     ・Darolutamide raises rosuvastatin levels
     ・Abiraterone inhibits CYP2D6
 
-panel: Added to ADT and an ARSI, no OS benefit yet > Metastatic at diagnosis, castration-sensitive
+panel: Emerging upfront triplet options > Metastatic at diagnosis, castration-sensitive
   ① BRCA2 altered: niraparib with abiraterone 〔NCCN 2A, useful in certain circumstances〕
     ・Low volume 〔NCCN 2B, useful in certain circumstances〕
     ・ESMO does not list it
     ~ AMPLITUDE | rPFS HR 0.63
-  ② PTEN deficient on IHC: capivasertib with abiraterone 〔NCCN 2B, very select patients only〕
+  ② HRR altered: talazoparib with enzalutamide
+    ・ESMO and NCCN do not list it
+    ~ TALAPRO-3 | rPFS HR 0.48
+    ° Grade 3 or higher anaemia 51%
+  ③ PTEN deficient on IHC: capivasertib with abiraterone 〔NCCN 2B, very select patients only〕
     ・US licence
     ・ESMO does not list it
     ~ CAPItello-281 | rPFS HR
     ※ A later descriptive analysis gave OS HR 0.82
-  ③ PSMA PET positive: Lu-177 PSMA-617 with an ARSI 〔NCCN 2A, useful in certain circumstances〕
+  ④ PSMA PET positive: Lu-177 PSMA-617 with an ARSI 〔NCCN 2A, useful in certain circumstances〕
     ・Low volume 〔NCCN 2B, useful in certain circumstances〕
     ・ESMO does not list it
     ~ PSMAddition | rPFS HR
@@ -288,6 +292,3 @@ panel: Bone metastases, no visceral disease > Metastatic, castration-resistant
     ・No EU or US licence for the combination
     ・Fractures were 24% vs 13%
     + PEACE-3 [t-peace-3] | OS HR
-
-off:
-  TALAPRO-3 | Neither ESMO nor NCCN 1.2027 lists talazoparib with enzalutamide for castration-sensitive disease
