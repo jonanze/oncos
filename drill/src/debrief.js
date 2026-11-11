@@ -11,18 +11,19 @@ const HN_S = 'I T1 N0 · II T2 N0 · III T3 N0 or T1–3 N1 · IVA T4a or N2 · 
 const HN_TX = [
   [['0'], 'Excision and surveillance', ''],
   [['I', 'II'], 'Single modality, surgery or RT. Adjuvant RT after surgery for pT3–4, pN2–3, PNI, LVI or a close margin', ''],
-  [['III', 'IVA'], 'Surgery with adjuvant RT; cisplatin-RT if margin positive or ENE. Non-surgical: cisplatin-RT. Resectable with CPS ≥1: perioperative pembrolizumab ※', 'EORTC 22931 / RTOG 9501 pooled, KEYNOTE-689 ※'],
-  [['IVB'], 'T4b is usually unresectable: cisplatin-RT. N3 with a resectable primary: surgery with neck dissection, then cisplatin-RT for ENE or a positive margin', 'EORTC 22931 / RTOG 9501 pooled'],
+  [['III', 'IVA'], 'Surgery with adjuvant RT; cisplatin-RT if margin positive or ENE. Non-surgical: cisplatin-RT. Resectable with CPS ≥1: perioperative pembrolizumab ※', 'EORTC 22931, RTOG 9501, KEYNOTE-689 ※'],
+  [['IVB'], 'T4b is usually unresectable: cisplatin-RT. N3 with a resectable primary: surgery with neck dissection, then cisplatin-RT for ENE or a positive margin', 'EORTC 22931, RTOG 9501'],
   [['IVC'], 'Pembrolizumab alone or with platinum-FU, by CPS', 'KEYNOTE-048'],
 ];
 const BIL_TX = [
   [['0'], 'Resection alone', ''],
+  [x => !M1(x) && t4(x), 'T4 with main vessel involvement is usually unresectable: gemcitabine-cisplatin with durvalumab or pembrolizumab. Resect only if the tumour can be cleared', 'TOPAZ-1, KEYNOTE-966'],
   [x => !M1(x), 'Resection, then capecitabine for 6 months. ChemoRT for extrahepatic or gallbladder disease with R1 margin or node-positive', 'BILCAP, SWOG S0809'],
   [M1, 'Gemcitabine-cisplatin with durvalumab or pembrolizumab', 'TOPAZ-1, KEYNOTE-966'],
 ];
 const NET_TX = [
   [x => !M1(x), 'Resection. No adjuvant therapy has shown benefit. Ki-67 grade is not part of TNM but decides management', ''],
-  [M1, 'Somatostatin analogue; everolimus; PRRT if SSTR-positive (midgut); panNET also sunitinib or CAPTEM', 'CLARINET, PROMID, RADIANT-4, NETTER-1'],
+  [M1, 'Somatostatin analogue. PRRT if SSTR-positive midgut NET. Everolimus (lung and GI NET in RADIANT-4, panNET in RADIANT-3) or cabozantinib after progression. panNET: also sunitinib or CAPTEM', 'CLARINET, PROMID, NETTER-1, RADIANT-4, CABINET'],
 ];
 const NET = {
   logic: 'T is size and depth. Ki-67 grade is not in TNM but decides treatment',
@@ -52,9 +53,9 @@ const SITES = {
     ],
   },
   mesothelioma: {
-    logic: 'T describes resectability: T3 is locally advanced but resectable, T4 is not',
-    T: 'T1 ipsilateral pleura · T2 lung parenchyma or diaphragm muscle · T3 endothoracic fascia, mediastinal fat, one chest-wall focus, non-transmural pericardium · T4 diffuse chest wall, through the diaphragm, contralateral pleura, spine, myocardium',
-    N: 'N1 ipsilateral intrathoracic nodes · N2 contralateral mediastinal or supraclavicular nodes',
+    logic: 'The 9th edition clinical T is measured on CT. Psum is the sum of the maximal pleural thickness at three levels. T4 is unresectable invasion',
+    T: 'T1 Psum ≤12 mm, no fissural tumour · T2 Psum >12–30 mm, or fissural tumour >5 mm · T3 Psum >30 mm · T4 diffuse chest wall, through the diaphragm, contralateral pleura, mediastinal organs, spine, or transmural pericardium',
+    N: 'N1 ipsilateral intrathoracic nodes, including internal mammary and pericardial fat-pad · N2 contralateral intrathoracic or any supraclavicular nodes',
     M: 'M1 distant',
     S: 'I T1 N0 · II T1 N1 or T2 N0 · IIIA T3, or T1–2 with more nodal disease · IIIB T4 · IV M1',
     tx: [
@@ -85,6 +86,7 @@ const SITES = {
       [x => x.t === 'Tis' || (x.t === 'T1a' && x.n === 'N0'), 'Endoscopic resection', ''],
       [x => x.t === 'T1b' && x.n === 'N0', 'Oesophagectomy', ''],
       [x => /pTNM/.test(x.label), 'After upfront surgery. pT2 N0: surgery alone is accepted. pT3 or node-positive: neoadjuvant therapy was indicated; evidence for adjuvant therapy after upfront surgery is weak ※', ''],
+      [x => x.t === 'T4b', 'cT4b is unresectable: definitive chemoRT. Adenocarcinoma: systemic therapy first, then reassess', ''],
       [x => /SCC/.test(x.label), 'SCC, T2 or higher or node-positive: neoadjuvant chemoRT then surgery, or definitive chemoRT. Japan: neoadjuvant docetaxel-cisplatin-FU', 'CROSS, NEOCRTEC5010, JCOG1109'],
       [() => true, 'Adenocarcinoma, T2 or higher or node-positive: perioperative FLOT, which outperformed CROSS', 'ESOPEC'],
     ],
@@ -113,8 +115,9 @@ const SITES = {
       [x => x.rectal && /^(II|III)/.test(x.s), 'Rectal, staged on MRI (CRM, EMVI, height): total neoadjuvant therapy; watch and wait after clinical complete response; selected mid-rectal tumours can omit RT. dMMR: dostarlimab', 'RAPIDO, PRODIGE 23, OPRA, PROSPECT, Cercek 2022'],
       [['0', 'I'], 'Surgery alone', ''],
       [['IIA', 'IIB', 'IIC'], 'Colon, dMMR: no adjuvant chemotherapy. pMMR with high-risk features (T4, fewer than 12 nodes, perforation, obstruction, LVI or PNI): CAPOX or fluoropyrimidine; ctDNA can guide de-escalation', 'Sargent pooled analysis, DYNAMIC'],
-      [x => /^III/.test(x.s) && (t4(x) || /N2/.test(x.n)), 'Colon, high-risk stage III (T4 or N2): FOLFOX or CAPOX for 6 months. cT4: consider neoadjuvant FOLFOX. dMMR: neoadjuvant nivolumab-ipilimumab', 'IDEA, MOSAIC, FOxTROT, NICHE-2'],
-      [x => /^III/.test(x.s), 'Colon, low-risk stage III (T1–3 N1): CAPOX for 3 months', 'IDEA'],
+      [x => /^III/.test(x.s) && (t4(x) || /N2/.test(x.n)), 'Colon, high-risk stage III (T4 or N2): FOLFOX or CAPOX for 6 months. cT4: consider neoadjuvant FOLFOX. dMMR: adjuvant FOLFOX with atezolizumab, or neoadjuvant nivolumab-ipilimumab', 'IDEA, MOSAIC, FOxTROT, ATOMIC, NICHE-2'],
+      [x => /^III/.test(x.s), 'Colon, low-risk stage III (T1–3 N1): CAPOX for 3 months. dMMR: adjuvant FOLFOX with atezolizumab', 'IDEA, ATOMIC'],
+      [x => x.m === 'M1c', 'Peritoneal metastases: systemic therapy by RAS, BRAF, MMR and sidedness. Limited peritoneal disease: cytoreductive surgery in a specialist centre. Adding oxaliplatin HIPEC gave no survival gain', 'PRODIGE 7'],
       [M1, 'Resectable liver or lung metastases: resection, with or without perioperative FOLFOX. Otherwise systemic therapy by RAS, BRAF, MMR and sidedness', 'EORTC 40983'],
     ],
   },
@@ -136,7 +139,7 @@ const SITES = {
       [['0'], 'Ablation. Resection if ablation is not suitable', 'BCLC 2022 (Reig, J Hepatol 2022)'],
       [['A'], 'Single nodule: resection if no clinically significant portal hypertension and an adequate remnant. 2–3 nodules ≤3 cm: transplant if eligible, otherwise ablation. No adjuvant therapy has shown durable benefit; the early RFS gain with atezolizumab-bevacizumab was lost on follow-up', 'BCLC 2022, IMbrave050'],
       [['B'], 'Within extended transplant criteria: transplant. Well-defined nodules with preserved portal flow: TACE. Diffuse, infiltrative or extensive bilobar disease: systemic therapy', 'BCLC 2022'],
-      [['C'], 'Atezolizumab-bevacizumab or durvalumab-tremelimumab. Sorafenib, lenvatinib or durvalumab if these are unsuitable', 'IMbrave150, HIMALAYA'],
+      [['C'], 'Atezolizumab-bevacizumab, durvalumab-tremelimumab, or nivolumab-ipilimumab. Sorafenib, lenvatinib or durvalumab if these are unsuitable', 'IMbrave150, HIMALAYA, CheckMate 9DW'],
       [['D'], 'Best supportive care. Child-Pugh C within Milan criteria without other contraindications: transplant assessment', 'BCLC 2022'],
     ],
   },
@@ -186,7 +189,7 @@ const SITES = {
     N: 'N1 1–3 nodes · N2 4 or more', M: 'M1 distant',
     S: 'IA T1a · IB T1b–T2 · IIA T3a · IIB T3b · IIIA N1 · IIIB T4 or N2 · IV M1',
     tx: [
-      [x => !M1(x) && x.s !== '0', 'Pancreatoduodenectomy, then adjuvant gemcitabine or fluoropyrimidine by histological subtype', 'ESPAC-3 periampullary'],
+      [x => !M1(x) && x.s !== '0', 'Pancreatoduodenectomy, then adjuvant gemcitabine or fluoropyrimidine by histological subtype', 'ESPAC-3 (periampullary)'],
       [['0'], 'Ampullectomy or resection', ''],
       [M1, 'Systemic therapy by subtype, pancreatobiliary or intestinal', ''],
     ],
@@ -222,7 +225,7 @@ const SITES = {
     logic: 'Differentiation first, then Ki-67: well-differentiated G1, G2 or G3, or poorly differentiated NEC',
     S: 'G1 Ki-67 <3% · G2 3–20% · G3 >20%, well differentiated · NEC poorly differentiated, small or large cell',
     tx: [
-      [['G1', 'G2'], 'Localised: resection. Metastatic: somatostatin analogue; PRRT if SSTR-positive midgut; everolimus', 'CLARINET, PROMID, NETTER-1, RADIANT-4'],
+      [['G1', 'G2'], 'Localised: resection. Metastatic: somatostatin analogue. PRRT if SSTR-positive midgut NET. After progression: everolimus (RADIANT-4 enrolled lung and GI NET) or cabozantinib', 'CLARINET, PROMID, NETTER-1, RADIANT-4, CABINET'],
       [['G3'], 'CAPTEM. PRRT if SSTR-positive', 'NETTER-2'],
       [['NEC'], 'Platinum-etoposide. Localised: surgery or chemoRT with platinum-etoposide', ''],
     ],
@@ -235,8 +238,8 @@ const SITES = {
     S: 'IA T1 N0 · IB T0–1 N1mi · IIA T0–1 N1 or T2 N0 · IIB T2 N1 or T3 N0 · IIIA N2, or T3 N1 · IIIB T4 N0–2 · IIIC N3 · IV M1',
     tx: [
       [['0'], 'DCIS: breast conservation with RT, with or without endocrine therapy, or mastectomy', ''],
-      [['IA', 'IB'], 'HR-positive: endocrine therapy; chemotherapy by recurrence score (benefit at RS 16–25 if 50 or younger). HER2-positive T1 N0: paclitaxel-trastuzumab. Triple-negative T1 N0: chemotherapy; T1c N1: neoadjuvant pembrolizumab-chemotherapy (KEYNOTE-522 excluded T1c N0)', 'TAILORx, APT, KEYNOTE-522'],
-      [['IIA', 'IIB', 'IIIA', 'IIIB', 'IIIC'], 'HR-positive: endocrine therapy, chemotherapy by recurrence score (postmenopausal N1 with RS ≤25: none); abemaciclib if 4 or more nodes, or 1–3 with grade 3 or ≥5 cm; ribociclib for stage II–III; ovarian suppression if premenopausal; olaparib if germline BRCA. HER2-positive: neoadjuvant chemotherapy with trastuzumab-pertuzumab; residual disease: T-DM1. Triple-negative: neoadjuvant pembrolizumab-chemotherapy; residual disease: capecitabine, or olaparib if germline BRCA', 'RxPONDER, monarchE, NATALEE, SOFT/TEXT, KATHERINE, KEYNOTE-522, CREATE-X, OlympiA'],
+      [['IA', 'IB'], 'HR-positive: endocrine therapy; chemotherapy by recurrence score (benefit at RS 16–25 if 50 or younger). HER2-positive T1 N0: paclitaxel-trastuzumab. Triple-negative T1 N0: chemotherapy. T1c N0 was outside KEYNOTE-522, which enrolled T1c N1–2 and T2–4 ※', 'TAILORx, APT, KEYNOTE-522'],
+      [['IIA', 'IIB', 'IIIA', 'IIIB', 'IIIC'], 'HR-positive: endocrine therapy, chemotherapy by recurrence score (postmenopausal N1 with RS ≤25: none); abemaciclib if 4 or more nodes, or 1–3 with grade 3 or ≥5 cm; ribociclib for stage II–III; ovarian suppression if premenopausal; olaparib if germline BRCA. HER2-positive: neoadjuvant chemotherapy with trastuzumab-pertuzumab. Residual disease: T-DM1, or trastuzumab deruxtecan for high-risk residual disease. Triple-negative: neoadjuvant pembrolizumab-chemotherapy; residual disease: capecitabine, or olaparib if germline BRCA', 'RxPONDER, monarchE, NATALEE, SOFT/TEXT, KATHERINE, DESTINY-Breast05, KEYNOTE-522, CREATE-X, OlympiA'],
       [['IV'], 'Systemic therapy by subtype', ''],
     ],
   },
@@ -261,7 +264,7 @@ const SITES = {
     N: HN_N, M: 'M1 distant', S: HN_S,
     tx: [
       HN_TX[0], HN_TX[1],
-      [['III', 'IVA'], 'T3 and selected low-volume T4a: larynx preservation with concurrent cisplatin-RT. T4a with cartilage destruction or spread outside the larynx: total laryngectomy, then adjuvant RT, or cisplatin-RT for ENE or a positive margin', 'RTOG 91-11, EORTC 22931 / RTOG 9501 pooled'],
+      [['III', 'IVA'], 'T3 and selected low-volume T4a: larynx preservation with concurrent cisplatin-RT. T4a with cartilage destruction or spread outside the larynx: total laryngectomy, then adjuvant RT, or cisplatin-RT for ENE or a positive margin', 'RTOG 91-11, EORTC 22931, RTOG 9501'],
       HN_TX[3], HN_TX[4],
     ],
   },
@@ -273,7 +276,7 @@ const SITES = {
   'oropharynx-p16pos': {
     logic: 'HPV-mediated disease: nodal disease adds little to stage. T4 is not subdivided',
     T: 'T0 p16-positive node with no primary found · T1 ≤2 cm · T2 2–4 · T3 >4 cm, or lingual surface of the epiglottis · T4 larynx, extrinsic tongue muscle, medial pterygoid, hard palate, mandible or beyond',
-    N: 'cN1 ipsilateral nodes ≤6 cm · cN2 contralateral or bilateral nodes ≤6 cm · cN3 node >6 cm (version 9 adds overt radiological ENE ※)',
+    N: 'Version 9 uses imaging ENE (iENE). N1 ipsilateral nodes ≤6 cm, iENE-negative · N2 ipsilateral nodes with iENE, or bilateral nodes without iENE · N3 node >6 cm, or bilateral nodes with iENE',
     M: 'M1 distant',
     S: 'I T0–2 N0–1 · II T0–2 N2, or T3 N0–2 · III T4 or N3 · IV M1',
     tx: [
@@ -286,18 +289,19 @@ const SITES = {
     T: 'T1 nasopharynx, oropharynx or nasal cavity · T2 parapharyngeal space, medial or lateral pterygoid, or prevertebral muscles · T3 skull base, cervical vertebra, pterygoid structures, or paranasal sinuses · T4 intracranial extension, cranial nerves, hypopharynx, orbit, parotid, or beyond the lateral pterygoid',
     N: 'N1 unilateral cervical or retropharyngeal nodes ≤6 cm, above the cricoid · N2 bilateral nodes ≤6 cm, above the cricoid · N3 node >6 cm, below the cricoid, or advanced radiological ENE',
     M: 'M1a up to 3 metastatic lesions · M1b more than 3',
-    S: 'IA T0–2 N0 · IB T0–2 N1 · II T0–2 N2, or T3 N0–2 · III T4 or N3 · IVA M1a · IVB M1b',
+    S: '0 Tis N0 · IA T1–2 N0 · IB T0–2 N1 · II T0–2 N2, or T3 N0–2 · III T4 or N3 · IVA M1a · IVB M1b. T0 is grouped with T1',
     tx: [
       [['0', 'IA'], 'RT alone', ''],
-      [['IB', 'II'], 'RT, with concurrent cisplatin for higher-risk disease', ''],
-      [['III'], 'Induction gemcitabine-cisplatin, then cisplatin-RT. High-risk residual disease: metronomic capecitabine', 'Zhang 2019, Chen 2021'],
+      [['IB'], 'RT, with concurrent cisplatin for bulky or high-EBV-DNA disease ※', ''],
+      [x => x.s === 'II' && x.n === 'N0', 'T3 N0: cisplatin-RT', ''],
+      [['II', 'III'], 'Node-positive or T4: induction gemcitabine-cisplatin, then cisplatin-RT. High-risk residual disease: metronomic capecitabine. TNM-9 stage II with nodes was stage III in the 8th edition, the population of the induction trial', 'Zhang 2019, Chen 2021'],
       [['IVA', 'IVB'], 'Gemcitabine-cisplatin with a PD-1 inhibitor (toripalimab, camrelizumab). Oligometastatic responders: add locoregional RT', 'JUPITER-02, CAPTAIN-1st'],
     ],
   },
   salivary: {
     logic: 'T by size (2 and 4 cm) and extraparenchymal extension. Grade decides treatment',
     T: 'T1 ≤2 cm without extraparenchymal extension · T2 2–4 cm · T3 >4 cm or extraparenchymal extension · T4a skin, mandible, ear canal or facial nerve · T4b skull base, pterygoid plates or carotid',
-    N: 'N1 one ipsilateral node ≤3 cm, no ENE · N2 larger, several, bilateral, or ENE', M: 'M1 distant',
+    N: 'Version 9 counts nodes. N1 1–3 positive nodes, ENE-negative · N2 more than 3 positive nodes, or any ENE', M: 'M1 distant',
     S: 'I T1 N0 · II T2 N0 · IIIA T3–4 N0, or T1–2 N1 · IIIB T3–4 N1, or N2 · IV M1',
     tx: [
       [x => !M1(x), 'Resection. PORT for high grade, T3–4, close or positive margin, PNI or positive nodes. Concurrent chemotherapy has no proven benefit', ''],
@@ -312,7 +316,7 @@ const SITES = {
     S: 'Under 55: I M0, II M1. 55 and over: I T1–2 N0 · II T1–2 N1, or T3 · III T4a · IVA T4b · IVB M1',
     tx: [
       [x => M1(x) || x.s === 'IVB', 'Total thyroidectomy and RAI. RAI-refractory: lenvatinib or sorafenib', 'SELECT, DECISION'],
-      [() => true, 'ATA low risk: lobectomy, no RAI. Intermediate: selective RAI. High risk (gross extrathyroidal extension, incomplete resection, distant metastases): total thyroidectomy, RAI, TSH suppression', 'ATA 2015, HiLo, ESTIMABL2'],
+      [() => true, 'ATA low risk: lobectomy, no RAI. Intermediate: selective RAI. High risk (gross extrathyroidal extension, incomplete resection, distant metastases): total thyroidectomy, RAI, TSH suppression', 'ATA 2015 ※, HiLo, ESTIMABL2'],
     ],
   },
   prostate: {
@@ -322,8 +326,9 @@ const SITES = {
     S: 'I cT1–2a, PSA <10, GG1 · IIA PSA 10–20, or cT2b–c, with GG1 · IIB GG2 · IIC GG3–4 · IIIA PSA ≥20 · IIIB cT3–4 · IIIC GG5 · IVA N1 · IVB M1',
     tx: [
       [['I'], 'Low risk: active surveillance', 'ProtecT'],
-      [['IIA', 'IIB'], 'Intermediate risk; NCCN group decides, not stage. Favourable: surveillance in selected patients, prostatectomy, or RT alone. Unfavourable (GG2 with 50% or more positive cores, or PSA 10–20): prostatectomy, or RT with 4–6 months ADT', ''],
-      [['IIC'], 'Unfavourable intermediate risk: prostatectomy, or RT with 4–6 months ADT', ''],
+      [['IIA', 'IIB'], 'The NCCN risk group decides treatment, not the stage. Intermediate risk is one factor of cT2b–c, GG2–3 or PSA 10–20. Favourable (one factor, GG1–2, under 50% of cores positive): surveillance in selected patients, prostatectomy, or RT alone. Unfavourable (two or three factors, GG3, or 50% or more cores positive): prostatectomy, or RT with 4–6 months ADT', ''],
+      [x => x.s === 'IIC' && x.q && x.q.gg === 'GG4', 'Grade Group 4 is high risk: RT with 18–36 months ADT, or prostatectomy', ''],
+      [['IIC'], 'Grade Group 3 is unfavourable intermediate risk: prostatectomy, or RT with 4–6 months ADT', ''],
       [['IIIA', 'IIIB', 'IIIC'], 'High or very high risk: RT with 18–36 months ADT; add abiraterone for very high risk. After prostatectomy: early salvage RT rather than adjuvant RT', 'STAMPEDE (Attard 2022), RADICALS-RT'],
       [['IVA'], 'Node-positive: RT with long-term ADT and abiraterone', 'STAMPEDE (Attard 2022)'],
       [['IVB'], 'ADT with an androgen receptor pathway inhibitor, with or without docetaxel. Low volume: add RT to the prostate', 'STAMPEDE arm H'],
@@ -366,7 +371,7 @@ const SITES = {
   },
   testis: {
     logic: 'N by node size, 2 and 5 cm. S by markers after orchiectomy. IGCCCG group decides the number of cycles',
-    T: 'pT1 testis or epididymis without LVI (seminoma pT1a <3 cm, pT1b ≥3 cm) · pT2 LVI, hilar soft tissue, epididymis, or tunica vaginalis · pT3 spermatic cord · pT4 scrotum',
+    T: 'pT1 testis, including rete testis, without LVI (seminoma pT1a <3 cm, pT1b ≥3 cm) · pT2 LVI, hilar soft tissue, epididymis, or tunica vaginalis · pT3 spermatic cord · pT4 scrotum',
     N: 'N1 node ≤2 cm, up to 5 nodes · N2 2–5 cm, or more than 5 nodes · N3 node >5 cm',
     M: 'M1a non-regional nodes or lung · M1b other sites',
     S: 'IA pT1 · IB pT2–4 · IS persistent markers · IIA–C by node size · IIIA M1a · IIIB S2 · IIIC S3 or M1b. S1: LDH <1.5 × ULN, hCG <5,000, AFP <1,000. S3: LDH >10 × ULN, hCG >50,000, AFP >10,000',
@@ -414,22 +419,23 @@ const SITES = {
     T: 'T1a <0.8 mm without ulceration · T1b <0.8 mm with ulceration, or 0.8–1.0 mm · T2 >1–2 mm · T3 >2–4 mm · T4 >4 mm. Suffix b is ulcerated',
     N: 'N1 one node, or in-transit or satellite disease alone · N2 2–3 nodes, or one node with in-transit disease · N3 4 or more nodes, matted nodes, or 2 or more with in-transit disease',
     M: 'M1a skin, soft tissue or distant node · M1b lung · M1c other viscera · M1d CNS. Suffix (0) or (1) for LDH',
-    S: 'IA T1a · IB T1b–T2a · IIA T2b–T3a · IIB T3b–T4a · IIC T4b · III any N · IV M1',
+    N: 'a clinically occult (found by sentinel node biopsy) · b clinically detected · c in-transit, satellite or microsatellite disease. N1 one node, or c without nodes · N2 2–3 nodes, or one node with c · N3 4 or more nodes, matted nodes, or 2 or more with c',
+    S: 'Pathological. IA T1a–T1b N0 · IB T2a · IIA T2b–T3a · IIB T3b–T4a · IIC T4b · IIIA T1–T2a with N1a or N2a · IIIB T1–T2a with N1b–c or N2b, or T2b–T3a with N1a–N2b · IIIC T1–T3a with N2c–N3, T3b–T4a node-positive, or T4b with N1–N2 · IIID T4b N3 · IV M1. Clinical stage IB still includes T1b N0',
     tx: [
       [['0', 'IA', 'IB', 'IIA'], 'Wide excision. Sentinel node biopsy from T1b. No adjuvant therapy', ''],
       [['IIB', 'IIC'], 'Adjuvant pembrolizumab or nivolumab', 'KEYNOTE-716, CheckMate 76K'],
-      [['III'], 'Adjuvant nivolumab or pembrolizumab; BRAF V600: dabrafenib-trametinib. Macroscopic nodal disease: neoadjuvant pembrolizumab, or nivolumab-ipilimumab. Completion dissection not needed after a positive sentinel node', 'CheckMate 238, KEYNOTE-054, COMBI-AD, SWOG S1801, NADINA, MSLT-II'],
+      [x => /^III/.test(x.s), 'Adjuvant nivolumab or pembrolizumab; BRAF V600: dabrafenib-trametinib. Macroscopic nodal disease: neoadjuvant pembrolizumab, or nivolumab-ipilimumab. Completion dissection not needed after a positive sentinel node', 'CheckMate 238, KEYNOTE-054, COMBI-AD, SWOG S1801, NADINA, MSLT-II'],
       [['IV'], 'Nivolumab-ipilimumab or nivolumab-relatlimab. Resected stage IV: adjuvant nivolumab', 'CheckMate 067, RELATIVITY-047'],
     ],
   },
   merkel: {
     logic: 'T by size, 2 and 5 cm. T4 is invasion of fascia, muscle, cartilage or bone. Any positive node is stage III',
     T: 'T0 nodal disease with no primary · T1 ≤2 cm · T2 2–5 · T3 >5 · T4 fascia, muscle, cartilage or bone',
-    N: 'N1 regional nodes · N2 in-transit disease without nodes · N3 in-transit disease with nodes',
+    N: 'pN1a(sn) clinically occult, found by sentinel node biopsy · pN1a clinically occult, found by dissection · pN1b clinically detected · pN2 in-transit disease without nodes · pN3 in-transit disease with nodes',
     M: 'M1a skin, soft tissue or distant node · M1b lung · M1c other sites',
-    S: 'I T1 N0 · IIA T2–3 N0 · IIB T4 N0 · III node-positive · IV M1',
+    S: 'Pathological. I T1 N0 · IIA T2–3 N0 · IIB T4 N0 · IIIA T1–4 with clinically occult nodes, or T0 N1b · IIIB T1–4 with N1b–N3 · IV M1',
     tx: [
-      [x => !M1(x), 'Wide excision with sentinel node biopsy. RT to the bed or nodal basin by risk. Adjuvant nivolumab improved disease-free survival in a phase 2 trial only; phase 3 data are awaited ※', 'ADMEC-O, STAMP ※'],
+      [x => !M1(x), 'Wide excision with sentinel node biopsy. RT to the bed or nodal basin by risk. Adjuvant nivolumab improved disease-free survival in a phase 2 trial only; phase 3 data are awaited ※', 'ADMEC-O ※, STAMP ※'],
       [M1, 'Avelumab or pembrolizumab', 'JAVELIN Merkel 200, KEYNOTE-017'],
     ],
   },
@@ -451,7 +457,8 @@ const SITES = {
     S: 'Grade 1: IA ≤5 cm, IB >5. Grade 2–3: II ≤5, IIIA 5–10, IIIB >10. N1 or M1: IV',
     tx: [
       [x => x.q && x.q.g === 'G1' && !M1(x) && x.n !== 'N1', 'Low grade: wide excision. RT if the margin is close', ''],
-      [x => !M1(x) && x.n !== 'N1', 'Wide excision with preoperative RT. Adjuvant chemotherapy is unsettled; consider when predicted risk is high', "O'Sullivan, EORTC 62931, ISG-1001"],
+      [x => x.s === 'II', 'Wide excision. RT for a close margin or a deep tumour, and preoperative RT if the margin is expected to be tight', "O'Sullivan"],
+      [x => !M1(x) && x.n !== 'N1', 'Wide excision with preoperative RT. Adjuvant chemotherapy is unsettled. Consider it when predicted risk is high', "O'Sullivan, EORTC 62931, ISG-1001"],
       [() => true, 'Doxorubicin-based chemotherapy. Isolated nodal disease or oligometastases: resection in selected patients', ''],
     ],
   },
@@ -465,13 +472,23 @@ const SITES = {
       [() => true, 'Osteosarcoma or Ewing sarcoma: perioperative chemotherapy at every stage, assuming micrometastatic disease', 'EURAMOS-1, Ewing 2012'],
     ],
   },
+  gist: {
+    logic: 'Recurrence risk after resection is set by site, size and mitotic count (Miettinen). Tumour rupture counts as high risk in any cell',
+    S: 'Gastric: ≤2 cm none · >2–5 cm very low with ≤5 mitoses, moderate with >5 · >5–10 cm low or high · >10 cm moderate or high. Nongastric: ≤2 cm none · >2–5 cm low or high · >5–10 cm moderate or high · >10 cm high. Mitoses per 50 HPF, cut-off 5',
+    tx: [
+      [['None', 'Very low', 'Low'], 'Resection alone', ''],
+      [['Moderate'], 'Resection. Adjuvant imatinib is considered case by case, by mutation and site ※', ''],
+      [['High'], 'Adjuvant imatinib for 3 years, unless PDGFRA D842V', 'SSG XVIII / AIO, ACOSOG Z9001'],
+    ],
+  },
   cervix: {
     logic: 'Stage I by depth (3 and 5 mm) then size (2 and 4 cm). Positive nodes are stage IIIC under FIGO 2018',
     S: 'IA1 <3 mm depth · IA2 3–5 mm · IB1 <2 cm · IB2 2–4 · IB3 ≥4 · IIA upper two-thirds of vagina (IIA1 <4 cm, IIA2 ≥4) · IIB parametrium · IIIA lower third of vagina · IIIB pelvic wall or hydronephrosis · IIIC1 pelvic nodes, IIIC2 para-aortic nodes · IVA bladder or rectal mucosa · IVB distant',
     tx: [
       [['IA1'], 'Conisation or simple hysterectomy', ''],
       [['IA2', 'IB1', 'IB2', 'IIA1'], 'Open radical hysterectomy; simple hysterectomy for low-risk tumours ≤2 cm. Sedlis criteria: adjuvant RT. Peters criteria (positive nodes, margins or parametrium): adjuvant cisplatin-RT', 'LACC, SHAPE, GOG 92, GOG 109'],
-      [['IB3', 'IIA2', 'IIB', 'IIIA', 'IIIB', 'IIIC1', 'IIIC2', 'IVA'], 'Cisplatin-RT with brachytherapy. Add pembrolizumab, or induction weekly carboplatin-paclitaxel', 'KEYNOTE-A18, INTERLACE'],
+      [['IB3', 'IIA2', 'IIB'], 'Cisplatin-RT with brachytherapy, or induction weekly carboplatin-paclitaxel first. Node-negative IB2–IIB was outside KEYNOTE-A18, so pembrolizumab is not added', 'INTERLACE, KEYNOTE-A18'],
+      [['IIIA', 'IIIB', 'IIIC1', 'IIIC2', 'IVA'], 'Cisplatin-RT with brachytherapy and pembrolizumab. IIIC with an IB1 primary was outside KEYNOTE-A18 ※', 'KEYNOTE-A18'],
       [['IVB'], 'Carboplatin-paclitaxel with pembrolizumab, with or without bevacizumab', 'KEYNOTE-826'],
     ],
   },
@@ -480,11 +497,13 @@ const SITES = {
     S: 'IA1 non-aggressive, confined to polyp or endometrium · IA2 <50% myometrium · IA3 low grade with ovarian involvement · IB ≥50% myometrium · IC aggressive histology without myometrial invasion · IIA cervical stroma · IIB substantial LVSI · IIC aggressive histology with myometrial invasion · IIIA adnexa or serosa · IIIB vagina, parametria or pelvic peritoneum · IIIC1 pelvic nodes, IIIC2 para-aortic · IVA bladder or bowel mucosa · IVB abdominal peritoneum · IVC distant. POLEmut I–II: IAm. p53abn with myometrial invasion: IICm',
     tx: [
       [['IAmPOLEmut'], 'POLE-mutated: no adjuvant therapy', 'PORTEC-3 molecular analysis'],
-      [['IICmp53abn', 'IC', 'IIC'], 'Aggressive histology or p53-abnormal: chemotherapy, with or without RT', 'PORTEC-3'],
+      [['IC'], 'Aggressive histology without myometrial invasion: vaginal brachytherapy or observation. Chemotherapy may be considered if p53-abnormal ※', ''],
+      [['IICmp53abn', 'IIC'], 'Aggressive histology or p53-abnormal with myometrial invasion: chemotherapy, with or without RT', 'PORTEC-3'],
       [['IA1', 'IA2', 'IA3'], 'Hysterectomy. Observation or vaginal brachytherapy by risk', 'PORTEC-2'],
       [['IB'], 'Vaginal brachytherapy for high-intermediate risk', 'PORTEC-2'],
-      [['IIA', 'IIB'], 'External beam RT, with or without brachytherapy', 'PORTEC-3'],
-      [() => true, 'Carboplatin-paclitaxel with a PD-(L)1 inhibitor; greatest gain in dMMR. Durvalumab, with or without olaparib', 'RUBY, NRG-GY018, DUO-E'],
+      [['IIA', 'IIB'], 'External beam RT, with or without brachytherapy. Added chemotherapy gave no clear gain in stage I–II in PORTEC-3', 'PORTEC-3'],
+      [['IIIA1', 'IIIA2', 'IIIB1', 'IIIB2', 'IIIC1', 'IIIC2'], 'Resected stage III: carboplatin-paclitaxel with or without external beam RT. Residual or measurable disease: carboplatin-paclitaxel with a PD-(L)1 inhibitor', 'PORTEC-3, GOG 258, RUBY, NRG-GY018'],
+      [() => true, 'Carboplatin-paclitaxel with a PD-(L)1 inhibitor, with the greatest gain in dMMR. Durvalumab, with or without olaparib', 'RUBY, NRG-GY018, DUO-E'],
     ],
   },
   ovarian: {
@@ -534,7 +553,7 @@ const SITES = {
     logic: 'Lugano: number of nodal regions, then sides of the diaphragm, then extranodal disease. Bulk and B symptoms modify',
     S: 'I one nodal region · II two or more regions on the same side of the diaphragm · III both sides, or nodes above the diaphragm with splenic involvement · IV non-contiguous extranodal disease',
     tx: [
-      [['I', 'II'], 'Limited stage. DLBCL: R-CHOP for 4 cycles with 2 further rituximab doses (60 or younger, aaIPI 0, <7.5 cm), or R-CHOP for 3 cycles with PET-guided consolidation. Hodgkin: ABVD for 2–3 cycles with involved-site RT, PET-adapted', 'FLYER, S1001, HD16/HD17'],
+      [['I', 'II'], 'Limited stage. DLBCL: R-CHOP for 4 cycles with 2 further rituximab doses (60 or younger, aaIPI 0, <7.5 cm), or R-CHOP for 3 cycles, then a 4th cycle if interim PET is negative or involved-site RT if it is positive. Hodgkin: ABVD for 2–3 cycles with involved-site RT, PET-adapted', 'FLYER, S1001, HD16, HD17'],
       [['III', 'IV'], 'Advanced stage. DLBCL: Pola-R-CHP or R-CHOP for 6 cycles. Hodgkin: BrECADD, nivolumab-AVD, or brentuximab-AVD', 'POLARIX, HD21, S1826, ECHELON-1'],
     ],
   },
@@ -545,7 +564,8 @@ const SITES = {
       [x => /Astrocytoma.*grade 2/.test(x.s), 'Maximal safe resection. Residual or recurrent disease: vorasidenib. High risk: RT with temozolomide', 'INDIGO'],
       [x => /Astrocytoma.*grade 3/.test(x.s), 'RT, then adjuvant temozolomide for 12 cycles', 'CATNON'],
       [x => /Astrocytoma.*grade 4/.test(x.s), 'RT with temozolomide', ''],
-      [x => /Oligodendroglioma/.test(x.s), 'RT with PCV, for high-risk grade 2 and all grade 3', 'RTOG 9402, EORTC 26951, RTOG 9802'],
+      [x => /Oligodendroglioma.*grade 2/.test(x.s), 'Maximal safe resection. Residual or recurrent disease without high-risk features: vorasidenib. High risk: RT with PCV', 'INDIGO, RTOG 9802'],
+      [x => /Oligodendroglioma/.test(x.s), 'RT with PCV', 'RTOG 9402, EORTC 26951'],
       [() => true, 'RT with temozolomide (Stupp), with or without tumour treating fields. Elderly: short-course RT with temozolomide', 'Stupp 2005, EF-14, Perry 2017'],
     ],
   },

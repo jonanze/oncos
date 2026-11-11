@@ -40,7 +40,8 @@ const ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M6 21
 const MODES = [['case', 'Case'], ['table', 'Table']];
 // approximate relative annual incidence (worldwide, rough); sets how often each site is drawn
 const W = { lung: 2480, breast: 2310, colorectal: 1930, prostate: 1470, gastric: 970, hcc: 700, thyroid: 820, cervix: 660, bladder: 580, lymphoma: 630, esophageal: 510, pancreas: 500, rcc: 430, endometrial: 420, 'oral-cavity': 390, melanoma: 330, ovarian: 320, glioma: 200, larynx: 190, gallbladder: 120, nasopharyngeal: 120, 'oropharynx-p16pos': 55, 'oropharynx-p16neg': 50, hypopharynx: 85, salivary: 55, 'cholangio-intrahepatic': 60, 'cholangio-perihilar': 40, 'cholangio-distal': 20, testis: 72, anal: 50, vulvar: 47, 'cutaneous-scc': 60, 'soft-tissue-sarcoma': 50, gist: 40, penile: 37, mesothelioma: 31, utuc: 30, 'bone-sarcoma': 20, gtn: 20, sinonasal: 20, vaginal: 18, 'net-gep': 20, 'net-pancreas': 15, 'net-rectal': 12, 'net-jejunoileal': 10, 'net-gastric': 8, 'net-appendiceal': 8, 'net-duodenal': 5, 'net-colonic': 4, 'small-bowel': 12, ampulla: 15, thymoma: 15, 'uterine-sarcoma': 15, appendix: 10, adrenal: 7, merkel: 3, urethral: 3 };
-function weighted(list) { const tot = list.reduce((a, s) => a + (W[s.id] || 10), 0); let r = Math.random() * tot; for (const s of list) { r -= W[s.id] || 10; if (r < 0) return s; } return list[list.length - 1]; }
+// incidence weights, with a floor of 0.6% of the list total so that rare sites still come up
+function weighted(list) { const raw = list.reduce((a, s) => a + (W[s.id] || 10), 0), wt = s => Math.max(W[s.id] || 10, raw * 0.006), tot = list.reduce((a, s) => a + wt(s), 0); let r = Math.random() * tot; for (const s of list) { r -= wt(s); if (r < 0) return s; } return list[list.length - 1]; }
 let body, edEl, tableLink = null, current = null, lastId = null, jumpSys = null;
 const HANDSITE = { crc: 'colorectal', oral: 'oral-cavity', eso: 'esophageal' };
 function caseSite() {
@@ -229,7 +230,7 @@ function drawCase() {
     });
     if (picks.S === truth.S) rows.push([c.stage, c.ruleText, 'ok']);
     else {
-      const mine = sys.rules.filter(r => r.stage === picks.S).slice(0, 3).map(r => D.ruleText(sys, r)).join(' · ');
+      const mine = sys.rules.filter(r => r.stage === picks.S).map(r => D.ruleText(sys, r)).join(' · ');
       rows.push([picks.S, mine || '—', 'x']);
       rows.push([c.stage, c.ruleText, 'ok']);
       const pT = picks.T, pN = picks.N, pM = picks.M;
@@ -241,7 +242,7 @@ function drawCase() {
     if (c.why.X) rows.push(['※', plainWhy(c.why.X, ''), 'n']);
     R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (allOk ? '★ ' : '✕ ') + c.stage }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: (r[2] === 'x' ? '✕ ' : r[2] === 'ok' && !allOk ? '★ ' : '') + r[0], class: r[2] === 'x' ? 'x' : null }), el('div', { text: r[1] })]))]));
     const hist = (c.fields || []).find(f => f[0] === 'Histology');
-    const db = debrief(sys.site, { s: c.stage, t: c.t, n: c.n, m: c.m, q: c.q, label: sys.label, rectal: /\brect(um|al)\b/i.test(c.text) && !/rectosigmoid/i.test(c.text), sclc: !!(hist && /^Small cell/.test(hist[1])) }, ['T', 'N', 'M', 'S'].filter(k => picks[k] !== truth[k]));
+    const db = debrief(sys.site, { s: c.stage, t: c.t, n: c.n, m: c.m, q: c.q, label: sys.label, rectal: !!c.rectal, sclc: !!(hist && /^Small cell/.test(hist[1])) }, ['T', 'N', 'M', 'S'].filter(k => picks[k] !== truth[k]));
     if (db) R.appendChild(db);
     R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
   }
@@ -253,7 +254,7 @@ function debrief(siteId, x, wrong) {
   if (!d) return null;
   const EV = window.DrillEvidenceLinks || {}, local = /(^|\.)oncos\.vercel\.app$/.test(location.hostname);
   const evHref = id => (HOST || local ? '' : 'https://oncos.vercel.app') + '/evidence/#' + id;
-const trials = tr => el('span', { class: 'tr' }, tr.split(', ').flatMap((name, i) => { const id = EV[name.replace(/ ※$/, '')]; const node = id ? el('a', { href: evHref(id), text: name, 'data-evidence': id }) : document.createTextNode(name); return i ? [', ', node] : [node]; }));
+const trials = tr => el('span', { class: 'tr' }, tr.split(/, (?![^()]*\))/).flatMap((name, i) => { const id = EV[name.replace(/ ※$/, '')]; const node = id ? el('a', { href: evHref(id), text: name, 'data-evidence': id }) : document.createTextNode(name); return i ? [', ', node] : [node]; }));
   const cell = (k, v, cls, tr) => [el('div', { class: cls || null, text: k }), el('div', {}, [v, tr ? trials(tr) : null])];
   const top = [], rest = [];
   top.push(...cell('Logic', d.logic));
@@ -376,8 +377,9 @@ window.DrillState = {
 // ---------- keyboard ----------
 document.addEventListener('keydown', e => {
   if (e.target && /textarea|input|select/i.test(e.target.tagName)) return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === 'Enter') { const n = $('#next'); if (n) { e.preventDefault(); n.click(); } return; }
-  const map = { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '0': 10, 'q': 11, 'w': 12, 'e': 13, 'r': 14, 't': 15, 'y': 16 };
+  const map = { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '0': 10, 'q': 11, 'w': 12, 'e': 13, 'r': 14, 't': 15, 'y': 16, 'u': 17, 'i': 18, 'o': 19, 'p': 20 };
   const k = map[e.key.toLowerCase()];
   if (k) { const b = document.querySelector('.opts button[data-k="' + k + '"]:not([disabled])'); if (b) { e.preventDefault(); b.click(); } }
 });
