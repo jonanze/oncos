@@ -174,10 +174,12 @@
       return x.anchor ? '<span class="trial" role="button" tabindex="0" data-ev="' + esc(x.anchor) + '">' + esc(x.name) + '</span>'
         : x.url ? '<a class="trial" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.name) + '</a>' : esc(x.name);
     });
-    var tblk = add('tblk', '<div class="k">Map</div><div class="v">' + esc(model.map || '') + '</div>' +
-      (srcs.length ? '<div class="k">Source</div><div>' + srcs.join(' · ') + '</div>' : '') +
-      ((model.branches || []).length ? '<div class="k">Branch</div><div class="keys">' + model.branches.map(function(x){ return '<span class="key brk br' + x.n + '">' + esc(x.label) + '</span>'; }).join('') + '</div>' : '') +
-      (SCALE.length ? '<div class="k">Risk</div><div class="keys">' + SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; }).join('') + '</div>' : ''));
+    // title: the map's name in large type, then its guidelines and the colour key in small type (whiteboard look, Jonan 2026-11-11)
+    var keys = (model.branches || []).map(function(x){ return '<span class="key br' + x.n + '">' + esc(x.label) + '</span>'; })
+      .concat(SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; }));
+    var tblk = add('tblk', '<div class="mt">' + esc(model.map || '') + '</div>' +
+      (srcs.length ? '<div class="ms">' + srcs.join(' · ') + '</div>' : '') +
+      (keys.length ? '<div class="keys">' + keys.join('') + '</div>' : ''));
     var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + linesHtml(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
     var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel', '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
 
@@ -353,7 +355,7 @@
             svg += '<path d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + lane + ' H' + xb + ' V' + t.cy + ' H' + x2 + '"/>';
           } else {
             // the course spine (a straight next: line) is drawn heavier than the lines that branch off it
-            svg += '<path' + (level && !e.join ? ' class="main"' : '') + ' d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
+            svg += '<path d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
           }
           e.xm = xm; e.cy = n.cy; e.lane = lane; e.xb = xb;
           if (e.el && !e.join) {
