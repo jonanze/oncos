@@ -36,12 +36,9 @@ band: cT1–2 N0
 
 course: Stage II and III rectal cancer
   Risk group on MRI
-    ① High risk: cT4, an involved MRF, cN2, EMVI or an enlarged lateral node 〔ESMO I, A〕
-      ・ESMO counts a lateral node of 7 mm or more in short axis
-      ・NCCN names the same five features
-      ・ASCO counts T4, EMVI, tumour deposits and a threatened MRF or intersphincteric plane, and does not use nodal stage alone
-    ② Intermediate risk: cT2 N+ or cT3 N0–1 with a clear MRF
-    ※ Upper third: chemotherapy before surgery for cT2 N+ or cT3, and TNT for cT4 or an involved MRF 〔ESMO I, A〕
+    ① High risk: cT4, involved MRF, cN2, EMVI or a lateral node of 7 mm or more 〔ESMO I, A〕
+    ② Intermediate risk: cT2 N+ or cT3 N0–1, clear MRF
+    ※ Upper third: TNT only for cT4 or an involved MRF 〔ESMO I, A〕
     next: Intermediate risk, pMMR
     next: High risk, pMMR
     next: dMMR or MSI-H
