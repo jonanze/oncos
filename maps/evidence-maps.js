@@ -19,6 +19,7 @@
    Run node maps/check.cjs and node maps/render-check.cjs before every draft and release. */
 (function(){
   var MAPS = {
+    'Advanced CRC': 'advanced-colon',
     'Advanced NSCLC': 'nsclc',
     'Advanced Prostate': 'prostate',
     'Early & Locally Adv NSCLC': 'early-nsclc',
