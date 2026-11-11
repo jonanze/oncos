@@ -7,13 +7,9 @@
 #           under it is its content, and "next: Step | label" draws a line to a later step
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
-#   + Trial | fig   a trial line; the mark records the result and is not drawn:
+#   + Trial         a trial line, the trial's name only; it draws as a chip, and a tap opens its card with the
+#                   results. No figures on maps (Jonan 2026-11-11). The mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
-#   fig with no digits is read from the Evidence row at each publish:
-#     OS HR, PFS HR   the HR on the row's OS or PFS line
-#     OS median       the medians on that line, "a vs b months"
-#     response        the first percentage on the ORR line
-#   fig with digits is shown as written; the map check fails if the row no longer has those numbers
 #   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
 #   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
 #   ※ text          caveat             ° text          side effects, grey
@@ -26,7 +22,11 @@
 #
 # Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
-#   Square lines only; joins line up; no result colours (the marks above are kept as data, not drawn)
+#   Whiteboard look (Jonan 2026-11-11, early colon map as the reference): filled rounded blocks, no title block,
+#   bold numbered options, trial names as chips with no figures, lines with rounded corners and no arrowheads
+#   that share one trunk where they fan out; spec doc https://claude.ai/artifact/Gt1iJC47Qa9LSMGDteysBJ
+#   No result colours (the marks above are kept as data, not drawn); colour encodes either risk groups
+#   (scale:) or branches (branch:), never both
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
@@ -81,7 +81,7 @@ band: ADT, testing and bone
   ① A first-generation antiandrogen for at least 7 days with the first LHRH agonist injection prevents testosterone flare 〔NCCN 2A〕
     ・It is given when metastases are in weight-bearing bone or the prostate mass is large
     * Noguchi 2001 {pmid 11706524}
-  ② Relugolix kept castration in 96.7% against 88.8% with leuprolide 〔NCCN 2A〕
+  ② Relugolix kept castration more often than leuprolide 〔NCCN 2A〕
     ・Major cardiovascular events were fewer than with leuprolide, in a prespecified safety analysis
     ・EU and US licence
     ・ESMO does not name an LHRH antagonist
@@ -137,7 +137,7 @@ course: Advanced prostate cancer
       ・Radiotherapy to the prostate can be added in de novo disease to prevent severe urinary symptoms 〔ESMO II, B〕
       + PEACE-1
       + ARASENS
-      ° Grade 3 or higher hypertension 22% vs 13% (PEACE-1)
+      ° More grade 3 or higher hypertension with abiraterone (PEACE-1)
       ※ Both trials compared with ADT and docetaxel
         ・Neither compared with ADT and an ARSI
       ※ Docetaxel added to ADT alone improved OS in high volume and not in low volume
@@ -185,7 +185,7 @@ course: Advanced prostate cancer
       ・50 mg/m² every 2 weeks for frail men 〔ESMO I, C〕
     + TAX 327
     ③ BRCA altered: talazoparib with enzalutamide, olaparib with abiraterone, or niraparib with abiraterone 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
-      ・Other HRR genes: talazoparib with enzalutamide 〔NCCN 1, useful in certain circumstances〕
+      ・Other HRR gene alterations: talazoparib with enzalutamide 〔NCCN 1, useful in certain circumstances〕
       ・No HRR alteration: talazoparib with enzalutamide or olaparib with abiraterone for selected men 〔ESMO II, C〕
       ・EU licence for talazoparib with enzalutamide and for olaparib with abiraterone without a biomarker
     + TALAPRO-2
@@ -214,7 +214,7 @@ course: Advanced prostate cancer
     ① Docetaxel 〔NCCN 1, preferred〕
       ・Preferred over a second ARSI 〔ESMO III, A〕
     ※ Docetaxel here rests on TAX 327, in men who had never had an ARSI
-    ② BRCA1 or BRCA2 altered: olaparib or rucaparib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
+    ② BRCA1 or BRCA2: olaparib or rucaparib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
       ・A PARP inhibitor comes before docetaxel and a second ARSI 〔ESMO III, A〕
       ・Other HRR genes: olaparib 〔NCCN 2A, useful in certain circumstances〕
       ・PALB2: a PARP inhibitor 〔ESMO II, B〕
@@ -237,7 +237,7 @@ course: Advanced prostate cancer
       ・Cabazitaxel instead when PSMA uptake is low or does not match CT 〔ESMO II, B〕
     + VISION [t-vision--advanced-prostate]
     ※ Docetaxel again 〔NCCN 2A, preferred〕
-    ※ BRCA altered and no PARP inhibitor yet: olaparib 〔NCCN 1, useful in certain circumstances〕
+    ※ BRCA altered with no PARP inhibitor so far: olaparib 〔NCCN 1, useful in certain circumstances〕
 
 panel: ARSI options > Metastatic, castration-sensitive
   ① Abiraterone with prednisone 5 mg once daily 〔NCCN 1, preferred〕 〔ESMO I, A〕
@@ -252,11 +252,11 @@ panel: ARSI options > Metastatic, castration-sensitive
     + ARCHES
   ③ Apalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
     + TITAN
-    ° Rash 24%, hypothyroidism 8%, fracture 12% (SPARTAN)
+    ° Rash, hypothyroidism and fracture (SPARTAN)
   ④ Darolutamide 〔NCCN 2A, other recommended〕 〔ESMO I, A〕
     ・Low volume 〔NCCN 2B, other recommended〕
     ~ ARANOTE
-    ° Fatigue 5.6%
+    ° Fatigue
     ° Low brain penetration
   ※ Drug interactions
     ・Enzalutamide and apalutamide are strong CYP3A4 inducers
@@ -269,16 +269,17 @@ panel: Emerging upfront triplet options > Metastatic, castration-sensitive
     ・BRCA2 only, low volume 〔NCCN 2B, useful in certain circumstances〕
     ・ESMO does not list it
     ~ AMPLITUDE
-    ※ Other HRR genes gave rPFS HR 0.81, not significant, in a post hoc analysis
+    ※ Other HRR genes gave no significant rPFS gain in a post hoc analysis
   ② HRR altered: talazoparib with enzalutamide
     ・ESMO and NCCN do not list it
     ~ TALAPRO-3
-    ° Grade 3 or higher anaemia 51%
-  ③ PTEN deficient on IHC: capivasertib with abiraterone 〔NCCN 2B, very select patients only〕
+    ° Frequent grade 3 or higher anaemia
+  ③ PTEN loss: capivasertib with abiraterone 〔NCCN 2B, very select patients only〕
+    ・PTEN loss is shown by IHC
     ・US licence
     ・ESMO does not list it
     ~ CAPItello-281
-    ※ A later descriptive analysis gave OS HR 0.82
+    ※ OS was reported only in a later descriptive analysis
   ④ PSMA PET positive: Lu-177 PSMA-617 with an ARSI 〔NCCN 2A, useful in certain circumstances〕
     ・Low volume 〔NCCN 2B, useful in certain circumstances〕
     ・ESMO does not list it
@@ -290,9 +291,9 @@ panel: Bone metastases, no visceral disease > Metastatic, castration-resistant
     ・Not as a single agent with nodal or visceral metastases 〔ESMO III, E〕
     + ALSYMPCA
     ※ Radium-223 is not given with abiraterone
-      ・Fractures were 29% vs 11%
+      ・Fractures were more frequent with the combination
       - ERA 223 [t-era-223]
   ② Before any ARSI: radium-223 with enzalutamide and a bone-protecting agent 〔NCCN 1, useful in certain circumstances〕 〔ESMO II, C〕
     ・No EU or US licence for the combination
-    ・Fractures were 24% vs 13%
+    ・Fractures were more frequent than with enzalutamide alone
     + PEACE-3 [t-peace-3]

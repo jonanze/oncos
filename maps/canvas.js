@@ -219,14 +219,19 @@
       svg = '';
       var BG = 72, SG = 36, cols = [];
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); n.el.style.width = n.w + 'px'; n.hd.style.minHeight = ''; });
+      // a step widens until no unbreakable run (a long tag, a chip) spills past its edge
+      steps.forEach(function(n){ var over = n.el.scrollWidth - n.el.clientWidth; if (over > 0) { n.w += over + 4; n.el.style.width = n.w + 'px'; } });
       var gapW = cols.map(function(){ return BG; });
       steps.forEach(function(n){ n.next.forEach(function(e){ if (e.el) gapW[n.col] = Math.max(gapW[n.col], 2 * (e.el.offsetWidth + 24)); }); });
       var colX = [M], colW = cols.map(function(list){ return Math.max.apply(null, list.map(function(n){ return n.w; })); });
       cols.forEach(function(list, c){ colX[c + 1] = colX[c] + colW[c] + gapW[c]; });
       var width = colX[cols.length] - gapW[cols.length - 1] - M;
       bands.forEach(function(el){ el.style.width = Math.max(el.w, width) + 'px'; el.w = Math.max(el.w, width); });
-      var b = bandsRow();
-      bands.forEach(function(el){ el.style.left = M + 'px'; });
+      // bands run the full width, one under another
+      if (tblk) { tblk.style.left = M + 'px'; tblk.style.top = M + 'px'; }
+      var btop = M + (tblk ? tblk.offsetHeight + 28 : 0);
+      bands.forEach(function(el){ el.style.left = M + 'px'; el.style.top = btop + 'px'; btop += el.offsetHeight + 28; });
+      var b = {top: btop};
       var colH = cols.map(function(list){ return list.reduce(function(h, n){ return h + n.el.offsetHeight; }, 0) + SG * (list.length - 1); });
       var axis = b.top + Math.max.apply(null, colH) / 2;
       cols.forEach(function(list, c){
