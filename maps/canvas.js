@@ -394,15 +394,14 @@
           if (one && list.length > 1) {
             // the whole column is one step's fan: the middle step (or the middle gap) sits on the stem and each
             // pair above and below it at the same distance, so the stem runs straight through and the fan is even
-            // Each pair takes the taller one's height, so the gaps between the boxes are equal too
-            // (Jonan 2026-11-11, rectal: "these three boxes are not symmetrically spaced")
+            // The gaps between the boxes are all equal and each box keeps its own height, so an outer line may
+            // run further on one side (Jonan 2026-11-11, rectal: "I just need the spacing between boxes to be symmetric")
             var m = list.length >> 1, odd = list.length % 2, hi = mid - SG / 2, lo = mid + SG / 2;
             if (odd) { var c0 = list[m]; c0.y = mid - hgt(c0) / 2; c0.cy = mid; hi = c0.y; lo = c0.y + hgt(c0); }
             for (var k = 1; k <= m; k++) {
-              var u = list[m - k], l = list[odd ? m + k : m + k - 1], H = Math.max(hgt(u), hgt(l));
-              u.el.style.minHeight = l.el.style.minHeight = H + 'px';
-              u.y = hi - SG - H; u.cy = u.y + H / 2; l.y = lo + SG; l.cy = l.y + H / 2;
-              hi = u.y; lo = l.y + H;
+              var u = list[m - k], l = list[odd ? m + k : m + k - 1];
+              u.y = hi - SG - hgt(u); u.cy = u.y + hgt(u) / 2; l.y = lo + SG; l.cy = l.y + hgt(l) / 2;
+              hi = u.y; lo = l.y + hgt(l);
             }
           } else move(list, mid - (list[0].cy + list[list.length - 1].cy) / 2);
         }
