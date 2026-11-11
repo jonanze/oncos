@@ -12,7 +12,13 @@
    - steps joined by lines form a branch; separate branches are drawn one below the other with a wider gap
    - next: lines are drawn as ruled elbows; a straight one is the spine, drawn heavier; its label sits in a ruled cell
      centred along its run of the line
-   - join: lines to one step with one label share an upright and carry the label once, on it
+   - join: lines to one step with one label share an upright and carry the label once, on it;
+     join: lines from steps that lead to several steps share one upright beside those steps
+   - a line that passes a column runs clear of the steps in it: its step moves down below them and
+     below the lines into them, so no line runs under a step or crosses another (Jonan 2026-11-11)
+   - a join: line that would run under a step on its way in takes a lane past that step
+   - after layout every line label is centred on the line as drawn, between the nearest box edges
+     or junctions, on both axes; node maps/render-check.cjs fails on any label off its line
    - a panel sits below its step's column
    - a step, band or panel holding a grid ("| a | b |" lines) widens to fit the grid's columns
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
@@ -218,8 +224,10 @@
       var panelTop = [];
       var colX = [M];
       var top0 = b.top, colEnd = [];
+      steps.forEach(function(n){ n.minTop = 0; });
       for (var gi = 0; gi < g; gi++) {
         var bottom = top0;
+        for (var pass = 0; pass < 6; pass++) {
         cols.forEach(function(list, c){
           var x = colX[c] || 0, cursor = top0;
           var mine = list.filter(function(n){ return n.group === gi; });
@@ -232,7 +240,7 @@
           });
           mine.sort(function(a, z){ return a.want === z.want ? a.k - z.k : a.want - z.want; });
           mine.forEach(function(n){
-            var top = n.want === Infinity ? cursor : Math.max(cursor, n.want - n.hh / 2);
+            var top = Math.max(n.minTop, n.want === Infinity ? cursor : Math.max(cursor, n.want - n.hh / 2));
             n.x = x; n.y = top; n.cy = top + n.hh / 2;
             n.el.style.left = x + 'px'; n.el.style.top = top + 'px';
             cursor = top + n.el.offsetHeight + CGY;
@@ -251,6 +259,30 @@
             if (below && n.y + dy + n.el.offsetHeight + CGY > below.y) return;
             n.y += dy; n.cy += dy; n.el.style.top = n.y + 'px';
           });
+        }
+        // a line that passes a column runs straight at its step's middle; when a step in that column
+        // stands in its way, its step moves down below that step and the group is placed again
+        var moved = false;
+        steps.forEach(function(n){
+          if (n.group !== gi) return;
+          n.next.forEach(function(e){
+            if (e.join || e.node.col <= n.col + 1) return;
+            steps.forEach(function(m){
+              if (m.group !== gi || m.col <= n.col || m.col >= e.node.col) return;
+              var mb = m.y + m.el.offsetHeight;
+              if (n.cy > m.y - 12 && n.cy < mb + 24) { var t = mb + 24 - n.hh / 2; if (t > n.minTop + 0.5) { n.minTop = t; moved = true; } }
+            });
+            // nor may it cross a line from a step beside it to the next column
+            steps.forEach(function(p){
+              if (p === n || p.group !== gi || p.col !== n.col) return;
+              p.next.forEach(function(f){
+                var lo = Math.min(p.cy, f.node.cy), hi = Math.max(p.cy, f.node.cy);
+                if (f.node.col > n.col && f.node.col < e.node.col && n.cy > lo - 12 && n.cy < hi + 12) { var t = hi + 24 - n.hh / 2; if (t > n.minTop + 0.5) { n.minTop = t; moved = true; } }
+              });
+            });
+          });
+        });
+        if (!moved) break;
         }
         cols.forEach(function(list, c){
           list.forEach(function(n){
@@ -275,14 +307,15 @@
         e.split = n.next.length > 1 || t.preds.length < 2; e.level = Math.abs(t.cy - n.cy) < 1;
         if (!e.el) return;
         var w = e.el.offsetWidth;
-        if (e.split && !e.level) n.stub = Math.max(n.stub, w / 2 + 12);
+        if (e.split && !e.level && !e.join) n.stub = Math.max(n.stub, w / 2 + 12);
         if (e.joins) t.jstub = Math.max(t.jstub, w / 2 + 12);
       }); });
       steps.forEach(function(n){ n.next.forEach(function(e){
         var t = e.node, c = t.col - 1;
         if (!e.el || (!e.joins && e.join) || c < 0) return;
         var w = e.el.offsetWidth, need;
-        if (e.joins) need = t.jstub + w / 2 + 12;
+        if (e.joins && e.split) { if (n.col !== c) return; need = n.stub + w + 32; }
+        else if (e.joins) need = t.jstub + w / 2 + 12;
         else if (n.col !== c) return;
         else if (e.split) need = e.level ? n.stub + w + 32 : n.stub + w / 2 + 12;
         else need = t.jstub + w + 32;
@@ -291,15 +324,33 @@
       colX = [M];
       cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + gapW[c]; });
       steps.forEach(function(n){ n.x = colX[n.col]; n.el.style.left = n.x + 'px'; });
+      var shareX = {};
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        if (!e.join || !e.split) return;
+        var key = e.to + '|' + (e.label || ''); shareX[key] = Math.max(shareX[key] || 0, n.x + n.w + n.stub);
+      }); });
+      // a step's box, for keeping lines out from under it
+      function under(y, xa, xz, not){
+        return steps.filter(function(m){ return not.indexOf(m) < 0 && m.x < xz && m.x + m.w > xa && y > m.y && y < m.y + m.el.offsetHeight; });
+      }
       steps.forEach(function(n){
         n.next.forEach(function(e){
           // one source to several steps: the line divides next to the source, the label sits on the branch;
           // several sources to one step: the lines join next to the step, the label sits on the source's own line
           var t = e.node, x1 = n.x + n.w, x2 = t.x, split = e.split, level = e.level;
-          var xm = split ? x1 + n.stub : x2 - t.jstub;
-          // the course spine (a straight next: line) is drawn heavier than the lines that branch off it
-          svg += '<path' + (level && !e.join ? ' class="main"' : '') + ' d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
-          e.xm = xm; e.cy = n.cy;
+          var xm = split ? (e.join ? shareX[e.to + '|' + (e.label || '')] : x1 + n.stub) : x2 - t.jstub;
+          // a line that would run under a step on its way in takes a lane past that step, then turns into its own
+          var block = split ? under(t.cy, xm, x2, [n, t]) : [], lane = null, xb = null;
+          if (block.length) {
+            lane = t.cy > n.cy ? Math.min.apply(null, block.map(function(m){ return m.y; })) - 24
+                               : Math.max.apply(null, block.map(function(m){ return m.y + m.el.offsetHeight; })) + 24;
+            xb = x2 - t.jstub;
+            svg += '<path d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + lane + ' H' + xb + ' V' + t.cy + ' H' + x2 + '"/>';
+          } else {
+            // the course spine (a straight next: line) is drawn heavier than the lines that branch off it
+            svg += '<path' + (level && !e.join ? ' class="main"' : '') + ' d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
+          }
+          e.xm = xm; e.cy = n.cy; e.lane = lane; e.xb = xb;
           if (e.el && !e.join) {
             // a label sits in a ruled cell on its own run of the line: the straight run, or the upright
             // between the previous turn and its step, so it never stands beside another step's line
@@ -326,6 +377,8 @@
           var ty = e.node.cy, ys = e.joins.map(function(j){ return j.cy; });
           var near = ty >= Math.max.apply(null, ys) ? Math.max.apply(null, ys) : Math.min.apply(null, ys);
           var w = e.el.offsetWidth, x1 = Math.max.apply(null, e.node.preds.map(function(p){ return p.x + p.w; }));
+          if (e.lane !== null) { e.el.style.left = ((e.xm + e.xb - w) / 2) + 'px'; e.el.style.top = (e.lane - e.el.offsetHeight / 2) + 'px'; return; }
+          if (e.split) { e.el.style.left = ((e.xm + e.node.x - w) / 2) + 'px'; e.el.style.top = (ty - e.el.offsetHeight / 2) + 'px'; return; }
           e.el.style.left = inGap(e.xm - w / 2, w, x1, e.node.x) + 'px'; e.el.style.top = ((near + ty) / 2 - e.el.offsetHeight / 2) + 'px';
         });
       });
@@ -347,6 +400,71 @@
       world.style.width = W + 'px'; world.style.height = H + 'px';
       wires.setAttribute('width', W); wires.setAttribute('height', H);
       wires.innerHTML = svg;
+      centreLabels();
+    }
+
+    // straight runs of the lines as drawn: M, H and V commands of paths, and lines
+    function wireSegs(){
+      var segs = [], re = /<path[^>]* d="([^"]*)"|<line x1="([^"]*)" y1="([^"]*)" x2="([^"]*)" y2="([^"]*)"/g, m;
+      function put(x1, y1, x2, y2){
+        if (Math.abs(y1 - y2) < 0.5 && Math.abs(x1 - x2) > 0.5) segs.push({h:true, k:y1, a:Math.min(x1, x2), b:Math.max(x1, x2)});
+        else if (Math.abs(x1 - x2) < 0.5 && Math.abs(y1 - y2) > 0.5) segs.push({h:false, k:x1, a:Math.min(y1, y2), b:Math.max(y1, y2)});
+      }
+      while ((m = re.exec(svg))) {
+        if (m[2] !== undefined) { put(+m[2], +m[3], +m[4], +m[5]); continue; }
+        if (/[QCLA]/.test(m[1])) continue;
+        var x = 0, y = 0, c, cre = /([MHV])\s*(-?[\d.]+)(?:\s+(-?[\d.]+))?/g;
+        while ((c = cre.exec(m[1]))) {
+          var v = +c[2];
+          if (c[1] === 'M') { x = v; y = +c[3]; }
+          else if (c[1] === 'H') { put(x, y, v, y); x = v; }
+          else { put(x, y, x, v); y = v; }
+        }
+      }
+      return segs;
+    }
+
+    // the visible run through a point on a line: collinear runs joined, cut at box edges and at
+    // other lines meeting or crossing it
+    function visibleRun(segs, boxes, h, k, pos){
+      var on = segs.filter(function(s){ return s.h === h && Math.abs(s.k - k) < 0.5 && s.a - 0.5 <= pos && pos <= s.b + 0.5; });
+      if (!on.length) return null;
+      var a = Math.min.apply(null, on.map(function(s){ return s.a; })), z = Math.max.apply(null, on.map(function(s){ return s.b; })), grew = true;
+      while (grew) { grew = false; segs.forEach(function(s){
+        if (s.h === h && Math.abs(s.k - k) < 0.5 && s.a <= z + 0.5 && s.b >= a - 0.5 && (s.a < a - 0.5 || s.b > z + 0.5)) { a = Math.min(a, s.a); z = Math.max(z, s.b); grew = true; }
+      }); }
+      var lo = a, hi = z;
+      function stop(v){ if (v < pos - 1 && v > lo) lo = v; if (v > pos + 1 && v < hi) hi = v; }
+      boxes.forEach(function(r){ if (h ? (k >= r.t && k <= r.b) : (k >= r.l && k <= r.r)) { stop(h ? r.l : r.t); stop(h ? r.r : r.b); } });
+      segs.forEach(function(s){ if (s.h !== h && s.a <= k + 0.5 && s.b >= k - 0.5) stop(s.k); });
+      return {a:lo, z:hi};
+    }
+
+    // every line label centred on the line as drawn, on both axes; a label set beside an upright
+    // (a panel lane) is centred on the upright's run
+    function centreLabels(){
+      var segs = wireSegs(), labs = [], boxes = [];
+      Array.prototype.forEach.call(world.querySelectorAll('.blk'), function(el){
+        var r = {el:el, l:el.offsetLeft, t:el.offsetTop, r:el.offsetLeft + el.offsetWidth, b:el.offsetTop + el.offsetHeight};
+        (/\belab\b/.test(el.className) ? labs : boxes).push(r);
+      });
+      labs.forEach(function(c){
+        var w = c.r - c.l, hgt = c.b - c.t, cx = (c.l + c.r) / 2, cy = (c.t + c.b) / 2, run;
+        var H = segs.filter(function(s){ return s.h && Math.abs(s.k - cy) <= 3 && s.a < cx && cx < s.b; });
+        var V = segs.filter(function(s){ return !s.h && Math.abs(s.k - cx) <= 3 && s.a < cy && cy < s.b; });
+        if (H.length) {
+          run = visibleRun(segs, boxes, true, H[0].k, cx);
+          c.el.style.left = ((run.a + run.z - w) / 2) + 'px'; c.el.style.top = (H[0].k - hgt / 2) + 'px';
+        } else if (V.length) {
+          run = visibleRun(segs, boxes, false, V[0].k, cy);
+          c.el.style.left = (V[0].k - w / 2) + 'px'; c.el.style.top = ((run.a + run.z - hgt) / 2) + 'px';
+        } else {
+          var B = segs.filter(function(s){ return !s.h && s.k <= c.l && c.l - s.k <= 14 && s.a < cy && cy < s.b; });
+          if (!B.length) return;
+          run = visibleRun(segs, boxes, false, B[0].k, cy);
+          c.el.style.top = ((run.a + run.z - hgt) / 2) + 'px';
+        }
+      });
     }
 
     function layoutTree(){
