@@ -61,6 +61,17 @@ band: Diagnosis and surgery
   ※ NCCN alone: consider NTRK and RET fusion testing in metastatic or recurrent disease, and TMB testing 〔NCCN 2A〕
   ※ NCCN 3.2026 stages by FIGO 2009, ESGO 2025 by FIGO 2023 with molecular class
 
+band: First-line chemotherapy
+  ※ Carboplatin-paclitaxel replaced doxorubicin, cisplatin and paclitaxel
+    ~ GOG 209 | Non-inferior, OS HR 1.002
+  ※ Bevacizumab added to carboplatin-paclitaxel did not improve PFS
+    - GOG-86P [t-gog-86p] | PFS HR 0.81 against a historical control
+    - MITO END-2 | PFS 13.7 vs 10.5 months, HR 0.84
+    ・In exploratory analyses of GOG-86P, TP53-mutated or p53-overexpressing tumours did better with bevacizumab
+    ・Not licensed
+    ・ESGO 2025 does not list it
+    ・NCCN: preferred in stage III–IV 〔NCCN 2A, preferred〕, other recommended at recurrence 〔NCCN 2A, other recommended〕
+
 course:
   Stage III–IV at diagnosis
     ① Complete resection feasible: cytoreduction, removing only suspicious nodes 〔ESGO IV, B〕 〔NCCN 2A〕
@@ -179,30 +190,21 @@ course:
       ・NCCN: megestrol alternating with tamoxifen, or everolimus with letrozole 〔NCCN 2A, preferred〕
       ・NCCN: fulvestrant, or medroxyprogesterone alternating with tamoxifen 〔NCCN 2A, other recommended〕
       ・NCCN: lower-grade endometrioid carcinoma, with no ER requirement
-    ※ NCCN alone: a CDK4/6 inhibitor with letrozole or fulvestrant in ER positive tumours 〔NCCN 2A, useful in certain circumstances〕
-    ※ MMR proficient relapse after adjuvant chemotherapy, when chemotherapy cannot be given: lenvatinib with pembrolizumab can be considered 〔ESGO III, C〕
-      ・NCCN: after any platinum, including adjuvant, with no condition on chemotherapy 〔NCCN 1, useful in certain circumstances〕
-    ※ NCCN alone: MMR deficient relapse after any platinum, including adjuvant, pembrolizumab or dostarlimab alone 〔NCCN 2A, useful in certain circumstances〕
-    ※ Carboplatin-paclitaxel replaced doxorubicin, cisplatin and paclitaxel
-      ~ GOG 209 | Non-inferior, OS HR 1.002
-    ※ Bevacizumab added to carboplatin-paclitaxel did not improve PFS
-      ・Not licensed
-      ・ESGO 2025 does not list it
-      ・NCCN: preferred in stage III–IV 〔NCCN 2A, preferred〕, other recommended at recurrence 〔NCCN 2A, other recommended〕
-      ・In exploratory analyses of GOG-86P, TP53-mutated or p53-overexpressing tumours did better with bevacizumab
-      - GOG-86P [t-gog-86p] | PFS HR 0.81 against a historical control
-      - MITO END-2 | PFS 13.7 vs 10.5 months, HR 0.84
+      ・NCCN: a CDK4/6 inhibitor with letrozole or fulvestrant 〔NCCN 2A, useful in certain circumstances〕
     next: Progression after platinum | Progression
   Progression after platinum
     Repeat MMR testing on the relapse when feasible 〔ESGO IV, B〕
       ・NCCN: MSI or MMR testing at recurrence if not done before 〔NCCN 2A〕
     ① MMR deficient, no checkpoint inhibitor before: pembrolizumab or dostarlimab alone 〔ESGO III, A〕 〔NCCN 2A, useful in certain circumstances〕
       ・Lenvatinib with pembrolizumab is an option 〔ESGO I, B〕
+      ・NCCN: also at relapse after adjuvant platinum
       * KEYNOTE-158 [t-keynote-158--endometrial-cancer] | Response
       * GARNET | Response
     ※ NCCN alone: avelumab, nivolumab or tislelizumab for MMR deficient tumours 〔NCCN 2A, useful in certain circumstances〕
       ・Retifanlimab 〔NCCN 2B〕
     ② MMR proficient, no checkpoint inhibitor before: lenvatinib with pembrolizumab 〔ESGO I, A〕 〔NCCN 1, useful in certain circumstances〕
+      ・ESGO: at relapse after adjuvant chemotherapy, only when chemotherapy cannot be given 〔ESGO III, C〕
+      ・NCCN: also at relapse after adjuvant platinum, with no condition on chemotherapy
       + KEYNOTE-775 [t-keynote-775-study-309] | MMR proficient OS HR 0.68
     ※ NCCN alone: axitinib with avelumab for MMR proficient tumours 〔NCCN 2A, useful in certain circumstances〕
     ※ NCCN alone: TMB-high tumours: pembrolizumab, or ipilimumab with nivolumab 〔NCCN 2A, useful in certain circumstances〕
