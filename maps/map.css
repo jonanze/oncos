@@ -44,23 +44,34 @@
 .om-view:focus-visible{outline:1px solid var(--b-ink);outline-offset:-1px}
 .om-world{position:absolute;left:0;top:0;transform-origin:0 0}
 .om-world .blk{position:absolute;z-index:2}
-.om-world .box.lbl{box-sizing:border-box;text-align:left;border:1.5px solid var(--b-ink)}
+.om-world .box.lbl{box-sizing:border-box;text-align:left;border:1.5px solid var(--b-ink);font-size:15px}
 /* three tiers: the root and course step headings are title blocks; decision nodes ruled cells; the rest open text */
-.om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border:2.5px solid var(--b-ink);letter-spacing:.02em}
+/* type sizes, largest first: title blocks and band titles 16, decision cells and step subheaders 15, ① and ★ lines 14,
+   trial lines and grid 13, ※ and ・ 12.5, ・ under ※ and line labels 12, tags 11. A heading is never smaller than its lines. */
+.om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border:2.5px solid var(--b-ink);letter-spacing:.02em;font-size:16px}
 .om-world .ln{margin:0 0 2px}
-.om-world .ln.tx{font-weight:var(--w-bold);font-size:14.5px;margin-bottom:5px}
+.om-world .ln,.om-world .sb,.om-world .trials>div{text-wrap:pretty}
+.om-world .ln.text,.om-world .ln.tx,.om-world .ln.se{padding-left:var(--p,0px)}
+.om-world .ln.tx{font-weight:var(--w-bold);font-size:14px;margin-bottom:5px}
 .om-world .ln.tx::before{content:"★ "}
-.om-world .ln.cv{font-size:12.5px}
+.om-world .ln.cv{font-size:12.5px;padding-left:calc(var(--p,0px) + 1.3em);text-indent:-1.3em}
 .om-world .ln.se{font-size:12px;color:var(--muted)}
-/* ・ one statement under the line above (the ・ comes from .om-sheet .sub) */
-.om-world .ln.sub{font-size:13px;margin:-1px 0 3px 1.15em}
+/* ・ one statement under the text of the line above, one size below it */
+.om-world .ln.subl{font-size:12.5px;margin:0}
+.om-world .ln.subl .sb{margin-left:calc(var(--p,0px) + 22px);border-left:1px solid var(--b-line);padding:0 0 3px calc(1.1em + 4px);text-indent:-1.1em}
+.om-world .ln.subl .sb::before{content:"・"}
+.om-world .ln.subl.of-cv{font-size:12px}
+.om-world .ln.subl.of-cv .sb{margin-left:calc(var(--p,0px) + 1.3em)}
+.om-world .ln.subl.of-text .sb,.om-world .ln.subl.of-tx .sb{margin-left:calc(var(--p,0px) + .6em)}
+.om-world .ln.subl.tierb .sb{margin-left:calc(var(--p,0px) + 31px)}
+.om-world .ln.subl.of-cv.tierb .sb{margin-left:calc(var(--p,0px) + 1.3em + 9px)}
 /* trial lines in a row: one ruled grid, trial name | key figure */
-.om-world .trials{display:grid;grid-template-columns:minmax(9em,max-content) 1fr;margin:2px 0 6px;border-top:1px solid var(--b-cell)}
+.om-world .trials{display:grid;grid-template-columns:12.5em 1fr;margin:5px 0 3px var(--p,0px);border-top:1px solid var(--b-cell)}
 .om-world .trials>div{padding:2px 8px 2px 0;border-bottom:1px solid var(--b-cell);font-size:13px}
 .om-world .trials>.fg{font-weight:var(--w-bold);font-variant-numeric:tabular-nums;padding-left:8px;border-left:1px solid var(--b-cell)}
 /* bands and panels: closed ruled cells with a 【TITLE】 band */
 .om-world .band,.om-world .panel{box-sizing:border-box;border:1.3px solid var(--b-line);padding:0 10px 8px;background:var(--b-paper)}
-.om-world .band>h2,.om-world .panel>h2{margin:0 -10px 8px;padding:4px 10px;background:var(--b-band);border-bottom:1px solid var(--b-line);text-decoration:none;font-size:12.5px;letter-spacing:.06em}
+.om-world .band>h2,.om-world .panel>h2{margin:0 -10px 8px;padding:4px 10px;background:var(--b-band);border-bottom:1px solid var(--b-line);text-decoration:none;font-size:16px;letter-spacing:.06em}
 .om-world .band>h2::before,.om-world .panel>h2::before{content:"【"}
 .om-world .band>h2::after,.om-world .panel>h2::after{content:"】"}
 /* title block at the top left of the canvas */
@@ -70,15 +81,15 @@
 .om-world .tblk>div:nth-last-child(-n+2){border-bottom:0}
 .om-world .tblk .k{background:var(--b-band);font-weight:var(--w-bold);text-transform:uppercase;letter-spacing:.04em}
 .om-world .tblk .v{font-weight:var(--w-bold);font-size:13px}
-.om-world .ln.num{position:relative;padding-left:1.6em}
-.om-world .ln.num .n{position:absolute;left:0;top:0;font-weight:var(--w-bold)}
-.om-world .ln.num[style]{padding-left:0}
+.om-world .ln.num{position:relative;padding-left:calc(var(--p,0px) + 22px)}
+.om-world .ln.num .n{position:absolute;left:var(--p,0px);top:0;font-weight:var(--w-bold)}
 .om-world .band .ln.text,.om-world .panel .ln.text{margin-bottom:4px}
-.om-world .panel .ln.num,.om-world .band .ln.num{margin-top:6px}
+.om-world .panel .ln.num,.om-world .band .ln.num{margin-top:12px}
 .om-world .trial{color:var(--b-ink);text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:2px;white-space:nowrap;cursor:pointer}
 .om-world a.trial{cursor:pointer}
 .om-world .tag{font-size:11px;color:var(--muted);white-space:nowrap}
 .om-world .tag .trial.src{color:var(--muted);text-decoration-color:var(--b-line)}
+.om-world table.grid td:empty::after{content:"―";color:var(--muted)}
 .om-world table.grid{width:100%;table-layout:fixed;border-collapse:collapse;margin:6px 0 10px;font-size:13px;line-height:1.4}
 .om-world table.grid th,.om-world table.grid td{border:1px solid var(--b-line);padding:5px 8px;text-align:left;vertical-align:top}
 .om-world table.grid tr:first-child th{background:var(--b-band);font-weight:var(--w-bold)}
@@ -115,8 +126,15 @@
 
 /* course maps: steps in time order */
 .om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;white-space:normal;margin:0 0 8px;padding:4px 10px}
-.om-world .step .ln.text{font-weight:var(--w-bold);font-size:13px;margin-top:6px}
-.om-world .step .ln.num{margin-top:6px}
+.om-world .step .ln.text{font-weight:var(--w-bold);font-size:15px;margin-top:14px}
+.om-world .step .ln.num{margin-top:12px}
+/* gaps follow the groups: 12–14px between options and subheaders, 4–8px between statements, 0–3px to a line's own ・ lines or trial */
+.om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
+.om-world .trials+.ln.cv{margin-top:0}
+.om-world .ln.cv+.trials{margin-top:8px}
+.om-world .ln.cv+.trials[style]{margin-top:2px}
+.om-world .ln.subl+.trials{margin-top:5px}
+.om-world .ln.subl+.ln.cv,.om-world .ln.cv+.ln.cv{margin-top:4px}
 .om-world .elab{z-index:3;font-size:12px;line-height:1.3;max-width:240px;text-align:center;border:1px solid var(--b-line);background:var(--b-paper);padding:1px 6px}
 
 /* phone: a row of the main headings above the canvas, scrolling with the page; a tap moves the map there */
@@ -138,8 +156,9 @@
 .om-world table.grid tr.t3r .tc{color:var(--om-c3l)}.om-world table.grid tr.t4r .tc{color:var(--om-c4l)}
 .om-world table.grid tr[class] .tc .tag{font-weight:400}
 .om-world .ln.t1b,.om-world .ln.t2b,.om-world .ln.t3b,.om-world .ln.t4b{border-left:3px solid;padding-left:6px}
-.om-world .ln.num.t1b,.om-world .ln.num.t2b,.om-world .ln.num.t3b,.om-world .ln.num.t4b{padding-left:calc(1.6em + 6px)}
-.om-world .ln.num[class*=" t"] .n{left:6px}
+.om-world .ln.num.t1b,.om-world .ln.num.t2b,.om-world .ln.num.t3b,.om-world .ln.num.t4b{padding-left:calc(var(--p,0px) + 28px)}
+.om-world .ln.cv.t1b,.om-world .ln.cv.t2b,.om-world .ln.cv.t3b,.om-world .ln.cv.t4b{padding-left:calc(var(--p,0px) + 1.3em + 6px)}
+.om-world .ln.num[class*=" t"] .n{left:calc(var(--p,0px) + 6px)}
 .om-world .ln.t1b{border-color:var(--om-c1)}.om-world .ln.t2b{border-color:var(--om-c2)}
 .om-world .ln.t3b{border-color:var(--om-c3)}.om-world .ln.t4b{border-color:var(--om-c4)}
 .om-world .tblk .keys{display:flex;flex-wrap:wrap;gap:3px}

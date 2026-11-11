@@ -18,7 +18,7 @@
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   var GX = 44, GY = 16, LEAF_W = 480, PANEL_W = 440, BAND_W = 520, M = 28;
-  var STEP_W = 440, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
+  var STEP_W = 520, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -33,6 +33,10 @@
     });
     return best;
   }
+  // outside the block that holds the risk grid, only a line that opens with "<group> risk" takes the tier rule
+  function tierRisk(x){ var k = tierLead(x); return k && /^\s+risk\b/.test(String(x).slice(SCALE[k - 1].length)) ? k : 0; }
+  // one indent step: the text edge of a numbered line, so everything under an option starts on its text
+  var LV = 22;
   function keep(s){
     var t = String(s == null ? '' : s), out = '', k = 0, m, re = new RegExp(window.oncosOutline.TAG.source, 'g');
     function plain(x){ return esc(x).replace(/(\S*\S[-–]\S+)/g, '<span class="nw">$1</span>'); }
@@ -57,19 +61,24 @@
   }
   // trial lines in a row make one two-column ruled grid: trial name | key figure
   function trialsHtml(ts){
-    var pad = ts[0].level ? ' style="margin-left:' + (1.15 * ts[0].level) + 'em"' : '';
+    var pad = ts[0].level ? ' style="--p:' + (LV * ts[0].level + (ts[0].off || 0)) + 'px"' : '';
     return '<div class="trials"' + pad + '>' + ts.map(function(l){
       return '<div class="tn">' + trialLink(l) + '</div><div class="fg">' + (l.fig ? keep(l.fig) : '') + '</div>';
     }).join('') + '</div>';
   }
   function lineHtml(l, tiered){
-    var pad = l.level ? ' style="padding-left:' + (1.15 * l.level) + 'em"' : '';
+    var pad = l.level ? ' style="--p:' + (LV * l.level + (l.off || 0)) + 'px"' : '';
     if (l.kind === 'trial') return trialsHtml([l]);
-    var k = tiered && (l.kind === 'num' || l.kind === 'cv') ? tierLead(l.text) : 0;
+    var k = (l.kind === 'num' || l.kind === 'cv') ? (tiered ? tierLead(l.text) : tierRisk(l.text)) : 0;
     if (l.kind === 'tx') return '<div class="ln tx"' + pad + '>' + keep(l.text) + '</div>';
     if (l.kind === 'cv') return '<div class="ln cv' + (k ? ' t' + k + 'b' : '') + '"' + pad + '>※ ' + keep(l.text) + '</div>';
     if (l.kind === 'se') return '<div class="ln se"' + pad + '>' + keep(l.text) + '</div>';
-    if (l.kind === 'sub') return '<div class="ln sub"' + pad + '>' + keep(l.text) + '</div>';
+    // a ・ line sits under the text of its parent line, one size smaller than the parent
+    if (l.kind === 'sub') {
+      var up = l.parent || {kind: 'text', level: 0}, upad = up.level ? ' style="--p:' + (LV * up.level + (up.off || 0)) + 'px"' : '';
+      var uk = (up.kind === 'num' || up.kind === 'cv') && (tiered ? tierLead(up.text) : tierRisk(up.text)) ? ' tierb' : '';
+      return '<div class="ln subl of-' + up.kind + uk + '"' + upad + '><div class="sb">' + keep(l.text) + '</div></div>';
+    }
     if (l.kind === 'num') return '<div class="ln num' + (k ? ' t' + k + 'b' : '') + '"' + pad + '><span class="n">' + esc(l.n) + '</span>' + keep(l.text) + '</div>';
     return '<div class="ln text"' + pad + '>' + keep(l.text) + '</div>';
   }
@@ -89,7 +98,13 @@
     var tiered = SCALE.length && ls.some(function(l){ return l.kind === 'grid' && tierExact(l.cells[0]); });
     function grids(){ if (run.length) { out += gridHtml(run); run = []; } }
     function trials(){ if (trs.length) { out += trialsHtml(trs); trs = []; } }
+    var parent = null, off = 0;
     ls.forEach(function(l){
+      // lines under a tier-ruled option start on its text, past the 3px rule and its 6px gap
+      if (!l.level && l.kind !== 'sub') off = (l.kind === 'num' || l.kind === 'cv') && (tiered ? tierLead(l.text) : tierRisk(l.text)) ? 9 : 0;
+      else if (l.level) l.off = off;
+      if (l.kind === 'sub') l.parent = parent;
+      else if (l.kind !== 'trial' && l.kind !== 'grid') parent = l;
       if (l.kind === 'grid') { trials(); run.push(l); return; }
       if (l.kind === 'trial') { grids(); if (trs.length && trs[0].level !== l.level) trials(); trs.push(l); return; }
       grids(); trials();
