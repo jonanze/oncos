@@ -339,7 +339,7 @@ const VB = {
     N: {
       N0: 'CT shows no retroperitoneal nodes',
       N1: 'CT shows [[one;two;three]] para-aortic nodes, the largest {1.1~2.0} cm',
-      N2: 'CT shows a {2.2~5.0} cm para-aortic nodal mass | CT shows [[six;seven;eight]] retroperitoneal nodes, each under 2 cm',
+      N2: 'CT shows a {2.2~5.0} cm para-aortic nodal mass | Retroperitoneal lymph node dissection shows [[six;seven;eight]] positive nodes, none larger than 2 cm',
       N3: 'CT shows a {5.5~9.0} cm retroperitoneal nodal mass'
     },
     M: { M0: 'CT chest shows no metastases', M1a: 'CT chest shows multiple lung metastases | CT shows supraclavicular nodes', M1b: 'CT shows liver metastases | MRI shows brain metastases' }

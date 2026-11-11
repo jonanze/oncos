@@ -372,7 +372,7 @@ const SITES = {
   testis: {
     logic: 'N by node size, 2 and 5 cm. S by markers after orchiectomy. IGCCCG group decides the number of cycles',
     T: 'pT1 testis, including rete testis, without LVI (seminoma pT1a <3 cm, pT1b ≥3 cm) · pT2 LVI, hilar soft tissue, epididymis, or tunica vaginalis · pT3 spermatic cord · pT4 scrotum',
-    N: 'N1 node ≤2 cm, up to 5 nodes · N2 2–5 cm, or more than 5 nodes · N3 node >5 cm',
+    N: 'Clinical N is by size only: cN1 node mass ≤2 cm, or several nodes none >2 cm · cN2 mass >2–5 cm · cN3 mass >5 cm. The node count applies only after dissection: pN1 up to 5 positive nodes, none >2 cm · pN2 more than 5 positive nodes, a node >2–5 cm, or extranodal extension · pN3 mass >5 cm',
     M: 'M1a non-regional nodes or lung · M1b other sites',
     S: 'IA pT1 · IB pT2–4 · IS persistent markers · IIA–C by node size · IIIA M1a · IIIB S2 · IIIC S3 or M1b. S1: LDH <1.5 × ULN, hCG <5,000, AFP <1,000. S3: LDH >10 × ULN, hCG >50,000, AFP >10,000',
     tx: [

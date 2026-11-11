@@ -9,6 +9,7 @@ All notable oncOS frontend releases are recorded here. Versions follow semantic 
 - Practice: unresectable pancreatic, bile duct and ampullary cases are written as clinical staging, without a resection specimen.
 - Practice: case text is written in full sentences. The breast sentinel node sentence, the NET grade stem and the prostate cT4 findings are corrected.
 - Practice: the debrief rules for mesothelioma, salivary gland, p16-positive oropharynx and nasopharynx follow the current editions, and several treatment rows are updated (endometrial, cervix, colorectal, breast, HCC, NET, glioma, prostate, sarcoma, lymphoma).
+- Practice: the testis case with more than five nodes under 2 cm now reports the node count from a retroperitoneal dissection (pN2). Clinical N is by size only, and the debrief rule says so.
 - Practice: GIST recurrence risk is a new single-answer site.
 - Practice: the two STAMPEDE links are corrected, trial names with commas link, and nine more trials link to their Evidence rows.
 - Practice: rare sites have a minimum share of cases, keyboard shortcuts ignore Ctrl, Cmd and Alt and reach 20 options, and a wrong stage shows all of its rules.
