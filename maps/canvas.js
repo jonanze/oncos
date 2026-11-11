@@ -169,20 +169,10 @@
       n.el = add('box lbl' + (n.depth ? '' : ' root') + (n.br ? ' br' + n.br : ''), keep(n.label));
       if (n.lines.length) { n.leaf = add('leaf' + (n.br ? ' br' + n.br : ''), linesHtml(n.lines), LEAF_W); leaves.push(n); }
     });
-    // title block: map name, its guideline source and where the figures come from
-    var srcs = Object.keys(model.sources || {}).map(function(k){
-      var x = model.sources[k];
-      return x.anchor ? '<span class="trial" role="button" tabindex="0" data-ev="' + esc(x.anchor) + '">' + esc(x.name) + '</span>'
-        : x.url ? '<a class="trial" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.name) + '</a>' : esc(x.name);
-    });
-    // title: the map's name in large type, then its guidelines and the colour key in small type (whiteboard look, Jonan 2026-11-11)
-    var HUE = ['Blue', 'Purple', 'Green', 'Pink'];
+    // no title block: the map opens on the flowsheet itself (Jonan 2026-11-11, "remove the title altogether").
+    // A map with a risk scale keeps its colour key in that place
     var keys = SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; });
-    var legend = (model.branches || []).map(function(x){ return HUE[x.n - 1] + ': ' + esc(x.label) + '.'; }).join(' ');
-    var tblk = add('tblk', '<div class="mt">' + esc(model.map || '') + '</div>' +
-      (srcs.length ? '<div class="ms">' + srcs.join(' · ') + '</div>' : '') +
-      (legend ? '<div class="ms">' + legend + '</div>' : '') +
-      (keys.length ? '<div class="keys">' + keys.join('') + '</div>' : ''));
+    var tblk = keys.length ? add('tblk', '<div class="keys">' + keys.join('') + '</div>') : null;
     // a band's items sit side by side when the band runs the width of the map (board layout)
     function bandItems(ls){
       var groups = [], cur = null;
@@ -213,8 +203,8 @@
     var svg = '';
 
     function bandsRow(){
-      tblk.style.left = M + 'px'; tblk.style.top = M + 'px';
-      var bx = M, bandH = 0, top = M + tblk.offsetHeight + 28;
+      if (tblk) { tblk.style.left = M + 'px'; tblk.style.top = M + 'px'; }
+      var bx = M, bandH = 0, top = M + (tblk ? tblk.offsetHeight + 28 : 0);
       bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = top + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
       return {x:bx, top:top + (bands.length ? bandH + 28 : 0)};
     }

@@ -49,12 +49,9 @@
 .om-world .band .bi{min-width:0;max-width:520px}
 .om-world .band .bi>.ln.num:first-child{margin-top:0}
 
-/* title: the map's name, its guidelines, the colour key */
+/* the risk key of a map with a risk scale; maps carry no title (Jonan 2026-11-11) */
 .om-world .tblk{color:var(--wb-ink)}
-.om-world .tblk .mt{font-size:48px;font-weight:500;line-height:1.15}
-.om-world .tblk .ms{font-size:14px;margin-top:6px;color:var(--wb-ink)}
-.om-world .tblk .ms .trial{color:inherit}
-.om-world .tblk .keys{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.om-world .tblk .keys{display:flex;flex-wrap:wrap;gap:6px}
 .om-world .tblk .key{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;color:var(--wb-text);background:var(--brc)}
 .om-world .tblk .t1k{background:var(--om-c1)}.om-world .tblk .t2k{background:var(--om-c2)}
 .om-world .tblk .t3k{background:var(--om-c3)}.om-world .tblk .t4k{background:var(--om-c4)}
