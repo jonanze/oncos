@@ -457,7 +457,7 @@ panel: Later lines, EGFR > EGFR
   ・Amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
   ・Sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
   ・Sunvozertinib has a US licence and no EU licence
-  ⑥ Transformation to small cell, mostly after EGFR TKIs: platinum-etoposide
+  ⑥ Transformation to small cell, mostly after an EGFR TKI: platinum with etoposide
   ・Rebiopsy at progression to look for it
   next: Second line | After TKIs and platinum chemotherapy
 

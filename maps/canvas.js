@@ -23,7 +23,8 @@
    - a step, band or panel holding a grid ("| a | b |" lines) widens to fit the grid's columns
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
-  var GX = 44, GY = 16, LEAF_W = 506, PANEL_W = 440, BAND_W = 520, M = 28;
+  // tree spacing widened (Jonan 2026-11-11, "cramped up narrowly with no breathing room")
+  var GX = 96, GY = 40, LEAF_W = 600, LEAF_GAP = 56, PANEL_W = 440, BAND_W = 520, M = 28;
   var STEP_W = 380, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -204,9 +205,11 @@
     }
     var svg = '';
 
-    function bandsRow(){
+    function bandsRow(span){
       if (tblk) { tblk.style.left = M + 'px'; tblk.style.top = M + 'px'; }
       var bx = M, bandH = 0, top = M + (tblk ? tblk.offsetHeight + 28 : 0);
+      // given the map's width, the bands share it, so they spread over the tree instead of bunching at the left
+      if (span && bands.length) bands.forEach(function(el){ var w = Math.max(el.w, (span - 40 * (bands.length - 1)) / bands.length); el.w = w; el.style.width = w + 'px'; });
       bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = top + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
       return {x:bx, top:top + (bands.length ? bandH + 28 : 0)};
     }
@@ -595,11 +598,14 @@
       nodes.forEach(function(n){ n.el.style.width = ''; n.w = n.el.offsetWidth; colW[n.depth] = Math.max(colW[n.depth] || 0, n.w); });
       colX[0] = M;
       for (var d = 1; d <= maxDepth; d++) colX[d] = colX[d - 1] + colW[d - 1] + GX;
-      var textX = colX[maxDepth] + colW[maxDepth] + 20;
+      var textX = colX[maxDepth] + colW[maxDepth] + LEAF_GAP;
       nodes.forEach(function(n){ n.el.style.width = colW[n.depth] + 'px'; n.h = n.el.offsetHeight; n.x = colX[n.depth]; });
 
-      // bands in one row above the tree
-      var b0 = bandsRow(), bx = b0.x, treeTop = b0.top;
+      // panels a little wider than on a course map, and the bands in one row above the tree, sharing its width
+      var TPW = 520;
+      panels.forEach(function(p){ if (p.w < TPW) { p.w = TPW; p.el.style.width = TPW + 'px'; } });
+      var spanR = textX + LEAF_W + 96 + (panels.length ? TPW : 0);
+      var b0 = bandsRow(spanR - M), bx = b0.x, treeTop = b0.top;
 
       // vertical extents, bottom up: up/down from the node's own centre
       (function ext(n){
@@ -636,7 +642,7 @@
       });
 
       // panels: a brace over their node's span, the panels stacked beside it
-      var braceX = textX + LEAF_W + 24, panelX = braceX + 40, lastBottom = treeTop - 24, right = panelX + PANEL_W;
+      var braceX = textX + LEAF_W + 48, panelX = braceX + 48, lastBottom = treeTop - 24, right = panelX + TPW;
       var groups = [];
       nodes.forEach(function(n){
         var ps = panels.filter(function(p){ return p.join === n.label; });
