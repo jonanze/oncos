@@ -335,11 +335,18 @@
     function layoutBoard(){
       svg = '';
       var BG = 72, SG = 36, cols = [];
-      steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); n.el.style.width = n.w + 'px'; n.hd.style.minHeight = ''; });
+      steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); n.el.style.width = n.w + 'px'; n.hd.style.minHeight = ''; n.el.style.minHeight = ''; });
       // a step widens until no unbreakable run (a long tag, a chip) spills past its edge
       steps.forEach(function(n){ var over = n.el.scrollWidth - n.el.clientWidth; if (over > 0) { n.w += over + 4; n.el.style.width = n.w + 'px'; } });
-      var gapW = cols.map(function(){ return BG; });
-      steps.forEach(function(n){ n.next.forEach(function(e){ if (e.el) gapW[n.col] = Math.max(gapW[n.col], 2 * (e.el.offsetWidth + 24)); }); });
+      // each gap has a stub before the upright and a stub after it. A label widens only its own side, so a step
+      // sits on its line with stubs of equal length either side (Jonan 2026-11-11, restaging box on rectal)
+      var gapL = cols.map(function(){ return BG / 2; }), gapR = cols.map(function(){ return BG / 2; });
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        if (!e.el) return;
+        var t = e.node, need = e.el.offsetWidth + 24;
+        if (t.preds.length < 2 && !e.shared) gapR[n.col] = Math.max(gapR[n.col], need); else gapL[n.col] = Math.max(gapL[n.col], need);
+      }); });
+      var gapW = cols.map(function(x, c){ return gapL[c] + gapR[c]; });
       var colX = [M], colW = cols.map(function(list){ return Math.max.apply(null, list.map(function(n){ return n.w; })); });
       cols.forEach(function(list, c){ colX[c + 1] = colX[c] + colW[c] + gapW[c]; });
       var width = colX[cols.length] - gapW[cols.length - 1] - M;
@@ -387,13 +394,15 @@
           if (one && list.length > 1) {
             // the whole column is one step's fan: the middle step (or the middle gap) sits on the stem and each
             // pair above and below it at the same distance, so the stem runs straight through and the fan is even
-            var m = list.length >> 1, odd = list.length % 2, hi = mid + SG / 2, lo = mid - SG / 2;
+            // Each pair takes the taller one's height, so the gaps between the boxes are equal too
+            // (Jonan 2026-11-11, rectal: "these three boxes are not symmetrically spaced")
+            var m = list.length >> 1, odd = list.length % 2, hi = mid - SG / 2, lo = mid + SG / 2;
             if (odd) { var c0 = list[m]; c0.y = mid - hgt(c0) / 2; c0.cy = mid; hi = c0.y; lo = c0.y + hgt(c0); }
             for (var k = 1; k <= m; k++) {
-              var u = list[m - k], l = list[odd ? m + k : m + k - 1];
-              var d = Math.max(mid - (hi - SG - hgt(u) / 2), (lo + SG + hgt(l) / 2) - mid);
-              u.cy = mid - d; u.y = u.cy - hgt(u) / 2; l.cy = mid + d; l.y = l.cy - hgt(l) / 2;
-              hi = u.y; lo = l.y + hgt(l);
+              var u = list[m - k], l = list[odd ? m + k : m + k - 1], H = Math.max(hgt(u), hgt(l));
+              u.el.style.minHeight = l.el.style.minHeight = H + 'px';
+              u.y = hi - SG - H; u.cy = u.y + H / 2; l.y = lo + SG; l.cy = l.y + H / 2;
+              hi = u.y; lo = l.y + H;
             }
           } else move(list, mid - (list[0].cy + list[list.length - 1].cy) / 2);
         }
@@ -443,7 +452,7 @@
       }); });
       cols.forEach(function(list, c){
         var es = []; list.forEach(function(n){ n.next.forEach(function(e){ e.from = n; es.push(e); }); });
-        var mid = colX[c] + colW[c] + gapW[c] / 2;
+        var mid = colX[c] + colW[c] + gapL[c];
         // a line that runs further up or down turns nearer the side where its lines fan out, so none cross
         // one upright per fan: a step's lines out, or the lines into a step
         var fans = [];
