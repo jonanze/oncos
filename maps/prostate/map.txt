@@ -152,7 +152,7 @@ course: Advanced prostate cancer
     next: After ADT and docetaxel
     next: After ADT and an ARSI
     next: After ADT, an ARSI and docetaxel
-    Progression on ADT with testosterone below 50 ng/dL
+    Progression on ADT with testosterone below 50 ng/dL (1.7 nmol/L)
     ※ The next treatment depends on what was given before
     ※ Most trials for this stage enrolled men who had never had an ARSI
     ※ Mismatch repair deficient: pembrolizumab 〔NCCN 2B, useful in certain circumstances〕 〔ESMO IV, A〕
