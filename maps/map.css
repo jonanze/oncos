@@ -7,7 +7,8 @@
 #viewroot .om-bar .om-fit{display:none;align-items:center;justify-content:center;height:38px;min-width:96px;margin-left:auto;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
 #viewroot .om-bar.on .om-fit{display:inline-flex}
 @media (hover:hover){#viewroot .om-bar .om-fit:hover{background:var(--b-cell)}}
-@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-fit{margin-left:0;flex:1 1 100%}}
+#viewroot .om-bar .om-fit+.om-fit{margin-left:0}
+@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-fit{margin-left:0;flex:1 1 0}}
 
 #map{outline:none}
 #map[hidden]{display:none}
@@ -172,3 +173,17 @@
   .om-idx button{flex:none;font:inherit;font-size:12px;padding:4px 10px;border:0;border-radius:999px;background:var(--b-cell);color:var(--b-ink);cursor:pointer}
   .om-idx button.on{background:var(--b-ink);color:var(--b-paper)}
 }
+/* a long step runs in two columns under one title (canvas.js twoCols) */
+.om-world .two>.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:32px;align-items:start}
+.om-world .two>.cols>div>.ln:first-child{margin-top:0}
+/* full screen: the map pane covers the page (evidence-maps.js full) */
+.om-fs{display:none}
+html.om-full,html.om-full body{overflow:hidden}
+html.om-full #map{position:fixed;inset:0;z-index:50;margin:0;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) 0 env(safe-area-inset-left,0px);background:var(--wb-paper,#fff)}
+:root[data-theme="dark"].om-full #map{background:#1e2228}
+html.om-full #map .om-view{border:0;border-radius:0}
+html.om-full #map .om-idx{padding:8px 8px 8px}
+html.om-full .om-fs{display:flex;position:absolute;z-index:5;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);right:calc(env(safe-area-inset-right,0px) + 12px);gap:0;border:1px solid var(--b-line);background:var(--b-paper)}
+.om-fs button{height:36px;min-width:72px;padding:0 12px;border:0;background:none;color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
+.om-fs button+button{border-left:1px solid var(--b-line)}
+@media (hover:hover){.om-fs button:hover{background:var(--b-cell)}}

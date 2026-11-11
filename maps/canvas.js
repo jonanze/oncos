@@ -24,8 +24,8 @@
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   // tree spacing widened (Jonan 2026-11-11, "cramped up narrowly with no breathing room")
-  var GX = 160, GY = 48, LEAF_W = 600, LEAF_GAP = 120, PANEL_W = 440, BAND_W = 520, M = 28;
-  var STEP_W = 380, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 176;
+  var GX = 160, GY = 48, LEAF_W = 760, LEAF_GAP = 120, PANEL_W = 440, BAND_W = 520, M = 28;
+  var COL2_CHARS = 1400, LEAF2_CHARS = 1000, COL_W = 560, COL_GAP = 32, STEP_W = 480, STEP_MAX = 820, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -146,6 +146,36 @@
     var e = pts[pts.length - 1];
     return '<path d="' + d + ' L' + e[0] + ' ' + e[1] + '"/>';
   }
+  // a step widens with the amount of text in it, so a long step is not a tall narrow column
+  // (Jonan 2026-11-11, "widened so that the map is not so vertically skewed"): about as wide as it is tall
+  function textChars(ls){ return ls.reduce(function(s, l){ return s + String(l.text || l.name || '').length + 6; }, 0); }
+  function stepWidth(ls){
+    var chars = textChars(ls);
+    return Math.round(Math.min(STEP_MAX, Math.max(STEP_W, Math.sqrt(170 * chars))));
+  }
+  // a step with a long text runs in two columns, split between two options where the halves come
+  // closest in length, so the box is wide rather than tall without making its lines longer (Jonan 2026-11-11)
+  function twoCols(ls){
+    var total = textChars(ls);
+    if (ls.some(function(l){ return l.kind === 'grid'; })) return null;
+    // a plain heading line ("After chemotherapy alone") is the preferred place to split, when it is near enough the middle
+    var best = -1, gap = Infinity, run = 0;
+    ls.forEach(function(l, i){
+      if (i && !l.level && /^(num|cv|text|tx|se)$/.test(l.kind)) {
+        var g = Math.abs(2 * run - total) / total - (l.kind === 'text' ? 0.3 : 0);
+        if (g < gap) { gap = g; best = i; }
+      }
+      run += textChars([l]);
+    });
+    return best > 0 ? [ls.slice(0, best), ls.slice(best)] : null;
+  }
+  // the body of a block: one column, or two when its text is long; width is the block's width
+  function body(ls, w, min, colW){
+    var halves = textChars(ls) >= min && twoCols(ls);
+    if (!halves) return {html: linesHtml(ls), w: widthFor(ls, w), two: false};
+    var cw = colW || Math.max(stepWidth(halves[0]), stepWidth(halves[1]));
+    return {html: '<div class="cols"><div>' + linesHtml(halves[0]) + '</div><div>' + linesHtml(halves[1]) + '</div></div>', w: 2 * cw + COL_GAP, two: true};
+  }
   function bracePath(x, y1, y2, d){
     var m = (y1 + y2) / 2, k = Math.min(6, (y2 - y1) / 4);
     return 'M'+x+' '+y1+' Q'+(x+d)+' '+y1+' '+(x+d)+' '+(y1+k)+' L'+(x+d)+' '+(m-k)+' Q'+(x+d)+' '+m+' '+(x+2*d)+' '+m+
@@ -172,8 +202,9 @@
     if (course) {
       nodes = steps;
       steps.forEach(function(n){
-        n.w = widthFor(n.lines, STEP_W);
-        n.el = add('step' + brc(n), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), n.w);
+        var b = body(n.lines, stepWidth(n.lines), COL2_CHARS);
+        n.w = b.w;
+        n.el = add('step' + brc(n) + (b.two ? ' two' : ''), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + b.html, n.w);
         n.hd = n.el.firstChild;
       });
       // join: lines to one step with one label carry that label once, on their shared line
@@ -185,7 +216,7 @@
       }); });
     } else nodes.forEach(function(n){
       n.el = add('box lbl' + (n.depth ? '' : ' root') + brc(n), keep(n.label));
-      if (n.lines.length) { n.leaf = add('leaf' + brc(n), linesHtml(n.lines), LEAF_W); leaves.push(n); }
+      if (n.lines.length) { var b = body(n.lines, LEAF_W, LEAF2_CHARS, COL_W); n.leaf = add('leaf' + brc(n) + (b.two ? ' two' : ''), b.html, b.w); n.leafW = b.w; leaves.push(n); }
     });
     // no title block: the map opens on the flowsheet itself (Jonan 2026-11-11, "remove the title altogether").
     // A map with a risk scale keeps its colour key in that place
@@ -197,8 +228,13 @@
       ls.forEach(function(l){ if (!cur || (!l.level && l.kind !== 'sub' && l.kind !== 'trial')) { cur = []; groups.push(cur); } cur.push(l); });
       return '<div class="bitems">' + groups.map(function(g){ return '<div class="bi">' + linesHtml(g) + '</div>'; }).join('') + '</div>';
     }
-    var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + bandItems(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
-    var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel' + (p.lines.some(function(l){ return l.kind === 'grid'; }) ? ' open' : '') + brc(p), '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
+    var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + bandItems(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); el.chars = textChars(b.lines); return el; });
+    var panels = model.panels.map(function(p){
+      var b = course ? {html: linesHtml(p.lines), w: widthFor(p.lines, PANEL_W), two: false} : body(p.lines, PANEL_W, COL2_CHARS, COL_W);
+      p.w = b.w; p.two = b.two;
+      p.el = add('panel' + (p.lines.some(function(l){ return l.kind === 'grid'; }) ? ' open' : '') + (b.two ? ' two' : '') + brc(p), '<h2>' + esc(p.title) + '</h2>' + b.html, p.w);
+      return p;
+    });
 
     var W = 0, H = 0;
     // a course that runs as one line of columns, each step leading only to the next column, is laid out
@@ -223,8 +259,13 @@
     function bandsRow(span){
       if (tblk) { tblk.style.left = M + 'px'; tblk.style.top = M + 'px'; }
       var bx = M, bandH = 0, top = M + (tblk ? tblk.offsetHeight + 28 : 0);
-      // given the map's width, the bands share it, so they spread over the tree instead of bunching at the left
-      if (span && bands.length) bands.forEach(function(el){ var w = Math.max(el.w, (span - 40 * (bands.length - 1)) / bands.length); el.w = w; el.style.width = w + 'px'; });
+      // given the map's width, the bands share it in one row, each as wide as its share of the text, so all come
+      // out about the same depth and a long band spreads its items side by side instead of making a tall column
+      // (Jonan 2026-11-11, "not so vertically skewed")
+      if (span && bands.length) {
+        var room = span - 40 * (bands.length - 1), total = bands.reduce(function(t, el){ return t + el.chars; }, 0);
+        bands.forEach(function(el){ var w = Math.max(320, room * el.chars / total); el.w = w; el.style.width = w + 'px'; });
+      }
       bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = top + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
       return {x:bx, top:top + (bands.length ? bandH + 28 : 0)};
     }
@@ -637,7 +678,8 @@
       // panels a little wider than on a course map, and the bands in one row above the tree, sharing its width
       var TPW = 520;
       panels.forEach(function(p){ if (p.w < TPW) { p.w = TPW; p.el.style.width = TPW + 'px'; } });
-      var spanR = textX + LEAF_W + 240 + (panels.length ? TPW : 0);
+      var leafR = leaves.reduce(function(m, n){ return Math.max(m, n.leafW); }, LEAF_W);
+      var spanR = textX + leafR + 240 + panels.reduce(function(m, p){ return Math.max(m, p.w); }, 0);
       var b0 = bandsRow(spanR - M), bx = b0.x, treeTop = b0.top;
 
       // vertical extents, bottom up: up/down from the node's own centre
@@ -688,7 +730,7 @@
       groups.forEach(function(g){ g.lvl = 0; });
       groups.forEach(function(g){ groups.forEach(function(h){ if (holds(g.n, h.n)) g.lvl = Math.max(g.lvl, h.lvl + 1); }); });
       var maxLvl = groups.reduce(function(m, g){ return Math.max(m, g.lvl); }, 0);
-      var braceX = textX + LEAF_W + 56, BSTEP = 36, panelX = braceX + maxLvl * BSTEP + 120, lastBottom = treeTop - 32, right = panelX + TPW;
+      var braceX = textX + leafR + 56, BSTEP = 36, panelX = braceX + maxLvl * BSTEP + 120, lastBottom = treeTop - 32, right = panelX + panels.reduce(function(m, p){ return Math.max(m, p.w); }, TPW);
       var loose = panels.filter(function(p){ return !p.join; });
       groups.forEach(function(g){
         var y1 = g.n.cy - g.n.up, y2 = g.n.cy + g.n.down, mid = (y1 + y2) / 2, bx = braceX + g.lvl * BSTEP;
@@ -734,7 +776,9 @@
     try { saved = JSON.parse(sessionStorage.getItem('oncos-map-view-' + opts.id) || 'null'); } catch(e){}
     function size(){
       var r = view.getBoundingClientRect();
-      var h = Math.max(360, window.innerHeight - Math.max(0, r.top) - 12);
+      // full screen: the canvas runs to the foot of the window
+      var h = document.documentElement.classList.contains('om-full') ? window.innerHeight - Math.max(0, r.top) :
+        Math.max(360, window.innerHeight - Math.max(0, r.top) - 12);
       view.style.height = h + 'px';
       fitS = Math.min(view.clientWidth / W, view.clientHeight / H, 1);
     }

@@ -193,8 +193,8 @@ course: Advanced prostate cancer
     ② Docetaxel 〔NCCN 1, other recommended〕 〔ESMO I, A〕
       ・50 mg/m² every 2 weeks for frail men 〔ESMO I, C〕
     + TAX 327
-    ③ BRCA altered: talazoparib with enzalutamide, olaparib with abiraterone, or niraparib with abiraterone 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
-      ・Other HRR gene alterations: talazoparib with enzalutamide 〔NCCN 1, useful in certain circumstances〕
+    ③ BRCA altered: olaparib or niraparib with abiraterone, or talazoparib with enzalutamide 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
+      ・Other HRR genes: talazoparib with enzalutamide 〔NCCN 1, useful in certain circumstances〕
       ・No HRR alteration: talazoparib with enzalutamide or olaparib with abiraterone for selected men 〔ESMO II, C〕
       ・EU licence for talazoparib with enzalutamide and for olaparib with abiraterone without a biomarker
     + TALAPRO-2

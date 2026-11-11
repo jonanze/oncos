@@ -122,10 +122,12 @@
     el.innerHTML = '<div class="wl-tabs" role="tablist" aria-label="Sheet view">' +
       '<button type="button" class="wl-tab" role="tab" data-om="trials">Trials</button>' +
       '<button type="button" class="wl-tab" role="tab" data-om="map">Map</button></div>' +
-      '<button type="button" class="om-fit" hidden>Fit</button>';
+      '<button type="button" class="om-fit" hidden>Fit</button>' +
+      '<button type="button" class="om-fit om-fs-on" hidden>Full screen</button>';
     el.addEventListener('click', function(e){
       var b = e.target.closest('button'); if (!b) return;
       if (b.dataset.om) show(b.dataset.om === 'map');
+      else if (b.classList.contains('om-fs-on')) full(true);
       else if (b.classList.contains('om-fit')) { if (ctrl) ctrl.fit(); }
     });
     top.appendChild(el);
@@ -148,7 +150,8 @@
     // mapSheet can name the sheet a back or forward step is about to restore.
     var on = mapSheet === sheet;
     el.classList.toggle('on', on);
-    el.querySelector('.om-fit').hidden = !on;
+    el.querySelectorAll('.om-fit').forEach(function(b){ b.hidden = !on; });
+    if (!on) full(false);
     el.querySelectorAll('.wl-tab').forEach(function(b){ b.setAttribute('aria-selected', String((b.dataset.om === 'map') === on)); });
     setPane(results, on ? MAPS[mapSheet] : null);
   }
@@ -156,6 +159,7 @@
   function setPane(results, id){
     var pane = document.getElementById('map');
     if (!id) {
+      full(false);
       results.style.removeProperty('display');
       if (pane) pane.hidden = true;
       closeCard();
@@ -209,7 +213,38 @@
     var model = window.oncosOutline.parse(html.src);
     window.oncosOutline.figures(model, html.rows);
     ctrl = window.oncosCanvas.render(pane, model, {id: id, figures: html.rows ? 'Evidence' + (rowsDate ? ' ' + rowsDate : ', live') : 'Evidence did not load'});
+    var fs = document.createElement('div');
+    fs.className = 'om-fs';
+    fs.innerHTML = '<button type="button" data-fs="fit">Fit</button><button type="button" data-fs="close">Close</button>';
+    fs.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.fs === 'fit') { if (ctrl) ctrl.fit(); } else full(false);
+    });
+    pane.appendChild(fs);
   }
+
+  /* ---- full screen (Jonan 2026-11-11) ----
+     The map pane covers the page. Where the browser allows it (desktop, iPad) the page also goes to the
+     browser's own full screen; iPhone Safari allows that for video only, so there the pane covers the page
+     with Safari's bars kept. The trial card still opens above the map. */
+  var root = document.documentElement;
+  function fsEl(){ return document.fullscreenElement || document.webkitFullscreenElement || null; }
+  function full(on){
+    if (on === root.classList.contains('om-full')) return;
+    root.classList.toggle('om-full', on);
+    try {
+      var p = null;
+      if (on && !fsEl()) { var req = root.requestFullscreen || root.webkitRequestFullscreen; if (req) p = req.call(root); }
+      else if (!on && fsEl()) { var ex = document.exitFullscreen || document.webkitExitFullscreen; if (ex) p = ex.call(document); }
+      if (p && p.catch) p.catch(function(){});
+    } catch(err){}
+    layout();
+    var v = on && document.querySelector('#map .om-view');
+    if (v) v.focus({preventScroll:true});
+  }
+  function fsChange(){ if (!fsEl() && root.classList.contains('om-full')) full(false); else layout(); }
+  document.addEventListener('fullscreenchange', fsChange);
+  document.addEventListener('webkitfullscreenchange', fsChange);
   function layout(){ if (ctrl && ctrl.world.offsetParent) ctrl.resize(); }
   window.addEventListener('resize', function(){ if (mapSheet) layout(); });
 
@@ -281,6 +316,7 @@
   });
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && cardKey) { closeCard(); return; }
+    if (e.key === 'Escape' && root.classList.contains('om-full')) { full(false); return; }
     var tb = (e.key === 'Enter' || e.key === ' ') && e.target.closest && e.target.closest('#map .trial');
     if (tb) { e.preventDefault(); tb.click(); }
   });
