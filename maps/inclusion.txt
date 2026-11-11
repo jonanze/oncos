@@ -10,6 +10,9 @@ Definitions
     disease (database and maps; an option NCCN alone lists sits on a ※ line with its NCCN tag; Jonan
     2026-11-10), and current EU and US licences;
     other regulators only where Jonan names them for a disease (China for sugemalimab)
+    A drug licensed in Japan or Singapore (Cancer Drug List) and marketed internationally counts as licensed,
+    such as S-1 (Jonan 2026-11-10, 2026-11-11). A drug licensed in China only, with no international marketing
+    by a global company, stays on a ※ line (gumarontinib, Jonan 2026-11-11)
   Licence: a current full, conditional or accelerated marketing authorisation in that setting;
     a withdrawn licence or a humanitarian device exemption is not current
   Tested intervention: what differs between the arms; each randomisation is classed on its own
