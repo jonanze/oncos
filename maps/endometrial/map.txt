@@ -35,7 +35,7 @@
 #     DUO-E (Jonan 2026-11-11); SGO 2026 not used
 
 map: Endometrial Cancer
-source: ESGO [t-esgo-estro-esp-endometrial-carcinoma-management-guidelines]
+source: ESGO {url https://doi.org/10.1016/S1470-2045(25)00167-6}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
 source: JSGO {url https://doi.org/10.3802/jgo.2025.36.e119}
 scale: Low | Intermediate | High-intermediate | High
@@ -206,6 +206,7 @@ course:
       ・RET: selpercatinib
 
 off:
+  ESGO–ESTRO–ESP 2025 guideline [t-esgo-estro-esp-endometrial-carcinoma-management-guidelines] | Guideline, not a trial. Removed from Evidence and kept in the Guidelines folder (Jonan 2026-11-11)
   GOG 122 | Whole-abdominal radiotherapy comparator no longer used. PORTEC-3 and GOG 258 set current options
   GOG 177 | Doxorubicin, cisplatin and paclitaxel replaced by carboplatin-paclitaxel (GOG 209)
   SIENDO / ENGOT-EN5 [t-siendo-engot-en5] | No licence. Not in ESGO 2025 or NCCN 3.2026. Selinexor maintenance, TP53 wild-type benefit under confirmation
