@@ -27,7 +27,8 @@
 #     〔JSGO evidence, strength〕 Japan Society of Gynecologic Oncology 2023 guidelines for uterine body
 #       neoplasm, English version (J Gynecol Oncol 2025;36:e119); evidence A to D, strength 1 recommend or
 #       2 suggest, "against" for a recommendation not to; tagged only where JSGO differs from ESGO and NCCN
-#       (adjuvant chemotherapy, lymphadenectomy); its literature ends in 2021, before chemo-immunotherapy
+#       (lymphadenectomy); its literature ends in 2021, before chemo-immunotherapy
+#   JSGO adjuvant chemotherapy by JSGO risk group (JGOG 2033, JGOG 2043) dropped as outdated (Jonan 2026-11-11)
 #   KSGO 5.1 (2025) read and left off: it grades only first-line chemo-immunotherapy and durvalumab with
 #     olaparib, which NCCN already lists (Jonan 2026-11-11)
 #   ESMO 2022 (Oaknin) and PAGA 2023 dropped as stale: no living update, both predate RUBY, NRG-GY018 and
@@ -132,20 +133,6 @@ course:
       ・ESGO 2025 still places MMR deficient stage III–IVA in the high-risk group
       - GOG 258 | RFS HR 0.90
       ※ Chemotherapy alone gave the same relapse-free survival as chemoradiotherapy, with more vaginal and nodal relapses and fewer distant relapses
-    ④ Chemotherapy alone, by JSGO risk group
-      ・JSGO risk groups are set by histology, grade, depth of invasion and extrauterine spread, not by molecular class
-      ・High risk: doxorubicin with cisplatin 〔JSGO A, 1〕, or paclitaxel with carboplatin 〔JSGO B, 2〕
-      ・Intermediate risk: the same regimens 〔JSGO C, 2〕
-      ・Low risk: no chemotherapy 〔JSGO C, 1 against〕
-      ・Carcinosarcoma: a two-drug combination of ifosfamide, a platinum or paclitaxel 〔JSGO C, 2〕
-      ・Postoperative radiotherapy is an option to reduce pelvic recurrence 〔JSGO C, 2〕
-      - JGOG 2033 {pmid 17996926} | PFS at 5 years 81.8% vs 83.5%
-      ※ JGOG 2033 used cyclophosphamide, doxorubicin and cisplatin, against pelvic radiotherapy
-      ※ Chemotherapy and pelvic radiotherapy gave the same PFS and OS in all patients
-      ※ In a high-intermediate subgroup of 120 patients, chemotherapy gave longer PFS and OS
-      - JGOG 2043 {pmid 30896757} | PFS at 5 years 73.3% vs 79.0% vs 73.9%
-      ※ Doxorubicin with cisplatin, docetaxel with cisplatin and paclitaxel with carboplatin gave the same PFS and OS
-      ※ Paclitaxel with carboplatin is the more common choice in Japan, doxorubicin with cisplatin about 10%
     next: Recurrence | Recurrence
   Recurrence
     Vaginal, pelvic or in a few sites: local treatment first
