@@ -6,7 +6,11 @@
 #
 # Rules (Jonan 2026-11-08/09/10; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a course from diagnosis to recurrence and later lines
-#   Square lines only; no result colours outside the risk ramp
+#   Whiteboard look (Jonan 2026-11-11, early colon map as the reference): filled rounded blocks, no title block,
+#   bold numbered options, trial names as chips with no figures, lines with rounded corners and no arrowheads;
+#   spec doc https://claude.ai/artifact/Gt1iJC47Qa9LSMGDteysBJ
+#   Colour means one thing on a box: the two steps carrying the risk ramp stay grey, the other steps take
+#   branch: colours (Jonan 2026-11-11); no result colours
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses only
 #   Inclusion: maps/inclusion.txt; GOG-86P kept under ⑥d and ⑥e, MITO END-2 under ⑥d (Jonan 2026-11-10)
@@ -39,6 +43,10 @@ source: ESGO {url https://doi.org/10.1016/S1470-2045(25)00167-6}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
 source: JSGO {url https://doi.org/10.3802/jgo.2025.36.e119}
 scale: Low | Intermediate | High-intermediate | High
+branch: ADV | Stage III–IV at diagnosis | violet
+branch: REC | Recurrence | rose
+branch: FL | First line, advanced or recurrent | teal
+branch: PR | Progression after platinum | apricot
 
 band: Diagnosis and surgery
   ① Total hysterectomy and bilateral salpingo-oophorectomy 〔ESGO II, A〕 〔NCCN 2A〕
@@ -74,6 +82,7 @@ band: First-line chemotherapy
 
 course:
   Stage III–IV at diagnosis
+    branch: ADV
     ① Complete resection feasible: cytoreduction, removing only suspicious nodes 〔ESGO IV, B〕 〔NCCN 2A〕
       ・Preoperative systemic therapy is an alternative 〔NCCN 2A〕
     ② Unresectable from local extent: definitive radiotherapy with image-guided brachytherapy, or systemic therapy first, chosen by molecular class 〔ESGO IV, C〕
@@ -138,6 +147,7 @@ course:
       ・Pembrolizumab in MMR deficient stage III–IV outside the NRG-GY018 criteria, from KEYNOTE-B21 〔NCCN 2A〕
     next: Recurrence | Recurrence
   Recurrence
+    branch: REC
     Vaginal, pelvic or in a few sites: local treatment first
     ① No radiotherapy before: EBRT with image-guided brachytherapy 〔ESGO IV, A〕, or EBRT with or without brachytherapy 〔NCCN 2A〕
       ・With or without chemotherapy 〔ESGO IV, A〕 〔NCCN 2B〕
@@ -154,6 +164,7 @@ course:
     Widespread, or not suited to local treatment: first-line systemic therapy
     next: Advanced or recurrent, first line | Widespread
   Advanced or recurrent, first line
+    branch: FL
     Choose by MMR status
       ・Six cycles of carboplatin-paclitaxel is the standard chemotherapy 〔ESGO I, A〕
     ① MMR deficient: carboplatin-paclitaxel with dostarlimab, durvalumab or pembrolizumab, then the antibody as maintenance 〔ESGO I, A〕 〔NCCN 1, preferred〕
@@ -165,7 +176,8 @@ course:
       ・Adding pembrolizumab or dostarlimab 〔ESGO I, B〕 〔NCCN 1, preferred〕
       ・Durvalumab with chemotherapy, then durvalumab with olaparib 〔ESGO I, B〕 〔NCCN 2B, other recommended〕, at recurrence 〔NCCN 2B, useful in certain circumstances〕
       ~ RUBY
-      ※ At the second interim, RUBY improved OS in all patients, HR 0.69, smaller and not significant in MMR proficient tumours, HR 0.79
+      ※ At the second interim, RUBY improved OS in all patients
+        ・The gain was smaller and not significant in MMR proficient tumours
       ~ NRG-GY018 [t-nrg-gy018-keynote-868]
       ~ DUO-E [t-duo-e]
     ③ HER2 3+, when a checkpoint inhibitor cannot be given: carboplatin-paclitaxel with trastuzumab 〔ESGO II, B〕
@@ -181,6 +193,7 @@ course:
       ・CDK4/6 inhibitor with letrozole or fulvestrant 〔NCCN 2A, useful in certain circumstances〕
     next: Progression after platinum | Progression
   Progression after platinum
+    branch: PR
     Repeat MMR testing on the relapse when feasible 〔ESGO IV, B〕
       ・MSI or MMR testing at recurrence if not done before 〔NCCN 2A〕
     ① MMR deficient, no checkpoint inhibitor before: a PD-1 or PD-L1 inhibitor alone
@@ -200,7 +213,7 @@ course:
       ・HER2 1+ as well in carcinosarcoma 〔NCCN 2A, useful in certain circumstances〕
       * DESTINY-PanTumor02 [t-destiny-pantumor02]
     ※ HER2 3+ with platinum rechallenge possible: carboplatin-paclitaxel with trastuzumab 〔ESGO II, B〕
-    ※ TMB-high: pembrolizumab, or ipilimumab with nivolumab 〔NCCN 2A, useful in certain circumstances〕
+    ※ TMB-high tumours: pembrolizumab, or ipilimumab with nivolumab 〔NCCN 2A, useful in certain circumstances〕
     ※ Fusion-directed therapy 〔NCCN 2A, useful in certain circumstances〕
       ・NTRK: larotrectinib, entrectinib or repotrectinib
       ・RET: selpercatinib

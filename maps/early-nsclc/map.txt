@@ -41,8 +41,15 @@
 #   Whiteboard look (Jonan 2026-11-11, early colon map as the reference): filled rounded blocks, no title block,
 #   bold numbered options, trial names as chips with no figures, lines with rounded corners and no arrowheads
 #   that share one trunk where they fan out; spec doc https://claude.ai/artifact/Gt1iJC47Qa9LSMGDteysBJ
-#   No result colours (the marks above are kept as data, not drawn); colour encodes either risk groups
-#   (scale:) or branches (branch:), never both
+#   No result colours (the marks above are kept as data, not drawn); colour means one thing on a box: a box
+#   carrying the risk ramp (scale:, a grid or a line opening with a risk group) stays grey, branch: colours go
+#   on the other boxes (Jonan 2026-11-11)
+#   Size and shape (Jonan 2026-11-11, "optimal box height/width ratio ... on a typical pc screen"): text runs in
+#   columns of one reading width (460 px) balanced by the browser; a box takes another column only when every
+#   column gets text and the columns come out near even; the columns per box are chosen so the whole map is
+#   about 0.55 as tall as it is wide (the map area of a 1920 x 1080 screen); bands share one row (canvas.js)
+#   Full screen button beside Fit (evidence-maps.js); lines meet boxes at their middle and boxes centre on
+#   each other; rounded corners; chips centred on their line (render-check.cjs)
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)

@@ -25,7 +25,7 @@
 (function(){
   // tree spacing widened (Jonan 2026-11-11, "cramped up narrowly with no breathing room")
   var GX = 160, GY = 48, LEAF_GAP = 120, M = 28;
-  var COL_W = 460, COL_GAP = 32, PAD = 32, COL_MAX = 4, SCREEN = 0.55, STEP_W = COL_W + PAD, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 176;
+  var COL_W = 460, COL_GAP = 32, PAD = 32, COL_MAX = 4, SCREEN_W = 1600, SCREEN_H = 850, STEP_W = COL_W + PAD, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 220;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -189,14 +189,20 @@
     var blocks = [];
     function sized(el, ls, set){
       var b = {el: el, grid: hasGrid(ls), set: set, n: 1, h1: 0};
-      b.width = function(n){ return b.grid ? widthFor(ls, STEP_W) : colsWidth(n); };
+      b.width = function(n){ return b.grid ? widthFor(ls, STEP_W) + (n - 1) * (COL_W + COL_GAP) : colsWidth(n); };
       var box = el.querySelector('.cols');
       function put(n){ b.n = n; var w = b.width(n); el.style.width = w + 'px'; set(w); }
       // a block takes n columns only when every column gets text and the columns come out near even (the tallest
       // within a quarter of an even share), otherwise one column fewer: a block is never wider than its text
       // (Jonan 2026-11-11, "boxes are widened but without any text filling the space")
       b.cols = function(n){
-        if (b.grid || !box) { put(1); return; }
+        // a block with a grid widens as a whole while each step makes it at least a seventh shorter
+        if (b.grid) {
+          put(1); var k = 1, h = el.offsetHeight;
+          while (k < n) { put(k + 1); var h2 = el.offsetHeight; if (h2 > 0.85 * h) break; k++; h = h2; }
+          put(k); return;
+        }
+        if (!box) { put(1); return; }
         for (n = Math.max(1, n); n > 1; n--) {
           put(n);
           var xs = {}; Array.prototype.forEach.call(box.children, function(g){ xs[g.offsetLeft] = 1; });
@@ -258,22 +264,22 @@
       if (board) layoutBoard(); else if (course) layoutCourse(); else layoutTree();
       finish();
     }
-    // the map takes the shape of a PC screen: a 1920 x 1080 screen leaves a map area about 1600 x 850 beside the
-    // site's sidebar, and full screen is 16:9, so height over width near SCREEN (0.55). Each block takes the number
-    // of columns that makes it about r times as tall as it is wide; r is searched until the whole map is that shape
+    // the map is laid out to show as large as it can on a PC screen: a 1920 x 1080 screen leaves a map area of
+    // about SCREEN_W x SCREEN_H beside the site's sidebar (16:9 in full screen). Each block takes the number of
+    // columns that makes it about r times as tall as it is wide; of a range of r, the layout whose whole map
+    // fits that area at the largest scale is kept, which brings most maps near 0.55 height to width
     function layout(){
       blocks.forEach(function(b){ b.cols(1); b.h1 = b.el.offsetHeight; b.c1 = b.el.querySelector('.cols') ? b.el.querySelector('.cols').offsetHeight : 0; });
       function shape(r){
         // the bands start at one column and widen in bandsRow to the width of the map below them
         blocks.forEach(function(b){ b.cols(b.band ? 1 : Math.max(1, Math.min(COL_MAX, Math.round(Math.sqrt(b.h1 / (r * b.width(1))))))); });
         layoutOnce();
-        return H / W;
       }
-      var lo = Math.log(0.05), hi = Math.log(4), best = null;
-      for (var i = 0; i < 8; i++) {
-        var mid = (lo + hi) / 2, a = shape(Math.exp(mid)), d = Math.abs(Math.log(a / SCREEN));
-        if (!best || d < best.d) best = {r: Math.exp(mid), d: d};
-        if (a > SCREEN) hi = mid; else lo = mid;
+      var best = null;
+      for (var r = 0.08; r < 4; r *= 1.5) {
+        shape(r);
+        var fit = Math.min(SCREEN_W / W, SCREEN_H / H);
+        if (!best || fit > best.fit + 1e-4) best = {r: r, fit: fit};
       }
       shape(best.r);
     }

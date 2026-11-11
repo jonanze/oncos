@@ -2,7 +2,7 @@
    - every map trial points at an Evidence row, or carries a PMID (or, before PubMed lists it, a {url}) and is listed for intake;
      a PMID already filed in any sheet fails, naming the row to link
    - a trial line gives the trial's name only, with no figure; results are on the trial card (Jonan 2026-11-11)
-   - outline errors, including more than eight branch: lines or branch: with scale: (outline.js)
+   - outline errors, including more than eight branch: lines or a branch: on a box carrying the risk ramp (outline.js)
    - every row of the sheet is on the map or under off: with a reason; the rest are listed in unplaced.txt and fail
    - a trial line's Evidence row is a clinical trial, a pooled analysis of trials or a meta-analysis
      (no cohort, retrospective, observational or genomic studies; the statement can stay as plain text)

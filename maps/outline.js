@@ -161,8 +161,6 @@
       b.n = b.hue; bkeys[b.key] = b.hue;
     });
     if (out.branches.length > HUES.length) out.errors.push(out.branches[HUES.length].at + ': at most ' + HUES.length + ' branch: colours');
-    // colour means one thing on a map: a risk ramp or branches, never both
-    if (out.branches.length && out.scale) out.errors.push(out.branches[0].at + ': a map with a scale: line has no branch: colours');
     (function inherit(n, k, pale){
       if (!n) return;
       if (n.branch && !bkeys[n.branch]) out.errors.push(n.branchAt + ': branch: no "' + n.branch + '" declared');
@@ -171,6 +169,16 @@
       n.pale = own ? !!n.pale : (course ? false : pale);
       n.children.forEach(function(c){ inherit(c, n.br, n.pale); });
     })(out.tree, 0, false);
+    // colour means one thing on a box: a step, node or band that carries the risk ramp (a grid, or a line
+    // that opens with a risk group) stays plain grey; branch colours go on the other boxes (Jonan 2026-11-11)
+    if (out.scale && out.branches.length) {
+      var risky = function(ls){ return ls.some(function(l){
+        if (l.kind === 'grid') return true;
+        var t = String(l.text || '');
+        return (l.kind === 'num' || l.kind === 'cv') && out.scale.some(function(x){ return t.indexOf(x + ' risk') === 0; });
+      }); };
+      walk(out.tree, function(n){ if (n.br && risky(n.lines || [])) out.errors.push((n.branchAt || n.at) + ': "' + n.label + '" carries the risk colours and stays grey, no branch:'); });
+    }
     // a panel takes the pale tint of the step or node it is joined to
     out.panels.forEach(function(p){
       p.br = 0; p.pale = true;
