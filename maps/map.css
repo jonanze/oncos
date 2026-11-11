@@ -51,9 +51,15 @@
 .om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border:2.5px solid var(--b-ink);letter-spacing:.02em;font-size:16px}
 .om-world .ln{margin:0 0 2px}
 .om-world .trials>div{text-wrap:pretty}
-.om-world .ln.text,.om-world .ln.tx,.om-world .ln.se{padding-left:var(--p,0px)}
+/* a statement without a tag keeps no single word alone on its last line; one with a tag wraps greedily,
+   so no word is carried down to the tag line (Jonan 2026-11-11) */
+.om-world .ln:not(:has(.tag)),.om-world .sb:not(:has(.tag)){text-wrap:pretty}
+.om-world .box.lbl,.om-world .step>.hd,.om-world h2{text-wrap:balance}
+.om-world .ln.text,.om-world .ln.se{padding-left:var(--p,0px)}
+/* ★ hangs, so a wrapped option line and its tags start under the text, not under the ★ */
+.om-world .ln.tx{position:relative;padding-left:calc(var(--p,0px) + 1.2em)}
 .om-world .ln.tx{font-weight:var(--w-bold);font-size:14px;margin-bottom:5px}
-.om-world .ln.tx::before{content:"★ "}
+.om-world .ln.tx::before{content:"★";position:absolute;left:var(--p,0px);top:0}
 .om-world .ln.cv{font-size:12.5px;padding-left:calc(var(--p,0px) + 1.3em);text-indent:-1.3em}
 .om-world .ln.se{font-size:12px;color:var(--muted)}
 /* ・ one statement under the text of the line above, one size below it */
@@ -66,8 +72,11 @@
 .om-world .ln.subl.tierb .sb{margin-left:calc(var(--p,0px) + 31px)}
 .om-world .ln.subl.of-cv.tierb .sb{margin-left:calc(var(--p,0px) + 1.3em + 9px)}
 /* trial lines in a row: one ruled grid, trial name | key figure */
-.om-world .trials{display:grid;grid-template-columns:12.5em 1fr;margin:5px 0 3px var(--p,0px);border-top:1px solid var(--b-cell)}
+.om-world .trials{display:grid;grid-template-columns:13.5em 1fr;margin:5px 0 3px var(--p,0px);border-top:1px solid var(--b-cell)}
 .om-world .trials>div{padding:2px 8px 2px 0;border-bottom:1px solid var(--b-cell);font-size:13px}
+/* a trial row is an item, not a heading: a bullet before its name (Jonan 2026-11-11) */
+.om-world .trials>.tn{padding-left:1em;text-indent:-1em}
+.om-world .trials>.tn::before{content:"・"}
 .om-world .trials>.fg{font-weight:var(--w-bold);font-variant-numeric:tabular-nums;padding-left:8px;border-left:1px solid var(--b-cell)}
 /* bands and panels: closed ruled cells with a 【TITLE】 band */
 .om-world .band,.om-world .panel{box-sizing:border-box;border:1.3px solid var(--b-line);padding:0 10px 8px;background:var(--b-paper)}
@@ -127,7 +136,7 @@
 /* course maps: steps in time order */
 .om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;white-space:normal;margin:0 0 8px;padding:4px 10px}
 .om-world .step .ln.text{font-weight:var(--w-bold);font-size:15px;margin-top:14px}
-.om-world .step .ln.num{margin-top:12px}
+.om-world .step .ln.num,.om-world .step .ln.tx{margin-top:12px}
 /* gaps follow the groups: 12–14px between options and subheaders, 4–8px between statements, 0–3px to a line's own ・ lines or trial */
 .om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
 .om-world .trials+.ln.cv{margin-top:0}

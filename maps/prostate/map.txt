@@ -201,14 +201,13 @@ course: Advanced prostate cancer
     = Docetaxel 〔NCCN 1, preferred〕
       ・Preferred over a second ARSI 〔ESMO III, A〕
     ※ Docetaxel here rests on TAX 327 (①), in men who had never had an ARSI
-    = BRCA1 or BRCA2 altered: olaparib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
+    = BRCA1 or BRCA2 altered: olaparib or rucaparib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
       ・A PARP inhibitor comes before docetaxel and a second ARSI 〔ESMO III, A〕
-      ・Other HRR genes 〔NCCN 2A, useful in certain circumstances〕
-      ・PALB2 〔ESMO II, B〕
+      ・Other HRR genes: olaparib 〔NCCN 2A, useful in certain circumstances〕
+      ・PALB2: a PARP inhibitor 〔ESMO II, B〕
       ・Not for most men with CHEK2 or ATM alterations 〔ESMO II, D〕
+      ・Rucaparib has a US licence and no EU licence for prostate cancer
     + PROfound | OS HR
-    = BRCA1 or BRCA2 altered: rucaparib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
-      ・US licence, no EU licence for prostate cancer
     ~ TRITON3 | rPFS HR
     = PSMA PET positive, docetaxel not planned yet: Lu-177 PSMA-617 〔NCCN 2A, useful in certain circumstances〕 〔ESMO I, B〕
       ・US licence, no EU licence before a taxane

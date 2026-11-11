@@ -10,6 +10,7 @@
    - a line runs under a box
    - two lines cross (a run passing through the middle of another run, not a junction)
    - the last word of a statement goes to the next line although it fitted on the line above (Jonan 2026-11-11)
+   - a single word is alone on the last line, or a wrapped line starts left of the text (under ★ or ①)
    Needs Playwright (require('playwright')). Run it with node maps/check.cjs before every draft and release. */
 'use strict';
 const http = require('http'), fs = require('fs'), path = require('path');
@@ -107,7 +108,13 @@ function measure(){
     // the last word went down a line although it fitted at the end of the line above
     const last = words[words.length - 1], prev = words[words.length - 2], cs = getComputedStyle(el), box = el.getBoundingClientRect();
     const edge = box.right - parseFloat(cs.paddingRight) - parseFloat(cs.borderRightWidth), s = (getComputedStyle(world).transform === 'none' ? 1 : 1);
-    if (last.top - prev.top > 4 && prev.right + 6 + (last.right - last.left) < edge - 2) res.push('"' + last.w + '" went to the next line although it fitted, in "' + el.textContent.trim().slice(0, 50) + '"');
+    const tagged = !!el.querySelector('.tag'), tags = [...el.querySelectorAll('.tag')].map(t => t.getClientRects()).flatMap(r => [...r]);
+    if (tagged && last.top - prev.top > 4 && prev.right + 6 + (last.right - last.left) < edge - 2) res.push('"' + last.w + '" went to the next line although it fitted, in "' + el.textContent.trim().slice(0, 50) + '"');
+    // a single word alone on the last line, with no tag beside it
+    if (last.top - prev.top > 4 && !tags.some(r => Math.abs(r.top - last.top) < 6)) res.push('"' + last.w + '" is alone on the last line of "' + el.textContent.trim().slice(0, 50) + '"');
+    // a wrapped line starts left of the first line's text (under a mark such as ★)
+    if (words.length > 1) { const first = words.find(w => !/^[①-⑳※・★]$/.test(w.w)); const lefts = words.filter(w => w.top - words[0].top > 4).map(w => w.left).concat(tags.filter(r => r.top - words[0].top > 4).map(r => r.left));
+      if (first && lefts.length && Math.min(...lefts) < first.left - 3 && !el.matches('.ln.cv, .sb, .sub')) res.push('a wrapped line starts left of the text in "' + el.textContent.trim().slice(0, 50) + '"'); }
   });
   return {n:chips.length, res};
 }
