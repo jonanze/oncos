@@ -394,7 +394,9 @@
           mine.forEach(function(n, k){
             var own = n.next.filter(function(e){ return !e.join; });
             if (!own.length) return;
-            var top = own.slice().sort(function(a, z){ return a.node.cy - z.node.cy; })[0], t = top.node;
+            // the step it centres on: the middle of three or more branches, else the top one
+            var srt = own.slice().sort(function(a, z){ return a.node.cy - z.node.cy; });
+            var t = (srt.length >= 3 && srt.length % 2 ? srt[(srt.length - 1) >> 1] : srt[0]).node;
             if (t.preds.length !== 1) return;
             var dy = t.cy - n.cy, below = mine[k + 1];
             if (dy <= 0.5) return;

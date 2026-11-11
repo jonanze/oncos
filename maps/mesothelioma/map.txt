@@ -32,6 +32,11 @@ source: PSOGI {url https://doi.org/10.1002/jso.27947}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
 source: STS {url https://doi.org/10.1016/j.athoracsur.2026.03.074}
 source: JLCS {url https://www.haigan.gr.jp/publication/guideline/examination/2025/}
+branch: NE | Non-epithelioid | violet
+branch: EP | Epithelioid | blue
+branch: PS | PS 2 or more | sand
+branch: MT | Maintenance | sage
+branch: SL | Second line | rose
 
 band: Diagnosis and staging
   ① Thoracoscopic biopsy when treatment is planned 〔ESMO III, B〕 〔ASCO High, Strong〕 〔NCCN 2A, preferred〕 〔STS 1.1〕
@@ -95,7 +100,7 @@ band: Surgery
   ※ JLCS 2025 still recommends surgery after considering MARS and MARS 2
   ・It asks for surgeons, physicians and radiation oncologists experienced in mesothelioma
   ※ STS 2026 keeps lung-sparing surgery for selected patients
-  ・It attributes the MARS 2 result to CT-only staging and 9% 90-day mortality
+  ・It attributes the MARS 2 result to CT-only staging and high 90-day mortality
   ・Surgery for confirmed ipsilateral N1 disease 〔STS 11.2〕, after EBUS or mediastinoscopy when imaging suggests N1 〔STS 11.1〕
   ・No surgery for contralateral or supraclavicular N2 disease 〔STS 11.3〕
   ・It cites NCCN 2.2026 text on surgery in N1 and N2 disease that NCCN 1.2027 removed
@@ -164,6 +169,7 @@ course: Unresectable pleural mesothelioma
     next: Epithelioid, PS 0–1
     next: PS 2 or more
   Non-epithelioid, PS 0–1
+    branch: NE
     ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ・For up to 2 years 〔ASCO Moderate, Strong〕
       + CheckMate 743 [t-checkmate-743]
@@ -173,18 +179,19 @@ course: Unresectable pleural mesothelioma
     ③ Platinum and pemetrexed 〔ESMO I, A〕
     ・Only when immunotherapy is contraindicated 〔ASCO High, Strong〕
     ・With or without bevacizumab 〔NCCN 1, other recommended〕
-    ※ Non-epithelioid subgroups: OS HR 0.46 in CheckMate 743 and 0.57 in KEYNOTE-483
+    ※ The OS gain was largest in the non-epithelioid subgroups of CheckMate 743 and KEYNOTE-483
     ※ ESMO 2022 predates KEYNOTE-483 and lists chemotherapy as an option in all histologies
     ・ASCO 2025 does not for non-epithelioid disease
     join: Maintenance or observation | No progression
     join: Second line and beyond | Progression
   Epithelioid, PS 0–1
+    branch: EP
     ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ② Platinum and pemetrexed, with or without bevacizumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ・4 to 6 cycles 〔ASCO Low, Strong〕, with folic acid and vitamin B12
     ・When given, bevacizumab continues until progression 〔ESMO I, A〕
     ・Bevacizumab added to cisplatin and pemetrexed 〔JLCS B, 2〕
-    ・Bevacizumab is not licensed for mesothelioma
+    ・Bevacizumab has no licence for this cancer
       + EMPHACIS
       + MAPS
     ③ Platinum and pemetrexed with pembrolizumab 〔ASCO High, Strong〕 〔NCCN 1, other recommended〕
@@ -194,7 +201,7 @@ course: Unresectable pleural mesothelioma
     ※ The order of ①②③ is not a ranking
     ・ASCO calls nivolumab and ipilimumab or chemotherapy equally reasonable
     ・JLCS recommends nivolumab and ipilimumab strongly and the other two weakly
-    ・Epithelioid subgroups: OS HR 0.86 (0.69–1.08) in CheckMate 743 and 0.89 (0.70–1.13) in KEYNOTE-483
+    ・In the epithelioid subgroups of CheckMate 743 and KEYNOTE-483, the OS gain was not significant
     ※ Carboplatin can replace cisplatin 〔ESMO I, A〕 〔ASCO Moderate, Strong〕
     ・CheckMate 743 and KEYNOTE-483 allowed either
     ※ No bevacizumab at PS 2 or more, age over 75, cardiovascular disease or bleeding risk 〔ASCO Moderate, Strong〕
@@ -210,6 +217,7 @@ course: Unresectable pleural mesothelioma
     join: Maintenance or observation | No progression
     join: Second line and beyond | Progression
   PS 2 or more
+    branch: PS
     ① PS 2: single-agent chemotherapy or palliative care alone 〔ASCO Low, Strong〕
     ・PS 3 or more: palliative care
     ・No drug treatment at PS 3–4 〔JLCS D, 1〕
@@ -220,6 +228,7 @@ course: Unresectable pleural mesothelioma
     join: Maintenance or observation | No progression
     join: Second line and beyond | Progression
   Maintenance or observation
+    branch: MT
     ① After bevacizumab with cisplatin and pemetrexed: continue bevacizumab 〔ESMO I, A〕
     ・Graded in the ESMO algorithm only
     ・MAPS did not test maintenance separately
@@ -231,6 +240,7 @@ course: Unresectable pleural mesothelioma
       - CALGB 30901 [t-calgb-30901]
     next: Second line and beyond | Progression
   Second line and beyond
+    branch: SL
     After chemotherapy alone
     ① Immunotherapy
     ・Nivolumab alone 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 2A, preferred〕 〔JLCS B, 1〕
@@ -243,7 +253,7 @@ course: Unresectable pleural mesothelioma
       ~ CONFIRM
       - PROMISE-meso [t-promise-meso]
     ② Gemcitabine with ramucirumab 〔ESMO III, C〕 〔ASCO Moderate, Strong〕 〔NCCN 2A, other recommended〕
-    ・Ramucirumab is not licensed for mesothelioma
+    ・Ramucirumab has no licence for this cancer
     ・JLCS does not list it
       + RAMES [t-rames]
     ③ Vinorelbine or gemcitabine alone 〔ESMO II, B〕 〔NCCN 2A, other recommended〕
