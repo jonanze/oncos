@@ -43,6 +43,8 @@
   function tierRisk(x){ var k = tierLead(x); return k && /^\s+risk\b/.test(String(x).slice(SCALE[k - 1].length)) ? k : 0; }
   // one indent step: the text edge of a numbered line, so everything under an option starts on its text
   var LV = 22;
+  // a block's branch fill: brN, with pale for the tint (outline.js HUES)
+  function brc(o){ return o.br ? ' br' + o.br + (o.pale ? ' pale' : '') : ''; }
   function keep(s){
     var t = String(s == null ? '' : s), out = '', k = 0, m, re = new RegExp(window.oncosOutline.TAG.source, 'g');
     function plain(x){ return esc(x).replace(/(\S*\S[-–]\S+)/g, '<span class="nw">$1</span>'); }
@@ -155,7 +157,7 @@
       nodes = steps;
       steps.forEach(function(n){
         n.w = widthFor(n.lines, STEP_W);
-        n.el = add('step' + (n.br ? ' br' + n.br : ''), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), n.w);
+        n.el = add('step' + brc(n), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), n.w);
         n.hd = n.el.firstChild;
       });
       // join: lines to one step with one label carry that label once, on their shared line
@@ -166,8 +168,8 @@
         e.el = add('elab', keep(e.label));
       }); });
     } else nodes.forEach(function(n){
-      n.el = add('box lbl' + (n.depth ? '' : ' root') + (n.br ? ' br' + n.br : ''), keep(n.label));
-      if (n.lines.length) { n.leaf = add('leaf' + (n.br ? ' br' + n.br : ''), linesHtml(n.lines), LEAF_W); leaves.push(n); }
+      n.el = add('box lbl' + (n.depth ? '' : ' root') + brc(n), keep(n.label));
+      if (n.lines.length) { n.leaf = add('leaf' + brc(n), linesHtml(n.lines), LEAF_W); leaves.push(n); }
     });
     // no title block: the map opens on the flowsheet itself (Jonan 2026-11-11, "remove the title altogether").
     // A map with a risk scale keeps its colour key in that place
@@ -180,7 +182,7 @@
       return '<div class="bitems">' + groups.map(function(g){ return '<div class="bi">' + linesHtml(g) + '</div>'; }).join('') + '</div>';
     }
     var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + bandItems(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
-    var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel' + (p.lines.some(function(l){ return l.kind === 'grid'; }) ? ' open' : '') + (p.br ? ' br' + p.br : ''), '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
+    var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel' + (p.lines.some(function(l){ return l.kind === 'grid'; }) ? ' open' : '') + brc(p), '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
 
     var W = 0, H = 0;
     // a course that runs as one line of columns, each step leading only to the next column, is laid out

@@ -29,10 +29,12 @@
 #   scale: Low | Intermediate | High-intermediate | High   four risk groups of an adjuvant or local-treatment
 #                   decision, lowest first, each naming a grid row; those rows, and the ① and ※ lines in
 #                   the same block that open with a risk group, take that group's colour
-#   branch: Key | legend   at the top: one fill colour for a branch of the map (at most four: steel blue, violet,
-#                   sage, rose). "branch: Key" under a step or tree node gives it that fill; a node's children
-#                   take it too; a step for every branch stays plain grey; a panel takes the fill of the node it
-#                   is joined to. Every map has branches (Jonan 2026-11-11). Never on a map with scale: (2026-11-11)
+#   branch: Key | legend | hue   at the top: one fill colour for a branch of the map. Hues: blue, violet, sage,
+#                   rose, sand, teal, apricot, olive (at most eight; without a hue the next unused one is taken).
+#                   "branch: Key" under a step or tree node gives it that fill, "branch: Key pale" the pale tint
+#                   (later steps of the same branch); a node's children take it too; a step for every branch stays
+#                   plain grey; a panel takes the pale tint of the node it is joined to. Every map has branches
+#                   (Jonan 2026-11-11, "more colours and variations"). Never on a map with scale: (2026-11-11)
 #
 # Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
@@ -93,8 +95,12 @@ source: ESMO {url https://www.esmo.org/guidelines/living-guidelines/esmo-living-
 source: ACCP {url https://doi.org/10.1016/j.chest.2025.06.023}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
 source: JLCS {url https://www.haigan.gr.jp/publication/guideline/examination/2025/}
-branch: RS | Resected
-branch: NR | Not resected
+branch: SX | Upfront resection | blue
+branch: NEO | Neoadjuvant or perioperative | teal
+branch: ADJ | Adjuvant | violet
+branch: PORT | Radiotherapy after resection | sand
+branch: SBRT | No surgery, SBRT | sage
+branch: CRT | Chemoradiotherapy | apricot
 
 band: Staging before treatment
   ① CT and PET-CT before surgery, for nodal staging 〔ESMO I, A〕 〔NCCN 2A〕 〔JLCS A, 1〕
@@ -126,20 +132,20 @@ band: Testing before treatment
 
 course: Early and locally advanced NSCLC
   Surgery
-    branch: RS
+    branch: SX
     Operable, and the MDT judges complete resection possible: stage I–II 〔ESMO III, A〕 〔JLCS C, 1〕, and selected stage III
     ※ N2 disease: the MDT chooses between surgery and definitive chemoradiotherapy 〔ESMO V, A〕 〔NCCN 2A〕 〔JLCS C, 1〕
     next: Neoadjuvant or perioperative
     next: Upfront resection
   No surgery
-    branch: NR
+    branch: SBRT
     Medically inoperable or declining surgery, or stage III that cannot be completely resected
     ※ Operable stage I: surgery is preferred over SBRT 〔ACCP Low, Conditional〕 〔NCCN 2A〕
     ・SBRT when surgery is declined 〔JLCS C, 1〕
     next: SBRT
     next: Chemoradiotherapy
   Neoadjuvant or perioperative
-    branch: RS
+    branch: NEO
     Stage II–III with no EGFR, ALK or RET alteration: platinum doublet with a PD-1 or PD-L1 antibody for 3 or 4 cycles, then surgery 〔ESMO I, A〕 〔NCCN 1〕
     ① Neoadjuvant only: nivolumab 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
     ・The EU licence needs PD-L1 1% or more
@@ -170,7 +176,7 @@ course: Early and locally advanced NSCLC
       + Meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group]
     next: After chemotherapy with immunotherapy and surgery
   Upfront resection
-    branch: RS
+    branch: SX pale
     Extent of resection
     ① Peripheral, node-negative, 2 cm or less: sublobar resection, segmentectomy rather than wedge 〔ESMO I, A〕
       + JCOG0802 [t-jcog-0802-wjog-4607l]
@@ -191,7 +197,7 @@ course: Early and locally advanced NSCLC
     ・Node dissection or sampling 〔JLCS B, 1〕
     next: After upfront resection
   SBRT
-    branch: NR
+    branch: SBRT pale
     Stage I, node-negative 〔ESMO II, A〕 〔NCCN 2A〕
     ・Medically inoperable stage I–II 〔JLCS C, 1〕
     ・By SBRT or another high-precision technique 〔JLCS B, 1〕
@@ -201,7 +207,7 @@ course: Early and locally advanced NSCLC
     ※ Atezolizumab added to SBRT did not improve OS or PFS
       - SWOG S1914 [t-swog-s1914-nrg-s1914]
   Chemoradiotherapy
-    branch: NR
+    branch: CRT
     Concurrent chemoradiotherapy with 2–3 cycles of a platinum doublet 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS A, 1〕
     ・60 Gy in daily fractions
     ・60–70 Gy 〔NCCN 2A〕
@@ -221,13 +227,13 @@ course: Early and locally advanced NSCLC
       - CheckMate 73L
     next: After chemoradiotherapy, no progression | No progression
   After chemotherapy with immunotherapy and surgery
-    branch: RS
+    branch: NEO pale
     ① After a perioperative regimen: the same antibody alone, for the duration used in its trial 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS A, 2〕
     ・Pembrolizumab is given for up to 39 weeks
     ② After neoadjuvant nivolumab: adjuvant nivolumab is optional 〔NCCN 1〕
     ・ESMO also gives the option
   After upfront resection
-    branch: RS
+    branch: ADJ
     Chosen by pathological stage
     ※ Stages: ESMO uses TNM 8th edition, NCCN and JLCS the 9th
     ① Stage II–III: cisplatin doublet for 4 cycles 〔ESMO I, A〕
@@ -254,7 +260,7 @@ course: Early and locally advanced NSCLC
     next: EGFR, ALK or RET
     next: Radiotherapy after resection
   Radiotherapy after resection
-    branch: RS
+    branch: PORT
     ① No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕
     ・In pathological stage I–II 〔JLCS A, 1〕
       ※ PORT is allowed for selected high-risk N2, such as extranodal extension or several stations involved 〔NCCN 2A〕
@@ -263,7 +269,7 @@ course: Early and locally advanced NSCLC
     ② Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕
     ・Re-resection is preferred in stage IA–IIA 〔NCCN 2A〕
   No driver
-    branch: RS
+    branch: ADJ pale
     ① Stage II–IIIA, after chemotherapy: a PD-1 or PD-L1 antibody for 1 year 〔ESMO I, A〕 〔NCCN 1〕
     ・Atezolizumab if PD-L1 is 1% or more
     ・The EU licence for atezolizumab needs PD-L1 50% or more
@@ -278,7 +284,7 @@ course: Early and locally advanced NSCLC
       ※ Adjuvant nivolumab for 1 year did not improve DFS
         - ANVIL
   EGFR, ALK or RET
-    branch: RS
+    branch: ADJ pale
     ① EGFR exon 19 or L858R, stage IB–IIIA: osimertinib for 3 years, after chemotherapy where given 〔ESMO I, A〕 〔NCCN 1〕
     ・Stage II–IIIB, after platinum chemotherapy 〔JLCS B, 2〕
       + ADAURA
@@ -294,7 +300,7 @@ course: Early and locally advanced NSCLC
     ・Not in JLCS
       ~ LIBRETTO-432
   After chemoradiotherapy, no progression
-    branch: NR
+    branch: CRT pale
     ① EGFR exon 19 or L858R: osimertinib until progression 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
       ~ LAURA
     ② No driver: durvalumab for 12 months, starting within 42 days of concurrent chemoradiotherapy 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 1〕

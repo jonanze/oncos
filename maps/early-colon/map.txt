@@ -1,6 +1,6 @@
 # oncOS board map: Early CRC (localised colon cancer; rectal cancer is its own sheet)
 # Format and rules: see the header of maps/early-nsclc/map.txt
-#   branch: Key | legend   one colour for a branch of the map; "branch: Key" under a step colours it.
+#   branch: Key | legend | hue   one colour for a branch of the map; "branch: Key" or "branch: Key pale" under a step colours it.
 #                          Here pMMR or MSS and dMMR or MSI-H; steps for both stay plain (Jonan 2026-11-11)
 #   Content and layout follow the whiteboard plan (Jonan 2026-11-11: "EXACTLY as in whiteboard")
 #   Trial lines give the trial name only; results are on the trial's card (Jonan 2026-11-11)
@@ -20,8 +20,10 @@ map: Early CRC
 source: JSCCR {url https://doi.org/10.1007/s10147-025-02899-8}
 source: ESMO {url https://doi.org/10.1016/j.annonc.2020.06.022}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
-branch: pMMR | pMMR or MSS
-branch: dMMR | dMMR or MSI-H
+branch: pMMR | pMMR or MSS | blue
+branch: dMMR | dMMR or MSI-H | violet
+branch: OB | Obstruction | sand
+branch: AF | After resection | sage
 
 course: Localised colon cancer
   Clinical stage I to III
@@ -32,19 +34,20 @@ course: Localised colon cancer
     next: cT4b or bulky nodes, pMMR
     next: T4 or bulky, dMMR
   Obstructing cancer
+    branch: OB
     ① Colectomy or diversion 〔NCCN 2A〕
     ② Stent as a bridge to colectomy 〔NCCN 2A〕 〔JSCCR B, 2〕 〔ESMO II〕
       ・No stent if systemic therapy is planned 〔JSCCR B, 2〕
     ~ ESCO {pmid 27924392}
     next: Colectomy
   cT4b or bulky nodes, pMMR
-    branch: pMMR
+    branch: pMMR pale
     ① FOLFOX or CAPOX, then colectomy 〔NCCN 2A〕
     ~ FOxTROT
     - NeoCol
     next: Colectomy
   T4 or bulky, dMMR
-    branch: dMMR
+    branch: dMMR pale
     ① Checkpoint inhibitor, then colectomy 〔NCCN 2A, preferred〕
     ~ NICHE-2
     ※ Less regression with chemotherapy first
@@ -66,7 +69,7 @@ course: Localised colon cancer
     next: Stage 0 to II, dMMR
     next: Stage III, dMMR
   Stage I and II, pMMR
-    branch: pMMR
+    branch: pMMR pale
     ① Stage I: observation 〔NCCN 2A〕
     ② Low-risk II: observation 〔NCCN 2A, preferred〕 〔ESMO I, A〕 〔JSCCR A, 2〕
     ③ High-risk II: fluoropyrimidine, CAPOX or FOLFOX, or observation 〔NCCN 2A〕 〔ESMO I, C〕 〔JSCCR B, 2〕
@@ -95,7 +98,7 @@ course: Localised colon cancer
     + ACCENT 2001 [t-accent-pooled-analysis]
     next: Exercise and aspirin after resection
   Stage 0 to II, dMMR
-    branch: dMMR
+    branch: dMMR pale
     ① 0–IIB: observation 〔NCCN 2A〕
     ② IIC: observation, or as low-risk stage III 〔NCCN 2A〕
     ※ Fluoropyrimidine alone not effective
@@ -108,6 +111,7 @@ course: Localised colon cancer
     ~ ATOMIC
     next: Exercise and aspirin after resection
   Exercise and aspirin after resection
+    branch: AF
     ① Structured exercise programme 〔ESMO II, B〕 〔NCCN 2A〕
     ② PI3K pathway altered: aspirin for 3 years 〔NCCN 2A〕
     + CHALLENGE
