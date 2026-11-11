@@ -83,6 +83,8 @@ band: Surgery
   ・Still allowed in highly selected patients in expert centres 〔ASCO Moderate, Strong〕
   ・Only when pleurectomy decortication cannot clear the tumour and prognostic factors are favourable 〔STS 7.2〕
     - MARS | OS HR 1.90 (0.92–3.93), 50 patients
+
+band: Treatment around surgery
   ※ Adjuvant hemithoracic radiotherapy is not standard
   ・It can be considered in expert centres 〔ESMO II, D〕
   ・It may be offered after extrapleural pneumonectomy, preferably in expert centres 〔ASCO Moderate, Strong〕
@@ -129,11 +131,14 @@ band: Peritoneal mesothelioma
 
 course: Unresectable pleural mesothelioma
   First line
-    Non-epithelioid, PS 0–1
+    Chosen by histology and performance status
+    next: Non-epithelioid, PS 0–1
+    next: Epithelioid, PS 0–1
+    next: PS 2 or more
+  Non-epithelioid, PS 0–1
     ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ・For up to 2 years 〔ASCO Moderate, Strong〕
-      + CheckMate 743 | OS HR
-      + CheckMate 743, 5 years [t-checkmate-743] | 5-year OS 14% vs 6%, HR 0.74
+      + CheckMate 743 [t-checkmate-743] | 5-year OS 14% vs 6%, HR 0.74
     ② Platinum and pemetrexed for up to 6 cycles with pembrolizumab, pembrolizumab continued for up to 2 years 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ・EU licence for non-epithelioid only
       + KEYNOTE-483 | OS HR
@@ -143,7 +148,9 @@ course: Unresectable pleural mesothelioma
     ※ Non-epithelioid subgroups: OS HR 0.46 in CheckMate 743 and 0.57 in KEYNOTE-483
     ※ ESMO 2022 predates KEYNOTE-483 and lists chemotherapy as an option in all histologies
     ・ASCO 2025 does not for non-epithelioid disease
-    Epithelioid, PS 0–1
+    join: Maintenance or observation | No progression
+    join: Second line and beyond | Progression
+  Epithelioid, PS 0–1
     ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ② Platinum and pemetrexed, with or without bevacizumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ・4 to 6 cycles 〔ASCO Low, Strong〕, with folic acid and vitamin B12
@@ -170,15 +177,17 @@ course: Unresectable pleural mesothelioma
     ・The prespecified non-epithelioid subgroup did better
     ・NCCN names it as not included
       - BEAT-meso [t-beat-meso] | OS HR 0.84 (0.66–1.06), non-epithelioid 0.50
-    PS 2 or more
+    join: Maintenance or observation | No progression
+    join: Second line and beyond | Progression
+  PS 2 or more
     ① PS 2: single-agent chemotherapy or palliative care alone 〔ASCO Low, Strong〕
     ・PS 3 or more: palliative care
     ※ ESMO 2022 offers platinum and pemetrexed, with or without bevacizumab, up to PS 2
     ※ Other chemotherapy options 〔NCCN 2A, useful in certain circumstances〕
     ・Pemetrexed not possible: platinum with gemcitabine
     ・Unfit for a platinum doublet: pemetrexed or vinorelbine alone
-    next: Maintenance or observation | No progression
-    next: Second line and beyond
+    join: Maintenance or observation | No progression
+    join: Second line and beyond | Progression
   Maintenance or observation
     ① After bevacizumab with cisplatin and pemetrexed: continue bevacizumab 〔ESMO I, A〕
     ・Graded in the ESMO algorithm only

@@ -87,7 +87,7 @@ course: Advanced prostate cancer
     + PROSPER | OS HR
     + ARAMIS | OS HR
     ※ Each trial about doubled metastasis-free survival
-    Metastases on this treatment: ③
+    ※ When metastases appear on this treatment, the next step is ③
 
   Metastatic at diagnosis, castration-sensitive
     next: Metastatic, castration-resistant
@@ -118,8 +118,8 @@ course: Advanced prostate cancer
     next: ② After ADT and docetaxel
     next: ③ After ADT and an ARSI
     next: ④ After ADT, an ARSI and docetaxel
-    = Progression on ADT with testosterone below 50 ng/dL
-    = The next treatment depends on what was given before
+    Progression on ADT with testosterone below 50 ng/dL
+    ※ The next treatment depends on what was given before
     ※ Most trials for this stage enrolled men who had never had an ARSI
 
   ① After ADT alone
@@ -140,8 +140,8 @@ course: Advanced prostate cancer
       ・EU authorisation withdrawn
       ・Not available outside the US
       + IMPACT [t-impact--advanced-prostate] | OS HR
-    After docetaxel: ②
-    After an ARSI: ③
+    ※ After docetaxel, the next step is ②
+    ※ After an ARSI, the next step is ③
 
   ② After ADT and docetaxel
     = Abiraterone or enzalutamide
@@ -150,7 +150,7 @@ course: Advanced prostate cancer
     = Cabazitaxel
     + TROPIC | OS HR
     ※ All three enrolled men before an ARSI was used for castration-sensitive disease
-    After an ARSI: ④
+    ※ After an ARSI, the next step is ④
 
   ③ After ADT and an ARSI
     = Docetaxel
@@ -163,7 +163,7 @@ course: Advanced prostate cancer
       ・OS did not differ
       ~ PSMAfore | rPFS HR
     ※ A second ARSI did worse than cabazitaxel in CARD (④)
-    After docetaxel: ④
+    ※ After docetaxel, the next step is ④
 
   ④ After ADT, an ARSI and docetaxel
     = Cabazitaxel

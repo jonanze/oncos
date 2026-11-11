@@ -107,24 +107,6 @@ course: Early and locally advanced NSCLC
   Surgery
     Operable, and the MDT judges complete resection possible: stage I–II 〔ESMO III, A〕 〔JLCS C, 1〕, and selected stage III
     ※ N2 disease: the MDT chooses between surgery and definitive chemoradiotherapy 〔ESMO V, A〕 〔NCCN 2A〕 〔JLCS C, 1〕
-    Extent of resection
-    ① Peripheral, node-negative, 2 cm or less: sublobar resection, segmentectomy rather than wedge 〔ESMO I, A〕
-      + JCOG0802 [t-jcog-0802-wjog-4607l] | OS HR 0.663
-      ~ CALGB 140503 [t-calgb-140503] | DFS HR 1.01
-      ※ Lobectomy, segmentectomy and wedge resection are rated equivalent here 〔ACCP Moderate, Conditional〕
-      ※ Segmentectomy or wedge resection for peripheral T1a–b N0 〔NCCN 2A〕
-      ※ The choice follows the solid part of the tumour 〔JLCS B, 1〕
-      ・25% or less of its diameter: segmentectomy or wedge
-      ・Over 25% to 50%: segmentectomy
-      ・Over 50%: segmentectomy or lobectomy
-    ② Solid on CT and larger than 2 cm: lobectomy 〔ESMO II, B〕
-    ・Lobectomy or more for stage IA3–II 〔JLCS B, 1〕
-    ※ VATS or robotic surgery in stage I–II 〔ESMO I, A〕
-    ・VATS in stage I 〔JLCS B, 1〕
-    ※ Lymph node stations
-    ・At least 3 mediastinal and 3 hilar stations 〔ESMO III, A〕
-    ・At least 3 N2 and 1 N1 stations, or complete dissection 〔NCCN 2A〕
-    ・Node dissection or sampling 〔JLCS B, 1〕
     next: Neoadjuvant or perioperative
     next: Upfront resection
   No surgery
@@ -149,6 +131,7 @@ course: Early and locally advanced NSCLC
       + RATIONALE-315 | OS HR
       ※ Toripalimab improved EFS in a trial in China
       ・Not in ESMO 1.3, NCCN or JLCS
+      ・Toripalimab has EU and US licences for other cancers, not for NSCLC
         ~ Neotorch | EFS HR
     ※ ESMO states no preference between neoadjuvant only and perioperative treatment
     ※ EGFR exon 19 or L858R, stage II–IIIB: osimertinib with or without chemotherapy before surgery, then osimertinib 〔NCCN 2A〕
@@ -160,9 +143,27 @@ course: Early and locally advanced NSCLC
     ※ Superior sulcus tumour, T3–4 N0–1: concurrent chemoradiotherapy, then surgery 〔ESMO III, B〕 〔NCCN 2A〕 〔JLCS C, 1〕
     ※ Chemotherapy alone before surgery improved survival, when immunotherapy is not suitable 〔NCCN 2A〕 〔JLCS BQ1, B〕
     ・Not in stage I–IIA 〔JLCS C, 2〕
-      + Preoperative chemotherapy meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group] | OS HR
+      + Meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group] | OS HR
     next: After chemotherapy with immunotherapy and surgery
   Upfront resection
+    Extent of resection
+    ① Peripheral, node-negative, 2 cm or less: sublobar resection, segmentectomy rather than wedge 〔ESMO I, A〕
+      + JCOG0802 [t-jcog-0802-wjog-4607l] | OS HR 0.663
+      ~ CALGB 140503 [t-calgb-140503] | DFS HR 1.01
+      ※ Lobectomy, segmentectomy and wedge resection are rated equivalent here 〔ACCP Moderate, Conditional〕
+      ※ Segmentectomy or wedge resection for peripheral T1a–b N0 〔NCCN 2A〕
+      ※ The choice follows the solid part of the tumour 〔JLCS B, 1〕
+      ・25% or less of its diameter: segmentectomy or wedge
+      ・Over 25% to 50%: segmentectomy
+      ・Over 50%: segmentectomy or lobectomy
+    ② Solid on CT and larger than 2 cm: lobectomy 〔ESMO II, B〕
+    ・Lobectomy or more for stage IA3–II 〔JLCS B, 1〕
+    ※ VATS or robotic surgery in stage I–II 〔ESMO I, A〕
+    ・VATS in stage I 〔JLCS B, 1〕
+    ※ Lymph node stations
+    ・At least 3 mediastinal and 3 hilar stations 〔ESMO III, A〕
+    ・At least 3 N2 and 1 N1 stations, or complete dissection 〔NCCN 2A〕
+    ・Node dissection or sampling 〔JLCS B, 1〕
     next: After upfront resection
   SBRT
     Stage I, node-negative 〔ESMO II, A〕 〔NCCN 2A〕
@@ -177,7 +178,7 @@ course: Early and locally advanced NSCLC
     Concurrent chemoradiotherapy with 2–3 cycles of a platinum doublet 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS A, 1〕
     ・60 Gy in daily fractions
     ・60–70 Gy 〔NCCN 2A〕
-      + Concurrent vs sequential meta-analysis [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis] | 3-year OS 23.8% vs 18.1%
+      + Meta-analysis 2010 [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis] | 3-year OS 23.8% vs 18.1%
       + RTOG 9410 | OS median
     ※ Unfit for concurrent treatment
     ・Sequential chemoradiotherapy or radiotherapy alone 〔ESMO I, A〕 〔NCCN 2A〕
@@ -219,18 +220,20 @@ course: Early and locally advanced NSCLC
     ・Licensed in Japan, not in the EU or US
     ・Not listed by NCCN, ESMO or ACCP
       + Kato 2004 {pmid 15102997} | OS improved in stage I adenocarcinoma, P = 0.04
-      + Tegafur-uracil meta-analysis 2005 {pmid 16051951} | OS HR 0.74, 5-year OS 81.5% vs 77.2%
-    ③ No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕
+      + Meta-analysis 2005 {pmid 16051951} | OS HR 0.74, 5-year OS 81.5% vs 77.2%
+    next: No driver
+    next: EGFR, ALK or RET
+    next: Radiotherapy after resection
+  Radiotherapy after resection
+    ① No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕
     ・In pathological stage I–II 〔JLCS A, 1〕
       ※ PORT is allowed for selected high-risk N2, such as extranodal extension or several stations involved 〔NCCN 2A〕
       ・JLCS finds the evidence in N2 insufficient
       - Lung ART | 3-year DFS 47% vs 44%
-    ④ Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕
+    ② Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕
     ・Re-resection is preferred in stage IA–IIA 〔NCCN 2A〕
-    next: No driver
-    next: EGFR, ALK or RET
   No driver
-    Stage II–IIIA, after chemotherapy: a PD-1 or PD-L1 antibody for 1 year 〔ESMO I, A〕 〔NCCN 1〕
+    ① Stage II–IIIA, after chemotherapy: a PD-1 or PD-L1 antibody for 1 year 〔ESMO I, A〕 〔NCCN 1〕
     ・Atezolizumab if PD-L1 is 1% or more
     ・The EU licence for atezolizumab needs PD-L1 50% or more
     ・Pembrolizumab regardless of PD-L1
@@ -253,6 +256,7 @@ course: Early and locally advanced NSCLC
       ~ ALINA | DFS HR
       ※ Ensartinib also improved DFS
       ・Not in ESMO 1.3, NCCN or JLCS
+      ・Ensartinib has a US licence for advanced ALK-positive NSCLC, not for treatment after resection
         ~ ELEVATE | DFS HR
     ③ RET, stage IB–IIIA: selpercatinib for 3 years, also after radiotherapy 〔ESMO I, A〕 〔NCCN 1〕
     ・Not in JLCS
