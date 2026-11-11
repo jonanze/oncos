@@ -350,8 +350,7 @@
       });
       // every step heading the same height, so headings side by side share their top and middle
       var hh = 0;
-      steps.forEach(function(n){ n.hd.style.minHeight = ''; hh = Math.max(hh, n.hd.offsetHeight); });
-      steps.forEach(function(n){ n.hd.style.minHeight = hh + 'px'; });
+      steps.forEach(function(n){ n.hd.style.minHeight = ''; });
       var cols = [];
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); });
       // the bands share the width of the step columns above them
@@ -371,7 +370,9 @@
             // level with the middle of the steps that lead here, so its main line runs straight
             var own = n.preds.filter(function(p){ return p.group === n.group; });
             var ys = (own.length ? own : n.preds).map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
-            n.hh = n.hd.offsetHeight;
+            // lines leave and enter a step at the middle of the whole box, so boxes centre on each other
+            // (Jonan 2026-11-11, "centre the lines with the boxes for a more symmetrical feel")
+            n.hh = n.el.offsetHeight;
             n.want = !ys.length ? Infinity : ys.length % 2 ? ys[h] : (ys[h - 1] + ys[h]) / 2;
           });
           mine.sort(function(a, z){ return a.want === z.want ? a.k - z.k : a.want - z.want; });
@@ -382,17 +383,26 @@
             cursor = top + n.el.offsetHeight + CGY;
           });
         });
-        // a step with one line to one step that was pushed lower (by a step above it in its column):
-        // move it down level with that step so the line runs straight, when the line into it bends
-        // already or there is none, and no step below it is in the way; right to left, so a move can carry on
+        // a step whose line runs to a step that was pushed lower (a taller step, or one below another in its
+        // column) moves down level with it, so boxes centre on each other and the line runs straight: a step
+        // with one line, or the top branch of a step that divides. When a step below is in the way, the step
+        // keeps that floor and the group is placed again, pushing the steps below down. Right to left, so a
+        // move can carry on to the left
+        var pushed = false;
         for (var c = cols.length - 1; c >= 0; c--) {
           var mine = cols[c].filter(function(n){ return n.group === gi; }).sort(function(a, z){ return a.y - z.y; });
           mine.forEach(function(n, k){
-            if (n.next.length !== 1 || n.next[0].join || n.next[0].node.preds.length !== 1) return;
-            var dy = n.next[0].node.cy - n.cy, below = mine[k + 1];
-            if (dy <= 0) return;
+            var own = n.next.filter(function(e){ return !e.join; });
+            if (!own.length) return;
+            var top = own.slice().sort(function(a, z){ return a.node.cy - z.node.cy; })[0], t = top.node;
+            if (t.preds.length !== 1) return;
+            var dy = t.cy - n.cy, below = mine[k + 1];
+            if (dy <= 0.5) return;
             if (n.preds.some(function(p){ return p.next.length === 1 && Math.abs(p.cy - n.cy) < 1; })) return;
-            if (below && n.y + dy + n.el.offsetHeight + CGY > below.y) return;
+            if (below && n.y + dy + n.el.offsetHeight + CGY > below.y) {
+              if (n.y + dy > n.minTop + 0.5) { n.minTop = n.y + dy; pushed = true; }
+              return;
+            }
             n.y += dy; n.cy += dy; n.el.style.top = n.y + 'px';
           });
         }
@@ -422,7 +432,7 @@
             });
           });
         });
-        if (!moved) break;
+        if (!moved && !pushed) break;
         }
         cols.forEach(function(list, c){
           list.forEach(function(n){
@@ -632,7 +642,8 @@
       (function ext(n){
         if (!n.children.length) {
           var lh = n.leaf ? n.leaf.offsetHeight : 0;
-          n.up = n.h / 2; n.down = Math.max(n.h / 2, lh - n.h / 2); return;
+          // the text box is centred on its label, so the line enters it at its middle
+          n.up = n.down = Math.max(n.h / 2, lh / 2); return;
         }
         n.children.forEach(ext);
         // each branch sits just below the one above it, so a tall branch leaves no gap between short ones
@@ -649,7 +660,7 @@
       (function place(n, cy){
         n.cy = cy; n.y = cy - n.h / 2;
         n.el.style.left = n.x + 'px'; n.el.style.top = n.y + 'px';
-        if (n.leaf) { n.leaf.style.left = textX + 'px'; n.leaf.style.top = n.y + 'px'; }
+        if (n.leaf) { n.leaf.style.left = textX + 'px'; n.leaf.style.top = (cy - n.leaf.offsetHeight / 2) + 'px'; }
         n.children.forEach(function(c){ place(c, cy + c.off - (n === root ? lift : 0)); });
       })(root, treeTop + (k0 ? Math.max(root.h / 2, k0.up) : root.up));
 
@@ -681,7 +692,7 @@
         var y1 = g.n.cy - g.n.up, y2 = g.n.cy + g.n.down, mid = (y1 + y2) / 2, bx = braceX + g.lvl * BSTEP;
         var gh = g.ps.reduce(function(s, p){ return s + p.el.offsetHeight; }, 0) + 32 * (g.ps.length - 1);
         var y = Math.max(lastBottom + 32, mid - gh / 2);
-        var hys = g.ps.map(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = y + 'px'; var hy = y + p.el.firstChild.offsetHeight / 2 + 14; y += p.el.offsetHeight + 32; return hy; });
+        var hys = g.ps.map(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = y + 'px'; var hy = y + p.el.offsetHeight / 2; y += p.el.offsetHeight + 32; return hy; });
         lastBottom = y - 32;
         svg += '<path d="' + bracePath(bx, y1, y2, 9) + '"/>';
         // tip to a fork in the gap before the panels, then across to each panel's title
@@ -701,7 +712,7 @@
         L.src.push(p);
       }); });
       lanes.forEach(function(L){
-        var hy = function(p){ return p.el.offsetTop + p.el.firstChild.offsetHeight / 2; };
+        var hy = function(p){ return p.el.offsetTop + p.el.offsetHeight / 2; };
         var ty = hy(L.t), ys = L.src.map(hy), lo = Math.min.apply(null, ys.concat(ty)), hi = Math.max.apply(null, ys.concat(ty));
         var tx = L.t.el.offsetLeft + L.t.el.offsetWidth;
         L.src.forEach(function(p, i){ svg += rpath([[p.el.offsetLeft + p.el.offsetWidth, ys[i]], [L.x, ys[i]], [L.x, ty], [tx, ty]]); });
