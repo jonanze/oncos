@@ -39,6 +39,22 @@
 #   Option order follows the guidelines' preference; where they disagree each differing guideline gets its own ・ line
 #   source: ESMO {url https://...}   a guideline held as a link; 〔ESMO I, A〕 at the end of a statement
 #                   marks it as resting on that guideline, with its printed evidence and grade
+#   Presentation (Jonan 2026-11-11). node maps/render-check.cjs checks the drawn map and must report 0 faults
+#     on every draft and release, with node maps/check.cjs
+#     Square lines with no arrowheads. Every line label is centred on the line as drawn. No line runs under
+#       a box or crosses another line
+#     Steps are named, never numbered. Text never points to a step or an option by its number
+#     No restated lines. Guidelines that agree share one line with all their tags. A ・ line is only for a
+#       real disagreement
+#     Options with the same population and guideline support merge into one line, with any licence
+#       difference on a ・ line
+#     One disease state is one step. Differences within it, such as de novo and metachronous disease, go on
+#       ・ lines under the shared option
+#     A vague guideline term such as "selected men" is defined from the guideline's text. Where a paraphrase
+#       reads unclear, the guideline's own words are used
+#     A laboratory threshold gives the SI unit beside the conventional unit: 50 ng/dL (1.7 nmol/L)
+#     A wrapped line starts under its text. No word is carried down to a tag's line. An untagged statement
+#       keeps no single word alone on its last line. Each trial name has a ・ bullet and never wraps
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
 #     〔NCCN category, preference〕 NCCN Prostate Cancer 1.2027 (12 October 2026), pages PROS-12 to PROS-18A,
 #       PROS-B, PROS-C and PROS-G; category 2A unless stated; options NCCN alone lists sit on ※ lines;
