@@ -2,13 +2,13 @@
  * STORAGE FIRST (Jonan, 2026-11-10): the release in storage opens at once; a new
  * release installs in the background and shows at the next open. Every file is
  * stored under its own content hash, so a release downloads only what changed. */
-const VERSION = '321c735418de';
+const VERSION = 'ead1aa8aba1f';
 const STORE = 'oncos-one-files';
 const RUNTIME = 'oncos-one-runtime';
 const PREFIX = 'oncos-one-';
 const ASSETS = [
-  ['./', '833c3eab75bdcbd6'],
-  ['./index.html', '833c3eab75bdcbd6'],
+  ['./', 'b4f477ae9c5f8ce4'],
+  ['./index.html', 'b4f477ae9c5f8ce4'],
   ['./manifest.webmanifest', '683d723a65e56ade'],
   ['./icon-192.png', '5a5c1ffe7e24816d'],
   ['./icon-512.png', 'ce1e5434261aca67'],
@@ -21,7 +21,7 @@ const ASSETS = [
   ['./cell-loader.png', 'b543a3ef1b48ed09'],
   ['./views/evidence.html', '450d502bc7d551cf'],
   ['./views/staging.html', 'b19b0795b5572620'],
-  ['./views/drill.html', '44b688116e8f9ef9'],
+  ['./views/drill.html', '62488f5315a0c449'],
   ['./views/drugs.html', '7ad82e38457b8c7b'],
   ['./views/tox.html', '6a636722d33dd09b'],
   ['./views/acute.html', 'e03ec1bd023d144d'],

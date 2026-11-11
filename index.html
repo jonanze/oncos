@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.42">
+<meta name="application-version" content="2.2.43">
 <title>oncOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#dfe4ea">
@@ -1078,6 +1078,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   var viewnav = document.getElementById('viewnav');
   var cache = {};          // name -> parsed fragment + compiled view script
   var kept = {};           // name -> a mounted view held in memory while another shows (B5)
+  var mounted = null;      // the view whose page is on screen; go() sets current before mount() runs
   var loads = {};          // url -> one shared download (data files, view scripts)
   var current = null;      // active view name
   var remembered = {};     // current-tab presentation snapshots; never persisted
@@ -1404,7 +1405,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     if (active && active.destroy) { try { active.destroy(); } catch (_) {} }
     delete kept[name];
     releaseCaptured(); active = null; window.oncosView = null; failedView = true;
-    current = name; root.setAttribute('data-view', name); syncSuiteChrome(name);
+    current = name; mounted = null; root.setAttribute('data-view', name); syncSuiteChrome(name);
     viewnav.replaceChildren(); viewroot.replaceChildren(); viewroot.classList.remove('leaving');
     document.body.classList.remove('nav-open');
     var box = document.createElement('section'); box.className = 'view-error';
@@ -1514,8 +1515,11 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   // are taken off and kept, and returning puts all of it back unchanged. The
   // page is built again only in a new release, which shows at the next open.
   function keepActive(){
-    if (!active || !current || failedView) return false;
-    kept[current] = {view:active, root:Array.prototype.slice.call(viewroot.childNodes),
+    // Filed under the view being left, never the incoming one (2026-11-11: keyed by
+    // `current`, which go() has already moved on, the first switch to any module
+    // restored the old page as the new module's).
+    if (!active || !mounted || failedView) return false;
+    kept[mounted] = {view:active, root:Array.prototype.slice.call(viewroot.childNodes),
       nav:Array.prototype.slice.call(viewnav.childNodes), listeners:capt,
       labelled:viewroot.getAttribute('aria-labelledby')};
     capt.forEach(function(c){ (c[0]==='d'?document:window).removeEventListener(c[1],c[2],c[3]); });
@@ -1547,7 +1551,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
       restoreKept(name);
       viewnav.querySelectorAll('.active,.on').forEach(function(n){ focusGroup(n); });
       syncSuiteChrome(name);
-      failedView = false;
+      failedView = false; mounted = name;
       document.dispatchEvent(new CustomEvent('oncos:view-mounted', {detail:{name:name, kept:true}}));
       return;
     }
@@ -1589,7 +1593,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     }
     viewnav.querySelectorAll('.active,.on').forEach(function(n){ focusGroup(n); });
     syncSuiteChrome(name);
-    failedView = false;
+    failedView = false; mounted = name;
     document.dispatchEvent(new CustomEvent('oncos:view-mounted', {detail:{name:name, kept:false}}));
   }
   // `hash` is carried only for a cross-view deep link (/evidence/#t-<slug>): the

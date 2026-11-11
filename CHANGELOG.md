@@ -2,6 +2,11 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.43] - 2026-11-11
+
+- Fix: the first switch to a module showed the previous module's page with "Loading …" over it (2.2.42). The page left is now kept under its own name, so each module opens as itself and returning restores the page left.
+- Practice: six more trials in the debrief link to their Evidence rows (CALGB 140503, OVHIPEC-1, Perry 2017, Sargent pooled analysis, Zhang 2019, Chen 2021).
+
 ## [2.2.42] - 2026-11-10
 
 - Evidence rows come from one data file, read by the sheet, the search and the maps, and stored once; after an Evidence publish a returning visit downloads about 0.7 MB instead of about 2.2 MB.
