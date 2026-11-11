@@ -55,10 +55,12 @@
 .om-world .br7{--brc:var(--br7)}.om-world .br7.pale{--brc:var(--bp7)}
 .om-world .br8{--brc:var(--br8)}.om-world .br8.pale{--brc:var(--bp8)}
 
-/* a band's items side by side */
-.om-world .band .bitems{display:flex;flex-wrap:wrap;gap:4px 40px}
-.om-world .band .bi{min-width:0;max-width:520px}
-.om-world .band .bi>.ln.num:first-child{margin-top:0}
+/* a block's text in columns of one reading width, balanced by the browser (canvas.js colsHtml); an option and
+   its lines stay together, and the space between options is the group's top margin, dropped at a column top */
+.om-world .cols{column-width:460px;column-gap:32px;column-fill:balance}
+.om-world .cols>.grp{break-inside:avoid}
+.om-world .cols>.grp+.grp{margin-top:12px}
+.om-world .cols>.grp>.ln:first-child{margin-top:0}
 
 /* the risk key of a map with a risk scale; maps carry no title (Jonan 2026-11-11) */
 .om-world .tblk{color:var(--wb-ink)}
@@ -173,9 +175,6 @@
   .om-idx button{flex:none;font:inherit;font-size:12px;padding:4px 10px;border:0;border-radius:999px;background:var(--b-cell);color:var(--b-ink);cursor:pointer}
   .om-idx button.on{background:var(--b-ink);color:var(--b-paper)}
 }
-/* a long step runs in two columns under one title (canvas.js twoCols) */
-.om-world .two>.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:32px;align-items:start}
-.om-world .two>.cols>div>.ln:first-child{margin-top:0}
 /* full screen: the map pane covers the page (evidence-maps.js full) */
 .om-fs{display:none}
 html.om-full,html.om-full body{overflow:hidden}

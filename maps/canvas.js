@@ -24,8 +24,8 @@
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   // tree spacing widened (Jonan 2026-11-11, "cramped up narrowly with no breathing room")
-  var GX = 160, GY = 48, LEAF_W = 760, LEAF_GAP = 120, PANEL_W = 440, BAND_W = 520, M = 28;
-  var COL2_CHARS = 1400, LEAF2_CHARS = 1000, COL_W = 560, COL_GAP = 32, STEP_W = 480, STEP_MAX = 820, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 176;
+  var GX = 160, GY = 48, LEAF_GAP = 120, M = 28;
+  var COL_W = 460, COL_GAP = 32, PAD = 32, COL_MAX = 4, SCREEN = 0.55, STEP_W = COL_W + PAD, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -146,36 +146,24 @@
     var e = pts[pts.length - 1];
     return '<path d="' + d + ' L' + e[0] + ' ' + e[1] + '"/>';
   }
-  // a step widens with the amount of text in it, so a long step is not a tall narrow column
-  // (Jonan 2026-11-11, "widened so that the map is not so vertically skewed"): about as wide as it is tall
-  function textChars(ls){ return ls.reduce(function(s, l){ return s + String(l.text || l.name || '').length + 6; }, 0); }
-  function stepWidth(ls){
-    var chars = textChars(ls);
-    return Math.round(Math.min(STEP_MAX, Math.max(STEP_W, Math.sqrt(170 * chars))));
-  }
-  // a step with a long text runs in two columns, split between two options where the halves come
-  // closest in length, so the box is wide rather than tall without making its lines longer (Jonan 2026-11-11)
-  function twoCols(ls){
-    var total = textChars(ls);
-    if (ls.some(function(l){ return l.kind === 'grid'; })) return null;
-    // a plain heading line ("After chemotherapy alone") is the preferred place to split, when it is near enough the middle
-    var best = -1, gap = Infinity, run = 0;
-    ls.forEach(function(l, i){
-      if (i && !l.level && /^(num|cv|text|tx|se)$/.test(l.kind)) {
-        var g = Math.abs(2 * run - total) / total - (l.kind === 'text' ? 0.3 : 0);
-        if (g < gap) { gap = g; best = i; }
-      }
-      run += textChars([l]);
+  // a block's text runs in columns of one reading width (COL_W), side by side under its title, so a long block
+  // grows wide rather than tall without making its lines longer; the browser balances the columns. Each option
+  // keeps its ・ lines and trials with it, and a plain heading line keeps with the option below it.
+  // How many columns each block takes is chosen so the whole map comes out the shape of a PC screen (fitTo)
+  // (Jonan 2026-11-11, "the optimal box height/width ratio to allow as much of the map to fit on a typical pc screen")
+  function hasGrid(ls){ return ls.some(function(l){ return l.kind === 'grid'; }); }
+  function colsHtml(ls){
+    if (hasGrid(ls)) return linesHtml(ls);
+    var groups = [], cur = null, head = false;
+    ls.forEach(function(l){
+      var top = !l.level && l.kind !== 'sub' && l.kind !== 'trial' && l.kind !== 'grid';
+      if (!cur || (top && !(head && l.kind !== 'text'))) { cur = []; groups.push(cur); head = top && l.kind === 'text'; }
+      else if (top) head = false;
+      cur.push(l);
     });
-    return best > 0 ? [ls.slice(0, best), ls.slice(best)] : null;
+    return '<div class="cols">' + groups.map(function(g){ return '<div class="grp">' + linesHtml(g) + '</div>'; }).join('') + '</div>';
   }
-  // the body of a block: one column, or two when its text is long; width is the block's width
-  function body(ls, w, min, colW){
-    var halves = textChars(ls) >= min && twoCols(ls);
-    if (!halves) return {html: linesHtml(ls), w: widthFor(ls, w), two: false};
-    var cw = colW || Math.max(stepWidth(halves[0]), stepWidth(halves[1]));
-    return {html: '<div class="cols"><div>' + linesHtml(halves[0]) + '</div><div>' + linesHtml(halves[1]) + '</div></div>', w: 2 * cw + COL_GAP, two: true};
-  }
+  function colsWidth(n){ return n * COL_W + (n - 1) * COL_GAP + PAD + 1; }
   function bracePath(x, y1, y2, d){
     var m = (y1 + y2) / 2, k = Math.min(6, (y2 - y1) / 4);
     return 'M'+x+' '+y1+' Q'+(x+d)+' '+y1+' '+(x+d)+' '+(y1+k)+' L'+(x+d)+' '+(m-k)+' Q'+(x+d)+' '+m+' '+(x+2*d)+' '+m+
@@ -197,15 +185,35 @@
       if (w) el.style.width = w + 'px';
       world.appendChild(el); return el;
     }
+    // every text block, with the width it takes at n columns; a block with a grid keeps one column
+    var blocks = [];
+    function sized(el, ls, set){
+      var b = {el: el, grid: hasGrid(ls), set: set, n: 1, h1: 0};
+      b.width = function(n){ return b.grid ? widthFor(ls, STEP_W) : colsWidth(n); };
+      var box = el.querySelector('.cols');
+      function put(n){ b.n = n; var w = b.width(n); el.style.width = w + 'px'; set(w); }
+      // a block takes n columns only when every column gets text and the columns come out near even (the tallest
+      // within a quarter of an even share), otherwise one column fewer: a block is never wider than its text
+      // (Jonan 2026-11-11, "boxes are widened but without any text filling the space")
+      b.cols = function(n){
+        if (b.grid || !box) { put(1); return; }
+        for (n = Math.max(1, n); n > 1; n--) {
+          put(n);
+          var xs = {}; Array.prototype.forEach.call(box.children, function(g){ xs[g.offsetLeft] = 1; });
+          if (Object.keys(xs).length === n && box.offsetHeight <= 1.25 * b.c1 / n) return;
+        }
+        put(1);
+      };
+      put(1); b.c1 = box ? box.offsetHeight : 0; blocks.push(b); return b;
+    }
     var course = !!model.tree.course, steps = course ? model.tree.children : null, elabs = [];
     var plabs = {};   // labels on panel next: lines, made once and moved on each layout
     if (course) {
       nodes = steps;
       steps.forEach(function(n){
-        var b = body(n.lines, stepWidth(n.lines), COL2_CHARS);
-        n.w = b.w;
-        n.el = add('step' + brc(n) + (b.two ? ' two' : ''), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + b.html, n.w);
+        n.el = add('step' + brc(n), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + colsHtml(n.lines));
         n.hd = n.el.firstChild;
+        sized(n.el, n.lines, function(w){ n.w = w; });
       });
       // join: lines to one step with one label carry that label once, on their shared line
       var joinLab = {};
@@ -216,23 +224,19 @@
       }); });
     } else nodes.forEach(function(n){
       n.el = add('box lbl' + (n.depth ? '' : ' root') + brc(n), keep(n.label));
-      if (n.lines.length) { var b = body(n.lines, LEAF_W, LEAF2_CHARS, COL_W); n.leaf = add('leaf' + brc(n) + (b.two ? ' two' : ''), b.html, b.w); n.leafW = b.w; leaves.push(n); }
+      if (n.lines.length) { n.leaf = add('leaf' + brc(n), colsHtml(n.lines)); sized(n.leaf, n.lines, function(w){ n.leafW = w; }); leaves.push(n); }
     });
     // no title block: the map opens on the flowsheet itself (Jonan 2026-11-11, "remove the title altogether").
     // A map with a risk scale keeps its colour key in that place
     var keys = SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; });
     var tblk = keys.length ? add('tblk', '<div class="keys">' + keys.join('') + '</div>') : null;
-    // a band's items sit side by side when the band runs the width of the map (board layout)
-    function bandItems(ls){
-      var groups = [], cur = null;
-      ls.forEach(function(l){ if (!cur || (!l.level && l.kind !== 'sub' && l.kind !== 'trial')) { cur = []; groups.push(cur); } cur.push(l); });
-      return '<div class="bitems">' + groups.map(function(g){ return '<div class="bi">' + linesHtml(g) + '</div>'; }).join('') + '</div>';
-    }
-    var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + bandItems(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); el.chars = textChars(b.lines); return el; });
+    var bands = model.bands.map(function(b){
+      var el = add('band', '<h2>' + esc(b.title) + '</h2>' + colsHtml(b.lines));
+      sized(el, b.lines, function(w){ el.w = w; }).band = true; return el;
+    });
     var panels = model.panels.map(function(p){
-      var b = course ? {html: linesHtml(p.lines), w: widthFor(p.lines, PANEL_W), two: false} : body(p.lines, PANEL_W, COL2_CHARS, COL_W);
-      p.w = b.w; p.two = b.two;
-      p.el = add('panel' + (p.lines.some(function(l){ return l.kind === 'grid'; }) ? ' open' : '') + (b.two ? ' two' : '') + brc(p), '<h2>' + esc(p.title) + '</h2>' + b.html, p.w);
+      p.el = add('panel' + (hasGrid(p.lines) ? ' open' : '') + brc(p), '<h2>' + esc(p.title) + '</h2>' + colsHtml(p.lines));
+      sized(p.el, p.lines, function(w){ p.w = w; });
       return p;
     });
 
@@ -250,21 +254,46 @@
       return steps.every(function(n){ return n.next.every(function(e){ return e.node.col === n.col + 1; }); });
     }
     var board = boardShape();
+    function layoutOnce(){
+      if (board) layoutBoard(); else if (course) layoutCourse(); else layoutTree();
+      finish();
+    }
+    // the map takes the shape of a PC screen: a 1920 x 1080 screen leaves a map area about 1600 x 850 beside the
+    // site's sidebar, and full screen is 16:9, so height over width near SCREEN (0.55). Each block takes the number
+    // of columns that makes it about r times as tall as it is wide; r is searched until the whole map is that shape
     function layout(){
-      if (board) { layoutBoard(); finish(); return; }
-      if (course) layoutCourse(); else layoutTree(); finish();
+      blocks.forEach(function(b){ b.cols(1); b.h1 = b.el.offsetHeight; b.c1 = b.el.querySelector('.cols') ? b.el.querySelector('.cols').offsetHeight : 0; });
+      function shape(r){
+        // the bands start at one column and widen in bandsRow to the width of the map below them
+        blocks.forEach(function(b){ b.cols(b.band ? 1 : Math.max(1, Math.min(COL_MAX, Math.round(Math.sqrt(b.h1 / (r * b.width(1))))))); });
+        layoutOnce();
+        return H / W;
+      }
+      var lo = Math.log(0.05), hi = Math.log(4), best = null;
+      for (var i = 0; i < 8; i++) {
+        var mid = (lo + hi) / 2, a = shape(Math.exp(mid)), d = Math.abs(Math.log(a / SCREEN));
+        if (!best || d < best.d) best = {r: Math.exp(mid), d: d};
+        if (a > SCREEN) hi = mid; else lo = mid;
+      }
+      shape(best.r);
     }
     var svg = '';
 
     function bandsRow(span){
       if (tblk) { tblk.style.left = M + 'px'; tblk.style.top = M + 'px'; }
       var bx = M, bandH = 0, top = M + (tblk ? tblk.offsetHeight + 28 : 0);
-      // given the map's width, the bands share it in one row, each as wide as its share of the text, so all come
-      // out about the same depth and a long band spreads its items side by side instead of making a tall column
-      // (Jonan 2026-11-11, "not so vertically skewed")
+      // the bands share one row; while the row is narrower than the map below it, the tallest band takes
+      // another column, so the bands come out about the same depth and fill the width
       if (span && bands.length) {
-        var room = span - 40 * (bands.length - 1), total = bands.reduce(function(t, el){ return t + el.chars; }, 0);
-        bands.forEach(function(el){ var w = Math.max(320, room * el.chars / total); el.w = w; el.style.width = w + 'px'; });
+        var bb = blocks.filter(function(b){ return bands.indexOf(b.el) >= 0; });
+        var rowW = function(){ return bb.reduce(function(t, b){ return t + b.width(b.n); }, 0) + 40 * (bb.length - 1); };
+        bb.forEach(function(b){ b.full = false; });
+        for (var guard = 0; guard < 24; guard++) {
+          var tall = bb.filter(function(b){ return !b.grid && !b.full && b.n < COL_MAX; }).sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })[0];
+          if (!tall || rowW() + COL_W + COL_GAP > span) break;
+          var was = tall.n; tall.cols(was + 1);
+          if (tall.n === was) tall.full = true;
+        }
       }
       bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = top + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
       return {x:bx, top:top + (bands.length ? bandH + 28 : 0)};
@@ -287,12 +316,8 @@
       var colX = [M], colW = cols.map(function(list){ return Math.max.apply(null, list.map(function(n){ return n.w; })); });
       cols.forEach(function(list, c){ colX[c + 1] = colX[c] + colW[c] + gapW[c]; });
       var width = colX[cols.length] - gapW[cols.length - 1] - M;
-      bands.forEach(function(el){ el.style.width = Math.max(el.w, width) + 'px'; el.w = Math.max(el.w, width); });
-      // bands run the full width, one under another
-      if (tblk) { tblk.style.left = M + 'px'; tblk.style.top = M + 'px'; }
-      var btop = M + (tblk ? tblk.offsetHeight + 28 : 0);
-      bands.forEach(function(el){ el.style.left = M + 'px'; el.style.top = btop + 'px'; btop += el.offsetHeight + 28; });
-      var b = {top: btop};
+      // bands share one row above the columns, as on a course
+      var b = bandsRow(width);
       var colH = cols.map(function(list){ return list.reduce(function(h, n){ return h + n.el.offsetHeight; }, 0) + SG * (list.length - 1); });
       var axis = b.top + Math.max.apply(null, colH) / 2;
       cols.forEach(function(list, c){
@@ -580,7 +605,6 @@
       });
       var right = colX[cols.length] - CGX, loose = b.top;
       panels.forEach(function(p){
-        p.el.style.width = (p.w > PANEL_W ? p.w : STEP_W) + 'px';
         var n = p.join && by[p.join];
         if (n) { p.el.style.left = n.x + 'px'; p.el.style.top = panelTop[n.col] + 'px'; panelTop[n.col] += p.el.offsetHeight + CGY; }
         else { p.el.style.left = (right + CGX) + 'px'; p.el.style.top = loose + 'px'; loose += p.el.offsetHeight + CGY; }
@@ -676,9 +700,7 @@
       nodes.forEach(function(n){ n.el.style.width = colW[n.depth] + 'px'; n.h = n.el.offsetHeight; n.x = colX[n.depth]; });
 
       // panels a little wider than on a course map, and the bands in one row above the tree, sharing its width
-      var TPW = 520;
-      panels.forEach(function(p){ if (p.w < TPW) { p.w = TPW; p.el.style.width = TPW + 'px'; } });
-      var leafR = leaves.reduce(function(m, n){ return Math.max(m, n.leafW); }, LEAF_W);
+      var leafR = leaves.reduce(function(m, n){ return Math.max(m, n.leafW); }, 0);
       var spanR = textX + leafR + 240 + panels.reduce(function(m, p){ return Math.max(m, p.w); }, 0);
       var b0 = bandsRow(spanR - M), bx = b0.x, treeTop = b0.top;
 
@@ -730,7 +752,7 @@
       groups.forEach(function(g){ g.lvl = 0; });
       groups.forEach(function(g){ groups.forEach(function(h){ if (holds(g.n, h.n)) g.lvl = Math.max(g.lvl, h.lvl + 1); }); });
       var maxLvl = groups.reduce(function(m, g){ return Math.max(m, g.lvl); }, 0);
-      var braceX = textX + leafR + 56, BSTEP = 36, panelX = braceX + maxLvl * BSTEP + 120, lastBottom = treeTop - 32, right = panelX + panels.reduce(function(m, p){ return Math.max(m, p.w); }, TPW);
+      var braceX = textX + leafR + 56, BSTEP = 36, panelX = braceX + maxLvl * BSTEP + 120, lastBottom = treeTop - 32, right = panelX + panels.reduce(function(m, p){ return Math.max(m, p.w); }, 0);
       var loose = panels.filter(function(p){ return !p.join; });
       groups.forEach(function(g){
         var y1 = g.n.cy - g.n.up, y2 = g.n.cy + g.n.down, mid = (y1 + y2) / 2, bx = braceX + g.lvl * BSTEP;
