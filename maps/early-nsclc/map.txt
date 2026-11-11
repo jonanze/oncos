@@ -9,7 +9,6 @@
 #           and several join: lines to one step with one label share an upright and that label
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
-#   = text          the treatment for a branch, drawn bold after ★
 #   + Trial | fig   a trial line; the mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
 #   fig with no digits is read from the Evidence row at each publish:
@@ -24,7 +23,8 @@
 #   ※ text          caveat             ° text          side effects, grey
 #   ・ text          one statement under the line above (a guideline's position, a licence, a condition);
 #                   one statement per line, no chains of clauses joined by semicolons (Jonan 2026-11-10)
-#   ① text          numbered item; plain lines in a band or panel are text
+#   ① text          a numbered option or item, in order of guideline preference, in every step, node,
+#                   band and panel. A single option is ① too (Jonan 2026-11-11)
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
 #   off:            sheet rows left off on purpose: Trial [t-...] | reason
 #   source: ESMO {url https://...}   a guideline, held as a link; 〔ESMO I, A〕 at the end of a statement marks it as

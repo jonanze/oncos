@@ -33,6 +33,7 @@ for (const dir of fs.readdirSync(__dirname)) {
     if (/^\s*#/.test(t)) return;
     const lab = /^\s+(?:next|join):.*\|\s*(.)/.exec(t);
     if (lab && /[a-z]/.test(lab[1])) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' line label starts in lower case: "' + t.trim() + '"'); }
+    if (/^\s*=\s/.test(t)) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' option marked with =: number every option ①② in order of preference (Jonan 2026-11-11)'); }
     const hit = BANNED.find(b => b.test(t));
     if (hit) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' wording: "' + t.trim().slice(0, 70) + '" matches ' + hit); }
   });

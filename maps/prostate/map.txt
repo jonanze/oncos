@@ -7,7 +7,6 @@
 #           under it is its content, and "next: Step | label" draws a line to a later step
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
-#   = text          the treatment for a branch
 #   + Trial | fig   a trial line; the mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
 #   fig with no digits is read from the Evidence row at each publish:
@@ -20,7 +19,8 @@
 #   ※ text          caveat             ° text          side effects, grey
 #   ・ text          one statement under the line above (a drug of a class, a licence, a condition);
 #                   one statement per line, no chains of clauses joined by semicolons (Jonan 2026-11-10)
-#   ① text          numbered item; plain lines in a band or panel are text
+#   ① text          a numbered option or item, in order of guideline preference, in every step, node,
+#                   band and panel. A single option is ① too (Jonan 2026-11-11)
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
 #   off:            sheet rows left off on purpose: Trial [t-...] | reason
 #
@@ -93,7 +93,7 @@ course: Advanced prostate cancer
   Rising PSA after surgery or radiotherapy, no metastases on CT or bone scan
     next: Metastatic, castration-sensitive | Metastases appear
     next: Castration-resistant, no metastases on CT or bone scan | PSA rises on ADT
-    = PSA doubling time 9 months or less: enzalutamide with leuprolide 〔NCCN 1〕
+    ① PSA doubling time 9 months or less: enzalutamide with leuprolide 〔NCCN 1〕
       ・Enzalutamide alone 〔NCCN 2A〕
     + EMBARK | OS HR
     ※ Enzalutamide alone delayed metastases but did not lengthen OS
@@ -138,20 +138,20 @@ course: Advanced prostate cancer
 
   Castration-resistant, no metastases on CT or bone scan
     next: Metastatic, castration-resistant | Metastases appear
-    = PSA doubling time 10 months or less: apalutamide, enzalutamide or darolutamide, with ADT 〔NCCN 1, preferred〕 〔ESMO I, A〕
+    ① PSA doubling time 10 months or less: apalutamide, enzalutamide or darolutamide, with ADT 〔NCCN 1, preferred〕 〔ESMO I, A〕
       ・Life expectancy over 5 years 〔ESMO I, A〕
     + SPARTAN | OS HR
     + PROSPER | OS HR
     + ARAMIS | OS HR
     ※ Each trial about doubled metastasis-free survival
     ※ PSMA PET is optional at this stage 〔ESMO III, C〕
-    ※ When metastases appear on this treatment, the next step is ③ After ADT and an ARSI
+    ※ Metastases on this treatment count as progression after an ARSI
 
   Metastatic, castration-resistant
-    next: ① After ADT alone
-    next: ② After ADT and docetaxel
-    next: ③ After ADT and an ARSI
-    next: ④ After ADT, an ARSI and docetaxel
+    next: After ADT alone
+    next: After ADT and docetaxel
+    next: After ADT and an ARSI
+    next: After ADT, an ARSI and docetaxel
     Progression on ADT with testosterone below 50 ng/dL
     ※ The next treatment depends on what was given before
     ※ Most trials for this stage enrolled men who had never had an ARSI
@@ -161,14 +161,14 @@ course: Advanced prostate cancer
       ・Platinum-based chemotherapy 〔ESMO II, B〕
       ・Cabazitaxel with carboplatin 〔NCCN 2A, useful in certain circumstances〕
 
-  ① After ADT alone
-    = Abiraterone or enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
+  After ADT alone
+    ① Abiraterone or enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
     + COU-AA-302 | OS HR
     + PREVAIL | OS HR
-    = Docetaxel 〔NCCN 1, other recommended〕 〔ESMO I, A〕
+    ② Docetaxel 〔NCCN 1, other recommended〕 〔ESMO I, A〕
       ・50 mg/m² every 2 weeks for frail men 〔ESMO I, C〕
     + TAX 327 | OS HR
-    = BRCA altered: talazoparib with enzalutamide, olaparib with abiraterone, or niraparib with abiraterone 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
+    ③ BRCA altered: talazoparib with enzalutamide, olaparib with abiraterone, or niraparib with abiraterone 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
       ・Other HRR genes: talazoparib with enzalutamide 〔NCCN 1, useful in certain circumstances〕
       ・No HRR alteration: talazoparib with enzalutamide or olaparib with abiraterone for selected men 〔ESMO II, C〕
       ・EU licence for talazoparib with enzalutamide and for olaparib with abiraterone without a biomarker
@@ -184,24 +184,21 @@ course: Advanced prostate cancer
       ・Not available outside the US
       ・ESMO does not list it
       + IMPACT [t-impact--advanced-prostate] | OS HR
-    ※ After docetaxel, the next step is ②
-    ※ After an ARSI, the next step is ③
 
-  ② After ADT and docetaxel
-    = Abiraterone or enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
+  After ADT and docetaxel
+    ① Abiraterone or enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
     + COU-AA-301 | OS HR
     + AFFIRM | OS HR
-    = Cabazitaxel 〔ESMO I, A〕
+    ② Cabazitaxel 〔ESMO I, A〕
       ・NCCN lists cabazitaxel only after an ARSI and docetaxel
     + TROPIC | OS HR
     ※ All three enrolled men before an ARSI was used for castration-sensitive disease
-    ※ After an ARSI, the next step is ④
 
-  ③ After ADT and an ARSI
-    = Docetaxel 〔NCCN 1, preferred〕
+  After ADT and an ARSI
+    ① Docetaxel 〔NCCN 1, preferred〕
       ・Preferred over a second ARSI 〔ESMO III, A〕
-    ※ Docetaxel here rests on TAX 327 (①), in men who had never had an ARSI
-    = BRCA1 or BRCA2 altered: olaparib or rucaparib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
+    ※ Docetaxel here rests on TAX 327, in men who had never had an ARSI
+    ② BRCA1 or BRCA2 altered: olaparib or rucaparib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
       ・A PARP inhibitor comes before docetaxel and a second ARSI 〔ESMO III, A〕
       ・Other HRR genes: olaparib 〔NCCN 2A, useful in certain circumstances〕
       ・PALB2: a PARP inhibitor 〔ESMO II, B〕
@@ -209,19 +206,18 @@ course: Advanced prostate cancer
       ・Rucaparib has a US licence and no EU licence for prostate cancer
     + PROfound | OS HR
     ~ TRITON3 | rPFS HR
-    = PSMA PET positive, docetaxel not planned yet: Lu-177 PSMA-617 〔NCCN 2A, useful in certain circumstances〕 〔ESMO I, B〕
+    ③ PSMA PET positive, docetaxel not planned yet: Lu-177 PSMA-617 〔NCCN 2A, useful in certain circumstances〕 〔ESMO I, B〕
       ・US licence, no EU licence before a taxane
     ~ PSMAfore | rPFS HR
     ※ Lu-177 PSMA-617 before a taxane lengthened rPFS
       ・OS did not differ
-    ※ A second ARSI did worse than cabazitaxel in CARD (④)
-    ※ After docetaxel, the next step is ④
+    ※ A second ARSI did worse than cabazitaxel in CARD
 
-  ④ After ADT, an ARSI and docetaxel
-    = Cabazitaxel 〔NCCN 1, preferred〕 〔ESMO I, A〕
+  After ADT, an ARSI and docetaxel
+    ① Cabazitaxel 〔NCCN 1, preferred〕 〔ESMO I, A〕
     + CARD | OS HR
     ※ In CARD, cabazitaxel improved OS over a second ARSI
-    = Lu-177 PSMA-617, 7.4 GBq every 6 weeks, if PSMA PET is positive with no PSMA-negative lesions 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
+    ② Lu-177 PSMA-617, 7.4 GBq every 6 weeks, if PSMA PET is positive with no PSMA-negative lesions 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
       ・Cabazitaxel instead when PSMA uptake is low or does not match CT 〔ESMO II, B〕
     + VISION [t-vision--advanced-prostate] | OS HR
     ※ Docetaxel again 〔NCCN 2A, preferred〕

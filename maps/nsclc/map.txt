@@ -8,7 +8,6 @@
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
 #           "next: Panel | label" in a panel draws a line from it to the named panel (tree maps)
-#   = text          the treatment for a branch
 #   + Trial | fig   a trial line; the mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
 #   fig with no digits is read from the Evidence row at each publish:
@@ -24,7 +23,8 @@
 #   ※ text          caveat             ° text          side effects, grey
 #   ・ text          one statement under the line above (a guideline's position, a licence, a condition);
 #                   one statement per line, no chains of clauses joined by semicolons (Jonan 2026-11-10)
-#   ① text          numbered item; plain lines in a band or panel are text
+#   ① text          a numbered option or item, in order of guideline preference, in every step, node,
+#                   band and panel. A single option is ① too (Jonan 2026-11-11)
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
 #   off:            sheet rows left off on purpose: Trial [t-...] | reason
 #
@@ -93,8 +93,8 @@ tree: Advanced NSCLC, first line
   Driver found
     EGFR
       Exon 19 or L858R
-        = Osimertinib alone 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS A, 1〕
-        = Osimertinib with platinum and pemetrexed, or amivantamab and lazertinib 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS B, 1〕
+        ① Osimertinib alone 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS A, 1〕
+        ② Osimertinib with platinum and pemetrexed, or amivantamab and lazertinib 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS B, 1〕
         ・A third-generation TKI, alone or in combination 〔ESMO I, A〕
         ・A combination for patients with brain metastases 〔ESMO II, B〕
         ・ASCO recommends osimertinib alone for patients who do not choose a combination
@@ -102,7 +102,7 @@ tree: Advanced NSCLC, first line
         + FLAURA2 | OS HR
         + MARIPOSA | OS HR
         ° Grade 3 or higher events 70% vs 34% with chemotherapy added (FLAURA2)
-        = Gefitinib with carboplatin and pemetrexed 〔ESMO I, B〕 〔JLCS BQ2, A〕
+        ③ Gefitinib with carboplatin and pemetrexed 〔ESMO I, B〕 〔JLCS BQ2, A〕
         ・Not listed by NCCN or ASCO
         ※ With a TP53 co-mutation, adding chemotherapy to osimertinib lengthened PFS
           ~ Zhou 2026 [t-zhou-et-al] | PFS HR
@@ -112,10 +112,10 @@ tree: Advanced NSCLC, first line
         ・Erlotinib with bevacizumab has an EU licence and no US licence
         ※ Lazertinib alone where osimertinib is not available 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Low, Conditional〕
         ・Licensed only with amivantamab in the EU and US
-        = PS 2–4: EGFR TKI alone 〔JLCS C, 1〕
+        ④ PS 2–4: EGFR TKI alone 〔JLCS C, 1〕
         ・A TKI at PS 2 or worse 〔ESMO III, A〕
       Exon 20 insertion
-        = Amivantamab with carboplatin and pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕 〔JLCS B, 1〕
+        ① Amivantamab with carboplatin and pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕 〔JLCS B, 1〕
         ~ PAPILLON | PFS HR
         ※ Sunvozertinib alone improved PFS over chemotherapy, OS immature
         ・Recommended first line 〔ASCO Moderate, Strong〕
@@ -124,7 +124,7 @@ tree: Advanced NSCLC, first line
           ~ WU-KONG28 | PFS HR
         ※ An EGFR TKI alone is not recommended first line 〔JLCS C, 1〕
       Uncommon: G719X, L861Q, S768I
-        = Afatinib or osimertinib 〔NCCN 2A, preferred〕
+        ① Afatinib or osimertinib 〔NCCN 2A, preferred〕
         ・Afatinib 〔ASCO Moderate, Strong〕 〔ESMO I, B〕 〔JLCS B, 1〕
         ・Osimertinib 〔ASCO Low, Conditional〕 〔ESMO III, B〕 〔JLCS C, 2〕
         ~ ACHILLES | PFS HR
@@ -134,7 +134,7 @@ tree: Advanced NSCLC, first line
         ※ T790M before any TKI: osimertinib 〔JLCS D, 2〕
     Fusion
       ALK
-        = Alectinib, brigatinib, ensartinib or lorlatinib 〔NCCN 1, preferred〕
+        ① Alectinib, brigatinib, ensartinib or lorlatinib 〔NCCN 1, preferred〕
         ・Alectinib 〔ESMO I, A〕 〔JLCS A, 1〕
         ・Brigatinib 〔ESMO I, A〕 〔JLCS B, 2〕
         ・Lorlatinib 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
@@ -149,9 +149,9 @@ tree: Advanced NSCLC, first line
         ・Lorlatinib is preferred, with alectinib, brigatinib or ensartinib when lorlatinib does not suit 〔ASCO High, Strong〕
         ・ESMO prefers lorlatinib with brain metastases
         ・JLCS grades alectinib highest
-        = PS 2–4: alectinib 〔JLCS C, 1〕
+        ② PS 2–4: alectinib 〔JLCS C, 1〕
       ROS1
-        = Crizotinib, entrectinib, repotrectinib or taletrectinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS C, 1〕
+        ① Crizotinib, entrectinib, repotrectinib or taletrectinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS C, 1〕
         ・Crizotinib, entrectinib or repotrectinib 〔ESMO III, A〕
         ・Taletrectinib 〔ESMO III, B〕
         ・Taletrectinib has a US licence and no EU licence
@@ -161,7 +161,7 @@ tree: Advanced NSCLC, first line
         ~ TRUST-I and II [t-trust-i-and-trust-ii-integrated-analysis] | Response
         ※ Brain metastases: entrectinib rather than crizotinib 〔ESMO III, A〕
       RET
-        = A RET inhibitor
+        ① A RET inhibitor
         ・Selpercatinib 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
           ~ LIBRETTO-431 | PFS HR
         ・Pralsetinib 〔NCCN 2A, preferred〕 〔ESMO III, A〕
@@ -171,7 +171,7 @@ tree: Advanced NSCLC, first line
         ・Its EU licence was withdrawn in October 2024 at the company's request
           ~ ARROW {pmid 34118197} | Response 70% untreated, 61% after platinum
       NTRK
-        = Larotrectinib, entrectinib or repotrectinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
+        ① Larotrectinib, entrectinib or repotrectinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
         ・Larotrectinib or entrectinib 〔ESMO III, A〕 〔JLCS D, 1〕
         ~ Larotrectinib [t-larotrectinib--tumour-agnostic-basket-trials] | Response
         ~ Entrectinib [t-entrectinib-integrated-ntrk-fusion-analysis] | Response
@@ -179,12 +179,12 @@ tree: Advanced NSCLC, first line
         ※ Chemotherapy comes first only when no NTRK inhibitor is available 〔ESMO IV, B〕
         ※ Repotrectinib after an earlier NTRK inhibitor 〔ESMO III, A〕 〔ASCO Low, Conditional〕
       NRG1
-        = After first line: zenocutuzumab 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
+        ① After first line: zenocutuzumab 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
         ・US licence, not EU
         ~ eNRGy [t-enrgy] | Response
     Mutation
       BRAF V600E
-        = Dabrafenib and trametinib, or encorafenib and binimetinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕
+        ① Dabrafenib and trametinib, or encorafenib and binimetinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕
         ・Dabrafenib and trametinib 〔JLCS C, 1〕
         ~ BRF113928 | Response
         ~ PHAROS | Response
@@ -192,15 +192,15 @@ tree: Advanced NSCLC, first line
         ・Never smoked: platinum doublet with or without immunotherapy 〔ESMO IV, A〕
         ・Smoking history: immunotherapy with or without chemotherapy 〔ESMO IV, B〕
       MET exon 14
-        = Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
+        ① Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
         ~ GEOMETRY mono-1 | Response 68%, untreated
         ~ VISION | Response
         ※ Gumarontinib 〔JLCS C, 1〕
         ・Licensed in Japan and China, not in the EU or US
         ・Not listed by NCCN, ASCO or ESMO
       KRAS G12C
-        = Chemotherapy with PD-1 antibody first, as without a driver 〔ESMO III, A〕
-        = At progression: sotorasib or adagrasib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕
+        ① Chemotherapy with PD-1 antibody first, as without a driver 〔ESMO III, A〕
+        ② At progression: sotorasib or adagrasib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕
         ・Sotorasib 〔JLCS B, 1〕
         ~ CodeBreaK 200 | PFS HR
         ~ KRYSTAL-12 | PFS HR
@@ -209,12 +209,12 @@ tree: Advanced NSCLC, first line
           + Krascendo 1 | OS HR
         ※ Liver toxicity is common when sotorasib follows a PD-1 antibody
       HER2
-        = Chemotherapy with or without immunotherapy, as without a driver 〔ESMO IV, B〕
+        ① Chemotherapy with or without immunotherapy, as without a driver 〔ESMO IV, B〕
         ・JLCS gives the same advice
-        = Or a HER2 tyrosine kinase inhibitor
+        ② A HER2 tyrosine kinase inhibitor
         ・Zongertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕
         ・Sevabertinib 〔NCCN 2A〕
-        = After first line: trastuzumab deruxtecan 5.4 mg/kg, zongertinib or sevabertinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
+        ③ After first line: trastuzumab deruxtecan 5.4 mg/kg, zongertinib or sevabertinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
         ・Trastuzumab deruxtecan 〔ESMO III, B〕 〔JLCS C, 1〕
         ・Zongertinib 〔JLCS C, 1〕
         ~ DESTINY-Lung02 | Response
@@ -228,12 +228,12 @@ tree: Advanced NSCLC, first line
   No driver
     PS 0–1
       PD-L1 ≥50%
-        = A PD-1 or PD-L1 antibody alone 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕
+        ① A PD-1 or PD-L1 antibody alone 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕
         ・Pembrolizumab 〔JLCS A, 1〕
         ・Cemiplimab
         ・Atezolizumab
         ・Atezolizumab when PD-L1 SP142 is TC3 or IC3 〔JLCS A, 1〕
-        = Platinum doublet with pembrolizumab or cemiplimab 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕
+        ② Platinum doublet with pembrolizumab or cemiplimab 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕
         ・Platinum doublet with a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
         + KEYNOTE-024 | 5-year OS 31.9% vs 16.3%
         + EMPOWER-Lung 1 [t-empower-lung-1] | OS HR 0.57
@@ -251,7 +251,7 @@ tree: Advanced NSCLC, first line
           ~ OptiTROP-Lung05 | PFS HR
           ~ CAMPASS | PFS HR
       PD-L1 1–49%
-        = Platinum doublet with a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
+        ① Platinum doublet with a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
         ・Pemetrexed for non-squamous, carboplatin and paclitaxel for squamous
         ・Pembrolizumab or cemiplimab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕
         ・Cemiplimab has a US licence at any PD-L1 and an EU licence from PD-L1 1%
@@ -286,7 +286,7 @@ tree: Advanced NSCLC, first line
         ・Ivonescimab is not licensed in the EU or US
           + HARMONi-6 | OS HR
       PD-L1 <1%
-        = Platinum doublet with pembrolizumab 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕
+        ① Platinum doublet with pembrolizumab 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕
         ・Platinum doublet with a PD-1 or PD-L1 antibody 〔JLCS B, 1〕
         ・Cemiplimab in place of pembrolizumab has a US licence only at this PD-L1 level
         ※ In non-squamous disease, sacituzumab tirumotecan with pembrolizumab improved PFS over platinum and pemetrexed with pembrolizumab
@@ -294,12 +294,12 @@ tree: Advanced NSCLC, first line
         ・Sacituzumab tirumotecan is not licensed in the EU or US
           ~ OptiTROP-Lung06 | PFS HR
     PS 2 or frail
-      = Carboplatin doublet 〔ESMO I, A〕 〔JLCS B, 2〕
-      = One drug alone 〔ESMO I, B〕 〔JLCS A, 2〕
-      = A PD-1 or PD-L1 antibody alone 〔JLCS B, 2〕
+      ① Carboplatin doublet 〔ESMO I, A〕 〔JLCS B, 2〕
+      ② One drug alone 〔ESMO I, B〕 〔JLCS A, 2〕
+      ③ A PD-1 or PD-L1 antibody alone 〔JLCS B, 2〕
       ・Within its Japanese licence
       ・Only with PD-L1 50% or more 〔ESMO II, B〕
-      = Platinum doublet unsuitable, any PD-L1: atezolizumab alone 〔ESMO I, B〕
+      ④ Platinum doublet unsuitable, any PD-L1: atezolizumab alone 〔ESMO I, B〕
       ・EU licence, not in the US label
       ・Not licensed in Japan outside PD-L1 TC3 or IC3
       + IPSOS [t-ipsos] | OS HR 0.78
