@@ -54,7 +54,8 @@ function measure(){
       else if (Math.abs(a - c) < .5 && Math.abs(b - d) > .5) segs.push({h:0, k:a, a:Math.min(b, d), b:Math.max(b, d)});
       return;
     }
-    // square runs are read from M, H, V and straight L moves; a Q (a rounded corner or a brace curve) only moves the pen
+    // straight runs are read from M, H, V and L moves; a Q (a rounded corner or a brace curve) only moves the pen,
+    // so a run ends where its corner starts to turn, as canvas.js centres labels
     const d = x.getAttribute('d'); if (/[CA]/.test(d)) return;
     let cx = 0, cy = 0, m; const re = /([MHVLQ])\s*(-?[\d.]+)(?:\s+(-?[\d.]+))?(?:\s+(-?[\d.]+)\s+(-?[\d.]+))?/g;
     const seg = (x2, y2) => {

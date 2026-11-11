@@ -25,7 +25,7 @@
 (function(){
   // tree spacing widened (Jonan 2026-11-11, "cramped up narrowly with no breathing room")
   var GX = 160, GY = 48, LEAF_W = 600, LEAF_GAP = 120, PANEL_W = 440, BAND_W = 520, M = 28;
-  var STEP_W = 380, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
+  var STEP_W = 380, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -352,8 +352,11 @@
       var hh = 0;
       steps.forEach(function(n){ n.hd.style.minHeight = ''; hh = Math.max(hh, n.hd.offsetHeight); });
       steps.forEach(function(n){ n.hd.style.minHeight = hh + 'px'; });
-      var b = bandsRow(), cols = [];
+      var cols = [];
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); });
+      // the bands share the width of the step columns above them
+      var span = cols.reduce(function(s, list){ return s + Math.max.apply(null, list.map(function(n){ return n.w; })); }, 0) + CGX * (cols.length - 1);
+      var b = bandsRow(span);
       var panelTop = [];
       var colX = [M];
       var top0 = b.top, colEnd = [];
@@ -482,10 +485,10 @@
             lane = t.cy > n.cy ? Math.min.apply(null, block.map(function(m){ return m.y; })) - 24
                                : Math.max.apply(null, block.map(function(m){ return m.y + m.el.offsetHeight; })) + 24;
             xb = x2 - t.jstub;
-            svg += '<path d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + lane + ' H' + xb + ' V' + t.cy + ' H' + x2 + '"/>';
+            svg += rpath([[x1, n.cy], [xm, n.cy], [xm, lane], [xb, lane], [xb, t.cy], [x2, t.cy]]);
           } else {
             // the course spine (a straight next: line) is drawn heavier than the lines that branch off it
-            svg += '<path d="M' + x1 + ' ' + n.cy + ' H' + xm + ' V' + t.cy + ' H' + x2 + '"/>';
+            svg += rpath([[x1, n.cy], [xm, n.cy], [xm, t.cy], [x2, t.cy]]);
           }
           e.xm = xm; e.cy = n.cy; e.lane = lane; e.xb = xb;
           if (e.el && !e.join) {
@@ -543,7 +546,8 @@
       centreLabels();
     }
 
-    // straight runs of the lines as drawn: M, H and V commands of paths, and lines
+    // straight runs of the lines as drawn: M, H, V and L commands of paths, and lines; a Q (a rounded corner)
+    // only moves the pen, so a run ends where its corner starts to turn
     function wireSegs(){
       var segs = [], re = /<path[^>]* d="([^"]*)"|<line x1="([^"]*)" y1="([^"]*)" x2="([^"]*)" y2="([^"]*)"/g, m;
       function put(x1, y1, x2, y2){
@@ -552,13 +556,15 @@
       }
       while ((m = re.exec(svg))) {
         if (m[2] !== undefined) { put(+m[2], +m[3], +m[4], +m[5]); continue; }
-        if (/[QCLA]/.test(m[1])) continue;
-        var x = 0, y = 0, c, cre = /([MHV])\s*(-?[\d.]+)(?:\s+(-?[\d.]+))?/g;
+        if (/[CA]/.test(m[1])) continue;
+        var x = 0, y = 0, c, cre = /([MHVLQ])\s*(-?[\d.]+)(?:\s+(-?[\d.]+))?(?:\s+(-?[\d.]+)\s+(-?[\d.]+))?/g;
         while ((c = cre.exec(m[1]))) {
           var v = +c[2];
           if (c[1] === 'M') { x = v; y = +c[3]; }
           else if (c[1] === 'H') { put(x, y, v, y); x = v; }
-          else { put(x, y, x, v); y = v; }
+          else if (c[1] === 'V') { put(x, y, x, v); y = v; }
+          else if (c[1] === 'L') { put(x, y, v, +c[3]); x = v; y = +c[3]; }
+          else { x = +c[4]; y = +c[5]; }
         }
       }
       return segs;

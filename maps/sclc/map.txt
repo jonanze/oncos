@@ -39,6 +39,11 @@ map: SCLC
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
 source: ASCO {url https://doi.org/10.1200/JCO.23.01435}
 source: JLCS {url https://www.haigan.gr.jp/publication/guideline/examination/2025/}
+branch: LS | Limited stage | blue
+branch: SX | Surgery or SABR | sage
+branch: CRT | Chemoradiotherapy | teal
+branch: ES | Extensive stage | violet
+branch: REL | Relapse | rose
 
 band: Staging before treatment
   ① TNM 8th edition with two stages 〔NCCN 2A〕
@@ -53,6 +58,7 @@ band: Staging before treatment
 
 course: Small-cell lung cancer
   Limited stage
+    branch: LS
     Stage I–III that a tolerable radiotherapy plan can cover
     next: Surgery or SABR | Clinical T1–2 N0, node-negative on pathological staging
     next: Chemoradiotherapy | Other stage I–III, PS 0–2
@@ -63,6 +69,7 @@ course: Small-cell lung cancer
     ・JLCS makes no recommendation at PS 4
     ・Durvalumab after chemoradiotherapy if PS improves 〔ASCO Low, Conditional〕
   Extensive stage, first line
+    branch: ES
     ① Platinum and etoposide for 4 cycles with a PD-L1 antibody, then the antibody as maintenance 〔NCCN 1, preferred〕 〔ASCO High, Strong〕
     ・Atezolizumab with carboplatin
     ・Durvalumab with cisplatin or carboplatin
@@ -72,7 +79,7 @@ course: Small-cell lung cancer
       + CASPIAN
       ※ CASPIAN included asymptomatic untreated brain metastases
     ② Immunotherapy contraindicated: platinum and etoposide for 4–6 cycles 〔NCCN 2A, other recommended〕
-    ③ Irinotecan with cisplatin or carboplatin 〔NCCN 2A, useful in certain circumstances〕
+    ③ Irinotecan with a platinum, cisplatin or carboplatin 〔NCCN 2A, useful in certain circumstances〕
     ・Platinum doublets including cisplatin and irinotecan, at age 70 or under 〔JLCS BQ1, A〕
     ・The survival gain in Japan was not confirmed in North America
       + JCOG9511
@@ -103,6 +110,7 @@ course: Small-cell lung cancer
       ~ KEYNOTE-604
     next: Extensive stage, after induction | No progression
   Surgery or SABR
+    branch: SX
     By MDT decision, after pathological mediastinal staging 〔NCCN 2A〕
     ・Surgery 〔JLCS C, 1〕
     ① Lobectomy, preferred, with mediastinal node dissection or systematic sampling of at least 3 N2 and 1 N1 stations 〔NCCN 2A〕
@@ -111,6 +119,7 @@ course: Small-cell lung cancer
     ・Chemotherapy may start first when SABR is delayed 〔NCCN 2A〕
     next: After surgery or SABR
   Chemoradiotherapy
+    branch: CRT
     Concurrent chemotherapy and thoracic radiotherapy, PS 0–2 〔NCCN 1〕 〔JLCS A, 1〕
     ・PS 2 due to SCLC 〔ASCO Low, Weak〕
     ・Older patients with PS 0–1 〔ASCO Moderate, Strong〕
@@ -118,12 +127,13 @@ course: Small-cell lung cancer
     ・Cisplatin and etoposide 〔NCCN 2A, preferred〕 〔ASCO High, Strong〕
     ・Carboplatin and etoposide when cisplatin is contraindicated or not tolerated 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
       + Sundstrøm 2002 [t-sundstr-m-et-al]
-    ※ Myeloid growth factors during chemoradiotherapy
+    ※ Myeloid growth factors
     ・GM-CSF is not recommended 〔NCCN 1〕
     ・G-CSF is not recommended 〔NCCN 2A〕
     ・G-CSF may be given 〔ASCO Moderate, Weak〕
     next: Thoracic radiotherapy | Given with chemotherapy
   Thoracic radiotherapy
+    branch: CRT pale
     Thoracic radiotherapy with chemotherapy improves survival
       + Pignon 1992 [t-pignon-et-al]
     ① 45 Gy in 30 fractions twice daily 〔NCCN 1〕 〔JLCS B, 1〕
@@ -148,6 +158,7 @@ course: Small-cell lung cancer
       ~ Qiu 2021 {pmid 33992717}
     next: Limited stage, after chemoradiotherapy | No progression
   After surgery or SABR
+    branch: SX pale
     ① Adjuvant chemotherapy 〔ASCO Low, Strong〕
     ・Cisplatin or carboplatin with etoposide for 4 cycles 〔NCCN 2A〕 〔ASCO Not applicable, Weak〕
     ・Started within 8 weeks of resection 〔ASCO Not applicable, Weak〕
@@ -158,6 +169,7 @@ course: Small-cell lung cancer
     ・Brain MRI surveillance when PCI is not given
     join: Recurrent/progressive disease | Relapse
   Limited stage, after chemoradiotherapy
+    branch: CRT pale
     ① PCI 25 Gy in 10 fractions after response, given before durvalumab 〔NCCN 2A〕
     ・After complete response 〔JLCS B, 1〕
     ・25 Gy in 10 fractions 〔JLCS B, 2〕
@@ -179,6 +191,7 @@ course: Small-cell lung cancer
       - ACHILES [t-achiles]
     join: Recurrent/progressive disease | Relapse
   Extensive stage, after induction
+    branch: ES pale
     ① Continue atezolizumab or durvalumab until progression 〔NCCN 1, preferred〕 〔ASCO High, Strong〕
     ② After induction with atezolizumab: atezolizumab with lurbinectedin 〔NCCN 1, preferred〕
     ・For patients with at least stable disease after 4 cycles, PS 0–1 and no brain metastases at any time
@@ -194,7 +207,7 @@ course: Small-cell lung cancer
       - CheckMate 451
     ※ Thoracic radiotherapy, 30 Gy in 10 fractions up to definitive doses 〔NCCN 2A〕
     ・After complete or near-complete response with residual thoracic disease and low-bulk extrathoracic disease
-    ・Before or during maintenance immunotherapy
+    ・Before or during maintenance
     ・JLCS has no recommendation
       - CREST
     ※ PCI
@@ -205,6 +218,7 @@ course: Small-cell lung cancer
       - Takahashi 2017 [t-takahashi-et-al]
     next: Recurrent/progressive disease | Progression
   Recurrent/progressive disease
+    branch: REL
     ※ Relapse interval
     ・ASCO splits at 90 days
     ・JLCS counts relapse after about 60–90 days as sensitive
@@ -226,6 +240,7 @@ course: Small-cell lung cancer
     next: Sensitive relapse | 90 days or more after first-line chemotherapy
     next: Refractory relapse | Within 90 days or during first-line chemotherapy
   Sensitive relapse
+    branch: REL pale
     ① Tarlatamab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕
     ・At PS 0–1 〔JLCS B, 1〕
     ・US accelerated licence 2024, full licence 2025, EU licence 2026
@@ -249,6 +264,7 @@ course: Small-cell lung cancer
     ※ ASCO, written before DeLLphi-304, lists tarlatamab, topotecan and lurbinectedin as equal preferred single agents
     ※ In GFPC 01–13 the PFS gain was significant only for relapse 180 days or more after chemotherapy
   Refractory relapse
+    branch: REL pale
     ① Tarlatamab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS B, 1〕
     ・DeLLphi-304 included progression during first-line platinum
     ② Topotecan or lurbinectedin as a single agent, PS 0–2 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕
