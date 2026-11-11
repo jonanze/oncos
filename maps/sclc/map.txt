@@ -1,4 +1,4 @@
-# oncOS board map: SCLC  (DRAFT for review, not released)
+# oncOS board map: SCLC
 # Format and rules: see the header of maps/early-nsclc/map.txt
 #   join: Step | label  the line of next:, but the two steps stay in separate branches (limited stage runs down to relapse)
 #   Trial {url https://...}  a randomised trial with no PubMed record yet (congress abstract): link, listed for intake
@@ -13,14 +13,15 @@
 #   Inclusion: maps/inclusion.txt; trials left out are in excluded.txt
 #   Standard options only; an EU or US licensed option that a guideline does not list stays on the
 #     line with its licence noted and says which guidelines leave it out
-#   Option order follows the guidelines' preference; where they disagree a ※ line names each
+#   Option order follows the guidelines' preference; where they disagree each differing guideline gets its own ・ line
 #   One statement per line, no semicolon chains: a guideline's position, a licence or a condition goes on a
 #     ・ line under the line it qualifies (Jonan 2026-11-10)
 #   Consolidation, PCI and maintenance are a later step after the primary treatment, never a branch beside it
 # * Plain clinical wording
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
 #     〔NCCN category, preference〕 NCCN Small Cell Lung Cancer 1.2027 (1 July 2026); options NCCN alone
-#       lists sit on ※ lines
+#       lists sit on ※ lines or as ・ lines in their drug class; the tag names the guideline, so the text
+#       does not repeat it (Jonan 2026-11-11)
 #     〔ASCO quality, strength〕 ASCO-Ontario Health 2023 (Khurshid), systemic therapy only, with the
 #       ASCO rapid update of 20 November 2024 (Kalemkerian: 2.4, 4.1, 4.2, 5.3.1)
 #     〔JLCS evidence, strength〕 Japan Lung Cancer Society guideline 2025 (web edition, 6 November 2025),
@@ -56,45 +57,54 @@ course: Small-cell lung cancer
     next: Surgery or SABR | Clinical T1–2 N0, node-negative on pathological staging
     next: Chemoradiotherapy | Other stage I–III, PS 0–2
     ※ PS 3–4 due to SCLC
-    ・Chemotherapy with or without radiotherapy 〔NCCN 2A〕, with sequential radiotherapy if PS improves 〔ASCO Low, Weak〕
-    ・JLCS: drug treatment at PS 3 〔JLCS C, 2〕, no recommendation at PS 4
+    ・Chemotherapy with or without radiotherapy 〔NCCN 2A〕
+    ・Chemotherapy, with sequential radiotherapy if PS improves 〔ASCO Low, Weak〕
+    ・Drug treatment at PS 3 〔JLCS C, 2〕
+    ・JLCS makes no recommendation at PS 4
     ・Durvalumab after chemoradiotherapy if PS improves 〔ASCO Low, Conditional〕
   Extensive stage, first line
-    Platinum and etoposide for 4 cycles with atezolizumab (carboplatin) or durvalumab (cisplatin or carboplatin), then maintenance immunotherapy 〔NCCN 1, preferred〕 〔ASCO High, Strong〕
-    ・JLCS: PS 0–1 〔JLCS A, 1〕
+    ① Platinum and etoposide for 4 cycles with a PD-L1 antibody, then the antibody as maintenance 〔NCCN 1, preferred〕 〔ASCO High, Strong〕
+    ・Atezolizumab with carboplatin
+    ・Durvalumab with cisplatin or carboplatin
+    ・At PS 0–1 〔JLCS A, 1〕
     ・Older patients with PS 0–1 〔ASCO Moderate, Strong〕
       + IMpower133 | OS HR
       + CASPIAN | OS HR
-    ※ CASPIAN included asymptomatic untreated brain metastases
+      ※ CASPIAN included asymptomatic untreated brain metastases
+    ② Immunotherapy contraindicated: platinum and etoposide for 4–6 cycles 〔NCCN 2A, other recommended〕
+    ③ Irinotecan with cisplatin or carboplatin 〔NCCN 2A, useful in certain circumstances〕
+    ・Platinum doublets including cisplatin and irinotecan, at age 70 or under 〔JLCS BQ1, A〕
+    ・The survival gain in Japan was not confirmed in North America
+      + JCOG9511 | OS median
+      - SWOG S0124 [t-swog-s0124] | OS 9.9 vs 9.1 months
+    ④ Serplulimab with carboplatin and etoposide
+    ・EU licence 2025
+    ・Not listed by NCCN, ASCO or JLCS
+    ・The trial ran mostly in China
+      + ASTRUM-005 | OS HR
     ※ Brain metastases 〔NCCN 2A〕
     ・Symptomatic: brain radiotherapy first unless systemic treatment is urgent
     ・Asymptomatic: systemic treatment first
     ※ PS 2
-    ・NCCN: the same regimens as for PS 0–1 〔NCCN 1, preferred〕
-    ・ASCO: carboplatin, etoposide and immunotherapy 〔ASCO Low, Weak〕
-    ・JLCS: platinum with etoposide or irinotecan 〔JLCS B, 1〕, immunotherapy only at PS 0–1
+    ・The same regimens as for PS 0–1 〔NCCN 1, preferred〕
+    ・Carboplatin, etoposide and immunotherapy 〔ASCO Low, Weak〕
+    ・Platinum with etoposide or irinotecan 〔JLCS B, 1〕
+    ・JLCS gives immunotherapy only at PS 0–1
     ※ PS 3–4 due to SCLC
-    ・Systemic treatment 〔NCCN 2A〕, chemotherapy 〔ASCO Low, Weak〕
-    ・JLCS: PS 3, carboplatin and etoposide, or cisplatin and etoposide in split doses 〔JLCS C, 2〕
-    ・JLCS: PS 4, no drug treatment 〔JLCS D, 2〕
-    ※ Immunotherapy contraindicated: platinum and etoposide for 4–6 cycles 〔NCCN 2A, other recommended〕
+    ・Systemic treatment 〔NCCN 2A〕
+    ・Chemotherapy 〔ASCO Low, Weak〕
+    ・At PS 3, carboplatin and etoposide, or cisplatin and etoposide in split doses 〔JLCS C, 2〕
+    ・At PS 4, no drug treatment 〔JLCS D, 2〕
     ※ Age 71 or over: platinum-based treatment 〔JLCS BQ2, B〕
     ・Carboplatin and irinotecan did not improve OS over carboplatin and etoposide
       - JCOG1201/TORG1528 {pmid 37156212} | OS HR 0.85, not significant
-    ※ Irinotecan with cisplatin or carboplatin 〔NCCN 2A, useful in certain circumstances〕
-    ・JLCS: platinum doublets including cisplatin and irinotecan, age 70 or under 〔JLCS BQ1, A〕
-    ・The survival gain in Japan was not confirmed in North America
-      + JCOG9511 | OS median
-      - SWOG S0124 [t-swog-s0124] | OS 9.9 vs 9.1 months
-    ※ Serplulimab with carboplatin and etoposide: EU licence 2025, trial mostly in China
-    ・Not listed by NCCN, ASCO or JLCS
-      + ASTRUM-005 | OS HR
-    ※ Pembrolizumab improved PFS but OS missed its significance boundary, not licensed
+    ※ Pembrolizumab improved PFS, but OS missed its significance boundary
+    ・Not licensed in this setting
       ~ KEYNOTE-604 | PFS HR
     next: Extensive stage, after induction | No progression
   Surgery or SABR
     By MDT decision, after pathological mediastinal staging 〔NCCN 2A〕
-    ・JLCS: surgery 〔JLCS C, 1〕
+    ・Surgery 〔JLCS C, 1〕
     ① Lobectomy, preferred, with mediastinal node dissection or systematic sampling of at least 3 N2 and 1 N1 stations 〔NCCN 2A〕
     ・No pneumonectomy
     ② Medically inoperable 〔JLCS D, 2〕 or declining surgery: SABR, then chemotherapy, or chemoradiotherapy 〔NCCN 2A〕
@@ -108,6 +118,12 @@ course: Small-cell lung cancer
     ・Cisplatin and etoposide 〔NCCN 2A, preferred〕 〔ASCO High, Strong〕
     ・Carboplatin and etoposide when cisplatin is contraindicated or not tolerated 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
       + Sundstrøm 2002 [t-sundstr-m-et-al] | Limited stage 2-year OS 25% vs 8%, against CEV
+    ※ Myeloid growth factors during chemoradiotherapy
+    ・GM-CSF is not recommended 〔NCCN 1〕
+    ・G-CSF is not recommended 〔NCCN 2A〕
+    ・G-CSF may be given 〔ASCO Moderate, Weak〕
+    next: Thoracic radiotherapy | Given with chemotherapy
+  Thoracic radiotherapy
     Thoracic radiotherapy with chemotherapy improves survival
       + Pignon 1992 [t-pignon-et-al] | 3-year OS 14.3% vs 8.9%
     ① 45 Gy in 30 fractions twice daily 〔NCCN 1〕 〔JLCS B, 1〕
@@ -124,39 +140,35 @@ course: Small-cell lung cancer
     ※ Higher-dose accelerated radiotherapy
     ・54 Gy in 30 twice-daily fractions, with a simultaneous boost to the gross tumour, improved OS in a phase III trial in China
     ・60 Gy twice daily and 65 Gy daily were tested in randomised phase II trials
-    ・NCCN: these trials indicate an advantage, but no dose above 45 Gy twice daily is recommended, and the dose with durvalumab is not defined
+    ・NCCN notes that these trials indicate an advantage
+    ・NCCN recommends no dose above 45 Gy twice daily and does not define the dose with durvalumab
     ・JLCS does not discuss them
       + Yu 2024 {pmid 39146944} | OS 60.7 vs 39.5 months, HR 0.55
       + THORA [t-thora] | 2-year OS 74.2% vs 48.1%
       ~ Qiu 2021 {pmid 33992717} | PFS 17.2 vs 13.4 months, OS not significant
-    ※ Myeloid growth factors during chemoradiotherapy
-    ・NCCN advises against GM-CSF 〔NCCN 1〕 and G-CSF 〔NCCN 2A〕
-    ・ASCO allows G-CSF 〔ASCO Moderate, Weak〕
     next: Limited stage, after chemoradiotherapy | No progression
   After surgery or SABR
     ① Adjuvant chemotherapy 〔ASCO Low, Strong〕
-    ・Cisplatin or carboplatin with etoposide for 4 cycles 〔NCCN 2A〕 〔ASCO Not applicable, Weak〕, started within 8 weeks of resection 〔ASCO Not applicable, Weak〕
-    ・JLCS: cisplatin with etoposide or irinotecan after complete resection 〔JLCS C, 1〕
-    ※ Mediastinal radiotherapy, concurrent or sequential, for pathological N2 or N3, may be considered for N1 〔NCCN 2A〕
+    ・Cisplatin or carboplatin with etoposide for 4 cycles 〔NCCN 2A〕 〔ASCO Not applicable, Weak〕
+    ・Started within 8 weeks of resection 〔ASCO Not applicable, Weak〕
+    ・Cisplatin with etoposide or irinotecan after complete resection 〔JLCS C, 1〕
+    ※ Mediastinal radiotherapy, concurrent or sequential, is given for pathological N2 or N3 and may be considered for N1 〔NCCN 2A〕
     ※ R1 or R2: chemotherapy with concurrent radiotherapy 〔NCCN 2A〕
     ※ PCI benefit is unclear in pathological stage I–IIA and may help pathological stage IIB–III after complete resection 〔NCCN 2A〕
     ・Brain MRI surveillance when PCI is not given
     join: Recurrent/progressive disease | Relapse
   Limited stage, after chemoradiotherapy
     ① PCI 25 Gy in 10 fractions after response, given before durvalumab 〔NCCN 2A〕
-    ・JLCS: after complete response 〔JLCS B, 1〕, 25 Gy in 10 fractions 〔JLCS B, 2〕
+    ・After complete response 〔JLCS B, 1〕
+    ・25 Gy in 10 fractions 〔JLCS B, 2〕
       + Aupérin 1999 [t-aup-rin-et-al] | 3-year OS 20.7% vs 15.3%
       - PCI 99-01 [t-pci-99-01-eortc-22003-08004-rtog-0212-ifct-99-01] | 2-year OS 42% vs 37% for 25 Gy against 36 Gy
       ※ No PCI with PS 3–4 or impaired cognition 〔NCCN 2A〕
       ・Cognitive decline after PCI is more likely from age 60
-      ※ NCCN also accepts brain MRI surveillance without PCI 〔NCCN 2A〕, JLCS does not
+      ※ Brain MRI surveillance without PCI is also accepted 〔NCCN 2A〕
+      ・JLCS does not accept it
       ※ Memantine during and after PCI, and hippocampal-avoidance PCI, may be considered 〔NCCN 2A〕
       ・JLCS makes no recommendation because two randomised trials conflict
-      ※ MRI surveillance without PCI, congress abstract
-      ・OS, the registered primary endpoint, did not differ at a preliminary analysis after 128 of 190 planned deaths
-      ・Cognitive failure-free survival, reported as primary, was better
-      ・The trial enrolled limited and extensive stage
-        ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | OS HR 0.90, primary, cognitive failure-free survival HR 0.60
     ② Durvalumab every 4 weeks for up to 24 months when there is no progression after chemoradiotherapy 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS B, 1〕
     ・ADRIATIC enrolled PS 0–1
     ・EU licence 2025
@@ -168,9 +180,11 @@ course: Small-cell lung cancer
     join: Recurrent/progressive disease | Relapse
   Extensive stage, after induction
     ① Continue atezolizumab or durvalumab until progression 〔NCCN 1, preferred〕 〔ASCO High, Strong〕
-    ② After induction with atezolizumab: atezolizumab with lurbinectedin, after at least stable disease on 4 cycles, PS 0–1, no brain metastases at any time 〔NCCN 1, preferred〕
+    ② After induction with atezolizumab: atezolizumab with lurbinectedin 〔NCCN 1, preferred〕
+    ・For patients with at least stable disease after 4 cycles, PS 0–1 and no brain metastases at any time
     ・US licence 2025, EU licence 2026
-    ・ASCO predates it, JLCS 2025 does not list it
+    ・ASCO predates it
+    ・JLCS 2025 does not list it
       + IMforte | OS HR
     ③ After induction with durvalumab: tarlatamab with durvalumab
     ・Not licensed as of November 2026
@@ -184,49 +198,23 @@ course: Small-cell lung cancer
     ・JLCS has no recommendation
       - CREST | 1-year OS 33% vs 28%, not significant, 2-year OS 13% vs 3%, secondary
     ※ PCI
-    ・JLCS advises against it 〔JLCS B, 1〕
-    ・NCCN: brain MRI surveillance, with PCI considered 〔NCCN 2A〕, 25 Gy in 10 fractions or 20 Gy in 5 〔NCCN 2A〕
+    ・PCI is not recommended 〔JLCS B, 1〕
+    ・Brain MRI surveillance, with PCI considered 〔NCCN 2A〕
+    ・PCI dose 25 Gy in 10 fractions or 20 Gy in 5 〔NCCN 2A〕
       + EORTC 22993-08993 | OS HR
       - Takahashi 2017 [t-takahashi-et-al] | OS HR
-      ~ MAVERICK {url https://www.iaslc.org/iaslc-news/press-release/phase-iii-maverick-trial-supports-brain-mri-surveillance-alone-standard} | OS HR 0.90, primary, cognitive failure-free survival HR 0.60
     next: Recurrent/progressive disease | Progression
   Recurrent/progressive disease
-    Sensitive relapse, 90 days or more after first-line chemotherapy
-    ① Tarlatamab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕
-    ・JLCS: PS 0–1 〔JLCS B, 1〕
-    ・US accelerated licence 2024, full licence 2025, EU licence 2026
-      + DeLLphi-304 | OS HR
-    ② Platinum and etoposide again, with or without immunotherapy, PS 0–2 〔NCCN 2A, preferred〕
-    ・ASCO: platinum rechallenge 〔ASCO Moderate, Strong〕
-    ・JLCS: carboplatin and etoposide again 〔JLCS A, 2〕
-      ~ GFPC 01–13 [t-groupe-fran-ais-de-pneumo-canc-rologie-01-13] | PFS HR
-    ③ Topotecan oral or intravenous, PS 0–2 〔NCCN 2A, preferred〕 〔JLCS A, 2〕, or lurbinectedin if not given before 〔NCCN 2A, preferred〕
-    ・ASCO: both preferred single agents 〔ASCO Moderate, Strong〕
-    ・Lurbinectedin alone has no US licence since September 2026 and was never licensed alone in the EU
-      + O'Brien 2006 [t-o-brien-et-al] | OS 25.9 vs 13.9 weeks, against supportive care
-      - von Pawel 1999 [t-von-pawel-et-al] | Response 24.3% vs 18.3%, against CAV
-    ※ Cisplatin, etoposide and irinotecan, or amrubicin 〔JLCS A, 2〕
-    ・Not listed by NCCN or ASCO
-    ・Amrubicin is licensed in Japan
-      + JCOG0605 {pmid 27312053} | OS 18.2 vs 12.5 months, HR 0.67, against topotecan
-    ※ Sensitive relapse
+    ※ Relapse interval
     ・ASCO splits at 90 days
     ・JLCS counts relapse after about 60–90 days as sensitive
     ・NCCN no longer chooses treatment by interval and allows rechallenge after a prolonged disease-free time
-    ・ASCO, written before DeLLphi-304, lists tarlatamab, topotecan and lurbinectedin as equal preferred single agents
-    ・In GFPC 01–13 the PFS gain was significant only for relapse 180 days or more after chemotherapy
-    Refractory relapse, within 90 days or during first-line chemotherapy
-    ① Tarlatamab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS B, 1〕
-    ・DeLLphi-304 included progression during first-line platinum
-    ② Topotecan or lurbinectedin as a single agent, PS 0–2 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕
-    ・Lurbinectedin alone has no US or EU licence
-    ※ JLCS recommends amrubicin 〔JLCS C, 2〕, which is licensed in Japan
     Either interval
-    ※ Listed by NCCN alone
-    ・Irinotecan 〔NCCN 2A, preferred〕, considered when there are brain metastases
+    ※ Other single agents and regimens
+    ・Irinotecan, considered when there are brain metastases 〔NCCN 2A, preferred〕
     ・CAV 〔NCCN 2A, other recommended〕
     ※ Immunotherapy alone is not given outside a trial 〔ASCO Moderate, Strong〕
-    ・NCCN lists nivolumab or pembrolizumab when no immunotherapy was given before 〔NCCN 2A, other recommended〕
+    ・Nivolumab or pembrolizumab when no immunotherapy was given before 〔NCCN 2A, other recommended〕
     ・Immunotherapy is not continued after progression on maintenance 〔ASCO Not applicable, Strong〕
     ※ Progression in the brain only: continue systemic treatment and give brain radiotherapy 〔NCCN 2A〕
     ※ A B7-H3 antibody-drug conjugate, tambotatug pelitecan, improved OS over topotecan in second line at an interim analysis
@@ -235,6 +223,38 @@ course: Small-cell lung cancer
     ※ The FDA withdrew the second-line indication of lurbinectedin alone on 30 September 2026
     ・LAGOON, a phase III trial against topotecan or irinotecan reported only in company topline results, did not improve OS
     ・NCCN 1.2027 and ASCO, both earlier, still list it as preferred
+    next: Sensitive relapse | 90 days or more after first-line chemotherapy
+    next: Refractory relapse | Within 90 days or during first-line chemotherapy
+  Sensitive relapse
+    ① Tarlatamab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕
+    ・At PS 0–1 〔JLCS B, 1〕
+    ・US accelerated licence 2024, full licence 2025, EU licence 2026
+      + DeLLphi-304 | OS HR
+    ② Platinum and etoposide again, with or without immunotherapy, PS 0–2 〔NCCN 2A, preferred〕
+    ・Platinum rechallenge 〔ASCO Moderate, Strong〕
+    ・Carboplatin and etoposide again 〔JLCS A, 2〕
+      ~ GFPC 01–13 [t-groupe-fran-ais-de-pneumo-canc-rologie-01-13] | PFS HR
+    ③ Topotecan or lurbinectedin as a single agent
+    ・Topotecan, oral or intravenous, PS 0–2 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS A, 2〕
+    ・Lurbinectedin if not given before 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕
+    ・Lurbinectedin alone has no US licence since September 2026 and was never licensed alone in the EU
+      + O'Brien 2006 [t-o-brien-et-al] | OS 25.9 vs 13.9 weeks, against supportive care
+      - von Pawel 1999 [t-von-pawel-et-al] | Response 24.3% vs 18.3%, against CAV
+    ④ Cisplatin, etoposide and irinotecan 〔JLCS A, 2〕
+    ・Not listed by NCCN or ASCO
+      + JCOG0605 {pmid 27312053} | OS 18.2 vs 12.5 months, HR 0.67, against topotecan
+    ※ Amrubicin 〔JLCS A, 2〕
+    ・Amrubicin is licensed in Japan
+    ・Not listed by NCCN or ASCO
+    ※ ASCO, written before DeLLphi-304, lists tarlatamab, topotecan and lurbinectedin as equal preferred single agents
+    ※ In GFPC 01–13 the PFS gain was significant only for relapse 180 days or more after chemotherapy
+  Refractory relapse
+    ① Tarlatamab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS B, 1〕
+    ・DeLLphi-304 included progression during first-line platinum
+    ② Topotecan or lurbinectedin as a single agent, PS 0–2 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕
+    ・Lurbinectedin alone has no US or EU licence
+    ※ Amrubicin 〔JLCS C, 2〕
+    ・Amrubicin is licensed in Japan
 
 off:
   Roth 1992 [t-roth-et-al] | CAV and alternating regimens no longer used, platinum and etoposide is standard

@@ -1,4 +1,4 @@
-# oncOS board map: Endometrial Cancer  (DRAFT for review, not released)
+# oncOS board map: Endometrial Cancer
 # Format and rules: see the header of maps/early-nsclc/map.txt
 #   scale: Low | ...   the risk ramp, the only colour on any map: tints the adjuvant grid rows, hues their
 #                   label and treatment cells, and rules the ※ and ① lines of that tier (Jonan 2026-11-09)
@@ -27,9 +27,9 @@
 #     〔JSGO evidence, strength〕 Japan Society of Gynecologic Oncology 2023 guidelines for uterine body
 #       neoplasm, English version (J Gynecol Oncol 2025;36:e119); evidence A to D, strength 1 recommend or
 #       2 suggest, "against" for a recommendation not to; tagged only where JSGO differs from ESGO and NCCN
-#       (lymphadenectomy); its literature ends in 2021, before chemo-immunotherapy
+#       (lymphadenectomy); its literature ends in 2021, before chemotherapy with immunotherapy
 #   JSGO adjuvant chemotherapy by JSGO risk group (JGOG 2033, JGOG 2043) dropped as outdated (Jonan 2026-11-11)
-#   KSGO 5.1 (2025) read and left off: it grades only first-line chemo-immunotherapy and durvalumab with
+#   KSGO 5.1 (2025) read and left off: it grades only first-line chemotherapy with immunotherapy and durvalumab with
 #     olaparib, which NCCN already lists (Jonan 2026-11-11)
 #   ESMO 2022 (Oaknin) and PAGA 2023 dropped as stale: no living update, both predate RUBY, NRG-GY018 and
 #     DUO-E (Jonan 2026-11-11); SGO 2026 not used
@@ -206,7 +206,8 @@ course:
       ・RET: selpercatinib
 
 off:
-  ESGO–ESTRO–ESP 2025 guideline [t-esgo-estro-esp-endometrial-carcinoma-management-guidelines] | Guideline, not a trial. Removed from Evidence and kept in the Guidelines folder (Jonan 2026-11-11)
+  JGOG 2033 [t-jgog-2033] | Outdated (Jonan 2026-11-11). Adjuvant chemotherapy against pelvic RT
+  JGOG 2043 [t-jgog-2043] | Outdated (Jonan 2026-11-11). Three adjuvant chemotherapy regimens compared
   GOG 122 | Whole-abdominal radiotherapy comparator no longer used. PORTEC-3 and GOG 258 set current options
   GOG 177 | Doxorubicin, cisplatin and paclitaxel replaced by carboplatin-paclitaxel (GOG 209)
   SIENDO / ENGOT-EN5 [t-siendo-engot-en5] | No licence. Not in ESGO 2025 or NCCN 3.2026. Selinexor maintenance, TP53 wild-type benefit under confirmation
