@@ -360,6 +360,8 @@
       // A column that a line passes through is split about that line: the steps above and below come out
       // near even, and their outer middles sit at the same distance from it
       function hgt(n){ return n.el.offsetHeight; }
+      // where lines join: with an odd number of lines the middle one runs straight on, otherwise the middle of the span
+      function centreOf(ys){ ys = ys.slice().sort(function(a, z){ return a - z; }); return ys.length % 2 ? ys[ys.length >> 1] : (ys[0] + ys[ys.length - 1]) / 2; }
       function stack(list, y){ list.forEach(function(n){ n.y = y; n.cy = y + hgt(n) / 2; y += hgt(n) + SG; }); }
       function move(list, d){ list.forEach(function(n){ n.y += d; n.cy += d; }); }
       for (var c = 1; c < cols.length; c++) {
@@ -380,8 +382,20 @@
             if (dU < dL) move(U, dU - dL); else move(L, dU - dL);
           }
         } else if (ins.length) {
-          var mid = (Math.min.apply(null, ins) + Math.max.apply(null, ins)) / 2;
-          move(list, mid - (list[0].cy + list[list.length - 1].cy) / 2);
+          var one = list.every(function(t){ return t.preds.length === 1 && t.preds[0] === list[0].preds[0]; });
+          var mid = list.length === 1 || one ? centreOf(ins) : (Math.min.apply(null, ins) + Math.max.apply(null, ins)) / 2;
+          if (one && list.length > 1) {
+            // the whole column is one step's fan: the middle step (or the middle gap) sits on the stem and each
+            // pair above and below it at the same distance, so the stem runs straight through and the fan is even
+            var m = list.length >> 1, odd = list.length % 2, hi = mid + SG / 2, lo = mid - SG / 2;
+            if (odd) { var c0 = list[m]; c0.y = mid - hgt(c0) / 2; c0.cy = mid; hi = c0.y; lo = c0.y + hgt(c0); }
+            for (var k = 1; k <= m; k++) {
+              var u = list[m - k], l = list[odd ? m + k : m + k - 1];
+              var d = Math.max(mid - (hi - SG - hgt(u) / 2), (lo + SG + hgt(l) / 2) - mid);
+              u.cy = mid - d; u.y = u.cy - hgt(u) / 2; l.cy = mid + d; l.y = l.cy - hgt(l) / 2;
+              hi = u.y; lo = l.y + hgt(l);
+            }
+          } else move(list, mid - (list[0].cy + list[list.length - 1].cy) / 2);
         }
         // a step at the end of a single line moves level with its source, as far as the steps beside it in
         // the column allow, so the line runs straight and its label fits (Jonan 2026-11-11, early NSCLC:
@@ -397,8 +411,7 @@
       // a first step centres on the steps it leads to, as far as the steps beside it allow
       (cols[0] || []).forEach(function(n, k, list){
         if (!n.next.length) return;
-        var ts = n.next.map(function(e){ return e.node.cy; });
-        var dy = (Math.min.apply(null, ts) + Math.max.apply(null, ts)) / 2 - n.cy, up = list[k - 1], dn = list[k + 1];
+        var dy = centreOf(n.next.map(function(e){ return e.node.cy; })) - n.cy, up = list[k - 1], dn = list[k + 1];
         if (dy > 0 && dn) dy = Math.min(dy, dn.y - SG - (n.y + hgt(n)));
         if (dy < 0 && up) dy = Math.max(dy, up.y + hgt(up) + SG - n.y);
         if (Math.abs(dy) > 0.5) move([n], dy);
