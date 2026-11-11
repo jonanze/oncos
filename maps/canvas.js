@@ -69,7 +69,12 @@
     if (l.kind === 'tx') return '<div class="ln tx"' + pad + '>' + keep(l.text) + '</div>';
     if (l.kind === 'cv') return '<div class="ln cv' + (k ? ' t' + k + 'b' : '') + '"' + pad + '>※ ' + keep(l.text) + '</div>';
     if (l.kind === 'se') return '<div class="ln se"' + pad + '>' + keep(l.text) + '</div>';
-    if (l.kind === 'sub') return '<div class="ln sub"' + pad + '>' + keep(l.text) + '</div>';
+    // a ・ line sits under the text of its parent line, one size smaller than the parent
+    if (l.kind === 'sub') {
+      var up = l.parent || {kind: 'text', level: 0}, upad = up.level ? ' style="padding-left:' + (1.15 * up.level) + 'em"' : '';
+      var uk = tiered && (up.kind === 'num' || up.kind === 'cv') && tierLead(up.text) ? ' tierb' : '';
+      return '<div class="ln subl of-' + up.kind + uk + '"' + upad + '><div class="sb">' + keep(l.text) + '</div></div>';
+    }
     if (l.kind === 'num') return '<div class="ln num' + (k ? ' t' + k + 'b' : '') + '"' + pad + '><span class="n">' + esc(l.n) + '</span>' + keep(l.text) + '</div>';
     return '<div class="ln text"' + pad + '>' + keep(l.text) + '</div>';
   }
@@ -89,7 +94,10 @@
     var tiered = SCALE.length && ls.some(function(l){ return l.kind === 'grid' && tierExact(l.cells[0]); });
     function grids(){ if (run.length) { out += gridHtml(run); run = []; } }
     function trials(){ if (trs.length) { out += trialsHtml(trs); trs = []; } }
+    var parent = null;
     ls.forEach(function(l){
+      if (l.kind === 'sub') l.parent = parent;
+      else if (l.kind !== 'trial' && l.kind !== 'grid') parent = l;
       if (l.kind === 'grid') { trials(); run.push(l); return; }
       if (l.kind === 'trial') { grids(); if (trs.length && trs[0].level !== l.level) trials(); trs.push(l); return; }
       grids(); trials();

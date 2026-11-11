@@ -1,2 +1,3 @@
 # Trials on the Endometrial Cancer map with no Evidence row yet (name, PMID, where on the map)
-
+JGOG 2033	PMID 17996926	Newly diagnosed, after hysterectomy and staging
+JGOG 2043	PMID 30896757	Newly diagnosed, after hysterectomy and staging
