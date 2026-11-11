@@ -9,6 +9,7 @@
      nearest box edges or junctions, along the line or across it
    - a line runs under a box
    - two lines cross (a run passing through the middle of another run, not a junction)
+   - the last word of a statement goes to the next line although it fitted on the line above (Jonan 2026-11-11)
    Needs Playwright (require('playwright')). Run it with node maps/check.cjs before every draft and release. */
 'use strict';
 const http = require('http'), fs = require('fs'), path = require('path');
@@ -92,6 +93,21 @@ function measure(){
     const off = pos - (lo + hi) / 2, cross = B.length ? 0 : (h ? cy - k : cx - k);
     if (Math.abs(off) > T || Math.abs(cross) > T)
       res.push('"' + name + '" is ' + Math.round(Math.abs(Math.abs(off) > T ? off : cross)) + ' px off centre ' + (Math.abs(off) > T ? 'along' : 'across') + ' its line');
+  });
+  // a single word left alone on the last line of a statement, before its tags
+  world.querySelectorAll('.ln, .sb').forEach(el => {
+    if (el.querySelector('.sb')) return;
+    const words = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {acceptNode: n => n.parentElement.closest('.tag') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+    let tn;
+    while ((tn = walk.nextNode())) {
+      const re = /\S+/g; let m;
+      while ((m = re.exec(tn.data))) { const r = document.createRange(); r.setStart(tn, m.index); r.setEnd(tn, m.index + m[0].length); const b = r.getClientRects()[0]; if (b) words.push({w:m[0], top:b.top, left:b.left, right:b.right}); }
+    }
+    if (words.length < 3) return;
+    // the last word went down a line although it fitted at the end of the line above
+    const last = words[words.length - 1], prev = words[words.length - 2], cs = getComputedStyle(el), box = el.getBoundingClientRect();
+    const edge = box.right - parseFloat(cs.paddingRight) - parseFloat(cs.borderRightWidth), s = (getComputedStyle(world).transform === 'none' ? 1 : 1);
+    if (last.top - prev.top > 4 && prev.right + 6 + (last.right - last.left) < edge - 2) res.push('"' + last.w + '" went to the next line although it fitted, in "' + el.textContent.trim().slice(0, 50) + '"');
   });
   return {n:chips.length, res};
 }

@@ -48,12 +48,12 @@
     function plain(x){ return esc(x).replace(/(\S*\S[-–]\S+)/g, '<span class="nw">$1</span>'); }
     while ((m = re.exec(t))) {
       var src = SRC[m[1]], label = esc(m[1] + ' ' + m[2]);
-      // the word before a tag stays on the tag's line, so a tag never wraps alone
-      var before = t.slice(k, m.index), w = /(\S+\s*)$/.exec(before), lead = w ? before.slice(0, w.index) : before;
-      out += plain(lead) + '<span class="nw">' + (w ? plain(w[1]) : '') + '<span class="tag">〔' + (src && src.anchor
+      // the statement wraps as plain text and a tag wraps as a whole; no word is carried down with a tag,
+      // which left a single word alone on its line (Jonan 2026-11-11)
+      out += plain(t.slice(k, m.index)) + '<span class="tag">〔' + (src && src.anchor
         ? '<span class="trial src" role="button" tabindex="0" data-ev="' + esc(src.anchor) + '">' + label + '</span>'
         : src && src.url ? '<a class="trial src" href="' + esc(src.url) + '" target="_blank" rel="noopener">' + label + '</a>'
-        : label) + '〕</span></span>';
+        : label) + '〕</span>';
       k = re.lastIndex;
     }
     return out + plain(t.slice(k));

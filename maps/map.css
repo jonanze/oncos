@@ -50,7 +50,7 @@
    trial lines and grid 13, ※ and ・ 12.5, ・ under ※ and line labels 12, tags 11. A heading is never smaller than its lines. */
 .om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border:2.5px solid var(--b-ink);letter-spacing:.02em;font-size:16px}
 .om-world .ln{margin:0 0 2px}
-.om-world .ln,.om-world .sb,.om-world .trials>div{text-wrap:pretty}
+.om-world .trials>div{text-wrap:pretty}
 .om-world .ln.text,.om-world .ln.tx,.om-world .ln.se{padding-left:var(--p,0px)}
 .om-world .ln.tx{font-weight:var(--w-bold);font-size:14px;margin-bottom:5px}
 .om-world .ln.tx::before{content:"★ "}
