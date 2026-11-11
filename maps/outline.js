@@ -7,9 +7,12 @@
   else root.oncosOutline = api;
 })(typeof self !== 'undefined' ? self : this, function(){
   var NUM = /^[①-⑳]/;              // ① to ⑳
-  // Trial [t-...] {pmid N} {url https://...} | fig : a trial with no PubMed record yet (a congress abstract) gives a link
-  var TRIAL = /^([+~\-*])\s+(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*(?:\{pmid\s+(\d+)\})?\s*(?:\{url\s+(https:\/\/[^\s}]+)\})?\s*\|\s*(.+)$/;
+  // Trial [t-...] {pmid N} {url https://...} : a trial with no PubMed record yet (a congress abstract) gives a link.
+  // Maps show trial names only; results are on the trial's card (Jonan 2026-11-11). An old "| fig" is read and not drawn.
+  var TRIAL = /^([+~\-*])\s+(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*(?:\{pmid\s+(\d+)\})?\s*(?:\{url\s+(https:\/\/[^\s}]+)\})?\s*(?:\|\s*(.+))?$/;
   var CLS = {'+':'os', '~':'sur', '-':'neg', '*':'none'};
+  // branch hues, in the order a map without named hues takes them; map.css holds a fill and a pale tint for each
+  var HUES = ['blue', 'violet', 'sage', 'rose', 'sand', 'teal', 'apricot', 'olive'];
   // 〔ESGO II, A〕 at the end of a statement: it rests on the guideline declared by "source: ESGO [t-...]"
   var TAG = /〔([^\s〕]+)\s+([^〕]+)〕/g;
 
@@ -20,7 +23,7 @@
   function line(text, level, at){
     var m = TRIAL.exec(text);
     if (m) return {kind:'trial', level:level, cls:CLS[m[1]], name:m[2], anchor:m[3] || (m[4] || m[5] ? null : slug(m[2])),
-                   pmid:m[4] || null, url:m[5] || null, fig:m[6], at:at};
+                   pmid:m[4] || null, url:m[5] || null, fig:m[6] || '', at:at};
     var c = text.charAt(0);
     if (c === '|') return {kind:'grid', level:level, cells:text.replace(/^\|\s*|\s*\|$/g, '').split(/\s*\|\s*/), at:at};
     if (c === '=') return {kind:'tx', level:level, text:text.replace(/^=\s*/, ''), at:at};
@@ -34,16 +37,29 @@
   function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°|・]/.test(text) || NUM.test(text) || TRIAL.test(text); }
 
   function parse(src){
-    var out = {map:null, bands:[], tree:null, panels:[], off:[], sources:{}, errors:[]};
+    var out = {map:null, bands:[], tree:null, panels:[], off:[], sources:{}, branches:[], errors:[]};
+    var BR = /^branch:\s*(.+)$/;
+    var setBranch = function(o, v, at){ var m = /^(.+?)(\s+pale)?$/.exec(v.trim()); o.branch = m[1]; o.pale = !!m[2]; o.branchAt = at; };
     var sec = null, stack = null;
     String(src).split(/\r?\n/).forEach(function(raw, i){
       var at = i + 1;
       if (/^\s*(#|$)/.test(raw)) return;
       var ind = raw.match(/^ */)[0].length, text = raw.trim();
       if (ind === 0) {
-        var h = /^(map|source|scale|band|tree|course|panel|off):\s*(.*)$/.exec(text);
-        if (!h) { out.errors.push(at + ': expected map:, source:, scale:, band:, tree:, course:, panel: or off:'); sec = null; return; }
+        var h = /^(map|source|scale|branch|band|tree|course|panel|off):\s*(.*)$/.exec(text);
+        if (!h) { out.errors.push(at + ': expected map:, source:, scale:, branch:, band:, tree:, course:, panel: or off:'); sec = null; return; }
         if (h[1] === 'map') { out.map = h[2]; sec = null; return; }
+        // branch: Key | legend | hue  one colour for a branch of the map, such as one MMR status (Jonan 2026-11-11);
+        // the hue is one of HUES, and without one the branch takes the next unused hue. A step or node takes it
+        // with "branch: Key" under it, or its paler tint with "branch: Key pale"; a node's children inherit it
+        if (h[1] === 'branch') {
+          var bm = /^(.+?)\s*\|\s*(.+?)(?:\s*\|\s*(\w+))?$/.exec(h[2]);
+          if (!bm) { out.errors.push(at + ': branch: lines are "Key | legend" or "Key | legend | hue"'); sec = null; return; }
+          var hn = bm[3] ? HUES.indexOf(bm[3]) + 1 : 0;
+          if (bm[3] && !hn) out.errors.push(at + ': branch: hue "' + bm[3] + '" is not one of ' + HUES.join(', '));
+          out.branches.push({key:bm[1], label:bm[2], hue:hn, at:at});
+          sec = null; return;
+        }
         // scale: the four risk groups of an adjuvant or local-treatment decision, lowest first
         if (h[1] === 'scale') { out.scale = h[2].split('|').map(function(x){ return x.trim(); }).filter(Boolean); out.scaleAt = at; sec = null; return; }
         if (h[1] === 'source') {
@@ -89,6 +105,8 @@
         var step = stack[1];
         if (!step) { out.errors.push(at + ': content before the first step'); return; }
         // join: draws the same line as next:, but the two steps stay in separate branches
+        var sb = BR.exec(text);
+        if (sb && ind === 4) { setBranch(step, sb[1], at); return; }
         var nx = /^(next|join):\s*(.+?)\s*(?:\|\s*(.+))?$/.exec(text);
         if (nx) { step.next.push({to:nx[2], label:nx[3] || '', join:nx[1] === 'join', at:at}); return; }
         step.lines.push(line(text, ind / 2 - 2, at));
@@ -96,6 +114,8 @@
       }
       while (stack.length > 1 && stack[stack.length - 1].indent >= ind) stack.pop();
       var owner = stack[stack.length - 1];
+      var nb = BR.exec(text);
+      if (nb) { setBranch(owner, nb[1], at); return; }
       if (isContent(text)) {
         owner.lines.push(line(text, Math.max(0, (ind - owner.indent) / 2 - 1), at));
         return;
@@ -133,6 +153,36 @@
       });
       if (p.join && !names[p.join]) out.errors.push('panel "' + p.title + '": no node "' + p.join + '"');
       else if (p.join && names[p.join].length > 1) out.errors.push('panel "' + p.title + '": node "' + p.join + '" is not unique');
+    });
+    var bkeys = {}, used = {};
+    out.branches.forEach(function(b){ if (b.hue) { if (used[b.hue]) out.errors.push(b.at + ': hue "' + HUES[b.hue - 1] + '" is used twice'); used[b.hue] = true; } });
+    out.branches.forEach(function(b){
+      if (!b.hue) { for (var i = 1; i <= HUES.length; i++) if (!used[i]) { b.hue = i; used[i] = true; break; } }
+      b.n = b.hue; bkeys[b.key] = b.hue;
+    });
+    if (out.branches.length > HUES.length) out.errors.push(out.branches[HUES.length].at + ': at most ' + HUES.length + ' branch: colours');
+    (function inherit(n, k, pale){
+      if (!n) return;
+      if (n.branch && !bkeys[n.branch]) out.errors.push(n.branchAt + ': branch: no "' + n.branch + '" declared');
+      var own = !!n.branch, course = out.tree && out.tree.course;
+      n.br = own ? bkeys[n.branch] || 0 : (course ? 0 : k);
+      n.pale = own ? !!n.pale : (course ? false : pale);
+      n.children.forEach(function(c){ inherit(c, n.br, n.pale); });
+    })(out.tree, 0, false);
+    // colour means one thing on a box: a step, node or band that carries the risk ramp (a grid, or a line
+    // that opens with a risk group) stays plain grey; branch colours go on the other boxes (Jonan 2026-11-11)
+    if (out.scale && out.branches.length) {
+      var risky = function(ls){ return ls.some(function(l){
+        if (l.kind === 'grid') return true;
+        var t = String(l.text || '');
+        return (l.kind === 'num' || l.kind === 'cv') && out.scale.some(function(x){ return t.indexOf(x + ' risk') === 0; });
+      }); };
+      walk(out.tree, function(n){ if (n.br && risky(n.lines || [])) out.errors.push((n.branchAt || n.at) + ': "' + n.label + '" carries the risk colours and stays grey, no branch:'); });
+    }
+    // a panel takes the pale tint of the step or node it is joined to
+    out.panels.forEach(function(p){
+      p.br = 0; p.pale = true;
+      if (p.join) walk(out.tree, function(n){ if (n.label === p.join && n.br) p.br = n.br; });
     });
     if (out.scale) {
       if (out.scale.length !== 4) out.errors.push(out.scaleAt + ': scale: names four risk groups, lowest first');

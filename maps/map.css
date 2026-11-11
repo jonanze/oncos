@@ -7,103 +7,144 @@
 #viewroot .om-bar .om-fit{display:none;align-items:center;justify-content:center;height:38px;min-width:96px;margin-left:auto;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
 #viewroot .om-bar.on .om-fit{display:inline-flex}
 @media (hover:hover){#viewroot .om-bar .om-fit:hover{background:var(--b-cell)}}
-@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-fit{margin-left:0;flex:1 1 100%}}
+#viewroot .om-bar .om-fit+.om-fit{margin-left:0}
+@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-fit{margin-left:0;flex:1 1 0}}
 
 #map{outline:none}
 #map[hidden]{display:none}
-.om-sheet{--om-wire:#5f6f84;--om-t1:var(--b-band);--om-t1-fg:var(--b-ink);position:relative;transform-origin:0 0;background:var(--b-paper);color:var(--b-ink);font-size:14px;line-height:1.38}
-:root[data-theme="dark"] .om-sheet{--om-wire:#8c98a5}
+/* Board maps take the look of a Claude whiteboard (Jonan 2026-11-11: "appear exactly as it does in whiteboard,
+   drop the old ruled style completely"): white paper, filled blocks with rounded corners and no outline, plain ink
+   lines with no arrowheads, labels in plain pills. Colours (Jonan 2026-11-11, "a professional looking, clinical
+   colour template"): muted clinical fills (slate grey and eight branch hues with pale tints), slate text and lines, navy
+   trial chips. Every chip edge is at least 3:1 against its block and all text at least 4.5:1, in light and dark. */
+.om-sheet{--wb-paper:#fff;--wb-ink:#2b3542;--wb-text:#14212f;--wb-soft:rgba(20,33,47,.66);--wb-grid:rgba(20,33,47,.04);
+  --wb-plain:#d3d9e1;--br1:#9fbde3;--br2:#c2b3e2;--br3:#a3d4bf;--br4:#e6b6c6;--br5:#e2cc98;--br6:#92cdce;--br7:#efbf9e;--br8:#c6d196;
+  --bp1:#cadbf0;--bp2:#ddd5ef;--bp3:#cce7dc;--bp4:#f1d7e0;--bp5:#efe3c6;--bp6:#c3e4e4;--bp7:#f6dcca;--bp8:#e0e6c5;
+  --wb-chip:#1f3a5f;--wb-hair:rgba(20,33,47,.32);--wb-chip-t:#fff;--wb-rule:#b3bdc9;--wb-head:#d3d9e1;
+  --om-c1:#6aabf1;--om-c2:#72d071;--om-c3:#f5d515;--om-c4:#ed953d;
+  position:relative;transform-origin:0 0;background:var(--wb-paper);color:var(--wb-text);font-size:15px;line-height:1.35}
+:root[data-theme="dark"] .om-sheet{--wb-paper:#1e2228;--wb-ink:#c9d1db;--wb-grid:rgba(255,255,255,.045)}
 .om-sheet .om-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
-.om-sheet .om-wires line,.om-sheet .om-wires path{stroke:var(--om-wire);stroke-width:1.2;fill:none}
-.om-sheet .om-wires path.main{stroke:var(--b-ink);stroke-width:2}
-.om-sheet .at{position:absolute;z-index:2}
-.om-sheet .box{border:1.3px solid var(--b-line);padding:6px 10px;background:var(--b-paper)}
-.om-sheet .box.lbl{display:inline-block;padding:3px 10px;font-weight:var(--w-bold);white-space:nowrap;background:var(--b-band)}
-.om-sheet h2{font-size:14px;font-weight:var(--w-bold);margin:0 0 6px;padding:0;border:0;text-decoration:underline;text-underline-offset:3px;letter-spacing:.04em;text-transform:uppercase;color:var(--b-ink)}
-.om-sheet ol{list-style:none;margin:0;padding:0}
-.om-sheet ol>li{position:relative;padding-left:1.7em;margin:0 0 6px}
-.om-sheet ol>li>.n{position:absolute;left:0;top:0;font-weight:var(--w-bold)}
-.om-sheet .sub{margin:2px 0 0;padding-left:1.1em;text-indent:-1.1em}
-.om-sheet .sub::before{content:"・"}
-.om-sheet .b{color:var(--accent-on-soft)}
-.om-sheet .r{color:var(--status-danger)}
-.om-sheet .sm{font-size:12.5px}
-.om-sheet .dim{color:var(--muted)}
-.om-sheet .row{display:flex;align-items:flex-start;gap:10px}
-.om-sheet .brace{position:absolute;z-index:2}
-.om-sheet .brace svg{display:block;overflow:visible}
-.om-sheet .brace path{stroke:var(--om-wire);stroke-width:1.2;fill:none}
+.om-sheet .om-wires line,.om-sheet .om-wires path{stroke:var(--wb-ink);stroke-width:1.5;fill:none;stroke-linejoin:round}
 .om-sheet .nw{white-space:nowrap}
-.om-sheet .trial{white-space:nowrap;cursor:pointer;text-decoration:underline;text-decoration-color:var(--b-line);text-underline-offset:2px}
-.om-sheet .trial:focus-visible{outline:1px solid var(--b-ink);outline-offset:1px}
-.om-sheet .trial.on{background:var(--b-band)}
 
-/* canvas maps (map.txt): pan and zoom */
-.om-view{position:relative;overflow:hidden;border:1px solid var(--b-line);background:var(--b-paper);touch-action:none;cursor:grab;outline:none;user-select:none;-webkit-user-select:none}
+/* canvas: pan and zoom over dotted paper */
+.om-view{position:relative;overflow:hidden;border:1px solid var(--b-line);border-radius:12px;background:var(--wb-paper,#fff);touch-action:none;cursor:grab;outline:none;user-select:none;-webkit-user-select:none}
+:root[data-theme="dark"] .om-view{background:#1e2228}
 .om-view.drag{cursor:grabbing}
-.om-view:focus-visible{outline:1px solid var(--b-ink);outline-offset:-1px}
-.om-world{position:absolute;left:0;top:0;transform-origin:0 0}
+.om-view:focus-visible{outline:2px solid var(--b-ink);outline-offset:-2px}
+.om-world{position:absolute;left:0;top:0;transform-origin:0 0;background-image:linear-gradient(var(--wb-grid) 1px,transparent 1px),linear-gradient(90deg,var(--wb-grid) 1px,transparent 1px);background-size:40px 40px}
 .om-world .blk{position:absolute;z-index:2}
-.om-world .box.lbl{box-sizing:border-box;text-align:left;border:1.5px solid var(--b-ink);font-size:15px}
-/* three tiers: the root and course step headings are title blocks; decision nodes ruled cells; the rest open text */
-/* type sizes, largest first: title blocks and band titles 16, decision cells and step subheaders 15, ① options 14,
-   trial lines and grid 13, ※ and ・ 12.5, ・ under ※ and line labels 12, tags 11. A heading is never smaller than its lines. */
-.om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border:2.5px solid var(--b-ink);letter-spacing:.02em;font-size:16px}
+
+/* blocks: a course step, a tree node and its text, a band and a panel are each one filled block */
+.om-world .step,.om-world .leaf,.om-world .band,.om-world .panel,.om-world .box.lbl{box-sizing:border-box;border:0;border-radius:8px;background:var(--brc,var(--wb-plain));color:var(--wb-text);padding:14px 16px}
+.om-world .box.lbl{display:inline-block;font-weight:700;font-size:15px;white-space:nowrap;text-wrap:balance}
+.om-world .box.lbl.root{font-size:18px}
+/* a block's title: larger, bold, set off from the body by a hairline (Jonan 2026-11-11, "more visually distinct") */
+.om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;margin:0 0 10px;padding:0 0 7px;background:none;border:0;border-bottom:1px solid var(--wb-hair);border-radius:0;font-weight:700;font-size:17px;line-height:1.3;white-space:normal;text-wrap:balance}
+.om-world .band>h2,.om-world .panel>h2{margin:0 0 10px;padding:0 0 7px;border:0;border-bottom:1px solid var(--wb-hair);background:none;font-size:17px;line-height:1.3;font-weight:700;letter-spacing:0;text-transform:none;text-decoration:none}
+.om-world .panel.open>h2{border-bottom:0;padding-bottom:0;margin-bottom:0}
+/* branch fills: eight muted hues (outline.js HUES), each with a pale tint for later steps of a branch and for its
+   panels (Jonan 2026-11-11, "more colours and variations"). Text is at least 8:1 and chips 5.9:1 on every fill */
+.om-world .br1{--brc:var(--br1)}.om-world .br1.pale{--brc:var(--bp1)}
+.om-world .br2{--brc:var(--br2)}.om-world .br2.pale{--brc:var(--bp2)}
+.om-world .br3{--brc:var(--br3)}.om-world .br3.pale{--brc:var(--bp3)}
+.om-world .br4{--brc:var(--br4)}.om-world .br4.pale{--brc:var(--bp4)}
+.om-world .br5{--brc:var(--br5)}.om-world .br5.pale{--brc:var(--bp5)}
+.om-world .br6{--brc:var(--br6)}.om-world .br6.pale{--brc:var(--bp6)}
+.om-world .br7{--brc:var(--br7)}.om-world .br7.pale{--brc:var(--bp7)}
+.om-world .br8{--brc:var(--br8)}.om-world .br8.pale{--brc:var(--bp8)}
+
+/* a block's text in columns of one reading width, balanced by the browser (canvas.js colsHtml); an option and
+   its lines stay together, and the space between options is the group's top margin, dropped at a column top */
+.om-world .cols{column-width:460px;column-gap:32px;column-fill:balance}
+.om-world .cols>.grp{break-inside:avoid}
+.om-world .cols>.grp+.grp{margin-top:12px}
+.om-world .cols>.grp>.ln:first-child{margin-top:0}
+
+/* the risk key of a map with a risk scale; maps carry no title (Jonan 2026-11-11) */
+.om-world .tblk{color:var(--wb-ink)}
+.om-world .tblk .keys{display:flex;flex-wrap:wrap;gap:6px}
+.om-world .tblk .key{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;color:var(--wb-text);background:var(--brc)}
+.om-world .tblk .t1k{background:var(--om-c1)}.om-world .tblk .t2k{background:var(--om-c2)}
+.om-world .tblk .t3k{background:var(--om-c3)}.om-world .tblk .t4k{background:var(--om-c4)}
+
+/* lines of text in a block */
 .om-world .ln{margin:0 0 2px}
-.om-world .trials>div{text-wrap:pretty}
-/* a statement without a tag keeps no single word alone on its last line; one with a tag wraps greedily,
-   so no word is carried down to the tag line (Jonan 2026-11-11) */
-.om-world .ln:not(:has(.tag)),.om-world .sb:not(:has(.tag)){text-wrap:pretty}
-.om-world .box.lbl,.om-world .step>.hd,.om-world h2{text-wrap:balance}
 .om-world .ln.text,.om-world .ln.se{padding-left:var(--p,0px)}
-.om-world .ln.cv{font-size:12.5px;padding-left:calc(var(--p,0px) + 1.3em);text-indent:-1.3em}
-.om-world .ln.se{font-size:12px;color:var(--muted)}
-/* ・ one statement under the text of the line above, one size below it */
-.om-world .ln.subl{font-size:12.5px;margin:0}
-.om-world .ln.subl .sb{margin-left:calc(var(--p,0px) + 22px);border-left:1px solid var(--b-line);padding:0 0 3px calc(1.1em + 4px);text-indent:-1.1em}
+.om-world .ln.text{font-size:15px;margin-top:0}
+.om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
+/* numbered options are bold, their tags stay regular; spacing between points as in the ruleset of 2026-11-11 */
+.om-world .ln.num{position:relative;padding-left:calc(var(--p,0px) + 20px);margin-top:12px;font-weight:700}
+.om-world .ln.num .tag{font-weight:400}
+.om-world .ln.num .n{position:absolute;left:var(--p,0px);top:0;font-weight:700}
+.om-world .ln.tx{margin-top:12px}
+.om-world .ln.cv{font-size:15px;padding-left:calc(var(--p,0px) + 20px);text-indent:-20px;margin-top:0}
+.om-world .ln.se{font-size:13px;color:var(--wb-soft)}
+.om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
+.om-world .ln.subl{font-size:15px;margin:0}
+.om-world .ln.subl .sb{margin-left:calc(var(--p,0px) + 20px);padding-left:1.1em;text-indent:-1.1em}
 .om-world .ln.subl .sb::before{content:"・"}
-.om-world .ln.subl.of-cv{font-size:12px}
-.om-world .ln.subl.of-cv .sb{margin-left:calc(var(--p,0px) + 1.3em)}
-.om-world .ln.subl.of-text .sb,.om-world .ln.subl.of-tx .sb{margin-left:calc(var(--p,0px) + .6em)}
+.om-world .ln.subl.of-cv{font-size:15px}
+.om-world .ln.subl.of-cv .sb{margin-left:calc(var(--p,0px) + 20px)}
+.om-world .ln.subl.of-text .sb,.om-world .ln.subl.of-tx .sb{margin-left:var(--p,0px)}
 .om-world .ln.subl.tierb .sb{margin-left:calc(var(--p,0px) + 31px)}
 .om-world .ln.subl.of-cv.tierb .sb{margin-left:calc(var(--p,0px) + 1.3em + 9px)}
-/* trial lines in a row: one ruled grid, trial name | key figure */
-.om-world .trials{display:grid;grid-template-columns:13.5em 1fr;margin:5px 0 3px var(--p,0px);border-top:1px solid var(--b-cell)}
-.om-world .trials>div{padding:2px 8px 2px 0;border-bottom:1px solid var(--b-cell);font-size:13px}
-/* a trial row is an item, not a heading: a bullet before its name (Jonan 2026-11-11) */
-.om-world .trials>.tn{padding-left:1em;text-indent:-1em}
-.om-world .trials>.tn::before{content:"・"}
-.om-world .trials>.fg{font-weight:var(--w-bold);font-variant-numeric:tabular-nums;padding-left:8px;border-left:1px solid var(--b-cell)}
-/* bands and panels: closed ruled cells with a 【TITLE】 band */
-.om-world .band,.om-world .panel{box-sizing:border-box;border:1.3px solid var(--b-line);padding:0 10px 8px;background:var(--b-paper)}
-.om-world .band>h2,.om-world .panel>h2{margin:0 -10px 8px;padding:4px 10px;background:var(--b-band);border-bottom:1px solid var(--b-line);text-decoration:none;font-size:16px;letter-spacing:.06em}
-.om-world .band>h2::before,.om-world .panel>h2::before{content:"【"}
-.om-world .band>h2::after,.om-world .panel>h2::after{content:"】"}
-/* title block at the top left of the canvas */
-.om-world .tblk{display:grid;grid-template-columns:max-content minmax(0,max-content);border:1.3px solid var(--b-line);font-size:12px;background:var(--b-paper)}
-.om-world .tblk>div{padding:3px 9px;border-bottom:1px solid var(--b-line)}
-.om-world .tblk>div:nth-child(odd){border-right:1px solid var(--b-line)}
-.om-world .tblk>div:nth-last-child(-n+2){border-bottom:0}
-.om-world .tblk .k{background:var(--b-band);font-weight:var(--w-bold);text-transform:uppercase;letter-spacing:.04em}
-.om-world .tblk .v{font-weight:var(--w-bold);font-size:13px}
-.om-world .ln.num{position:relative;padding-left:calc(var(--p,0px) + 22px)}
-.om-world .ln.num .n{position:absolute;left:var(--p,0px);top:0;font-weight:var(--w-bold)}
-.om-world .band .ln.text,.om-world .panel .ln.text{margin-bottom:4px}
-.om-world .panel .ln.num,.om-world .band .ln.num{margin-top:12px}
-.om-world .trial{color:var(--b-ink);text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:2px;white-space:nowrap;cursor:pointer}
-.om-world a.trial{cursor:pointer}
-.om-world .tag{font-size:11px;color:var(--muted);white-space:nowrap}
-.om-world .tag .trial.src{color:var(--muted);text-decoration-color:var(--b-line)}
-.om-world table.grid td:empty::after{content:"―";color:var(--muted)}
-.om-world table.grid{width:100%;table-layout:fixed;border-collapse:collapse;margin:6px 0 10px;font-size:13px;line-height:1.4}
-.om-world table.grid th,.om-world table.grid td{border:1px solid var(--b-line);padding:5px 8px;text-align:left;vertical-align:top}
-.om-world table.grid tr:first-child th{background:var(--b-band);font-weight:var(--w-bold)}
-.om-world table.grid th{font-weight:var(--w-bold)}
-/* the Evidence view stacks its tables on a phone; a map grid stays a ruled table at every width */
+.om-world .ln:not(:has(.tag)),.om-world .sb:not(:has(.tag)){text-wrap:pretty}
+.om-world .tag{white-space:nowrap}
+.om-world .tag .trial.src{color:inherit;text-decoration:none}
+
+/* trial names: a plain list, as on the board; a tap opens the trial's card. (intake) marks a trial with no row yet */
+.om-world .trials{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0 3px calc(var(--p,0px) + 20px)}
+.om-world .trials>.tch{padding:1px 9px;border-radius:999px;background:var(--wb-chip);color:var(--wb-chip-t);font-size:13px;white-space:nowrap}
+.om-world .trials>.tch.ni{background:none;color:var(--wb-chip);outline:1.2px dashed var(--wb-chip);outline-offset:-1.2px}
+:root[data-theme="dark"] .om-world .panel.open .trials>.tch{background:#dfe6ee;color:var(--wb-text)}
+:root[data-theme="dark"] .om-world .panel.open .trials>.tch.ni{background:none;color:#dfe6ee;outline-color:#dfe6ee}
+.om-world .ln.cv+.trials{margin-top:8px}
+.om-world .trials+.ln.cv{margin-top:0}
+.om-world .ln.subl+.ln.cv,.om-world .ln.cv+.ln.cv{margin-top:4px}
+.om-world .ln.subl+.trials{margin-top:5px}
+.om-world .trial{color:inherit;text-decoration:none;cursor:pointer;white-space:nowrap}
+.om-world .trial:focus-visible{outline:2px solid currentColor;outline-offset:1px;border-radius:4px}
+@media (hover:hover){.om-world .trials>.tch:hover{text-decoration:underline}}
+
+/* a panel holding a table: the table stands on the paper with its title above it */
+.om-world .panel.open{background:none;color:var(--wb-ink);padding:0}
+.om-world .panel.open table.grid{background:#fff;color:var(--wb-text);margin-top:10px;outline:1px solid var(--wb-rule);outline-offset:-1px}
+.om-world .panel.open table.grid th,.om-world .panel.open table.grid td{border-color:var(--wb-rule)}
+
+
+/* line labels: a plain pill on the line */
+.om-world .elab{z-index:3;font-size:13px;line-height:1.3;max-width:240px;text-align:center;border:0;border-radius:999px;background:var(--wb-paper);color:var(--wb-ink);padding:2px 9px}
+
+/* tables, as on a whiteboard: a white card with a slate header row, rounded, light rules, the same in both
+   themes, so the risk tints read as pale colours in dark mode too (Jonan 2026-11-11, "why did you turn these black") */
+.om-world table.grid{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;margin:6px 0 8px;font-size:13.5px;line-height:1.35;background:#fff;color:var(--wb-text);border-radius:8px;overflow:hidden}
+.om-world table.grid th,.om-world table.grid td{border:0;border-bottom:1px solid rgba(20,33,47,.15);padding:5px 8px;text-align:left;vertical-align:top;overflow-wrap:break-word}
+.om-world table.grid tr:last-child th,.om-world table.grid tr:last-child td{border-bottom:0}
+.om-world table.grid th+th,.om-world table.grid th+td,.om-world table.grid td+td{border-left:1px solid rgba(20,33,47,.15)}
+.om-world table.grid tr:first-child th{font-weight:700;background:#2c333b;color:#eef1f4;border-color:rgba(255,255,255,.18)}
+/* the first column takes 40% in a table of up to four columns; wider grids share the width evenly */
+.om-world table.grid tr:first-child th:first-child:nth-last-child(-n+4){width:40%}
+.om-world table.grid th{font-weight:700}
+.om-world table.grid .nw{white-space:normal}
+.om-world table.grid td:empty::after{content:"―";opacity:.5}
+.om-world table.grid .tag{color:inherit;opacity:.7}
 [data-view] .om-world table.grid{display:table;width:100%}
 [data-view] .om-world table.grid tbody{display:table-row-group;width:auto}
 [data-view] .om-world table.grid tr{display:table-row;width:auto}
 [data-view] .om-world table.grid th,[data-view] .om-world table.grid td{display:table-cell;width:auto}
+
+/* risk groups (scale: line, endometrial only): the whiteboard's four fills, one meaning on every map */
+.om-world table.grid tr.t1r{background:color-mix(in srgb,var(--om-c1) 35%,transparent)}.om-world table.grid tr.t2r{background:color-mix(in srgb,var(--om-c2) 35%,transparent)}
+.om-world table.grid tr.t3r{background:color-mix(in srgb,var(--om-c3) 35%,transparent)}.om-world table.grid tr.t4r{background:color-mix(in srgb,var(--om-c4) 35%,transparent)}
+.om-world table.grid tr[class] .tc{font-weight:700}
+.om-world .ln.t1b,.om-world .ln.t2b,.om-world .ln.t3b,.om-world .ln.t4b{border-left:3px solid;padding-left:6px}
+.om-world .ln.num.t1b,.om-world .ln.num.t2b,.om-world .ln.num.t3b,.om-world .ln.num.t4b{padding-left:calc(var(--p,0px) + 28px)}
+.om-world .ln.cv.t1b,.om-world .ln.cv.t2b,.om-world .ln.cv.t3b,.om-world .ln.cv.t4b{padding-left:calc(var(--p,0px) + 1.3em + 6px)}
+.om-world .ln.num[class*=" t"] .n{left:calc(var(--p,0px) + 6px)}
+.om-world .ln.t1b{border-color:var(--om-c1)}.om-world .ln.t2b{border-color:var(--om-c2)}
+.om-world .ln.t3b{border-color:var(--om-c3)}.om-world .ln.t4b{border-color:var(--om-c4)}
 
 /* trial card: same ruled label | value cells as an open Evidence row */
 #om-card{position:fixed;z-index:60;display:none;flex-direction:column;background:var(--b-paper);color:var(--b-ink);border:1px solid var(--b-line)}
@@ -129,48 +170,21 @@
   #om-card{left:0;right:0;bottom:0;max-height:62vh;border-left:0;border-right:0;padding-bottom:env(safe-area-inset-bottom,0px)}
 }
 
-/* course maps: steps in time order */
-.om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;white-space:normal;margin:0 0 8px;padding:4px 10px}
-.om-world .step .ln.text{font-weight:var(--w-bold);font-size:15px;margin-top:14px}
-.om-world .step .ln.num,.om-world .step .ln.tx{margin-top:12px}
-/* gaps follow the groups: 12–14px between options and subheaders, 4–8px between statements, 0–3px to a line's own ・ lines or trial */
-.om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
-.om-world .trials+.ln.cv{margin-top:0}
-.om-world .ln.cv+.trials{margin-top:8px}
-.om-world .ln.cv+.trials[style]{margin-top:2px}
-.om-world .ln.subl+.trials{margin-top:5px}
-.om-world .ln.subl+.ln.cv,.om-world .ln.cv+.ln.cv{margin-top:4px}
-.om-world .elab{z-index:3;font-size:12px;line-height:1.3;max-width:240px;text-align:center;border:1px solid var(--b-line);background:var(--b-paper);padding:1px 6px}
-
-/* phone: a row of the main headings above the canvas, scrolling with the page; a tap moves the map there */
+/* phone: a row of the main headings above the canvas; a tap moves the map there */
 .om-idx{display:none}
 @media (max-width:740px){
-  .om-idx{display:flex;overflow-x:auto;white-space:nowrap;border:1px solid var(--b-line);border-bottom:0;background:var(--b-cell)}
-  .om-idx button{flex:none;font:inherit;font-size:12px;padding:6px 9px;border:0;border-right:1px solid var(--b-line);background:var(--b-cell);color:var(--b-ink);cursor:pointer}
-  .om-idx button:last-child{border-right:0}
-  .om-idx button.on{background:var(--b-band);color:var(--b-ink);font-weight:var(--w-bold);box-shadow:inset 0 -2.5px 0 var(--b-ink)}
+  .om-idx{display:flex;gap:6px;overflow-x:auto;white-space:nowrap;padding:0 0 8px}
+  .om-idx button{flex:none;font:inherit;font-size:12px;padding:4px 10px;border:0;border-radius:999px;background:var(--b-cell);color:var(--b-ink);cursor:pointer}
+  .om-idx button.on{background:var(--b-ink);color:var(--b-paper)}
 }
-
-/* risk groups (scale: line): four hues, one meaning on every map; never a trial result, grade or disease state */
-.om-sheet{--om-c1:#2a5db0;--om-c2:#2f7d4f;--om-c3:#a86a12;--om-c4:#a8402f;--om-c1t:rgba(42,93,176,.12);--om-c2t:rgba(47,125,79,.12);--om-c3t:rgba(168,106,18,.12);--om-c4t:rgba(168,64,47,.12);--om-c1l:#2a5db0;--om-c2l:#2f7d4f;--om-c3l:#a86a12;--om-c4l:#a8402f}
-:root[data-theme="dark"] .om-sheet{--om-c1:#3b6fc4;--om-c2:#3a8a5c;--om-c3:#9a6a1f;--om-c4:#b85a49;--om-c1t:rgba(91,143,224,.2);--om-c2t:rgba(90,168,119,.2);--om-c3t:rgba(217,162,74,.2);--om-c4t:rgba(229,154,136,.2);--om-c1l:#8db3f0;--om-c2l:#8fcfa5;--om-c3l:#e3b86a;--om-c4l:#e59a88}
-.om-world table.grid tr.t1r{background:var(--om-c1t)}.om-world table.grid tr.t2r{background:var(--om-c2t)}
-.om-world table.grid tr.t3r{background:var(--om-c3t)}.om-world table.grid tr.t4r{background:var(--om-c4t)}
-.om-world table.grid tr[class] .tc{font-weight:var(--w-bold)}
-.om-world table.grid tr.t1r .tc{color:var(--om-c1l)}.om-world table.grid tr.t2r .tc{color:var(--om-c2l)}
-.om-world table.grid tr.t3r .tc{color:var(--om-c3l)}.om-world table.grid tr.t4r .tc{color:var(--om-c4l)}
-.om-world table.grid tr[class] .tc .tag{font-weight:400}
-.om-world .ln.t1b,.om-world .ln.t2b,.om-world .ln.t3b,.om-world .ln.t4b{border-left:3px solid;padding-left:6px}
-.om-world .ln.num.t1b,.om-world .ln.num.t2b,.om-world .ln.num.t3b,.om-world .ln.num.t4b{padding-left:calc(var(--p,0px) + 28px)}
-.om-world .ln.cv.t1b,.om-world .ln.cv.t2b,.om-world .ln.cv.t3b,.om-world .ln.cv.t4b{padding-left:calc(var(--p,0px) + 1.3em + 6px)}
-.om-world .ln.num[class*=" t"] .n{left:calc(var(--p,0px) + 6px)}
-.om-world .ln.t1b{border-color:var(--om-c1)}.om-world .ln.t2b{border-color:var(--om-c2)}
-.om-world .ln.t3b{border-color:var(--om-c3)}.om-world .ln.t4b{border-color:var(--om-c4)}
-.om-world .tblk .keys{display:flex;flex-wrap:wrap;gap:3px}
-.om-world .tblk .key{padding:0 6px;color:#fff;font-weight:var(--w-bold);font-size:11.5px}
-.om-world .tblk .t1k{background:var(--om-c1)}.om-world .tblk .t2k{background:var(--om-c2)}
-.om-world .tblk .t3k{background:var(--om-c3)}.om-world .tblk .t4k{background:var(--om-c4)}
-
-/* inside a ruled grid a cell is narrow: a guideline tag may take its own line, and a long word breaks rather than spill */
-.om-world table.grid .nw{white-space:normal}
-.om-world table.grid th,.om-world table.grid td{overflow-wrap:break-word}
+/* full screen: the map pane covers the page (evidence-maps.js full) */
+.om-fs{display:none}
+html.om-full,html.om-full body{overflow:hidden}
+html.om-full #map{position:fixed;inset:0;z-index:50;margin:0;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) 0 env(safe-area-inset-left,0px);background:var(--wb-paper,#fff)}
+:root[data-theme="dark"].om-full #map{background:#1e2228}
+html.om-full #map .om-view{border:0;border-radius:0}
+html.om-full #map .om-idx{padding:8px 8px 8px}
+html.om-full .om-fs{display:flex;position:absolute;z-index:5;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);right:calc(env(safe-area-inset-right,0px) + 12px);gap:0;border:1px solid var(--b-line);background:var(--b-paper)}
+.om-fs button{height:36px;min-width:72px;padding:0 12px;border:0;background:none;color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
+.om-fs button+button{border-left:1px solid var(--b-line)}
+@media (hover:hover){.om-fs button:hover{background:var(--b-cell)}}

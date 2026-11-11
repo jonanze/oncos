@@ -1,0 +1,163 @@
+# oncOS board map: Early CRC (localised colon cancer; rectal cancer is its own sheet)
+# Format and rules: see the header of maps/early-nsclc/map.txt
+#   branch: Key | legend | hue   one colour for a branch of the map; "branch: Key" or "branch: Key pale" under a step colours it.
+#                          Here pMMR or MSS and dMMR or MSI-H; steps for both stay plain (Jonan 2026-11-11)
+#   Content and layout follow the whiteboard plan (Jonan 2026-11-11: "EXACTLY as in whiteboard")
+#   Trial lines give the trial name only; results are on the trial's card (Jonan 2026-11-11)
+#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, dashed cell, listed for intake
+#
+# Tags give evidence first, strength second, as printed, on the statement the guideline graded:
+#   〔JSCCR evidence, strength〕 JSCCR guidelines 2024 for colorectal cancer, English edition
+#     (Int J Clin Oncol 2025;30:2410-63, PMID 41186794), CQ boxes read from the PDF; East Asian guideline first
+#   〔NCCN category, preference〕 NCCN Colon Cancer 3.2026 (6 November 2026); category 2A unless stated
+#   〔ESMO evidence, grade〕 ESMO localised colon cancer 2020 (Ann Oncol 2020;31:1291-305, PMID 32702383)
+#     with the 2026 Express Update grades where they replace it
+#   Japan-only options (S-1, UFT with leucovorin) sit on a ※ line (Jonan 2026-11-11)
+#   No testing band (Jonan 2026-11-11: PI3K testing need not come before the adjuvant decision).
+#   MMR sits in the first step; DPYD testing "can be considered" (lower DPYD deficiency in East Asian patients)
+
+map: Early CRC
+source: JSCCR {url https://doi.org/10.1007/s10147-025-02899-8}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2020.06.022}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+branch: pMMR | pMMR or MSS | blue
+branch: dMMR | dMMR or MSI-H | violet
+branch: OB | Obstruction | sand
+branch: AF | After resection | sage
+
+course: Localised colon cancer
+  Clinical stage I to III
+    MMR or MSI on the biopsy of every tumour 〔NCCN 2A〕 〔JSCCR A, 1〕
+    Non-obstructing T1–3: straight to colectomy
+    ※ DPYD testing can be considered before a fluoropyrimidine
+    next: Obstructing cancer
+    next: cT4b or bulky nodes, pMMR
+    next: T4 or bulky, dMMR
+  Obstructing cancer
+    branch: OB
+    ① Colectomy or diversion 〔NCCN 2A〕
+    ② Stent as a bridge to colectomy 〔NCCN 2A〕 〔JSCCR B, 2〕 〔ESMO II〕
+      ・No stent if systemic therapy is planned 〔JSCCR B, 2〕
+    ~ ESCO [t-esco]
+    next: Colectomy
+  cT4b or bulky nodes, pMMR
+    branch: pMMR pale
+    ① FOLFOX or CAPOX, then colectomy 〔NCCN 2A〕
+    ~ FOxTROT
+    - NeoCol
+    next: Colectomy
+  T4 or bulky, dMMR
+    branch: dMMR pale
+    ① Checkpoint inhibitor, then colectomy 〔NCCN 2A, preferred〕
+    ~ NICHE-2
+    ※ Less regression with chemotherapy first
+      ~ FOxTROT
+    next: Colectomy
+  Colectomy
+    ① En bloc regional nodes, at least 12 〔NCCN 2A〕 〔ESMO I, A〕
+      ・JSCCR: D2 for cT1, D2 or D3 for cT2, D3 for cT3–T4a or node-positive
+    ② Laparoscopic or robotic, experienced surgeon 〔NCCN 2A〕 〔ESMO I, C〕
+      ・Robotic colectomy 〔JSCCR C, 2〕
+    ~ JCOG0404 [t-jcog-0404]
+    ~ COLOR [t-color]
+    ~ CLASICC [t-uk-mrc-clasicc]
+    ~ COST [t-laparoscopic-colectomy-trial]
+    ※ Tis or slight cT1: endoscopic resection (JSCCR)
+      ・Colectomy after it for T1b, LVI, poor differentiation or BD2–3 〔JSCCR B, 2〕
+    next: Stage I and II, pMMR
+    next: Stage III, pMMR
+    next: Stage 0 to II, dMMR
+    next: Stage III, dMMR
+  Stage I and II, pMMR
+    branch: pMMR pale
+    ① Stage I: observation 〔NCCN 2A〕
+    ② Low-risk II: observation 〔NCCN 2A, preferred〕 〔ESMO I, A〕 〔JSCCR A, 2〕
+    ③ High-risk II: fluoropyrimidine, CAPOX or FOLFOX, or observation 〔NCCN 2A〕 〔ESMO I, C〕 〔JSCCR B, 2〕
+    + QUASAR
+    - MOSAIC
+    ※ Stage II: ctDNA-guided treatment was non-inferior in one randomised phase 2 trial
+      ・Not for treatment decisions outside a trial 〔NCCN 2A〕
+      ~ DYNAMIC
+    next: Exercise and aspirin after resection
+  Stage III, pMMR
+    branch: pMMR
+    ① CAPOX or FOLFOX 〔NCCN 2A, preferred〕 〔ESMO I, A〕 〔JSCCR A, 1〕
+    ② Capecitabine or 5-FU/LV for 6 months 〔JSCCR A, 2〕
+    ※ Japan only: S-1 or UFT with LV 〔JSCCR A, 2〕
+      ~ ACTS-CC [t-acts-cc]
+      - JCOG0910 [t-caps]
+    ※ FLOX not recommended
+      ~ NSABP C-07
+    ※ Age 70 or over
+      - ACCENT 2013 [t-accent-pooled-analysis--early-crc]
+    ※ Age 80 or over: no oxaliplatin 〔JSCCR C, 2〕
+    + MOSAIC
+    + NO16968
+    ~ X-ACT
+    + IMPACT
+    + ACCENT 2001 [t-accent-pooled-analysis]
+    next: Exercise and aspirin after resection
+  Stage 0 to II, dMMR
+    branch: dMMR pale
+    ① 0–IIB: observation 〔NCCN 2A〕
+    ② IIC: observation, or as low-risk stage III 〔NCCN 2A〕
+    ※ Fluoropyrimidine alone not effective
+      - Sargent 2010 [t-sargent-et-al]
+    next: Exercise and aspirin after resection
+  Stage III, dMMR
+    branch: dMMR
+    ① FOLFOX or CAPOX with atezolizumab 〔NCCN 2A, preferred〕
+    ② CAPOX or FOLFOX 〔NCCN 2A〕
+    ~ ATOMIC
+    next: Exercise and aspirin after resection
+  Exercise and aspirin after resection
+    branch: AF
+    ① Structured exercise programme 〔ESMO II, B〕 〔NCCN 2A〕
+    ② PI3K pathway altered: aspirin for 3 years 〔NCCN 2A〕
+    + CHALLENGE
+    ~ ALASCCA
+
+panel: High-risk stage II > Stage I and II, pMMR
+  | Feature | NCCN | ESMO | JSCCR |
+  | T4, including perforation | ✓ | Major | ✓ |
+  | Fewer than 12 nodes examined | ✓ | Major | ✓ |
+  | Poor differentiation, not MSI-H | ✓ | Minor | ✓ |
+  | Bowel obstruction | ✓ | Minor | - |
+  | Lymphatic or vascular invasion | ✓ | Minor | - |
+  | Perineural invasion | ✓ | Minor | - |
+  | Close or positive margins | ✓ | - | - |
+  | High-grade tumour budding | ✓ | - | - |
+  | CEA above 5 ng/mL (5 µg/L) before surgery | - | Minor | - |
+  | High risk | Any one | Any major, or several minor | Not defined |
+  ※ ESMO: one minor feature alone is intermediate risk
+
+panel: High-risk stage III > Stage III, pMMR
+  | Risk group | T and N |
+  | Low risk | T1–3 N1 |
+  | High risk | T4 or N2 |
+
+panel: Duration of CAPOX or FOLFOX > Stage III, pMMR
+  | Risk group | CAPOX | FOLFOX |
+  | High-risk stage II | 3 months | 6 months |
+  | Low-risk stage III | 3 months | 3 to 6 months |
+  | High-risk stage III | 3 to 6 months | 6 months |
+  ~ IDEA [t-idea-collaboration]
+  ~ SCOT
+  ~ ACHIEVE [t-achieve]
+  ~ IDEA stage II [t-idea-collaboration--early-crc]
+  ~ ACHIEVE-2
+
+off:
+  INT 0035 | Superseded: levamisole is withdrawn and fluorouracil with leucovorin replaced it
+  GALAXY [t-galaxy] | Non-randomised cohort with randomised evidence available, prognostic only
+  IROCAS | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  NSABP C-08 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  AVANT | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  NCCTG N0147 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  QUASAR 2 [t-quasar-2] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  PETACC-3 [t-petacc-3] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  FNCLCC Accord02 / FFCD 9802 [t-fnclcc-accord02-ffcd-9802] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  CALGB 89803 [t-calgb-89803] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  PETACC-8 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  DYNAMIC-III | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  ALTAIR | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)

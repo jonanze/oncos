@@ -9,17 +9,13 @@
 #           and several join: lines to one step with one label share an upright and that label
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
-#   + Trial | fig   a trial line; the mark records the result and is not drawn:
+#   + Trial         a trial line, the trial's name only; it draws as a chip, and a tap opens its card with the
+#                   results. No figures on maps (Jonan 2026-11-11). The mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
-#   fig with no digits is read from the Evidence row at each publish:
-#     OS HR, PFS HR   the HR on the row's OS or PFS line
-#     OS median       the medians on that line, "a vs b months"
-#     response        the first percentage on the ORR line
-#   fig with digits is shown as written; the map check fails if the row no longer has those numbers
 #   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
-#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
+#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, dashed chip, listed for intake
 #   Trial {url https://...}  a randomised trial with no PubMed record yet (congress abstract): link, listed for intake
-#   trial lines in a row draw as one ruled grid: trial name | key figure
+#   trial lines in a row draw as one row of chips, starting at the text of the line above
 #   ※ text          caveat             ° text          side effects, grey
 #   ・ text          one statement under the line above (a guideline's position, a licence, a condition);
 #                   one statement per line, no chains of clauses joined by semicolons (Jonan 2026-11-10)
@@ -32,12 +28,29 @@
 #                   Guidelines are not Evidence rows (Jonan 2026-11-11)
 #   scale: Low | Intermediate | High-intermediate | High   four risk groups of an adjuvant or local-treatment
 #                   decision, lowest first, each naming a grid row; those rows, and the ① and ※ lines in
-#                   the same block that open with a risk group, take that group's colour. Nothing else is coloured
+#                   the same block that open with a risk group, take that group's colour
+#   branch: Key | legend | hue   at the top: one fill colour for a branch of the map. Hues: blue, violet, sage,
+#                   rose, sand, teal, apricot, olive (at most eight; without a hue the next unused one is taken).
+#                   "branch: Key" under a step or tree node gives it that fill, "branch: Key pale" the pale tint
+#                   (later steps of the same branch); a node's children take it too; a step for every branch stays
+#                   plain grey; a panel takes the pale tint of the node it is joined to. Every map has branches
+#                   (Jonan 2026-11-11, "more colours and variations"). Never on a map with scale: (2026-11-11)
 #
 # Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
-#   Square lines only; joins line up; no result colours (the marks above are kept as data, not drawn);
-#   colour only for risk groups, through scale: (Jonan 2026-11-09)
+#   Whiteboard look (Jonan 2026-11-11, early colon map as the reference): filled rounded blocks, no title block,
+#   bold numbered options, trial names as chips with no figures, lines with rounded corners and no arrowheads
+#   that share one trunk where they fan out; spec doc https://claude.ai/artifact/Gt1iJC47Qa9LSMGDteysBJ
+#   No result colours (the marks above are kept as data, not drawn); colour means one thing on a box: a box
+#   carrying the risk ramp (scale:, a grid or a line opening with a risk group) stays grey, branch: colours go
+#   on the other boxes (Jonan 2026-11-11)
+#   Size and shape (Jonan 2026-11-11, "optimal box height/width ratio ... on a typical pc screen"): text runs in
+#   columns of one reading width (460 px) balanced by the browser; a box takes another column only when every
+#   column gets text and the columns come out near even; the columns per box are chosen so the whole map shows
+#   at the largest scale in the 1600 x 850 map area of a 1920 x 1080 screen (most maps come out near 0.55
+#   height to width); grid columns 220 px; bands share one row (canvas.js)
+#   Full screen button beside Fit (evidence-maps.js); lines meet boxes at their middle and boxes centre on
+#   each other; rounded corners; chips centred on their line (render-check.cjs)
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
@@ -90,14 +103,20 @@ source: ESMO {url https://www.esmo.org/guidelines/living-guidelines/esmo-living-
 source: ACCP {url https://doi.org/10.1016/j.chest.2025.06.023}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
 source: JLCS {url https://www.haigan.gr.jp/publication/guideline/examination/2025/}
+branch: SX | Upfront resection | blue
+branch: NEO | Neoadjuvant or perioperative | teal
+branch: ADJ | Adjuvant | violet
+branch: PORT | Radiotherapy after resection | sand
+branch: SBRT | No surgery, SBRT | sage
+branch: CRT | Chemoradiotherapy | apricot
 
 band: Staging before treatment
   ① CT and PET-CT before surgery, for nodal staging 〔ESMO I, A〕 〔NCCN 2A〕 〔JLCS A, 1〕
-    ~ Fischer 2009 [t-fischer-et-al] | Futile thoracotomy 21% vs 42%, PET-CT vs conventional staging, PLUS found the same with PET
+    ~ Fischer 2009 [t-fischer-et-al]
   ② Nodes abnormal on CT or PET: endosonography with needle aspiration first 〔ESMO I, A〕 〔JLCS A, 1〕
-    ~ ASTER | N2 or N3 sensitivity 79% vs 94%, surgical staging alone vs endosonography first
+    ~ ASTER
   ③ Mediastinoscopy can be omitted after negative systematic endosonography
-    ~ MEDIASTrial | Unforeseen N2 8.8% vs 7.7%, no mediastinoscopy vs mediastinoscopy
+    ~ MEDIASTrial
     ※ Guidelines differ
     ・Mediastinoscopy before resection when endosonography is negative but CT or PET is positive in the mediastinum 〔NCCN 2A〕
     ・JLCS finds the evidence insufficient either way
@@ -121,51 +140,55 @@ band: Testing before treatment
 
 course: Early and locally advanced NSCLC
   Surgery
+    branch: SX
     Operable, and the MDT judges complete resection possible: stage I–II 〔ESMO III, A〕 〔JLCS C, 1〕, and selected stage III
     ※ N2 disease: the MDT chooses between surgery and definitive chemoradiotherapy 〔ESMO V, A〕 〔NCCN 2A〕 〔JLCS C, 1〕
     next: Neoadjuvant or perioperative
     next: Upfront resection
   No surgery
+    branch: SBRT
     Medically inoperable or declining surgery, or stage III that cannot be completely resected
     ※ Operable stage I: surgery is preferred over SBRT 〔ACCP Low, Conditional〕 〔NCCN 2A〕
     ・SBRT when surgery is declined 〔JLCS C, 1〕
     next: SBRT
     next: Chemoradiotherapy
   Neoadjuvant or perioperative
+    branch: NEO
     Stage II–III with no EGFR, ALK or RET alteration: platinum doublet with a PD-1 or PD-L1 antibody for 3 or 4 cycles, then surgery 〔ESMO I, A〕 〔NCCN 1〕
     ① Neoadjuvant only: nivolumab 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
     ・The EU licence needs PD-L1 1% or more
-      + CheckMate 816 | OS HR
+      + CheckMate 816
     ② Perioperative: a PD-1 or PD-L1 antibody continued after surgery 〔JLCS A, 2〕
     ・Pembrolizumab, durvalumab or nivolumab 〔ESMO I, A〕 〔NCCN 1〕
     ・Tislelizumab 〔ESMO I, A〕
     ・The EU licence for nivolumab needs PD-L1 1% or more
     ・Tislelizumab: EU licence, trial in China
-      + KEYNOTE-671 | OS HR
-      ~ AEGEAN | EFS HR
-      ~ CheckMate 77T | 18-month EFS 70.2% vs 50.0%
-      + RATIONALE-315 | OS HR
+      + KEYNOTE-671
+      ~ AEGEAN
+      ~ CheckMate 77T
+      + RATIONALE-315
       ※ Toripalimab improved EFS in a trial in China
       ・Not in ESMO 1.3, NCCN or JLCS
       ・Toripalimab has EU and US licences for other cancers, not for NSCLC
-        ~ Neotorch | EFS HR
+        ~ Neotorch
     ※ ESMO states no preference between neoadjuvant only and perioperative treatment
     ※ EGFR exon 19 or L858R, stage II–IIIB: osimertinib with or without chemotherapy before surgery, then osimertinib 〔NCCN 2A〕
     ・Pathological response improved and there are no survival data yet
     ・ESMO and JLCS recommend resection, then adjuvant osimertinib
     ・No guideline lists lorlatinib before surgery for ALK
-      ~ NeoADAURA | MPR 26% vs 25% vs 2%
-      ~ LORIN [t-lorin] | pCR 46.9%, single arm, conversion surgery in 75.0% of initially unresectable stage III
+      ~ NeoADAURA
+      ~ LORIN [t-lorin]
     ※ Superior sulcus tumour, T3–4 N0–1: concurrent chemoradiotherapy, then surgery 〔ESMO III, B〕 〔NCCN 2A〕 〔JLCS C, 1〕
     ※ Chemotherapy alone before surgery improved survival, when immunotherapy is not suitable 〔NCCN 2A〕 〔JLCS BQ1, B〕
     ・Not in stage I–IIA 〔JLCS C, 2〕
-      + Meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group] | OS HR
+      + Meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group]
     next: After chemotherapy with immunotherapy and surgery
   Upfront resection
+    branch: SX pale
     Extent of resection
     ① Peripheral, node-negative, 2 cm or less: sublobar resection, segmentectomy rather than wedge 〔ESMO I, A〕
-      + JCOG0802 [t-jcog-0802-wjog-4607l] | OS HR 0.663
-      ~ CALGB 140503 [t-calgb-140503] | DFS HR 1.01
+      + JCOG0802 [t-jcog-0802-wjog-4607l]
+      ~ CALGB 140503 [t-calgb-140503]
       ※ Lobectomy, segmentectomy and wedge resection are rated equivalent here 〔ACCP Moderate, Conditional〕
       ※ Segmentectomy or wedge resection for peripheral T1a–b N0 〔NCCN 2A〕
       ※ The choice follows the solid part of the tumour 〔JLCS B, 1〕
@@ -182,73 +205,79 @@ course: Early and locally advanced NSCLC
     ・Node dissection or sampling 〔JLCS B, 1〕
     next: After upfront resection
   SBRT
+    branch: SBRT pale
     Stage I, node-negative 〔ESMO II, A〕 〔NCCN 2A〕
     ・Medically inoperable stage I–II 〔JLCS C, 1〕
     ・By SBRT or another high-precision technique 〔JLCS B, 1〕
     ※ Central or ultracentral tumours get more fractions
     ・JLCS advises caution with central tumours
-      + CHISEL [t-chisel] | Local control HR
+      + CHISEL [t-chisel]
     ※ Atezolizumab added to SBRT did not improve OS or PFS
-      - SWOG S1914 [t-swog-s1914-nrg-s1914] | OS HR
+      - SWOG S1914 [t-swog-s1914-nrg-s1914]
   Chemoradiotherapy
+    branch: CRT
     Concurrent chemoradiotherapy with 2–3 cycles of a platinum doublet 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS A, 1〕
     ・60 Gy in daily fractions
     ・60–70 Gy 〔NCCN 2A〕
-      + Meta-analysis 2010 [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis] | 3-year OS 23.8% vs 18.1%
-      + RTOG 9410 | OS median
+      + Meta-analysis 2010 [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis]
+      + RTOG 9410
     ※ Unfit for concurrent treatment
     ・Sequential chemoradiotherapy or radiotherapy alone 〔ESMO I, A〕 〔NCCN 2A〕
     ・Radiotherapy alone 〔JLCS C, 1〕
     ・Older patients unfit for cisplatin: daily carboplatin with radiotherapy 〔JLCS B, 2〕
     ※ 74 Gy was worse than 60 Gy and is not used 〔NCCN 2A〕 〔JLCS B, 1〕
-      - RTOG 0617 | OS 28.7 vs 20.3 months, 60 vs 74 Gy
-    ※ Cisplatin–pemetrexed with radiotherapy was no better than cisplatin–etoposide
+      - RTOG 0617
+    ※ With radiotherapy, cisplatin–pemetrexed was no better than cisplatin–etoposide
     ・Both remain preferred regimens, cisplatin–pemetrexed for non-squamous only 〔ESMO I, A〕
-      - PROCLAIM | OS median
+      - PROCLAIM
     ※ Durvalumab or nivolumab started during chemoradiotherapy did not improve PFS
-      - PACIFIC-2 | PFS HR
-      - CheckMate 73L | PFS HR
+      - PACIFIC-2
+      - CheckMate 73L
     next: After chemoradiotherapy, no progression | No progression
   After chemotherapy with immunotherapy and surgery
+    branch: NEO pale
     ① After a perioperative regimen: the same antibody alone, for the duration used in its trial 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS A, 2〕
     ・Pembrolizumab is given for up to 39 weeks
     ② After neoadjuvant nivolumab: adjuvant nivolumab is optional 〔NCCN 1〕
     ・ESMO also gives the option
   After upfront resection
+    branch: ADJ
     Chosen by pathological stage
     ※ Stages: ESMO uses TNM 8th edition, NCCN and JLCS the 9th
     ① Stage II–III: cisplatin doublet for 4 cycles 〔ESMO I, A〕
     ・Stage II–IIIB 〔JLCS A, 1〕
     ・Stage IIB–IIIB, and IB–IIA with high-risk features 〔NCCN 2A〕
     ・Carboplatin doublet if cisplatin is unsuitable 〔ESMO II, B〕
-      + LACE meta-analysis | OS HR 0.89, 5-year OS +5.4%
-        ※ By stage: IA HR 1.40, IB 0.93, II 0.83, III 0.83, benefit significant in stage II and III only
-      + IALT | OS HR 0.86 in the first 5 years, 0.91 (0.81–1.02) at 7.5 years
-      + JBR.10 | OS HR 0.69, stage II 0.59, stage IB not significant
-      + ANITA | OS HR 0.80, stage II 0.71, IIIA 0.69, IB 1.10
+      + LACE meta-analysis
+        ※ The benefit was significant in stage II and III, and not in stage I
+      + IALT
+      + JBR.10
+      + ANITA
       ※ Stage I under 4 cm without EGFR or RET: no adjuvant treatment 〔ACCP Moderate, Strong〕
       ・JLCS differs, as ② shows
       ※ Carboplatin and paclitaxel in stage IB did not improve survival
       ・The benefit in tumours of 4 cm or more came from an unplanned analysis
-        - CALGB 9633 | OS median
+        - CALGB 9633
     ② Node-negative, whole tumour over 2 cm, pathological stage IA3–IIIA, excluding T3 and T4 by invasion or nodule: tegafur-uracil for 1–2 years
     ・Adenocarcinoma 〔JLCS A, 1〕, other histology 〔JLCS C, 2〕
     ・Licensed in Japan, not in the EU or US
     ・Not listed by NCCN, ESMO or ACCP
-      + Kato 2004 {pmid 15102997} | OS improved in stage I adenocarcinoma, P = 0.04
-      + Meta-analysis 2005 {pmid 16051951} | OS HR 0.74, 5-year OS 81.5% vs 77.2%
+      + Kato 2004 [t-kato-et-al]
+      + Meta-analysis 2005 [t-hamada-et-al]
     next: No driver
     next: EGFR, ALK or RET
     next: Radiotherapy after resection
   Radiotherapy after resection
+    branch: PORT
     ① No PORT after complete resection, including N2 or extranodal extension with clear margins 〔ESMO I, D〕
     ・In pathological stage I–II 〔JLCS A, 1〕
       ※ PORT is allowed for selected high-risk N2, such as extranodal extension or several stations involved 〔NCCN 2A〕
       ・JLCS finds the evidence in N2 insufficient
-      - Lung ART | 3-year DFS 47% vs 44%
+      - Lung ART
     ② Positive margin (R1): PORT may be given, 60 Gy in 30 fractions 〔ESMO III, C〕
     ・Re-resection is preferred in stage IA–IIA 〔NCCN 2A〕
   No driver
+    branch: ADJ pale
     ① Stage II–IIIA, after chemotherapy: a PD-1 or PD-L1 antibody for 1 year 〔ESMO I, A〕 〔NCCN 1〕
     ・Atezolizumab if PD-L1 is 1% or more
     ・The EU licence for atezolizumab needs PD-L1 50% or more
@@ -256,38 +285,40 @@ course: Early and locally advanced NSCLC
     ・Atezolizumab only at PD-L1 50% or more, stage IIA–IIIB 〔JLCS C, 2〕
     ・JLCS finds the evidence insufficient at PD-L1 1–49% and does not address pembrolizumab
     ・NCCN calls the benefit of pembrolizumab unclear at PD-L1 under 1%
-      ~ IMpower010 | DFS HR
-      ~ PEARLS/KEYNOTE-091 [t-pearls-keynote-091] | DFS HR
+      ~ IMpower010
+      ~ PEARLS/KEYNOTE-091 [t-pearls-keynote-091]
       ※ In PEARLS, DFS improved in all patients
       ・The co-primary endpoint in TPS 50% or more was not met
       ※ Adjuvant nivolumab for 1 year did not improve DFS
-        - ANVIL | DFS HR
+        - ANVIL
   EGFR, ALK or RET
+    branch: ADJ pale
     ① EGFR exon 19 or L858R, stage IB–IIIA: osimertinib for 3 years, after chemotherapy where given 〔ESMO I, A〕 〔NCCN 1〕
     ・Stage II–IIIB, after platinum chemotherapy 〔JLCS B, 2〕
-      + ADAURA | OS HR
+      + ADAURA
     ② ALK, stage II (4 cm or more) to IIIA: alectinib for 2 years in place of chemotherapy 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
     ・Chemotherapy first may be considered 〔ESMO II, C〕
     ・JLCS covers stage II–IIIB
-      ~ ALINA | DFS HR
+      ~ ALINA
       ※ Ensartinib also improved DFS
       ・Not in ESMO 1.3, NCCN or JLCS
       ・Ensartinib has a US licence for advanced ALK-positive NSCLC, not for treatment after resection
-        ~ ELEVATE | DFS HR
+        ~ ELEVATE
     ③ RET, stage IB–IIIA: selpercatinib for 3 years, also after radiotherapy 〔ESMO I, A〕 〔NCCN 1〕
     ・Not in JLCS
-      ~ LIBRETTO-432 | 2-year EFS 92% vs 61%
+      ~ LIBRETTO-432
   After chemoradiotherapy, no progression
+    branch: CRT pale
     ① EGFR exon 19 or L858R: osimertinib until progression 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
-      ~ LAURA | PFS HR
+      ~ LAURA
     ② No driver: durvalumab for 12 months, starting within 42 days of concurrent chemoradiotherapy 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 1〕
     ・The EU licence needs PD-L1 1% or more
-      + PACIFIC | OS HR
+      + PACIFIC
     ③ No driver: sugemalimab for up to 24 months, after concurrent or sequential chemoradiotherapy 〔ESMO I, A〕
     ・Trial in China
     ・The EU licence needs PD-L1 1% or more
     ・Not in NCCN or JLCS
-      ~ GEMSTONE-301 [t-gemstone-301] | PFS HR 0.64
+      ~ GEMSTONE-301 [t-gemstone-301]
     ※ After sequential chemoradiotherapy
     ・Osimertinib with EGFR exon 19 or L858R 〔ESMO I, A〕 〔NCCN 2A〕
     ・Durvalumab 〔ESMO II, B〕 〔NCCN 2A〕
@@ -295,7 +326,7 @@ course: Early and locally advanced NSCLC
     ※ Durvalumab after sequential treatment
     ・The PFS benefit was smaller than in PACIFIC, with no OS benefit at the interim analysis
     ・The effect was similar after sequential and concurrent chemoradiotherapy, and neither subgroup was powered
-      ~ PACIFIC-5 | PFS HR 0.75, OS HR 0.87, after sequential 0.75 (0.49–1.18), after concurrent 0.76
+      ~ PACIFIC-5
 
 off:
-  PLUS [t-plus-trial] | Same finding as Fischer 2009, with PET alone, its figure is on the Fischer 2009 line
+  PLUS [t-plus-trial] | Same finding as Fischer 2009, with PET alone

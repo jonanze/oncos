@@ -1,3 +1,2 @@
 # Trials on the Mesothelioma map with no Evidence row yet (name, PMID, where on the map)
-Trovo 2021	PMID 33259933	Treatment around surgery
-Jassem 2008	PMID 18375898	Second line and beyond
+

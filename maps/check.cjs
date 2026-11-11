@@ -1,8 +1,8 @@
 /* Release check for the board maps: node maps/check.cjs
    - every map trial points at an Evidence row, or carries a PMID (or, before PubMed lists it, a {url}) and is listed for intake;
      a PMID already filed in any sheet fails, naming the row to link
-   - a live figure ("OS HR", "PFS median", "Response") resolves from its Evidence row
-   - every written key figure's numbers appear in that trial's Evidence row
+   - a trial line gives the trial's name only, with no figure; results are on the trial card (Jonan 2026-11-11)
+   - outline errors, including more than eight branch: lines or a branch: on a box carrying the risk ramp (outline.js)
    - every row of the sheet is on the map or under off: with a reason; the rest are listed in unplaced.txt and fail
    - a trial line's Evidence row is a clinical trial, a pooled analysis of trials or a meta-analysis
      (no cohort, retrospective, observational or genomic studies; the statement can stay as plain text)
@@ -22,17 +22,17 @@ const TRIAL_TYPE = /randomi|meta-analys|pooled analysis|joint analysis|clinical 
 const NOT_TRIAL = /cohort study|retrospective|observational|registry|case series|review|consensus|genomic/i;
 const BANNED = [/→|->|=>|⇒/, /\bbackbone\b/i, /\bhook\b/i, /\bparadigm\b/i, /\bgame[- ]chang/i, /\blandscape\b/i];
 const norm = s => String(s).replace(/·/g, '.').replace(/(\d),(\d{3})/g, '$1$2');
-let bad = 0, live = 0;
+let bad = 0;
 for (const dir of fs.readdirSync(__dirname)) {
   const f = path.join(__dirname, dir, 'map.txt');
   if (!fs.existsSync(f)) continue;
   const m = O.parse(fs.readFileSync(f, 'utf8'));
   m.errors.forEach(e => { bad++; console.log(dir + '/map.txt ' + e); });
-  const intake = []; live = 0;
+  const intake = [];
   fs.readFileSync(f, 'utf8').split('\n').forEach((t, k) => {
     if (/^\s*#/.test(t)) return;
-    const lab = /^\s+(?:next|join):.*\|\s*(.)/.exec(t);
-    if (lab && /[a-z]/.test(lab[1])) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' line label starts in lower case: "' + t.trim() + '"'); }
+    const lab = /^\s+(?:next|join):.*\|\s*(..)/.exec(t);
+    if (lab && /^[a-z][a-z]/.test(lab[1])) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' line label starts in lower case: "' + t.trim() + '"'); }
     if (/^\s*=\s/.test(t)) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' option marked with =: number every option ①② in order of preference (Jonan 2026-11-11)'); }
     const hit = BANNED.find(b => b.test(t));
     if (hit) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' wording: "' + t.trim().slice(0, 70) + '" matches ' + hit); }
@@ -48,17 +48,7 @@ for (const dir of fs.readdirSync(__dirname)) {
     if (!r) { bad++; console.log(tag + ': no Evidence row ' + line.anchor + ' (give [t-...] or {pmid N})'); continue; }
     if (!TRIAL_TYPE.test(r.type) || (NOT_TRIAL.test(r.type) && !/clinical trial|randomi/i.test(r.type))) {
       bad++; console.log(tag + ': ' + r.anchor + ' is "' + r.type.slice(0, 60) + '"; maps cite trials and meta-analyses only (move it under off:)'); }
-    if (O.live(line.fig)) {
-      const f = O.figure(line.fig, r);
-      if (!f.ok) { bad++; console.log(tag + ': live figure "' + line.fig + '" not found in ' + r.anchor); }
-      else live++;
-      continue;
-    }
-    const text = norm([r.findings, r.population, r.arms, r.endpoint, r.type].join('\n'));
-    for (const n of (norm(line.fig).match(/\d+(?:\.\d+)?/g) || [])) {
-      const re = new RegExp('(^|[^\\d.])' + n.replace('.', '\\.') + '(?![\\d])');
-      if (!re.test(text)) { bad++; console.log(tag + ': "' + n + '" in "' + line.fig + '" is not in ' + r.anchor); }
-    }
+    if (line.fig) { bad++; console.log(tag + ': figure "' + line.fig + '" on a trial line; maps give trial names only (results are on the card)'); }
   }
   fs.writeFileSync(path.join(__dirname, dir, 'intake.txt'),
     '# Trials on the ' + (m.map || dir) + ' map with no Evidence row yet (name, PMID, where on the map)\n' + intake.join('\n') + '\n');
@@ -78,7 +68,7 @@ for (const dir of fs.readdirSync(__dirname)) {
     off.map(r => [r.yearnum, r.study, r.subcat, r.anchor].join('\t')).join('\n') + '\n');
   off.forEach(r => { bad++; console.log(dir + ': sheet row ' + r.study + ' [' + r.anchor + '] is neither on the map nor under off:'); });
   if (!rows.some(r => r.sheet === m.map)) { bad++; console.log(dir + ': no Evidence sheet named "' + m.map + '"'); }
-  console.log(dir + ': ' + O.trials(m).length + ' trials (' + live + ' live figures), ' + intake.length + ' for intake, ' + off.length + ' new sheet rows to place');
+  console.log(dir + ': ' + O.trials(m).length + ' trials, ' + intake.length + ' for intake, ' + off.length + ' new sheet rows to place');
 }
 if (bad) { console.log(bad + ' problem(s)'); process.exit(1); }
 console.log('maps check passed');
