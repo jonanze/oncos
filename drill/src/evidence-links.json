@@ -134,5 +134,11 @@
  "TAILORx": "t-tailorx",
  "TOPAZ-1": "t-topaz-1",
  "VESPER": "t-getug-afu-v05-vesper",
- "monarchE": "t-monarche"
+ "monarchE": "t-monarche",
+ "CALGB 140503": "t-calgb-140503",
+ "OVHIPEC-1": "t-van-driel-et-al",
+ "Perry 2017": "t-perry-et-al",
+ "Sargent pooled analysis": "t-sargent-et-al",
+ "Zhang 2019": "t-zhang-et-al",
+ "Chen 2021": "t-chen-et-al"
 }
