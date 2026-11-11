@@ -44,11 +44,13 @@
 .om-view:focus-visible{outline:1px solid var(--b-ink);outline-offset:-1px}
 .om-world{position:absolute;left:0;top:0;transform-origin:0 0}
 .om-world .blk{position:absolute;z-index:2}
-.om-world .box.lbl{box-sizing:border-box;text-align:left;border:1.5px solid var(--b-ink)}
+.om-world .box.lbl{box-sizing:border-box;text-align:left;border:1.5px solid var(--b-ink);font-size:15px}
 /* three tiers: the root and course step headings are title blocks; decision nodes ruled cells; the rest open text */
-.om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border:2.5px solid var(--b-ink);letter-spacing:.02em}
+/* type sizes, largest first: title blocks and band titles 16, decision cells and step subheaders 15, ① and ★ lines 14,
+   trial lines and grid 13, ※ and ・ 12.5, ・ under ※ and line labels 12, tags 11. A heading is never smaller than its lines. */
+.om-world .box.lbl.root,.om-world .step>.hd{background:var(--om-t1);color:var(--om-t1-fg);border:2.5px solid var(--b-ink);letter-spacing:.02em;font-size:16px}
 .om-world .ln{margin:0 0 2px}
-.om-world .ln.tx{font-weight:var(--w-bold);font-size:14.5px;margin-bottom:5px}
+.om-world .ln.tx{font-weight:var(--w-bold);font-size:14px;margin-bottom:5px}
 .om-world .ln.tx::before{content:"★ "}
 .om-world .ln.cv{font-size:12.5px}
 .om-world .ln.se{font-size:12px;color:var(--muted)}
@@ -67,7 +69,7 @@
 .om-world .trials>.fg{font-weight:var(--w-bold);font-variant-numeric:tabular-nums;padding-left:8px;border-left:1px solid var(--b-cell)}
 /* bands and panels: closed ruled cells with a 【TITLE】 band */
 .om-world .band,.om-world .panel{box-sizing:border-box;border:1.3px solid var(--b-line);padding:0 10px 8px;background:var(--b-paper)}
-.om-world .band>h2,.om-world .panel>h2{margin:0 -10px 8px;padding:4px 10px;background:var(--b-band);border-bottom:1px solid var(--b-line);text-decoration:none;font-size:12.5px;letter-spacing:.06em}
+.om-world .band>h2,.om-world .panel>h2{margin:0 -10px 8px;padding:4px 10px;background:var(--b-band);border-bottom:1px solid var(--b-line);text-decoration:none;font-size:16px;letter-spacing:.06em}
 .om-world .band>h2::before,.om-world .panel>h2::before{content:"【"}
 .om-world .band>h2::after,.om-world .panel>h2::after{content:"】"}
 /* title block at the top left of the canvas */
@@ -122,7 +124,7 @@
 
 /* course maps: steps in time order */
 .om-world .step>.hd{display:flex;align-items:center;box-sizing:border-box;white-space:normal;margin:0 0 8px;padding:4px 10px}
-.om-world .step .ln.text{font-weight:var(--w-bold);font-size:13px;margin-top:6px}
+.om-world .step .ln.text{font-weight:var(--w-bold);font-size:15px;margin-top:8px}
 .om-world .step .ln.num{margin-top:6px}
 .om-world .elab{z-index:3;font-size:12px;line-height:1.3;max-width:240px;text-align:center;border:1px solid var(--b-line);background:var(--b-paper);padding:1px 6px}
 
