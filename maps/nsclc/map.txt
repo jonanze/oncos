@@ -8,13 +8,9 @@
 #   band:   a block above the tree for the whole sheet
 #   panel:  a block beside the tree, joined by a brace to the node named after ">"
 #           "next: Panel | label" in a panel draws a line from it to the named panel (tree maps)
-#   + Trial | fig   a trial line; the mark records the result and is not drawn:
+#   + Trial         a trial line, the trial's name only; it draws as a chip, and a tap opens its card with the
+#                   results. No figures on maps (Jonan 2026-11-11). The mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
-#   fig with no digits is read from the Evidence row at each publish:
-#     OS HR, PFS HR   the HR on the row's OS or PFS line
-#     OS median       the medians on that line, "a vs b months"
-#     response        the first percentage on the ORR line
-#   fig with digits is shown as written; the map check fails if the row no longer has those numbers
 #   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
 #   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, listed for intake
 #   Trial {url https://...}  a randomised trial with no PubMed record yet (congress abstract): link, listed for intake
@@ -30,7 +26,11 @@
 #
 # Rules (Jonan 2026-11-08/09/10; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
-#   Square lines only; joins line up; no result colours (the marks above are kept as data, not drawn)
+#   Whiteboard look (Jonan 2026-11-11, early colon map as the reference): filled rounded blocks, no title block,
+#   bold numbered options, trial names as chips with no figures, lines with rounded corners and no arrowheads
+#   that share one trunk where they fan out; spec doc https://claude.ai/artifact/Gt1iJC47Qa9LSMGDteysBJ
+#   No result colours (the marks above are kept as data, not drawn); colour encodes either risk groups
+#   (scale:) or branches (branch:), never both
 # * Every sheet row is on the map or under off: with a reason
 # * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
 #   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
@@ -80,6 +80,10 @@ source: NCCN {url https://www.nccn.org/guidelines/category_1}
 source: ASCO {url https://www.asco.org/guidelines}
 source: ESMO {url https://www.esmo.org/guidelines/living-guidelines}
 source: JLCS {url https://www.haigan.gr.jp/publication/guideline/examination/2025/1/2/250102070100.html}
+branch: EGFR | EGFR | blue
+branch: FUS | Fusion | violet
+branch: MUT | Other mutation | teal
+branch: ND | No driver | sand
 
 band: Before first line
   Tissue NGS, with plasma when tissue is short, before first line: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK, NRG1 〔NCCN 2A〕 〔ASCO High, Strong〕 〔ESMO III, A〕
@@ -108,7 +112,9 @@ band: Local treatment and bone
 tree: Advanced NSCLC, first line
   Driver found
     EGFR
+      branch: EGFR
       Exon 19 or L858R
+        branch: EGFR pale
         ① Osimertinib alone 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS A, 1〕
         ② Osimertinib with platinum and pemetrexed, or amivantamab and lazertinib 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS B, 1〕
         ・A third-generation TKI, alone or in combination 〔ESMO I, A〕
@@ -117,7 +123,7 @@ tree: Advanced NSCLC, first line
         + FLAURA
         + FLAURA2
         + MARIPOSA
-        ° Grade 3 or higher events 70% vs 34% with chemotherapy added (FLAURA2)
+        ° Grade 3 or higher events were more frequent with chemotherapy added (FLAURA2)
         ③ Gefitinib with carboplatin and pemetrexed 〔ESMO I, B〕 〔JLCS BQ2, A〕
         ・Not listed by NCCN or ASCO
         ※ With a TP53 co-mutation, adding chemotherapy to osimertinib lengthened PFS
@@ -131,6 +137,7 @@ tree: Advanced NSCLC, first line
         ④ PS 2–4: EGFR TKI alone 〔JLCS C, 1〕
         ・A TKI at PS 2 or worse 〔ESMO III, A〕
       Exon 20 insertion
+        branch: EGFR pale
         ① Amivantamab with carboplatin and pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕 〔JLCS B, 1〕
         ~ PAPILLON
         ※ Sunvozertinib alone improved PFS over chemotherapy, OS immature
@@ -140,6 +147,7 @@ tree: Advanced NSCLC, first line
           ~ WU-KONG28
         ※ An EGFR TKI alone is not recommended first line 〔JLCS C, 1〕
       Uncommon: G719X, L861Q, S768I
+        branch: EGFR pale
         ① Afatinib or osimertinib 〔NCCN 2A, preferred〕
         ・Afatinib 〔ASCO Moderate, Strong〕 〔ESMO I, B〕 〔JLCS B, 1〕
         ・Osimertinib 〔ASCO Low, Conditional〕 〔ESMO III, B〕 〔JLCS C, 2〕
@@ -149,7 +157,9 @@ tree: Advanced NSCLC, first line
         ※ Grouping by protein structure predicts TKI benefit better than grouping by exon
         ※ T790M before any TKI: osimertinib 〔JLCS D, 2〕
     Fusion
+      branch: FUS
       ALK
+        branch: FUS pale
         ① Alectinib, brigatinib, ensartinib or lorlatinib 〔NCCN 1, preferred〕
         ・Alectinib 〔ESMO I, A〕 〔JLCS A, 1〕
         ・Brigatinib 〔ESMO I, A〕 〔JLCS B, 2〕
@@ -167,6 +177,7 @@ tree: Advanced NSCLC, first line
         ・JLCS grades alectinib highest
         ② PS 2–4: alectinib 〔JLCS C, 1〕
       ROS1
+        branch: FUS pale
         ① Crizotinib, entrectinib, repotrectinib or taletrectinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS C, 1〕
         ・Crizotinib, entrectinib or repotrectinib 〔ESMO III, A〕
         ・Taletrectinib 〔ESMO III, B〕
@@ -177,6 +188,7 @@ tree: Advanced NSCLC, first line
         ~ TRUST-I and II [t-trust-i-and-trust-ii-integrated-analysis]
         ※ Brain metastases: entrectinib rather than crizotinib 〔ESMO III, A〕
       RET
+        branch: FUS pale
         ① A RET inhibitor
         ・Selpercatinib 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
           ~ LIBRETTO-431
@@ -187,6 +199,7 @@ tree: Advanced NSCLC, first line
         ・Its EU licence was withdrawn in October 2024 at the company's request
           ~ ARROW {pmid 34118197}
       NTRK
+        branch: FUS pale
         ① Larotrectinib, entrectinib or repotrectinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
         ・Larotrectinib or entrectinib 〔ESMO III, A〕 〔JLCS D, 1〕
         ~ Larotrectinib [t-larotrectinib--tumour-agnostic-basket-trials]
@@ -195,11 +208,14 @@ tree: Advanced NSCLC, first line
         ※ Chemotherapy comes first only when no NTRK inhibitor is available 〔ESMO IV, B〕
         ※ Repotrectinib after an earlier NTRK inhibitor 〔ESMO III, A〕 〔ASCO Low, Conditional〕
       NRG1
+        branch: FUS pale
         ① After first line: zenocutuzumab 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
         ・US licence, not EU
         ~ eNRGy [t-enrgy]
     Mutation
+      branch: MUT
       BRAF V600E
+        branch: MUT pale
         ① Dabrafenib and trametinib, or encorafenib and binimetinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕
         ・Dabrafenib and trametinib 〔JLCS C, 1〕
         ~ BRF113928
@@ -208,6 +224,7 @@ tree: Advanced NSCLC, first line
         ・Never smoked: platinum doublet with or without immunotherapy 〔ESMO IV, A〕
         ・Smoking history: immunotherapy with or without chemotherapy 〔ESMO IV, B〕
       MET exon 14
+        branch: MUT pale
         ① Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
         ~ GEOMETRY mono-1
         ~ VISION
@@ -215,6 +232,7 @@ tree: Advanced NSCLC, first line
         ・Licensed in Japan and China, not in the EU or US
         ・Not listed by NCCN, ASCO or ESMO
       KRAS G12C
+        branch: MUT pale
         ① Chemotherapy with PD-1 antibody first, as without a driver 〔ESMO III, A〕
         ② At progression: sotorasib or adagrasib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕
         ・Sotorasib 〔JLCS B, 1〕
@@ -225,6 +243,7 @@ tree: Advanced NSCLC, first line
           + Krascendo 1
         ※ Liver toxicity is common when sotorasib follows a PD-1 antibody
       HER2
+        branch: MUT pale
         ① Chemotherapy with or without immunotherapy, as without a driver 〔ESMO IV, B〕
         ・JLCS gives the same advice
         ② A HER2 tyrosine kinase inhibitor
@@ -242,7 +261,9 @@ tree: Advanced NSCLC, first line
         ・After earlier treatment they have a US licence and no EU licence
         ・NCCN lists them for tyrosine kinase domain mutations
   No driver
+    branch: ND
     PS 0–1
+      branch: ND pale
       PD-L1 ≥50%
         ① A PD-1 or PD-L1 antibody alone 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ESMO I, A〕
         ・Pembrolizumab 〔JLCS A, 1〕
@@ -258,7 +279,7 @@ tree: Advanced NSCLC, first line
         ・OS was not significantly longer in the one direct trial
           ~ PERSEE
           * Di Federico [t-di-federico-et-al]
-          ° Grade 3 or higher treatment-related events 54% vs 19% (PERSEE)
+          ° Grade 3 or higher treatment-related events were more frequent with chemotherapy added (PERSEE)
         ※ Patients with TPS 90–100% lived longer than those with 50–89% on pembrolizumab alone, in a retrospective study
         ※ Newer agents improved PFS over pembrolizumab alone from TPS 1%
         ・The trials ran in China only and OS is awaited
@@ -310,6 +331,7 @@ tree: Advanced NSCLC, first line
         ・Sacituzumab tirumotecan is not licensed in the EU or US
           ~ OptiTROP-Lung06
     PS 2 or frail
+      branch: ND pale
       ① Carboplatin doublet 〔ESMO I, A〕 〔JLCS B, 2〕
       ② One drug alone 〔ESMO I, B〕 〔JLCS A, 2〕
       ③ A PD-1 or PD-L1 antibody alone 〔JLCS B, 2〕
@@ -353,7 +375,7 @@ panel: Course of treatment > No driver
   Platinum doublet with PD-1 antibody for 4 cycles, then the PD-1 antibody alone or with pemetrexed for up to 35 cycles, about 2 years 〔NCCN 2A〕
   ・Stopping at 2 years 〔ESMO I, B〕
     + KEYNOTE-189
-  ※ Of those who finished 35 cycles, 82.1% were alive at 5 years, exploratory
+  ※ Most patients who finished 35 cycles were alive at 5 years, in an exploratory analysis
     * KEYNOTE-024
   Pemetrexed is for non-squamous disease only 〔ESMO I, A〕
   ・It was better than gemcitabine in adenocarcinoma and worse in squamous disease
@@ -417,7 +439,7 @@ panel: Later lines, EGFR > EGFR
     ~ INSIGHT 2 [t-insight-2]
   ③ Platinum doublet after all suitable TKIs, pemetrexed-based for adenocarcinoma 〔ESMO III, A〕
     ※ Continuing osimertinib with the chemotherapy delayed progression
-    ・Platinum chemotherapy with or without osimertinib 〔ASCO Moderate, Conditional〕
+    ・Platinum chemotherapy, given alone or with osimertinib 〔ASCO Moderate, Conditional〕
       ~ COMPEL
   ④ After a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕 〔ESMO III, B〕
   ・US licence, not EU
