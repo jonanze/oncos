@@ -159,6 +159,11 @@
       n.br = n.branch ? bkeys[n.branch] || 0 : (out.tree && out.tree.course ? 0 : k);
       n.children.forEach(function(c){ inherit(c, n.br); });
     })(out.tree, 0);
+    // a panel takes the colour of the step or node it is joined to
+    out.panels.forEach(function(p){
+      p.br = 0;
+      if (p.join) walk(out.tree, function(n){ if (n.label === p.join && n.br) p.br = n.br; });
+    });
     if (out.scale) {
       if (out.scale.length !== 4) out.errors.push(out.scaleAt + ': scale: names four risk groups, lowest first');
       var rowNames = {};

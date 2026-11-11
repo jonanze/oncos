@@ -68,6 +68,8 @@
 map: Advanced Prostate
 source: ESMO {url https://www.esmo.org/guidelines/living-guidelines/esmo-living-guideline-advanced-and-metastatic-prostate-cancer}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
+branch: CS | Castration-sensitive
+branch: CR | Castration-resistant
 
 band: States and volume
   PCWG4 (2026) names three states: androgen pathway modulator naive, sensitive and resistant (APMN, APMS, APMR)
@@ -107,6 +109,7 @@ band: ADT, testing and bone
 
 course: Advanced prostate cancer
   Rising PSA after surgery or radiotherapy, no metastases on CT or bone scan
+    branch: CS
     next: Metastatic, castration-sensitive | Metastases appear
     next: Castration-resistant, no metastases on CT or bone scan | PSA rises on ADT
     ① PSA doubling time 9 months or less: enzalutamide with leuprolide 〔NCCN 1〕
@@ -116,6 +119,7 @@ course: Advanced prostate cancer
     ※ After prostatectomy with PSA 0.5 ng/mL or more: apalutamide with ADT 〔NCCN 2B〕
 
   Metastatic, castration-sensitive
+    branch: CS
     next: Metastatic, castration-resistant
     ① Low volume: ADT with an ARSI 〔NCCN 1, preferred〕 〔ESMO I, A〕
       ・Radiotherapy to the prostate can be added in de novo disease 〔ESMO II, A〕 〔NCCN 2A, other recommended〕
@@ -153,6 +157,7 @@ course: Advanced prostate cancer
       ・It is kept for unfit men with a short life expectancy 〔ESMO I, C〕
 
   Castration-resistant, no metastases on CT or bone scan
+    branch: CR
     next: Metastatic, castration-resistant | Metastases appear
     ① PSA doubling time 10 months or less: apalutamide, enzalutamide or darolutamide, with ADT 〔NCCN 1, preferred〕 〔ESMO I, A〕
       ・Life expectancy over 5 years 〔ESMO I, A〕
@@ -164,6 +169,7 @@ course: Advanced prostate cancer
     ※ Metastases on this treatment count as progression after an ARSI
 
   Metastatic, castration-resistant
+    branch: CR
     next: After ADT alone
     next: After ADT and docetaxel
     next: After ADT and an ARSI
@@ -178,6 +184,7 @@ course: Advanced prostate cancer
       ・Cabazitaxel with carboplatin 〔NCCN 2A, useful in certain circumstances〕
 
   After ADT alone
+    branch: CR
     ① Abiraterone or enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
     + COU-AA-302
     + PREVAIL
@@ -202,6 +209,7 @@ course: Advanced prostate cancer
       + IMPACT [t-impact--advanced-prostate]
 
   After ADT and docetaxel
+    branch: CR
     ① Abiraterone or enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
     + COU-AA-301
     + AFFIRM
@@ -211,6 +219,7 @@ course: Advanced prostate cancer
     ※ All three enrolled men before an ARSI was used for castration-sensitive disease
 
   After ADT and an ARSI
+    branch: CR
     ① Docetaxel 〔NCCN 1, preferred〕
       ・Preferred over a second ARSI 〔ESMO III, A〕
     ※ Docetaxel here rests on TAX 327, in men who had never had an ARSI
@@ -230,6 +239,7 @@ course: Advanced prostate cancer
     ※ A second ARSI did worse than cabazitaxel in CARD
 
   After ADT, an ARSI and docetaxel
+    branch: CR
     ① Cabazitaxel 〔NCCN 1, preferred〕 〔ESMO I, A〕
     + CARD
     ※ In CARD, cabazitaxel improved OS over a second ARSI

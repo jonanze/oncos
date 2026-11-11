@@ -180,7 +180,7 @@
       return '<div class="bitems">' + groups.map(function(g){ return '<div class="bi">' + linesHtml(g) + '</div>'; }).join('') + '</div>';
     }
     var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + bandItems(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
-    var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel' + (p.lines.some(function(l){ return l.kind === 'grid'; }) ? ' open' : ''), '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
+    var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel' + (p.lines.some(function(l){ return l.kind === 'grid'; }) ? ' open' : '') + (p.br ? ' br' + p.br : ''), '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
 
     var W = 0, H = 0;
     // a course that runs as one line of columns, each step leading only to the next column, is laid out
