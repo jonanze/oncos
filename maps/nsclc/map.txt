@@ -348,7 +348,7 @@ tree: Advanced NSCLC, first line
       ※ Atezolizumab is an option at PS 3 〔NCCN 2A〕
       ※ PS 3–4: no drug treatment 〔JLCS D, 1〕, best supportive care 〔ESMO III, A〕
 
-panel: Dual checkpoint blockade > PS 0–1
+panel: Dual checkpoint blockade, PS 0–1 > No driver
   ① Nivolumab and ipilimumab with 2 cycles of chemotherapy
   ・PD-L1 below 50% 〔NCCN 1, other recommended〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕 〔JLCS C, 2〕
   ・PD-L1 50% or more 〔NCCN 1, other recommended〕 〔ASCO Moderate, Conditional〕 〔ESMO IV, B〕

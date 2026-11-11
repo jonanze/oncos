@@ -24,7 +24,7 @@
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   // tree spacing widened (Jonan 2026-11-11, "cramped up narrowly with no breathing room")
-  var GX = 96, GY = 40, LEAF_W = 600, LEAF_GAP = 56, PANEL_W = 440, BAND_W = 520, M = 28;
+  var GX = 160, GY = 48, LEAF_W = 600, LEAF_GAP = 120, PANEL_W = 440, BAND_W = 520, M = 28;
   var STEP_W = 380, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -604,7 +604,7 @@
       // panels a little wider than on a course map, and the bands in one row above the tree, sharing its width
       var TPW = 520;
       panels.forEach(function(p){ if (p.w < TPW) { p.w = TPW; p.el.style.width = TPW + 'px'; } });
-      var spanR = textX + LEAF_W + 96 + (panels.length ? TPW : 0);
+      var spanR = textX + LEAF_W + 240 + (panels.length ? TPW : 0);
       var b0 = bandsRow(spanR - M), bx = b0.x, treeTop = b0.top;
 
       // vertical extents, bottom up: up/down from the node's own centre
@@ -642,28 +642,34 @@
       });
 
       // panels: a brace over their node's span, the panels stacked beside it
-      var braceX = textX + LEAF_W + 48, panelX = braceX + 48, lastBottom = treeTop - 24, right = panelX + TPW;
+      // panels: a brace over their node's span, and from its tip one line that forks into each panel of the group.
+      // A group whose node holds another group's node sits one brace further right, so nested braces never overlap
+      // (Jonan 2026-11-11, "why are there so many lines")
       var groups = [];
       nodes.forEach(function(n){
         var ps = panels.filter(function(p){ return p.join === n.label; });
         if (ps.length) groups.push({n:n, ps:ps});
       });
+      var holds = function(a, b){ var f = false; (function w(x){ if (x === b) f = true; x.children.forEach(w); })(a); return a !== b && f; };
+      groups.forEach(function(g){ g.lvl = 0; });
+      groups.forEach(function(g){ groups.forEach(function(h){ if (holds(g.n, h.n)) g.lvl = Math.max(g.lvl, h.lvl + 1); }); });
+      var maxLvl = groups.reduce(function(m, g){ return Math.max(m, g.lvl); }, 0);
+      var braceX = textX + LEAF_W + 56, BSTEP = 36, panelX = braceX + maxLvl * BSTEP + 120, lastBottom = treeTop - 32, right = panelX + TPW;
       var loose = panels.filter(function(p){ return !p.join; });
       groups.forEach(function(g){
-        var y1 = g.n.cy - g.n.up, y2 = g.n.cy + g.n.down, mid = (y1 + y2) / 2;
-        var gh = g.ps.reduce(function(s, p){ return s + p.el.offsetHeight; }, 0) + 24 * (g.ps.length - 1);
-        var y = Math.max(lastBottom + 24, mid - gh / 2);
-        g.ps.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = y + 'px'; y += p.el.offsetHeight + 24; });
-        var top0 = y - 24 - gh;
-        lastBottom = y - 24;
-        svg += '<path d="' + bracePath(braceX, y1, y2, 9) + '"/>';
-        var ty = Math.min(Math.max(mid, top0 + 10), lastBottom - 10);
-        // a rule down the panel group's left side; the brace tip runs to it
-        var rx = panelX - 14;
-        svg += '<line x1="' + rx + '" y1="' + (top0 + 4) + '" x2="' + rx + '" y2="' + (lastBottom - 4) + '"/>';
-        svg += '<path d="M' + (braceX + 22) + ' ' + mid + ' H' + (rx - 10) + (ty === mid ? '' : ' V' + ty) + ' H' + rx + '"/>';
+        var y1 = g.n.cy - g.n.up, y2 = g.n.cy + g.n.down, mid = (y1 + y2) / 2, bx = braceX + g.lvl * BSTEP;
+        var gh = g.ps.reduce(function(s, p){ return s + p.el.offsetHeight; }, 0) + 32 * (g.ps.length - 1);
+        var y = Math.max(lastBottom + 32, mid - gh / 2);
+        var hys = g.ps.map(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = y + 'px'; var hy = y + p.el.firstChild.offsetHeight / 2 + 14; y += p.el.offsetHeight + 32; return hy; });
+        lastBottom = y - 32;
+        svg += '<path d="' + bracePath(bx, y1, y2, 9) + '"/>';
+        // tip to a fork in the gap before the panels, then across to each panel's title
+        var fx = panelX - 40, lo = Math.min.apply(null, hys.concat(mid)), hi = Math.max.apply(null, hys.concat(mid));
+        svg += '<path d="M' + (bx + 18) + ' ' + mid + ' H' + fx + '"/>';
+        if (hi > lo) svg += '<path d="M' + fx + ' ' + lo + ' V' + hi + '"/>';
+        hys.forEach(function(hy){ svg += '<path d="M' + fx + ' ' + hy + ' H' + panelX + '"/>'; });
       });
-      loose.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = (lastBottom + 24) + 'px'; lastBottom += 24 + p.el.offsetHeight; });
+      loose.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = (lastBottom + 32) + 'px'; lastBottom += 32 + p.el.offsetHeight; });
 
       // a panel's next: line leaves its header to the right, runs down beside the panel column and enters the
       // named panel's header; lines to one panel with one label share an upright and one label
