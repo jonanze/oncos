@@ -102,12 +102,9 @@ course: Advanced prostate cancer
   Metastatic, castration-sensitive
     next: Metastatic, castration-resistant
     ① Low volume: ADT with an ARSI 〔NCCN 1, preferred〕 〔ESMO I, A〕
-      ・De novo: radiotherapy to the prostate added 〔ESMO II, A〕
-      ・De novo: radiotherapy to the prostate with ADT and abiraterone 〔NCCN 2A, other recommended〕
-      ・De novo: radiotherapy to the prostate with apalutamide, darolutamide or enzalutamide 〔NCCN 2B, other recommended〕
-      ・De novo: docetaxel with ADT and an ARSI for selected men 〔ESMO III, C〕 〔NCCN 2B, other recommended〕
-      ・Relapse after surgery or radiotherapy: apalutamide, enzalutamide or darolutamide 〔ESMO II, A〕
-      ・Relapse: docetaxel is not given 〔ESMO II, E〕
+      ・Radiotherapy to the prostate can be added in de novo disease 〔ESMO II, A〕 〔NCCN 2A, other recommended〕
+      ・Docetaxel can be added in de novo disease for men fit for it who want the most intensive treatment 〔ESMO III, C〕 〔NCCN 2B, other recommended〕
+      ・Docetaxel is not given for relapse after surgery or radiotherapy 〔ESMO II, E〕
       - STAMPEDE arm H [t-stampede--advanced-prostate-3] | All patients OS HR 0.92, low burden 0.68
       ※ The trial was negative in all patients
         ・The low-burden subgroup was prespecified
@@ -117,14 +114,12 @@ course: Advanced prostate cancer
       ※ The benefit was confined to fewer than 5 bone metastases
         - HORRAD [t-horrad] | OS HR
         ~ STOPCAP [t-stopcap-m1-prostate-radiotherapy-meta-analysis] | Fewer than 5 bone metastases 3-year OS 7% higher, all patients OS HR 0.92
-    ② High volume: ADT with an ARSI and docetaxel
-      ・Docetaxel with abiraterone or darolutamide 〔NCCN 1, preferred〕
-      ・ADT with abiraterone, apalutamide or enzalutamide 〔NCCN 1, preferred〕
-      ・De novo, fit for docetaxel 〔ESMO II, A〕
-      ・De novo, unfit for docetaxel: ADT with an ARSI 〔ESMO I, A〕
-      ・De novo: radiotherapy to the prostate can be added to prevent severe urinary symptoms 〔ESMO II, B〕
-      ・Relapse: ADT with an ARSI 〔ESMO II, A〕
-      ・Relapse: docetaxel can be added 〔ESMO II, B〕
+    ② High volume: ADT with an ARSI and docetaxel 〔NCCN 1, preferred〕 〔ESMO II, A〕
+      ・The ARSI is abiraterone or darolutamide
+      ・ADT with an ARSI alone is also preferred 〔NCCN 1, preferred〕
+      ・ADT with an ARSI alone only if unfit for docetaxel 〔ESMO I, A〕
+      ・For relapse after surgery or radiotherapy, docetaxel is optional 〔ESMO II, B〕
+      ・Radiotherapy to the prostate can be added in de novo disease to prevent severe urinary symptoms 〔ESMO II, B〕
       + PEACE-1 | OS HR
       + ARASENS | OS HR
       ° Grade 3 or higher hypertension 22% vs 13% (PEACE-1)
