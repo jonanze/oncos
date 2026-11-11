@@ -224,7 +224,7 @@
       steps.forEach(function(n){
         n.el = add('step' + brc(n), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + colsHtml(n.lines));
         n.hd = n.el.firstChild;
-        sized(n.el, n.lines, function(w){ n.w = w; });
+        n.blk = sized(n.el, n.lines, function(w){ n.w = w; });
       });
       // join: lines to one step with one label carry that label once, on their shared line
       var joinLab = {};
@@ -336,6 +336,24 @@
       svg = '';
       var BG = 72, SG = 36, cols = [];
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); n.el.style.width = n.w + 'px'; n.hd.style.minHeight = ''; n.el.style.minHeight = ''; });
+      // in a column that is one step's fan, the boxes pair up about the middle one and each pair is drawn at one
+      // height. The taller box of a pair takes another text column when that brings the two heights closer and
+      // keeps it no wider than the widest box in the column, so the shorter box is left with little empty space
+      // (Jonan 2026-11-11, rectal: "the blue intermediate box has too much empty space")
+      cols.forEach(function(list){
+        if (list.length < 2 || !list.every(function(t){ return t.preds.length === 1 && t.preds[0] === list[0].preds[0]; })) return;
+        var maxW = Math.max.apply(null, list.map(function(t){ return t.w; })), m = list.length >> 1, odd = list.length % 2;
+        for (var k = 1; k <= m; k++) {
+          var u = list[m - k], l = list[odd ? m + k : m + k - 1];
+          for (var tries = 0; tries < COL_MAX; tries++) {
+            var T = u.el.offsetHeight >= l.el.offsetHeight ? u : l, S = T === u ? l : u, n0 = T.blk.n;
+            if (T.blk.grid || n0 >= COL_MAX || T.blk.width(n0 + 1) > maxW) break;
+            var d0 = T.el.offsetHeight - S.el.offsetHeight;
+            T.blk.cols(n0 + 1);
+            if (T.blk.n === n0 || Math.abs(T.el.offsetHeight - S.el.offsetHeight) > 0.6 * d0) { T.blk.cols(n0); break; }
+          }
+        }
+      });
       // a step widens until no unbreakable run (a long tag, a chip) spills past its edge
       steps.forEach(function(n){ var over = n.el.scrollWidth - n.el.clientWidth; if (over > 0) { n.w += over + 4; n.el.style.width = n.w + 'px'; } });
       // each gap has a stub before the upright and a stub after it. A label widens only its own side, so a step
