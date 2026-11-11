@@ -91,7 +91,7 @@ band: ADT, testing and bone
 
 course: Advanced prostate cancer
   Rising PSA after surgery or radiotherapy, no metastases on CT or bone scan
-    next: Metastatic relapse, castration-sensitive | Metastases appear
+    next: Metastatic, castration-sensitive | Metastases appear
     next: Castration-resistant, no metastases on CT or bone scan | PSA rises on ADT
     = PSA doubling time 9 months or less: enzalutamide with leuprolide 〔NCCN 1〕
       ・Enzalutamide alone 〔NCCN 2A〕
@@ -99,37 +99,15 @@ course: Advanced prostate cancer
     ※ Enzalutamide alone delayed metastases but did not lengthen OS
     ※ After prostatectomy with PSA 0.5 ng/mL or more: apalutamide with ADT 〔NCCN 2B〕
 
-  Metastatic relapse, castration-sensitive
+  Metastatic, castration-sensitive
     next: Metastatic, castration-resistant
-    = ADT with an ARSI, at any volume 〔NCCN 1, preferred〕 〔ESMO II, A〕
-      ・Abiraterone, apalutamide or enzalutamide 〔NCCN 1, preferred〕
-      ・Apalutamide, enzalutamide or darolutamide 〔ESMO II, A〕
-      ・Darolutamide in low volume 〔NCCN 2B, other recommended〕
-    = High volume: docetaxel added to ADT and an ARSI 〔NCCN 1, preferred〕 〔ESMO II, B〕
-      ・Docetaxel is not given in low volume 〔ESMO II, E〕
-    = 1 to 3 metastases: stereotactic radiotherapy to every site, with or without ADT 〔NCCN 2A, useful in certain circumstances〕 〔ESMO II, B〕
-      ・Neither trial had an OS endpoint
-      ~ ORIOLE [t-oriole] | PFS HR
-      ~ STOMP [t-stomp] | ADT-free survival 21 vs 13 months
-
-  Castration-resistant, no metastases on CT or bone scan
-    next: Metastatic, castration-resistant | Metastases appear
-    = PSA doubling time 10 months or less: apalutamide, enzalutamide or darolutamide, with ADT 〔NCCN 1, preferred〕 〔ESMO I, A〕
-      ・Life expectancy over 5 years 〔ESMO I, A〕
-    + SPARTAN | OS HR
-    + PROSPER | OS HR
-    + ARAMIS | OS HR
-    ※ Each trial about doubled metastasis-free survival
-    ※ PSMA PET is optional at this stage 〔ESMO III, C〕
-    ※ When metastases appear on this treatment, the next step is ③
-
-  Metastatic at diagnosis, castration-sensitive
-    next: Metastatic, castration-resistant
-    ① Low volume: ADT with an ARSI and radiotherapy to the prostate 〔ESMO II, A〕
-      ・ADT with an ARSI 〔NCCN 1, preferred〕 〔ESMO I, A〕
-      ・Radiotherapy to the prostate with ADT and abiraterone 〔NCCN 2A, other recommended〕
-      ・Radiotherapy to the prostate with apalutamide, darolutamide or enzalutamide 〔NCCN 2B, other recommended〕
-      ・Docetaxel with ADT and an ARSI for selected men 〔ESMO III, C〕 〔NCCN 2B, other recommended〕
+    ① Low volume: ADT with an ARSI 〔NCCN 1, preferred〕 〔ESMO I, A〕
+      ・De novo: radiotherapy to the prostate added 〔ESMO II, A〕
+      ・De novo: radiotherapy to the prostate with ADT and abiraterone 〔NCCN 2A, other recommended〕
+      ・De novo: radiotherapy to the prostate with apalutamide, darolutamide or enzalutamide 〔NCCN 2B, other recommended〕
+      ・De novo: docetaxel with ADT and an ARSI for selected men 〔ESMO III, C〕 〔NCCN 2B, other recommended〕
+      ・Relapse after surgery or radiotherapy: apalutamide, enzalutamide or darolutamide 〔ESMO II, A〕
+      ・Relapse: docetaxel is not given 〔ESMO II, E〕
       - STAMPEDE arm H [t-stampede--advanced-prostate-3] | All patients OS HR 0.92, low burden 0.68
       ※ The trial was negative in all patients
         ・The low-burden subgroup was prespecified
@@ -139,11 +117,14 @@ course: Advanced prostate cancer
       ※ The benefit was confined to fewer than 5 bone metastases
         - HORRAD [t-horrad] | OS HR
         ~ STOPCAP [t-stopcap-m1-prostate-radiotherapy-meta-analysis] | Fewer than 5 bone metastases 3-year OS 7% higher, all patients OS HR 0.92
-    ② High volume: ADT with an ARSI and docetaxel 〔ESMO II, A〕
+    ② High volume: ADT with an ARSI and docetaxel
       ・Docetaxel with abiraterone or darolutamide 〔NCCN 1, preferred〕
       ・ADT with abiraterone, apalutamide or enzalutamide 〔NCCN 1, preferred〕
-      ・ADT with an ARSI if unfit for docetaxel 〔ESMO I, A〕
-      ・Radiotherapy to the prostate can be added to prevent severe urinary symptoms 〔ESMO II, B〕
+      ・De novo, fit for docetaxel 〔ESMO II, A〕
+      ・De novo, unfit for docetaxel: ADT with an ARSI 〔ESMO I, A〕
+      ・De novo: radiotherapy to the prostate can be added to prevent severe urinary symptoms 〔ESMO II, B〕
+      ・Relapse: ADT with an ARSI 〔ESMO II, A〕
+      ・Relapse: docetaxel can be added 〔ESMO II, B〕
       + PEACE-1 | OS HR
       + ARASENS | OS HR
       ° Grade 3 or higher hypertension 22% vs 13% (PEACE-1)
@@ -154,8 +135,23 @@ course: Advanced prostate cancer
         + CHAARTED | OS HR
         + STAMPEDE docetaxel [t-stampede--advanced-prostate] | Docetaxel OS HR 0.78
         - GETUG-AFU 15 | OS HR
+    ③ Relapse with 1 to 3 metastases: stereotactic radiotherapy to every site, with or without ADT 〔NCCN 2A, useful in certain circumstances〕 〔ESMO II, B〕
+      ・Neither trial had an OS endpoint
+      ~ ORIOLE [t-oriole] | PFS HR
+      ~ STOMP [t-stomp] | ADT-free survival 21 vs 13 months
     ※ ADT alone is discouraged 〔NCCN 2A〕 〔ESMO I, D〕
       ・It is kept for unfit men with a short life expectancy 〔ESMO I, C〕
+
+  Castration-resistant, no metastases on CT or bone scan
+    next: Metastatic, castration-resistant | Metastases appear
+    = PSA doubling time 10 months or less: apalutamide, enzalutamide or darolutamide, with ADT 〔NCCN 1, preferred〕 〔ESMO I, A〕
+      ・Life expectancy over 5 years 〔ESMO I, A〕
+    + SPARTAN | OS HR
+    + PROSPER | OS HR
+    + ARAMIS | OS HR
+    ※ Each trial about doubled metastasis-free survival
+    ※ PSMA PET is optional at this stage 〔ESMO III, C〕
+    ※ When metastases appear on this treatment, the next step is ③ After ADT and an ARSI
 
   Metastatic, castration-resistant
     next: ① After ADT alone
@@ -238,9 +234,10 @@ course: Advanced prostate cancer
     ※ Docetaxel again 〔NCCN 2A, preferred〕
     ※ BRCA altered and no PARP inhibitor yet: olaparib 〔NCCN 1, useful in certain circumstances〕
 
-panel: ARSI options > Metastatic at diagnosis, castration-sensitive
+panel: ARSI options > Metastatic, castration-sensitive
   ① Abiraterone with prednisone 5 mg once daily 〔NCCN 1, preferred〕 〔ESMO I, A〕
     ・No EU or US licence in low-volume disease
+    ・ESMO lists it for de novo disease only
     + LATITUDE | OS HR
     + STAMPEDE arm G [t-stampede--advanced-prostate-2] | OS HR
     ° Raised blood pressure, low potassium and oedema
@@ -261,7 +258,7 @@ panel: ARSI options > Metastatic at diagnosis, castration-sensitive
     ・Darolutamide raises rosuvastatin levels
     ・Abiraterone inhibits CYP2D6
 
-panel: Emerging upfront triplet options > Metastatic at diagnosis, castration-sensitive
+panel: Emerging upfront triplet options > Metastatic, castration-sensitive
   ① BRCA1 or BRCA2 altered: niraparib with abiraterone
     ・BRCA2 only, high volume 〔NCCN 2A, useful in certain circumstances〕
     ・BRCA2 only, low volume 〔NCCN 2B, useful in certain circumstances〕
