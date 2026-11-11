@@ -95,7 +95,7 @@ function measure(){
       res.push('"' + name + '" is ' + Math.round(Math.abs(Math.abs(off) > T ? off : cross)) + ' px off centre ' + (Math.abs(off) > T ? 'along' : 'across') + ' its line');
   });
   // a single word left alone on the last line of a statement, before its tags
-  world.querySelectorAll('.ln, .sb').forEach(el => {
+  world.querySelectorAll('.ln, .sb, li, .sub, .trials>div>*, .box.lbl').forEach(el => {
     if (el.querySelector('.sb')) return;
     const words = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {acceptNode: n => n.parentElement.closest('.tag') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
     let tn;
