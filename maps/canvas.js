@@ -24,7 +24,7 @@
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   var GX = 44, GY = 16, LEAF_W = 506, PANEL_W = 440, BAND_W = 520, M = 28;
-  var STEP_W = 548, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
+  var STEP_W = 380, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -69,9 +69,9 @@
   // (Jonan 2026-11-11: no figures on the map). A trial with no Evidence row yet has a dashed cell.
   function trialsHtml(ts){
     var pad = ts[0].level ? ' style="--p:' + (LV * ts[0].level + (ts[0].off || 0)) + 'px"' : '';
-    return '<div class="trials"' + pad + '>' + ts.map(function(l){
-      return '<span class="tch' + (l.anchor ? '' : ' ni') + '">' + trialLink(l) + '</span>';
-    }).join('') + '</div>';
+    return '<div class="trials"' + pad + '>' + ts.map(function(l, i){
+      return '<span class="tch">' + trialLink(l) + (l.anchor ? '' : ' <span class="ik">(intake)</span>') + (i < ts.length - 1 ? ',' : '') + '</span>';
+    }).join(' ') + '</div>';
   }
   function lineHtml(l, tiered){
     var pad = l.level ? ' style="--p:' + (LV * l.level + (l.off || 0)) + 'px"' : '';
@@ -175,16 +175,40 @@
         : x.url ? '<a class="trial" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.name) + '</a>' : esc(x.name);
     });
     // title: the map's name in large type, then its guidelines and the colour key in small type (whiteboard look, Jonan 2026-11-11)
-    var keys = (model.branches || []).map(function(x){ return '<span class="key br' + x.n + '">' + esc(x.label) + '</span>'; })
-      .concat(SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; }));
+    var HUE = ['Blue', 'Purple', 'Green', 'Pink'];
+    var keys = SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; });
+    var legend = (model.branches || []).map(function(x){ return HUE[x.n - 1] + ': ' + esc(x.label) + '.'; }).join(' ');
     var tblk = add('tblk', '<div class="mt">' + esc(model.map || '') + '</div>' +
       (srcs.length ? '<div class="ms">' + srcs.join(' · ') + '</div>' : '') +
+      (legend ? '<div class="ms">' + legend + '</div>' : '') +
       (keys.length ? '<div class="keys">' + keys.join('') + '</div>' : ''));
-    var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + linesHtml(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
-    var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel', '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
+    // a band's items sit side by side when the band runs the width of the map (board layout)
+    function bandItems(ls){
+      var groups = [], cur = null;
+      ls.forEach(function(l){ if (!cur || (!l.level && l.kind !== 'sub' && l.kind !== 'trial')) { cur = []; groups.push(cur); } cur.push(l); });
+      return '<div class="bitems">' + groups.map(function(g){ return '<div class="bi">' + linesHtml(g) + '</div>'; }).join('') + '</div>';
+    }
+    var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + bandItems(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
+    var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel' + (p.lines.some(function(l){ return l.kind === 'grid'; }) ? ' open' : ''), '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
 
     var W = 0, H = 0;
-    function layout(){ if (course) layoutCourse(); else layoutTree(); finish(); }
+    // a course that runs as one line of columns, each step leading only to the next column, is laid out
+    // as the whiteboard drew the early colon plan (Jonan 2026-11-11: "EXACTLY as in whiteboard")
+    function boardShape(){
+      if (!course) return false;
+      var by = {}; steps.forEach(function(n){ by[n.label] = n; n.preds = []; n.col = null; });
+      var ok = true;
+      steps.forEach(function(n){ n.next.forEach(function(e){ if (e.join) ok = false; e.node = by[e.to]; e.node.preds.push(n); }); });
+      if (!ok) return false;
+      function col(n){ if (n.col === null) { n.col = 0; n.preds.forEach(function(p){ n.col = Math.max(n.col, col(p) + 1); }); } return n.col; }
+      steps.forEach(col);
+      return steps.every(function(n){ return n.next.every(function(e){ return e.node.col === n.col + 1; }); });
+    }
+    var board = boardShape();
+    function layout(){
+      if (board) { layoutBoard(); finish(); return; }
+      if (course) layoutCourse(); else layoutTree(); finish();
+    }
     var svg = '';
 
     function bandsRow(){
@@ -192,6 +216,85 @@
       var bx = M, bandH = 0, top = M + tblk.offsetHeight + 28;
       bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = top + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
       return {x:bx, top:top + (bands.length ? bandH + 28 : 0)};
+    }
+
+
+    /* board layout: columns left to right, 80 apart (wider where a line label needs room); the steps of a
+       column stacked 32 apart; every column centred on one level, so a step sits beside the middle of the
+       steps it leads to and comes from. Each line leaves the right side of its step at the middle and enters
+       the left side of the next at the middle, turning at the middle of the gap. Bands run the width of the
+       map above; panels sit in a row below. */
+    function layoutBoard(){
+      svg = '';
+      var BG = 72, SG = 36, cols = [];
+      steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); n.el.style.width = n.w + 'px'; n.hd.style.minHeight = ''; });
+      var gapW = cols.map(function(){ return BG; });
+      steps.forEach(function(n){ n.next.forEach(function(e){ if (e.el) gapW[n.col] = Math.max(gapW[n.col], 2 * (e.el.offsetWidth + 24)); }); });
+      var colX = [M], colW = cols.map(function(list){ return Math.max.apply(null, list.map(function(n){ return n.w; })); });
+      cols.forEach(function(list, c){ colX[c + 1] = colX[c] + colW[c] + gapW[c]; });
+      var width = colX[cols.length] - gapW[cols.length - 1] - M;
+      bands.forEach(function(el){ el.style.width = Math.max(el.w, width) + 'px'; el.w = Math.max(el.w, width); });
+      var b = bandsRow();
+      bands.forEach(function(el){ el.style.left = M + 'px'; });
+      var colH = cols.map(function(list){ return list.reduce(function(h, n){ return h + n.el.offsetHeight; }, 0) + SG * (list.length - 1); });
+      var axis = b.top + Math.max.apply(null, colH) / 2;
+      cols.forEach(function(list, c){
+        var y = axis - colH[c] / 2;
+        list.forEach(function(n){
+          n.x = colX[c] + (colW[c] - n.w) / 2; n.y = y; n.cy = y + n.el.offsetHeight / 2;
+          n.el.style.left = n.x + 'px'; n.el.style.top = n.y + 'px';
+          y += n.el.offsetHeight + SG;
+        });
+      });
+      // as on the whiteboard, every line is drawn on its own: lines that share a side of a step leave or enter it
+      // 16 apart around the middle, each turns on its own upright 12 apart, and corners are rounded
+      var SP = 16, LG = 12;
+      function spread(list, key){ list.sort(function(a, z){ return key(a) - key(z); }); return function(e){ return (list.indexOf(e) - (list.length - 1) / 2) * SP; }; }
+      var outs = [], ins = [];
+      steps.forEach(function(n){
+        var o = spread(n.next.slice(), function(e){ return e.node.cy; });
+        n.next.forEach(function(e){ e.ya = n.cy + o(e); });
+      });
+      steps.forEach(function(t){
+        var inn = []; steps.forEach(function(n){ n.next.forEach(function(e){ if (e.node === t) inn.push(e); }); });
+        var o = spread(inn.slice(), function(e){ return e.ya; });
+        inn.forEach(function(e){ e.yb = t.cy + o(e); e.src = e.src || null; });
+      });
+      cols.forEach(function(list, c){
+        var es = []; list.forEach(function(n){ n.next.forEach(function(e){ e.from = n; es.push(e); }); });
+        var mid = colX[c] + colW[c] + gapW[c] / 2;
+        // a line that runs further up or down turns nearer the side where its lines fan out, so none cross
+        ['up', 'down', 'flat'].forEach(function(dir){
+          var g = es.filter(function(e){ var d = e.yb - e.ya; return dir === 'flat' ? Math.abs(d) < 0.5 : dir === 'up' ? d <= -0.5 : d >= 0.5; });
+          var fanIn = g.length > 1 && g.every(function(e){ return e.node === g[0].node; });
+          g.sort(function(a, z){ return Math.abs(z.yb - z.ya) - Math.abs(a.yb - a.ya); });
+          g.forEach(function(e, i){ var k = (i - (g.length - 1) / 2) * LG; e.xm = mid + (fanIn ? -k : k); });
+        });
+      });
+      function elbow(x1, y1, xm, y2, x2){
+        if (Math.abs(y2 - y1) < 0.5) return '<path d="M' + x1 + ' ' + y1 + ' H' + x2 + '"/>';
+        var r = Math.min(10, Math.abs(y2 - y1) / 2, xm - x1, x2 - xm), sy = y2 > y1 ? 1 : -1;
+        return '<path d="M' + x1 + ' ' + y1 + ' H' + (xm - r) + '"/>' +
+          '<path d="M' + (xm - r) + ' ' + y1 + ' Q' + xm + ' ' + y1 + ' ' + xm + ' ' + (y1 + sy * r) + '"/>' +
+          '<path d="M' + xm + ' ' + (y1 + sy * r) + ' V' + (y2 - sy * r) + '"/>' +
+          '<path d="M' + xm + ' ' + (y2 - sy * r) + ' Q' + xm + ' ' + y2 + ' ' + (xm + r) + ' ' + y2 + '"/>' +
+          '<path d="M' + (xm + r) + ' ' + y2 + ' H' + x2 + '"/>';
+      }
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        var t = e.node, x1 = n.x + n.w, x2 = t.x;
+        svg += elbow(x1, e.ya, e.xm, e.yb, x2);
+        if (e.el) {
+          var w = e.el.offsetWidth, h = e.el.offsetHeight, into = t.preds.length < 2;
+          e.el.style.left = ((into ? e.xm + x2 : x1 + e.xm) / 2 - w / 2) + 'px';
+          e.el.style.top = ((into ? e.yb : e.ya) - h / 2) + 'px';
+        }
+      }); });
+      var bottom = Math.max.apply(null, steps.map(function(n){ return n.y + n.el.offsetHeight; })), px = M;
+      panels.forEach(function(p){
+        p.el.style.width = p.w + 'px';
+        p.el.style.left = px + 'px'; p.el.style.top = (bottom + 64) + 'px';
+        px += p.w + 32;
+      });
     }
 
     // a label cell centred on an upright, kept clear of the steps on either side of the gap
