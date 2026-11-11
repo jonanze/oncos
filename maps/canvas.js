@@ -71,8 +71,9 @@
   // trial lines in a row make one row of ruled name cells; a tap opens the trial's card with its results
   // (Jonan 2026-11-11: no figures on the map). A trial with no Evidence row yet has a dashed cell.
   function trialsHtml(ts){
-    // a chip row starts where the words of its parent line start, after the ① or ※ (Jonan 2026-11-11, "standardise the indent")
-    var lv = Math.max(0, (ts[0].level || 0) - 1), pad = (lv || ts[0].off) ? ' style="--p:' + (LV * lv + (ts[0].off || 0)) + 'px"' : '';
+    // every chip row in a box starts at one indent, the words of a ① or ※ line, whatever the depth of the line
+    // it follows (Jonan 2026-11-11, "the chip indents are inconsistent in this box")
+    var pad = ts[0].off ? ' style="--p:' + ts[0].off + 'px"' : '';
     return '<div class="trials"' + pad + '>' + ts.map(function(l){
       return '<span class="tch' + (l.anchor ? '' : ' ni') + '">' + trialLink(l) + '</span>';
     }).join('') + '</div>';
@@ -131,6 +132,20 @@
     return n ? Math.max(w, n * GRID_COL) : w;
   }
 
+  // a square line through the points with each corner rounded (radius up to 10), as on the whiteboard
+  function rpath(pts){
+    var d = 'M' + pts[0][0] + ' ' + pts[0][1];
+    for (var i = 1; i < pts.length - 1; i++) {
+      var a = pts[i - 1], b = pts[i], c = pts[i + 1];
+      var l1 = Math.abs(b[0] - a[0]) + Math.abs(b[1] - a[1]), l2 = Math.abs(c[0] - b[0]) + Math.abs(c[1] - b[1]);
+      var r = Math.min(10, l1 / 2, l2 / 2);
+      if (r < 0.5) { d += ' L' + b[0] + ' ' + b[1]; continue; }
+      var ux = Math.sign(b[0] - a[0]), uy = Math.sign(b[1] - a[1]), vx = Math.sign(c[0] - b[0]), vy = Math.sign(c[1] - b[1]);
+      d += ' L' + (b[0] - ux * r) + ' ' + (b[1] - uy * r) + ' Q' + b[0] + ' ' + b[1] + ' ' + (b[0] + vx * r) + ' ' + (b[1] + vy * r);
+    }
+    var e = pts[pts.length - 1];
+    return '<path d="' + d + ' L' + e[0] + ' ' + e[1] + '"/>';
+  }
   function bracePath(x, y1, y2, d){
     var m = (y1 + y2) / 2, k = Math.min(6, (y2 - y1) / 4);
     return 'M'+x+' '+y1+' Q'+(x+d)+' '+y1+' '+(x+d)+' '+(y1+k)+' L'+(x+d)+' '+(m-k)+' Q'+(x+d)+' '+m+' '+(x+2*d)+' '+m+
@@ -637,7 +652,7 @@
       nodes.forEach(function(n){
         // square lines: across from the parent, down the gap, across to each child
         var px = n.x + colW[n.depth], gx = px + GX / 2;
-        n.children.forEach(function(c){ svg += '<path d="M' + px + ' ' + n.cy + ' H' + gx + ' V' + c.cy + ' H' + c.x + '"/>'; });
+        n.children.forEach(function(c){ svg += rpath([[px, n.cy], [gx, n.cy], [gx, c.cy], [c.x, c.cy]]); });
         if (n.leaf) svg += '<line x1="' + (n.x + colW[n.depth]) + '" y1="' + n.cy + '" x2="' + textX + '" y2="' + n.cy + '"/>';
       });
 
@@ -665,9 +680,7 @@
         svg += '<path d="' + bracePath(bx, y1, y2, 9) + '"/>';
         // tip to a fork in the gap before the panels, then across to each panel's title
         var fx = panelX - 40, lo = Math.min.apply(null, hys.concat(mid)), hi = Math.max.apply(null, hys.concat(mid));
-        svg += '<path d="M' + (bx + 18) + ' ' + mid + ' H' + fx + '"/>';
-        if (hi > lo) svg += '<path d="M' + fx + ' ' + lo + ' V' + hi + '"/>';
-        hys.forEach(function(hy){ svg += '<path d="M' + fx + ' ' + hy + ' H' + panelX + '"/>'; });
+        hys.forEach(function(hy){ svg += rpath([[bx + 18, mid], [fx, mid], [fx, hy], [panelX, hy]]); });
       });
       loose.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = (lastBottom + 32) + 'px'; lastBottom += 32 + p.el.offsetHeight; });
 
@@ -678,20 +691,20 @@
         var t = panels.filter(function(q){ return q.title === e.to; })[0];
         if (!t) return;
         var L = lanes.filter(function(l){ return l.t === t && l.label === e.label; })[0];
-        if (!L) { L = {t:t, label:e.label, src:[], x:colR + 28 + 20 * lanes.length}; lanes.push(L); }
+        if (!L) { L = {t:t, label:e.label, src:[], x:colR + 60 + 40 * lanes.length}; lanes.push(L); }
         L.src.push(p);
       }); });
       lanes.forEach(function(L){
         var hy = function(p){ return p.el.offsetTop + p.el.firstChild.offsetHeight / 2; };
         var ty = hy(L.t), ys = L.src.map(hy), lo = Math.min.apply(null, ys.concat(ty)), hi = Math.max.apply(null, ys.concat(ty));
-        L.src.forEach(function(p, i){ svg += '<path d="M' + (p.el.offsetLeft + p.el.offsetWidth) + ' ' + ys[i] + ' H' + L.x + '"/>'; });
-        svg += '<path d="M' + L.x + ' ' + lo + ' V' + hi + '"/>';
-        svg += '<path d="M' + L.x + ' ' + ty + ' H' + (L.t.el.offsetLeft + L.t.el.offsetWidth) + '"/>';
+        var tx = L.t.el.offsetLeft + L.t.el.offsetWidth;
+        L.src.forEach(function(p, i){ svg += rpath([[p.el.offsetLeft + p.el.offsetWidth, ys[i]], [L.x, ys[i]], [L.x, ty], [tx, ty]]); });
         if (L.label) {
           var key = L.t.title + '|' + L.label, el = plabs[key] || (plabs[key] = add('elab', keep(L.label)));
           el.style.whiteSpace = 'nowrap'; el.style.maxWidth = 'none';
-          el.style.left = (L.x + 10) + 'px';
-          el.style.top = ((Math.max.apply(null, ys) + ty) / 2 - el.offsetHeight / 2) + 'px';
+          // the label sits on the upright, centred on its whole run
+          el.style.left = (L.x - el.offsetWidth / 2) + 'px';
+          el.style.top = ((lo + hi) / 2 - el.offsetHeight / 2) + 'px';
         }
       });
 

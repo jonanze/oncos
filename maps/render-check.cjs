@@ -54,12 +54,20 @@ function measure(){
       else if (Math.abs(a - c) < .5 && Math.abs(b - d) > .5) segs.push({h:0, k:a, a:Math.min(b, d), b:Math.max(b, d)});
       return;
     }
-    const d = x.getAttribute('d'); if (/[QCLA]/.test(d)) return;
-    let cx = 0, cy = 0, m; const re = /([MHV])\s*(-?[\d.]+)(?:\s+(-?[\d.]+))?/g;
+    // square runs are read from M, H, V and straight L moves; a Q (a rounded corner or a brace curve) only moves the pen
+    const d = x.getAttribute('d'); if (/[CA]/.test(d)) return;
+    let cx = 0, cy = 0, m; const re = /([MHVLQ])\s*(-?[\d.]+)(?:\s+(-?[\d.]+))?(?:\s+(-?[\d.]+)\s+(-?[\d.]+))?/g;
+    const seg = (x2, y2) => {
+      if (Math.abs(y2 - cy) < .5 && Math.abs(x2 - cx) > .5) segs.push({h:1, k:cy, a:Math.min(cx, x2), b:Math.max(cx, x2)});
+      else if (Math.abs(x2 - cx) < .5 && Math.abs(y2 - cy) > .5) segs.push({h:0, k:cx, a:Math.min(cy, y2), b:Math.max(cy, y2)});
+      cx = x2; cy = y2;
+    };
     while ((m = re.exec(d))) { const v = +m[2];
       if (m[1] === 'M') { cx = v; cy = +m[3]; }
-      else if (m[1] === 'H') { if (Math.abs(v - cx) > .5) segs.push({h:1, k:cy, a:Math.min(cx, v), b:Math.max(cx, v)}); cx = v; }
-      else { if (Math.abs(v - cy) > .5) segs.push({h:0, k:cx, a:Math.min(cy, v), b:Math.max(cy, v)}); cy = v; } }
+      else if (m[1] === 'H') seg(v, cy);
+      else if (m[1] === 'V') seg(cx, v);
+      else if (m[1] === 'L') seg(v, +m[3]);
+      else { cx = +m[4]; cy = +m[5]; } }
   });
   const R = e => ({l:e.offsetLeft, t:e.offsetTop, r:e.offsetLeft + e.offsetWidth, b:e.offsetTop + e.offsetHeight});
   const boxes = [...world.querySelectorAll('.blk:not(.elab)')].map(R), chips = [...world.querySelectorAll('.elab')];
