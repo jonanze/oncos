@@ -31,7 +31,7 @@ band: Resectable liver or lung metastases
     ・Chemotherapy before resection of resectable liver metastases is weakly not recommended 〔JSCCR C, 2〕
     ・Adjuvant chemotherapy after hepatectomy 〔JSCCR B, 2〕
     ~ EPOC
-    ~ JCOG0603 {pmid 34520230}
+    ~ JCOG0603 [t-jcog-0603]
     ※ Do not add cetuximab to chemotherapy around liver resection 〔NCCN 2A〕
       - New EPOC
   ③ Thermal ablation for liver metastases of 3 cm or less 〔NCCN 2A〕 〔ESMO II, B〕
@@ -42,7 +42,7 @@ band: Resectable liver or lung metastases
 band: Potentially resectable metastases
   ① First-line treatment, then resection as soon as it is feasible 〔NCCN 2A〕
     ・Resectability is reassessed every 2 to 3 months 〔ESMO IV, A〕
-    ~ CAIRO5 {pmid 37329889}
+    ~ CAIRO5 [t-cairo5]
     ※ Debulking of multiorgan disease is not recommended 〔NCCN 2A〕
       - ORCHESTRA
   ※ Liver transplantation with chemotherapy for unresectable liver-only metastases in selected patients 〔ESMO II, A〕
@@ -58,7 +58,7 @@ band: Peritoneum and the primary tumour
       - PRODIGE 7
   ② Asymptomatic primary tumour with unresectable metastases: systemic treatment without resection 〔JSCCR B, 2〕 〔ESMO I, D〕
     ・A symptomatic primary tumour is resected first 〔JSCCR C, 1〕
-    - JCOG1007 {pmid 33560877}
+    - JCOG1007 [t-ipacs]
 
 course: Metastatic colorectal cancer
   Unresectable metastatic disease
@@ -136,7 +136,7 @@ course: Metastatic colorectal cancer
     branch: UNFIT
     ① Capecitabine or 5-FU/LV, with bevacizumab 〔NCCN 2A〕 〔ESMO I, A〕
       ・JSCCR lists these for vulnerable patients
-    ~ AVEX {pmid 24028813}
+    ~ AVEX [t-avex]
     ② Left-sided RAS and BRAF wild-type: cetuximab or panitumumab alone 〔NCCN 2A〕 〔ESMO III, C〕
       ・With 5-FU/LV 〔ESMO II, B〕
     ※ Japan only: S-1, or UFT with LV, each with or without bevacizumab

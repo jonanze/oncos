@@ -1,0 +1,172 @@
+# oncOS board map: Rectal Cancer (localised and locally advanced; metastatic disease is on the Advanced CRC map)
+# Draft 2, 2026-11-11: JSCCR removed (Jonan), ASCO 2024 tags added from the full PDF
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Tags give evidence first, strength second, as printed, on the statement the guideline graded:
+#   〔NCCN category, preference〕 NCCN Rectal Cancer 2.2026 (7 April 2026), algorithm and principles pages. 2A unless stated.
+#     A preference appears only where NCCN prints one. The Discussion (31 October 2025) is older than the algorithm
+#   〔ESMO evidence, grade〕 ESMO localised rectal cancer guideline 2025 (Ann Oncol 2025;36:1007-24), living guideline v1.0 July 2025
+#   〔ASCO evidence, strength〕 ASCO locally advanced rectal cancer guideline 2024 (J Clin Oncol 2024;42:3355-75).
+#     Its MRI and MMR statements are good practice statements, tagged 〔ASCO good practice〕
+# JSCCR is not used on this map (Jonan 2026-11-12). The other colon maps keep it
+# Camrelizumab has no licence outside China, so UNION is a ※ line
+
+map: Rectal Cancer
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2025.05.528}
+source: ASCO {url https://doi.org/10.1200/JCO.24.01160}
+branch: IR | Intermediate risk, pMMR | blue
+branch: HR | High risk, pMMR | teal
+branch: dMMR | dMMR or MSI-H | violet
+branch: WW | Watch and wait | sage
+
+band: Staging
+  ① Pelvic MRI that reports tumour height, depth, nodes, lateral nodes, EMVI and the distance to the MRF 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO good practice〕
+  ② MMR or MSI on the biopsy 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO good practice〕
+    ・RAS and BRAF testing is not recommended in localised disease 〔ESMO IV, D〕
+  ③ CT of the chest and abdomen, CEA and colonoscopy to the caecum 〔NCCN 2A〕 〔ESMO III, A〕
+  ④ Endorectal ultrasound to separate cT1 from cT2 〔NCCN 2A〕 〔ESMO II, A〕
+  ※ FDG-PET is not indicated 〔NCCN 2A〕
+
+band: cT1–2 N0
+  ① Low-risk T1: local excision 〔NCCN 2A〕 〔ESMO III, A〕
+  ② High-risk T1 or T2: TME 〔NCCN 2A, preferred〕 〔ESMO III, A〕
+  ③ Organ preservation as the aim: CRT or short-course radiotherapy, then watch and wait or local excision after a good response 〔NCCN 2A〕 〔ESMO II, B〕
+    ~ STAR-TREC
+    - GRECCAR-2 {pmid 28601342}
+
+course: Stage II and III rectal cancer
+  Risk group on MRI
+    ① High risk: cT4, involved MRF, cN2, EMVI or a lateral node of 7 mm or more 〔ESMO I, A〕
+    ② Intermediate risk: cT2 N+ or cT3 N0–1, clear MRF
+    ※ Upper third: TNT only for cT4 or an involved MRF 〔ESMO I, A〕
+    next: Intermediate risk, pMMR
+    next: High risk, pMMR
+    next: dMMR or MSI-H
+  Intermediate risk, pMMR
+    branch: IR
+    ① CRT or short-course radiotherapy, then TME 〔NCCN 2A〕 〔ESMO I, A〕
+    + Swedish Rectal Cancer Trial
+    + Dutch TME [t-eortc-40971]
+    ~ CAO/ARO/AIO-94
+    + MRC CR07 [t-mrc-cr07-ncic-ctg-c016]
+    ② FOLFOX or CAPOX for 3 months, with CRT only after a poor response 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate to high, Conditional〕
+      ・This is for a tumour that is not cT4, has a clear MRF and suits sphincter-sparing surgery
+      ・ASCO limits this to the mid or upper rectum
+    ~ PROSPECT
+    ~ FOWARC
+    - CONVERT [t-convert--rectal-cancer]
+    ③ TNT 〔NCCN 2A〕
+      ・ESMO keeps TNT for high-risk disease
+    ④ Organ preservation as the aim, tumour under 5 cm: CRT with a contact brachytherapy boost 〔NCCN 2A〕 〔ESMO I, A〕
+    ~ OPERA
+    ⑤ Upper rectum, cT3 N0 with a clear MRF: TME first 〔NCCN 2A〕
+    next: Restaging
+  High risk, pMMR
+    branch: HR
+    ① TNT: radiotherapy and 3 to 4 months of FOLFOX or CAPOX, all before TME 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate to high, Strong〕
+      ・ASCO also offers TNT first for any low rectal tumour
+    ~ RAPIDO
+    + PRODIGE 23
+    ~ STELLAR
+    ~ TNTCRT
+    - Polish II
+    ② TNT not feasible: CRT or short-course radiotherapy, then TME 〔ESMO I, A〕
+      ・Not fit for intensive treatment: CRT or radiotherapy alone 〔NCCN 2A〕
+    ※ Short-course radiotherapy, then camrelizumab with CAPOX, raised the pCR rate in a trial in China
+      ・Camrelizumab is not licensed in the EU or US
+      ~ UNION
+    next: Restaging
+  dMMR or MSI-H
+    branch: dMMR
+    ① A PD-1 inhibitor for 6 months 〔NCCN 2A, preferred〕 〔ESMO II, A〕 〔ASCO Low, Strong〕
+      ・ESMO grades dostarlimab, and notes a US licence and no EU licence
+      ・NCCN lists any PD-1 or PD-L1 inhibitor, with none preferred
+    ~ Cercek 2022 [t-cercek-et-al]
+    ~ Cercek 2025 [t-cercek-et-al--tumour-agnostic-basket-trials]
+    ~ AZUR-1 {pmid 42927858}
+    ② Not a candidate for a checkpoint inhibitor: TNT 〔NCCN 2A〕
+    ※ Chemotherapy before surgery is not recommended 〔ESMO V, D〕
+    ※ Response is assessed at 12 and 24 weeks 〔ESMO III, A〕
+    ※ Persistent disease at 6 months: CRT or short-course radiotherapy, then TME 〔NCCN 2A〕
+    next: Restaging
+  Restaging
+    ① MRI, endoscopy and digital rectal examination 〔NCCN 2A〕 〔ESMO I, A〕
+      ・A clinical complete response is a flat scar, a smooth wall and no restricted diffusion or nodes on MRI
+    ② Near-complete response: a second assessment 4 to 8 weeks later 〔NCCN 2A〕 〔ESMO I, B〕
+    ※ A biopsy is not needed to confirm a complete response 〔NCCN 2A〕 〔ESMO V, D〕
+    ※ ctDNA has no role in the decision 〔NCCN 2A〕
+    next: TME | Residual tumour
+    next: Watch and wait | Clinical complete response
+  TME
+    ① TME, or partial mesorectal excision in the upper third 〔ESMO III, A〕
+    ② Laparoscopic or robotic surgery by an experienced surgeon 〔ESMO I, A〕
+      ・Open surgery is preferred for a threatened margin 〔NCCN 2A〕
+    ~ CLASICC [t-uk-mrc-clasicc]
+    ~ COLOR II {pmid 25830422}
+    ~ COREAN {pmid 24837215}
+    - ACOSOG Z6051 {pmid 26441179}
+    - ALaCaRT {pmid 26441180}
+    ③ Lateral nodes of 7 mm or more in short axis: dissection after treatment before surgery 〔NCCN 2A〕 〔ESMO IV, A〕
+    ※ Lateral dissection is not indicated without suspicious nodes 〔NCCN 2A〕
+    next: Adjuvant treatment
+  Watch and wait
+    branch: WW
+    ① Watch and wait in an experienced team, for a patient committed to surveillance 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Conditional〕
+    ~ OPRA
+    ② Examination, endoscopy and MRI every 3 months for 2 years, then every 6 months 〔ESMO I, A〕
+      ・NCCN spaces MRI every 6 months for up to 3 years
+    ※ Most regrowths arise in the bowel wall within 2 years
+    ※ Watch and wait is not recommended after chemotherapy alone 〔ESMO I, D〕
+    ※ Near-complete response in a baseline cT2 or cT3a N0 tumour: local excision 〔ESMO II, B〕
+    next: Salvage resection | Regrowth
+  Adjuvant treatment
+    ① No preoperative treatment, stage III: CAPOX or FOLFOX 〔NCCN 2A〕 〔ESMO I, A〕
+    ② No preoperative radiotherapy, with an involved margin, pT4b or poor TME: CRT 〔NCCN 2A〕 〔ESMO III, A〕
+    ③ After CRT or short-course radiotherapy: a fluoropyrimidine with or without oxaliplatin may be considered 〔ESMO V, B〕
+    ~ ADORE
+    + CAO/ARO/AIO-04
+    ※ After TNT, adjuvant chemotherapy is not generally recommended 〔NCCN 2A〕 〔ESMO I, D〕
+    ※ PI3K pathway altered: aspirin for 3 years 〔NCCN 2A〕
+      ~ ALASCCA
+    ※ ctDNA is not used for adjuvant decisions 〔ESMO II, D〕
+  Salvage resection
+    branch: WW pale
+    ① TME for every regrowth 〔ESMO IV, A〕
+    ※ Local excision for regrowth is not recommended 〔ESMO IV, D〕
+
+panel: Radiotherapy before surgery > Intermediate risk, pMMR
+  ① Long-course CRT with capecitabine or infusional 5-FU 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Conditional〕
+    ・ASCO prefers long-course CRT to short-course radiotherapy
+  ~ NSABP R-04
+  ② Short-course radiotherapy, 5 fractions of 5 Gy 〔NCCN 2A〕 〔ESMO I, A〕
+  ~ Polish I
+  ~ TROG 01.04
+  ~ Stockholm III
+  ※ Do not add oxaliplatin to CRT 〔NCCN 2A〕
+    ・One of four trials found longer disease-free survival
+    - STAR-01
+    - ACCORD 12 [t-accord-12-0405-prodige-2]
+    - NSABP R-04
+    + CAO/ARO/AIO-04
+  ※ Do not add irinotecan to CRT 〔NCCN 2A〕
+    - ARISTOTLE
+  ※ Age 75 or over: short-course radiotherapy was better tolerated than CRT, with no gain in R0 resection
+    - PRODIGE 42 [t-prodige-42-gerico-12]
+
+panel: Order of TNT > High risk, pMMR
+  ① Radiotherapy first, then FOLFOX or CAPOX 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Conditional〕
+    ・This order is preferred when organ preservation is the aim 〔ESMO I, B〕
+  ~ CAO/ARO/AIO-12
+  ~ OPRA
+  ② FOLFOX or CAPOX first, then CRT or short-course radiotherapy 〔NCCN 2A〕 〔ESMO I, A〕
+  ③ FOLFIRINOX for 3 months, then CRT 〔NCCN 2A〕 〔ESMO I, A〕
+    ・ASCO allows it for a higher risk of distant spread
+    ・ESMO gives irinotecan only in this sequence
+  + PRODIGE 23
+  ※ TNT with short-course radiotherapy had more locoregional recurrence than CRT at 5 years
+    ・NCCN advises caution with short-course radiotherapy in high-risk disease
+    ~ RAPIDO
+
+off:
+  Habr-Gama 2004 [t-habr-gama-et-al] | Non-randomised with randomised evidence available: retrospective cohort, watch and wait rests on OPRA
+  IWWD | Non-randomised with randomised evidence available: registry, its regrowth pattern stays as a plain ※ line

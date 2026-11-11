@@ -25,6 +25,7 @@
     'Early & Locally Adv NSCLC': 'early-nsclc',
     'Early CRC': 'early-colon',
     'Endometrial Cancer': 'endometrial',
+    'Rectal Cancer': 'rectal',
     'Mesothelioma': 'mesothelioma',
     'SCLC': 'sclc'
   };
