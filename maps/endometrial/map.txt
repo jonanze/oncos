@@ -90,8 +90,7 @@ course:
     | Intermediate | - | Myometrial invasion 50% or more, or high grade with any invasion | Myometrial invasion 50% or more, or cervical stromal invasion | - | Vaginal brachytherapy 〔ESGO I, A〕 |
     | High-intermediate | - | Substantial LVSI, or cervical stromal invasion | Substantial LVSI | - | Pelvic EBRT 〔ESGO II, A〕 |
     | High | - | Stage III–IVA | Stage III–IVA | Any myometrial invasion, stage I–IVA | Chemoradiotherapy 〔ESGO I, A〕 |
-    | Uncertain | Stage III–IVA | - | - | - | Less than high-risk treatment can be considered 〔ESGO IV, B〕 |
-    | Uncertain | - | - | - | No myometrial invasion | Usually none 〔ESGO IV, C〕 |
+    | Uncertain | Stage III–IVA | - | - | No myometrial invasion | POLE mutated: less than high-risk treatment can be considered 〔ESGO IV, B〕. Without myometrial invasion: usually none 〔ESGO IV, C〕 |
     ※ Stage here is FIGO 2023
     Without molecular class: by FIGO 2009 stage, grade and histology
     | Histology and FIGO 2009 stage | Adjuvant treatment |
