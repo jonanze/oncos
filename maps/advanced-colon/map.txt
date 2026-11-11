@@ -1,0 +1,248 @@
+# oncOS board map: Advanced CRC (metastatic colon and rectal cancer)  DRAFT 2026-11-11
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Tags give evidence first, strength second, as printed, on the statement the guideline graded:
+#   〔JSCCR evidence, strength〕 JSCCR guidelines 2024, English edition (Int J Clin Oncol 2025;30:2410-63), CQ boxes only.
+#     Regimen lists and Fig. 6 and 7 are ungraded, so they are named in plain text. East Asian guideline first
+#   〔NCCN category, preference〕 NCCN Colon Cancer 3.2026 (6 November 2026), algorithm pages. 2A unless stated.
+#     A preference appears only where NCCN prints one
+#   〔ESMO evidence, grade〕 ESMO metastatic colorectal cancer guideline 2026 (Ann Oncol 2026;37:759-76)
+#   〔ASCO evidence, strength〕 ASCO metastatic colorectal cancer guideline 2023 (J Clin Oncol 2023;41:678-700)
+# Japan-only options (SOX, S-1 with irinotecan, S-1, UFT with leucovorin) sit on a ※ line marked Japan only, as on the Early CRC map (Jonan 2026-11-11)
+
+map: Advanced CRC
+source: JSCCR {url https://doi.org/10.1007/s10147-025-02899-8}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2026.03.005}
+source: ASCO {url https://doi.org/10.1200/JCO.22.01690}
+branch: dMMR | dMMR or MSI-H | violet
+branch: LEFT | RAS and BRAF wild-type, left-sided | blue
+branch: RAS | RAS mutant or right-sided | teal
+branch: BRAF | BRAF V600E | rose
+branch: UNFIT | Not fit for combination chemotherapy | sand
+branch: HER2 | HER2-positive | apricot
+branch: G12C | KRAS G12C | olive
+branch: FUS | NTRK or RET fusion | sage
+
+band: Resectable liver or lung metastases
+  ① Resection of all disease when an R0 resection is feasible 〔NCCN 2A〕 〔ESMO III, B〕 〔ASCO Moderate, Weak〕
+    ・JSCCR recommends resection when the primary is controlled and the liver remnant is adequate
+    ・JSCCR recommends resecting both when liver and lung metastases are resectable
+  ② FOLFOX or CAPOX before and after resection, or after it, for 6 months in total 〔NCCN 2A, preferred〕 〔ESMO II, B〕 〔ASCO Moderate, Weak〕
+    ・Chemotherapy before resection of resectable liver metastases is weakly not recommended 〔JSCCR C, 2〕
+    ・Adjuvant chemotherapy after hepatectomy 〔JSCCR B, 2〕
+    ~ EPOC
+    ~ JCOG0603 {pmid 34520230}
+    ※ Do not add cetuximab to chemotherapy around liver resection 〔NCCN 2A〕
+      - New EPOC
+  ③ Thermal ablation for liver metastases of 3 cm or less 〔NCCN 2A〕 〔ESMO II, B〕
+    ・Ablation first for resectable liver metastases is not recommended 〔JSCCR C, 1〕
+    ・Ablation or SBRT for lung metastases, with or instead of resection 〔ESMO III, B〕
+  ④ SBRT for liver metastases that cannot be resected or ablated 〔ESMO III, B〕 〔ASCO Low, Weak〕
+
+band: Potentially resectable metastases
+  ① First-line treatment, then resection as soon as it is feasible 〔NCCN 2A〕
+    ・Resectability is reassessed every 2 to 3 months 〔ESMO IV, A〕
+    ~ CAIRO5 {pmid 37329889}
+    ※ Debulking of multiorgan disease is not recommended 〔NCCN 2A〕
+      - ORCHESTRA
+  ※ Liver transplantation with chemotherapy for unresectable liver-only metastases in selected patients 〔ESMO II, A〕
+    ・ESMO selects on BRAF wild-type, CEA below 80 ng/mL (80 µg/L), disease control for 3 months and no extrahepatic disease
+    ・JSCCR, NCCN and ASCO do not address transplantation
+    + TransMet
+  ※ SIRT is not routinely recommended 〔ASCO Low, Weak〕
+
+band: Peritoneum and the primary tumour
+  ① Peritoneal metastases only: complete cytoreductive surgery in a specialised centre 〔ESMO II, A〕 〔ASCO Moderate, Weak〕
+    ・JSCCR recommends complete resection of limited peritoneal metastases
+    ※ Do not add oxaliplatin HIPEC to cytoreductive surgery 〔ESMO II, D〕 〔ASCO Moderate, Strong〕
+      - PRODIGE 7
+  ② Asymptomatic primary tumour with unresectable metastases: systemic treatment without resection 〔JSCCR B, 2〕 〔ESMO I, D〕
+    ・A symptomatic primary tumour is resected first 〔JSCCR C, 1〕
+    - JCOG1007 {pmid 33560877}
+
+course: Metastatic colorectal cancer
+  Unresectable metastatic disease
+    ① MMR or MSI, RAS and BRAF V600E before first-line treatment 〔NCCN 2A〕 〔ESMO I, A〕
+      ・JSCCR asks for the same tests in patients fit for chemotherapy
+    ② HER2 by immunohistochemistry 〔NCCN 2A〕 〔ESMO III, A〕
+    ③ DPYD testing before a fluoropyrimidine 〔ESMO III, A〕
+    ④ Gene panel testing for NTRK, RET, POLE and POLD1 〔JSCCR B, 2〕 〔ESMO III, C〕
+    ※ Left-sided means from the splenic flexure to the rectum in NCCN and ESMO
+      ・JSCCR counts the descending colon, sigmoid colon and rectum as left-sided
+    next: dMMR or MSI-H
+    next: RAS and BRAF wild-type, left-sided
+    next: RAS mutant, or wild-type and right-sided
+    next: BRAF V600E
+    next: Not fit for combination chemotherapy
+  dMMR or MSI-H
+    branch: dMMR
+    ① Pembrolizumab 〔JSCCR A, 1〕 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Strong〕
+    ~ KEYNOTE-177
+    ② Nivolumab with ipilimumab 〔NCCN 2A〕 〔ESMO I, A〕
+      ・ESMO prefers this option first line
+      ・JSCCR 2024 predates CheckMate 8HW and gives it only after earlier treatment
+    + CheckMate 8HW
+    ③ After first-line treatment without a checkpoint inhibitor: pembrolizumab, nivolumab, or nivolumab with ipilimumab 〔JSCCR A, 1〕
+      ・Nivolumab with ipilimumab 〔ESMO I, A〕
+      ・Pembrolizumab 〔ESMO III, B〕
+    ※ Another PD-1 or PD-L1 antibody alone 〔NCCN 2A〕
+    ※ dMMR with BRAF V600E: the checkpoint inhibitor comes first 〔NCCN 2A〕
+    ※ Adding FOLFOX and bevacizumab to atezolizumab lengthened PFS
+      ・No guideline lists chemotherapy with a checkpoint inhibitor
+      ~ COMMIT
+    ※ After progression on a checkpoint inhibitor, treatment follows RAS and BRAF status 〔NCCN 2A〕
+  RAS and BRAF wild-type, left-sided
+    branch: LEFT
+    ① FOLFOX or FOLFIRI with cetuximab or panitumumab 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Strong〕
+      ・JSCCR lists this for fit patients
+    + PARADIGM
+    ~ FIRE-3
+    - CALGB/SWOG 80405
+    + CRYSTAL
+    ~ PRIME
+    ② A doublet with bevacizumab 〔NCCN 2A〕 〔ESMO II, B〕
+    ③ FOLFOXIRI with bevacizumab 〔NCCN 2A〕 〔ESMO I, B〕
+    ※ FOLFOXIRI with panitumumab did not raise the response rate
+      ・NCCN and ASCO advise against a triplet with an anti-EGFR antibody
+      ・ESMO keeps it as an alternative 〔ESMO II, C〕
+      - TRIPLETE
+    next: Maintenance or a treatment break
+  RAS mutant, or wild-type and right-sided
+    branch: RAS
+    ① A doublet with bevacizumab 〔NCCN 2A〕 〔ESMO II, B〕
+      ・JSCCR lists a doublet or FOLFOXIRI, each with bevacizumab, for fit patients
+    + Hurwitz 2004 [t-hurwitz-et-al]
+    ~ NO16966 [t-no16966--advanced-crc]
+    ② FOLFOXIRI with bevacizumab 〔NCCN 2A〕 〔ESMO I, B〕 〔ASCO Moderate, Weak〕
+      ・ESMO prefers it for patients under 70 with PS 0 to 2, and to 75 with PS 0
+    + TRIBE
+    + TRIBE2
+    + Cremolini 2020 [t-cremolini-et-al]
+    ※ Right-sided wild-type disease: no anti-EGFR antibody first line 〔NCCN 2A〕
+      ・ASCO offers chemotherapy with an anti-VEGF antibody for right-sided disease
+      ・ESMO keeps a doublet with an anti-EGFR antibody as an alternative 〔ESMO II, C〕
+    next: Maintenance or a treatment break
+  BRAF V600E
+    branch: BRAF
+    ① Encorafenib and cetuximab with FOLFOX 〔NCCN 2A, preferred〕 〔ESMO I, A〕
+      ・With FOLFIRI 〔NCCN 2A, preferred〕 〔ESMO II, A〕
+      ・ESMO notes a US licence and no EU licence
+      ・JSCCR 2024 predates BREAKWATER and gives encorafenib from second line
+    + BREAKWATER
+    ② A doublet or FOLFOXIRI, with bevacizumab 〔NCCN 2A, other recommended〕 〔ESMO II, B〕
+      ・JSCCR lists this as first line for fit patients
+    next: Maintenance or a treatment break
+  Not fit for combination chemotherapy
+    branch: UNFIT
+    ① Capecitabine or 5-FU/LV, with bevacizumab 〔NCCN 2A〕 〔ESMO I, A〕
+      ・JSCCR lists these for vulnerable patients
+    ~ AVEX {pmid 24028813}
+    ② Left-sided RAS and BRAF wild-type: cetuximab or panitumumab alone 〔NCCN 2A〕 〔ESMO III, C〕
+      ・With 5-FU/LV 〔ESMO II, B〕
+    ※ Japan only: S-1, or UFT with LV, each with or without bevacizumab
+    ※ Frail patients: best supportive care
+  Maintenance or a treatment break
+    ① After an oxaliplatin doublet or FOLFOXIRI with bevacizumab: fluoropyrimidine with bevacizumab 〔JSCCR A, 1〕 〔ESMO I, B〕
+      ・After a doublet with bevacizumab 〔JSCCR A, 2〕
+      ・Oxaliplatin stops after 3 to 4 months and returns at progression 〔NCCN 2A〕
+    ~ CAIRO3
+    ~ AIO 0207
+    ~ OPTIMOX1
+    ② After FOLFOX with an anti-EGFR antibody: 5-FU/LV with the antibody 〔JSCCR B, 2〕 〔ESMO II, B〕
+    ~ PanaMa
+    ~ VALENTINO
+    ③ After an irinotecan regimen: the full regimen continues 〔ESMO I, A〕
+    - ERMES
+    ④ A treatment break for patients with a good response 〔ESMO III, B〕
+    ※ Bevacizumab alone is not recommended as maintenance
+      - PRODIGE 9 [t-prodige-9-ffcd-0802]
+    next: Second line | Progression
+  Second line
+    ① The other doublet with bevacizumab 〔NCCN 2A〕 〔ESMO I, A〕
+      ・JSCCR lists FOLFIRI, CAPIRI or S-1 and irinotecan, each with bevacizumab, after oxaliplatin
+      ・JSCCR lists FOLFOX, CAPOX or SOX with bevacizumab after irinotecan
+    + ML18147
+    ② FOLFIRI with ramucirumab or aflibercept, after oxaliplatin 〔NCCN 2A〕 〔ESMO I, A〕
+      ・JSCCR lists both
+    + RAISE
+    + VELOUR
+    ③ RAS and BRAF wild-type, no earlier anti-EGFR antibody: FOLFIRI or irinotecan with cetuximab or panitumumab 〔NCCN 2A〕 〔ESMO II, C〕
+      ・JSCCR lists both
+    ④ BRAF V600E, no earlier encorafenib: encorafenib with cetuximab 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Strong〕
+      ・JSCCR lists it with or without binimetinib
+      ・NCCN advises against adding binimetinib
+    + BEACON [t-beacon-crc]
+    ※ An anti-EGFR antibody is not continued or switched after progression on one 〔NCCN 2A〕
+    next: HER2-positive | Progression
+    next: KRAS G12C | Progression
+    next: NTRK or RET fusion | Progression
+    next: After oxaliplatin and irinotecan | Progression
+  After oxaliplatin and irinotecan
+    ① Trifluridine/tipiracil with bevacizumab 〔JSCCR A, 1〕 〔NCCN 2A〕 〔ESMO I, A〕
+    + SUNLIGHT
+    ② Regorafenib 〔JSCCR A, 2〕 〔NCCN 2A〕 〔ESMO I, A〕
+      ・Weekly dose escalation in the first cycle is an alternative 〔NCCN 2A〕
+    + CORRECT
+    + CONCUR
+    ~ ReDOS
+    ③ Trifluridine/tipiracil alone 〔JSCCR A, 2〕 〔NCCN 2A〕 〔ESMO I, A〕
+      ・ESMO gives it when bevacizumab is contraindicated
+    + RECOURSE
+    ④ Fruquintinib 〔NCCN 2A〕 〔ESMO I, A〕
+      ・JSCCR 2024 calls it an expected option. It is licensed in Japan
+      ・ESMO places it before regorafenib
+    + FRESCO-2
+    ⑤ RAS and BRAF wild-type, no earlier anti-EGFR antibody: cetuximab or panitumumab, alone or with irinotecan 〔NCCN 2A〕 〔ESMO I, A〕
+    + CO.17 [t-ncic-ctg-co-17]
+    ※ A 2-weekly schedule of trifluridine/tipiracil with bevacizumab was non-inferior for OS
+      ~ PRABITAS
+    ※ Anti-EGFR rechallenge when ctDNA shows no RAS or BRAF mutation 〔ESMO II, B〕
+      ・Panitumumab before or after regorafenib gave the same OS
+      - PARERE
+  HER2-positive
+    branch: HER2
+    ① RAS and BRAF wild-type: trastuzumab with tucatinib or pertuzumab 〔NCCN 2A〕
+      ・Tucatinib 〔ESMO III, B〕
+      ・Tucatinib has a US licence and no EU licence
+      ・Pertuzumab 〔ESMO III, C〕
+      ・JSCCR lists pertuzumab with trastuzumab after fluoropyrimidine, oxaliplatin and irinotecan
+    ~ MOUNTAINEER
+    ② IHC 3+, any RAS: trastuzumab deruxtecan 5.4 mg/kg 〔NCCN 2A〕 〔ESMO III, B〕
+    ~ DESTINY-CRC02
+    next: After oxaliplatin and irinotecan
+  KRAS G12C
+    branch: G12C
+    ① Sotorasib with panitumumab, or adagrasib with cetuximab 〔NCCN 2A〕
+      ・Sotorasib with panitumumab 〔ESMO II, B〕
+      ・Adagrasib with cetuximab 〔ESMO III, B〕
+      ・Both have a US licence and no EU licence
+      ・JSCCR 2024 does not address KRAS G12C
+    ~ CodeBreaK 300
+    ~ KRYSTAL-1
+    next: After oxaliplatin and irinotecan
+  NTRK or RET fusion
+    branch: FUS
+    ① NTRK fusion: larotrectinib or entrectinib 〔NCCN 2A〕 〔ESMO III, B〕
+    ~ Larotrectinib [t-larotrectinib--tumour-agnostic-basket-trials]
+    ~ Entrectinib [t-entrectinib-integrated-ntrk-fusion-analysis]
+    ② RET fusion: selpercatinib 〔NCCN 2A〕 〔ESMO III, B〕
+    ~ LIBRETTO-001
+    next: After oxaliplatin and irinotecan
+
+panel: Choice of chemotherapy > RAS mutant, or wild-type and right-sided
+  ① FOLFOX, CAPOX or FOLFIRI 〔NCCN 2A〕 〔ASCO Moderate, Strong〕
+    ・Either doublet can come first
+  + de Gramont 2000 [t-de-gramont-et-al]
+  + Douillard 2000 [t-douillard-et-al]
+  + Saltz 2000 [t-saltz-et-al]
+  ~ Tournigand 2004 [t-tournigand-et-al]
+  ~ NO16966 XELOX-1 [t-no16966]
+  ※ Japan only: SOX, or S-1 with irinotecan, each with bevacizumab
+    ・ESMO allows S-1 in place of 5-FU or capecitabine after cardiotoxicity or hand-foot syndrome
+  ※ The bolus regimen IFL is not recommended
+    - N9741 [t-ncctg-n9741]
+  ※ CAPIRI is not recommended first line 〔NCCN 2A〕
+
+off:
+  ASAC | Not a map statement: aspirin after resection of liver metastases is in no guideline and the trial was negative
+  STELLAR-303 | No licence or recommendation: zanzalintinib with atezolizumab is in none of the four guidelines

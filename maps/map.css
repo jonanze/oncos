@@ -61,6 +61,7 @@
 .om-world .cols>.grp{break-inside:avoid}
 .om-world .cols>.grp+.grp{margin-top:12px}
 .om-world .cols>.grp>.ln:first-child{margin-top:0}
+.om-world .blk.one .cols>.grp+.grp{break-before:column;margin-top:0}
 
 /* the risk key of a map with a risk scale; maps carry no title (Jonan 2026-11-11) */
 .om-world .tblk{color:var(--wb-ink)}
