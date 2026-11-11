@@ -116,8 +116,7 @@ course: Advanced prostate cancer
         ~ STOPCAP [t-stopcap-m1-prostate-radiotherapy-meta-analysis] | Fewer than 5 bone metastases 3-year OS 7% higher, all patients OS HR 0.92
     ② High volume: ADT with an ARSI and docetaxel 〔NCCN 1, preferred〕 〔ESMO II, A〕
       ・The ARSI is abiraterone or darolutamide
-      ・ADT with an ARSI alone is also preferred 〔NCCN 1, preferred〕
-      ・ADT with an ARSI alone only if unfit for docetaxel 〔ESMO I, A〕
+      ・ADT with an ARSI alone if unfit for or declining docetaxel 〔NCCN 1, preferred〕 〔ESMO I, A〕
       ・ADT with docetaxel and an ARSI can also be recommended in metachronous high-volume disease 〔ESMO II, B〕
       ・Radiotherapy to the prostate can be added in de novo disease to prevent severe urinary symptoms 〔ESMO II, B〕
       + PEACE-1 | OS HR
