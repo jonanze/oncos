@@ -158,7 +158,7 @@ course:
     Choose by MMR status
       ・Six cycles of carboplatin-paclitaxel is the standard chemotherapy 〔ESGO I, A〕
     ① MMR deficient: carboplatin-paclitaxel with dostarlimab, durvalumab or pembrolizumab, then the antibody as maintenance 〔ESGO I, A〕 〔NCCN 1, preferred〕
-      ・Pembrolizumab except in carcinosarcoma 〔NCCN 1, preferred〕
+      ・Carcinosarcoma: not pembrolizumab, which NRG-GY018 did not test 〔NCCN 1, preferred〕
       ~ RUBY | MMR deficient PFS HR 0.28
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR deficient PFS HR 0.30
       ~ DUO-E [t-duo-e] | MMR deficient PFS HR 0.42
