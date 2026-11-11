@@ -22,7 +22,8 @@
 #     〔ESGO level, grade〕 ESGO-ESTRO-ESP endometrial carcinoma guidelines, update 2025 (Concin)
 #     〔NCCN category, preference〕 NCCN Uterine Neoplasms 3.2026 (16 June 2026): ENDO-1 to ENDO-14, ENDO-A,
 #       ENDO-C and ENDO-D; category 2A unless stated; NCCN stages by FIGO 2009 and chooses adjuvant treatment
-#       by stage and grade, not by molecular class; options NCCN alone lists sit on ※ lines
+#       by stage and grade, not by molecular class; options NCCN alone lists sit on ※ lines or as ・ lines in
+#       their drug class; the tag names the guideline, so the text does not repeat it (Jonan 2026-11-11)
 #     〔JSGO evidence, strength〕 Japan Society of Gynecologic Oncology 2023 guidelines for uterine body
 #       neoplasm, English version (J Gynecol Oncol 2025;36:e119); evidence A to D, strength 1 recommend or
 #       2 suggest, "against" for a recommendation not to; tagged only where JSGO differs from ESGO and NCCN
@@ -43,23 +44,22 @@ band: Diagnosis and surgery
     ・By minimally invasive surgery 〔ESGO I, A〕 〔NCCN 2A, preferred〕
     ・Sentinel node biopsy for staging 〔ESGO II, A〕 〔NCCN 2A, preferred〕
     ・No mapping on one side: lymphadenectomy on that side in high-intermediate or high risk 〔ESGO II, A〕 〔NCCN 2A〕
-    ・JSGO: no pelvic lymphadenectomy for grade 1–2 presumed stage IA 〔JSGO C, 2〕
-    ・JSGO: pelvic lymphadenectomy when intermediate or high risk is presumed 〔JSGO B, 1〕
-    ・JSGO: para-aortic lymphadenectomy to the renal vein as well 〔JSGO C, 2〕
-    ・JSGO: sentinel node biopsy in place of lymphadenectomy only within a clinical trial 〔JSGO B, 2〕
+    ・No pelvic lymphadenectomy for grade 1–2 presumed stage IA 〔JSGO C, 2〕
+    ・Pelvic lymphadenectomy when intermediate or high risk is presumed 〔JSGO B, 1〕, with para-aortic lymphadenectomy to the renal vein 〔JSGO C, 2〕
+    ・Sentinel node biopsy in place of lymphadenectomy only within a clinical trial 〔JSGO B, 2〕
   ※ Infracolic omentectomy for clinical stage I–II serous carcinoma, carcinosarcoma and undifferentiated carcinoma 〔ESGO IV, B〕
   ② Unfit for surgery: definitive radiotherapy 〔NCCN 2A, preferred〕
     ・EBRT with intrauterine brachytherapy for high-grade or deeply invasive tumours 〔ESGO II, B〕
     ・Brachytherapy alone for low-grade tumours without deep invasion 〔ESGO II, B〕
-    ・NCCN: a levonorgestrel IUD or other hormonal therapy in selected patients 〔NCCN 2A〕
-  ③ Molecular class and ER in every tumour, on the biopsy where possible 〔ESGO IV, A〕
-    ・NCCN: POLE, MMR and p53 in every tumour 〔NCCN 2A〕
-    ・NCCN: ER and PR in stage III–IV and recurrence 〔NCCN 2A〕
+    ・A levonorgestrel IUD or other hormonal therapy in selected patients 〔NCCN 2A〕
+  ③ Molecular class by POLE, MMR and p53 in every tumour 〔ESGO IV, A〕 〔NCCN 2A〕
+    ・On the biopsy where possible 〔ESGO IV, A〕
+    ・ER in every tumour 〔ESGO IV, A〕, ER and PR in stage III–IV and recurrence 〔NCCN 2A〕
   ④ MMR immunohistochemistry in every tumour, which also screens for Lynch syndrome 〔ESGO III, A〕 〔NCCN 2A〕
   ⑤ HER2 in advanced or recurrent p53 abnormal tumours, and in all serous carcinomas and carcinosarcomas 〔ESGO IV, C〕
-    ・NCCN: HER2 in every p53 abnormal tumour, and in all metastatic or recurrent disease 〔NCCN 2A〕
-  ※ NCCN alone: consider NTRK and RET fusion testing in metastatic or recurrent disease, and TMB testing 〔NCCN 2A〕
-  ※ NCCN 3.2026 stages by FIGO 2009, ESGO 2025 by FIGO 2023 with molecular class
+    ・HER2 in every p53 abnormal tumour, and in all metastatic or recurrent disease 〔NCCN 2A〕
+  ※ Consider NTRK and RET fusion testing in metastatic or recurrent disease, and TMB testing 〔NCCN 2A〕
+  ※ Staging: FIGO 2009 in NCCN, FIGO 2023 with molecular class in ESGO
 
 band: First-line chemotherapy
   ※ Carboplatin-paclitaxel replaced doxorubicin, cisplatin and paclitaxel
@@ -68,17 +68,16 @@ band: First-line chemotherapy
     - GOG-86P [t-gog-86p] | PFS HR 0.81 against a historical control
     - MITO END-2 | PFS 13.7 vs 10.5 months, HR 0.84
     ・In exploratory analyses of GOG-86P, TP53-mutated or p53-overexpressing tumours did better with bevacizumab
-    ・Not licensed
-    ・ESGO 2025 does not list it
-    ・NCCN: preferred in stage III–IV 〔NCCN 2A, preferred〕, other recommended at recurrence 〔NCCN 2A, other recommended〕
+    ・Preferred in stage III–IV 〔NCCN 2A, preferred〕, other recommended at recurrence 〔NCCN 2A, other recommended〕
+    ・Not licensed and not in ESGO 2025
 
 course:
   Stage III–IV at diagnosis
     ① Complete resection feasible: cytoreduction, removing only suspicious nodes 〔ESGO IV, B〕 〔NCCN 2A〕
-      ・NCCN: preoperative systemic therapy is an alternative 〔NCCN 2A〕
+      ・Preoperative systemic therapy is an alternative 〔NCCN 2A〕
     ② Unresectable from local extent: definitive radiotherapy with image-guided brachytherapy, or systemic therapy first, chosen by molecular class 〔ESGO IV, C〕
-      ・NCCN: EBRT with or without brachytherapy, with or without systemic therapy, then reassess for surgery 〔NCCN 2A〕
-      ・NCCN: or systemic therapy first, then surgery or radiotherapy by response 〔NCCN 2A〕
+      ・EBRT with or without brachytherapy or systemic therapy, then reassess for surgery 〔NCCN 2A〕
+      ・Systemic therapy first, then surgery or radiotherapy by response 〔NCCN 2A〕
     ③ Disseminated disease, or residual disease after surgery: first-line systemic therapy 〔NCCN 2A〕
     next: Advanced or recurrent, first line
   Newly diagnosed, after hysterectomy and staging
@@ -97,7 +96,7 @@ course:
     ※ High-intermediate: vaginal brachytherapy instead, especially if node-negative 〔ESGO II, B〕
       ・No adjuvant treatment if node-negative, low grade and without substantial LVSI 〔ESGO IV, B〕
     ※ High: sequential chemotherapy and radiotherapy, or chemotherapy with or without vaginal brachytherapy, are alternatives 〔ESGO I, B〕
-    ※ NCCN chooses by FIGO 2009 stage, grade and histology, not by molecular class
+    ※ Adjuvant treatment by FIGO 2009 stage, grade and histology, without molecular class
       ・Endometrioid stage IA, grade 1–2: observation preferred 〔NCCN 2A〕
       ・Vaginal brachytherapy can be considered with LVSI or age 60 or over 〔NCCN 2A〕
       ・Endometrioid stage IA grade 3, or IB grade 1–2: vaginal brachytherapy preferred 〔NCCN 2A〕
@@ -110,12 +109,11 @@ course:
       - KEYNOTE-B21 | DFS HR 1.02, MMR deficient HR 0.31
       ※ Pembrolizumab with adjuvant chemotherapy did not improve DFS in all patients
       ・The ESGO statement and the NCCN footnote rest on the MMR deficient subgroup, which was not formally tested
-    ※ NCCN: chemotherapy with a checkpoint inhibitor in stage III–IV, by antibody
-      ・Pembrolizumab, any MMR status, stage III–IVA with measurable disease, or stage IVB, except carcinosarcoma 〔NCCN 1, preferred〕
-      ・Dostarlimab, any MMR status, stage IIIA–IIIC1 with measurable disease, and stage IIIC2–IV without it 〔NCCN 1, preferred〕
-      ・Dostarlimab also in stage IIIC1 serous, clear cell or mixed carcinoma, or carcinosarcoma, without measurable disease
-      ・Durvalumab, MMR deficient only, stage III with measurable disease after surgery, or stage IV 〔NCCN 1, preferred〕
-      ・Pembrolizumab should be considered in MMR deficient stage III–IV outside the NRG-GY018 criteria, citing KEYNOTE-B21
+    ※ Chemotherapy with a checkpoint inhibitor in stage III–IV 〔NCCN 1, preferred〕
+      ・Pembrolizumab, any MMR status: stage III–IVA with measurable disease, or IVB, not carcinosarcoma
+      ・Dostarlimab, any MMR status: stage IIIA–IIIC1 with measurable disease. Stage IIIC2–IV, and IIIC1 serous, clear cell, mixed or carcinosarcoma, with or without it
+      ・Durvalumab, MMR deficient only: stage III with measurable disease after surgery, or stage IV
+      ・Pembrolizumab in MMR deficient stage III–IV outside the NRG-GY018 criteria, from KEYNOTE-B21 〔NCCN 2A〕
     ① Intermediate risk: vaginal brachytherapy
       ~ PORTEC-2 | Vaginal recurrence 1.8% vs 1.6%
       ※ Vaginal brachytherapy controlled the vagina as well as pelvic EBRT, with fewer bowel effects
@@ -126,7 +124,7 @@ course:
       - GOG 249 | RFS HR 0.92
       ※ Vaginal brachytherapy with chemotherapy was not better and left more nodal relapses
     ③ High risk: chemoradiotherapy
-      ・NCCN: cisplatin with RT, then carboplatin-paclitaxel 〔NCCN 2A, preferred〕
+      ・Cisplatin with RT, then carboplatin-paclitaxel 〔NCCN 2A, preferred〕
       + PORTEC-3 | OS HR 0.70
       ※ Chemoradiotherapy improved survival over radiotherapy alone, most in stage III and serous carcinoma
       + PORTEC-3 molecular | p53 abnormal OS HR 0.55
@@ -151,71 +149,71 @@ course:
     next: Recurrence | Recurrence
   Recurrence
     Vaginal, pelvic or in a few sites: local treatment first
-    ① No radiotherapy before: EBRT with image-guided brachytherapy, with or without chemotherapy 〔ESGO IV, A〕
-      ・NCCN: EBRT with or without brachytherapy 〔NCCN 2A〕, with or without systemic therapy 〔NCCN 2B〕
-      ・NCCN: or surgical resection 〔NCCN 2A〕
+    ① No radiotherapy before: EBRT with image-guided brachytherapy 〔ESGO IV, A〕, or EBRT with or without brachytherapy 〔NCCN 2A〕
+      ・With or without chemotherapy 〔ESGO IV, A〕 〔NCCN 2B〕
+      ・Surgical resection is an alternative 〔NCCN 2A〕
     ② Vaginal brachytherapy only before: EBRT with a brachytherapy boost 〔ESGO IV, C〕
     ③ EBRT before: radical surgery if clear margins are feasible 〔ESGO IV, A〕
       ・Otherwise systemic therapy chosen by molecular class
       ・MMR deficient, no checkpoint inhibitor before: chemotherapy with a checkpoint inhibitor, then the checkpoint inhibitor alone 〔ESGO II, B〕
-      ・NCCN: or systemic therapy, or brachytherapy for small-volume vaginal disease 〔NCCN 2A〕
-    ④ One to five metastases in up to three regions: surgery, stereotactic radiotherapy or ablation 〔ESGO IV, B〕
-      ・NCCN: resection, EBRT, SBRT or ablation 〔NCCN 2A〕
-      ・NCCN: ablation for one to five metastases when the primary cancer is controlled
+      ・Systemic therapy, or brachytherapy for small-volume vaginal disease, as alternatives to surgery 〔NCCN 2A〕
+    ④ One to five metastases: surgery, stereotactic radiotherapy or ablation 〔ESGO IV, B〕 〔NCCN 2A〕
+      ・In up to three regions 〔ESGO IV, B〕
+      ・Conventional EBRT is an alternative 〔NCCN 2A〕
+      ・Ablation once the primary cancer is controlled 〔NCCN 2A〕
     Widespread, or not suited to local treatment: first-line systemic therapy
     next: Advanced or recurrent, first line | Widespread
   Advanced or recurrent, first line
     Choose by MMR status
       ・Six cycles of carboplatin-paclitaxel is the standard chemotherapy 〔ESGO I, A〕
     ① MMR deficient: carboplatin-paclitaxel with dostarlimab, durvalumab or pembrolizumab, then the antibody as maintenance 〔ESGO I, A〕 〔NCCN 1, preferred〕
-      ・NCCN: not pembrolizumab in carcinosarcoma
+      ・Pembrolizumab except in carcinosarcoma 〔NCCN 1, preferred〕
       ~ RUBY | MMR deficient PFS HR 0.28
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR deficient PFS HR 0.30
       ~ DUO-E [t-duo-e] | MMR deficient PFS HR 0.42
     ② MMR proficient: carboplatin-paclitaxel, for rapidly growing or symptomatic disease in ESGO 〔ESGO I, A〕 〔NCCN 2A, preferred〕
-      ・ESGO: adding pembrolizumab or dostarlimab can be considered 〔ESGO I, B〕
-      ・NCCN: adding pembrolizumab or dostarlimab 〔NCCN 1, preferred〕
-      ・Durvalumab with chemotherapy, then durvalumab with olaparib 〔ESGO I, B〕 〔NCCN 2B, other recommended〕
-      ・NCCN: at recurrence, useful in certain circumstances 〔NCCN 2B〕
+      ・Adding pembrolizumab or dostarlimab 〔ESGO I, B〕 〔NCCN 1, preferred〕
+      ・Durvalumab with chemotherapy, then durvalumab with olaparib 〔ESGO I, B〕 〔NCCN 2B, other recommended〕, at recurrence 〔NCCN 2B, useful in certain circumstances〕
       ~ RUBY | MMR proficient PFS HR 0.76
       ※ At the second interim, RUBY improved OS in all patients, HR 0.69, smaller and not significant in MMR proficient tumours, HR 0.79
       ~ NRG-GY018 [t-nrg-gy018-keynote-868] | MMR proficient PFS HR 0.54
       ~ DUO-E [t-duo-e] | MMR proficient, with olaparib, PFS HR 0.57
     ③ HER2 3+, when a checkpoint inhibitor cannot be given: carboplatin-paclitaxel with trastuzumab 〔ESGO II, B〕
-      ・NCCN: HER2 positive serous carcinoma or carcinosarcoma, with no checkpoint inhibitor condition 〔NCCN 2A, preferred〕
+      ・HER2 positive serous carcinoma or carcinosarcoma, whether or not a checkpoint inhibitor can be given 〔NCCN 2A, preferred〕
       + Fader et al. | OS HR 0.58
       ※ Fader et al. enrolled serous carcinoma only
-    ④ Low grade, ER positive, low volume or slowly growing: a progestin, medroxyprogesterone or megestrol 〔ESGO III, A〕 〔NCCN 2A, other recommended〕
-      ・An aromatase inhibitor or tamoxifen are alternatives 〔ESGO IV, C〕 〔NCCN 2A, other recommended〕
-      ・NCCN: megestrol alternating with tamoxifen, or everolimus with letrozole 〔NCCN 2A, preferred〕
-      ・NCCN: fulvestrant, or medroxyprogesterone alternating with tamoxifen 〔NCCN 2A, other recommended〕
-      ・NCCN: lower-grade endometrioid carcinoma, with no ER requirement
-      ・NCCN: a CDK4/6 inhibitor with letrozole or fulvestrant 〔NCCN 2A, useful in certain circumstances〕
+    ④ Low grade, ER positive, low volume or slowly growing: endocrine therapy
+      ・Progestin, medroxyprogesterone or megestrol 〔ESGO III, A〕 〔NCCN 2A, other recommended〕
+      ・Aromatase inhibitor or tamoxifen 〔ESGO IV, C〕 〔NCCN 2A, other recommended〕
+      ・Megestrol alternating with tamoxifen 〔NCCN 2A, preferred〕, or medroxyprogesterone alternating with tamoxifen 〔NCCN 2A, other recommended〕
+      ・Everolimus with letrozole 〔NCCN 2A, preferred〕
+      ・Fulvestrant 〔NCCN 2A, other recommended〕
+      ・CDK4/6 inhibitor with letrozole or fulvestrant 〔NCCN 2A, useful in certain circumstances〕
     next: Progression after platinum | Progression
   Progression after platinum
     Repeat MMR testing on the relapse when feasible 〔ESGO IV, B〕
-      ・NCCN: MSI or MMR testing at recurrence if not done before 〔NCCN 2A〕
-    ① MMR deficient, no checkpoint inhibitor before: pembrolizumab or dostarlimab alone 〔ESGO III, A〕 〔NCCN 2A, useful in certain circumstances〕
-      ・Lenvatinib with pembrolizumab is an option 〔ESGO I, B〕
-      ・NCCN: also at relapse after adjuvant platinum
+      ・MSI or MMR testing at recurrence if not done before 〔NCCN 2A〕
+    ① MMR deficient, no checkpoint inhibitor before: a PD-1 or PD-L1 inhibitor alone
+      ・Pembrolizumab or dostarlimab 〔ESGO III, A〕 〔NCCN 2A, useful in certain circumstances〕
+      ・Avelumab, nivolumab or tislelizumab 〔NCCN 2A, useful in certain circumstances〕, retifanlimab 〔NCCN 2B〕
+      ・Lenvatinib with pembrolizumab is an alternative 〔ESGO I, B〕
+      ・Also at relapse after adjuvant platinum 〔NCCN 2A, useful in certain circumstances〕
       * KEYNOTE-158 [t-keynote-158--endometrial-cancer] | Response
       * GARNET | Response
-    ※ NCCN alone: avelumab, nivolumab or tislelizumab for MMR deficient tumours 〔NCCN 2A, useful in certain circumstances〕
-      ・Retifanlimab 〔NCCN 2B〕
     ② MMR proficient, no checkpoint inhibitor before: lenvatinib with pembrolizumab 〔ESGO I, A〕 〔NCCN 1, useful in certain circumstances〕
-      ・ESGO: at relapse after adjuvant chemotherapy, only when chemotherapy cannot be given 〔ESGO III, C〕
-      ・NCCN: also at relapse after adjuvant platinum, with no condition on chemotherapy
+      ・Axitinib with avelumab 〔NCCN 2A, useful in certain circumstances〕
+      ・At relapse after adjuvant chemotherapy only when chemotherapy cannot be given 〔ESGO III, C〕, after any adjuvant platinum 〔NCCN 1, useful in certain circumstances〕
       + KEYNOTE-775 [t-keynote-775-study-309] | MMR proficient OS HR 0.68
-    ※ NCCN alone: axitinib with avelumab for MMR proficient tumours 〔NCCN 2A, useful in certain circumstances〕
-    ※ NCCN alone: TMB-high tumours: pembrolizumab, or ipilimumab with nivolumab 〔NCCN 2A, useful in certain circumstances〕
+    ※ TMB-high: pembrolizumab, or ipilimumab with nivolumab 〔NCCN 2A, useful in certain circumstances〕
     ③ After a checkpoint inhibitor: platinum rechallenge, doxorubicin, weekly paclitaxel or endocrine therapy 〔ESGO IV, B〕
-      ・NCCN: single agents or doublets such as cisplatin-doxorubicin, doxorubicin or paclitaxel 〔NCCN 2A, other recommended〕
+      ・Single agents or doublets such as cisplatin-doxorubicin, doxorubicin or paclitaxel 〔NCCN 2A, other recommended〕
     ④ HER2 2+ or 3+: trastuzumab deruxtecan 〔ESGO III, B〕 〔NCCN 2A, useful in certain circumstances〕
-      ・NCCN: in carcinosarcoma also HER2 1+ 〔NCCN 2A, useful in certain circumstances〕
+      ・HER2 1+ as well in carcinosarcoma 〔NCCN 2A, useful in certain circumstances〕
       * DESTINY-PanTumor02 [t-destiny-pantumor02] | IHC 3+ response 84.6%
     ※ HER2 3+ with platinum rechallenge possible: carboplatin-paclitaxel with trastuzumab 〔ESGO II, B〕
-    ※ NCCN alone: NTRK fusion, larotrectinib, entrectinib or repotrectinib 〔NCCN 2A, useful in certain circumstances〕
-    ※ NCCN alone: RET fusion, selpercatinib 〔NCCN 2A, useful in certain circumstances〕
+    ※ Fusion-directed therapy 〔NCCN 2A, useful in certain circumstances〕
+      ・NTRK: larotrectinib, entrectinib or repotrectinib
+      ・RET: selpercatinib
 
 off:
   GOG 122 | Whole-abdominal radiotherapy comparator no longer used. PORTEC-3 and GOG 258 set current options
