@@ -7,8 +7,9 @@
   else root.oncosOutline = api;
 })(typeof self !== 'undefined' ? self : this, function(){
   var NUM = /^[①-⑳]/;              // ① to ⑳
-  // Trial [t-...] {pmid N} {url https://...} | fig : a trial with no PubMed record yet (a congress abstract) gives a link
-  var TRIAL = /^([+~\-*])\s+(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*(?:\{pmid\s+(\d+)\})?\s*(?:\{url\s+(https:\/\/[^\s}]+)\})?\s*\|\s*(.+)$/;
+  // Trial [t-...] {pmid N} {url https://...} : a trial with no PubMed record yet (a congress abstract) gives a link.
+  // Maps show trial names only; results are on the trial's card (Jonan 2026-11-11). An old "| fig" is read and not drawn.
+  var TRIAL = /^([+~\-*])\s+(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*(?:\{pmid\s+(\d+)\})?\s*(?:\{url\s+(https:\/\/[^\s}]+)\})?\s*(?:\|\s*(.+))?$/;
   var CLS = {'+':'os', '~':'sur', '-':'neg', '*':'none'};
   // 〔ESGO II, A〕 at the end of a statement: it rests on the guideline declared by "source: ESGO [t-...]"
   var TAG = /〔([^\s〕]+)\s+([^〕]+)〕/g;
@@ -20,7 +21,7 @@
   function line(text, level, at){
     var m = TRIAL.exec(text);
     if (m) return {kind:'trial', level:level, cls:CLS[m[1]], name:m[2], anchor:m[3] || (m[4] || m[5] ? null : slug(m[2])),
-                   pmid:m[4] || null, url:m[5] || null, fig:m[6], at:at};
+                   pmid:m[4] || null, url:m[5] || null, fig:m[6] || '', at:at};
     var c = text.charAt(0);
     if (c === '|') return {kind:'grid', level:level, cells:text.replace(/^\|\s*|\s*\|$/g, '').split(/\s*\|\s*/), at:at};
     if (c === '=') return {kind:'tx', level:level, text:text.replace(/^=\s*/, ''), at:at};
@@ -34,16 +35,25 @@
   function isContent(text){ return /^[=+~\-*※°]\s/.test(text) || /^[=※°|・]/.test(text) || NUM.test(text) || TRIAL.test(text); }
 
   function parse(src){
-    var out = {map:null, bands:[], tree:null, panels:[], off:[], sources:{}, errors:[]};
+    var out = {map:null, bands:[], tree:null, panels:[], off:[], sources:{}, branches:[], errors:[]};
+    var BR = /^branch:\s*(.+)$/;
     var sec = null, stack = null;
     String(src).split(/\r?\n/).forEach(function(raw, i){
       var at = i + 1;
       if (/^\s*(#|$)/.test(raw)) return;
       var ind = raw.match(/^ */)[0].length, text = raw.trim();
       if (ind === 0) {
-        var h = /^(map|source|scale|band|tree|course|panel|off):\s*(.*)$/.exec(text);
-        if (!h) { out.errors.push(at + ': expected map:, source:, scale:, band:, tree:, course:, panel: or off:'); sec = null; return; }
+        var h = /^(map|source|scale|branch|band|tree|course|panel|off):\s*(.*)$/.exec(text);
+        if (!h) { out.errors.push(at + ': expected map:, source:, scale:, branch:, band:, tree:, course:, panel: or off:'); sec = null; return; }
         if (h[1] === 'map') { out.map = h[2]; sec = null; return; }
+        // branch: Key | legend  one colour for a branch of the map, such as one MMR status (Jonan 2026-11-11);
+        // a step or node takes it with "branch: Key" under it, and a node's children inherit it
+        if (h[1] === 'branch') {
+          var bm = /^(.+?)\s*\|\s*(.+)$/.exec(h[2]);
+          if (!bm) out.errors.push(at + ': branch: lines are "Key | legend"');
+          else out.branches.push({key:bm[1], label:bm[2], n:out.branches.length + 1, at:at});
+          sec = null; return;
+        }
         // scale: the four risk groups of an adjuvant or local-treatment decision, lowest first
         if (h[1] === 'scale') { out.scale = h[2].split('|').map(function(x){ return x.trim(); }).filter(Boolean); out.scaleAt = at; sec = null; return; }
         if (h[1] === 'source') {
@@ -89,6 +99,8 @@
         var step = stack[1];
         if (!step) { out.errors.push(at + ': content before the first step'); return; }
         // join: draws the same line as next:, but the two steps stay in separate branches
+        var sb = BR.exec(text);
+        if (sb && ind === 4) { step.branch = sb[1].trim(); step.branchAt = at; return; }
         var nx = /^(next|join):\s*(.+?)\s*(?:\|\s*(.+))?$/.exec(text);
         if (nx) { step.next.push({to:nx[2], label:nx[3] || '', join:nx[1] === 'join', at:at}); return; }
         step.lines.push(line(text, ind / 2 - 2, at));
@@ -96,6 +108,8 @@
       }
       while (stack.length > 1 && stack[stack.length - 1].indent >= ind) stack.pop();
       var owner = stack[stack.length - 1];
+      var nb = BR.exec(text);
+      if (nb) { owner.branch = nb[1].trim(); owner.branchAt = at; return; }
       if (isContent(text)) {
         owner.lines.push(line(text, Math.max(0, (ind - owner.indent) / 2 - 1), at));
         return;
@@ -134,6 +148,17 @@
       if (p.join && !names[p.join]) out.errors.push('panel "' + p.title + '": no node "' + p.join + '"');
       else if (p.join && names[p.join].length > 1) out.errors.push('panel "' + p.title + '": node "' + p.join + '" is not unique');
     });
+    var bkeys = {};
+    out.branches.forEach(function(b){ bkeys[b.key] = b.n; });
+    if (out.branches.length > 4) out.errors.push(out.branches[4].at + ': at most four branch: colours');
+    // colour means one thing on a map: a risk ramp or branches, never both
+    if (out.branches.length && out.scale) out.errors.push(out.branches[0].at + ': a map with a scale: line has no branch: colours');
+    (function inherit(n, k){
+      if (!n) return;
+      if (n.branch && !bkeys[n.branch]) out.errors.push(n.branchAt + ': branch: no "' + n.branch + '" declared');
+      n.br = n.branch ? bkeys[n.branch] || 0 : (out.tree && out.tree.course ? 0 : k);
+      n.children.forEach(function(c){ inherit(c, n.br); });
+    })(out.tree, 0);
     if (out.scale) {
       if (out.scale.length !== 4) out.errors.push(out.scaleAt + ': scale: names four risk groups, lowest first');
       var rowNames = {};

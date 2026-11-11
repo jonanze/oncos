@@ -23,8 +23,8 @@
    - a step, band or panel holding a grid ("| a | b |" lines) widens to fit the grid's columns
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
-  var GX = 44, GY = 16, LEAF_W = 480, PANEL_W = 440, BAND_W = 520, M = 28;
-  var STEP_W = 520, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
+  var GX = 44, GY = 16, LEAF_W = 506, PANEL_W = 440, BAND_W = 520, M = 28;
+  var STEP_W = 548, CGX = 170, CGY = 36, BGY = 96, STUB = 28, GRID_COL = 176;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -65,11 +65,12 @@
       ? '<span class="trial" role="button" tabindex="0" data-ev="' + esc(l.anchor) + '">' + name + '</span>'
       : '<a class="trial" href="' + (l.pmid ? 'https://pubmed.ncbi.nlm.nih.gov/' + esc(l.pmid) + '/' : esc(l.url)) + '" target="_blank" rel="noopener">' + name + '</a>';
   }
-  // trial lines in a row make one two-column ruled grid: trial name | key figure
+  // trial lines in a row make one row of ruled name cells; a tap opens the trial's card with its results
+  // (Jonan 2026-11-11: no figures on the map). A trial with no Evidence row yet has a dashed cell.
   function trialsHtml(ts){
     var pad = ts[0].level ? ' style="--p:' + (LV * ts[0].level + (ts[0].off || 0)) + 'px"' : '';
     return '<div class="trials"' + pad + '>' + ts.map(function(l){
-      return '<div class="tn">' + trialLink(l) + '</div><div class="fg">' + (l.fig ? keep(l.fig) : '') + '</div>';
+      return '<span class="tch' + (l.anchor ? '' : ' ni') + '">' + trialLink(l) + '</span>';
     }).join('') + '</div>';
   }
   function lineHtml(l, tiered){
@@ -153,7 +154,7 @@
       nodes = steps;
       steps.forEach(function(n){
         n.w = widthFor(n.lines, STEP_W);
-        n.el = add('step', '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), n.w);
+        n.el = add('step' + (n.br ? ' br' + n.br : ''), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + linesHtml(n.lines), n.w);
         n.hd = n.el.firstChild;
       });
       // join: lines to one step with one label carry that label once, on their shared line
@@ -164,8 +165,8 @@
         e.el = add('elab', keep(e.label));
       }); });
     } else nodes.forEach(function(n){
-      n.el = add('box lbl' + (n.depth ? '' : ' root'), keep(n.label));
-      if (n.lines.length) { n.leaf = add('leaf', linesHtml(n.lines), LEAF_W); leaves.push(n); }
+      n.el = add('box lbl' + (n.depth ? '' : ' root') + (n.br ? ' br' + n.br : ''), keep(n.label));
+      if (n.lines.length) { n.leaf = add('leaf' + (n.br ? ' br' + n.br : ''), linesHtml(n.lines), LEAF_W); leaves.push(n); }
     });
     // title block: map name, its guideline source and where the figures come from
     var srcs = Object.keys(model.sources || {}).map(function(k){
@@ -175,7 +176,7 @@
     });
     var tblk = add('tblk', '<div class="k">Map</div><div class="v">' + esc(model.map || '') + '</div>' +
       (srcs.length ? '<div class="k">Source</div><div>' + srcs.join(' · ') + '</div>' : '') +
-      '<div class="k">Figures</div><div>' + esc(opts.figures || 'Evidence rows') + '</div>' +
+      ((model.branches || []).length ? '<div class="k">Branch</div><div class="keys">' + model.branches.map(function(x){ return '<span class="key brk br' + x.n + '">' + esc(x.label) + '</span>'; }).join('') + '</div>' : '') +
       (SCALE.length ? '<div class="k">Risk</div><div class="keys">' + SCALE.map(function(n, i){ return '<span class="key t' + (i + 1) + 'k">' + esc(n) + '</span>'; }).join('') + '</div>' : ''));
     var bands = model.bands.map(function(b){ var el = add('band', '<h2>' + esc(b.title) + '</h2>' + linesHtml(b.lines), widthFor(b.lines, BAND_W)); el.w = widthFor(b.lines, BAND_W); return el; });
     var panels = model.panels.map(function(p){ p.w = widthFor(p.lines, PANEL_W); p.el = add('panel', '<h2>' + esc(p.title) + '</h2>' + linesHtml(p.lines), p.w); return p; });
@@ -270,7 +271,11 @@
             steps.forEach(function(m){
               if (m.group !== gi || m.col <= n.col || m.col >= e.node.col) return;
               var mb = m.y + m.el.offsetHeight;
-              if (n.cy > m.y - 12 && n.cy < mb + 24) { var t = mb + 24 - n.hh / 2; if (t > n.minTop + 0.5) { n.minTop = t; moved = true; } }
+              if (!(n.cy > m.y - 12 && n.cy < mb + 24)) return;
+              // a step this one also leads to moves below the passing line instead, so the source keeps its place
+              // and its own steps hang below the line (Jonan 2026-11-11, early colon: resectable cancer straight to colectomy)
+              if (m.preds.indexOf(n) >= 0) { var u = n.cy + 24 + (e.el ? e.el.offsetHeight : 0); if (u > m.minTop + 0.5) { m.minTop = u; moved = true; } return; }
+              var t = mb + 24 - n.hh / 2; if (t > n.minTop + 0.5) { n.minTop = t; moved = true; }
             });
             // nor may it cross a line from a step beside it to the next column
             steps.forEach(function(p){
@@ -357,7 +362,10 @@
             var h = e.el.offsetHeight, w = e.el.offsetWidth;
             // centred along its own run: from the divide to the step on a line that divides, and from the
             // source to the turn where it meets the other lines into its step
-            if (level) {
+            if (lane !== null) {
+              // a line routed along a lane carries its label on the lane, between the divide and the last turn
+              e.el.style.left = ((xm + xb - w) / 2) + 'px'; e.el.style.top = (lane - h / 2) + 'px';
+            } else if (level) {
               var a = split ? xm : x1, z = split ? x2 : xm;
               e.el.style.left = inGap((a + z - w) / 2, w, a, z) + 'px'; e.el.style.top = (t.cy - h / 2) + 'px';
             } else if (!split) {
@@ -510,7 +518,7 @@
         // square lines: across from the parent, down the gap, across to each child
         var px = n.x + colW[n.depth], gx = px + GX / 2;
         n.children.forEach(function(c){ svg += '<path d="M' + px + ' ' + n.cy + ' H' + gx + ' V' + c.cy + ' H' + c.x + '"/>'; });
-        if (n.leaf && n.depth < maxDepth) svg += '<line x1="' + (n.x + colW[n.depth]) + '" y1="' + n.cy + '" x2="' + (textX - 8) + '" y2="' + n.cy + '"/>';
+        if (n.leaf) svg += '<line x1="' + (n.x + colW[n.depth]) + '" y1="' + n.cy + '" x2="' + textX + '" y2="' + n.cy + '"/>';
       });
 
       // panels: a brace over their node's span, the panels stacked beside it

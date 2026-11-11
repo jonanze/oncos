@@ -67,13 +67,12 @@
 .om-world .ln.subl.of-text .sb,.om-world .ln.subl.of-tx .sb{margin-left:calc(var(--p,0px) + .6em)}
 .om-world .ln.subl.tierb .sb{margin-left:calc(var(--p,0px) + 31px)}
 .om-world .ln.subl.of-cv.tierb .sb{margin-left:calc(var(--p,0px) + 1.3em + 9px)}
-/* trial lines in a row: one ruled grid, trial name | key figure */
-.om-world .trials{display:grid;grid-template-columns:13.5em 1fr;margin:5px 0 3px var(--p,0px);border-top:1px solid var(--b-cell)}
-.om-world .trials>div{padding:2px 8px 2px 0;border-bottom:1px solid var(--b-cell);font-size:13px}
-/* a trial row is an item, not a heading: a bullet before its name (Jonan 2026-11-11) */
-.om-world .trials>.tn{padding-left:1em;text-indent:-1em}
-.om-world .trials>.tn::before{content:"・"}
-.om-world .trials>.fg{font-weight:var(--w-bold);font-variant-numeric:tabular-nums;padding-left:8px;border-left:1px solid var(--b-cell)}
+/* trial lines in a row: one row of ruled name cells, no figures (Jonan 2026-11-11); results are on the card */
+.om-world .trials{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0 3px var(--p,0px)}
+.om-world .trials>.tch{border:1px solid var(--b-line);background:var(--b-paper);padding:0 6px;font-size:12.5px;line-height:1.55;white-space:nowrap}
+.om-world .trials>.tch.ni{border-style:dashed}
+.om-world .trials .trial{text-decoration:none;color:var(--b-ink)}
+@media (hover:hover){.om-world .trials>.tch:hover{background:var(--b-band)}}
 /* bands and panels: closed ruled cells with a 【TITLE】 band */
 .om-world .band,.om-world .panel{box-sizing:border-box;border:1.3px solid var(--b-line);padding:0 10px 8px;background:var(--b-paper)}
 .om-world .band>h2,.om-world .panel>h2{margin:0 -10px 8px;padding:4px 10px;background:var(--b-band);border-bottom:1px solid var(--b-line);text-decoration:none;font-size:16px;letter-spacing:.06em}
@@ -136,8 +135,7 @@
 /* gaps follow the groups: 12–14px between options and subheaders, 4–8px between statements, 0–3px to a line's own ・ lines or trial */
 .om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
 .om-world .trials+.ln.cv{margin-top:0}
-.om-world .ln.cv+.trials{margin-top:8px}
-.om-world .ln.cv+.trials[style]{margin-top:2px}
+.om-world .ln.cv+.trials{margin-top:4px}
 .om-world .ln.subl+.trials{margin-top:5px}
 .om-world .ln.subl+.ln.cv,.om-world .ln.cv+.ln.cv{margin-top:4px}
 .om-world .elab{z-index:3;font-size:12px;line-height:1.3;max-width:240px;text-align:center;border:1px solid var(--b-line);background:var(--b-paper);padding:1px 6px}
@@ -174,3 +172,18 @@
 /* inside a ruled grid a cell is narrow: a guideline tag may take its own line, and a long word breaks rather than spill */
 .om-world table.grid .nw{white-space:normal}
 .om-world table.grid th,.om-world table.grid td{overflow-wrap:break-word}
+
+/* closed boxes: a course step is one ruled cell with its heading as a title band; a tree node's text is a ruled cell */
+.om-world .step,.om-world .leaf{box-sizing:border-box;border:1.5px solid var(--b-ink);background:var(--brb,var(--b-paper))}
+.om-world .step{padding:0 12px 10px}
+.om-world .step>.hd{margin:0 -12px 10px;border:0;border-bottom:1.5px solid var(--b-ink);background:var(--brh,var(--om-t1))}
+.om-world .leaf{border-width:1.3px;border-color:var(--b-line);padding:8px 12px 8px}
+.om-world .box.lbl[class*=" br"]{background:var(--brh)}
+/* branch colours (branch: lines): one hue per branch, such as one MMR status, with a key in the title block;
+   never on a map with a risk scale; shared steps stay plain (Jonan 2026-11-11) */
+.om-sheet{--br1:#3f6fb0;--br2:#7a55b5;--br3:#2c8585;--br4:#b0507a}
+:root[data-theme="dark"] .om-sheet{--br1:#7fa6e0;--br2:#b39be6;--br3:#6cc4c4;--br4:#e08fb2}
+.om-world .br1{--brc:var(--br1)}.om-world .br2{--brc:var(--br2)}.om-world .br3{--brc:var(--br3)}.om-world .br4{--brc:var(--br4)}
+.om-world [class*=" br"]{--brh:color-mix(in srgb,var(--brc) 22%,var(--b-paper));--brb:color-mix(in srgb,var(--brc) 7%,var(--b-paper))}
+:root[data-theme="dark"] .om-world [class*=" br"]{--brh:color-mix(in srgb,var(--brc) 30%,var(--b-paper));--brb:color-mix(in srgb,var(--brc) 10%,var(--b-paper))}
+.om-world .tblk .key.brk{background:var(--brh);color:var(--b-ink);border:1px solid var(--brc)}

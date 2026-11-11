@@ -22,6 +22,7 @@
     'Advanced NSCLC': 'nsclc',
     'Advanced Prostate': 'prostate',
     'Early & Locally Adv NSCLC': 'early-nsclc',
+    'Early CRC': 'early-colon',
     'Endometrial Cancer': 'endometrial',
     'Mesothelioma': 'mesothelioma',
     'SCLC': 'sclc'

@@ -1,0 +1,179 @@
+# oncOS board map: Early CRC (localised colon cancer; rectal cancer is its own sheet)
+# Format and rules: see the header of maps/early-nsclc/map.txt
+#   branch: Key | legend   one colour for a branch of the map; "branch: Key" under a step colours it.
+#                          Here pMMR or MSS and dMMR or MSI-H; steps for both stay plain (Jonan 2026-11-11)
+#   Trial lines give the trial name only; results are on the trial's card (Jonan 2026-11-11)
+#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, dashed cell, listed for intake
+#
+# Tags give evidence first, strength second, as printed, on the statement the guideline graded:
+#   〔JSCCR evidence, strength〕 JSCCR guidelines 2024 for colorectal cancer, English edition
+#     (Int J Clin Oncol 2025;30:2410-63, PMID 41186794), CQ boxes read from the PDF; East Asian guideline first
+#   〔NCCN category, preference〕 NCCN Colon Cancer 3.2026 (6 November 2026); category 2A unless stated
+#   〔ESMO evidence, grade〕 ESMO localised colon cancer 2020 (Ann Oncol 2020;31:1291-305, PMID 32702383)
+#     with the 2026 Express Update grades where they replace it
+#   Japan-only options (S-1, UFT with leucovorin) sit on a ※ line (Jonan 2026-11-11)
+
+map: Early CRC
+source: JSCCR {url https://doi.org/10.1007/s10147-025-02899-8}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2020.06.022}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+branch: pMMR | pMMR or MSS
+branch: dMMR | dMMR or MSI-H
+
+band: Testing before treatment
+  ① MMR or MSI testing in every tumour 〔NCCN 2A〕 〔JSCCR A, 1〕
+  ② PI3K pathway testing in stage II–III 〔NCCN 2A〕
+  ③ DPYD testing before a fluoropyrimidine
+    ・NCCN names no specific test
+
+course: Localised colon cancer
+  Clinical stage I to III
+    MMR status on the biopsy sets the treatment before and after resection
+    next: Colectomy | Resectable
+    next: Obstructing cancer
+    next: cT4b or bulky nodes, pMMR or MSS
+    next: T4 or bulky, dMMR or MSI-H
+  Obstructing cancer
+    ① One-stage colectomy, resection with diversion, or diversion alone 〔NCCN 2A〕
+    ② A stent as a bridge to colectomy, in selected patients and expert centres 〔NCCN 2A〕 〔JSCCR B, 2〕 〔ESMO II〕
+      ・JSCCR advises against a stent when systemic therapy is planned 〔JSCCR B, 2〕
+      ~ ESCO {pmid 27924392}
+    next: Colectomy
+  cT4b or bulky nodes, pMMR or MSS
+    branch: pMMR
+    ① FOLFOX or CAPOX, then colectomy 〔NCCN 2A〕
+      ・Chemotherapy before and after resection totals up to 6 months
+      ・ESMO and JSCCR make no statement
+      ~ FOxTROT
+      - NeoCol
+    ※ Locally unresectable: systemic therapy with or without radiotherapy, then reassessment 〔NCCN 2A〕
+    next: Colectomy
+  T4 or bulky, dMMR or MSI-H
+    branch: dMMR
+    ① A checkpoint inhibitor, then colectomy 〔NCCN 2A〕
+      ・cT4b or bulky nodes: a checkpoint inhibitor is preferred to FOLFOX or CAPOX 〔NCCN 2A, preferred〕
+      ・Any PD-1 or PD-L1 antibody, or nivolumab with ipilimumab
+      ・POLE or POLD1 mutated tumours are treated the same way
+      ・The role of immunotherapy after resection is not defined
+      ・ESMO and JSCCR make no statement
+      ~ NICHE-2
+      ※ dMMR tumours regressed less than pMMR tumours with chemotherapy before resection
+        ~ FOxTROT
+    next: Colectomy
+  Colectomy
+    ① Colectomy with en bloc removal of the regional nodes 〔NCCN 2A〕 〔ESMO I, A〕
+      ・At least 12 nodes are examined 〔NCCN 2A〕 〔ESMO IV, B〕
+      ・JSCCR sets the dissection by stage: D2 for cT1, D2 or D3 for cT2, and D3 for cT3, cT4a or node-positive disease
+      ・Adjacent organs are resected en bloc for T4b 〔ESMO I, B〕
+    ② Laparoscopic or robotic surgery by an experienced surgeon 〔NCCN 2A〕 〔ESMO I, C〕
+      ・Robotic colectomy is a treatment option 〔JSCCR C, 2〕
+      ・Not for locally advanced, obstructed or perforated cancer 〔NCCN 2A〕
+      ~ JCOG0404 {pmid 28404155}
+      ~ COLOR {pmid 19071061}
+      ~ CLASICC {pmid 17634484}
+      ~ COST {pmid 15141043}
+    ※ JSCCR treats Tis or slightly invasive cT1 by endoscopic resection when en bloc resection is possible
+      ・Colectomy with node dissection follows for a positive vertical margin 〔JSCCR C, 1〕
+      ・Colectomy is also advised for T1b, lymphovascular invasion, poor differentiation or budding BD2–3 〔JSCCR B, 2〕
+    next: Stage I and II, pMMR or MSS
+    next: Stage III, pMMR or MSS
+    next: Stage 0 to II, dMMR or MSI-H
+    next: Stage III, dMMR or MSI-H
+  Stage I and II, pMMR or MSS
+    branch: pMMR
+    ① Stage I: observation 〔NCCN 2A〕
+    ② Low-risk stage II: observation 〔NCCN 2A, preferred〕 〔ESMO I, A〕 〔JSCCR A, 2〕
+      ・Capecitabine or 5-FU/LV for 6 months can be given 〔NCCN 2A〕
+      ・MSS with one minor risk factor: a fluoropyrimidine for 6 months 〔ESMO I, B〕
+      + QUASAR
+    ③ High-risk stage II: capecitabine, 5-FU/LV, FOLFOX, CAPOX or observation 〔NCCN 2A〕 〔JSCCR B, 2〕
+      ・No option is preferred
+      ・Oxaliplatin can be considered for pT4, fewer than 12 nodes or several minor factors 〔ESMO I, C〕
+      ※ Oxaliplatin did not improve OS in stage II
+        - MOSAIC
+      ※ High-risk features: T4, poor differentiation, lymphovascular or perineural invasion, obstruction, perforation, fewer than 12 nodes, close or positive margins, high-tier budding 〔NCCN 2A〕
+    next: Exercise and aspirin after resection
+  Stage III, pMMR or MSS
+    branch: pMMR
+    Treatment starts within 8 weeks of resection 〔ESMO I, A〕
+    ① CAPOX or FOLFOX 〔NCCN 2A, preferred〕 〔ESMO I, A〕 〔JSCCR A, 1〕
+      + MOSAIC
+      + NO16968
+      ※ FLOX is not recommended 〔NCCN 2A〕
+        ~ NSABP C-07
+      ※ Age 70 or over: no benefit from added oxaliplatin was shown
+        - ACCENT 2013 [t-accent-pooled-analysis--early-crc]
+      ※ Age 80 or over: oxaliplatin is not added 〔JSCCR C, 2〕
+    ② Oxaliplatin unsuitable: capecitabine or 5-FU/LV for 6 months 〔NCCN 2A, other recommended〕 〔ESMO I, A〕 〔JSCCR A, 2〕
+      ~ X-ACT
+      + IMPACT
+      + ACCENT 2001 [t-accent-pooled-analysis]
+    ※ Japan only: S-1 or UFT with leucovorin for 6 months 〔JSCCR A, 2〕
+      ・Not listed by NCCN or ESMO
+      ・S-1 did not show non-inferiority to capecitabine
+      ~ ACTS-CC {pmid 24942277}
+      - JCOG0910 {pmid 29079411}
+    next: Exercise and aspirin after resection
+  Stage 0 to II, dMMR or MSI-H
+    branch: dMMR
+    ① Stage 0–IIB: observation 〔NCCN 2A〕
+      ※ A fluoropyrimidine alone is not effective in stage II dMMR 〔NCCN 2A〕
+        - Sargent 2010 {pmid 20498393}
+    ② Stage IIC: observation, or treatment as for low-risk stage III 〔NCCN 2A〕
+    next: Exercise and aspirin after resection
+  Stage III, dMMR or MSI-H
+    branch: dMMR
+    ① FOLFOX or CAPOX with atezolizumab, then atezolizumab to 12 months 〔NCCN 2A, preferred〕
+      ・ATOMIC gave mFOLFOX6, and CAPOX with atezolizumab is extrapolated
+      ・Not in the ESMO 2026 update or JSCCR
+      ~ ATOMIC
+    ② CAPOX or FOLFOX, with duration by risk group 〔NCCN 2A〕
+    next: Exercise and aspirin after resection
+  Exercise and aspirin after resection
+    ① A structured exercise programme after adjuvant chemotherapy 〔ESMO II, B〕
+      ・At least 150 minutes of activity a week 〔NCCN 2A〕
+      + CHALLENGE
+    ② PI3K pathway alteration, stage II–III: aspirin 100–162 mg daily for 3 years 〔NCCN 2A〕
+      ・Any MMR status
+      ・ESMO gives no grade and JSCCR does not mention aspirin
+      ~ ALASCCA
+
+panel: Duration of CAPOX or FOLFOX > Stage III, pMMR or MSS
+  Duration by risk group 〔NCCN 2A〕
+  | Risk group | CAPOX | FOLFOX |
+  | High-risk stage II | 3 months | 6 months |
+  | Low-risk stage III, T1–3 N1 | 3 months | 3 to 6 months |
+  | High-risk stage III, T4 or N2 | 3 to 6 months | 6 months |
+  ・Low-risk stage III: CAPOX for 3 months or FOLFOX for 6 months 〔ESMO V, B〕
+  ・High-risk stage III: CAPOX or FOLFOX for 6 months 〔ESMO V, B〕
+  ・High-risk stage II: CAPOX for 3 or 6 months, or FOLFOX for 6 months 〔ESMO II, B〕
+  ~ IDEA [t-idea-collaboration]
+  ~ SCOT
+  ~ ACHIEVE {pmid 31513248}
+  ~ IDEA stage II [t-idea-collaboration--early-crc]
+  ~ ACHIEVE-2
+
+panel: Not recommended after resection > Stage III, pMMR or MSS
+  ※ Irinotecan is not added to adjuvant chemotherapy 〔NCCN 2A〕
+    - IROCAS
+    - CALGB 89803 {pmid 17687149}
+    - PETACC-3 {pmid 19451425}
+    - ACCORD02 {pmid 19179549}
+  ※ Bevacizumab is not added 〔NCCN 2A〕
+    - NSABP C-08
+    - AVANT
+    - QUASAR 2 {pmid 27660192}
+  ※ Cetuximab is not added 〔NCCN 2A〕
+    - NCCTG N0147
+    - PETACC-8
+  ※ ctDNA is not used to give, omit or change adjuvant treatment 〔NCCN 2A〕
+    ・In stage II, ctDNA-guided treatment was non-inferior and halved chemotherapy use
+    ・In stage III, de-escalation by ctDNA did not meet non-inferiority
+    ・Trifluridine/tipiracil for ctDNA-positive disease did not improve DFS
+    ~ DYNAMIC
+    - DYNAMIC-III
+    - ALTAIR
+
+off:
+  INT 0035 | Superseded: levamisole is withdrawn and fluorouracil with leucovorin replaced it
+  GALAXY [t-galaxy] | Non-randomised cohort with randomised evidence available, prognostic only
