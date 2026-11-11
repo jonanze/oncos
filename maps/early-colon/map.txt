@@ -113,23 +113,6 @@ course: Localised colon cancer
     + CHALLENGE
     ~ ALASCCA
 
-panel: Not recommended after resection > Stage III, pMMR
-  ※ Irinotecan 〔NCCN 2A〕
-    - IROCAS
-    - CALGB 89803 {pmid 17687149}
-    - PETACC-3 {pmid 19451425}
-    - ACCORD02 {pmid 19179549}
-  ※ Bevacizumab 〔NCCN 2A〕
-    - NSABP C-08
-    - AVANT
-    - QUASAR 2 {pmid 27660192}
-  ※ Cetuximab 〔NCCN 2A〕
-    - NCCTG N0147
-    - PETACC-8
-  ※ Treatment decisions on ctDNA outside a trial 〔NCCN 2A〕
-    - DYNAMIC-III
-    - ALTAIR
-
 panel: High-risk stage II > Stage I and II, pMMR
   | Feature | NCCN | ESMO | JSCCR |
   | T4, including perforation | ✓ | Major | ✓ |
@@ -163,3 +146,10 @@ panel: Duration of CAPOX or FOLFOX > Stage III, pMMR
 off:
   INT 0035 | Superseded: levamisole is withdrawn and fluorouracil with leucovorin replaced it
   GALAXY [t-galaxy] | Non-randomised cohort with randomised evidence available, prognostic only
+  IROCAS | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  NSABP C-08 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  AVANT | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  NCCTG N0147 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  PETACC-8 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  DYNAMIC-III | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  ALTAIR | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)
