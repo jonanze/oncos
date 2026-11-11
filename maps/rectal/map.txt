@@ -83,6 +83,7 @@ course: Stage II and III rectal cancer
       ・NCCN lists any PD-1 or PD-L1 inhibitor, with none preferred
     ~ Cercek 2022 [t-cercek-et-al]
     ~ Cercek 2025 [t-cercek-et-al--tumour-agnostic-basket-trials]
+    ~ AZUR-1 {pmid 42927858}
     ② Not a candidate for a checkpoint inhibitor: TNT 〔NCCN 2A〕
     ※ Chemotherapy before surgery is not recommended 〔ESMO V, D〕
     ※ Response is assessed at 12 and 24 weeks 〔ESMO III, A〕
