@@ -38,7 +38,7 @@ course: Localised colon cancer
     ① Colectomy or diversion 〔NCCN 2A〕
     ② Stent as a bridge to colectomy 〔NCCN 2A〕 〔JSCCR B, 2〕 〔ESMO II〕
       ・No stent if systemic therapy is planned 〔JSCCR B, 2〕
-    ~ ESCO {pmid 27924392}
+    ~ ESCO [t-esco]
     next: Colectomy
   cT4b or bulky nodes, pMMR
     branch: pMMR pale
@@ -58,10 +58,10 @@ course: Localised colon cancer
       ・JSCCR: D2 for cT1, D2 or D3 for cT2, D3 for cT3–T4a or node-positive
     ② Laparoscopic or robotic, experienced surgeon 〔NCCN 2A〕 〔ESMO I, C〕
       ・Robotic colectomy 〔JSCCR C, 2〕
-    ~ JCOG0404 {pmid 28404155}
-    ~ COLOR {pmid 19071061}
-    ~ CLASICC {pmid 17634484}
-    ~ COST {pmid 15141043}
+    ~ JCOG0404 [t-jcog-0404]
+    ~ COLOR [t-color]
+    ~ CLASICC [t-uk-mrc-clasicc]
+    ~ COST [t-laparoscopic-colectomy-trial]
     ※ Tis or slight cT1: endoscopic resection (JSCCR)
       ・Colectomy after it for T1b, LVI, poor differentiation or BD2–3 〔JSCCR B, 2〕
     next: Stage I and II, pMMR
@@ -84,8 +84,8 @@ course: Localised colon cancer
     ① CAPOX or FOLFOX 〔NCCN 2A, preferred〕 〔ESMO I, A〕 〔JSCCR A, 1〕
     ② Capecitabine or 5-FU/LV for 6 months 〔JSCCR A, 2〕
     ※ Japan only: S-1 or UFT with LV 〔JSCCR A, 2〕
-      ~ ACTS-CC {pmid 24942277}
-      - JCOG0910 {pmid 29079411}
+      ~ ACTS-CC [t-acts-cc]
+      - JCOG0910 [t-caps]
     ※ FLOX not recommended
       ~ NSABP C-07
     ※ Age 70 or over
@@ -102,7 +102,7 @@ course: Localised colon cancer
     ① 0–IIB: observation 〔NCCN 2A〕
     ② IIC: observation, or as low-risk stage III 〔NCCN 2A〕
     ※ Fluoropyrimidine alone not effective
-      - Sargent 2010 {pmid 20498393}
+      - Sargent 2010 [t-sargent-et-al]
     next: Exercise and aspirin after resection
   Stage III, dMMR
     branch: dMMR
@@ -143,7 +143,7 @@ panel: Duration of CAPOX or FOLFOX > Stage III, pMMR
   | High-risk stage III | 3 to 6 months | 6 months |
   ~ IDEA [t-idea-collaboration]
   ~ SCOT
-  ~ ACHIEVE {pmid 31513248}
+  ~ ACHIEVE [t-achieve]
   ~ IDEA stage II [t-idea-collaboration--early-crc]
   ~ ACHIEVE-2
 
@@ -154,6 +154,10 @@ off:
   NSABP C-08 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
   AVANT | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
   NCCTG N0147 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  QUASAR 2 [t-quasar-2] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  PETACC-3 [t-petacc-3] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  FNCLCC Accord02 / FFCD 9802 [t-fnclcc-accord02-ffcd-9802] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  CALGB 89803 [t-calgb-89803] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
   PETACC-8 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
   DYNAMIC-III | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)
   ALTAIR | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)

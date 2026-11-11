@@ -118,7 +118,7 @@ band: Treatment around surgery
   ※ After pleurectomy decortication or lung-sparing surgery: hemithoracic IMRT 〔ASCO Moderate, Conditional〕, in experienced centres 〔NCCN 2A〕
   ・No radiotherapy after pleurectomy decortication or without surgery 〔JLCS D, 2〕
   ・No radiotherapy before lung-sparing surgery 〔ASCO Low, Strong〕
-    + Trovo 2021 {pmid 33259933}
+    + Trovo 2021 [t-cro-2012-38]
   ※ Neoadjuvant immunotherapy may be offered 〔ASCO Low, Conditional〕
   ・ESMO 2022 calls its role unknown
   ・NCCN marks nivolumab and ipilimumab suitable before surgery
@@ -263,7 +263,7 @@ course: Unresectable pleural mesothelioma
       ~ VIM
     ④ Pemetrexed alone if not given before 〔ESMO III, C〕 〔NCCN 1, other recommended〕
     ・Pemetrexed alone, including retreatment 〔JLCS C, 2〕
-      ~ Jassem 2008 {pmid 18375898}
+      ~ Jassem 2008 [t-jassem-et-al]
     ⑤ Platinum and pemetrexed again in selected patients 〔ESMO II, B〕
     ・After disease control of more than 6 months 〔ASCO Low, Strong〕
     ・After a good response 〔NCCN 2A〕

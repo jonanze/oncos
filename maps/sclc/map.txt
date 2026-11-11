@@ -104,7 +104,7 @@ course: Small-cell lung cancer
     ・At PS 4, no drug treatment 〔JLCS D, 2〕
     ※ Age 71 or over: platinum-based treatment 〔JLCS BQ2, B〕
     ・Carboplatin and irinotecan did not improve OS over carboplatin and etoposide
-      - JCOG1201/TORG1528 {pmid 37156212}
+      - JCOG1201/TORG1528 [t-shimokawa-et-al]
     ※ Pembrolizumab improved PFS, but OS missed its significance boundary
     ・Not licensed in this setting
       ~ KEYNOTE-604
@@ -153,9 +153,9 @@ course: Small-cell lung cancer
     ・NCCN notes that these trials indicate an advantage
     ・NCCN recommends no dose above 45 Gy twice daily and does not define the dose with durvalumab
     ・JLCS does not discuss them
-      + Yu 2024 {pmid 39146944}
+      + Yu 2024 [t-triss]
       + THORA [t-thora]
-      ~ Qiu 2021 {pmid 33992717}
+      ~ Qiu 2021 [t-qiu-et-al]
     next: Limited stage, after chemoradiotherapy | No progression
   After surgery or SABR
     branch: SX pale
@@ -257,7 +257,7 @@ course: Small-cell lung cancer
       - von Pawel 1999 [t-von-pawel-et-al]
     ④ Cisplatin, etoposide and irinotecan 〔JLCS A, 2〕
     ・Not listed by NCCN or ASCO
-      + JCOG0605 {pmid 27312053}
+      + JCOG0605 [t-jcog-0605]
     ※ Amrubicin 〔JLCS A, 2〕
     ・Amrubicin is licensed in Japan
     ・Not listed by NCCN or ASCO

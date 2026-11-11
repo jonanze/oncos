@@ -1,3 +1,2 @@
 # Trials on the Early & Locally Adv NSCLC map with no Evidence row yet (name, PMID, where on the map)
-Kato 2004	PMID 15102997	After upfront resection
-Meta-analysis 2005	PMID 16051951	After upfront resection
+

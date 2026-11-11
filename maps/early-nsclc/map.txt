@@ -262,8 +262,8 @@ course: Early and locally advanced NSCLC
     ・Adenocarcinoma 〔JLCS A, 1〕, other histology 〔JLCS C, 2〕
     ・Licensed in Japan, not in the EU or US
     ・Not listed by NCCN, ESMO or ACCP
-      + Kato 2004 {pmid 15102997}
-      + Meta-analysis 2005 {pmid 16051951}
+      + Kato 2004 [t-kato-et-al]
+      + Meta-analysis 2005 [t-hamada-et-al]
     next: No driver
     next: EGFR, ALK or RET
     next: Radiotherapy after resection

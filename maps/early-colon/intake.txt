@@ -1,10 +1,2 @@
 # Trials on the Early CRC map with no Evidence row yet (name, PMID, where on the map)
-ESCO	PMID 27924392	Obstructing cancer
-JCOG0404	PMID 28404155	Colectomy
-COLOR	PMID 19071061	Colectomy
-CLASICC	PMID 17634484	Colectomy
-COST	PMID 15141043	Colectomy
-ACTS-CC	PMID 24942277	Stage III, pMMR
-JCOG0910	PMID 29079411	Stage III, pMMR
-Sargent 2010	PMID 20498393	Stage 0 to II, dMMR
-ACHIEVE	PMID 31513248	Duration of CAPOX or FOLFOX
+

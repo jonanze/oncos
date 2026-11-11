@@ -64,6 +64,7 @@
 #       it starts at metastatic or castration-resistant disease, so rising PSA without metastases has NCCN tags only
 #   Guideline set: ESMO and NCCN; JUA 2023 and PAGA 2022 not used (Jonan 2026-11-11)
 #   Full words in prose: "with", "chemotherapy", "with or without" (Jonan 2026-11-11)
+#   Noguchi 2001 (PMID 11706524, 24 patients, PSA flare endpoint) not cited; the flare statement stands on its NCCN tag (Jonan 2026-11-11)
 
 map: Advanced Prostate
 source: ESMO {url https://www.esmo.org/guidelines/living-guidelines/esmo-living-guideline-advanced-and-metastatic-prostate-cancer}
@@ -82,9 +83,8 @@ band: States and volume
     ・PSMA PET finds more lesions and was not used for volume in these trials
 
 band: ADT, testing and bone
-  ① A first-generation antiandrogen for at least 7 days with the first LHRH agonist injection prevents testosterone flare 〔NCCN 2A〕
+  ① A first-generation antiandrogen for at least 7 days with the first LHRH agonist injection blocks the effect of the testosterone flare 〔NCCN 2A〕
     ・It is given when metastases are in weight-bearing bone or the prostate mass is large
-    * Noguchi 2001 {pmid 11706524}
   ② Relugolix kept castration more often than leuprolide 〔NCCN 2A〕
     ・Major cardiovascular events were fewer than with leuprolide, in a prespecified safety analysis
     ・EU and US licence

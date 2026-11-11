@@ -169,7 +169,7 @@ tree: Advanced NSCLC, first line
         ~ ALEX
         ~ ALTA-1L
         ~ CROWN
-        ~ eXalt3 {pmid 34473194}
+        ~ eXalt3 [t-exalt3]
         ° Lorlatinib: raised cholesterol and triglycerides
         ※ Guidelines differ on preference
         ・Lorlatinib is preferred, with alectinib, brigatinib or ensartinib when lorlatinib does not suit 〔ASCO High, Strong〕
@@ -197,7 +197,7 @@ tree: Advanced NSCLC, first line
         ・JLCS does not list pralsetinib
         ・Pralsetinib has a US licence
         ・Its EU licence was withdrawn in October 2024 at the company's request
-          ~ ARROW {pmid 34118197}
+          ~ ARROW [t-arrow]
       NTRK
         branch: FUS pale
         ① Larotrectinib, entrectinib or repotrectinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
@@ -295,7 +295,7 @@ tree: Advanced NSCLC, first line
         ・Cemiplimab is not in JLCS
           + KEYNOTE-189
           + KEYNOTE-407
-          + EMPOWER-Lung 3 {pmid 36008722}
+          + EMPOWER-Lung 3 [t-empower-lung-3]
         ・Atezolizumab with carboplatin, paclitaxel and bevacizumab, non-squamous, any PD-L1 〔NCCN 1, other recommended〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕
         ・Atezolizumab with carboplatin and nab-paclitaxel, non-squamous, any PD-L1 〔NCCN 2A, other recommended〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕
         ・Atezolizumab or nivolumab with a platinum doublet, including nivolumab with carboplatin, paclitaxel and bevacizumab 〔JLCS B, 1〕
@@ -308,7 +308,7 @@ tree: Advanced NSCLC, first line
         ・Neither is listed by NCCN or ASCO
           ~ RATIONALE-304
           ~ RATIONALE-307
-          ~ GEMSTONE-302 {pmid 35038432}
+          ~ GEMSTONE-302 [t-gemstone-302]
         ※ Pembrolizumab alone is an option for patients unable to have a combination 〔NCCN 2B, useful in certain circumstances〕 〔ASCO Moderate, Conditional〕
         ・Not recommended below PD-L1 50% 〔ESMO I, D〕
         ・JLCS finds too little evidence to recommend it
@@ -415,7 +415,7 @@ panel: Second line > No driver
   ⑧ HER2 IHC 3+: trastuzumab deruxtecan 〔NCCN 2A, other recommended〕 〔ASCO Very Low, Conditional〕
   ⑨ c-Met IHC 3+ in 50% or more of cells, non-squamous, EGFR wild-type: telisotuzumab vedotin 〔NCCN 2A, other recommended〕 〔ASCO Low, Conditional〕
   ・Both US licence, not EU 〔ESMO III, B〕
-    ~ LUMINOSITY {pmid 38843488}
+    ~ LUMINOSITY [t-luminosity]
 
 panel: Later lines, EGFR > EGFR
   ① T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
