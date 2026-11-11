@@ -13,19 +13,22 @@
 #map[hidden]{display:none}
 /* Board maps take the look of a Claude whiteboard (Jonan 2026-11-11: "appear exactly as it does in whiteboard,
    drop the old ruled style completely"): white paper, filled blocks with rounded corners and no outline, plain ink
-   lines with no arrowheads, labels in plain pills. Colours are the whiteboard's own block fills. */
-.om-sheet{--wb-paper:#fff;--wb-ink:#0b0b0b;--wb-text:#191919;--wb-soft:rgba(25,25,25,.66);--wb-grid:rgba(0,0,0,.035);
-  --wb-plain:#d1d1d1;--br1:#6aabf1;--br2:#a89af0;--br3:#72d071;--br4:#ee7fac;--wb-pill:rgba(255,255,255,.62);
+   lines with no arrowheads, labels in plain pills. Colours (Jonan 2026-11-11, "a professional looking, clinical
+   colour template"): muted clinical fills (slate grey, steel blue, violet, sage, rose), slate text and lines, navy
+   trial chips. Every chip edge is at least 3:1 against its block and all text at least 4.5:1, in light and dark. */
+.om-sheet{--wb-paper:#fff;--wb-ink:#2b3542;--wb-text:#14212f;--wb-soft:rgba(20,33,47,.66);--wb-grid:rgba(20,33,47,.04);
+  --wb-plain:#d3d9e1;--br1:#9fbde3;--br2:#c2b3e2;--br3:#a3d4bf;--br4:#e6b6c6;
+  --wb-chip:#1f3a5f;--wb-chip-t:#fff;--wb-rule:#b3bdc9;--wb-head:#d3d9e1;
   --om-c1:#6aabf1;--om-c2:#72d071;--om-c3:#f5d515;--om-c4:#ed953d;
   position:relative;transform-origin:0 0;background:var(--wb-paper);color:var(--wb-text);font-size:15px;line-height:1.35}
-:root[data-theme="dark"] .om-sheet{--wb-paper:#191919;--wb-ink:#efefef;--wb-grid:rgba(255,255,255,.05);--wb-plain:#d1d1d1}
+:root[data-theme="dark"] .om-sheet{--wb-paper:#1e2228;--wb-ink:#c9d1db;--wb-grid:rgba(255,255,255,.045)}
 .om-sheet .om-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
 .om-sheet .om-wires line,.om-sheet .om-wires path{stroke:var(--wb-ink);stroke-width:1.5;fill:none;stroke-linejoin:round}
 .om-sheet .nw{white-space:nowrap}
 
 /* canvas: pan and zoom over dotted paper */
 .om-view{position:relative;overflow:hidden;border:1px solid var(--b-line);border-radius:12px;background:var(--wb-paper,#fff);touch-action:none;cursor:grab;outline:none;user-select:none;-webkit-user-select:none}
-:root[data-theme="dark"] .om-view{background:#191919}
+:root[data-theme="dark"] .om-view{background:#1e2228}
 .om-view.drag{cursor:grabbing}
 .om-view:focus-visible{outline:2px solid var(--b-ink);outline-offset:-2px}
 .om-world{position:absolute;left:0;top:0;transform-origin:0 0;background-image:linear-gradient(var(--wb-grid) 1px,transparent 1px),linear-gradient(90deg,var(--wb-grid) 1px,transparent 1px);background-size:40px 40px}
@@ -50,7 +53,7 @@
 .om-world .tblk .ms{font-size:14px;margin-top:6px;color:var(--wb-ink)}
 .om-world .tblk .ms .trial{color:inherit}
 .om-world .tblk .keys{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.om-world .tblk .key{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;color:#191919;background:var(--brc)}
+.om-world .tblk .key{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;color:var(--wb-text);background:var(--brc)}
 .om-world .tblk .t1k{background:var(--om-c1)}.om-world .tblk .t2k{background:var(--om-c2)}
 .om-world .tblk .t3k{background:var(--om-c3)}.om-world .tblk .t4k{background:var(--om-c4)}
 
@@ -78,21 +81,21 @@
 
 /* trial names: a plain list, as on the board; a tap opens the trial's card. (intake) marks a trial with no row yet */
 .om-world .trials{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0 3px var(--p,0px)}
-.om-world .trials>.tch{padding:1px 9px;border-radius:999px;background:var(--wb-pill);font-size:13px;white-space:nowrap}
-.om-world .trials>.tch.ni{background:none;outline:1.2px dashed rgba(25,25,25,.55);outline-offset:-1.2px}
-.om-world .panel.open .trials>.tch{background:var(--wb-plain);color:var(--wb-text)}
-.om-world .panel.open .trials>.tch.ni{background:none;color:var(--wb-ink);outline-color:color-mix(in srgb,var(--wb-ink) 60%,transparent)}
+.om-world .trials>.tch{padding:1px 9px;border-radius:999px;background:var(--wb-chip);color:var(--wb-chip-t);font-size:13px;white-space:nowrap}
+.om-world .trials>.tch.ni{background:none;color:var(--wb-chip);outline:1.2px dashed var(--wb-chip);outline-offset:-1.2px}
+:root[data-theme="dark"] .om-world .panel.open .trials>.tch{background:#dfe6ee;color:var(--wb-text)}
+:root[data-theme="dark"] .om-world .panel.open .trials>.tch.ni{background:none;color:#dfe6ee;outline-color:#dfe6ee}
 .om-world .ln.cv+.trials{margin-top:4px}
 .om-world .ln.subl+.trials{margin-top:5px}
 .om-world .trial{color:inherit;text-decoration:none;cursor:pointer;white-space:nowrap}
 .om-world .trial:focus-visible{outline:2px solid currentColor;outline-offset:1px;border-radius:4px}
-@media (hover:hover){.om-world .trials>.tch:hover{background:rgba(255,255,255,.9)}}
+@media (hover:hover){.om-world .trials>.tch:hover{text-decoration:underline}}
 
 /* a panel holding a table: the table stands on the paper with its title above it */
 .om-world .panel.open{background:none;color:var(--wb-ink);padding:0}
-.om-world .panel.open table.grid{background:var(--wb-plain);color:var(--wb-text);margin-top:10px}
-.om-world .panel.open table.grid th,.om-world .panel.open table.grid td{border-color:rgba(25,25,25,.22)}
-.om-world .panel.open table.grid tr:first-child th{background:rgba(255,255,255,.45)}
+.om-world .panel.open table.grid{background:#fff;color:var(--wb-text);margin-top:10px;outline:1px solid var(--wb-rule);outline-offset:-1px}
+.om-world .panel.open table.grid th,.om-world .panel.open table.grid td{border-color:var(--wb-rule)}
+.om-world .panel.open table.grid tr:first-child th{background:var(--wb-head)}
 
 /* line labels: a plain pill on the line */
 .om-world .elab{z-index:3;font-size:13px;line-height:1.3;max-width:240px;text-align:center;border:0;border-radius:999px;background:var(--wb-paper);color:var(--wb-ink);padding:2px 9px}
