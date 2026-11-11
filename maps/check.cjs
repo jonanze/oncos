@@ -34,7 +34,8 @@ for (const dir of fs.readdirSync(__dirname)) {
     const lab = /^\s+(?:next|join):.*\|\s*(..)/.exec(t);
     if (lab && /^[a-z][a-z]/.test(lab[1])) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' line label starts in lower case: "' + t.trim() + '"'); }
     if (/^\s*=\s/.test(t)) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' option marked with =: number every option ①② in order of preference (Jonan 2026-11-11)'); }
-    const hit = BANNED.find(b => b.test(t));
+    // a trial line is the trial's own name (PARADIGM), so only the arrow rule applies to it
+    const hit = (/^\s*[+~-]\s/.test(t) ? BANNED.slice(0, 1) : BANNED).find(b => b.test(t));
     if (hit) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' wording: "' + t.trim().slice(0, 70) + '" matches ' + hit); }
   });
   for (const {line, where} of O.trials(m)) {
