@@ -52,18 +52,18 @@ band: Early disease, T1–2 N0
     ・cT2 N0: ipsilateral elective neck dissection 〔ASCO-Neck High, Strong〕
     ・cT1 N0: elective neck dissection, or close ultrasound surveillance in selected reliable patients 〔ASCO-Neck Intermediate, Strong〕
     ・Stage I–II tongue cancer with deep invasion: elective neck dissection improves survival 〔JSHNC B, Weak〕
-    + D'Cruz 2015 {pmid 26027881}
+    + D'Cruz 2015 [t-d-cruz-et-al]
     ・Sentinel node biopsy, with neck dissection if a node is positive 〔NCCN 2A〕
     ・Sentinel node biopsy is reliable in early tongue cancer 〔JSHNC A, Weak〕
-    ~ Hasegawa 2021 {pmid 33877855}
-    ~ Garrel 2020 {pmid 33052754}
+    ~ Hasegawa 2021 [t-hasegawa-et-al]
+    ~ Garrel 2020 [t-senti-merorl]
   ② Oropharynx: radiotherapy, or transoral surgery with neck dissection 〔PAGA IV, A〕 〔NCCN 2A〕
     ・HPV-positive T1–2: transoral robotic surgery is discussed when a clear margin is likely 〔ASCO-TORS Moderate, Strong〕
     ・Transoral resection is an option 〔JSHNC C, Weak〕
-    ~ ORATOR {pmid 31416685}
+    ~ ORATOR [t-orator]
   ③ Larynx: radiotherapy, or larynx-preserving surgery 〔PAGA IV, A〕 〔NCCN 2A〕
     ・Early glottic cancer: 2.25 to 2.5 Gy per fraction 〔JSHNC C, Weak〕
-    - JCOG0701 {pmid 29401241}
+    - JCOG0701 [t-jcog-0701]
     ・T2 with deep invasion or impaired cord movement: chemoradiotherapy is an option 〔JSHNC C, Weak〕
     ・cT2 N0 unsuitable for larynx-preserving surgery: radiotherapy is adequate 〔Ferrari IV, 94%〕
   ④ Hypopharynx: larynx-preserving radiotherapy, or larynx-preserving surgery 〔JSHNC C, Strong〕 〔PAGA IV, A〕 〔NCCN 2A〕
@@ -128,8 +128,8 @@ course: Head and neck squamous cell carcinoma
       ・Cetuximab is not added to TPF 〔Ferrari II, 93%〕
     ~ VA Larynx [t-va-larynx]
     ~ RTOG 91-11
-    ~ GORTEC 2000-01 {pmid 19318632}
-    ~ EORTC 24891 {pmid 8656441}
+    ~ GORTEC 2000-01 [t-gortec-2000-01]
+    ~ EORTC 24891 [t-eortc-24891]
     ※ Aspiration or recurrent pneumonia from a poorly functioning larynx is a contraindication to non-surgical preservation 〔Ferrari IV, 95%〕
     ※ Unfit for cisplatin and declining laryngectomy: carboplatin-based chemoradiotherapy, or cetuximab with radiotherapy 〔Ferrari II, 90%〕
       ・Unfit for any systemic treatment: accelerated or hyperfractionated radiotherapy alone 〔Ferrari II, 98%〕
@@ -149,7 +149,7 @@ course: Head and neck squamous cell carcinoma
       ・Cetuximab in place of cisplatin gave worse survival
       - RTOG 1016
       - De-ESCALaTE
-      - TROG 12.01 {pmid 34098030}
+      - TROG 12.01 [t-hpvoropharynx]
     ※ Reducing the radiation dose is not recommended for HPV-positive oropharyngeal cancer 〔JSHNC B, Strong against〕
     Unresectable disease at any site
     ① Concurrent chemoradiotherapy 〔NCCN 1〕
@@ -171,9 +171,9 @@ course: Head and neck squamous cell carcinoma
       ・Weekly cisplatin 40 mg/m² 〔JSHNC B, Strong〕 〔PAGA II, A〕
       ・Weekly cisplatin when high-dose cisplatin is not suitable 〔ASCO-Neck Intermediate, Moderate〕
     + JCOG1008
-    - Noronha 2018 {pmid 29220295}
+    - Noronha 2018 [t-noronha-et-al]
       ・Unfit for cisplatin: docetaxel 〔NCCN 2A, useful in certain circumstances〕
-    + Patil 2023 {pmid 36706347}
+    + Patil 2023 [t-dhanush]
     ② Other adverse features: radiotherapy alone 〔PAGA II, A〕 〔NCCN 2A〕
       ・These are pT3–4, perineural invasion, lymphatic invasion and more than one positive node
       ・Oral cavity pN2–3 〔ASCO-Neck Intermediate, Strong〕
@@ -184,7 +184,7 @@ course: Head and neck squamous cell carcinoma
       ・Close margin, perineural or lymphovascular invasion, 2 to 4 nodes, or extranodal extension of 1 mm or less: radiotherapy 〔ASCO-TORS Moderate, Strong〕
       ・Positive margin, 5 or more nodes, or extranodal extension over 1 mm: chemoradiotherapy 〔ASCO-TORS Moderate, Strong〕
       ・A dose of 50 Gy may be considered 〔NCCN 2B〕
-      ~ ECOG 3311 {pmid 34699271}
+      ~ ECOG 3311 [t-ecog-acrin-e3311]
     ※ Nivolumab added to postoperative cisplatin and radiotherapy improved disease-free survival
       ・Overall survival data are immature
       ・No licence for this use was found on 12 November 2026
@@ -197,32 +197,31 @@ course: Head and neck squamous cell carcinoma
       ・Weekly cisplatin 40 mg/m² 〔NCCN 2A, other recommended〕
       ・There is no preferred cisplatin schedule for older fit patients 〔Ferrari I, 88%〕
     + MACH-NC
-    + MACH-NC 2021 {pmid 33515668}
     ② Carboplatin with infusional 5-FU 〔PAGA II, A〕 〔NCCN 1, preferred〕
       ・PAGA lists it for patients unfit for cisplatin
-    + GORTEC 94-01 {pmid 14657228}
+    + GORTEC 94-01 [t-gortec-94-01]
     ③ Unfit for cisplatin: cetuximab with radiotherapy 〔PAGA II, A〕 〔NCCN 2B, useful in certain circumstances〕
       ・Cetuximab was inferior to cisplatin in patients fit for cisplatin
     + Bonner 2006 [t-bonner-et-al]
-    - ARTSCAN III {pmid 33052757}
+    - ARTSCAN III [t-artscan-iii]
     ④ Unfit for systemic treatment: radiotherapy alone with altered fractionation 〔PAGA II, A〕
-    + MARCH {pmid 28757375}
+    + MARCH [t-march-head-and-neck-cancer-radiotherapy-fractionation-meta-analysis]
     ※ Unfit for cisplatin: docetaxel with radiotherapy 〔NCCN 2A, useful in certain circumstances〕
-      + Patil 2023 {pmid 36706347}
+      + Patil 2023 [t-dhanush]
     ※ Accelerated fractionation with chemotherapy did not improve survival over standard fractionation with chemotherapy
       - RTOG 0129
-      - GORTEC 99-02 {pmid 22261362}
+      - GORTEC 99-02 [t-npc2006]
     ※ Pembrolizumab added to cisplatin chemoradiotherapy did not improve event-free survival
       ・Cetuximab added to cisplatin chemoradiotherapy did not improve progression-free survival
       - KEYNOTE-412
-      - RTOG 0522 {pmid 25154822}
+      - RTOG 0522 [t-rtog-0522]
     next: After curative treatment
   After curative treatment
     ① After chemoradiotherapy for node-positive disease: PET-CT at 12 weeks 〔PAGA I, A〕 〔ASCO-Neck High, Strong〕
       ・No nodal uptake and no enlarged nodes: no neck dissection
       ・Intense nodal uptake: neck dissection
       ・Residual disease on PET after larynx preservation: neck dissection 〔Ferrari IV, 97%〕
-    ~ PET-NECK {pmid 27007578}
+    ~ PET-NECK [t-pet-neck]
     ② Endoscopy every 2 to 3 months for 2 years, every 6 months to year 5, then yearly 〔PAGA III, A〕
     next: Salvage surgery or re-irradiation | Locoregional recurrence
     next: First line, recurrent or metastatic | Distant metastases
@@ -255,7 +254,7 @@ course: Head and neck squamous cell carcinoma
       ・It is the standard for PD-L1-negative disease 〔PAGA I, A〕
       ・Cisplatin, docetaxel and cetuximab 〔PAGA II, B〕 〔NCCN 2A, other recommended〕
     + EXTREME
-    - TPExtreme {pmid 33684370}
+    - TPExtreme [t-tpextreme]
     ※ India only: low-dose nivolumab with oral metronomic chemotherapy improved overall survival over paclitaxel and carboplatin
       ・TMC-I is reported as a congress abstract
       ・Oral metronomic chemotherapy added to paclitaxel and carboplatin also improved overall survival

@@ -1,21 +1,2 @@
 # Trials on the Head & Neck SCC map with no Evidence row yet (name, PMID, where on the map)
-D'Cruz 2015	PMID 26027881	Early disease, T1–2 N0
-Hasegawa 2021	PMID 33877855	Early disease, T1–2 N0
-Garrel 2020	PMID 33052754	Early disease, T1–2 N0
-ORATOR	PMID 31416685	Early disease, T1–2 N0
-JCOG0701	PMID 29401241	Early disease, T1–2 N0
-GORTEC 2000-01	PMID 19318632	Larynx preservation
-EORTC 24891	PMID 8656441	Larynx preservation
-TROG 12.01	PMID 34098030	Non-surgical treatment
-Noronha 2018	PMID 29220295	After surgery
-Patil 2023	PMID 36706347	After surgery
-ECOG 3311	PMID 34699271	After surgery
-MACH-NC 2021	PMID 33515668	Chemoradiotherapy
-GORTEC 94-01	PMID 14657228	Chemoradiotherapy
-ARTSCAN III	PMID 33052757	Chemoradiotherapy
-MARCH	PMID 28757375	Chemoradiotherapy
-Patil 2023	PMID 36706347	Chemoradiotherapy
-GORTEC 99-02	PMID 22261362	Chemoradiotherapy
-RTOG 0522	PMID 25154822	Chemoradiotherapy
-PET-NECK	PMID 27007578	After curative treatment
-TPExtreme	PMID 33684370	First line, recurrent or metastatic
+
