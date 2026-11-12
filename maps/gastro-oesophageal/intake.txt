@@ -1,16 +1,2 @@
 # Trials on the Localized Gastroesophageal map with no Evidence row yet (name, PMID, where on the map)
-JCOG0912	PMID 31757656	Early gastric cancer, cT1 N0
-POET	PMID 19139439	Oesophageal and junctional adenocarcinoma
-NeoRes	PMID 26782957	Oesophageal and junctional adenocarcinoma
-JCOG1104	PMID 30679107	After gastrectomy
-ATTRACTION-5	PMID 38906161	After gastrectomy
-JCOG9204	PMID 14673047	After preoperative treatment
-JCOG0303	PMID 25640628	Definitive chemoradiotherapy
-ARTDECO	PMID 34101496	Definitive chemoradiotherapy
-JLSSG0901	PMID 36920382	Gastrectomy
-JCOG9502	PMID 16887481	Gastrectomy
-JCOG0110	PMID 27280511	Gastrectomy
-JCOG1001	PMID 29709558	Gastrectomy
-JCOG0501	PMID 33200303	Other trials before gastrectomy
-MIRO	PMID 30625052	Oesophagectomy
-ROBOT	PMID 30308612	Oesophagectomy
+
