@@ -27,6 +27,7 @@
     'Endometrial Cancer': 'endometrial',
     'Rectal Cancer': 'rectal',
     'Mesothelioma': 'mesothelioma',
+    'Nasopharyngeal Carcinoma': 'npc',
     'SCLC': 'sclc'
   };
   var ANCHOR = 'map';
