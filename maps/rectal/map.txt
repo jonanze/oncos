@@ -32,7 +32,7 @@ band: cT1–2 N0
   ② High-risk T1 or T2: TME 〔NCCN 2A, preferred〕 〔ESMO III, A〕
   ③ Organ preservation as the aim: CRT or short-course radiotherapy, then watch and wait or local excision after a good response 〔NCCN 2A〕 〔ESMO II, B〕
     ~ STAR-TREC
-    - GRECCAR-2 {pmid 28601342}
+    - GRECCAR-2 [t-greccar-2]
 
 course: Stage II and III rectal cancer
   Risk group on MRI
@@ -83,7 +83,7 @@ course: Stage II and III rectal cancer
       ・NCCN lists any PD-1 or PD-L1 inhibitor, with none preferred
     ~ Cercek 2022 [t-cercek-et-al]
     ~ Cercek 2025 [t-cercek-et-al--tumour-agnostic-basket-trials]
-    ~ AZUR-1 {pmid 42927858}
+    ~ AZUR-1 [t-azur-1]
     ② Not a candidate for a checkpoint inhibitor: TNT 〔NCCN 2A〕
     ※ Chemotherapy before surgery is not recommended 〔ESMO V, D〕
     ※ Response is assessed at 12 and 24 weeks 〔ESMO III, A〕
@@ -102,10 +102,10 @@ course: Stage II and III rectal cancer
     ② Laparoscopic or robotic surgery by an experienced surgeon 〔ESMO I, A〕
       ・Open surgery is preferred for a threatened margin 〔NCCN 2A〕
     ~ CLASICC [t-uk-mrc-clasicc]
-    ~ COLOR II {pmid 25830422}
-    ~ COREAN {pmid 24837215}
-    - ACOSOG Z6051 {pmid 26441179}
-    - ALaCaRT {pmid 26441180}
+    ~ COLOR II [t-color-ii]
+    ~ COREAN [t-corean]
+    - ACOSOG Z6051 [t-acosog-z6051]
+    - ALaCaRT [t-alacart]
     ③ Lateral nodes of 7 mm or more in short axis: dissection after treatment before surgery 〔NCCN 2A〕 〔ESMO IV, A〕
     ※ Lateral dissection is not indicated without suspicious nodes 〔NCCN 2A〕
     next: Adjuvant treatment
