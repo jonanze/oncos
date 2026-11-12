@@ -26,6 +26,7 @@
     'Early CRC': 'early-colon',
     'Endometrial Cancer': 'endometrial',
     'Head & Neck SCC': 'hnscc',
+    'Localized Gastroesophageal': 'gastro-oesophageal',
     'Rectal Cancer': 'rectal',
     'Mesothelioma': 'mesothelioma',
     'Nasopharyngeal Carcinoma': 'npc',
