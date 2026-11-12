@@ -210,7 +210,7 @@ course: Head and neck squamous cell carcinoma
       + Patil 2023 [t-dhanush]
     ※ Accelerated fractionation with chemotherapy did not improve survival over standard fractionation with chemotherapy
       - RTOG 0129
-      - GORTEC 99-02 [t-npc2006]
+      - GORTEC 99-02 [t-gortec-99-02]
     ※ Pembrolizumab added to cisplatin chemoradiotherapy did not improve event-free survival
       ・Cetuximab added to cisplatin chemoradiotherapy did not improve progression-free survival
       - KEYNOTE-412
