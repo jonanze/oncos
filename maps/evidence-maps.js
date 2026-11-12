@@ -25,6 +25,7 @@
     'Early & Locally Adv NSCLC': 'early-nsclc',
     'Early CRC': 'early-colon',
     'Endometrial Cancer': 'endometrial',
+    'Head & Neck SCC': 'hnscc',
     'Rectal Cancer': 'rectal',
     'Mesothelioma': 'mesothelioma',
     'Nasopharyngeal Carcinoma': 'npc',
