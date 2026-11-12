@@ -1,19 +1,2 @@
 # Trials on the Nasopharyngeal Carcinoma map with no Evidence row yet (name, PMID, where on the map)
-Tang 2022	PMID 35997729	Stage IB
-Guo 2025	PMID 40531520	Stage II–III except T3 N0
-DIAMOND	PMID 40839372	Stage II–III except T3 N0
-Liu 2024	PMID 39522541	Stage II–III except T3 N0
-You 2026	PMID 41667193	Stage II–III except T3 N0
-Tang 2022	PMID 35997729	T3 N0
-Chitapanarux 2007	PMID 17467265	Chemoradiotherapy
-Tang 2018	PMID 29501366	Chemoradiotherapy
-Lv 2021	PMID 33857411	Chemoradiotherapy
-Chen 2012	PMID 22154591	After chemoradiotherapy
-Liu 2023	PMID 37290468	After chemoradiotherapy
-Liu 2021	PMID 33600761	Surgery or re-irradiation
-You 2023	PMID 36842439	Surgery or re-irradiation
-Lu 2023	PMID 36075994	Maintenance
-You 2020	PMID 32701129	Curative-intent local treatment
-KEYNOTE-122	PMID 36535566	Later lines
-Xie 2025	PMID 40233976	Induction regimens
-Lv 2021	PMID 33857411	Induction regimens
+
