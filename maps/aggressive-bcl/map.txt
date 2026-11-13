@@ -1,0 +1,484 @@
+# oncOS board map: High Grade B-Cell Lymphoma (large B-cell lymphoma from first line to relapse, with PMBCL, primary CNS lymphoma and Burkitt lymphoma)
+# 2026-11-13, draft 1, not approved. Structure plan: board-maps/aggressive-bcl/structure-plan.md. Changes from draft 0: draft1-changes.md
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-13): one map for the whole sheet. DLBCL and other large B-cell lymphoma from first line through relapse
+#   is the course, including CAR-T and bispecific antibodies, with HGBL and transformed disease inside it. Primary mediastinal
+#   B-cell lymphoma, primary CNS lymphoma and Burkitt lymphoma are side panels
+# One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
+#   only where guidelines disagree (a cut-off, a licence, a grade, a recommendation against) or a condition
+# Options NCCN alone lists sit on ※ lines (inclusion.txt, Jonan 2026-11-10): polatuzumab with R-GemOx, mosunetuzumab with
+#   polatuzumab, glofitamab with polatuzumab, brentuximab vedotin with lenalidomide and rituximab, selinexor, consolidative
+#   ISRT in localised HGBL, pembrolizumab and ICE consolidation in PMBCL, high-dose methotrexate with R-CHOP for CNS disease
+#   at diagnosis, methotrexate 8 g/m² induction and non-myeloablative consolidation in primary CNS lymphoma.
+#   Exception kept by Jonan's default 2 (question open): second-line lisocabtagene maraleucel for relapse after 12 months
+#   without transplant is NCCN alone and stays numbered ①
+# Tags give the grade as printed, on the statement the guideline graded. East Asian guidelines first:
+#   〔JSH category〕 JSH practical guidelines 2023, DLBCL NOS chapter (Ohmachi, Int J Hematol 2025;122:3-16, online 28 May 2025).
+#     Categories 1, 2A and 2B, definitions not printed. A bare 〔JSH〕 marks ungraded text. No bispecific antibody, tafasitamab,
+#     loncastuximab or glofitamab with GemOx content. The Japanese 3.1 edition (2024) has no English version
+#   〔JSH-BL category〕 JSH practical guidelines 2023, Burkitt lymphoma and HGBL chapter (Nishikori, Int J Hematol 2025;122:17-24).
+#     Categories 2A and 2B only. WHO 2017 classification. No risk tiers, cycle numbers or doses
+#   〔ESMO level, grade〕 ESMO Lymphomas living guideline v1.2, October 2026 (parent guideline Eyre, Ann Oncol 2025;36:1263-1284,
+#     to which the tag links). Levels I to V, grades A to E. It prints no trial references and no CNS prophylaxis recommendation
+#   〔EHA level, grade〕 EHA large B-cell lymphoma guideline (Thieblemont, HemaSphere 2025;9:e70207). Levels I to V, grades A to E.
+#     Where its text, box and figure print different grades, the box grade is used and the plan lists the conflict. The
+#     intravascular lymphoma box prints BSH grades, written here as 〔EHA I, B〕
+#   〔BSH grade〕 BSH newly diagnosed large B-cell lymphoma 2024 (Fox, Br J Haematol 2024;204:1178-1192). GRADE: strength 1 or 2,
+#     evidence A to C
+#   〔BSH-RR grade〕 BSH relapsed or refractory large B-cell lymphoma 2025 (Chaganti, Br J Haematol 2025;206:1593-1603). GRADE
+#   〔BSH-PM grade〕 BSH primary mediastinal B-cell lymphoma 2026 (Osborne, Br J Haematol 2026;209:1505-1517). GRADE
+#   〔EHA-ESMO level, grade〕 EHA-ESMO primary CNS lymphoma guideline 2024 (Ferreri, HemaSphere 2024;8:e89)
+#   〔EHA-ESMO-HIV level, grade〕 EHA-ESMO HIV-associated lymphomas guideline 2024 (Hübel, HemaSphere 2024;8:e150). The only European
+#     source for Burkitt lymphoma. It applies the regimens used in HIV-negative disease
+#   〔NCCN category, preference〕 NCCN B-Cell Lymphomas 4.2026 (20 May 2026) and NCCN CNS Cancers 4.2026 (2 November 2026), one tag.
+#     2A unless stated, with preferred, other recommended and useful in certain circumstances
+# Not read: BSH primary CNS lymphoma 2019, BSH secondary CNS lymphoma 2022, ASTCT 2023, CSCO 2026. No KSH, PAGA or Asian
+#   CAR-T guideline exists for large B-cell lymphoma
+# Written before the trial: JSH 2023 names no bispecific antibody trial. No guideline read cites DEB or the 2026 frontMIND,
+#   MATRix/IELSG43 or Wilson papers. HOVON/SAKK 127 is cited by NCCN alone
+# Licensing is taken from the guideline texts, labels not read. Glofitamab with GemOx and odronextamab: EU licence, no US
+#   licence (ESMO, NCCN). Tafasitamab and lenalidomide with R-CHOP: no EU or US licence in first line (ESMO). Rituximab in
+#   primary CNS lymphoma, and ibrutinib, lenalidomide and temozolomide in primary CNS lymphoma: no EU or US licence
+#   (EHA-ESMO). Rituximab in Burkitt lymphoma: licensed in the EU and US for children only (FDA December 2021). Axicabtagene ciloleucel: not approved in second
+#   line for PMBCL (BSH-PM). Japan: lisocabtagene maraleucel and axicabtagene ciloleucel are covered for HGBL (JSH-BL), and
+#   first-line bendamustine, and liposomal doxorubicin and oxaliplatin for lymphoma, are not covered (JSH). Singapore status
+#   of every agent was not checked. Tucidinostat is licensed in China for this use, with no EU or US licence (not from a
+#   guideline, to be confirmed)
+# Trial marks: + OS benefit, ~ surrogate endpoint, non-inferiority, single-arm or inconclusive, - no benefit or harm. Marks
+#   follow the Evidence row or intake paper, with two exceptions. ZUMA-7 is + on the final analysis (PMID 37272527, cited by
+#   EHA), which the row should take. SWOG S8736 is - on its final long-term analysis (PMID 27382104, cited by JSH and BSH).
+#   The ~ marks for non-inferiority and inconclusive results go beyond the format header and await Jonan's confirmation
+# Single-arm trials are cited only where a licence or recommendation rests on them and no randomised trial exists for that
+#   option (inclusion.txt ①). Cohort and observational rows are under off:
+
+map: High Grade B-Cell Lymphoma
+source: JSH {url https://doi.org/10.1007/s12185-025-03997-z}
+source: JSH-BL {url https://doi.org/10.1007/s12185-025-03982-6}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2025.07.014}
+source: EHA {url https://doi.org/10.1002/hem3.70207}
+source: BSH {url https://doi.org/10.1111/bjh.19273}
+source: BSH-RR {url https://doi.org/10.1111/bjh.20129}
+source: BSH-PM {url https://doi.org/10.1111/bjh.70768}
+source: EHA-ESMO {url https://doi.org/10.1002/hem3.89}
+source: EHA-ESMO-HIV {url https://doi.org/10.1002/hem3.150}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+branch: LIM | Stage I–II | sage
+branch: ADV | Stage III–IV | blue
+branch: OLD | Age 80 or over, frail or cardiac disease | sand
+branch: HG | HGBL with MYC and BCL2 rearrangement | violet
+branch: CART | Refractory or relapse within 12 months | teal
+branch: ASCT | Relapse after 12 months, fit for transplant | apricot
+branch: NOT | Unsuitable for transplant | olive
+branch: TL | Third line and later | rose
+
+band: Work-up, PET and supportive care
+  ① PET-CT at baseline 〔ESMO V, A〕 〔EHA I, A〕 〔BSH 1A〕 〔NCCN 2A〕
+  ② FISH for MYC rearrangement in every patient 〔ESMO V, A〕 〔EHA I, B〕 〔BSH 1B〕 〔NCCN 2A〕
+    ・BCL2 and BCL6 FISH when MYC is rearranged 〔EHA I, B〕 〔BSH 1B〕 〔NCCN 2A〕
+    ・BCL2 FISH alone when MYC is rearranged 〔ESMO V, B〕
+    ・Immunoglobulin partner of MYC 〔EHA〕 〔BSH 1B〕
+  ③ Hepatitis B serology with core antibody, hepatitis C and HIV before treatment 〔EHA I, A〕 〔BSH 1A〕 〔NCCN 2A〕
+  ④ Interim PET after two to four cycles 〔EHA III, A〕 〔BSH 2B〕 〔NCCN 2A〕
+    ・Interim PET is an option 〔ESMO V, B〕
+    ・Treatment is changed only for no response or progression, after biopsy 〔BSH 1B〕 〔NCCN 2A〕
+    ・Deauville score 5 after four cycles: salvage treatment is considered after biopsy 〔EHA III, A〕
+  ⑤ Bulky disease: 7.5 cm or more 〔ESMO〕 〔EHA〕 〔BSH〕 〔NCCN〕
+    ・Over 10 cm 〔JSH〕
+  ⑥ Primary G-CSF prophylaxis with curative chemoimmunotherapy 〔EHA I, A〕 〔BSH 1B〕
+  ※ Intensified treatment for a positive interim PET did not improve outcome 〔BSH〕
+    - PETAL {pmid 29750632}
+  ※ Selection of treatment by cell of origin is not recommended 〔JSH〕 〔EHA〕
+
+band: CNS prophylaxis
+  ① CNS-IPI in every patient 〔EHA III, A〕 〔BSH 1A〕 〔NCCN 2A〕
+    ・High risk: CNS-IPI of 4 to 6, or testicular, renal, adrenal or breast involvement 〔JSH〕 〔NCCN 2A〕
+    ・Two or more extranodal sites 〔EHA〕, three or more 〔BSH〕
+    ・High risk: brain MRI and CSF examination 〔EHA III, A〕 〔BSH 2B〕
+    ・MRI and CSF examination in selected patients 〔ESMO V, B〕
+  ② High risk: high-dose methotrexate, 3 g/m² or more for two cycles, is an option 〔JSH 2B〕 〔EHA III, B〕 〔BSH 2B〕 〔NCCN 2A〕
+    ・Given after a complete metabolic response to first-line treatment 〔EHA〕
+    ・Two to four cycles of 3 to 3.5 g/m² 〔NCCN 2A〕
+    ・No recommendation on CNS prophylaxis 〔ESMO〕
+    ・Retrospective cohorts show limited benefit 〔NCCN〕
+  ③ Intrathecal methotrexate or cytarabine is an option 〔JSH 2B〕 〔NCCN 2A〕
+    ・Four to eight doses 〔NCCN〕
+    ・Not recommended 〔EHA〕
+  ④ Testicular lymphoma: R-CHOP, CNS prophylaxis and radiotherapy to the contralateral testis 〔EHA II, A〕 〔BSH 1B〕 〔NCCN 2A〕
+    ・Intrathecal prophylaxis 〔JSH 2A〕
+    ・Contralateral testicular radiotherapy 〔EHA I, A〕, at 25 to 30 Gy 〔NCCN 2A〕
+  ~ IELSG30 {pmid 38181782}
+  ⑤ Intravascular lymphoma: six cycles of R-CHOP with CNS prophylaxis, after brain MRI and CSF examination 〔EHA I, B〕 〔BSH 1B〕
+    ・High-dose methotrexate and intrathecal chemotherapy with R-CHOP 〔JSH〕
+    ・CNS disease at diagnosis: an intensive CNS-directed protocol 〔BSH 1B〕
+
+band: CAR-T and bispecific antibodies
+  ① CD19 expression at relapse after CD19-directed treatment 〔BSH-RR 2B〕 〔NCCN〕
+  ② Holding therapy before apheresis and bridging after it: ISRT, corticosteroids, or one cycle of R-GDP 〔BSH-RR 2B〕
+    ・Polatuzumab vedotin with bendamustine and rituximab after apheresis only 〔BSH-RR 2B〕 〔NCCN〕
+    ・Need and choice by tumour burden, distribution and rate of progression, and by fitness and prior treatment 〔BSH-RR 1C〕
+  ③ Glofitamab is given for a fixed 12 cycles and epcoritamab until progression 〔BSH-RR〕 〔NCCN〕
+  ④ Chemosensitive relapse after second-line CAR-T: high-dose therapy with ASCT is an option 〔BSH-RR 2C〕
+  ° Toxicity of note: cytokine release syndrome, neurotoxicity and prolonged cytopenia with CAR-T, and cytokine release syndrome with bispecific antibodies
+
+course: Large B-cell lymphoma
+  Newly diagnosed large B-cell lymphoma
+    First-line treatment is chosen by stage, IPI, age and fitness, and MYC and BCL2 rearrangement
+    ※ Transformation of an untreated or minimally treated indolent lymphoma is treated as de novo large B-cell lymphoma 〔EHA〕 〔NCCN 2A〕
+    ※ HGBL with MYC and BCL6 rearrangement without BCL2 is managed as DLBCL 〔NCCN〕
+      ・Classified as HGBL under WHO 2017 〔JSH-BL〕
+    next: Stage I–II
+    next: Stage III–IV
+    next: Age 80 or over, frail or cardiac disease
+    next: HGBL with MYC and BCL2 rearrangement
+  Stage I–II
+    branch: LIM
+    ① Age 60 or under, age-adjusted IPI 0, no bulk: four cycles of R-CHOP-21, then two doses of rituximab 〔JSH 1〕 〔ESMO I, A〕 〔BSH 1A〕
+      ・Four cycles without further rituximab, for every patient under 80 with no risk factor 〔EHA I, B〕
+      ・Age 60 to 80 without risk factors 〔ESMO V, B〕
+    ~ FLYER
+    ② PET-adapted treatment: four cycles in total when interim PET shows a complete metabolic response
+      ・Age 61 to 80, age-adjusted IPI 0, no bulk, PET after two cycles 〔BSH 1A〕
+      ・Age-adjusted IPI 0 with bulk, PET after two cycles 〔ESMO I, B〕
+      ・No bulk and stage-modified IPI 0 to 1, PET after three cycles, then one further cycle or ISRT 〔NCCN 2A〕
+      ・Four cycles may be sufficient when PET is negative after three or four cycles 〔JSH〕
+      ・Deauville score 4 or 5: six cycles in total, then ISRT 30 Gy 〔ESMO III, B〕 〔BSH 1B〕
+    ~ SWOG S1001
+    ③ One or more risk factors, or bulk: six cycles of R-CHOP-21 〔JSH 1〕 〔ESMO I, B〕 〔EHA I, A〕 〔NCCN 2A〕
+      ・IPI 0 to 1, when the risk of radiotherapy outweighs two or three more cycles 〔BSH 2B〕
+    + MInT
+    ④ IPI 2 or more: six cycles of polatuzumab vedotin with R-CHP 〔JSH 1〕 〔ESMO I, B〕 〔BSH 1B〕 〔NCCN 1〕
+      ・An option without a grade 〔EHA〕
+      ・Stage I–II made up 11% of patients in POLARIX
+    ~ POLARIX
+    ⑤ Three or four cycles of R-CHOP, then ISRT 30 Gy 〔JSH 2A〕 〔ESMO III, B〕 〔BSH 2B〕
+      ・Not recommended for bulky disease 〔JSH〕
+    - SWOG S8736 {pmid 27382104}
+    next: Consolidation and end of treatment
+  Stage III–IV
+    branch: ADV
+    ① IPI 1: six cycles of R-CHOP-21 〔JSH 1〕 〔ESMO I, A〕 〔EHA I, A〕 〔BSH 1A〕 〔NCCN 1, preferred〕
+      ・Six to eight cycles 〔JSH〕
+    + GELA LNH98-5
+    + RICOVER-60
+    ② IPI 2 to 5: six cycles of polatuzumab vedotin with R-CHP 〔JSH 1〕 〔ESMO I, A〕 〔EHA I, B〕 〔BSH 1A〕 〔NCCN 1, preferred〕
+      ・Age 18 to 80, followed by two doses of rituximab 〔JSH〕
+      ・R-CHOP-21 remains an alternative 〔EHA I, A〕 〔BSH 2A〕 〔NCCN 1, preferred〕
+    ~ POLARIX
+    ③ Age 50 or under, good performance status and IPI 3 or more, particularly with high CNS risk: a more dose-intense regimen such as R-CODOX-M/R-IVAC or R-CHOEP is an option 〔ESMO III, B〕
+      ・R-CODOX-M/R-IVAC only 〔BSH 2B〕
+      ・Under 60 and fit with high CNS risk: an intensive regimen containing high-dose methotrexate, such as R-CHOEP, R-CODOX-M/R-IVAC or R-ACVBP 〔EHA III, B〕
+    ※ IPI 3 to 5 or age-adjusted IPI 2 to 3: tafasitamab and lenalidomide with R-CHOP 〔ESMO I, A〕
+      ・No EU or US licence in first line
+      ・Not in JSH, EHA, BSH or NCCN
+      ~ frontMIND
+    ※ R-CHOP-14 was not superior to R-CHOP-21 〔EHA〕 〔BSH〕 〔NCCN〕
+      - R-CHOP-14 v 21 [t-r-chop-14-v-21]
+    ※ DA-EPOCH-R was more toxic than R-CHOP and not superior in unselected DLBCL 〔JSH〕 〔BSH〕
+      ・Listed as an alternative regimen 〔NCCN 2A, other recommended〕
+      - Alliance/CALGB 50303 [t-alliance-calgb-50303]
+    ※ Obinutuzumab in place of rituximab did not improve survival 〔JSH〕
+      - GOYA
+    ※ Bortezomib, ibrutinib or lenalidomide added to R-CHOP did not improve survival 〔JSH〕 〔EHA〕
+      - REMoDL-B
+      - PHOENIX
+      - ROBUST
+    ※ China only: tucidinostat with R-CHOP improved event-free survival in MYC and BCL2 double-expressor DLBCL
+      ・Tucidinostat has no EU or US licence
+      ・Not cited by any guideline read
+      ~ DEB
+    next: Consolidation and end of treatment
+  Age 80 or over, frail or cardiac disease
+    branch: OLD
+    ① Geriatric or frailty assessment before treatment 〔ESMO V, B〕 〔EHA II, B〕 〔BSH 2B〕
+    ② Age 80 or over and fit: six cycles of R-miniCHOP 〔JSH 2A〕 〔ESMO III, B〕 〔EHA I, B〕 〔BSH 1A〕 〔NCCN 2A, other recommended〕
+      ・Cyclophosphamide 400 mg/m², doxorubicin 25 mg/m² and vincristine 1 mg 〔EHA〕 〔BSH〕
+      ・Full-dose R-CHOP for the very fit 〔ESMO IV, C〕
+      ・Under 80 and fit: standard treatment as for younger patients 〔JSH 1〕
+      ・Under 80 with comorbidity: R-CHOP at 50% or 75% dose 〔BSH 2B〕
+    ~ LYSA LNH03-7B
+    ③ Performance status impaired by lymphoma: corticosteroid pre-phase before the first cycle 〔ESMO III, B〕 〔EHA I, B〕 〔BSH 1B〕
+      ・With vincristine 1 mg 〔EHA II, B〕 〔BSH 2B〕
+      ・Dose reduction in the first cycle 〔ESMO〕 〔BSH 2B〕
+    ④ Cardiac disease unsuitable for anthracycline: R-CEOP or R-GCVP in place of R-CHOP 〔ESMO III, B〕 〔EHA III, B〕 〔BSH 1B〕 〔NCCN 2A, other recommended〕
+      ・LVEF below 50% or heart failure 〔EHA〕
+      ・Doxorubicin reduced, omitted or given by continuous infusion 〔JSH 2A〕
+      ・Liposomal doxorubicin in place of doxorubicin 〔ESMO III, B〕 〔EHA III, B〕 〔NCCN 2A, other recommended〕
+      ・Alternative anthracyclines and bendamustine gave disappointing results 〔BSH〕
+      ・R-GemOx 〔EHA III, B〕
+      ・First-line bendamustine, and liposomal doxorubicin and oxaliplatin for lymphoma, are not covered by Japanese insurance 〔JSH〕
+    ※ Unfit for R-miniCHOP: palliative regimens 〔BSH 2B〕
+    next: Consolidation and end of treatment
+  HGBL with MYC and BCL2 rearrangement
+    branch: HG
+    ① Younger, fit patients: DA-EPOCH-R or R-CODOX-M/R-IVAC 〔JSH-BL 2A〕 〔ESMO IV, B〕 〔EHA III, B〕 〔NCCN 2A〕
+      ・DA-EPOCH-R may be preferred 〔NCCN〕
+      ・No accepted standard of care 〔BSH〕
+      ・Intensive treatment only for selected younger patients whose MYC partner is an immunoglobulin gene 〔BSH 2B〕
+    ~ Dunleavy 2018 {pmid 30501868}
+    ② Six cycles of R-CHOP-21 or R-CHOP-14 〔BSH 2B〕
+      ・Only for patients unfit for an intensive regimen 〔EHA I, A〕
+      ・Suboptimal, considered when IPI is below 2 〔NCCN 2A〕
+      ・Polatuzumab vedotin with R-CHP for IPI 2 to 5 〔BSH 2B〕
+      ・Polatuzumab vedotin with R-CHP was not superior to R-CHOP in this subgroup 〔EHA I, B〕
+    ③ Stage I–II: the same treatment as large B-cell lymphoma of the same stage 〔EHA III, B〕
+      ・R-CHOP gives good outcomes, with little benefit from intensive treatment 〔JSH-BL〕
+    ※ ASCT in first remission is not recommended 〔EHA IV, B〕 〔BSH 1B〕 〔JSH-BL〕
+    ※ CNS prophylaxis is considered in selected patients 〔EHA〕
+    ※ Localised disease: consolidative ISRT 〔NCCN 2A, preferred〕
+    ※ HGBL not otherwise specified: intensive regimens as used for Burkitt lymphoma 〔JSH-BL 2A〕 〔NCCN 2A〕
+      ・Polatuzumab vedotin with R-CHP 〔NCCN 2B〕
+    next: Consolidation and end of treatment
+  Consolidation and end of treatment
+    ① End-of-treatment PET-CT, reported by Deauville score 〔ESMO V, B〕 〔EHA III, A〕 〔BSH 1B〕 〔NCCN 2A〕
+      ・CT is usually sufficient after a complete metabolic response on interim PET 〔BSH 2B〕
+      ・Omission of end-of-treatment PET is optional 〔EHA III, B〕
+    ② Residual FDG uptake: biopsy before further treatment 〔ESMO IV, B〕 〔EHA III, A〕 〔BSH 1A〕 〔NCCN 2A〕
+      ・Repeat PET after 8 to 12 weeks when biopsy is not possible 〔EHA III, A〕 〔BSH 1B〕
+      ・ctDNA testing when biopsy is not feasible 〔NCCN 2B〕
+    ③ Stage I–II with a complete metabolic response after six cycles of full-dose chemoimmunotherapy: radiotherapy is generally not indicated 〔EHA I, A〕
+      ・Age 18 to 60, age-adjusted IPI 0, no bulk, after four cycles of R-CHOP and two doses of rituximab 〔BSH 1A〕
+      ・ISRT is an option after interim PET with Deauville score 1 to 3 〔NCCN 2A〕
+    ~ LYSA/GOELAMS 02-03 {pmid 29061568}
+    ④ ISRT to a site of initial bulk or a single residual PET-positive site is an option 〔ESMO II, B〕 〔EHA II, B〕 〔BSH 2B〕 〔NCCN 2A〕
+      ・Bulk of 7 cm or more, or residual FDG-avid disease when biopsy is not feasible 〔ESMO〕
+      ・A single PET-positive residual site 〔EHA〕
+      ・Bulk of 7.5 cm or more in older patients 〔JSH〕
+      ・Initially bulky sites in stage I–II 〔NCCN 2B〕
+      ・30 Gy in 15 fractions 〔EHA〕 〔BSH〕
+      ・20 Gy after complete response, 36 to 50 Gy for partial response 〔NCCN〕
+      ・Radiotherapy starts 6 to 8 weeks after chemotherapy 〔BSH 1B〕
+    ※ ASCT in first remission is not recommended outside a trial 〔JSH〕 〔EHA〕 〔BSH〕 〔NCCN〕
+      ・Event-free survival may improve, with no overall survival benefit 〔BSH〕
+      ~ SWOG 9704
+    ※ Maintenance treatment after first-line therapy gave no survival gain 〔JSH〕
+    ※ Routine surveillance imaging in remission is not recommended 〔ESMO III, D〕 〔EHA III, B〕
+      ・CT no more often than every 6 months for 2 years 〔NCCN 2A〕
+    next: Relapsed or refractory disease | Relapse
+  Relapsed or refractory disease
+    ① Repeat biopsy at each relapse 〔ESMO V, B〕 〔EHA III, B〕 〔BSH-RR 1B〕
+      ・CD20 expression assessed before each line, including before a bispecific antibody 〔BSH-RR〕 〔NCCN〕
+    ② Early relapse: refractory disease, or relapse within 12 months of completing first-line treatment 〔ESMO〕 〔EHA〕 〔BSH-RR〕 〔NCCN〕
+      ・Within 1 year of complete response 〔JSH〕
+    ③ Second-line treatment is chosen by time to relapse and by fitness for CAR-T and for high-dose therapy with ASCT, assessed in every patient 〔BSH-RR 1A〕
+    next: Refractory or relapse within 12 months
+    next: Relapse after 12 months, fit for transplant
+    next: Unsuitable for transplant
+  Refractory or relapse within 12 months
+    branch: CART
+    ① Fit for CAR-T: axicabtagene ciloleucel or lisocabtagene maraleucel 〔JSH 1〕 〔ESMO I, A〕 〔EHA I, A〕 〔BSH-RR 1A〕 〔NCCN 1〕
+      ・Including patients unsuitable for transplant 〔BSH-RR〕
+    + ZUMA-7
+    ~ TRANSFORM
+    ~ ALYCANTE
+    ② Unfit for CAR-T: treatment as for patients unsuitable for transplant 〔ESMO〕 〔EHA〕 〔BSH-RR〕
+    ※ Tisagenlecleucel was not superior to salvage chemotherapy and ASCT in second line 〔JSH〕 〔EHA〕 〔BSH-RR〕
+      - BELINDA
+    next: Third line and later | Progression
+  Relapse after 12 months, fit for transplant
+    branch: ASCT
+    ① Platinum-based salvage with rituximab: R-DHAP, R-ICE or R-GDP 〔ESMO I, B〕 〔EHA I, B〕 〔BSH-RR 1A〕 〔NCCN 2A, preferred〕
+      ・ESHAP, CHASE, DA-EPOCH, MINE or GDP, with rituximab, in no order 〔JSH〕
+    ~ HOVON 44
+    - CORAL
+    ~ NCIC-CTG LY.12
+    ② Complete metabolic response to salvage: high-dose therapy with ASCT 〔ESMO IV, B〕 〔EHA I, B〕 〔BSH-RR 1A〕 〔NCCN 1〕
+      ・Partial response with Deauville score 4 〔ESMO〕, with low disease burden 〔BSH-RR 2B〕
+      ・Very good partial response 〔EHA〕
+      ・Complete or partial response 〔JSH 1〕
+      ・Partial response: CAR-T or high-dose therapy with ASCT 〔NCCN 2A〕
+    + PARMA
+    ③ Inadequate response to salvage: third-line treatment 〔BSH-RR 1A〕
+      ・Deauville score 5 partial response, stable or progressive disease: CAR-T 〔ESMO III, A〕
+    ※ Allogeneic transplant when stem-cell mobilisation fails or the marrow is involved, in complete response 〔NCCN 2A〕
+    next: Third line and later | Progression
+  Unsuitable for transplant
+    branch: NOT
+    ① Glofitamab with gemcitabine and oxaliplatin 〔ESMO I, A〕 〔EHA I, A〕 〔BSH-RR 1A〕 〔NCCN 2A, preferred〕
+      ・Lowered from category 1 for regional inconsistency in STARGLO, which enrolled mostly patients from Asia 〔NCCN〕
+      ・EU licence, with no US licence 〔ESMO〕 〔NCCN〕
+      ・Not in JSH
+    + STARGLO
+    ② Polatuzumab vedotin with bendamustine and rituximab 〔ESMO II, B〕 〔EHA III, B〕 〔BSH-RR 2B〕 〔NCCN 2A, preferred〕 〔JSH〕
+      ・Polatuzumab-naive patients 〔ESMO〕 〔BSH-RR〕
+      ・Bendamustine may impair later CAR-T or bispecific antibody treatment 〔ESMO〕 〔EHA〕 〔BSH-RR〕
+    ~ GO29365
+    ③ Tafasitamab with lenalidomide 〔ESMO III, B〕 〔EHA III, C〕 〔BSH-RR 2B〕 〔NCCN 2A, preferred〕
+      ・Late relapse 〔ESMO〕, or disease that is not primary refractory 〔EHA〕 〔NCCN〕
+      ・Caution before CD19 CAR-T 〔BSH-RR〕
+    ~ L-MIND
+    ④ R-GemOx 〔ESMO III, C〕 〔EHA III, B〕 〔BSH-RR 2B〕 〔NCCN 2A, other recommended〕 〔JSH〕
+    ⑤ Epcoritamab with gemcitabine and oxaliplatin 〔EHA III, C〕 〔NCCN 2A, preferred〕
+      ・Where approved and reimbursed 〔EHA〕
+    ~ EPCORE NHL-2 {pmid 39792928}
+    ⑥ Bendamustine with rituximab 〔JSH〕
+      ・Not in ESMO, EHA, BSH or NCCN
+    ※ Relapse after 12 months, fit for CAR-T: lisocabtagene maraleucel 〔NCCN 2A, preferred〕
+      ・Second-line CAR-T only for relapse within 12 months 〔ESMO〕 〔EHA〕 〔BSH-RR〕
+      ~ PILOT
+    ※ Polatuzumab vedotin with R-GemOx 〔NCCN 2A, preferred〕
+      ・An option once approved, without a grade 〔EHA〕
+      + POLARGO
+    ※ Mosunetuzumab with polatuzumab vedotin 〔NCCN 2A, preferred〕
+      ~ SUNMO
+    ※ Glofitamab with polatuzumab vedotin 〔NCCN 2B, preferred〕
+      ~ Hutchings 2025 {pmid 41115257}
+    next: Third line and later | Progression
+  Third line and later
+    branch: TL
+    ① No prior CAR-T: axicabtagene ciloleucel, lisocabtagene maraleucel or tisagenlecleucel 〔JSH〕 〔ESMO III, A〕 〔EHA III, A〕 〔BSH-RR 1B〕 〔NCCN 2A, preferred〕
+    ~ ZUMA-1
+    ~ JULIET
+    ~ TRANSCEND NHL 001
+    ② Glofitamab or epcoritamab 〔ESMO III, A〕 〔BSH-RR 1B〕 〔NCCN 2A, preferred〕
+      ・After CAR-T 〔EHA III, C〕
+      ・Preferred when CAR-T is unsuitable 〔ESMO〕
+      ・Not in JSH
+    ~ NP30179
+    ~ EPCORE NHL-1
+    ③ Odronextamab 〔ESMO III, A〕 〔EHA III, C〕
+      ・EU licence, with no US licence
+      ・Not in NCCN or JSH
+    ~ ELM-2
+    ④ A second-line regimen not used before 〔NCCN 2A〕
+      ・Glofitamab with gemcitabine and oxaliplatin 〔ESMO I, A〕
+      ・Polatuzumab vedotin with bendamustine and rituximab 〔ESMO II, B〕 〔EHA III, B〕 〔BSH-RR 2B〕
+      ・Tafasitamab with lenalidomide, also after CAR-T 〔ESMO III, B〕 〔EHA III, C〕 〔BSH-RR 2B〕
+    ⑤ Loncastuximab tesirine 〔ESMO III, B〕 〔EHA III, C〕 〔BSH-RR 2B〕 〔NCCN 2A, other recommended〕
+    ~ LOTIS-2
+    ⑥ Relapse after CAR-T, in remission, young and fit: allogeneic transplant 〔ESMO IV, B〕 〔BSH-RR 2C〕 〔NCCN 2A〕
+      ・Refractory disease or relapse after ASCT 〔JSH 2B〕
+      ・Only within a clinical trial 〔JSH〕
+    ※ Brentuximab vedotin with lenalidomide and rituximab 〔NCCN 2A, other recommended〕
+      ・The trial is described without a recommendation 〔BSH-RR〕
+      + ECHELON-3
+    ※ Selinexor 〔NCCN 2A, other recommended〕
+    ※ Transformed indolent lymphoma after two or more lines: the same options, with CAR-T after a prior anthracycline 〔NCCN 2A〕
+      ・High-dose therapy with ASCT is not recommended after CD19 CAR-T 〔NCCN〕
+    ※ Palliative radiotherapy 〔BSH-RR 2B〕 and palliative care 〔ESMO V, B〕 〔BSH-RR 1C〕
+
+panel: Primary mediastinal B-cell lymphoma
+  ① Six cycles of DA-EPOCH-R or of R-CHOP-14 〔EHA I, A〕 〔BSH-PM 1B〕 〔NCCN 2A〕
+    ・DA-EPOCH-R 〔JSH〕
+    ・R-CHOP-21 is not recommended 〔EHA II, A〕 〔BSH-PM 1B〕
+    ・Six cycles of R-CHOP-21, then ISRT 30 to 36 Gy or surveillance 〔NCCN 2A〕
+  ~ Dunleavy 2013 [t-dunleavy-et-al]
+  ② End-of-treatment PET with Deauville score 1 to 3: no radiotherapy 〔EHA I, A〕 〔BSH-PM 1A〕 〔NCCN 2A〕
+    ・After R-CHOP with a negative PET, the need for radiotherapy remains inconclusive 〔JSH〕
+    ・The non-inferiority margin of IELSG37 was not met, with equal overall survival 〔NCCN〕
+  ~ IELSG37 {pmid 39159403}
+  ③ Deauville score 4: biopsy, then radiotherapy or observation by multidisciplinary decision 〔EHA II, B〕 〔BSH-PM 1B〕 〔NCCN 2A〕
+    ・Negative biopsy: ISRT 〔NCCN 2A〕
+  ④ Deauville score 5: second-line systemic treatment 〔EHA I, B〕 〔BSH-PM 1B〕 〔NCCN 2A〕
+    ・Radiotherapy alone for limited disease 〔BSH-PM 2B〕
+  ⑤ Relapse: treatment as for relapsed large B-cell lymphoma 〔NCCN 2A〕
+    ・Relapse within 12 months: lisocabtagene maraleucel 〔BSH-PM 1C〕
+    ・Axicabtagene ciloleucel is not approved in second line for PMBCL, which ZUMA-7 excluded 〔BSH-PM〕
+    ・Third line and later: axicabtagene ciloleucel or lisocabtagene maraleucel 〔BSH-PM 1C〕
+  ⑥ Progression after CAR-T or ASCT: a PD-1 inhibitor with brentuximab vedotin 〔BSH-PM 2C〕
+    ・Nivolumab with brentuximab vedotin 〔NCCN 2B〕
+    ・Not licensed in the UK 〔BSH-PM〕
+  ~ CheckMate 436 {pmid 31398081}
+  ※ Relapsed or refractory disease: pembrolizumab 〔NCCN 2A〕
+    ・No recommendation on pembrolizumab alone 〔BSH-PM〕
+    ~ KEYNOTE-170 {pmid 31609651}
+  ※ No data support a change of treatment based on interim PET 〔BSH-PM 2B〕
+  ※ Thromboprophylaxis during first-line treatment 〔BSH-PM 1C〕
+  ※ Three cycles of ICE after four cycles of R-CHOP-14 〔NCCN 2B〕
+
+panel: Primary CNS lymphoma
+  ① Stereotactic biopsy 〔EHA-ESMO IV, A〕 〔NCCN 2A〕
+    ・Corticosteroids before biopsy are avoided whenever clinically possible 〔EHA-ESMO IV, D〕 〔NCCN〕
+    ・Resection is not recommended 〔EHA-ESMO IV, D〕
+  ② Slit-lamp examination, CSF cytology with flow cytometry, and PET-CT in every patient 〔NCCN 2A〕
+    ・Slit-lamp examination 〔ESMO V, A〕 〔EHA-ESMO IV, A〕
+    ・CSF examination unless lumbar puncture is contraindicated 〔ESMO V, B〕 〔EHA-ESMO IV, B〕
+    ・PET-CT 〔ESMO V, A〕 〔EHA-ESMO V, B〕
+  ③ Induction with high-dose methotrexate, 3 g/m² or more, in a combination regimen 〔ESMO I, A〕 〔EHA-ESMO I, A〕 〔NCCN 2A〕 〔JSH〕
+    ・Infusion over 2 to 4 hours 〔ESMO〕, over 3 hours 〔EHA-ESMO〕
+    ・Suitable for ASCT: MATRix at age 70 or under, and R-MA over 70 〔ESMO I, A〕
+    ・MATRix at 65 or under with performance status 0 to 3, or at 70 or under with performance status 0 to 2 〔EHA-ESMO I, A〕
+    ・Unsuitable for ASCT: R-MPV, R-MBVP or R-MP 〔ESMO I, A〕
+    ・Unsuitable for ASCT: R-MP, MPV or MT 〔EHA-ESMO I, A〕
+    ・R-MPV or R-MT is preferred, with MATRix listed as other recommended 〔NCCN 2A〕
+    ・Methotrexate dose adjusted to renal function 〔ESMO III, A〕 〔EHA-ESMO III, A〕 〔NCCN 2A〕
+  ~ IELSG20 {pmid 19767089}
+  ~ IELSG32 {pmid 27132696}
+  ~ Morris 2013 [t-morris-et-al]
+  ④ The benefit of rituximab in induction is unclear 〔EHA-ESMO II, B〕
+    ・Part of every preferred regimen 〔NCCN 2A, preferred〕
+    ・No EU or US licence for primary CNS lymphoma 〔ESMO〕 〔EHA-ESMO〕
+  - HOVON 105 {pmid 30630772}
+  ⑤ Fit, with response or stable disease after induction: thiotepa-based high-dose chemotherapy with ASCT 〔ESMO I, A〕 〔EHA-ESMO I, A〕
+    ・Complete response 〔NCCN 2A, preferred〕
+    ・Selected older patients, with busulfan and thiotepa 〔EHA-ESMO〕
+    ・An alternative to whole-brain radiotherapy 〔JSH〕
+  + MATRix/IELSG43 [t-matrix-ielsg43]
+  ~ IELSG32 consolidation {pmid 29054815}
+  ~ PRECIS {pmid 30785830}
+  ⑥ Young patients unsuitable for ASCT: whole-brain radiotherapy 36 to 40 Gy 〔EHA-ESMO I, A〕
+    ・Under 60 with a partial response 〔ESMO III, B〕
+    ・Avoided or deferred at this dose in older patients 〔ESMO I, D〕 〔EHA-ESMO I, D〕
+  - G-PCNSL-SG-1 {pmid 20970380}
+  ⑦ Unsuitable for ASCT, complete response: observation 〔ESMO II, B〕 〔EHA-ESMO II, B〕
+  ⑧ Whole-brain radiotherapy 23.4 Gy after response to induction 〔ESMO III, B〕 〔EHA-ESMO III, B〕 〔NCCN 2A〕
+    ・After complete response 〔ESMO〕 〔NCCN〕
+    ・Age over 60 〔ESMO〕
+  ⑨ Relapse, fit: high-dose ifosfamide or high-dose cytarabine regimen, then ASCT or whole-brain radiotherapy 〔ESMO III, B〕 〔EHA-ESMO III, B〕 〔NCCN 2B〕
+    ・Late relapse: high-dose methotrexate again 〔ESMO IV, B〕 〔EHA-ESMO IV, B〕
+    ・After a response lasting 12 months or more 〔NCCN 2A〕
+  ⑩ Relapse, unfit: a BTK inhibitor, lenalidomide or temozolomide 〔JSH〕 〔ESMO III, B〕 〔EHA-ESMO III, B〕 〔NCCN 2A, other recommended〕
+    ・Ibrutinib, lenalidomide and temozolomide have no EU or US licence for primary CNS lymphoma 〔EHA-ESMO〕
+    ・CAR-T 〔ESMO III, B〕
+    ・Axicabtagene ciloleucel 〔NCCN 2A, other recommended〕, tisagenlecleucel 〔NCCN 2B, other recommended〕
+    ・CAR-T is investigational 〔EHA-ESMO〕
+  ⑪ HIV-associated secondary CNS lymphoma: three cycles of MATRix, three of R-ICE, then carmustine and thiotepa with ASCT, or CAR-T 〔EHA-ESMO-HIV II, B〕
+    ・MARIETTA excluded people with HIV 〔EHA-ESMO-HIV〕
+  ~ MARIETTA
+  ※ Secondary CNS involvement at diagnosis: high-dose methotrexate 3 g/m² or more with R-CHOP, on day 15 of a 21-day cycle 〔NCCN 2A〕
+  ※ Intrathecal chemotherapy is not recommended in routine practice 〔ESMO III, D〕 〔EHA-ESMO III, D〕
+    ・CSF dissemination without methotrexate 3 g/m² or more, or CSF disease persisting at the end of first-line treatment 〔ESMO III, B〕
+    ・Positive CSF or spinal MRI, especially when high-dose methotrexate is not tolerated 〔NCCN 2B〕
+  ※ Maintenance with temozolomide or procarbazine is an option without ASCT or radiotherapy 〔ESMO IV, C〕 〔EHA-ESMO IV, C〕
+    ・Lenalidomide 〔EHA-ESMO〕
+    ・Monthly maintenance with high-dose methotrexate, rituximab or temozolomide 〔NCCN 2A, useful in certain circumstances〕
+    ・Temozolomide with whole-brain radiotherapy and as maintenance did not improve survival 〔EHA-ESMO〕
+    - JCOG1114C {pmid 36334050}
+  ※ Methotrexate 8 g/m² with rituximab, with or without temozolomide 〔NCCN 2A, preferred〕
+  ※ Consolidation with etoposide and cytarabine without stem-cell support 〔NCCN 2A, preferred〕
+    ・Experimental 〔EHA-ESMO〕
+
+panel: Burkitt lymphoma
+  ① Tumour lysis prophylaxis with hydration and rasburicase 〔JSH-BL 2A〕 〔NCCN 2A〕
+  ② CSF cytology and flow cytometry in every patient 〔JSH-BL 2B〕 〔EHA-ESMO-HIV III, B〕 〔NCCN 2A〕
+    ・With one baseline dose of intrathecal methotrexate 〔EHA-ESMO-HIV〕
+  ③ An intensive regimen: DA-EPOCH-R, modified CODOX-M/IVAC with rituximab, or R-hyper-CVAD/MA 〔JSH-BL 2A〕 〔NCCN 2A〕
+  ~ NCI 89-C-41
+  ④ Low risk: DA-EPOCH-R adapted to interim PET, or three cycles of R-CODOX-M 〔EHA-ESMO-HIV III, A〕 〔NCCN 2A〕
+    ・Normal LDH with stage I and a single mass under 10 cm, or a completely resected abdominal lesion 〔NCCN〕
+    ・Low or intermediate BL-IPI with low-risk features 〔EHA-ESMO-HIV〕
+    ・DA-EPOCH-R for two cycles, then PET, with three cycles in total when PET is negative 〔EHA-ESMO-HIV〕 〔NCCN〕
+  ~ Roschewski 2020 {pmid 32453640}
+  ⑤ High risk: R-CODOX-M/R-IVAC, or six cycles of DA-EPOCH-R with intrathecal methotrexate 〔EHA-ESMO-HIV III, A〕 〔NCCN 2A〕
+    ・R-CODOX-M/R-IVAC is preferred for a high BL-IPI 〔EHA-ESMO-HIV III, A〕
+    ・DA-EPOCH-R when aggressive treatment is not tolerated, and at age 60 or over 〔NCCN 2A〕
+    ・DA-EPOCH-R had fewer side effects than R-CODOX-M/R-IVAC in a randomised trial that closed early 〔NCCN〕
+  ~ HOVON/SAKK 127
+  ⑥ CNS involvement: a regimen containing high-dose methotrexate 〔JSH-BL 2B〕
+    ・DA-EPOCH-R is not recommended with CNS involvement 〔JSH-BL〕 〔EHA-ESMO-HIV〕
+    ・Intrathecal methotrexate weekly until CSF clears 〔EHA-ESMO-HIV III, B〕
+    ・Intrathecal methotrexate twice weekly for 4 weeks, weekly for 6 weeks, then monthly for 6 months 〔NCCN〕
+  ⑦ No CNS involvement, with DA-EPOCH-R: intrathecal methotrexate, eight doses in total 〔JSH-BL 2B〕
+  ⑧ LMB, BFM or GMALL protocols with rituximab 〔EHA-ESMO-HIV III, B〕 〔JSH-BL〕
+    ・Rituximab is licensed in the EU and US for Burkitt lymphoma in children, not in adults
+  + Ribrag 2016 [t-ribrag-et-al]
+  ⑨ Relapse: salvage chemotherapy, then autologous or allogeneic transplant in responders 〔JSH-BL 2A〕 〔EHA-ESMO-HIV IV, C〕 〔NCCN 2A〕
+  ※ CHOP is not adequate treatment 〔NCCN〕
+    ・One cycle to stabilise before an intensive regimen 〔JSH-BL〕 〔EHA-ESMO-HIV III, C〕
+  ※ No routine imaging after 2 years of follow-up 〔JSH-BL 2B〕
+
+off:
+  Lewis et al. | Retrospective cohort. The finding stays as plain text in the CNS prophylaxis band
+  Wilson et al. | Retrospective cohort. The finding stays as plain text in the CNS prophylaxis band
+  Alizadeh et al. | Observational gene-expression study. Cell of origin stays as plain text in the staging band
+  SCHOLAR-1 | Retrospective pooled cohort, the historical comparator for third-line CAR-T
+  RE-MIND2 | Retrospective cohort, non-randomised with L-MIND cited for the option
