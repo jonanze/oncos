@@ -50,7 +50,7 @@ function implausible(s, t, n, m, q) {
   if (s.id === 'breast' && t === 'T0' && n === 'N1mi') return true;
   if ((s.setting === 'p' || s.setting === 'yp') && (t === 'T4b' || m1)) return true;
   if (s.site === 'appendix' && q && q.hist === 'Non-mucinous' && m === 'M1a') return true;
-  if (s.site === 'merkel' && t === 'T0' && n !== 'N1b') return true;
+  if (s.site === 'merkel' && t === 'T0' && n !== 'N1b' && !(s.id === 'merkel-c' && n === 'N1')) return true;
   return false;
 }
 function buildSystem(s) {
@@ -287,33 +287,6 @@ const DESC = {
 };
 
 
-// ---------- pathological stage for melanoma and Merkel (AJCC 8th) ----------
-// The vignettes report sentinel node and dissection results, so these sites are practised on pathological groups.
-const MEL_T = ['Tis', 'T1a', 'T1b', 'T2a', 'T2b', 'T3a', 'T3b', 'T4a', 'T4b'];
-const PATHO = {
-  melanoma: {
-    edition: 'AJCC 8th ed. (pathological TNM)',
-    T: MEL_T, N: ['N0', 'N1a', 'N1b', 'N1c', 'N2a', 'N2b', 'N2c', 'N3a', 'N3b', 'N3c'], M: ['M0', 'M1a', 'M1b', 'M1c', 'M1d'],
-    rules: [
-      ['0', 'Tis', 'N0', 'M0'], ['IA', 'T1a..T1b', 'N0', 'M0'], ['IB', 'T2a', 'N0', 'M0'], ['IIA', 'T2b..T3a', 'N0', 'M0'],
-      ['IIB', 'T3b..T4a', 'N0', 'M0'], ['IIC', 'T4b', 'N0', 'M0'],
-      ['IIIA', 'T1a..T2a', 'N1a,N2a', 'M0'],
-      ['IIIB', 'T1a..T2a', 'N1b,N1c,N2b', 'M0'], ['IIIB', 'T2b..T3a', 'N1a..N2b', 'M0'],
-      ['IIIC', 'T1a..T3a', 'N2c..N3c', 'M0'], ['IIIC', 'T3b..T4a', 'N1a..N3c', 'M0'], ['IIIC', 'T4b', 'N1a..N2c', 'M0'],
-      ['IIID', 'T4b', 'N3a..N3c', 'M0'], ['IV', '*', '*', 'M1a..M1d']
-    ]
-  },
-  merkel: {
-    edition: 'AJCC 8th ed. (pathological TNM)',
-    T: ['T0', 'T1', 'T2', 'T3', 'T4'], N: ['N0', 'N1a(sn)', 'N1a', 'N1b', 'N2', 'N3'], M: ['M0', 'M1a', 'M1b', 'M1c'],
-    rules: [
-      ['I', 'T1', 'N0', 'M0'], ['IIA', 'T2..T3', 'N0', 'M0'], ['IIB', 'T4', 'N0', 'M0'],
-      ['IIIA', 'T1..T4', 'N1a(sn),N1a', 'M0'], ['IIIA', 'T0', 'N1b', 'M0'],
-      ['IIIB', 'T1..T4', 'N1b..N3', 'M0'], ['IV', '*', '*', 'M1a..M1c']
-    ]
-  }
-};
-
 // ---------- all sites from the Staging module ----------
 const HANDDESC = { lung: 'lung', colorectal: 'crc', breast: 'breast', 'oral-cavity': 'oral', esophageal: 'eso' };
 const SITES = [];
@@ -322,12 +295,15 @@ function uniq(a) { return a.filter((x, i) => a.indexOf(x) === i); }
 (G.DRILL_SITES || []).forEach(d => {
   const site = { id: d.id, label: d.label, section: d.section, data: d, systems: [] };
   if (d.hand) site.systems = d.hand;
-  if (d.auto) {
-    const a = PATHO[d.id] ? Object.assign({}, d.auto, PATHO[d.id]) : d.auto, inv = new Set((a.invalid || []).map(x => x.join('|')));
-    def({ id: d.id, site: d.id, label: d.label, short: d.label, edition: a.edition, T: a.T, N: a.N, M: a.M, Q: a.Q || undefined,
-      invalid: (t, n, m) => inv.has(t + '|' + n + '|' + m), rules: a.rules.map(r => r.length > 4 && r[4] ? r : r.slice(0, 4)), generic: true, note: d.drill_note || null, patho: !!PATHO[d.id] });
-    site.systems = [d.id];
-  }
+  // auto: the site's own grouping; more: further groupings of the same T/N/M (gastric cTNM,
+  // medullary and anaplastic thyroid, p16+ pTNM, melanoma and Merkel clinical groups), each its own system
+  [d.auto].concat(d.more || []).forEach((a, i) => {
+    if (!a) return;
+    const id = i ? a.id : d.id, inv = new Set((a.invalid || []).map(x => x.join('|')));
+    def({ id, site: d.id, label: a.label || d.label, short: a.label || d.label, edition: a.edition, T: a.T, N: a.N, M: a.M, Q: a.Q || undefined, w: a.w || 1,
+      invalid: (t, n, m) => inv.has(t + '|' + n + '|' + m), rules: a.rules.map(r => r.length > 4 && r[4] ? r : r.slice(0, 4)), generic: true, note: i ? null : d.drill_note || null });
+    site.systems.push(id);
+  });
   SITES.push(site);
   // category items
   const r = d.raw;
@@ -731,8 +707,8 @@ function genVignette(target) {
   const ctx = { side: pick(['left', 'right']) };
   // an override replaces the intro, nodes or distant text for some cells (unresectable or metastatic disease, in situ)
   const ov = (b.over || []).find(o => o.when(target)) || {};
-  const nb = Object.assign({}, b.N || {}, ov.N || {}), mb = Object.assign({}, b.M || {}, ov.M || {});
-  const tS = b.T[target.t] || null;
+  const nb = Object.assign({}, b.N || {}, ov.N || {}), mb = Object.assign({}, b.M || {}, ov.M || {}), tb = Object.assign({}, b.T || {}, ov.T || {});
+  const tS = tb[target.t] || null;
   const nS = nb[target.n] || (target.n === 'N0' ? VBK.N0 : null), mS = mb[target.m] || (target.m === 'M0' ? VBK.M0 : /^M1/.test(target.m) ? VBK.M1 : null);
   // choose findings first, then fix sex from them, then the intro
   let tAlt = tS ? pick(alts(tS, b.sex || null)) : null;
@@ -746,7 +722,7 @@ function genVignette(target) {
   if (target.t === 'T0') intros = intros.filter(x => /neck lump|node/i.test(x));
   if (!intros.length) intros = alts(ov.intro || b.intro, sex);
   const intro = fillText(pick(intros), ctx);
-  const ar = AGE[site.id] || [38, 82];
+  const ar = ov.age || AGE[site.id] || [38, 82];
   let age = target.q && target.q.age ? (target.q.age === '<55' ? ri(22, 54) : ri(55, 84)) : ri(ar[0], ar[1]);
   if (/chondrosarcoma/i.test(intro)) age = ri(35, 75);
   const parts = [person(age, sex) + ' ' + intro];
@@ -827,6 +803,54 @@ function makeVsCase(siteId, fixAns) {
   const txt = [person(ri(ar[0], ar[1]), sex) + ' ' + fillText(pick(alts(v.intro, sex)), ctx), fillText(pick(alts(v.S[ans], sex)), ctx)].map(sent).join(' ');
   return { site: siteId, title: v.title, text: txt, cat: ans, opts: keys };
 }
+// ---------- GTN: modified WHO prognostic score (FIGO 2000) ----------
+// Each case draws the eight factors and asks the risk group. 6 or less is low risk, 7 or more high risk,
+// 13 or more ultra-high risk.
+const GTN_GROUPS = ['Low risk', 'High risk', 'Ultra-high risk'];
+const GTN_DEFS = { 'Low risk': 'WHO score 0–6', 'High risk': 'WHO score 7–12', 'Ultra-high risk': 'WHO score 13 or more' };
+function gtnGroup(s) { return s >= 13 ? GTN_GROUPS[2] : s >= 7 ? GTN_GROUPS[1] : GTN_GROUPS[0]; }
+function fmtInt(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function gtnDraw() {
+  const age = chance(0.7) ? ri(19, 39) : ri(40, 52);
+  const ante = pick([['mole', 0, 'evacuation of a complete molar pregnancy'], ['mole', 0, 'evacuation of a partial molar pregnancy'], ['abortion', 1, 'a miscarriage'], ['term', 2, 'a term delivery']]);
+  const months = ante[1] === 0 ? pick([ri(1, 3), ri(1, 3), ri(4, 6), ri(7, 12)]) : pick([ri(2, 3), ri(4, 6), ri(7, 12), ri(13, 30)]);
+  const hcg = pick([ri(2, 9) * 100 + ri(1, 9) * 10, ri(1, 9) * 1000 + ri(1, 9) * 100, ri(10, 99) * 1000 + ri(1, 9) * 100, ri(100, 600) * 1000 + ri(1, 9) * 100]);
+  const size = pick([0, inRange(1, 2.9), inRange(3, 4.9), inRange(5, 8)]);
+  const metSites = pick([[], ['lung'], ['lung'], ['lung'], ['spleen'], ['kidney'], ['lung', 'bowel'], ['liver'], ['lung', 'brain'], ['lung', 'liver']]);
+  // many deposits are counted in the lungs; other organs carry one or a few
+  const nMets = !metSites.length ? 0 : metSites.includes('lung') ? Math.max(metSites.length, pick([ri(1, 4), ri(1, 4), ri(5, 8), ri(9, 15)])) : metSites.length + ri(0, 2);
+  const prior = ante[1] === 0 && months <= 6 ? pick([0, 0, 0, 1, 2]) : pick([0, 0, 0, 0, 1, 2]);
+  const pts = {
+    age: age >= 40 ? 1 : 0, ante: ante[1], months: months >= 13 ? 4 : months >= 7 ? 2 : months >= 4 ? 1 : 0,
+    hcg: hcg >= 100000 ? 4 : hcg >= 10000 ? 2 : hcg >= 1000 ? 1 : 0, size: size >= 5 ? 2 : size >= 3 ? 1 : 0,
+    site: Math.max(0, ...metSites.map(s => ({ lung: 0, spleen: 1, kidney: 1, bowel: 2, liver: 4, brain: 4 })[s])),
+    n: nMets > 8 ? 4 : nMets >= 5 ? 2 : nMets >= 1 ? 1 : 0, prior: prior === 2 ? 4 : prior === 1 ? 2 : 0
+  };
+  const total = Object.values(pts).reduce((a, b) => a + b, 0);
+  return { age, ante, months, hcg, size, metSites, nMets, prior, pts, total };
+}
+const MET_TEXT = { lung: 'the lungs', spleen: 'the spleen', kidney: 'a kidney', bowel: 'the small bowel', liver: 'the liver', brain: 'the brain' };
+function makeGtnScore(want) {
+  let d = gtnDraw();
+  for (let g = 0; g < 2000 && want && gtnGroup(d.total) !== want; g++) d = gtnDraw();
+  const parts = [person(d.age, 'F') + ' has a rising hCG ' + d.months + ' month' + (d.months > 1 ? 's' : '') + ' after ' + d.ante[2],
+    'Pre-treatment serum hCG is ' + fmtInt(d.hcg) + ' IU/L',
+    d.size ? 'Pelvic ultrasound shows a ' + d.size.toFixed(1) + ' cm uterine mass' : 'Pelvic ultrasound shows no uterine mass'];
+  if (!d.metSites.length) parts.push('CT of the chest, abdomen and pelvis and brain MRI show no metastases');
+  else {
+    const where = d.metSites.map(s => MET_TEXT[s]).join(' and ');
+    parts.push('Staging shows ' + (d.nMets === 1 ? 'one metastasis, in ' : d.nMets + ' metastases, in ') + where);
+  }
+  parts.push(d.prior === 2 ? 'Disease progressed on methotrexate and then on actinomycin D' : d.prior === 1 ? 'Disease progressed on single-agent methotrexate' : 'She has had no chemotherapy');
+  const rows = [
+    ['Age', d.age + ' years · ' + d.pts.age], ['Antecedent', d.ante[0] + ' · ' + d.pts.ante], ['Interval', d.months + ' months · ' + d.pts.months],
+    ['hCG', fmtInt(d.hcg) + ' IU/L · ' + d.pts.hcg], ['Largest tumour', (d.size ? d.size.toFixed(1) + ' cm' : 'none') + ' · ' + d.pts.size],
+    ['Metastatic site', (d.metSites.length ? d.metSites.join(', ') : 'none') + ' · ' + d.pts.site], ['Number of metastases', d.nMets + ' · ' + d.pts.n],
+    ['Failed chemotherapy', (d.prior === 2 ? '2 or more drugs' : d.prior === 1 ? 'single drug' : 'none') + ' · ' + d.pts.prior], ['Total', String(d.total)]
+  ];
+  return { site: 'gtn', gen: 'score', dkey: 'gtn-score', title: 'WHO score', text: parts.map(sent).join(' '), cat: gtnGroup(d.total), opts: GTN_GROUPS, defs: GTN_DEFS, rows, score: d.total };
+}
+const VSGEN = { gtn: makeGtnScore };
 // definition of a category, for wrong-answer contrast
 function defOf(siteId, axis, cat) {
   siteId = ({ crc: 'colorectal', oral: 'oral-cavity', eso: 'esophageal' })[siteId] || siteId;
@@ -976,6 +1000,6 @@ function gradeOf(correct, ms, targetS) {
   return 2;
 }
 
-G.Drill = { setLungHist, VS, makeVsCase, vsSites, defOf, fillText, qLabel, SYS, SITES, ITEMS, DESC, GEN, instantiate, specText, stageOf, ruleOf, ruleText, checkTotality, cards, qCombos, makeCase, randomTarget, mainGroup, targetFromCard,
+G.Drill = { setLungHist, VS, VSGEN, makeGtnScore, makeVsCase, vsSites, defOf, fillText, qLabel, SYS, SITES, ITEMS, DESC, GEN, instantiate, specText, stageOf, ruleOf, ruleText, checkTotality, cards, qCombos, makeCase, randomTarget, mainGroup, targetFromCard,
   review, gradeOf, intervalDays, retrievability, setRandom, oralT, BREAST_NMAP, pick, shuffle, chance };
 })(typeof window !== 'undefined' ? window : globalThis);

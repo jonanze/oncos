@@ -206,8 +206,11 @@ function newCase() {
   if (rep && repeatCase(rep)) return;
   const site = pickSite();
   if (!site) return empty();
-  if (!site.systems.length || (D.VS[site.id] && D.VS[site.id].only)) { vsCase(site.id); current.key = scopeKey(); return; }
-  const sys = D.SYS[D.pick(site.systems)];
+  // a site with both a TNM system and a single-answer system (HCC BCLC, thymic Masaoka-Koga) asks each about half the time
+  const sw = site.systems.map(id => D.SYS[id].w || 1), tot = sw.reduce((a, b) => a + b, 0);
+  if (!site.systems.length || (D.VS[site.id] && Math.random() < 0.5)) { vsCase(site.id); current.key = scopeKey(); return; }
+  let r = Math.random() * tot, k = 0; while (k < sw.length - 1 && (r -= sw[k]) >= 0) k++;
+  const sys = D.SYS[site.systems[k]];
   const lh = site.id === 'lung' ? lungHist() : null;
   D.setLungHist(lh);
   let tg, g = 0; do { tg = D.randomTarget(sys); } while (lh === 'sclc' && (tg.t === 'Tis' || tg.t === 'T1mi') && g++ < 50);
@@ -219,7 +222,8 @@ function newCase() {
 function repeatCase(rep) {
   if (rep.vs) {
     if (!D.VS[rep.site]) return false;
-    current = { kind: 'vs', key: scopeKey(), v: D.makeVsCase(rep.site, rep.cat), pick: null, done: false, again: rep };
+    const g = rep.gen && D.VSGEN[rep.site];
+    current = { kind: 'vs', key: scopeKey(), v: g ? g(rep.cat) : D.makeVsCase(rep.site, rep.cat), pick: null, done: false, again: rep };
     drawVs(); return true;
   }
   const sys = D.SYS[rep.key];
@@ -288,7 +292,8 @@ function drawCase() {
     if (c.why.X) rows.push(['※', plainWhy(c.why.X, ''), 'n']);
     R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (allOk ? '★ ' : '✕ ') + c.stage }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: (r[2] === 'x' ? '✕ ' : r[2] === 'ok' && !allOk ? '★ ' : '') + r[0], class: r[2] === 'x' ? 'x' : null }), el('div', { text: r[1] })]))]));
     const hist = (c.fields || []).find(f => f[0] === 'Histology');
-    const db = debrief(sys.site, { s: c.stage, t: c.t, n: c.n, m: c.m, q: c.q, label: sys.label, rectal: !!c.rectal, sclc: !!(hist && /^Small cell/.test(hist[1])) }, ['T', 'N', 'M', 'S'].filter(k => picks[k] !== truth[k]));
+    const DB = window.Debrief && window.Debrief.SITES, dkey = D.VS[sys.site] ? sys.id + '-tnm' : DB && DB[sys.id] ? sys.id : sys.site;
+    const db = debrief(dkey, { s: c.stage, t: c.t, n: c.n, m: c.m, q: c.q, label: sys.label, rectal: !!c.rectal, sclc: !!(hist && /^Small cell/.test(hist[1])) }, ['T', 'N', 'M', 'S'].filter(k => picks[k] !== truth[k]));
     if (db) R.appendChild(db);
     R.appendChild(scoreBlock());
     R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
@@ -332,7 +337,7 @@ const trials = tr => el('span', { class: 'tr' }, tr.split(/, (?![^()]*\))/).flat
   return wrap;
 }
 // sites with no TNM system (FIGO, Lugano, Masaoka-Koga, WHO grade): one answer
-function vsCase(sid) { current = { kind: 'vs', v: D.makeVsCase(sid), pick: null, done: false }; drawVs(); }
+function vsCase(sid) { const g = D.VSGEN[sid]; current = { kind: 'vs', v: g && Math.random() < 0.5 ? g() : D.makeVsCase(sid), pick: null, done: false }; drawVs(); }
 function drawVs() {
   const { v, pick, done } = current, site = SITEBY[v.site];
   setEd(site.label + ' · ' + v.title);
@@ -344,16 +349,18 @@ function drawVs() {
   L.appendChild(optGrid(v.opts, o => {
     current.pick = o; current.done = true;
     const ok = o === v.cat;
-    record('vs|' + v.site, site.label + ' · ' + v.title, v.site, ok, ok ? [] : ['S'], current.again || null);
-    if (!ok) { const q = score.queue[score.queue.length - 1]; q.vs = true; q.cat = v.cat; saveScore(); }
+    record('vs|' + v.site + (v.gen ? '|' + v.gen : ''), site.label + ' · ' + v.title, v.site, ok, ok ? [] : ['S'], current.again || null);
+    if (!ok) { const q = score.queue[score.queue.length - 1]; q.vs = true; q.cat = v.cat; q.gen = v.gen || null; saveScore(); }
     drawVs();
   }, marks, v.opts.some(o => o.length > 14)));
   if (done) {
     const ok = pick === v.cat, rows = [];
-    if (!ok) rows.push(['✕ ' + pick, D.defOf(v.site, 'S', pick) || '—', 'x']);
-    rows.push([(ok ? '' : '★ ') + v.cat, D.defOf(v.site, 'S', v.cat) || '', null]);
+    const defOf = c => (v.defs && v.defs[c]) || D.defOf(v.site, 'S', c);
+    if (!ok) rows.push(['✕ ' + pick, defOf(pick) || '—', 'x']);
+    rows.push([(ok ? '' : '★ ') + v.cat, defOf(v.cat) || '', null]);
+    (v.rows || []).forEach(r => rows.push([r[0], r[1], null]));
     R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (ok ? '★ ' : '✕ ') + v.cat }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: r[0], class: r[2] }), el('div', { text: r[1] })]))]));
-    const db = debrief(v.site, { s: v.cat, t: '', n: '', m: '', q: null, label: v.title }, ok ? [] : ['S']);
+    const db = debrief(v.dkey || v.site, { s: v.cat, t: '', n: '', m: '', q: null, label: v.title }, ok ? [] : ['S']);
     if (db) R.appendChild(db);
     R.appendChild(scoreBlock());
     R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
@@ -389,7 +396,7 @@ function showTable() {
   body.appendChild(el('div', { class: 'form' }, [el('div', { text: 'System' }), el('div', { text: d.system }), el('div', { text: 'Edition' }), el('div', { text: d.edition }), el('div', { text: 'Source' }), src]));
   if (d.notes) body.appendChild(el('div', { class: 'note', text: d.notes }));
   const vs = D.VS[s.id];
-  if (vs && vs.only && vs.D) { body.appendChild(el('div', { class: 'band', 'data-sys': 'vs' }, [vs.title + ' 2022'])); body.appendChild(tbl(['Stage', 'Definition'], Object.keys(vs.D).map(k => [k, vs.D[k]]))); }
+  if (vs && vs.dtable && vs.D) { body.appendChild(el('div', { class: 'band', 'data-sys': 'vs' }, [vs.title + ' 2022'])); body.appendChild(tbl(['Stage', 'Definition'], Object.keys(vs.D).map(k => [k, vs.D[k]]))); }
   const T = r.drill_t ? r.drill_t.map(x => ({ cat: x[0], desc: x[1] })) : r.t;
   if (T) { body.appendChild(el('div', { class: 'band' }, [r.t_title || 'T · Primary tumour'])); body.appendChild(tbl(['T', 'Definition'], T.map(x => [x.cat, x.desc]))); }
   if (r.n) { body.appendChild(el('div', { class: 'band' }, [r.n_title || 'N · Regional nodes'])); body.appendChild(tbl(['N', 'Definition'], r.n.map(x => [x.cat, x.desc]))); }
@@ -409,7 +416,7 @@ function showTable() {
   });
   if (!s.systems.length && r.stage_groups) { body.appendChild(el('div', { class: 'band' }, [r.stage_groups_title || 'Stage groups'])); body.appendChild(tbl(['Stage', 'T', 'N', 'M'], r.stage_groups.map(g => [g.stage, g.t, g.n, g.m]))); }
   if (r.figo) { body.appendChild(el('div', { class: 'band' }, ['FIGO'])); body.appendChild(tbl(['Stage', 'Definition'], r.figo.map(x => [x.stage, x.desc]))); }
-  if (r.stages_other && !(vs && vs.only) && !(s.systems.length && /group/i.test(r.stages_other_title || ''))) { body.appendChild(el('div', { class: 'band' }, [r.stages_other_title || 'Stages'])); body.appendChild(tbl(['Stage', 'Definition'], r.stages_other.map(x => [x.stage, x.desc]))); }
+  if (r.stages_other && !(vs && vs.dtable) && !(s.systems.length && /group/i.test(r.stages_other_title || ''))) { body.appendChild(el('div', { class: 'band' }, [r.stages_other_title || 'Stages'])); body.appendChild(tbl(['Stage', 'Definition'], r.stages_other.map(x => [x.stage, x.desc]))); }
   (r.matrix_tables || []).forEach(m => { body.appendChild(el('div', { class: 'band' }, [m.title])); body.appendChild(tbl(m.cols, m.rows)); });
   if (s.id === 'esophageal') body.appendChild(el('div', { class: 'note', text: 'cTNM and ypTNM per Rice et al., J Thorac Oncol 2017;12:36' }));
   const target = jumpSys && s.systems.length > 1 ? body.querySelector('[data-sys="' + jumpSys + '"]') : null;

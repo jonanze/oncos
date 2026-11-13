@@ -22,6 +22,24 @@ const COUNT_N = (a, b, c) => ({
 const NET_M = { M0: M0, M1: 'Ga-68 DOTATATE PET shows multiple liver metastases | Ga-68 DOTATATE PET shows liver and bone metastases' };
 
 const VB = {
+  thymoma: {
+    intro: 'has an anterior mediastinal mass resected, and histology shows type [[B2;B3]] thymoma | has an anterior mediastinal mass resected, and histology shows thymic squamous cell carcinoma',
+    over: [
+      { when: x => x.t === 'T4' || x.m === 'M1b', intro: 'has an anterior mediastinal mass, and core biopsy shows type B3 thymoma | has an anterior mediastinal mass, and core biopsy shows thymic squamous cell carcinoma',
+        T: { T1a: 'CT shows an encapsulated mass with a clear fat plane to the pleura', T1b: 'CT shows the mass abutting the mediastinal pleura with pleural thickening', T2: 'CT shows the mass invading the pericardium', T3: 'CT shows the mass invading the [[upper lobe of the lung;brachiocephalic vein;superior vena cava;chest wall]]' },
+        N: { N0: 'CT and PET show no enlarged mediastinal or cervical nodes', N1: 'PET shows an FDG-avid anterior perithymic node', N2: 'PET shows an FDG-avid [[subcarinal;aortopulmonary window;lower cervical]] node, and EBUS-FNA is positive' },
+        M: { M0: 'CT shows no pleural, pericardial or distant disease' } }
+    ],
+    T: {
+      T1a: 'The tumour is encapsulated, and the mediastinal pleura is clear | The tumour extends into the mediastinal fat, and the mediastinal pleura is clear',
+      T1b: 'Tumour invades the mediastinal pleura, and the pericardium is clear',
+      T2: 'Tumour invades the pericardium, and the lung and great vessels are clear',
+      T3: 'Tumour invades the [[upper lobe of the lung;brachiocephalic vein;superior vena cava;phrenic nerve;chest wall]]',
+      T4: 'CT shows tumour invading the [[aortic arch;intrapericardial pulmonary artery;trachea;oesophagus]]'
+    },
+    N: { N0: 'All resected anterior mediastinal nodes are negative', N1: 'An anterior perithymic node is positive', N2: 'A [[subcarinal;aortopulmonary window;lower cervical]] node sampled at surgery is positive' },
+    M: { M0: 'There are no pleural or pericardial nodules, and CT shows no distant disease', M1a: 'There are separate pleural nodules | There is a separate pericardial nodule', M1b: 'CT shows a lung nodule, and biopsy shows metastatic thymic tumour | CT shows liver metastases' }
+  },
   // ---------- Thoracic ----------
   mesothelioma: {
     intro: 'presents with breathlessness and a {side} pleural effusion, and thoracoscopic pleural biopsy shows epithelioid mesothelioma | has chest wall pain and a {side} pleural effusion, and pleural biopsy shows biphasic mesothelioma',
@@ -41,6 +59,20 @@ const VB = {
   // ---------- GI ----------
   gastric: {
     intro: 'undergoes gastrectomy for adenocarcinoma of the [[antrum;body;lesser curve]] of the stomach | has a gastric adenocarcinoma resected by subtotal gastrectomy',
+    over: [
+      { when: x => x.sys === 'gastric-c', intro: 'has adenocarcinoma of the [[antrum;body;lesser curve]] of the stomach on endoscopic biopsy, and is staged with EUS, CT and staging laparoscopy',
+        T: {
+          Tis: 'Biopsy shows high-grade dysplasia only, and EUS shows a flat lesion confined to the mucosa',
+          T1a: 'EUS shows a lesion confined to the mucosa',
+          T1b: 'EUS shows tumour reaching the submucosa, with the muscularis propria intact',
+          T2: 'EUS shows tumour invading the muscularis propria',
+          T3: 'EUS shows tumour through the muscularis propria into the subserosa, with an intact serosal line',
+          T4a: 'CT shows tumour through the serosa, with nodular infiltration of the perigastric fat | Laparoscopy shows tumour on the serosal surface',
+          T4b: 'CT shows tumour invading the [[pancreas;transverse colon;left lobe of the liver;spleen]]'
+        },
+        N: { N0: 'EUS and CT show no enlarged regional nodes', N1: 'CT shows [[one;two]] enlarged perigastric nodes', N2: 'CT shows [[three;four;five;six]] enlarged perigastric nodes', N3a: 'CT shows {#7~12} enlarged perigastric and left gastric nodes', N3b: 'CT shows {#16~22} enlarged perigastric, left gastric and coeliac nodes' },
+        M: { M1: 'CT shows liver metastases | Staging laparoscopy shows peritoneal nodules, and biopsy is positive | Peritoneal washings at staging laparoscopy contain carcinoma cells' } }
+    ],
     T: {
       Tis: 'Pathology shows high-grade dysplasia confined to the epithelium',
       T1a: 'Pathology shows carcinoma confined to the mucosa, reaching the muscularis mucosae',
@@ -404,7 +436,17 @@ const VB = {
   melanoma: {
     intro: 'has a pigmented lesion on the [[back;calf;upper arm;scalp]] excised, and pathology shows invasive melanoma',
     over: [
-      { when: x => x.t === 'Tis', intro: 'has a pigmented lesion on the [[back;calf;upper arm;scalp]] excised', N: { N0: 'No regional nodes are palpable' } }
+      { when: x => x.t === 'Tis', intro: 'has a pigmented lesion on the [[back;calf;upper arm;scalp]] excised', N: { N0: 'No regional nodes are palpable' } },
+      { when: x => x.sys === 'melanoma-c', intro: 'has a pigmented lesion on the [[back;calf;upper arm;scalp]] excised, and pathology shows invasive melanoma. Sentinel node biopsy has not been done yet',
+        N: {
+          N0: 'No regional nodes are palpable, and ultrasound of the nodal basin is normal',
+          N1b: 'A palpable {side} [[axillary;inguinal]] node is FNA positive',
+          N1c: 'There is an in-transit metastasis, and no nodes are palpable or seen on ultrasound | There is a satellite nodule, and no nodes are palpable or seen on ultrasound',
+          N2b: 'Ultrasound shows [[two;three]] enlarged {side} [[axillary;inguinal]] nodes, and FNA of one is positive',
+          N2c: 'There is an in-transit metastasis, and a palpable {side} [[axillary;inguinal]] node is FNA positive',
+          N3b: 'The {side} [[axillary;inguinal]] nodes are matted together, and FNA is positive | Ultrasound shows [[four;five]] enlarged {side} [[axillary;inguinal]] nodes, and FNA of one is positive',
+          N3c: 'There are in-transit metastases, and ultrasound shows [[two;three]] enlarged {side} [[axillary;inguinal]] nodes. FNA of one is positive'
+        } }
     ],
     T: {
       Tis: 'Pathology shows melanoma in situ only',
@@ -433,6 +475,15 @@ const VB = {
   },
   merkel: {
     intro: 'is diagnosed with Merkel cell carcinoma',
+    over: [
+      { when: x => x.sys === 'merkel-c', intro: 'is diagnosed with Merkel cell carcinoma. No sentinel node biopsy or node dissection has been done',
+        N: {
+          N0: 'No nodes are palpable, and PET-CT shows no nodal disease',
+          N1: 'A palpable {side} [[inguinal;axillary]] node is FNA positive | PET-CT shows an FDG-avid {side} [[inguinal;axillary]] node, and FNA is positive',
+          N2: 'There is an in-transit metastasis, and no nodes are palpable or FDG-avid',
+          N3: 'There is an in-transit metastasis, and a palpable regional node is FNA positive'
+        } }
+    ],
     T: {
       T0: 'Full skin examination shows no primary skin lesion',
       T1: 'Excision of a red nodule on the [[cheek;forearm;thigh]] shows a {0.6~2.0} cm primary',
@@ -483,6 +534,13 @@ const VB = {
   },
   thyroid: {
     intro: 'has a thyroid nodule, and thyroidectomy shows papillary thyroid carcinoma | undergoes total thyroidectomy for follicular thyroid carcinoma',
+    over: [
+      { when: x => x.sys === 'thyroid-mtc', intro: 'has a thyroid nodule with a raised serum calcitonin. FNA shows medullary thyroid carcinoma, and total thyroidectomy with central neck dissection follows',
+        M: { M0: 'CT of the neck, chest and abdomen shows no distant metastases', M1: 'Liver MRI shows multiple small liver metastases | CT shows bone metastases in the spine' } },
+      { when: x => x.sys === 'thyroid-atc', age: [55, 86], intro: 'presents with a rapidly enlarging neck mass, and core biopsy shows anaplastic thyroid carcinoma',
+        N: { N0: 'Neck CT shows no enlarged nodes', N1a: 'CT shows enlarged {side} level VI nodes, and FNA is positive', N1b: 'CT shows enlarged {side} level III and IV nodes, and FNA is positive' },
+        M: { M0: 'PET-CT shows no distant disease', M1: 'CT chest shows multiple lung metastases | PET-CT shows bone metastases' } }
+    ],
     T: {
       T1a: 'The tumour is {0.4~1.0} cm and confined to the thyroid',
       T1b: 'The tumour is {1.1~2.0} cm and confined to the thyroid',
@@ -497,6 +555,22 @@ const VB = {
   },
   'oropharynx-p16pos': {
     intro: 'presents with a neck lump, and biopsy shows p16-positive squamous cell carcinoma | presents with a sore throat, and biopsy of a [[tonsil;base of tongue]] mass shows p16-positive squamous cell carcinoma',
+    over: [
+      { when: x => x.sys === 'oropharynx-p16pos-p', intro: 'undergoes transoral robotic resection of a p16-positive squamous cell carcinoma of the [[tonsil;base of tongue]] with {side} neck dissection | presents with a neck lump, and FNA shows p16-positive squamous cell carcinoma. Neck dissection, tonsillectomy and base of tongue mucosectomy follow',
+        T: {
+          T0: 'No primary is found in the tonsillectomy and base of tongue mucosectomy specimens',
+          T1: 'Pathology shows a {1.0~2.0} cm primary',
+          T2: 'Pathology shows a {2.2~4.0} cm primary',
+          T3: 'Pathology shows a {4.2~5.5} cm primary | Pathology shows a {2.0~3.5} cm primary extending onto the lingual surface of the epiglottis',
+          T4: 'Pathology shows the primary invading the extrinsic tongue muscle | Pathology shows the primary invading the medial pterygoid muscle'
+        },
+        N: {
+          N0: 'All {#18~35} nodes in the neck dissection are negative',
+          N1: '[[One;Two;Three;Four]] of {#18~35} nodes are positive, with no extranodal extension',
+          N2: '[[One;Two;Three]] of {#18~35} nodes are positive, and one shows extranodal extension | {#5~8} of {#20~35} nodes are positive, with no extranodal extension',
+          N3: '{#5~9} of {#20~35} nodes are positive, and [[one;two]] show extranodal extension'
+        } }
+    ],
     T: {
       T0: 'No primary is found after examination under anaesthesia and PET',
       T1: 'Examination shows a {1.0~2.0} cm primary in the [[tonsil;base of tongue]]',
@@ -715,7 +789,7 @@ const VS = {
       'Oligodendroglioma, IDH-mutant, 1p/19q-codeleted, grade 3': 'IDH-mutant and 1p/19q-codeleted · brisk mitoses, MVP or necrosis',
       'Glioblastoma, IDH-wildtype, grade 4': 'IDH-wildtype diffuse astrocytic glioma with necrosis or MVP, or TERT promoter mutation, EGFR amplification or +7/−10'
     } },
-  hcc: { only: true, title: 'BCLC', intro: 'has [[hepatitis B;hepatitis C;alcohol-related;MASLD-related]] cirrhosis. Surveillance ultrasound is abnormal, and multiphase MRI shows LI-RADS 5 disease',
+  hcc: { dtable: true, title: 'BCLC', intro: 'has [[hepatitis B;hepatitis C;alcohol-related;MASLD-related]] cirrhosis. Surveillance ultrasound is abnormal, and multiphase MRI shows LI-RADS 5 disease',
     S: {
       '0': 'There is a single {#11~19} mm lesion with no vascular invasion and no extrahepatic disease. Bilirubin is {#9~22} µmol/L, albumin {#37~44} g/L, INR 1.{#0~2}, with no ascites or encephalopathy (Child-Pugh A5). ECOG performance status is 0',
       A: 'There is a single {#35~95} mm lesion with no vascular invasion. Staging CT of the chest is clear. Bilirubin is {#9~24} µmol/L, albumin {#36~43} g/L, with no ascites or encephalopathy (Child-Pugh A[[5;6]]). ECOG performance status is 0 | There are [[2;3]] lesions in the right lobe, the largest {#18~30} mm, with no vascular invasion or extrahepatic disease. Liver function is Child-Pugh A5. ECOG performance status is 0',

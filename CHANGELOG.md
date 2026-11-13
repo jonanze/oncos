@@ -2,6 +2,13 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.45] - 2026-11-13
+
+- Practice: a Score block under each result shows cases, percent correct and repeats, with a Missed table by system. A missed case comes back with new wording three cases later until it is answered right. The score stays on this device and has a Reset button.
+- Practice: M1 cases make up 20% of draws. M0 cases are spread evenly over the main stage groups, with stage 0 in about 5%.
+- Practice: new systems are gastric cTNM, medullary and anaplastic thyroid, p16-positive oropharynx pTNM (TNM9), melanoma and Merkel cell clinical groups, HCC TNM beside BCLC, thymic TNM beside Masaoka–Koga, and the GTN WHO prognostic score. Each has its own cases and debrief.
+- Staging: gastric clinical groups, medullary and anaplastic thyroid groups, p16-positive oropharynx pathological groups, melanoma and Merkel pathological groups with their pN tables, thymic TNM, and the GTN WHO score table are added.
+
 ## [2.2.44] - 2026-11-11
 
 - Practice: melanoma and Merkel cell cases are marked on AJCC 8th pathological stage groups (IIIA to IIID for melanoma, IIIA and IIIB for Merkel), because the cases report sentinel node and dissection results.

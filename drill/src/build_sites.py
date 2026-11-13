@@ -125,8 +125,46 @@ base=[[g['stage']]+[expand(g['t'],AT)[0],expand(g['n'],AN)[0],['M0']] for g in a
 SYS['appendix']=finish('appendix',AT,AN,['M0','M1a','M1b','M1c'],base+[
  ['IVA',AT,AN,['M1a']],['IVA',AT,AN,['M1b'],{'hist':['Mucinous'],'g':['G1']}],['IVB',AT,AN,['M1b'],{'hist':['Non-mucinous'],'g':['G1']}],
  ['IVB',AT,AN,['M1b'],{'g':['G2','G3']}],['IVC',AT,AN,['M1c']]],Q={'hist':['Mucinous','Non-mucinous'],'g':['G1','G2','G3']})
+# Further groupings of a site's T/N/M (Staging stage_groups_more), each practised as its own system
+# (2026-11-13). site -> [(block id, system id, label, N list, weight)]. A system id equal to the site id
+# replaces the site's own system: melanoma and Merkel are practised on pathological groups, and
+# thymoma on TNM beside Masaoka-Koga. N list 'pn' takes the site's pathological N table.
+MORE={
+ 'gastric':[('groups-c','gastric-c','Gastric · cTNM','n',1,{})],
+ 'thyroid':[('groups-mtc','thyroid-mtc','Thyroid · medullary','n',1,{'edition':'AJCC 8th ed. (TNM)'}),('groups-atc','thyroid-atc','Thyroid · anaplastic','n',0.5,{'edition':'AJCC 8th ed. (TNM)'})],
+ 'oropharynx-p16pos':[('groups-p','oropharynx-p16pos-p','OPC p16+ · pTNM','pn',1,{})],
+ 'melanoma':[('groups-p','melanoma','Melanoma · pTNM','pn',1,{})],
+ 'merkel':[('groups-p','merkel','Merkel · pTNM','pn',1,{})],
+ 'thymoma':[('groups-tnm','thymoma','Thymic · TNM','n',1,{'edition':'AJCC 8th ed. (TNM)'})],
+}
+MAINLABEL={'gastric':'Gastric · pTNM','thyroid':'Thyroid · differentiated','oropharynx-p16pos':'OPC p16+ · cTNM'}
+for sid,lab in MAINLABEL.items(): SYS[sid]['label']=lab
+# clinical groups kept as a second system where the site's own system became pathological;
+# melanoma clinical N keeps only b and c (a is found by sentinel node biopsy)
+CLIN={'melanoma':('melanoma-c','Melanoma · cTNM',lambda N:[x for x in N if not x.endswith('a')]),
+      'merkel':('merkel-c','Merkel · cTNM',None)}
+EXTRA={}; EDITION={}
+for sid,lst in MORE.items():
+    c=CI[sid]; blocks={g['id']:g for g in c.get('stage_groups_more') or []}
+    for bid,sysid,label,nkey,w,opt in lst:
+        assert bid in blocks,(sid,bid)
+        N=[x['cat'] for x in c[nkey]]; T=[x['cat'] for x in c['t']]
+        if 'T' in opt: T=opt['T'](T)
+        if sid in CLIN and sid in SYS:
+            cid,clabel,nf=CLIN[sid]; cs=SYS[sid] if nf is None else auto(c,N=nf(N))
+            cs.update(id=cid,label=clabel,anchor=c.get('stage_groups_id') or 'groups',w=1); EXTRA.setdefault(sid,[]).append(cs)
+        s=auto(c,T=T,N=N,groups=blocks[bid]['rows'])
+        s.update(id=sysid,label=label,anchor=bid,w=w)
+        if 'edition' in opt: s['edition']=opt['edition']
+        if sysid==sid: SYS[sid]=s
+        else: EXTRA.setdefault(sid,[]).append(s)
 # Staging block for each hand system's grouping; Table in a case opens that block
 ANCHORS={'esophageal':{'eso-c-scc':'groups-c-scc','eso-c-ac':'groups-c-ac','eso-p-scc':'groups-p','eso-p-ac':'groups-p','eso-yp':'groups-yp'}}
+for sid,lst in EXTRA.items():
+    ANCHORS.setdefault(sid,{}).update({s['id']:s['anchor'] for s in lst})
+for sid,lst in MORE.items():
+    own=[x[0] for x in lst if x[1]==sid] or [CI[sid].get('stage_groups_id')]
+    if own[0]: ANCHORS.setdefault(sid,{})[sid]=own[0]
 for sid,amap in ANCHORS.items():
     have={CI[sid].get('stage_groups_id')}|{g['id'] for g in CI[sid].get('stage_groups_more') or []}
     assert set(amap.values())<=have,(sid,set(amap.values())-have)
@@ -138,7 +176,10 @@ for c in C:
     site=dict(id=sid,label=c['name'],section=SEC[c['section']],type=c['type'],system=c['system_label'],edition=c['edition'],source=c['source'],source_url=c['source_url'],notes=c.get('notes',''),raw=raw)
     if sid in HAND: site['hand']=HAND[sid]
     if sid in ANCHORS: site['anchors']=ANCHORS[sid]
-    if sid in SYS: s=SYS[sid]; s['id']=sid; s['label']=c['name']; s['edition']=c['system_label']; site['auto']=s
+    if sid in SYS: s=SYS[sid]; s['id']=sid; s.setdefault('label',c['name']); s.setdefault('edition',c['system_label']); site['auto']=s
+    if sid in EXTRA:
+        for s in EXTRA[sid]: s.setdefault('edition',c['system_label'])
+        site['more']=EXTRA[sid]
     if sid in notes: site['drill_note']=notes[sid]
     out.append(site)
 open(OUT,'w',encoding='utf-8').write('window.DRILL_SITES='+json.dumps(out,ensure_ascii=False,separators=(',',':'))+';\n')

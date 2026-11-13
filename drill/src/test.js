@@ -63,6 +63,31 @@ const MORE = Object.fromEntries((C.esophageal.stage_groups_more || []).map(g => 
 both('eso-c-scc', MORE['groups-c-scc']);
 both('eso-c-ac', MORE['groups-c-ac']);
 both('eso-yp', MORE['groups-yp']);
+// further systems (2026-11-13): cells typed from the source tables, independent of the Staging data
+const SPOT = {
+  'gastric-c': [['Tis N0 M0', '0'], ['T2 N0 M0', 'I'], ['T1a N3b M0', 'IIA'], ['T4a N0 M0', 'IIB'], ['T3 N1 M0', 'III'], ['T4b N0 M0', 'IVA'], ['T1b N0 M1', 'IVB']],
+  'thyroid-mtc': [['T1a N0 M0', 'I'], ['T3b N0 M0', 'II'], ['T2 N1a M0', 'III'], ['T2 N1b M0', 'IVA'], ['T4a N0 M0', 'IVA'], ['T4b N0 M0', 'IVB'], ['T1a N0 M1', 'IVC']],
+  'thyroid-atc': [['T3a N0 M0', 'IVA'], ['T2 N1a M0', 'IVB'], ['T3b N0 M0', 'IVB'], ['T1a N0 M1', 'IVC']],
+  'oropharynx-p16pos-p': [['T2 N1 M0', 'I'], ['T0 N2 M0', 'II'], ['T1 N3 M0', 'II'], ['T3 N2 M0', 'II'], ['T3 N3 M0', 'III'], ['T4 N0 M0', 'III'], ['T1 N0 M1', 'IV']],
+  melanoma: [['T1b N0 M0', 'IA'], ['T2a N0 M0', 'IB'], ['T1a N2a M0', 'IIIA'], ['T2a N1c M0', 'IIIB'], ['T3a N2b M0', 'IIIB'], ['T2a N2c M0', 'IIIC'], ['T4a N1a M0', 'IIIC'], ['T4b N2c M0', 'IIIC'], ['T4b N3a M0', 'IIID'], ['T1a N0 M1d', 'IV']],
+  'melanoma-c': [['T1b N0 M0', 'IB'], ['T2b N0 M0', 'IIA'], ['T4b N0 M0', 'IIC'], ['T1a N1b M0', 'III'], ['T3a N3c M0', 'III'], ['T1a N0 M1a', 'IV']],
+  merkel: [['T1 N0 M0', 'I'], ['T3 N0 M0', 'IIA'], ['T2 N1a(sn) M0', 'IIIA'], ['T0 N1b M0', 'IIIA'], ['T1 N1b M0', 'IIIB'], ['T4 N3 M0', 'IIIB'], ['T1 N0 M1c', 'IV']],
+  'merkel-c': [['T4 N0 M0', 'IIB'], ['T0 N1 M0', 'III'], ['T2 N2 M0', 'III']],
+  thymoma: [['T1b N0 M0', 'I'], ['T2 N0 M0', 'II'], ['T3 N0 M0', 'IIIA'], ['T4 N0 M0', 'IIIB'], ['T1a N1 M0', 'IVA'], ['T2 N0 M1a', 'IVA'], ['T1a N2 M0', 'IVB'], ['T1a N2 M1a', 'IVB'], ['T1a N0 M1b', 'IVB']],
+};
+for (const id in SPOT) {
+  const S = D.SYS[id]; if (!S) { bad(id + ' missing system'); continue; }
+  SPOT[id].forEach(([cell, want]) => { const [t, n, m] = cell.split(' '); const got = D.stageOf(S, t, n, m, null); if (got !== want) bad(id + ' ' + cell + ' want ' + want + ' got ' + got); });
+  console.log('spot', id, SPOT[id].length);
+}
+for (let i = 0; i < 3000; i++) {
+  const v = D.makeGtnScore(); const r = Object.fromEntries(v.rows);
+  const sum = v.rows.slice(0, 8).reduce((a, x) => a + +x[1].split(' · ').pop(), 0);
+  if (sum !== v.score || +r.Total !== v.score) bad('gtn sum ' + JSON.stringify(v.rows));
+  if (v.cat !== (v.score >= 13 ? 'Ultra-high risk' : v.score >= 7 ? 'High risk' : 'Low risk')) bad('gtn group ' + v.score + ' ' + v.cat);
+  if (/IU\/L/.test(v.text) && /\b(1,000|10,000|100,000) IU/.test(v.text)) bad('gtn boundary hCG ' + v.text);
+}
+['Low risk', 'High risk', 'Ultra-high risk'].forEach(g => { if (D.makeGtnScore(g).cat !== g) bad('gtn want ' + g); });
 // 2. generators: 3000 cases per system
 for (const id in D.SYS) {
   const S = D.SYS[id];
