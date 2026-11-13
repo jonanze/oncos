@@ -1,0 +1,411 @@
+# oncOS board map: Ovarian Cancer (epithelial ovarian, fallopian tube and primary peritoneal carcinoma)
+# 2026-11-13, approved by Jonan. Adjuvant regimen and cycle number are their own step. Recurrence named platinum-sensitive and platinum-resistant
+#   Structure plan: board-maps/ovarian/structure-plan.md
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-13): one map for the whole course of the sheet. Newly diagnosed disease, then recurrence, with
+#   low-grade serous carcinoma as its own block. Germ cell, sex cord-stromal and borderline tumours have no rows on the
+#   sheet and are left out
+# One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
+#   only where guidelines disagree (a cut-off, a licence, a grade, a recommendation against) or a condition
+# Options NCCN alone lists sit on ※ lines or as ・ lines in their drug class (inclusion.txt, Jonan 2026-11-10): olaparib
+#   alone in HRD-positive disease, pembrolizumab with paclitaxel, avutometinib with defactinib, tumour-agnostic agents
+# Tags give evidence first, strength second, as printed, on the statement the guideline graded. East Asian guidelines first:
+#   〔JSGO evidence, strength〕 JSGO 2025, 6th edition (Shoji, J Gynecol Oncol 2026;37(6):e150, provisional PDF, published
+#     online 11 September 2026, literature to December 2023). Minds 2020, a modified GRADE. Evidence A to D, strength
+#     1 strong or 2 weak. "against" marks a recommendation printed with a down arrow. The English article prints no
+#     doses, no trial references and no drug-specific Japanese insurance detail. A bare 〔JSGO〕 marks a statement from
+#     its algorithm figures or chapter remarks, which carry no grade
+#   〔KSGO-5.0 strength〕 KSGO 5.0 (Lee, J Gynecol Oncol 2024;35:e43, December 2023, search October 2022). GRADE. Quality
+#     is printed per outcome, so the tag gives strength only: Strong or Conditional. Four key questions
+#   〔KSGO-5.1 level, grade〕 KSGO 5.1 (Lee, J Gynecol Oncol 2025;36:e69, data 2023 to 2024). Adapted IDSA-USPHS: levels
+#     I to V, grades A to E. Five new key questions
+#   〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline (Nag, ESMO Open 2025;10:105125, online 9 June 2025, consensus
+#     meeting 6 July 2024). Table 1 and Figures 1 to 3 read. Adapted IDSA-USPHS: levels I to V, grades A to E. Every
+#     statement had 100% consensus. A bare 〔PAGA〕 marks figure or discussion text
+#   〔ESMO level, grade〕 ESMO 2023 (González-Martín, Ann Oncol 2023;34:833-848, last update July 2023) with the Express
+#     Update of 28 January 2026 (ESMO Open 2026;11:106032, doi 10.1016/j.esmoop.2025.106032), one tag. Adapted
+#     IDSA-USPHS: levels I to V, grades A to E, with ESMO-MCBS. The update adds rucaparib first line, regrades
+#     maintenance for HRD-negative tumours and adds mirvetuximab. A bare 〔ESMO〕 marks ungraded text
+#   〔ESGO level, grade〕 ESGO-ESMO-ESP consensus conference (Ledermann, Ann Oncol 2024;35:248-266, conference June 2022,
+#     data to 14 June 2022, online 1 February 2024). Adapted IDSA-USPHS: levels I to V, grades A to E. Used only where
+#     it adds a point or a grade the ESMO guideline lacks (Jonan 2026-11-13)
+#   〔NCCN category, preference〕 NCCN Ovarian Cancer 4.2026 (10 April 2026). Categories 1, 2A, 2B and 3, with preferred,
+#     other recommended and useful in certain circumstances. 2A unless stated
+#   〔ASCO-NACT quality, strength〕 ASCO neoadjuvant chemotherapy update (Gaillard, J Clin Oncol 2025;43:868-891, published
+#     22 January 2025, literature to September 2024). ASCO GRADE scheme: evidence High to Very low, Strong or Conditional
+#   〔ASCO-PARP quality, strength〕 ASCO PARP inhibitor living guideline 2026.1.0 (Tew, J Clin Oncol 2026, accepted 20 October
+#     2026, unedited manuscript, literature to July 2026). ASCO GRADE scheme. Follows US licences
+#   〔ASCO-REC quality, strength〕 ASCO recurrence living guideline 2026.1.0 (Lesnock, J Clin Oncol 2026;44:2725-2744,
+#     published 13 July 2026, literature to November 2025). ASCO GRADE scheme. A bare ASCO tag marks narrative text
+# Figure and text mismatches in ESMO 2023 and PAGA, text grade used: recurrence assessment is [I-III, A] in the text and
+#   [I-II, A] in Figure 3. Bevacizumab after interval surgery is [II, A] in Figure 2 only, the text grades bevacizumab
+#   around interval surgery [II, B]. The map carries the neoadjuvant statement at [II, B] and no post-surgery grade
+# Written before the trial: JSGO 2025 names none of MIRASOL, ROSELLA, KEYNOTE-B96, ATHENA-MONO, DUO-O or KEYLYNK-001.
+#   KSGO 5.0 predates MIRASOL, OReO and every later trial. KSGO 5.1, PAGA and ESMO predate ROSELLA, KEYNOTE-B96, DUO-O,
+#   KEYLYNK-001 and RAMP 201. ESGO predates MIRASOL, OReO, PRIMA and PAOLA-1 final survival and SOLO-1 at 7 years.
+#   ASCO-NACT does not mention DUO-O or LION. ASCO-REC names KEYNOTE-B96 and RAMP 201 without a grade. NCCN 4.2026 does
+#   not mention DUO-O, KEYLYNK-001, OReO, DESKTOP III or SOC-1
+# Licensing is taken from the guideline texts, labels not read. Rucaparib first line: EU licence, no US licence, not
+#   approved in Japan or Korea, not available in Singapore (PAGA, ASCO-PARP). PARP inhibitor maintenance at recurrence:
+#   US licences restricted to BRCA1/2 mutations, EU licences unchanged for all three drugs (ESMO, NCCN, ASCO-PARP). PARP
+#   inhibitor treatment of recurrence: US licences withdrawn 2022 to 2023 (ASCO-PARP). Repeat PARP inhibitor: no licence
+#   (ESMO). Repeat bevacizumab: not licensed in Europe (ESMO). Mirvetuximab: EU and US licences (PAGA). Trastuzumab
+#   deruxtecan: US accelerated approval for HER2 IHC 3+ solid tumours (KSGO 5.1). Pembrolizumab with paclitaxel: US
+#   licence of 10 February 2026 (ASCO-REC). Avutometinib with defactinib: US accelerated approval (ASCO-REC). Trametinib:
+#   no EU or US licence for low-grade serous carcinoma (PAGA). Trabectedin: EU licence, no US licence (ESMO). Irinotecan:
+#   licensed in Japan for platinum-resistant disease (PAGA). Relacorilant: no licence statement in any guideline read.
+#   Japanese and Singapore status of mirvetuximab, relacorilant, pembrolizumab, trastuzumab deruxtecan and avutometinib
+#   is not stated in the guidelines and was not checked
+# Trial marks: + OS benefit, ~ surrogate endpoint, non-inferiority or inconclusive, - no benefit or harm. Marks follow
+#   the Evidence row or intake paper as it stands. Later reports that change a mark are listed in row-updates.txt
+#   (JCOG0602, SOLO-1, PRIMA, PAOLA-1, ROSELLA, SOLO3, ARIEL4) for the editor
+
+map: Ovarian Cancer
+source: JSGO {url https://doi.org/10.3802/jgo.2026.37.e150}
+source: KSGO-5.0 {url https://doi.org/10.3802/jgo.2024.35.e43}
+source: KSGO-5.1 {url https://doi.org/10.3802/jgo.2025.36.e69}
+source: PAGA {url https://doi.org/10.1016/j.esmoop.2025.105125}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2023.07.011}
+source: ESGO {url https://doi.org/10.1016/j.annonc.2023.11.015}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ASCO-NACT {url https://doi.org/10.1200/JCO-24-02589}
+source: ASCO-PARP {url https://doi.org/10.1200/JCO-26-02412}
+source: ASCO-REC {url https://doi.org/10.1200/JCO-26-01591}
+branch: EARLY | Stage I–II | sage
+branch: ADV | Stage III–IV at diagnosis | blue
+branch: BRCA | Maintenance, BRCA1/2 mutation | violet
+branch: HRDP | Maintenance, HRD-positive | teal
+branch: HRDN | Maintenance, HRD-negative or unknown | sand
+branch: PS | Platinum-sensitive recurrence | apricot
+branch: PR | Platinum-resistant recurrence | rose
+
+band: Diagnosis and molecular testing
+  ① CA-125, pelvic ultrasound by an expert examiner, and CT of the thorax, abdomen and pelvis 〔PAGA III, A〕 〔ESMO III, A〕 〔ASCO-NACT Moderate, Strong〕
+    ・Mucinous tumours: CEA, CA 19-9 and endoscopy of the upper and lower gastrointestinal tract 〔ESMO〕 〔NCCN 2A〕
+  ② Assessment by a gynaecological oncologist before treatment 〔NCCN 2A〕 〔ASCO-NACT Moderate, Strong〕
+  ③ Pathological diagnosis by the WHO 2020 classification, by an expert gynaecological pathologist 〔PAGA IV, A〕 〔ESMO IV, A〕
+  ④ Minimum immunohistochemistry of PAX8, ER, WT-1 and p53, with low-grade morphology and aberrant p53 classified as high-grade serous carcinoma 〔ESGO IV, A〕
+  ⑤ Germline and somatic BRCA1/2 testing at diagnosis of high-grade non-mucinous carcinoma 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕
+    ・In every epithelial ovarian cancer 〔NCCN 2A〕 〔ASCO-NACT High, Strong〕 〔ASCO-PARP High, Strong〕
+  ⑥ HRD testing in stage III–IV high-grade carcinoma before first-line maintenance 〔JSGO B, 1〕 〔PAGA I, A〕 〔ESMO I, A〕
+    ・Reflex testing when no BRCA1/2 mutation is found 〔ESGO I, A〕 〔NCCN 2A〕 〔ASCO-PARP High, Strong〕
+    ・A test validated in a phase III trial is preferred 〔ESGO I, A〕 〔ASCO-PARP High, Strong〕
+    ・HRD-positive: a BRCA1/2 mutation or a genomic instability score of 42 or more by Myriad myChoice, or genomic loss of heterozygosity of 16% or more by FoundationOne CDx 〔ASCO-PARP〕
+  ⑦ Mismatch repair or MSI testing in endometrioid and clear cell carcinoma 〔ESGO II, A〕
+    ・All endometrioid carcinoma 〔NCCN 2A〕
+
+band: Low-grade serous carcinoma
+  ① Primary cytoreductive surgery, even when residual disease under 1 cm is the likely result 〔ESGO IV, B〕 〔ESMO〕
+  ② Stage II–IV: carboplatin and paclitaxel, with or without bevacizumab 〔ESGO II, A〕 〔ESMO〕 〔NCCN 2A, preferred〕
+  ③ After chemotherapy, maintenance letrozole or another anti-oestrogen is an option 〔ESMO IV, B〕 〔ESGO IV, B〕
+    ・ER-positive tumours only 〔PAGA IV, B〕
+    ・Letrozole 〔NCCN 2A〕
+    ・Other hormonal therapy 〔NCCN 2B〕
+    ・Hormonal therapy alone in place of chemotherapy 〔NCCN 2B〕
+  ④ Recurrence: hormonal therapy 〔PAGA II, A〕 〔ESMO II, A〕 〔ESGO II, A〕 〔NCCN 2A〕
+    ・An aromatase inhibitor is preferred when not used before 〔NCCN 2A〕
+  ⑤ Recurrence after platinum chemotherapy: trametinib 〔ESGO I, A〕 〔NCCN 2A, useful in certain circumstances〕
+    ・After platinum chemotherapy and hormonal therapy 〔PAGA I, A〕 〔ESMO I, A〕
+    ・Trametinib has no EU or US licence for this indication
+    ~ GOG 281/LOGS [t-gog-281-logs]
+    ・Binimetinib is an option 〔NCCN 2B〕
+    - MILO [t-milo-engot-ov11]
+  ⑥ KRAS and BRAF testing to select targeted treatment 〔ESGO IV, C〕 〔NCCN 2A〕
+  ※ Avutometinib with defactinib for recurrence with a KRAS mutation 〔NCCN 2A, useful in certain circumstances〕
+    ・US accelerated approval on response rate
+    ・No recommendation pending progression-free survival data 〔ASCO-REC〕
+    ~ RAMP 201
+
+band: PARP inhibitor maintenance, first line
+  ① Started after a complete or partial response, or no evidence of disease, at the end of platinum chemotherapy 〔KSGO-5.0 Strong〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔ASCO-PARP Moderate, Strong〕
+  ② Stable disease after chemotherapy with bevacizumab: bevacizumab maintenance 〔JSGO B, 1〕 〔PAGA〕 〔ESMO〕
+  ③ Olaparib 300 mg twice daily, rucaparib 600 mg twice daily, niraparib 200 or 300 mg once daily 〔NCCN 2A〕
+    ・Niraparib 200 mg when weight is below 77 kg or platelets are below 150,000/µL (150 × 10⁹/L) 〔NCCN 2A〕
+    ・Olaparib with bevacizumab is given only when bevacizumab was started with chemotherapy 〔PAGA〕 〔ESMO〕
+  ④ Dose interruption or reduction is preferred to early discontinuation for chronic low-grade toxicity 〔ASCO-PARP Low, Strong〕
+  ° Toxicity of note: anaemia, thrombocytopenia and hypertension with niraparib, and myelodysplastic syndrome or acute myeloid leukaemia
+    ・Permanent discontinuation for myelodysplastic syndrome, acute myeloid leukaemia or pneumonitis 〔ASCO-PARP High, Strong〕
+
+band: Follow-up and supportive care
+  ① Visits every 2 to 4 months for 2 years, then every 3 to 6 months to 5 years 〔NCCN 2A〕
+    ・Every 1 to 3 months in the first 2 years 〔JSGO C, 2〕
+  ② CA-125, examination, and CT when clinically indicated 〔JSGO C, 2〕 〔PAGA IV, B〕 〔ESMO IV, B〕 〔NCCN 2A〕
+  ③ Hormone replacement therapy for surgical menopause 〔JSGO B, 1〕
+    ・High-grade serous carcinoma only, avoided in low-grade serous and endometrioid carcinoma 〔NCCN 2A〕
+  ④ BRCA1/2 carriers: follow-up beyond 5 years 〔PAGA III, B〕 〔ESMO III, B〕
+  ⑤ Referral of BRCA1/2 carriers to a high-risk breast clinic 〔PAGA I, A〕 〔ESMO I, A〕
+  ⑥ Multidisciplinary support to prevent associated cancers in hereditary cancer syndromes 〔JSGO B, 1〕
+  ⑦ Malignant bowel obstruction: palliative surgery in selected patients 〔JSGO C, 2〕 〔ESGO IV, B〕 〔NCCN 2A〕
+    ・Corticosteroids, octreotide or both 〔JSGO C, 2〕
+
+course: Ovarian cancer
+  Stage I–II, surgery
+    branch: EARLY
+    ① Surgical staging: hysterectomy, bilateral salpingo-oophorectomy, omentectomy, peritoneal cytology and biopsies, and pelvic and para-aortic lymph node dissection 〔JSGO C, 2〕 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A〕
+      ・Lymph node dissection can be omitted in low-grade endometrioid and expansile mucinous carcinoma with clinically and radiologically negative nodes 〔ESMO〕
+      ・Mucinous carcinoma on frozen section with non-suspicious nodes 〔NCCN 2A〕
+      ・Minimally invasive surgery by an experienced gynaecological oncologist 〔JSGO C, 1〕
+      ・Midline laparotomy remains the standard approach 〔ESMO〕 〔NCCN 2A〕
+    ② Fertility preservation desired, stage IA: unilateral salpingo-oophorectomy with complete staging 〔ESGO III, A〕 〔ESMO〕 〔NCCN 2A〕
+      ・Stage IA low-grade non-clear cell carcinoma 〔JSGO B, 1〕
+      ・Stage IC1 low-grade, or stage IA high-grade including clear cell carcinoma 〔JSGO C, 2〕
+      ・Stage IB: bilateral salpingo-oophorectomy with preservation of the uterus 〔NCCN 2A〕
+    next: Adjuvant chemotherapy, stage I–II
+  Adjuvant chemotherapy, stage I–II
+    branch: EARLY pale
+    ① Chemotherapy: high-grade serous or high-grade endometrioid carcinoma of any stage, clear cell carcinoma stage IC2–IC3, infiltrative mucinous carcinoma stage IB–IC3, and any stage II 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN 2A〕
+    + ICON1
+    ~ ACTION
+    ② Uncertain benefit, optional chemotherapy: clear cell IA–IC1, low-grade serous IB–IC, low-grade endometrioid IB–IC, expansile mucinous IC, infiltrative mucinous IA 〔PAGA III, C〕 〔ESMO III, C〕
+      ・Chemotherapy for every stage I clear cell carcinoma 〔JSGO〕
+      ・Clear cell carcinoma stage IA–IB: chemotherapy may be omitted 〔ESGO IV, C〕
+    ③ Observation after complete staging: low-grade serous IA, low-grade endometrioid IA, expansile mucinous IA–IB 〔PAGA II, E〕 〔ESMO II, E〕 〔NCCN 2A〕
+      ・Stage IA–IB low-grade non-clear cell carcinoma 〔JSGO B, 2〕 〔NCCN 2A〕
+    ※ PARP inhibitor maintenance is not recommended for completely staged stage I–II disease 〔ASCO-PARP Low, Strong〕
+      ・The stage III–IV maintenance options extend to stage II, with limited data 〔NCCN 2A〕
+    next: Adjuvant regimen, stage I–II
+  Adjuvant regimen, stage I–II
+    branch: EARLY pale
+    ① Carboplatin with paclitaxel 〔PAGA I, B〕 〔ESMO I, B〕 〔NCCN 2A, preferred〕
+      ・Six cycles for high-grade serous carcinoma and stage II 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕. High-grade endometrioid carcinoma and stage IC: six cycles 〔PAGA II, B〕 〔ESMO II, B〕, or three to six 〔NCCN 2A〕. Other stage IA–IB disease: three to six cycles 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕
+      ・In an exploratory GOG 157 analysis, the lower recurrence rate with six cycles was confined to serous carcinoma 〔ESMO〕
+      ° Toxicity of note: grade 3–4 neuropathy in 11% with six cycles and 2% with three in GOG 157
+    - GOG 157 {pmid 16860852}
+    ② Carboplatin alone for six cycles 〔PAGA I, A〕 〔ESMO I, A〕
+      ・Reserved for intolerance of a combination 〔JSGO C, 2〕
+      ・Not among the stage I regimens 〔NCCN〕
+  Stage III–IV, surgery
+    branch: ADV
+    ① Surgery aims at complete cytoreduction with no macroscopic residual disease 〔JSGO A, 1〕 〔PAGA III, A〕 〔ESMO III, A〕
+    ② Choice between primary surgery and neoadjuvant chemotherapy by a specialised gynaecological oncology team 〔JSGO C, 1〕 〔PAGA III, A〕 〔ESMO III, A〕 〔ESGO IV, A〕 〔ASCO-NACT High, Strong〕
+      ・Diagnostic laparoscopy when resectability is uncertain 〔JSGO B, 2〕 〔ESGO III, B〕 〔NCCN 2A〕 〔ASCO-NACT Moderate, Conditional〕
+    ③ Complete cytoreduction feasible in a fit patient: primary cytoreductive surgery 〔PAGA III, A〕 〔ESMO III, A〕 〔ESGO I, A〕 〔NCCN 2A〕 〔ASCO-NACT Moderate, Conditional〕
+    ④ Complete cytoreduction unlikely, or high perioperative risk: neoadjuvant chemotherapy, then interval cytoreductive surgery 〔JSGO B, 1〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 1〕 〔ASCO-NACT High, Strong〕
+      ・Histological confirmation by core biopsy before chemotherapy 〔JSGO B, 2〕 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A〕 〔ASCO-NACT Moderate, Conditional〕
+      ・Interval surgery after three cycles 〔PAGA I, A〕 〔ESMO I, A〕
+      ・Interval surgery after three to four cycles 〔NCCN 2A〕 〔ASCO-NACT Low, Conditional〕
+    ~ EORTC 55971
+    ~ CHORUS
+    ~ SCORPION
+    ~ JCOG0602
+    ⑤ Suboptimal primary surgery: interval surgery when complete resection becomes achievable after chemotherapy 〔JSGO C, 2〕
+    ⑥ HIPEC with cisplatin 100 mg/m² at interval surgery is an option in stage III 〔KSGO-5.1 I, B〕 〔NCCN 2A〕 〔ASCO-NACT Moderate, Conditional〕
+      ・Not a standard of care 〔PAGA II, D〕 〔ESMO II, D〕
+      ・Within clinical trials only 〔JSGO B, 2〕
+      ・Stage IV with a favourable response to neoadjuvant chemotherapy 〔NCCN 2B〕
+      ・Adequate renal function is required, with sodium thiosulfate for renal protection 〔NCCN 2A〕
+    + OVHIPEC-1 [t-van-driel-et-al]
+    - KOV-HIPEC-01 {pmid 35262624}
+    ※ No systematic lymphadenectomy after complete resection with clinically negative nodes 〔JSGO B, 2 against〕 〔ESGO I, E〕 〔ESMO〕 〔NCCN 2A〕
+      ・Resection of enlarged or suspicious nodes 〔JSGO B, 1〕 〔ESGO IV, A〕 〔NCCN 2A〕
+      ・No lymphadenectomy of clinically negative nodes at interval surgery 〔JSGO C, 2 against〕 〔NCCN 2A〕
+      - LION
+    next: First-line chemotherapy
+  First-line chemotherapy
+    branch: ADV pale
+    ① Carboplatin AUC 5–6 with paclitaxel 175 mg/m² every 3 weeks for six cycles 〔JSGO A, 1〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A, preferred〕 〔ASCO-NACT High, Strong〕
+      ・With neoadjuvant chemotherapy: six cycles in total, before and after interval surgery 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕 〔ASCO-NACT High, Strong〕
+    + GOG 111
+    ~ GOG 158
+    ② With bevacizumab, then bevacizumab maintenance, in stage III–IV 〔JSGO B, 1〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 2A, preferred〕
+      ・Bevacizumab 15 mg/kg every 3 weeks for a maximum of 15 months 〔ESGO I, A〕
+      ・Alternative schedule of 7.5 mg/kg for 12 months 〔NCCN 2A〕
+      ・The benefit was greater in stage IV and in stage III with residual disease over 1 cm, in a post hoc analysis 〔ESMO〕
+      ・With neoadjuvant chemotherapy, bevacizumab can be considered 〔PAGA II, B〕 〔ESMO II, B〕
+      ・Bevacizumab is withheld for 4 to 6 weeks before interval surgery 〔NCCN 2A〕
+    ~ GOG 218
+    ~ ICON7
+    - BOOST {pmid 36332161}
+    ③ Dose-dense weekly paclitaxel 80 mg/m² with carboplatin every 3 weeks 〔JSGO B, 1〕 〔NCCN 2A, other recommended〕
+      ・The benefit in JGOG 3016 was not confirmed in GOG-262 or ICON8 〔ESMO〕
+    + JGOG 3016
+    - GOG-262
+    - ICON8
+    ④ Frail patients: weekly paclitaxel 60 mg/m² with carboplatin AUC 2 〔PAGA I, B〕 〔ESMO I, B〕 〔ESGO II, A〕 〔NCCN 2A, other recommended〕
+      ・No dose reduction or exclusion from treatment on age alone 〔JSGO C, 2 against〕 〔ESGO IV, D〕
+      ・Vulnerability assessment from 70 years of age 〔ESGO IV, A〕
+    ~ MITO-7
+    ⑤ Paclitaxel not tolerated: carboplatin with docetaxel or with pegylated liposomal doxorubicin 〔JSGO B, 1〕 〔ESMO〕 〔NCCN 2A, other recommended〕
+      ・Carboplatin with pegylated liposomal doxorubicin was not adopted 〔PAGA〕
+      ・Reserved for intolerance of a combination 〔JSGO C, 2〕
+    ~ SCOTROC1 {pmid 15547181}
+    - MITO-2 {pmid 21844495}
+    ⑥ Intraperitoneal with intravenous chemotherapy after optimal cytoreduction is an option 〔JSGO B, 2〕 〔KSGO-5.0 Conditional〕 〔NCCN 2A, useful in certain circumstances〕
+      ・Not a standard of care 〔PAGA I, E〕 〔ESMO I, E〕
+    + GOG 172
+    - GOG-252 {pmid 31002578}
+    ~ iPocc {pmid 38320049}
+    ※ Progression during first-line chemotherapy is treated as platinum-resistant disease 〔NCCN 2A〕
+      ・Repeat biopsy with molecular profiling 〔ASCO-NACT Moderate, Conditional〕
+      ・Second-line chemotherapy, a clinical trial or end-of-life care, with surgery only for palliation 〔ASCO-NACT Moderate, Strong〕
+      ・Second-line chemotherapy, a clinical trial or best supportive care 〔JSGO C, 2〕
+    ※ A checkpoint inhibitor added to first-line chemotherapy and maintenance is not recommended outside clinical trials 〔ASCO-PARP〕
+      ・Durvalumab or pembrolizumab with olaparib maintenance improved progression-free survival, without an overall survival benefit
+      ・Neither trial had a control arm with a PARP inhibitor without the checkpoint inhibitor
+      ~ DUO-O
+      ~ KEYLYNK-001 [t-engot-ov43-gog-3036-keylynk-001]
+    ※ Mucinous carcinoma: capecitabine or fluorouracil with oxaliplatin 〔NCCN 2A, preferred〕 〔ASCO-NACT〕
+      ・The regimen is not changed on histological subtype alone 〔JSGO B, 2 against〕
+    ※ Carcinosarcoma is treated as high-grade serous carcinoma 〔ESGO IV, A〕 〔NCCN 2A〕
+    ※ No cytotoxic maintenance chemotherapy 〔JSGO B, 1 against〕
+    next: Maintenance, BRCA1/2 mutation
+    next: Maintenance, HRD-positive without a BRCA1/2 mutation
+    next: Maintenance, HRD-negative or unknown
+  Maintenance, BRCA1/2 mutation
+    branch: BRCA
+    ① After chemotherapy without bevacizumab: olaparib for 2 years or niraparib for 3 years 〔JSGO B, 1〕 〔KSGO-5.0 Strong〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 1〕 〔ASCO-PARP High, Strong〕
+    ~ SOLO-1
+    ~ PRIMA
+    ② After chemotherapy with bevacizumab: olaparib with bevacizumab 〔JSGO B, 1〕 〔KSGO-5.1 I, A〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 1〕 〔ASCO-PARP High, Strong〕
+      ・Niraparib with bevacizumab when olaparib is not tolerated 〔KSGO-5.1〕 〔NCCN 2A〕
+      ・A PARP inhibitor alone is also an option after bevacizumab 〔NCCN 2A〕
+    ~ PAOLA-1
+    ③ Rucaparib for 2 years 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 2A〕 〔ASCO-PARP High, Strong〕
+      ・EU licence, with no US licence for first-line maintenance
+      ・Not approved in Japan or Korea, and not available in Singapore
+    ~ ATHENA-MONO
+    next: Recurrence | Relapse
+  Maintenance, HRD-positive without a BRCA1/2 mutation
+    branch: HRDP
+    ① After chemotherapy with bevacizumab: olaparib with bevacizumab 〔JSGO B, 1〕 〔KSGO-5.1 I, A〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 1〕 〔ASCO-PARP High, Strong〕
+    ~ PAOLA-1
+    ② After chemotherapy without bevacizumab: niraparib for 3 years 〔JSGO B, 1〕 〔KSGO-5.0 Strong〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 2A〕 〔ASCO-PARP High, Strong〕
+    ~ PRIMA
+    ③ Rucaparib for 2 years 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 2A〕 〔ASCO-PARP High, Strong〕
+      ・EU licence, with no US licence for first-line maintenance
+      ・Not approved in Japan or Korea, and not available in Singapore
+    ~ ATHENA-MONO
+    ※ Olaparib alone 〔NCCN 2A〕
+      ・No phase III data support olaparib alone in this group 〔ASCO-PARP〕
+    next: Recurrence | Relapse
+  Maintenance, HRD-negative or unknown
+    branch: HRDN
+    ① After chemotherapy with bevacizumab: bevacizumab to a total of 15 months 〔JSGO B, 1〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, B〕 〔NCCN 2A〕
+    ② After chemotherapy without bevacizumab: niraparib for 3 years 〔JSGO B, 1〕 〔KSGO-5.0 Strong〕 〔PAGA I, B〕 〔ESMO I, B〕 〔ESGO I, B〕
+      ・Not recommended 〔ASCO-PARP High, Strong〕
+      ・PARP inhibitors are of minimal benefit in HR-proficient tumours 〔NCCN 2A〕
+      ・No overall survival benefit at the final analysis of PRIMA
+    ~ PRIMA
+    ③ Rucaparib for 2 years 〔PAGA I, B〕 〔ESMO I, B〕 〔ESGO I, B〕
+      ・Not recommended 〔ASCO-PARP High, Strong〕
+      ・EU licence, with no US licence for first-line maintenance
+      ・Not approved in Japan or Korea, and not available in Singapore
+    ~ ATHENA-MONO
+    ④ Observation 〔ESGO I, C〕 〔NCCN 2A〕 〔ASCO-NACT Moderate, Strong〕
+    next: Recurrence | Relapse
+  Recurrence
+    ① Assessment of histotype, BRCA status, prior lines and response, platinum-free interval, feasibility of complete secondary cytoreduction, residual toxicity and patient preference 〔PAGA I–III, A〕 〔ESMO I–III, A〕
+    ② Tumour testing if not done: BRCA1/2, FRα, HER2, PD-L1, MSI or mismatch repair, TMB, BRAF, KRAS, NTRK and RET 〔NCCN 2A〕
+      ・HRD testing is not repeated at recurrence 〔PAGA〕
+      ・Comprehensive genomic profiling, timed by the treatment plan 〔JSGO C, 2〕
+    ③ Oligometastatic recurrence: radiotherapy, surgery or ablation 〔JSGO C, 2〕 〔ESGO IV, B〕 〔NCCN 2A〕
+      ・The same maintenance can continue after local treatment 〔ESGO IV, C〕
+    ※ Treatment on a rising CA-125 alone, before clinical or radiological relapse, is not recommended 〔JSGO B, 2 against〕
+      ・Treatment is delayed until clinical or radiological relapse 〔NCCN 2A〕
+      ・Immediate treatment 〔NCCN 2B〕
+      - MRC OV05 [t-mrc-ov05-eortc-55955]
+    next: Platinum-sensitive recurrence
+    next: Platinum-resistant recurrence
+  Platinum-sensitive recurrence
+    branch: PS
+    Relapse 6 months or more after the last platinum dose 〔JSGO〕 〔NCCN 2A〕 〔ASCO-REC〕
+    ① First relapse more than 6 months after platinum, complete resection predicted: secondary cytoreductive surgery at an experienced centre 〔JSGO B, 2〕 〔KSGO-5.0 Strong〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 2A〕
+      ・Selection by a validated algorithm 〔ESGO I, A〕
+      ・A positive AGO score requires complete resection at first surgery, ECOG 0 and ascites below 500 mL 〔ESMO〕
+      ・Insufficient evidence for or against 〔ASCO-REC〕
+      ・HIPEC is not recommended with surgery for relapse 〔ESGO II, D〕
+    + DESKTOP III
+    ~ SOC-1
+    - GOG-0213 [t-gog-0213]
+    ② Carboplatin with pegylated liposomal doxorubicin, paclitaxel or gemcitabine 〔JSGO A, 1〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕
+      ・Pegylated liposomal doxorubicin 〔ASCO-REC Low, Strong〕
+      ・Paclitaxel 〔ASCO-REC Moderate, Strong〕
+      ・Gemcitabine 〔ASCO-REC Moderate, Conditional〕
+      ・Pegylated liposomal doxorubicin is the preferred partner on tolerability 〔ESMO〕
+      ・Prior bevacizumab and no prior PARP inhibitor: PARP inhibitor maintenance after response is preferred, regardless of BRCA and HRD status 〔ESGO I, A〕
+      ・Prior bevacizumab and PARP inhibitor: platinum chemotherapy is still recommended 〔ESGO I, B〕
+    + ICON4 {pmid 12826431}
+    ~ CALYPSO
+    ③ With bevacizumab, then bevacizumab until progression 〔JSGO B, 1〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A, preferred〕 〔ASCO-REC Moderate, Strong〕
+      ・Preferred when a rapid response is needed 〔PAGA V, A〕 〔ESMO V, A〕
+      ・Prior PARP inhibitor and no prior bevacizumab: platinum chemotherapy with bevacizumab 〔ESGO I, A〕
+      ・After PARP inhibitor maintenance: bevacizumab added to platinum chemotherapy 〔JSGO C, 2〕
+      ・After first-line bevacizumab, repeat bevacizumab with platinum 〔JSGO B, 2〕 〔KSGO-5.0 Conditional〕 〔ESGO I, A〕
+      ・Carboplatin with pegylated liposomal doxorubicin is the preferred partner for repeat bevacizumab 〔ESGO I, A〕
+      ・Repeat bevacizumab is not licensed in Europe 〔ESMO〕
+    ~ OCEANS
+    ~ GOG-0213 bevacizumab
+    ~ MITO-16b [t-mito-16b-mango-ov2b]
+    + AGO-OVAR 2.21 {pmid 32305099}
+    ※ Platinum intolerance: trabectedin with pegylated liposomal doxorubicin can be considered 〔PAGA II, C〕 〔ESMO II, C〕 〔ESGO II, C〕
+      ・Trabectedin added to pegylated liposomal doxorubicin is not recommended 〔ASCO-REC Moderate, Strong〕
+      ・EU licence, with no US licence
+      ~ OVA-301 {pmid 20516432}
+    next: Maintenance after platinum at recurrence | Response
+  Maintenance after platinum at recurrence
+    branch: PS pale
+    ① BRCA1/2 mutation, no prior PARP inhibitor: olaparib, niraparib or rucaparib until progression 〔JSGO B, 1〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 1〕 〔ASCO-PARP High, Strong〕
+      ・US licences: niraparib for germline mutations, olaparib and rucaparib for germline or somatic mutations
+      ・Caution beyond 24 months, given the risk of myelodysplastic syndrome 〔NCCN 2A〕
+      ・Bevacizumab is stopped before PARP inhibitor maintenance 〔NCCN 2A〕
+      ・A PARP inhibitor with bevacizumab is not recommended after recurrence 〔NCCN 2A〕
+    ~ Study 19
+    ~ SOLO-2
+    ~ NOVA
+    ~ ARIEL3
+    ② No BRCA1/2 mutation, no prior PARP inhibitor: niraparib or rucaparib 〔JSGO B, 2〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕
+      ・Olaparib keeps an EU licence regardless of BRCA status 〔ESMO〕
+      ・Not recommended 〔ASCO-PARP〕
+      ・Restricted to BRCA1/2-mutated disease 〔NCCN 2A〕
+      ・US licences were restricted to BRCA-mutated disease after the final survival analyses of NOVA and ARIEL3
+      ・EU licences are unchanged 〔ESMO〕
+    ~ NOVA
+    ~ ARIEL3
+    ③ After prior PARP inhibitor maintenance: a repeat PARP inhibitor is an option 〔JSGO B, 2〕 〔ESGO II, B〕 〔NCCN 2A〕
+      ・BRCA-mutated disease without progression during the prior PARP inhibitor 〔NCCN 2A〕
+      ・Prior exposure of 18 months first line or 12 months in later lines, or 12 months with and 6 months without a BRCA1/2 mutation 〔ESGO II, B〕
+      ・Insufficient data, with trial participation encouraged 〔ASCO-PARP〕
+      ・No licence covers a repeat PARP inhibitor 〔ESMO〕
+    ~ OReO [t-oreo-engot-ov38]
+    ※ A PARP inhibitor alone is not recommended as treatment of recurrence 〔ASCO-PARP High, Strong〕
+      ・Niraparib alone for HRD-positive disease after three or more regimens, when platinum is not feasible 〔JSGO C, 2〕
+      ・US licences for PARP inhibitor treatment were withdrawn in 2022 and 2023
+      ~ SOLO3 {pmid 32073956}
+      ~ ARIEL4 {pmid 35298906}
+  Platinum-resistant recurrence
+    branch: PR
+    Relapse within 6 months of the last platinum dose, or progression during platinum 〔JSGO〕 〔NCCN 2A〕 〔ASCO-REC〕
+      ・Platinum intolerance, early symptomatic relapse after platinum or patient preference also lead to treatment without platinum 〔PAGA II–IV, A〕 〔ESMO II–IV, A〕
+    Early palliative care 〔PAGA I, A〕 〔ESMO I, A〕
+    ① High-grade serous carcinoma with FRα in 75% or more of tumour cells at 2+ or 3+ intensity, after one to three lines: mirvetuximab soravtansine 〔KSGO-5.1 I, A〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO-REC High, Strong〕
+      ・EU and US licences
+      ° Toxicity of note: blurred vision and keratopathy, with lubricating eye drops and regular eye examinations
+    + MIRASOL
+    ② No prior bevacizumab and no contraindication: bevacizumab with weekly paclitaxel, pegylated liposomal doxorubicin or topotecan 〔JSGO B, 2〕 〔PAGA I, A〕 〔ESMO I, A〕 〔ESGO I, A〕 〔NCCN 2A, preferred〕 〔ASCO-REC Moderate, Strong〕
+      ・After prior bevacizumab, a single agent with or without bevacizumab 〔JSGO C, 2〕
+      ・Weekly paclitaxel is the preferred partner 〔ESGO II, A〕
+    ~ AURELIA
+    ③ Weekly paclitaxel, pegylated liposomal doxorubicin, topotecan or gemcitabine as a single agent 〔JSGO B, 2〕 〔PAGA I, B〕 〔ESMO I, B〕 〔ESGO I, A〕 〔NCCN 2A, preferred〕
+      ・Pegylated liposomal doxorubicin 〔ASCO-REC High, Strong〕
+      ・Paclitaxel 〔ASCO-REC Moderate, Strong〕
+      ・Gemcitabine 〔ASCO-REC Moderate, Conditional〕
+      ・Irinotecan is licensed in Japan for platinum-resistant disease
+      ・Supportive care alone when the expected benefit of chemotherapy is limited 〔JSGO C, 2〕 〔ESGO III, A〕
+    ~ Gordon 2001 [t-gordon-et-al]
+    - Mutch 2007 [t-mutch-et-al]
+    ④ Relacorilant with nab-paclitaxel 〔NCCN 2A, preferred〕 〔ASCO-REC Moderate, Conditional〕
+      ・Up to three prior lines including bevacizumab, with no corticosteroid premedication 〔NCCN 2A〕
+    ~ ROSELLA
+    ⑤ HER2 IHC 3+ or 2+: trastuzumab deruxtecan 〔KSGO-5.1 III, C〕 〔NCCN 2A, useful in certain circumstances〕
+      ・US accelerated approval for HER2 IHC 3+ solid tumours
+    ~ DESTINY-PanTumor02 [t-destiny-pantumor02--tumour-agnostic-basket-trials]
+    ※ PD-L1 CPS 1 or more: pembrolizumab with weekly paclitaxel, with or without bevacizumab 〔NCCN 2A, useful in certain circumstances〕
+      ・US licence of February 2026, after one or two prior lines
+      ・No recommendation pending the full report 〔ASCO-REC〕
+      + KEYNOTE-B96 [t-engot-ov65-keynote-b96]
+    ※ Pembrolizumab for dMMR, MSI-H or TMB of 10 mut/Mb or more, and dostarlimab for dMMR or MSI-H 〔NCCN 2A, useful in certain circumstances〕
+    ※ Platinum rechallenge after a non-platinum regimen, when there was no progression during platinum 〔PAGA III, B〕 〔ESMO III, B〕
+    ※ No surgery, except for a resectable solitary lesion or symptom relief 〔JSGO C, 2 against〕
+
+off:
+  GOG 3026 | No licence or recommendation: ribociclib with letrozole in low-grade serous carcinoma is in no guideline read, and the trial is single-arm

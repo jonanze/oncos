@@ -31,7 +31,8 @@
     'Rectal Cancer': 'rectal',
     'Mesothelioma': 'mesothelioma',
     'Nasopharyngeal Carcinoma': 'npc',
-    'SCLC': 'sclc'
+    'SCLC': 'sclc',
+    'Ovarian Cancer': 'ovarian'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };

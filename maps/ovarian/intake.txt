@@ -1,0 +1,13 @@
+# Trials on the Ovarian Cancer map with no Evidence row yet (name, PMID, where on the map)
+GOG 157	PMID 16860852	Adjuvant regimen, stage I–II
+KOV-HIPEC-01	PMID 35262624	Stage III–IV, surgery
+BOOST	PMID 36332161	First-line chemotherapy
+SCOTROC1	PMID 15547181	First-line chemotherapy
+MITO-2	PMID 21844495	First-line chemotherapy
+GOG-252	PMID 31002578	First-line chemotherapy
+iPocc	PMID 38320049	First-line chemotherapy
+ICON4	PMID 12826431	Platinum-sensitive recurrence
+AGO-OVAR 2.21	PMID 32305099	Platinum-sensitive recurrence
+OVA-301	PMID 20516432	Platinum-sensitive recurrence
+SOLO3	PMID 32073956	Maintenance after platinum at recurrence
+ARIEL4	PMID 35298906	Maintenance after platinum at recurrence
