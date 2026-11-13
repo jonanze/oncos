@@ -57,7 +57,7 @@
 #   Japanese and Singapore status of mirvetuximab, relacorilant, pembrolizumab, trastuzumab deruxtecan and avutometinib
 #   is not stated in the guidelines and was not checked
 # Trial marks: + OS benefit, ~ surrogate endpoint, non-inferiority or inconclusive, - no benefit or harm. Marks follow
-#   the Evidence row or intake paper as it stands. Later reports that change a mark are listed in row-updates.txt
+#   the Evidence row or intake paper as it stands. Final reports filed 2026-11-13: JCOG0602 -, ROSELLA +, ARIEL4 - (OS favoured chemotherapy)
 #   (JCOG0602, SOLO-1, PRIMA, PAOLA-1, ROSELLA, SOLO3, ARIEL4) for the editor
 
 map: Ovarian Cancer
@@ -170,7 +170,7 @@ course: Ovarian cancer
       ・Six cycles for high-grade serous carcinoma and stage II 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕. High-grade endometrioid carcinoma and stage IC: six cycles 〔PAGA II, B〕 〔ESMO II, B〕, or three to six 〔NCCN 2A〕. Other stage IA–IB disease: three to six cycles 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕
       ・In an exploratory GOG 157 analysis, the lower recurrence rate with six cycles was confined to serous carcinoma 〔ESMO〕
       ° Toxicity of note: grade 3–4 neuropathy in 11% with six cycles and 2% with three in GOG 157
-    - GOG 157 {pmid 16860852}
+    - GOG 157 [t-gog-157]
     ② Carboplatin alone for six cycles 〔PAGA I, A〕 〔ESMO I, A〕
       ・Reserved for intolerance of a combination 〔JSGO C, 2〕
       ・Not among the stage I regimens 〔NCCN〕
@@ -187,7 +187,7 @@ course: Ovarian cancer
     ~ EORTC 55971
     ~ CHORUS
     ~ SCORPION
-    ~ JCOG0602
+    - JCOG0602
     ⑤ Suboptimal primary surgery: interval surgery when complete resection becomes achievable after chemotherapy 〔JSGO C, 2〕
     ⑥ HIPEC with cisplatin 100 mg/m² at interval surgery is an option in stage III 〔KSGO-5.1 I, B〕 〔NCCN 2A〕 〔ASCO-NACT Moderate, Conditional〕
       ・Not a standard of care 〔PAGA II, D〕 〔ESMO II, D〕
@@ -195,7 +195,7 @@ course: Ovarian cancer
       ・Stage IV with a favourable response to neoadjuvant chemotherapy 〔NCCN 2B〕
       ・Adequate renal function is required, with sodium thiosulfate for renal protection 〔NCCN 2A〕
     + OVHIPEC-1 [t-van-driel-et-al]
-    - KOV-HIPEC-01 {pmid 35262624}
+    - KOV-HIPEC-01 [t-kov-hipec-01]
     ※ No systematic lymphadenectomy after complete resection with clinically negative nodes 〔JSGO B, 2 against〕 〔ESGO I, E〕 〔ESMO〕 〔NCCN 2A〕
       ・Resection of enlarged or suspicious nodes 〔JSGO B, 1〕 〔ESGO IV, A〕 〔NCCN 2A〕
       ・No lymphadenectomy of clinically negative nodes at interval surgery 〔JSGO C, 2 against〕 〔NCCN 2A〕
@@ -215,7 +215,7 @@ course: Ovarian cancer
       ・Bevacizumab is withheld for 4 to 6 weeks before interval surgery 〔NCCN 2A〕
     ~ GOG 218
     ~ ICON7
-    - BOOST {pmid 36332161}
+    - BOOST [t-boost]
     ③ Dose-dense weekly paclitaxel 80 mg/m² with carboplatin every 3 weeks 〔JSGO B, 1〕 〔NCCN 2A, other recommended〕
       ・The benefit in JGOG 3016 was not confirmed in GOG-262 or ICON8 〔ESMO〕
     + JGOG 3016
@@ -228,13 +228,13 @@ course: Ovarian cancer
     ⑤ Paclitaxel not tolerated: carboplatin with docetaxel or with pegylated liposomal doxorubicin 〔JSGO B, 1〕 〔ESMO〕 〔NCCN 2A, other recommended〕
       ・Carboplatin with pegylated liposomal doxorubicin was not adopted 〔PAGA〕
       ・Reserved for intolerance of a combination 〔JSGO C, 2〕
-    ~ SCOTROC1 {pmid 15547181}
-    - MITO-2 {pmid 21844495}
+    ~ SCOTROC1 [t-scotroc]
+    - MITO-2 [t-mito-2]
     ⑥ Intraperitoneal with intravenous chemotherapy after optimal cytoreduction is an option 〔JSGO B, 2〕 〔KSGO-5.0 Conditional〕 〔NCCN 2A, useful in certain circumstances〕
       ・Not a standard of care 〔PAGA I, E〕 〔ESMO I, E〕
     + GOG 172
-    - GOG-252 {pmid 31002578}
-    ~ iPocc {pmid 38320049}
+    - GOG-252 [t-gog-252]
+    ~ iPocc [t-ipocc]
     ※ Progression during first-line chemotherapy is treated as platinum-resistant disease 〔NCCN 2A〕
       ・Repeat biopsy with molecular profiling 〔ASCO-NACT Moderate, Conditional〕
       ・Second-line chemotherapy, a clinical trial or end-of-life care, with surgery only for palliation 〔ASCO-NACT Moderate, Strong〕
@@ -324,7 +324,7 @@ course: Ovarian cancer
       ・Pegylated liposomal doxorubicin is the preferred partner on tolerability 〔ESMO〕
       ・Prior bevacizumab and no prior PARP inhibitor: PARP inhibitor maintenance after response is preferred, regardless of BRCA and HRD status 〔ESGO I, A〕
       ・Prior bevacizumab and PARP inhibitor: platinum chemotherapy is still recommended 〔ESGO I, B〕
-    + ICON4 {pmid 12826431}
+    + ICON4 [t-icon-4-ago-ovar-2-2]
     ~ CALYPSO
     ③ With bevacizumab, then bevacizumab until progression 〔JSGO B, 1〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A, preferred〕 〔ASCO-REC Moderate, Strong〕
       ・Preferred when a rapid response is needed 〔PAGA V, A〕 〔ESMO V, A〕
@@ -336,11 +336,11 @@ course: Ovarian cancer
     ~ OCEANS
     ~ GOG-0213 bevacizumab
     ~ MITO-16b [t-mito-16b-mango-ov2b]
-    + AGO-OVAR 2.21 {pmid 32305099}
+    + AGO-OVAR 2.21 [t-ago-ovar-2-21-engot-ov-18]
     ※ Platinum intolerance: trabectedin with pegylated liposomal doxorubicin can be considered 〔PAGA II, C〕 〔ESMO II, C〕 〔ESGO II, C〕
       ・Trabectedin added to pegylated liposomal doxorubicin is not recommended 〔ASCO-REC Moderate, Strong〕
       ・EU licence, with no US licence
-      ~ OVA-301 {pmid 20516432}
+      ~ OVA-301 [t-ova-301]
     next: Maintenance after platinum at recurrence | Response
   Maintenance after platinum at recurrence
     branch: PS pale
@@ -370,8 +370,8 @@ course: Ovarian cancer
     ※ A PARP inhibitor alone is not recommended as treatment of recurrence 〔ASCO-PARP High, Strong〕
       ・Niraparib alone for HRD-positive disease after three or more regimens, when platinum is not feasible 〔JSGO C, 2〕
       ・US licences for PARP inhibitor treatment were withdrawn in 2022 and 2023
-      ~ SOLO3 {pmid 32073956}
-      ~ ARIEL4 {pmid 35298906}
+      ~ SOLO3 [t-solo3]
+      - ARIEL4 [t-ariel4]
   Platinum-resistant recurrence
     branch: PR
     Relapse within 6 months of the last platinum dose, or progression during platinum 〔JSGO〕 〔NCCN 2A〕 〔ASCO-REC〕
@@ -395,7 +395,7 @@ course: Ovarian cancer
     - Mutch 2007 [t-mutch-et-al]
     ④ Relacorilant with nab-paclitaxel 〔NCCN 2A, preferred〕 〔ASCO-REC Moderate, Conditional〕
       ・Up to three prior lines including bevacizumab, with no corticosteroid premedication 〔NCCN 2A〕
-    ~ ROSELLA
+    + ROSELLA
     ⑤ HER2 IHC 3+ or 2+: trastuzumab deruxtecan 〔KSGO-5.1 III, C〕 〔NCCN 2A, useful in certain circumstances〕
       ・US accelerated approval for HER2 IHC 3+ solid tumours
     ~ DESTINY-PanTumor02 [t-destiny-pantumor02--tumour-agnostic-basket-trials]
