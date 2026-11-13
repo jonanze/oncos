@@ -57,8 +57,8 @@
 #   Japanese and Singapore status of mirvetuximab, relacorilant, pembrolizumab, trastuzumab deruxtecan and avutometinib
 #   is not stated in the guidelines and was not checked
 # Trial marks: + OS benefit, ~ surrogate endpoint, non-inferiority or inconclusive, - no benefit or harm. Marks follow
-#   the Evidence row or intake paper as it stands. Final reports filed 2026-11-13: JCOG0602 -, ROSELLA +, ARIEL4 - (OS favoured chemotherapy)
-#   (JCOG0602, SOLO-1, PRIMA, PAOLA-1, ROSELLA, SOLO3, ARIEL4) for the editor
+#   the Evidence row as it stands. Final reports filed 2026-11-13: JCOG0602 -, ROSELLA +, ARIEL4 - (OS favoured chemotherapy),
+#   SOLO3 stays ~ (PFS gain, no OS difference), SOLO-1, PRIMA and PAOLA-1 stay ~
 
 map: Ovarian Cancer
 source: JSGO {url https://doi.org/10.3802/jgo.2026.37.e150}
