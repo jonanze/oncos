@@ -75,7 +75,7 @@ course: Nasopharyngeal carcinoma
     ※ China only: sintilimab or camrelizumab with induction and chemoradiotherapy
       ・Neither drug has a licence outside China
       ~ CONTINUUM
-      ~ You 2026 [t-you-et-al--nasopharyngeal-carcinoma]
+      ~ You 2026 [t-you-et-al]
     next: Chemoradiotherapy
   T3 N0
     branch: T3
@@ -127,7 +127,7 @@ course: Nasopharyngeal carcinoma
     ③ Unresectable, or surgery declined, more than 12 months after the first radiotherapy: re-irradiation with IMRT or proton therapy 〔CSCO-ASCO-RM High, Strong〕
       ・Hyperfractionated re-irradiation 〔CSCO-ASCO-RM High, Conditional〕
       ・Re-irradiation with a platinum 〔NCCN 2A〕
-    + You 2023 [t-you-et-al]
+    + You 2023 [t-you-et-al--nasopharyngeal-carcinoma]
     ④ Not suitable for surgery or re-irradiation: systemic treatment as for distant metastases 〔CSCO-ASCO-RM High, Strong〕
   First line, recurrent or metastatic
     branch: RM
