@@ -50,13 +50,13 @@ course: Stage II and III rectal cancer
     ~ CAO/ARO/AIO-94
     + MRC CR07 [t-mrc-cr07-ncic-ctg-c016]
     ② FOLFOX or CAPOX for 3 months, with CRT only after a poor response 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate to high, Conditional〕
-      ・This is for a tumour that is not cT4, has a clear MRF and suits sphincter-sparing surgery
-      ・ASCO limits this to the mid or upper rectum
+      ・For tumours that are not cT4, with a clear MRF and suitable for sphincter-sparing surgery
+      ・Mid or upper rectum only 〔ASCO〕
     ~ PROSPECT
     ~ FOWARC
     - CONVERT [t-convert--rectal-cancer]
     ③ TNT 〔NCCN 2A〕
-      ・ESMO keeps TNT for high-risk disease
+      ・High-risk disease only 〔ESMO〕
     ④ Organ preservation as the aim, tumour under 5 cm: CRT with a contact brachytherapy boost 〔NCCN 2A〕 〔ESMO I, A〕
     ~ OPERA
     ⑤ Upper rectum, cT3 N0 with a clear MRF: TME first 〔NCCN 2A〕
@@ -64,7 +64,7 @@ course: Stage II and III rectal cancer
   High risk, pMMR
     branch: HR
     ① TNT: radiotherapy and 3 to 4 months of FOLFOX or CAPOX, all before TME 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate to high, Strong〕
-      ・ASCO also offers TNT first for any low rectal tumour
+      ・Also for any low rectal tumour 〔ASCO〕
     ~ RAPIDO
     + PRODIGE 23
     ~ STELLAR
@@ -79,8 +79,9 @@ course: Stage II and III rectal cancer
   dMMR or MSI-H
     branch: dMMR
     ① A PD-1 inhibitor for 6 months 〔NCCN 2A, preferred〕 〔ESMO II, A〕 〔ASCO Low, Strong〕
-      ・ESMO grades dostarlimab, and notes a US licence and no EU licence
-      ・NCCN lists any PD-1 or PD-L1 inhibitor, with none preferred
+      ・The ESMO grade is for dostarlimab
+      ・Dostarlimab is licensed in the US, not in the EU
+      ・Any PD-1 or PD-L1 inhibitor, with none preferred 〔NCCN〕
     ~ Cercek 2022 [t-cercek-et-al]
     ~ Cercek 2025 [t-cercek-et-al--tumour-agnostic-basket-trials]
     ~ AZUR-1 [t-azur-1]
@@ -93,8 +94,8 @@ course: Stage II and III rectal cancer
     ① MRI, endoscopy and digital rectal examination 〔NCCN 2A〕 〔ESMO I, A〕
       ・A clinical complete response is a flat scar, a smooth wall and no restricted diffusion or nodes on MRI
     ② Near-complete response: a second assessment 4 to 8 weeks later 〔NCCN 2A〕 〔ESMO I, B〕
-    ※ A biopsy is not needed to confirm a complete response 〔NCCN 2A〕 〔ESMO V, D〕
-    ※ ctDNA has no role in the decision 〔NCCN 2A〕
+    ※ A biopsy is not required to confirm a complete response 〔NCCN 2A〕 〔ESMO V, D〕
+    ※ ctDNA is not used for this decision 〔NCCN 2A〕
     next: TME | Residual tumour
     next: Watch and wait | Clinical complete response
   TME
@@ -114,7 +115,7 @@ course: Stage II and III rectal cancer
     ① Watch and wait in an experienced team, for a patient committed to surveillance 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Conditional〕
     ~ OPRA
     ② Examination, endoscopy and MRI every 3 months for 2 years, then every 6 months 〔ESMO I, A〕
-      ・NCCN spaces MRI every 6 months for up to 3 years
+      ・MRI every 6 months for up to 3 years 〔NCCN〕
     ※ Most regrowths arise in the bowel wall within 2 years
     ※ Watch and wait is not recommended after chemotherapy alone 〔ESMO I, D〕
     ※ Near-complete response in a baseline cT2 or cT3a N0 tumour: local excision 〔ESMO II, B〕
@@ -122,7 +123,7 @@ course: Stage II and III rectal cancer
   Adjuvant treatment
     ① No preoperative treatment, stage III: CAPOX or FOLFOX 〔NCCN 2A〕 〔ESMO I, A〕
     ② No preoperative radiotherapy, with an involved margin, pT4b or poor TME: CRT 〔NCCN 2A〕 〔ESMO III, A〕
-    ③ After CRT or short-course radiotherapy: a fluoropyrimidine with or without oxaliplatin may be considered 〔ESMO V, B〕
+    ③ After CRT or short-course radiotherapy: a fluoropyrimidine with or without oxaliplatin is an option 〔ESMO V, B〕
     ~ ADORE
     + CAO/ARO/AIO-04
     ※ After TNT, adjuvant chemotherapy is not generally recommended 〔NCCN 2A〕 〔ESMO I, D〕
@@ -136,35 +137,35 @@ course: Stage II and III rectal cancer
 
 panel: Radiotherapy before surgery > Intermediate risk, pMMR
   ① Long-course CRT with capecitabine or infusional 5-FU 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Conditional〕
-    ・ASCO prefers long-course CRT to short-course radiotherapy
+    ・Long-course CRT is preferred over short-course radiotherapy 〔ASCO〕
   ~ NSABP R-04
   ② Short-course radiotherapy, 5 fractions of 5 Gy 〔NCCN 2A〕 〔ESMO I, A〕
   ~ Polish I
   ~ TROG 01.04
   ~ Stockholm III
-  ※ Do not add oxaliplatin to CRT 〔NCCN 2A〕
-    ・One of four trials found longer disease-free survival
+  ※ Addition of oxaliplatin to CRT is not recommended 〔NCCN 2A〕
+    ・Disease-free survival was longer in one of four trials
     - STAR-01
     - ACCORD 12 [t-accord-12-0405-prodige-2]
     - NSABP R-04
     + CAO/ARO/AIO-04
-  ※ Do not add irinotecan to CRT 〔NCCN 2A〕
+  ※ Addition of irinotecan to CRT is not recommended 〔NCCN 2A〕
     - ARISTOTLE
   ※ Age 75 or over: short-course radiotherapy was better tolerated than CRT, with no gain in R0 resection
     - PRODIGE 42 [t-prodige-42-gerico-12]
 
 panel: Order of TNT > High risk, pMMR
   ① Radiotherapy first, then FOLFOX or CAPOX 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate, Conditional〕
-    ・This order is preferred when organ preservation is the aim 〔ESMO I, B〕
+    ・Preferred when organ preservation is the aim 〔ESMO I, B〕
   ~ CAO/ARO/AIO-12
   ~ OPRA
   ② FOLFOX or CAPOX first, then CRT or short-course radiotherapy 〔NCCN 2A〕 〔ESMO I, A〕
   ③ FOLFIRINOX for 3 months, then CRT 〔NCCN 2A〕 〔ESMO I, A〕
-    ・ASCO allows it for a higher risk of distant spread
-    ・ESMO gives irinotecan only in this sequence
+    ・For a higher risk of distant metastasis 〔ASCO〕
+    ・Irinotecan only in this sequence 〔ESMO〕
   + PRODIGE 23
   ※ TNT with short-course radiotherapy had more locoregional recurrence than CRT at 5 years
-    ・NCCN advises caution with short-course radiotherapy in high-risk disease
+    ・Caution with short-course radiotherapy in high-risk disease 〔NCCN〕
     ~ RAPIDO
 
 off:

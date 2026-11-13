@@ -34,15 +34,15 @@ band: Work-up
     ・Endoscopic ultrasound for T and N stage 〔ESMO V, B〕
   ② FDG-PET for candidates for oesophagectomy 〔ESMO III, B〕
     ・FDG-PET is not routine in gastric cancer 〔JGCA C, Weak against〕 〔ESMO III, D〕
-    ・KGCA allows FDG-PET as an added staging test in gastric cancer 〔KGCA Low, Conditional〕
+    ・FDG-PET as an additional staging test in gastric cancer 〔KGCA Low, Conditional〕
   ③ Staging laparoscopy in gastric cancer when peritoneal disease is likely 〔JGCA B, Weak〕
     ・Before perioperative chemotherapy for resectable gastric cancer 〔ESMO III, B〕
     ・T3–4 junctional adenocarcinoma that extends into the cardia 〔ESMO IV, B〕
   ④ Mismatch repair or MSI 〔ESMO II, A〕 and PD-L1 〔ESMO I, A〕 on the biopsy
   ⑤ Nutritional assessment 〔ESMO III, A〕
     ・Nutritional support 〔ESMO II, A〕
-  ※ JGCA stages by the Japanese classification 15th edition, which matches UICC TNM 8th edition
-    ・JES stages by the Japanese Classification of Esophageal Cancer 12th edition
+  ※ Gastric cancer staging by the Japanese Classification of Gastric Carcinoma 15th edition, equivalent to UICC TNM 8th edition 〔JGCA〕
+    ・Oesophageal cancer staging by the Japanese Classification of Esophageal Cancer 12th edition 〔JES〕
 
 band: Early gastric cancer, cT1 N0
   ① Differentiated cT1a without ulceration, up to 2 cm: endoscopic mucosal resection or submucosal dissection 〔KGCA Moderate, Strong〕 〔NCCN 2A〕
@@ -62,10 +62,10 @@ band: Early oesophageal cancer, cT1 N0
   ① cT1a: endoscopic resection 〔NCCN 2A, preferred〕
     ・Stage I is treated by endoscopic or surgical resection alone 〔ESMO III, B〕
   ② After endoscopic resection, pT1a in the muscularis mucosae with vascular invasion, or pT1b: oesophagectomy or chemoradiotherapy
-    ・JES states no preference between the two
+    ・No preference between the two 〔JES〕
     ・pT1b N0: oesophagectomy 〔NCCN 2A〕
   ③ cT1b N0 squamous cell carcinoma: oesophagectomy 〔JES Weak〕 〔NCCN 2A〕
-    ・Definitive chemoradiotherapy with salvage treatment when the patient wants to keep the oesophagus 〔JES Weak〕
+    ・Definitive chemoradiotherapy with salvage treatment for patients who wish to preserve the oesophagus 〔JES Weak〕
 
 course: Localised gastric and oesophageal cancer
   Histology and site
@@ -73,8 +73,8 @@ course: Localised gastric and oesophageal cancer
     ① Gastric adenocarcinoma, including Siewert type III junctional tumours
     ② Oesophageal adenocarcinoma, and Siewert type I and II junctional tumours
     ③ Oesophageal squamous cell carcinoma
-    ※ JGCA defines junctional cancer as a tumour with its centre within 2 cm of the junction
-    ※ KGCA covers Siewert type II and III tumours with gastric cancer
+    ※ Junctional cancer: tumour centre within 2 cm of the oesophagogastric junction 〔JGCA〕
+    ※ Siewert type II and III tumours are within the gastric cancer guideline 〔KGCA〕
     next: Gastric adenocarcinoma
     next: Oesophageal and junctional adenocarcinoma
     next: Oesophageal squamous cell carcinoma
@@ -82,11 +82,11 @@ course: Localised gastric and oesophageal cancer
   Gastric adenocarcinoma
     branch: GA
     ① Perioperative FLOT with durvalumab, then durvalumab alone 〔ESMO I, A〕
-      ・ESMO prefers it where it is available
+      ・Preferred where available 〔ESMO〕
       ・PD-L1 CPS 1 or more, or TAP 1% or more 〔NCCN 1, preferred〕
       ・cN0, CPS below 1 or diffuse type 〔NCCN 2A, preferred〕
-      ・The diffuse type had no overall survival benefit from durvalumab in MATTERHORN
-      ・JGCA 2025 and KGCA 2024 were written before the MATTERHORN survival results
+      ・No overall survival benefit from durvalumab in diffuse-type tumours in MATTERHORN
+      ・JGCA 2025 and KGCA 2024 predate the MATTERHORN survival results
     + MATTERHORN
     ② Perioperative FLOT 〔ESMO I, A〕 〔NCCN 1, preferred〕
       ・A fluoropyrimidine with oxaliplatin 〔NCCN 2A, preferred〕
@@ -95,22 +95,22 @@ course: Localised gastric and oesophageal cancer
     + FLOT4-AIO
     + MAGIC
     ③ Docetaxel, oxaliplatin and S-1 before gastrectomy and S-1 after it, or perioperative SOX 〔KGCA High, Conditional〕
-      ・KGCA favours chemotherapy before surgery over upfront surgery 〔KGCA High, Conditional〕
-      ・KGCA states that FLOT should not be adopted in Asia without further evidence
+      ・Chemotherapy before surgery is favoured over upfront surgery 〔KGCA High, Conditional〕
+      ・FLOT is not recommended in Asia pending further evidence 〔KGCA〕
     ~ PRODIGY
     ~ RESOLVE
     ~ RESONANCE
     ④ Gastrectomy with D2 dissection, then adjuvant chemotherapy for pathological stage II or III 〔KGCA High, Strong〕 〔NCCN 2A〕
-      ・JGCA keeps surgery first as the standard in Japan
-      ・JGCA makes no clear recommendation on chemotherapy before surgery
-    ※ MSI-H or mismatch repair deficient: consider an immune checkpoint inhibitor before surgery 〔NCCN 2A, useful in certain circumstances〕
-      ・NCCN lists dostarlimab, nivolumab with ipilimumab, pembrolizumab, and tremelimumab with durvalumab
-      ・KGCA finds the benefit of adjuvant chemotherapy unclear in MSI-H disease
+      ・Upfront surgery remains the standard in Japan 〔JGCA〕
+      ・No clear recommendation on chemotherapy before surgery 〔JGCA〕
+    ※ MSI-H or mismatch repair deficient: an immune checkpoint inhibitor before surgery 〔NCCN 2A, useful in certain circumstances〕
+      ・Dostarlimab, nivolumab with ipilimumab, pembrolizumab, or tremelimumab with durvalumab 〔NCCN〕
+      ・The benefit of adjuvant chemotherapy is unclear in MSI-H disease 〔KGCA〕
     next: After gastrectomy
   Oesophageal and junctional adenocarcinoma
     branch: OA
     ① Perioperative FLOT with durvalumab, then durvalumab alone 〔ESMO I, A〕
-      ・ESMO prefers it where it is available
+      ・Preferred where available 〔ESMO〕
       ・Junctional tumour with CPS 1 or more, or TAP 1% or more 〔NCCN 1, preferred〕
       ・Oesophageal tumour with CPS 1 or more, or TAP 1% or more 〔NCCN 2A, preferred〕
     + MATTERHORN
@@ -119,19 +119,19 @@ course: Localised gastric and oesophageal cancer
     + ESOPEC
     ③ Unsuitable for FLOT: chemoradiotherapy, then oesophagectomy 〔ESMO I, B〕 〔NCCN 2A〕
       ・Carboplatin with paclitaxel 〔NCCN 1, preferred〕
-      ・NCCN also uses it for borderline resectable disease
+      ・Also for borderline resectable disease 〔NCCN〕
     + CROSS
     - Neo-AEGIS
     ④ Unsuitable for FLOT and for chemoradiotherapy: oxaliplatin with a fluoropyrimidine 〔ESMO IV, B〕 〔NCCN 2A, other recommended〕
       ・Fluorouracil with cisplatin 〔NCCN 1, other recommended〕
     + ACCORD-07 [t-accord-07]
-    ※ Adding radiotherapy to chemotherapy before surgery raised the pathological complete response rate but did not improve survival
+    ※ Addition of radiotherapy to preoperative chemotherapy increased the pathological complete response rate without improving survival
       ~ POET [t-poet]
       ~ NeoRes [t-neores]
     ※ Siewert type II: a transhiatal approach, not a transthoracic one 〔KGCA Moderate, Strong〕
     ※ MSI-H or mismatch repair deficient: an immune checkpoint inhibitor before surgery, as for gastric cancer 〔NCCN 2A, useful in certain circumstances〕
     ※ Unresectable junctional tumour, or a patient unfit for or declining surgery: definitive chemoradiotherapy 〔ESMO III, B〕
-      ・NCCN keeps it for patients who decline surgery 〔NCCN 2A〕
+      ・Restricted to patients who decline surgery 〔NCCN 2A〕
     next: After preoperative treatment
   Oesophageal squamous cell carcinoma
     branch: SC
@@ -143,13 +143,13 @@ course: Localised gastric and oesophageal cancer
     + CROSS
     + NEOCRTEC5010
     ② Docetaxel, cisplatin and fluorouracil, then oesophagectomy 〔JES Strong〕
-      ・ESMO uses it when radiotherapy is contraindicated 〔ESMO I, B〕
-      ・Cisplatin with fluorouracil remains an option for older patients and for comorbidity
-      ・NCCN lists no chemotherapy before surgery for squamous cell carcinoma
+      ・When radiotherapy is contraindicated 〔ESMO I, B〕
+      ・Cisplatin with fluorouracil remains an option for older patients and those with comorbidity
+      ・Preoperative chemotherapy alone is not in NCCN for squamous cell carcinoma
     + JCOG1109 [t-jcog1109]
     + JCOG9907
     ※ Treatment that includes surgery is preferred to definitive chemoradiotherapy 〔JES Weak〕
-      ・NCCN lists definitive chemoradiotherapy as an alternative 〔NCCN 2A〕
+      ・Definitive chemoradiotherapy is an alternative 〔NCCN 2A〕
     ※ China only: camrelizumab with chemotherapy before surgery raised the pathological complete response rate
       ・Event-free survival data are immature
       ・Camrelizumab is not licensed outside China
@@ -161,7 +161,7 @@ course: Localised gastric and oesophageal cancer
       ・CAPOX 〔KGCA High, Strong〕 〔NCCN 1, preferred〕
       ・Six months of S-1 was inferior to 1 year
       ・S-1 is on the Singapore Cancer Drug List
-      ・NCCN does not list S-1
+      ・S-1 is not in NCCN
     + ACTS-GC
     - JCOG1104 [t-opas-1]
     ② Pathological stage III: CAPOX, SOX, or S-1 with docetaxel 〔JGCA recommended〕
@@ -189,9 +189,9 @@ course: Localised gastric and oesophageal cancer
       ・More distant metastases were found with active surveillance
     ~ SANO
     ② After chemoradiotherapy and R0 resection with residual tumour: nivolumab for 1 year 〔JES Strong〕 〔ESMO I, A〕 〔NCCN 1, preferred〕
-      ・JES gives it for any histology and any PD-L1 status
+      ・Any histology and any PD-L1 status 〔JES〕
       ・Adenocarcinoma: only when PD-L1 is positive 〔ESMO I, B〕
-      ・JES makes no recommendation after chemotherapy without radiotherapy
+      ・No recommendation after chemotherapy without radiotherapy 〔JES〕
     ~ CheckMate 577
     ③ After perioperative chemotherapy: the regimen is completed after surgery 〔NCCN 1〕
     ※ No preoperative treatment and R0 resection: observation 〔NCCN 2A〕
@@ -202,7 +202,7 @@ course: Localised gastric and oesophageal cancer
     branch: CR
     Unresectable disease, or a patient unfit for or declining surgery 〔ESMO III, B〕
     ① Radiotherapy to 50 to 50.4 Gy with cisplatin and fluorouracil 〔NCCN 1, other recommended〕
-      ・JES uses 60 Gy with standard-dose cisplatin and fluorouracil for T4b disease
+      ・60 Gy with standard-dose cisplatin and fluorouracil for T4b disease 〔JES〕
     + RTOG 85-01
     - JCOG0303 [t-jcog-0303]
     ② Radiotherapy with fluorouracil and oxaliplatin 〔NCCN 1, preferred〕
@@ -222,13 +222,13 @@ course: Localised gastric and oesophageal cancer
       ・Observation 〔NCCN 2A〕
       ・Additional chemotherapy after a complete response 〔JES Weak〕
     ② Residual or recurrent local disease: salvage oesophagectomy 〔JES Weak〕 〔ESMO IV, C〕 〔NCCN 2A〕
-      ・ESMO limits it to selected patients in experienced centres
+      ・Restricted to selected patients in experienced centres 〔ESMO〕
     ③ T4b disease that becomes resectable: conversion surgery 〔JES Weak〕
 
 panel: Gastrectomy > Gastric adenocarcinoma
   ① Gastrectomy with D2 dissection for cT2–4 or node-positive disease 〔ESMO II, A〕 〔NCCN 2A〕
     ・D2 lowered gastric cancer deaths and locoregional recurrence against D1 at 15 years
-    ・NCCN asks for at least 16 nodes examined
+    ・At least 16 nodes examined 〔NCCN〕
   ~ Dutch D1D2 [t-dutch-d1d2-dgct]
   ② Laparoscopic distal gastrectomy for locally advanced disease 〔JGCA A, Strong〕 〔KGCA High, Strong〕 〔ESMO II, B〕 〔NCCN 2A〕
   ~ KLASS-02
@@ -238,7 +238,7 @@ panel: Gastrectomy > Gastric adenocarcinoma
     ・Proximal gastrectomy is an option 〔JGCA C, Weak〕 〔KGCA Low, Conditional〕
     ・Lower mediastinal node dissection 〔KGCA Low, Conditional〕
   - JCOG9502 [t-jcog-9502]
-  ※ Splenectomy is not done in total gastrectomy when the greater curvature is not involved 〔JGCA A, Strong against〕 〔KGCA High, Strong against〕 〔NCCN 2A〕
+  ※ Splenectomy is not recommended in total gastrectomy when the greater curvature is not involved 〔JGCA A, Strong against〕 〔KGCA High, Strong against〕 〔NCCN 2A〕
     - JCOG0110 [t-jcog-0110-mf]
   ※ Para-aortic node dissection added to D2 did not improve survival
     - JCOG9501
@@ -249,7 +249,7 @@ panel: Other trials before gastrectomy > Gastric adenocarcinoma
   ※ Pembrolizumab added to perioperative chemotherapy did not improve event-free survival
     - KEYNOTE-585
   ※ Preoperative chemoradiotherapy added to perioperative chemotherapy did not improve survival
-    ・Adding radiotherapy before surgery is investigational 〔KGCA Moderate, Investigational〕
+    ・Preoperative radiotherapy is investigational 〔KGCA Moderate, Investigational〕
     - TOPGEAR
   ※ S-1 with cisplatin before surgery did not improve survival in type 4 or large type 3 gastric cancer
     - JCOG0501 [t-jcog-0501]
@@ -265,8 +265,8 @@ panel: Oesophagectomy > After preoperative treatment
     ・Robotic McKeown oesophagectomy 〔ESMO I, B〕
   ~ MIRO [t-miro]
   ~ ROBOT [t-robot]
-  ② Fully minimally invasive oesophagectomy in expert hands 〔ESMO I, B〕
+  ② Fully minimally invasive oesophagectomy by experienced surgeons 〔ESMO I, B〕
   ~ TIME
   ※ Extended transthoracic resection did not significantly improve survival over transhiatal resection
-    ・It carried more perioperative morbidity
+    ・Perioperative morbidity was higher
     - Hulscher 2002 [t-hulscher]

@@ -38,7 +38,7 @@ branch: RM | Recurrent or metastatic | rose
 band: Work-up
   ① MRI for T staging 〔JSHNC C, Weak〕
     ・CT or MRI of the primary and neck, and CT of the chest 〔NCCN 2A〕
-    ・FDG-PET is useful for staging 〔JSHNC B, Weak〕
+    ・FDG-PET for staging 〔JSHNC B, Weak〕
   ② p16 immunohistochemistry for every oropharyngeal cancer 〔PAGA I, A〕 〔NCCN 2A〕
     ・HPV testing on the biopsy of HPV-positive oropharynx before transoral surgery 〔ASCO-TORS Low, Strong〕
   ③ PD-L1 combined positive score (CPS) at every site 〔NCCN 2A〕
@@ -51,7 +51,7 @@ band: Early disease, T1–2 N0
     ・Radiotherapy, or brachytherapy for selected T1 〔JSHNC C, Weak〕 〔PAGA IV, B〕
     ・cT2 N0: ipsilateral elective neck dissection 〔ASCO-Neck High, Strong〕
     ・cT1 N0: elective neck dissection, or close ultrasound surveillance in selected reliable patients 〔ASCO-Neck Intermediate, Strong〕
-    ・Stage I–II tongue cancer with deep invasion: elective neck dissection improves survival 〔JSHNC B, Weak〕
+    ・Stage I–II tongue cancer with deep invasion: elective neck dissection, which improves survival 〔JSHNC B, Weak〕
     + D'Cruz 2015 [t-d-cruz-et-al]
     ・Sentinel node biopsy, with neck dissection if a node is positive 〔NCCN 2A〕
     ・Sentinel node biopsy is reliable in early tongue cancer 〔JSHNC A, Weak〕
@@ -65,10 +65,10 @@ band: Early disease, T1–2 N0
     ・Early glottic cancer: 2.25 to 2.5 Gy per fraction 〔JSHNC C, Weak〕
     - JCOG0701 [t-jcog-0701]
     ・T2 with deep invasion or impaired cord movement: chemoradiotherapy is an option 〔JSHNC C, Weak〕
-    ・cT2 N0 unsuitable for larynx-preserving surgery: radiotherapy is adequate 〔Ferrari IV, 94%〕
+    ・cT2 N0 unsuitable for larynx-preserving surgery: radiotherapy alone 〔Ferrari IV, 94%〕
   ④ Hypopharynx: larynx-preserving radiotherapy, or larynx-preserving surgery 〔JSHNC C, Strong〕 〔PAGA IV, A〕 〔NCCN 2A〕
   ※ Early disease is treated with a single modality where possible 〔PAGA IV, A〕
-  ※ Adverse features at resection lead to postoperative treatment as for locally advanced disease
+  ※ Adverse features at resection: postoperative treatment as for locally advanced disease
 
 band: Unknown primary
   ① FDG-PET-CT when examination and CT show no primary 〔JSHNC B, Strong〕 〔NCCN 2A〕 〔ASCO-UP Intermediate, Strong〕
@@ -81,7 +81,7 @@ band: Unknown primary
     ・p16-negative N2–3 disease: radiotherapy with concurrent cisplatin 〔ASCO-UP High, Strong〕
   ⑤ After neck dissection with multiple nodes or extranodal extension: radiotherapy or chemoradiotherapy 〔JSHNC B, Strong〕 〔ASCO-UP Intermediate, Strong〕
     ・Concurrent cisplatin for extranodal extension 〔ASCO-UP High, Strong〕
-    ・A single node without extranodal extension needs no radiotherapy after a high-quality dissection 〔ASCO-UP Intermediate, Strong〕
+    ・A single node without extranodal extension after a high-quality dissection: no radiotherapy 〔ASCO-UP Intermediate, Strong〕
 
 course: Head and neck squamous cell carcinoma
   Locally advanced disease
@@ -92,8 +92,8 @@ course: Head and neck squamous cell carcinoma
     ③ Larynx or hypopharynx that would need total laryngectomy: larynx preservation 〔PAGA I, A〕
     ④ Larynx or hypopharynx T4a: total laryngectomy, then radiotherapy or chemoradiotherapy 〔PAGA IV, A〕 〔NCCN 2A〕
       ・Significant extralaryngeal or extensive subglottic spread 〔Ferrari III–IV, 99%〕
-      ・Laryngectomy gives longer survival than non-surgical treatment in unselected cT4a disease 〔Ferrari III–IV, 94%〕
-    ⑤ Unresectable disease at any site: chemoradiotherapy is the first treatment
+      ・Survival is longer with laryngectomy than with non-surgical treatment in unselected cT4a disease 〔Ferrari III–IV, 94%〕
+    ⑤ Unresectable disease at any site: chemoradiotherapy as initial treatment
     next: Surgery first | Surgery chosen
     next: Larynx preservation | Larynx preservation chosen
     next: Non-surgical treatment | Non-surgical or unresectable
@@ -101,14 +101,14 @@ course: Head and neck squamous cell carcinoma
     branch: SX
     ① Resection with neck dissection, then radiotherapy or chemoradiotherapy by pathology 〔PAGA IV, A〕 〔NCCN 2A〕
       ・Unequivocal extranodal extension into soft tissue, or carotid or cranial nerve involvement: non-surgical treatment 〔ASCO-Neck Intermediate, Moderate〕
-      ・HPV-positive oropharynx: transoral surgery is not offered when both postoperative radiotherapy and chemotherapy are expected 〔ASCO-TORS Low, Strong〕
+      ・HPV-positive oropharynx: transoral surgery is not recommended when postoperative chemoradiotherapy is expected 〔ASCO-TORS Low, Strong〕
     ② PD-L1 CPS 1 or more: pembrolizumab before surgery, with postoperative radiotherapy and after it
       ・Oral cavity 〔NCCN 2A, other recommended〕
       ・p16-negative oropharynx, hypopharynx and larynx 〔NCCN 2A, useful in certain circumstances〕
-      ・NCCN does not list it for p16-positive oropharynx or for N3 disease
+      ・Not in NCCN for p16-positive oropharynx or N3 disease
       ・Cisplatin is added to radiotherapy for extranodal extension or a positive margin
-      ・It is licensed by the FDA, the European Commission and the HSA for CPS 1 or more
-      ・JSHNC 2025 and PAGA 2021 were written before KEYNOTE-689 was reported
+      ・Licensed in the US, the EU and Singapore for CPS 1 or more
+      ・JSHNC 2025 and PAGA 2021 predate KEYNOTE-689
     ~ KEYNOTE-689
     ※ Preoperative chemotherapy is not recommended for locally advanced tongue cancer 〔JSHNC A, Weak against〕
     next: After surgery
@@ -116,16 +116,16 @@ course: Head and neck squamous cell carcinoma
     branch: LP
     T2–3 or node-positive disease that would need total laryngectomy
     ① Concurrent chemoradiotherapy with cisplatin 〔PAGA I, A〕 〔NCCN 1〕
-      ・For cT3 it gives the highest larynx preservation rate of the non-surgical options 〔Ferrari IV, 92%〕
-      ・It carries more long-term deaths not due to cancer than laryngectomy or induction 〔Ferrari IV, 82%〕
+      ・Highest larynx preservation rate of the non-surgical options in cT3 〔Ferrari IV, 92%〕
+      ・More long-term non-cancer deaths than with laryngectomy or induction 〔Ferrari IV, 82%〕
     ~ RTOG 91-11
     ② Induction TPF, then radiotherapy alone in responders 〔JSHNC B, Weak〕 〔PAGA I, A〕 〔NCCN 2A〕
-      ・Induction can select cT3 patients for organ preservation 〔Ferrari I, 95%〕
+      ・Response to induction is used to select cT3 patients for organ preservation 〔Ferrari I, 95%〕
       ・Complete response: radiotherapy alone 〔NCCN 1〕 〔Ferrari II, 97%〕
       ・Partial response: chemoradiotherapy 〔NCCN 2B〕
       ・Less than a partial response: total laryngectomy
       ・Stable disease when laryngectomy is declined: radiotherapy with concurrent platinum 〔Ferrari IV, 82%〕
-      ・Cetuximab is not added to TPF 〔Ferrari II, 93%〕
+      ・Addition of cetuximab to TPF is not recommended 〔Ferrari II, 93%〕
     ~ VA Larynx [t-va-larynx]
     ~ RTOG 91-11
     ~ GORTEC 2000-01 [t-gortec-2000-01]
@@ -136,27 +136,27 @@ course: Head and neck squamous cell carcinoma
     T4a in selected patients, or laryngectomy declined
     ① Chemoradiotherapy, or induction then radiotherapy 〔PAGA IV, B〕
       ・Suitable patients have minimal extralaryngeal spread, limited cartilage invasion and a functional larynx 〔Ferrari IV, 94%〕
-      ・A response of more than 50% to induction allows non-surgical preservation 〔Ferrari III, 90%〕
-      ・The consensus did not agree whether chemoradiotherapy or induction is better in T4a
+      ・A response of more than 50% to induction: non-surgical preservation 〔Ferrari III, 90%〕
+      ・No consensus on chemoradiotherapy versus induction in T4a 〔Ferrari〕
       ・Hypopharynx T4a: induction, then radiotherapy or surgery 〔PAGA I, A〕
     next: Chemoradiotherapy
   Non-surgical treatment
     branch: NS
     Oropharynx, T3–4 or node-positive
     ① Concurrent chemoradiotherapy 〔PAGA IV, A〕 〔NCCN 2A〕
-    ※ HPV-positive disease is treated the same as HPV-negative disease 〔PAGA I, A〕
+    ※ HPV-positive disease is managed as HPV-negative disease 〔PAGA I, A〕
       ・Concurrent cisplatin is standard for HPV-positive oropharyngeal cancer 〔JSHNC A, Strong〕
-      ・Cetuximab in place of cisplatin gave worse survival
+      ・Survival was worse with cetuximab in place of cisplatin
       - RTOG 1016
       - De-ESCALaTE
       - TROG 12.01 [t-hpvoropharynx]
-    ※ Reducing the radiation dose is not recommended for HPV-positive oropharyngeal cancer 〔JSHNC B, Strong against〕
+    ※ Radiation dose de-escalation is not recommended for HPV-positive oropharyngeal cancer 〔JSHNC B, Strong against〕
     Unresectable disease at any site
     ① Concurrent chemoradiotherapy 〔NCCN 1〕
     ② Induction TPF, then radiotherapy or chemoradiotherapy 〔JSHNC B, Weak〕 〔NCCN 2A〕
-      ・JSHNC advises it only after careful evaluation
-      ・PAGA does not use induction routinely outside larynx preservation
-      ・The Japanese PAGA experts recommend it when the risk of distant metastasis is high (N2c, N3 or level IV nodes)
+      ・Only after careful evaluation 〔JSHNC〕
+      ・Induction is not routine outside larynx preservation 〔PAGA〕
+      ・Induction when the risk of distant metastasis is high (N2c, N3 or level IV nodes), a view of the Japanese panel members 〔PAGA〕
     + TAX 323 [t-tax-323]
     + TAX 324
     ※ Japan only: superselective intra-arterial cisplatin with radiotherapy 〔JSHNC C, Weak〕
@@ -164,7 +164,7 @@ course: Head and neck squamous cell carcinoma
   After surgery
     branch: SX pale
     ① Extranodal extension or a positive margin: radiotherapy with cisplatin 〔JSHNC A, Strong〕 〔PAGA I, A〕 〔NCCN 1, preferred〕
-      ・NCCN category 1 covers sites other than the oropharynx
+      ・Category 1 for sites other than the oropharynx 〔NCCN〕
       ・Cisplatin 100 mg/m² every 3 weeks for extranodal extension 〔ASCO-Neck High, Strong〕
     + EORTC 22931
     ~ RTOG 9501 [t-rtog-9501]
@@ -175,7 +175,7 @@ course: Head and neck squamous cell carcinoma
       ・Unfit for cisplatin: docetaxel 〔NCCN 2A, useful in certain circumstances〕
     + Patil 2023 [t-dhanush]
     ② Other adverse features: radiotherapy alone 〔PAGA II, A〕 〔NCCN 2A〕
-      ・These are pT3–4, perineural invasion, lymphatic invasion and more than one positive node
+      ・Adverse features: pT3–4, perineural invasion, lymphatic invasion, or more than one positive node
       ・Oral cavity pN2–3 〔ASCO-Neck Intermediate, Strong〕
     ③ No adverse features: observation 〔NCCN 2A〕
       ・pN0, or pN1 without extranodal extension, after a high-quality dissection: no neck radiotherapy 〔ASCO-Neck Intermediate, Moderate〕
@@ -183,22 +183,22 @@ course: Head and neck squamous cell carcinoma
     ※ HPV-positive oropharynx after transoral surgery
       ・Close margin, perineural or lymphovascular invasion, 2 to 4 nodes, or extranodal extension of 1 mm or less: radiotherapy 〔ASCO-TORS Moderate, Strong〕
       ・Positive margin, 5 or more nodes, or extranodal extension over 1 mm: chemoradiotherapy 〔ASCO-TORS Moderate, Strong〕
-      ・A dose of 50 Gy may be considered 〔NCCN 2B〕
+      ・Radiotherapy to 50 Gy is an option 〔NCCN 2B〕
       ~ ECOG 3311 [t-ecog-acrin-e3311]
     ※ Nivolumab added to postoperative cisplatin and radiotherapy improved disease-free survival
       ・Overall survival data are immature
-      ・No licence for this use was found on 12 November 2026
-      ・NCCN discusses the trial and does not list the regimen
+      ・Not licensed for this use as of 12 November 2026
+      ・Not in NCCN
       ~ NIVOPOSTOP [t-nivopostop]
     next: After curative treatment
   Chemoradiotherapy
     ① Cisplatin 100 mg/m² on days 1, 22 and 43 of radiotherapy 〔PAGA II, A〕 〔NCCN 1, preferred〕
-      ・Concomitant chemoradiotherapy improves locoregional control and survival over radiotherapy alone 〔PAGA I, A〕
+      ・Concurrent chemoradiotherapy improves locoregional control and survival over radiotherapy alone 〔PAGA I, A〕
       ・Weekly cisplatin 40 mg/m² 〔NCCN 2A, other recommended〕
-      ・There is no preferred cisplatin schedule for older fit patients 〔Ferrari I, 88%〕
+      ・No preferred cisplatin schedule for fit older patients 〔Ferrari I, 88%〕
     + MACH-NC
     ② Carboplatin with infusional 5-FU 〔PAGA II, A〕 〔NCCN 1, preferred〕
-      ・PAGA lists it for patients unfit for cisplatin
+      ・For patients unfit for cisplatin 〔PAGA〕
     + GORTEC 94-01 [t-gortec-94-01]
     ③ Unfit for cisplatin: cetuximab with radiotherapy 〔PAGA II, A〕 〔NCCN 2B, useful in certain circumstances〕
       ・Cetuximab was inferior to cisplatin in patients fit for cisplatin
@@ -235,7 +235,8 @@ course: Head and neck squamous cell carcinoma
     ③ Unresectable recurrence after radiotherapy: systemic treatment as for distant metastases
       ・Re-irradiation with or without systemic treatment, only in experienced centres 〔JSHNC D, Weak〕 〔NCCN 2A〕
     ※ Japan only: cetuximab sarotalocan photoimmunotherapy has conditional approval for unresectable locally advanced or locally recurrent disease
-      ・JSHNC describes it without a graded recommendation, and no randomised trial has reported
+      ・No graded recommendation 〔JSHNC〕
+      ・No randomised trial has been reported
   First line, recurrent or metastatic
     branch: RM
     No platinum in the last 6 months, or metastatic disease at presentation
@@ -251,7 +252,7 @@ course: Head and neck squamous cell carcinoma
     ② CPS 1 or more: pembrolizumab alone 〔JSHNC B, Strong〕 〔PAGA I, A〕 〔NCCN 1, preferred〕 〔ASCO-RM High, Strong〕
     + KEYNOTE-048
     ③ Immunotherapy contraindicated: platinum, 5-FU and cetuximab 〔PAGA I, A〕 〔NCCN 1, other recommended〕
-      ・It is the standard for PD-L1-negative disease 〔PAGA I, A〕
+      ・Standard for PD-L1-negative disease 〔PAGA I, A〕
       ・Cisplatin, docetaxel and cetuximab 〔PAGA II, B〕 〔NCCN 2A, other recommended〕
     + EXTREME
     - TPExtreme [t-tpextreme]
@@ -267,7 +268,7 @@ course: Head and neck squamous cell carcinoma
     branch: RM pale
     This step includes recurrence within 6 months of platinum
     ① No previous PD-1 inhibitor: nivolumab or pembrolizumab 〔JSHNC B, Strong〕 〔PAGA I, A〕 〔NCCN 1, preferred〕 〔ASCO-RM High, Strong〕
-      ・Pembrolizumab did not meet its overall survival boundary
+      ・Pembrolizumab did not meet its prespecified overall survival boundary
     + CheckMate 141
     - KEYNOTE-040
     ② After platinum and a PD-1 inhibitor: a taxane, methotrexate or cetuximab 〔PAGA III, C〕 〔NCCN 2A, other recommended〕
