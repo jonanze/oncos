@@ -13,6 +13,26 @@ try { const u = JSON.parse(localStorage.getItem(KEY) || 'null'); if (u) ui = Obj
 if (ui.mode !== 'table' || HOST) ui.mode = 'case';
 if (!ui.sel || typeof ui.sel !== 'object' || Array.isArray(ui.sel)) ui.sel = {};
 function saveUi() { try { localStorage.setItem(KEY, JSON.stringify(ui)); } catch (e) {} }
+// Score: cases done and correct, misses by system, and missed cells that come back
+// three cases later until they are answered right, at most every second case. Kept on this device.
+const SKEY = 'oncos-drill-score', REPEAT_AFTER = 3;
+const blankScore = () => ({ done: 0, right: 0, by: {}, queue: [] });
+let score = blankScore();
+try { const s = JSON.parse(localStorage.getItem(SKEY) || 'null'); if (s && typeof s === 'object' && s.by && Array.isArray(s.queue)) score = Object.assign(blankScore(), s); } catch (e) {}
+function saveScore() { try { localStorage.setItem(SKEY, JSON.stringify(score)); } catch (e) {} }
+function record(key, label, site, ok, wrong, again) {
+  score.done++; if (ok) score.right++;
+  const b = score.by[key] || (score.by[key] = { label, site, done: 0, missed: 0, axes: {} });
+  b.label = label; b.done++;
+  if (!ok) { b.missed++; wrong.forEach(k => { b.axes[k] = (b.axes[k] || 0) + 1; }); }
+  if (again) score.queue = score.queue.filter(q => q.id !== again.id);
+  if (!ok) score.queue.push(Object.assign({}, again || {}, { id: again ? again.id : key + '|' + score.done, key, site, due: score.done + REPEAT_AFTER }));
+  saveScore();
+}
+function dueRepeat() {
+  const ids = new Set(scopeSites().map(s => s.id));
+  return score.queue.find(q => q.due <= score.done && ids.has(q.site)) || null;
+}
 
 const SECTIONS = ['All', 'Thoracic', 'GI', 'Breast', 'H&N', 'GU', 'Gynae', 'Skin', 'Sarcoma', 'CNS', 'Lymphoma'];
 const SITEBY = Object.fromEntries(D.SITES.map(s => [s.id, s]));
@@ -110,7 +130,7 @@ function cols() {
   return [l, r];
 }
 function caseBand() {
-  const b = el('div', { class: 'band first' }, ['Case']);
+  const b = el('div', { class: 'band first' }, [current && current.again ? 'Repeat' : 'Case']);
   if (HOST) { tableLink = el('a', { class: 'r tablelink', href: HOST.tableHref(caseSite(), caseAnchor()), text: 'Table' }); b.appendChild(tableLink); }
   return b;
 }
@@ -181,6 +201,9 @@ function nextItem(filter) {
 // ---------- Case ----------
 function nextCase() { newCase(); try { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); } }
 function newCase() {
+  // at most every second case is a repeat, so new cases keep coming
+  const rep = current && current.again ? null : dueRepeat();
+  if (rep && repeatCase(rep)) return;
   const site = pickSite();
   if (!site) return empty();
   if (!site.systems.length || (D.VS[site.id] && D.VS[site.id].only)) { vsCase(site.id); current.key = scopeKey(); return; }
@@ -189,8 +212,22 @@ function newCase() {
   D.setLungHist(lh);
   let tg, g = 0; do { tg = D.randomTarget(sys); } while (lh === 'sclc' && (tg.t === 'Tis' || tg.t === 'T1mi') && g++ < 50);
   const c = D.makeCase(tg);
-  current = { kind: 'case', key: scopeKey(), c, sys, picks: { T: null, N: null, M: null, S: null }, step: 'T', done: false };
+  current = { kind: 'case', key: scopeKey(), c, sys, picks: { T: null, N: null, M: null, S: null }, step: 'T', done: false, lh };
   drawCase();
+}
+// a missed cell again, with new wording
+function repeatCase(rep) {
+  if (rep.vs) {
+    if (!D.VS[rep.site]) return false;
+    current = { kind: 'vs', key: scopeKey(), v: D.makeVsCase(rep.site, rep.cat), pick: null, done: false, again: rep };
+    drawVs(); return true;
+  }
+  const sys = D.SYS[rep.key];
+  if (!sys || !rep.tg) return false;
+  D.setLungHist(rep.lh || null);
+  const c = D.makeCase(Object.assign({}, rep.tg, { q: rep.tg.q ? Object.assign({}, rep.tg.q) : null }));
+  current = { kind: 'case', key: scopeKey(), c, sys, picks: { T: null, N: null, M: null, S: null }, step: 'T', done: false, again: rep, lh: rep.lh || null };
+  drawCase(); return true;
 }
 function optionsFor(step) {
   const { sys, c } = current;
@@ -216,7 +253,16 @@ function drawCase() {
     L.appendChild(optGrid(optionsFor(step), v => {
       current.picks[step] = v;
       const nextEmpty = ['T', 'N', 'M', 'S'].find(k => !current.picks[k]);
-      if (nextEmpty) current.step = nextEmpty; else current.done = true;
+      if (nextEmpty) current.step = nextEmpty;
+      else {
+        current.done = true;
+        const wrong = ['T', 'N', 'M', 'S'].filter(k => current.picks[k] !== truth[k]);
+        const hist = (c.fields || []).find(f => f[0] === 'Histology'), sclc = !!(hist && /^Small cell/.test(hist[1]));
+        const label = sys.site === 'lung' ? (sclc ? 'SCLC' : 'NSCLC') : sys.label;
+        record(sys.id + (sys.site === 'lung' ? (sclc ? '|sclc' : '|nsclc') : ''), label, caseSite(), !wrong.length, wrong,
+          current.again || null);
+        if (wrong.length) { const q = score.queue[score.queue.length - 1]; q.key = sys.id; q.tg = { sys: sys.id, t: c.t, n: c.n, m: c.m, q: c.q || null }; q.lh = sclc ? 'sclc' : 'nsclc'; saveScore(); }
+      }
       drawCase();
     }));
   } else {
@@ -244,8 +290,24 @@ function drawCase() {
     const hist = (c.fields || []).find(f => f[0] === 'Histology');
     const db = debrief(sys.site, { s: c.stage, t: c.t, n: c.n, m: c.m, q: c.q, label: sys.label, rectal: !!c.rectal, sclc: !!(hist && /^Small cell/.test(hist[1])) }, ['T', 'N', 'M', 'S'].filter(k => picks[k] !== truth[k]));
     if (db) R.appendChild(db);
+    R.appendChild(scoreBlock());
     R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
   }
+}
+// ---------- Score ----------
+const AXN = { T: 'T', N: 'N', M: 'M', S: 'Stage' };
+let missOpen = false;
+function scoreBlock() {
+  const pc = score.done ? Math.round(100 * score.right / score.done) : 0;
+  const wrap = el('div', { class: 'score' }, [el('div', { class: 'band' }, ['Score']),
+    el('div', { class: 'sum' }, [['Cases', score.done], ['Correct', pc + '%'], ['Repeats', score.queue.length]].map(([k, v]) => el('div', {}, [el('b', { text: String(v) }), k])))]);
+  const rows = Object.values(score.by).filter(b => b.missed).sort((a, b) => b.missed / b.done - a.missed / a.done || b.missed - a.missed || a.label.localeCompare(b.label))
+    .map(b => [b.label, b.missed + ' of ' + b.done, ['T', 'N', 'M', 'S'].filter(k => b.axes[k]).map(k => AXN[k] + ' ' + b.axes[k]).join(' · ')]);
+  const panel = el('div', { hidden: missOpen ? null : 'hidden' }, [rows.length ? tbl(['System', 'Missed', 'Wrong'], rows) : el('div', { class: 'note', text: 'None' }),
+    el('button', { type: 'button', class: 'more reset', on: { click: () => { score = blankScore(); saveScore(); const n = scoreBlock(); wrap.replaceWith(n); } } }, ['Reset'])]);
+  const btn = el('button', { type: 'button', class: 'more', 'aria-expanded': String(missOpen), on: { click: () => { missOpen = panel.hidden; panel.hidden = !missOpen; btn.setAttribute('aria-expanded', String(missOpen)); } } }, [el('span', { class: 'tri', text: '▼' }), 'Missed']);
+  wrap.appendChild(btn); wrap.appendChild(panel);
+  return wrap;
 }
 // ---------- Debrief ----------
 const AX = { T: 'T', N: 'N', M: 'M', S: 'Stage' };
@@ -279,7 +341,13 @@ function drawVs() {
   L.appendChild(el('div', { class: 'vig', text: v.text }));
   L.appendChild(el('div', { class: 'band' }, [v.title]));
   const marks = done ? Object.fromEntries(v.opts.map(o => [o, o === v.cat ? 'hit' : (o === pick ? 'wrong' : '')])) : null;
-  L.appendChild(optGrid(v.opts, o => { current.pick = o; current.done = true; drawVs(); }, marks, v.opts.some(o => o.length > 14)));
+  L.appendChild(optGrid(v.opts, o => {
+    current.pick = o; current.done = true;
+    const ok = o === v.cat;
+    record('vs|' + v.site, site.label + ' · ' + v.title, v.site, ok, ok ? [] : ['S'], current.again || null);
+    if (!ok) { const q = score.queue[score.queue.length - 1]; q.vs = true; q.cat = v.cat; saveScore(); }
+    drawVs();
+  }, marks, v.opts.some(o => o.length > 14)));
   if (done) {
     const ok = pick === v.cat, rows = [];
     if (!ok) rows.push(['✕ ' + pick, D.defOf(v.site, 'S', pick) || '—', 'x']);
@@ -287,6 +355,7 @@ function drawVs() {
     R.appendChild(el('div', { class: 'verdict' }, [el('div', { class: 'head', text: (ok ? '★ ' : '✕ ') + v.cat }), el('div', { class: 'why' }, rows.flatMap(r => [el('div', { text: r[0], class: r[2] }), el('div', { text: r[1] })]))]));
     const db = debrief(v.site, { s: v.cat, t: '', n: '', m: '', q: null, label: v.title }, ok ? [] : ['S']);
     if (db) R.appendChild(db);
+    R.appendChild(scoreBlock());
     R.appendChild(el('button', { type: 'button', class: 'next', id: 'next', text: 'Next case', on: { click: nextCase } }));
   }
 }
@@ -358,8 +427,8 @@ window.DrillState = {
   },
   get() {
     let cur = null;
-    if (current && current.kind === 'case') cur = { kind: 'case', key: current.key, c: current.c, sys: current.sys.id, picks: current.picks, step: current.step, done: current.done };
-    else if (current && current.kind === 'vs') cur = { kind: 'vs', key: current.key, v: current.v, pick: current.pick, done: current.done };
+    if (current && current.kind === 'case') cur = { kind: 'case', key: current.key, c: current.c, sys: current.sys.id, picks: current.picks, step: current.step, done: current.done, again: current.again || null, lh: current.lh || null };
+    else if (current && current.kind === 'vs') cur = { kind: 'vs', key: current.key, v: current.v, pick: current.pick, done: current.done, again: current.again || null };
     return JSON.parse(JSON.stringify({ ui, cur }));
   },
   set(v) {
@@ -368,7 +437,7 @@ window.DrillState = {
     if (c && !(c.kind === 'case' && D.SYS[c.sys] && c.c && c.picks) && !(c.kind === 'vs' && c.v && SITEBY[c.v.site])) return false;
     ui = Object.assign({ mode: 'case', section: 'All', site: '', sel: {} }, v.ui);
     if (HOST) ui.mode = 'case';
-    current = !c ? null : c.kind === 'case' ? { kind: 'case', key: c.key, c: c.c, sys: D.SYS[c.sys], picks: c.picks, step: c.step, done: c.done } : { kind: 'vs', key: c.key, v: c.v, pick: c.pick, done: c.done };
+    current = !c ? null : c.kind === 'case' ? { kind: 'case', key: c.key, c: c.c, sys: D.SYS[c.sys], picks: c.picks, step: c.step, done: c.done, again: c.again || null, lh: c.lh || null } : { kind: 'vs', key: c.key, v: c.v, pick: c.pick, done: c.done, again: c.again || null };
     saveUi(); shell();
     return true;
   }

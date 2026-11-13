@@ -821,8 +821,8 @@ function composeHand(sysId, c) {
 }
 // whole-case vignettes for non-TNM systems
 function vsSites() { return Object.keys(VS); }
-function makeVsCase(siteId) {
-  const v = VS[siteId], keys = Object.keys(v.S), ans = pick(keys), ctx = { side: pick(['left', 'right']) };
+function makeVsCase(siteId, fixAns) {
+  const v = VS[siteId], keys = Object.keys(v.S), ans = fixAns && v.S[fixAns] ? fixAns : pick(keys), ctx = { side: pick(['left', 'right']) };
   const sex = v.sex || pick(['M', 'F']), ar = AGE[siteId] || [35, 80];
   const txt = [person(ri(ar[0], ar[1]), sex) + ' ' + fillText(pick(alts(v.intro, sex)), ctx), fillText(pick(alts(v.S[ans], sex)), ctx)].map(sent).join(' ');
   return { site: siteId, title: v.title, text: txt, cat: ans, opts: keys };
@@ -871,7 +871,9 @@ function defOf(siteId, axis, cat) {
 }
 const GEN = { generic: genGeneric, lung: genLung, crc: genCrc, breast: genBreast, oral: genOral, 'eso-c-scc': genEso, 'eso-c-ac': genEso, 'eso-p-scc': genEso, 'eso-p-ac': genEso, 'eso-yp': genEso };
 
-// Pick a valid target cell for a system; M1 in about 12% of cases
+// Pick a valid target cell for a system. M1 in 20% of cases. M0 cases are spread evenly over the
+// main stage groups (I, II, III and an M0 stage IV), with stage 0 in about 5%, so that the common
+// boundaries are asked as often as the advanced cells, whatever the number of T and N categories.
 function randQ(sys) { return sys.Q ? Object.fromEntries(Object.keys(sys.Q).map(k => [k, pick(sys.Q[k])])) : null; }
 function drawCell(sys, m, fixT, fixN, fixQ) {
   for (let g = 0; g < 400; g++) {
@@ -880,10 +882,28 @@ function drawCell(sys, m, fixT, fixN, fixQ) {
   }
   return null;
 }
+function mainGroup(stage) { const g = String(stage).match(/^(0|IV|III|II|I)/); return g ? g[1] : String(stage); }
+const M0_GROUPS = {};
+function m0Groups(sys) {
+  if (M0_GROUPS[sys.id]) return M0_GROUPS[sys.id];
+  const by = {}, m = sys.M[0];
+  sys.T.forEach(t => sys.N.forEach(n => qCombos(sys).forEach(q => {
+    if (sys.invalid && sys.invalid(t, n, m, q)) return;
+    const st = stageOf(sys, t, n, m, q);
+    if (st == null) return;
+    const g = mainGroup(st);
+    (by[g] = by[g] || []).push({ sys: sys.id, t, n, m, q });
+  })));
+  return (M0_GROUPS[sys.id] = by);
+}
 function randomTarget(sys) {
   const m1 = sys.M.slice(1).filter(m => sys.T.some(t => sys.N.some(n => !sys.invalid(t, n, m, null) || sys.Q)));
-  const m = m1.length && chance(0.12) ? pick(m1) : sys.M[0];
-  return drawCell(sys, m) || drawCell(sys, sys.M[0]);
+  if (m1.length && chance(0.2)) { const c = drawCell(sys, pick(m1)); if (c) return c; }
+  const by = m0Groups(sys), rest = Object.keys(by).filter(g => g !== '0');
+  const g = by['0'] && (!rest.length || chance(0.05)) ? '0' : pick(rest);
+  if (!g) return drawCell(sys, sys.M[0]);
+  const c = pick(by[g]);
+  return { sys: c.sys, t: c.t, n: c.n, m: c.m, q: c.q ? Object.assign({}, c.q) : null };
 }
 function targetFromCard(sys, card) {
   if (card.t === '*') return drawCell(sys, card.m) || randomTarget(sys);
@@ -956,6 +976,6 @@ function gradeOf(correct, ms, targetS) {
   return 2;
 }
 
-G.Drill = { setLungHist, VS, makeVsCase, vsSites, defOf, fillText, qLabel, SYS, SITES, ITEMS, DESC, GEN, instantiate, specText, stageOf, ruleOf, ruleText, checkTotality, cards, qCombos, makeCase, randomTarget, targetFromCard,
+G.Drill = { setLungHist, VS, makeVsCase, vsSites, defOf, fillText, qLabel, SYS, SITES, ITEMS, DESC, GEN, instantiate, specText, stageOf, ruleOf, ruleText, checkTotality, cards, qCombos, makeCase, randomTarget, mainGroup, targetFromCard,
   review, gradeOf, intervalDays, retrievability, setRandom, oralT, BREAST_NMAP, pick, shuffle, chance };
 })(typeof window !== 'undefined' ? window : globalThis);
