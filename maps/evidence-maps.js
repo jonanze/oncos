@@ -32,7 +32,8 @@
     'Mesothelioma': 'mesothelioma',
     'Nasopharyngeal Carcinoma': 'npc',
     'SCLC': 'sclc',
-    'Ovarian Cancer': 'ovarian'
+    'Ovarian Cancer': 'ovarian',
+    'High Grade B-Cell Lymphoma': 'aggressive-bcl'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
