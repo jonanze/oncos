@@ -50,7 +50,7 @@
     var t = String(s == null ? '' : s), out = '', k = 0, m, re = new RegExp(window.oncosOutline.TAG.source, 'g');
     function plain(x){ return esc(x).replace(/(\S*\S[-–]\S+)/g, '<span class="nw">$1</span>'); }
     while ((m = re.exec(t))) {
-      var src = SRC[m[1]], label = esc(m[1] + ' ' + m[2]);
+      var src = SRC[m[1]], label = esc(m[2] ? m[1] + ' ' + m[2] : m[1]);
       // the statement wraps as plain text and a tag wraps as a whole; no word is carried down with a tag,
       // which left a single word alone on its line (Jonan 2026-11-11)
       out += plain(t.slice(k, m.index)) + '<span class="tag">〔' + (src && src.anchor

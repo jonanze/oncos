@@ -13,8 +13,9 @@
   var CLS = {'+':'os', '~':'sur', '-':'neg', '*':'none'};
   // branch hues, in the order a map without named hues takes them; map.css holds a fill and a pale tint for each
   var HUES = ['blue', 'violet', 'sage', 'rose', 'sand', 'teal', 'apricot', 'olive'];
-  // 〔ESGO II, A〕 at the end of a statement: it rests on the guideline declared by "source: ESGO [t-...]"
-  var TAG = /〔([^\s〕]+)\s+([^〕]+)〕/g;
+  // 〔ESGO II, A〕 at the end of a statement: it rests on the guideline declared by "source: ESGO [t-...]".
+  // A bare 〔ESGO〕 names the guideline on a sub-line where its grade sits on the line above (Jonan 2026-11-13)
+  var TAG = /〔([^\s〕]+)(?:\s+([^〕]+))?〕/g;
 
   function slug(name){
     return 't-' + String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');

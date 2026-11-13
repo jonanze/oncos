@@ -28,8 +28,8 @@ branch: AF | After resection | sage
 course: Localised colon cancer
   Clinical stage I to III
     MMR or MSI on the biopsy of every tumour 〔NCCN 2A〕 〔JSCCR A, 1〕
-    Non-obstructing T1–3: straight to colectomy
-    ※ DPYD testing can be considered before a fluoropyrimidine
+    Non-obstructing T1–3: upfront colectomy
+    ※ DPYD testing before a fluoropyrimidine is an option
     next: Obstructing cancer
     next: cT4b or bulky nodes, pMMR
     next: T4 or bulky, dMMR
@@ -37,7 +37,7 @@ course: Localised colon cancer
     branch: OB
     ① Colectomy or diversion 〔NCCN 2A〕
     ② Stent as a bridge to colectomy 〔NCCN 2A〕 〔JSCCR B, 2〕 〔ESMO II〕
-      ・No stent if systemic therapy is planned 〔JSCCR B, 2〕
+      ・Stenting is not recommended when systemic therapy is planned 〔JSCCR B, 2〕
     ~ ESCO [t-esco]
     next: Colectomy
   cT4b or bulky nodes, pMMR
@@ -50,20 +50,20 @@ course: Localised colon cancer
     branch: dMMR pale
     ① Checkpoint inhibitor, then colectomy 〔NCCN 2A, preferred〕
     ~ NICHE-2
-    ※ Less regression with chemotherapy first
+    ※ Less tumour regression with chemotherapy first
       ~ FOxTROT
     next: Colectomy
   Colectomy
     ① En bloc regional nodes, at least 12 〔NCCN 2A〕 〔ESMO I, A〕
-      ・JSCCR: D2 for cT1, D2 or D3 for cT2, D3 for cT3–T4a or node-positive
-    ② Laparoscopic or robotic, experienced surgeon 〔NCCN 2A〕 〔ESMO I, C〕
+      ・D2 for cT1, D2 or D3 for cT2, D3 for cT3–T4a or node-positive 〔JSCCR〕
+    ② Laparoscopic or robotic colectomy by an experienced surgeon 〔NCCN 2A〕 〔ESMO I, C〕
       ・Robotic colectomy 〔JSCCR C, 2〕
     ~ JCOG0404 [t-jcog-0404]
     ~ COLOR [t-color]
     ~ CLASICC [t-uk-mrc-clasicc]
     ~ COST [t-laparoscopic-colectomy-trial]
-    ※ Tis or slight cT1: endoscopic resection (JSCCR)
-      ・Colectomy after it for T1b, LVI, poor differentiation or BD2–3 〔JSCCR B, 2〕
+    ※ Tis or cT1 with slight submucosal invasion: endoscopic resection 〔JSCCR〕
+      ・Colectomy afterwards for T1b, LVI, poor differentiation or BD2–3 〔JSCCR B, 2〕
     next: Stage I and II, pMMR
     next: Stage III, pMMR
     next: Stage 0 to II, dMMR
@@ -86,7 +86,7 @@ course: Localised colon cancer
     ※ Japan only: S-1 or UFT with LV 〔JSCCR A, 2〕
       ~ ACTS-CC [t-acts-cc]
       - JCOG0910 [t-caps]
-    ※ FLOX not recommended
+    ※ FLOX is not recommended
       ~ NSABP C-07
     ※ Age 70 or over
       - ACCENT 2013 [t-accent-pooled-analysis--early-crc]
@@ -100,8 +100,8 @@ course: Localised colon cancer
   Stage 0 to II, dMMR
     branch: dMMR pale
     ① 0–IIB: observation 〔NCCN 2A〕
-    ② IIC: observation, or as low-risk stage III 〔NCCN 2A〕
-    ※ Fluoropyrimidine alone not effective
+    ② IIC: observation, or treatment as for low-risk stage III 〔NCCN 2A〕
+    ※ A fluoropyrimidine alone is not effective
       - Sargent 2010 [t-sargent-et-al]
     next: Exercise and aspirin after resection
   Stage III, dMMR
@@ -129,7 +129,7 @@ panel: High-risk stage II > Stage I and II, pMMR
   | High-grade tumour budding | ✓ | - | - |
   | CEA above 5 ng/mL (5 µg/L) before surgery | - | Minor | - |
   | High risk | Any one | Any major, or several minor | Not defined |
-  ※ ESMO: one minor feature alone is intermediate risk
+  ※ One minor feature alone is intermediate risk 〔ESMO〕
 
 panel: High-risk stage III > Stage III, pMMR
   | Risk group | T and N |
