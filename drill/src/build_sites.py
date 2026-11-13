@@ -130,7 +130,7 @@ SYS['appendix']=finish('appendix',AT,AN,['M0','M1a','M1b','M1c'],base+[
 # replaces the site's own system: melanoma and Merkel are practised on pathological groups, and
 # thymoma on TNM beside Masaoka-Koga. N list 'pn' takes the site's pathological N table.
 MORE={
- 'gastric':[('groups-c','gastric-c','Gastric · cTNM','n',1,{})],
+ 'gastric':[('groups-c','gastric-c','Gastric · cTNM','n',1,{}),('groups-yp','gastric-yp','Gastric · ypTNM','n',1,{'T':lambda T:[x for x in T if x!='Tis']})],
  'thyroid':[('groups-mtc','thyroid-mtc','Thyroid · medullary','n',1,{'edition':'AJCC 8th ed. (TNM)'}),('groups-atc','thyroid-atc','Thyroid · anaplastic','n',0.5,{'edition':'AJCC 8th ed. (TNM)'})],
  'oropharynx-p16pos':[('groups-p','oropharynx-p16pos-p','OPC p16+ · pTNM','pn',1,{})],
  'melanoma':[('groups-p','melanoma','Melanoma · pTNM','pn',1,{})],

@@ -2,6 +2,10 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.46] - 2026-11-13
+
+- Practice and Staging: gastric post-neoadjuvant (ypTNM) stage groups are added, from the AJCC 8th edition table.
+
 ## [2.2.45] - 2026-11-13
 
 - Practice: a Score block under each result shows cases, percent correct and repeats, with a Missed table by system. A missed case comes back with new wording three cases later until it is answered right. The score stays on this device and has a Reset button.

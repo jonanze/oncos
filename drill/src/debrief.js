@@ -568,7 +568,7 @@ const SITES = {
       [() => true, 'RT with temozolomide (Stupp), with or without tumour treating fields. Elderly: short-course RT with temozolomide', 'Stupp 2005, EF-14, Perry 2017'],
     ],
   },
-  // further systems of a site (2026-11-13): cTNM, medullary, anaplastic, p16+ pTNM, and TNM beside BCLC or Masaoka-Koga
+  // further systems of a site (2026-11-13): cTNM, ypTNM, medullary, anaplastic, p16+ pTNM, and TNM beside BCLC or Masaoka-Koga
   'gastric-c': {
     logic: 'Clinical groups are coarser than pathological groups. Node-positive cT1–2 is IIA. Node-positive cT3–4a is III. cT4b is IVA',
     T: 'T1a lamina propria or muscularis mucosae · T1b submucosa · T2 muscularis propria · T3 subserosa · T4a serosa · T4b adjacent structure',
@@ -581,6 +581,17 @@ const SITES = {
       [['IIA', 'IIB', 'III'], 'Western practice: perioperative FLOT, with durvalumab. Asian practice: D2 gastrectomy, then adjuvant CAPOX or S-1, or docetaxel plus S-1 for pathological stage III', 'FLOT4, MATTERHORN, CLASSIC, ACTS-GC, JACCRO GC-07'],
       [['IVA'], 'Multidisciplinary review. Chemotherapy first, and resection only if a clear margin becomes achievable', ''],
       [['IVB'], 'Chemotherapy with nivolumab or pembrolizumab, by CPS. HER2-positive: trastuzumab and pembrolizumab. CLDN18.2-positive: zolbetuximab', 'CheckMate 649, KEYNOTE-811, SPOTLIGHT'],
+    ],
+  },
+  'gastric-yp': {
+    logic: 'Post-neoadjuvant groups have four stages only: I, II, III and IV. Stage follows the residual tumour and the node count at resection',
+    T: 'T1a lamina propria or muscularis mucosae · T1b submucosa · T2 muscularis propria · T3 subserosa · T4a serosa · T4b adjacent structure',
+    N: 'N1 1–2 nodes · N2 3–6 · N3a 7–15 · N3b 16 or more',
+    M: 'M1 distant, including positive peritoneal cytology',
+    S: 'I ypT1–2 N0, or ypT1 N1 · II ypT3 N0, ypT2 N1, ypT1 N2, ypT4a N0, ypT3 N1, ypT2 N2, ypT1 N3 · III ypT4a N+, ypT3 N2–3, ypT2 N3, or ypT4b · IV M1',
+    tx: [
+      [x => !M1(x), 'Complete the postoperative FLOT cycles, and continue durvalumab if it was started before surgery', 'FLOT4, MATTERHORN'],
+      [M1, 'Chemotherapy with nivolumab or pembrolizumab, by CPS. HER2-positive: trastuzumab and pembrolizumab. CLDN18.2-positive: zolbetuximab', 'CheckMate 649, KEYNOTE-811, SPOTLIGHT'],
     ],
   },
   'thyroid-mtc': {
