@@ -64,6 +64,18 @@
 #   upfront resection; treatment after the primary treatment (Jonan 2026-11-09)
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 #   Full words in prose: "chemotherapy", "with or without"; plain sentences with a subject and verb (Jonan 2026-11-11)
+#   Language rule (Jonan 2026-11-13, every map): simple clinical statements with the backing guidelines as tags,
+#     never "PAGA suggests", "ESMO uses" or "JGCA lists". One narrative: a point agreed by several guidelines is one
+#     statement carrying all their tags, never repeated per guideline. A ・ line explains a difference only where
+#     guidelines disagree (a cut-off, a line of treatment, a licence, a grade set before a trial)
+#   Register (Jonan 2026-11-13): the impersonal register of clinical papers and abstracts. No second person, no
+#     imperatives ("Test HER2" reads "HER2 testing before first-line treatment"), no conversational phrasing
+#     ("case by case", "is not done", "adds little")
+#   No explanation where no reason is known: two facts stay two lines, never joined by "as" or "because"
+#     unless a guideline or trial gives that reason (Jonan 2026-11-13)
+#   Side-effect lines open with "Toxicity of note:" (Jonan 2026-11-13)
+#   PD-L1 and similar cut-offs: lead with the band every guideline agrees on, then one line per band where they
+#     split (Jonan 2026-11-13)
 # * Labels on connecting lines start with a capital, like every other label
 #   A statement that rests on a guideline rather than a trial carries its 〔source level, grade〕 tag;
 #   where a trial and the guideline disagree, or the trial came later, a ※ line says so
