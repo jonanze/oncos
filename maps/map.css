@@ -86,8 +86,8 @@
 .om-world .ln.se{font-size:13px;color:var(--wb-soft)}
 .om-world .step>.hd+.ln,.om-world .band>h2+.ln,.om-world .panel>h2+.ln{margin-top:0}
 .om-world .ln.subl{font-size:15px;margin:0}
-.om-world .ln.subl .sb{margin-left:calc(var(--p,0px) + 20px);padding-left:1.1em;text-indent:-1.1em}
-.om-world .ln.subl .sb::before{content:"・"}
+.om-world .ln.subl .sb{margin-left:calc(var(--p,0px) + 20px);padding-left:.75em;text-indent:-.75em}
+.om-world .ln.subl .sb::before{content:"・";display:inline-block;width:.75em;text-indent:0;text-align:left}
 .om-world .ln.subl.of-cv{font-size:15px}
 .om-world .ln.subl.of-cv .sb{margin-left:calc(var(--p,0px) + 20px)}
 .om-world .ln.subl.of-text .sb,.om-world .ln.subl.of-tx .sb{margin-left:var(--p,0px)}

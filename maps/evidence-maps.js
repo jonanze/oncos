@@ -20,6 +20,7 @@
 (function(){
   var MAPS = {
     'Advanced CRC': 'advanced-colon',
+    'Advanced Gastroesophageal': 'advanced-gastro-oesophageal',
     'Advanced NSCLC': 'nsclc',
     'Advanced Prostate': 'prostate',
     'Early & Locally Adv NSCLC': 'early-nsclc',
