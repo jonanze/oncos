@@ -410,11 +410,25 @@
         // "Why not just move the entire box down?")
         list.forEach(function(t, k){
           if (t.preds.length !== 1 || t.preds[0].next.length !== 1) return;
-          var dy = t.preds[0].cy - t.cy, up = list[k - 1], dn = list[k + 1];
+          var want = t.preds[0].cy - t.cy, dy = want, up = list[k - 1], dn = list[k + 1];
           if (dy > 0 && dn) dy = Math.min(dy, dn.y - SG - (t.y + hgt(t)));
           if (dy < 0 && up) dy = Math.max(dy, up.y + hgt(up) + SG - t.y);
           if (Math.abs(dy) > 0.5) move([t], dy);
+          // when the steps beside it hold the step back, the steps that lead to it move to meet it instead,
+          // as far as their own columns allow (Jonan 2026-11-13, ovarian: "bring the preceding boxes up")
+          if (Math.abs(want - dy) > 0.5) shift(t.preds[0], dy - want);
         });
+      }
+      // a step moves by d within its column, and the single line into it carries the move on to the left;
+      // a first step is centred on its steps below
+      function shift(n, d){
+        if (n.col === 0) return;
+        var mine = cols[n.col].slice().sort(function(a, z){ return a.y - z.y; }), k = mine.indexOf(n), up = mine[k - 1], dn = mine[k + 1];
+        if (d < 0 && up) d = Math.max(d, up.y + hgt(up) + SG - n.y);
+        if (d > 0 && dn) d = Math.min(d, dn.y - SG - (n.y + hgt(n)));
+        if (Math.abs(d) <= 0.5) return;
+        move([n], d);
+        if (n.preds.length === 1 && n.preds[0].next.length === 1) shift(n.preds[0], d);
       }
       // a first step centres on the steps it leads to, as far as the steps beside it allow
       (cols[0] || []).forEach(function(n, k, list){

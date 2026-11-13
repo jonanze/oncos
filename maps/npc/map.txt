@@ -161,7 +161,7 @@ course: Nasopharyngeal carcinoma
       ・No evidence supports adding or switching to oral chemotherapy
     ② After chemotherapy alone: capecitabine or S-1 for up to 2 years 〔CSCO-ASCO-RM High, Strong〕
       ・S-1 is on the Singapore Cancer Drug List
-      ・Capecitabine after induction in oligometastatic M1 disease 〔NCCN 2A, useful in certain circumstances〕
+      ・Capecitabine after induction chemotherapy in oligometastatic M1 disease 〔NCCN 2A, useful in certain circumstances〕
     ~ Liu 2022 [t-liu-et-al--nasopharyngeal-carcinoma-3]
     + Lu 2023 [t-lu-et-al]
     next: Later lines | Progression
