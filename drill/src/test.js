@@ -66,6 +66,7 @@ both('eso-yp', MORE['groups-yp']);
 // further systems (2026-11-13): cells typed from the source tables, independent of the Staging data
 const SPOT = {
   'gastric-c': [['Tis N0 M0', '0'], ['T2 N0 M0', 'I'], ['T1a N3b M0', 'IIA'], ['T4a N0 M0', 'IIB'], ['T3 N1 M0', 'III'], ['T4b N0 M0', 'IVA'], ['T1b N0 M1', 'IVB']],
+  'gastric-yp': [['T2 N0 M0', 'I'], ['T1a N1 M0', 'I'], ['T4a N0 M0', 'II'], ['T1b N3b M0', 'II'], ['T2 N3a M0', 'III'], ['T4b N0 M0', 'III'], ['T3 N2 M0', 'III'], ['T4a N3b M0', 'III'], ['T2 N0 M1', 'IV']],
   'thyroid-mtc': [['T1a N0 M0', 'I'], ['T3b N0 M0', 'II'], ['T2 N1a M0', 'III'], ['T2 N1b M0', 'IVA'], ['T4a N0 M0', 'IVA'], ['T4b N0 M0', 'IVB'], ['T1a N0 M1', 'IVC']],
   'thyroid-atc': [['T3a N0 M0', 'IVA'], ['T2 N1a M0', 'IVB'], ['T3b N0 M0', 'IVB'], ['T1a N0 M1', 'IVC']],
   'oropharynx-p16pos-p': [['T2 N1 M0', 'I'], ['T0 N2 M0', 'II'], ['T1 N3 M0', 'II'], ['T3 N2 M0', 'II'], ['T3 N3 M0', 'III'], ['T4 N0 M0', 'III'], ['T1 N0 M1', 'IV']],

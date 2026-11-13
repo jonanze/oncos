@@ -295,7 +295,7 @@ function uniq(a) { return a.filter((x, i) => a.indexOf(x) === i); }
 (G.DRILL_SITES || []).forEach(d => {
   const site = { id: d.id, label: d.label, section: d.section, data: d, systems: [] };
   if (d.hand) site.systems = d.hand;
-  // auto: the site's own grouping; more: further groupings of the same T/N/M (gastric cTNM,
+  // auto: the site's own grouping; more: further groupings of the same T/N/M (gastric cTNM and ypTNM,
   // medullary and anaplastic thyroid, p16+ pTNM, melanoma and Merkel clinical groups), each its own system
   [d.auto].concat(d.more || []).forEach((a, i) => {
     if (!a) return;

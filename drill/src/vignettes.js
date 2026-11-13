@@ -71,7 +71,9 @@ const VB = {
           T4b: 'CT shows tumour invading the [[pancreas;transverse colon;left lobe of the liver;spleen]]'
         },
         N: { N0: 'EUS and CT show no enlarged regional nodes', N1: 'CT shows [[one;two]] enlarged perigastric nodes', N2: 'CT shows [[three;four;five;six]] enlarged perigastric nodes', N3a: 'CT shows {#7~12} enlarged perigastric and left gastric nodes', N3b: 'CT shows {#16~22} enlarged perigastric, left gastric and coeliac nodes' },
-        M: { M1: 'CT shows liver metastases | Staging laparoscopy shows peritoneal nodules, and biopsy is positive | Peritoneal washings at staging laparoscopy contain carcinoma cells' } }
+        M: { M1: 'CT shows liver metastases | Staging laparoscopy shows peritoneal nodules, and biopsy is positive | Peritoneal washings at staging laparoscopy contain carcinoma cells' } },
+      { when: x => x.sys === 'gastric-yp', intro: 'has gastric adenocarcinoma treated with perioperative FLOT, then undergoes gastrectomy with D2 lymphadenectomy',
+        M: { M1: 'Peritoneal washings taken at surgery contain carcinoma cells | A peritoneal nodule found at surgery is metastatic carcinoma' } }
     ],
     T: {
       Tis: 'Pathology shows high-grade dysplasia confined to the epithelium',
