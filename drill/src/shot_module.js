@@ -9,7 +9,7 @@ const OUT = process.argv[3] || '.';
 const [VW, VH] = (process.argv[4] || '390x1100').split('x').map(Number), PHONE = VW <= 760;
 (async () => {
   let failed = 0;
-  for (const name of ['chromium', 'webkit']) {
+  for (const name of (process.env.BROWSERS || 'chromium,webkit').split(',')) {
     const b = await pw[name].launch(); const errs = []; let n = 0, withDb = 0;
     for (const scheme of ['light', 'dark']) {
       const ctx = await b.newContext({ viewport: { width: VW, height: VH }, colorScheme: scheme, serviceWorkers: 'block' });
