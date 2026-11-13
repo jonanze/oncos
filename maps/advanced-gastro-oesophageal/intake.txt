@@ -1,21 +1,2 @@
 # Trials on the Advanced Gastroesophageal map with no Evidence row yet (name, PMID, where on the map)
-PHOENIX-GC	PMID 29746229	Peritoneal metastases from gastric cancer
-REGATTA	PMID 26822397	Limited metastases and surgery
-ATTRACTION-4	PMID 35030335	HER2-negative adenocarcinoma
-Lai 2026	PMID 42477829	HER2-negative adenocarcinoma
-Chao 2021	PMID 33792646	MSI-H or dMMR
-JUPITER-06	PMID 35245446	Oesophageal squamous cell carcinoma
-DESTINY-Gastric01	PMID 32469182	HER2-positive, second line and later
-T-ACT	PMID 32208960	HER2-positive, second line and later
-COUGAR-02	PMID 24332238	Second line, adenocarcinoma
-Thuss-Patience 2011	PMID 21742485	Second line, adenocarcinoma
-Kang 2012	PMID 22412140	Second line, adenocarcinoma
-WJOG 4007	PMID 24190112	Second line, adenocarcinoma
-ABSOLUTE	PMID 28404157	Second line, adenocarcinoma
-RATIONALE-302	PMID 35442766	Second line and later, squamous cell carcinoma
-KEYNOTE-181	PMID 33026938	Second line and later, squamous cell carcinoma
-JCOG9912	PMID 19818685	Choice of chemotherapy
-SPIRITS	PMID 18282805	Choice of chemotherapy
-G-SOX	PMID 25316259	Choice of chemotherapy
-JCOG1013	PMID 31101534	Choice of chemotherapy
-Guimbaud 2014	PMID 25287828	Choice of chemotherapy
+
