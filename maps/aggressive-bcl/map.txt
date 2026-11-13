@@ -100,6 +100,9 @@ band: CNS prophylaxis
     ・Two to four cycles of 3 to 3.5 g/m² 〔NCCN 2A〕
     ・No recommendation on CNS prophylaxis 〔ESMO〕
     ・Retrospective cohorts show limited benefit 〔NCCN〕
+  ※ In a retrospective analysis of 1,923 patients at ultra-high CNS risk, high-dose methotrexate did not reduce CNS relapse at 3 years, 8.1% against 9.3%, adjusted HR 1.13
+    ・Ultra-high risk: CNS-IPI of 5 to 6, testicular, renal, adrenal or breast involvement, or three or more extranodal sites
+    ・No guideline read cites this analysis
   ③ Intrathecal methotrexate or cytarabine is an option 〔JSH 2B〕 〔NCCN 2A〕
     ・Four to eight doses 〔NCCN〕
     ・Not recommended 〔EHA〕
@@ -477,8 +480,8 @@ panel: Burkitt lymphoma
   ※ No routine imaging after 2 years of follow-up 〔JSH-BL 2B〕
 
 off:
-  Lewis et al. | Retrospective cohort. The finding stays as plain text in the CNS prophylaxis band
-  Wilson et al. | Retrospective cohort. The finding stays as plain text in the CNS prophylaxis band
+  Lewis et al. | Retrospective cohort, an earlier analysis of the same question as Wilson et al.
+  Wilson et al. | Retrospective cohort. Its finding is a ※ line in the CNS prophylaxis band
   Alizadeh et al. | Observational gene-expression study. Cell of origin stays as plain text in the staging band
   SCHOLAR-1 | Retrospective pooled cohort, the historical comparator for third-line CAR-T
   RE-MIND2 | Retrospective cohort, non-randomised with L-MIND cited for the option
