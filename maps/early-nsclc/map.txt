@@ -74,6 +74,8 @@
 #   No explanation where no reason is known: two facts stay two lines, never joined by "as" or "because"
 #     unless a guideline or trial gives that reason (Jonan 2026-11-13)
 #   Side-effect lines open with "Toxicity of note:" (Jonan 2026-11-13)
+#   A bare 〔ESMO〕 tag names the guideline on a sub-line whose grade sits on the line above, or on an ungraded
+#     statement. An optional recommendation keeps its strength in words: "is an option" (2026-11-13)
 #   PD-L1 and similar cut-offs: lead with the band every guideline agrees on, then one line per band where they
 #     split (Jonan 2026-11-13)
 # * Labels on connecting lines start with a capital, like every other label
