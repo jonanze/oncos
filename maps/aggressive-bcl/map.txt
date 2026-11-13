@@ -95,14 +95,11 @@ band: CNS prophylaxis
     ・Two or more extranodal sites 〔EHA〕, three or more 〔BSH〕
     ・High risk: brain MRI and CSF examination 〔EHA III, A〕 〔BSH 2B〕
     ・MRI and CSF examination in selected patients 〔ESMO V, B〕
-  ② High risk: high-dose methotrexate, 3 g/m² or more for two cycles, is an option 〔JSH 2B〕 〔EHA III, B〕 〔BSH 2B〕 〔NCCN 2A〕
-    ・Given after a complete metabolic response to first-line treatment 〔EHA〕
-    ・Two to four cycles of 3 to 3.5 g/m² 〔NCCN 2A〕
-    ・No recommendation on CNS prophylaxis 〔ESMO〕
-    ・Retrospective cohorts show limited benefit 〔NCCN〕
+  ② High risk: high-dose methotrexate can be considered 〔JSH 2B〕 〔EHA III, B〕 〔BSH 2B〕 〔NCCN 2A〕
+    ・Two cycles of 3 g/m² or more after a complete metabolic response 〔EHA〕
+    ・Two to four cycles of 3 to 3.5 g/m² during or after first-line treatment 〔NCCN〕
   ※ In a retrospective analysis of 1,923 patients at ultra-high CNS risk, high-dose methotrexate did not reduce CNS relapse at 3 years, 8.1% against 9.3%, adjusted HR 1.13
     ・Ultra-high risk: CNS-IPI of 5 to 6, testicular, renal, adrenal or breast involvement, or three or more extranodal sites
-    ・No guideline read cites this analysis
   ③ Intrathecal methotrexate or cytarabine is an option 〔JSH 2B〕 〔NCCN 2A〕
     ・Four to eight doses 〔NCCN〕
     ・Not recommended 〔EHA〕
@@ -187,7 +184,6 @@ course: Large B-cell lymphoma
       - ROBUST
     ※ China only: tucidinostat with R-CHOP improved event-free survival in MYC and BCL2 double-expressor DLBCL
       ・Tucidinostat has no EU or US licence
-      ・Not cited by any guideline read
       ~ DEB
     next: Consolidation and end of treatment
   Age 80 or over, frail or cardiac disease
