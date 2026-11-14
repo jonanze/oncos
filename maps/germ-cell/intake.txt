@@ -1,0 +1,14 @@
+# Trials on the Germ Cell Tumors map with no Evidence row yet (name, PMID, where on the map)
+Fosså 1998	PMID 9469362	First-line chemotherapy and supportive care
+Tolstrup 2026	PMID 42998777	First-line chemotherapy and supportive care
+TRISST	PMID 35298280	Stage I seminoma
+Giannatempo 2015	PMID 25214543	Stage IIA and IIB seminoma
+SEMS	PMID 36913642	Stage IIA and IIB seminoma
+SAKK 01/10	PMID 36228644	Stage IIA and IIB seminoma
+Bokemeyer 2004	PMID 15266338	Metastatic seminoma, stage IIC and III
+de Wit 1998	PMID 9743309	Metastatic non-seminoma by IGCCCG group
+de Wit 1997	PMID 9164193	Metastatic non-seminoma by IGCCCG group
+Motzer 2007	PMID 17235042	Metastatic non-seminoma by IGCCCG group
+EORTC 30974	PMID 21059637	Metastatic non-seminoma by IGCCCG group
+IT-94	PMID 15928070	First relapse after cisplatin-based chemotherapy
+Lorch 2007	PMID 17602082	First relapse after cisplatin-based chemotherapy

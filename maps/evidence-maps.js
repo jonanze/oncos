@@ -34,7 +34,8 @@
     'SCLC': 'sclc',
     'Ovarian Cancer': 'ovarian',
     'High Grade B-Cell Lymphoma': 'aggressive-bcl',
-    'Hodgkin Lymphoma': 'hodgkin'
+    'Hodgkin Lymphoma': 'hodgkin',
+    'Germ Cell Tumors': 'germ-cell'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };

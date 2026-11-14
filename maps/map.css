@@ -114,6 +114,7 @@
 /* a panel holding a table: the table stands on the paper with its title above it */
 .om-world .panel.open{background:none;color:var(--wb-ink);padding:0}
 .om-world .panel.open table.grid{background:#fff;color:var(--wb-text);margin-top:10px;outline:1px solid var(--wb-rule);outline-offset:-1px}
+.om-world .panel.open.bare table.grid{margin-top:0}
 .om-world .panel.open table.grid th,.om-world .panel.open table.grid td{border-color:var(--wb-rule)}
 
 

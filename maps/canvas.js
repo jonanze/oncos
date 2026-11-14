@@ -250,7 +250,10 @@
       sized(el, b.lines, function(w){ el.w = w; }).band = true; return el;
     });
     var panels = model.panels.map(function(p){
-      p.el = add('panel' + (hasGrid(p.lines) ? ' open' : '') + brc(p), '<h2>' + esc(p.title) + '</h2>' + colsHtml(p.lines));
+      // a table panel whose first header cell is the panel's name carries no title above the table, so its top
+      // lines up with the boxes beside it (Jonan 2026-11-14, IGCCCG table on the germ cell map)
+      var g0 = p.lines.filter(function(l){ return l.kind === 'grid'; })[0], bare = !!g0 && g0.cells[0] === p.title;
+      p.el = add('panel' + (hasGrid(p.lines) ? ' open' : '') + (bare ? ' bare' : '') + brc(p), (bare ? '' : '<h2>' + esc(p.title) + '</h2>') + colsHtml(p.lines));
       sized(p.el, p.lines, function(w){ p.w = w; });
       return p;
     });
@@ -277,6 +280,7 @@
       }); });
     }
     var board = boardShape();
+    var multiRoot = board && !!model.tree.parallel && steps.filter(function(n){ return n.col === 0; }).length > 1;
     function layoutOnce(){
       if (board) layoutBoard(); else if (course) layoutCourse(); else layoutTree();
       finish();
@@ -334,7 +338,7 @@
        map above; panels sit in a row below. */
     function layoutBoard(){
       svg = '';
-      var BG = 72, SG = 36, cols = [];
+      var BG = multiRoot ? 112 : 72, SG = 36, cols = [];
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); n.el.style.width = n.w + 'px'; n.hd.style.minHeight = ''; n.el.style.minHeight = ''; });
       // a step widens until no unbreakable run (a long tag, a chip) spills past its edge
       steps.forEach(function(n){ var over = n.el.scrollWidth - n.el.clientWidth; if (over > 0) { n.w += over + 4; n.el.style.width = n.w + 'px'; } });
@@ -357,7 +361,7 @@
       cols.forEach(function(list, c){
         var y = axis - colH[c] / 2;
         list.forEach(function(n){
-          n.x = colX[c] + (colW[c] - n.w) / 2; n.y = y; n.cy = y + n.el.offsetHeight / 2;
+          n.x = colX[c] + (multiRoot ? 0 : (colW[c] - n.w) / 2); n.y = y; n.cy = y + n.el.offsetHeight / 2;
           n.el.style.left = n.x + 'px'; n.el.style.top = n.y + 'px';
           y += n.el.offsetHeight + SG;
         });
@@ -419,6 +423,15 @@
           if (Math.abs(want - dy) > 0.5) shift(t.preds[0], dy - want);
         });
       }
+      // several parallel first steps: each later step sits level with the middle of the steps that lead to it, so a
+      // single line runs straight and two lines that join fork evenly; steps keep their order and at least SG apart
+      if (multiRoot) for (var c2 = 1; c2 < cols.length; c2++) {
+        var l2 = cols[c2], floor = -Infinity;
+        l2.forEach(function(t){
+          var w = t.preds.length ? centreOf(t.preds.map(function(p){ return p.cy; })) : t.cy;
+          t.y = Math.max(w - hgt(t) / 2, floor); t.cy = t.y + hgt(t) / 2; floor = t.y + hgt(t) + SG;
+        });
+      }
       // a step moves by d within its column, and the single line into it carries the move on to the left;
       // a first step is centred on its steps below
       function shift(n, d){
@@ -474,6 +487,18 @@
           if (fans.indexOf(key) < 0) fans.push(key);
           e.fan = key;
         });
+        // several parallel first steps: fans that do not overlap in height share one upright position, and a
+        // straight line takes none, so the uprights of a gap stand on one rule
+        if (multiRoot) {
+          var lanes = [];
+          fans.forEach(function(f){
+            var ys = []; es.forEach(function(e){ if (e.fan === f) ys.push(e.ya, e.yb); });
+            f.lo = Math.min.apply(null, ys); f.hi = Math.max.apply(null, ys);
+            if (f.hi - f.lo < 0.5) { f.lane = 0; return; }
+            for (var k = 0; ; k++) { lanes[k] = lanes[k] || []; if (lanes[k].every(function(g){ return f.lo > g.hi + 20 || f.hi < g.lo - 20; })) { lanes[k].push(f); f.lane = k; break; } }
+          });
+          es.forEach(function(e){ e.xm = mid + (e.fan.lane - (lanes.length - 1) / 2) * LG; });
+        } else
         es.forEach(function(e){ e.xm = mid + (fans.indexOf(e.fan) - (fans.length - 1) / 2) * LG; });
       });
       function elbow(x1, y1, xm, y2, x2){
