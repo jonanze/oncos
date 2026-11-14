@@ -73,7 +73,7 @@ band: Chemotherapy regimens
   ~ NSABP B-28 [t-nsabp-b-28]
   + ECOG E1199 [t-ecog-e1199]
   + INT C9741 (CALGB 9741) [t-int-c9741]
-  + EBCTCG 2019 {pmid 30739743}
+  + EBCTCG 2019 [t-ebctcg-dose-intensification-meta-analysis]
   ※ Dose-dense AC is doxorubicin 60 mg/m² and cyclophosphamide 600 mg/m² every 14 days for four cycles, followed by paclitaxel 175 mg/m² every 14 days for four cycles or 80 mg/m² weekly for 12 weeks 〔NCCN〕
   ※ Adjuvant chemotherapy reduces the relative risk of recurrence and improves survival by 25 to 30%, irrespective of subtype 〔ESMO〕
     + EBCTCG 2012 [t-ebctcg-polychemotherapy-meta-analysis]
@@ -83,7 +83,7 @@ band: Chemotherapy regimens
   - ABC trials [t-abc-trials]
   ※ An anthracycline is favoured above a 25% estimated 10-year risk of breast cancer death and avoided below 20% 〔ASCO〕
     ・A non-anthracycline regimen is favoured for node-negative disease with a recurrence score of 26 to 30, and an anthracycline with a taxane for node-positive disease or a score above 30 〔St Gallen〕
-    + EBCTCG 2023 {pmid 37061269}
+    + EBCTCG 2023 [t-ebctcg-anthracycline-and-taxane-chemotherapy-meta-analysis]
   ③ Fit older patients: a standard multidrug regimen 〔PAGA II, B〕 〔ESMO II, B〕 after geriatric assessment 〔PAGA II, A〕 〔ESMO II, A〕
   ※ Adjuvant chemotherapy starts within 4 to 6 weeks 〔ESMO〕 or 8 weeks 〔ASCO Low, Conditional〕 of surgery, and no later than 12 weeks 〔ESMO〕 〔ASCO〕
   ※ Endocrine therapy follows chemotherapy and is not given with it 〔NCCN〕
@@ -127,14 +127,14 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
       * CTNeoBC [t-ctneobc]
     ② Postmenopausal, no indication for chemotherapy: a neoadjuvant aromatase inhibitor is an option 〔ASCO Moderate, Conditional〕 〔NCCN 2A〕
       ・The duration is at least 4 and ideally 6 months 〔ASCO〕, or 4 to 6 months 〔NCCN〕
-    + Spring 2016 meta-analysis {pmid 27367583}
-    + P024 {pmid 11822750}
-    ~ ACOSOG Z1031 {pmid 21555689}
+    + Spring 2016 meta-analysis [t-spring-et-al]
+    + P024 [t-p024]
+    ~ ACOSOG Z1031 [t-acosog-z1031]
     ※ In premenopausal women, neoadjuvant endocrine therapy is not routinely offered outside a trial unless chemotherapy is contraindicated 〔ASCO Moderate, Conditional〕
       ・Preoperative endocrine therapy with ovarian function suppression is an option 〔NCCN〕
-      - NEST {pmid 32460816}
+      - NEST [t-nest]
     ※ With ER below 10% in stage II or III disease, neoadjuvant chemotherapy can follow triple-negative protocols with pembrolizumab 〔ASCO Moderate, Strong〕 〔St Gallen〕
-      ~ KEYNOTE-756 {pmid 39838117}
+      ~ KEYNOTE-756 [t-keynote-756]
     ※ A gene expression assay on the core biopsy can inform the choice between chemotherapy and endocrine therapy 〔ASCO Moderate, Conditional〕 〔NCCN〕
     next: Adjuvant endocrine therapy
   Adjuvant endocrine therapy
@@ -162,7 +162,7 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
     ※ Ovarian function suppression lasts 5 years, with a minimum of 2 years 〔NCCN〕
       ・Extension beyond 5 years is unproven 〔ASCO〕 〔NCCN〕 but may reduce recurrence further 〔St Gallen〕
     ※ A GnRH agonist, such as goserelin 3.6 mg every 4 weeks or 10.8 mg every 12 weeks, starts before or with chemotherapy, or after it in patients who remain premenopausal 〔NCCN〕
-      ~ ASTRRA {pmid 37607321}
+      ~ ASTRRA [t-astrra]
     ° Toxicity of note: fractures with aromatase inhibitors, and thrombosis and endometrial cancer with tamoxifen 〔ASCO〕
     next: Treatment added to endocrine therapy in higher-risk disease
   Treatment added to endocrine therapy in higher-risk disease
@@ -209,7 +209,7 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
     - NSABP B-33 [t-nsabp-b-33]
     ~ MA.17R [t-ma-17r]
     ~ NRG Oncology/NSABP B-42 [t-nrg-oncology-nsabp-b-42]
-    + GIM4 {pmid 34543613}
+    + GIM4 [t-gim4]
     ③ Higher risk, tamoxifen for 5 years and still premenopausal: tamoxifen to 10 years 〔ASCO High, Strong〕 〔NCCN 2A〕
     + ATLAS [t-atlas]
     ※ CTS5, PAM50 ROR and EndoPredict estimate the risk of late recurrence 〔ASCO High, Strong〕
@@ -223,8 +223,8 @@ panel: Bone-modifying agents
     ・The duration is up to 5 years 〔ESMO〕, or 3 to 5 years 〔NCCN〕
   + EBCTCG 2015 [t-ebctcg-adjuvant-bisphosphonate-meta-analysis]
   ※ Adjuvant denosumab is not recommended to prevent recurrence 〔ESMO〕 〔NCCN〕
-    - D-CARE {pmid 31806543}
-    ~ ABCSG-18 {pmid 38319865}
+    - D-CARE [t-d-care]
+    ~ ABCSG-18 [t-abcsg-18]
 
 panel: Monitoring on endocrine therapy
   ① Aromatase inhibitor or ovarian function suppression: bone density is measured regularly 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕, and bone loss is treated with a bisphosphonate 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕 or denosumab 〔NCCN〕

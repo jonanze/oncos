@@ -47,7 +47,7 @@ for (const dir of fs.readdirSync(__dirname)) {
     if (line.url && !line.anchor) { intake.push(line.name + '\tno PMID yet ' + line.url + '\t' + where); continue; }
     const r = byAnchor.get(line.anchor);
     if (!r) { bad++; console.log(tag + ': no Evidence row ' + line.anchor + ' (give [t-...] or {pmid N})'); continue; }
-    if (!TRIAL_TYPE.test(r.type) || (NOT_TRIAL.test(r.type) && !/clinical trial|randomi/i.test(r.type))) {
+    if (!TRIAL_TYPE.test(r.type) || (NOT_TRIAL.test(r.type) && !/clinical trial|randomi/i.test(r.type) && !/^systematic review and meta-analys/i.test(r.type))) {
       bad++; console.log(tag + ': ' + r.anchor + ' is "' + r.type.slice(0, 60) + '"; maps cite trials and meta-analyses only (move it under off:)'); }
     if (line.fig) { bad++; console.log(tag + ': figure "' + line.fig + '" on a trial line; maps give trial names only (results are on the card)'); }
   }
