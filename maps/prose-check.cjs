@@ -10,7 +10,9 @@
      before the colon ("Good risk: BEP" and "Good risk: EP"). Options for one population are one numbered line,
      each regimen with its own tags (Jonan 2026-11-14, germ cell map)
    Lists for review (no failure): a ・ line that shares most of its words with a sibling or with its parent line,
-   the usual sign of one point restated per guideline (Jonan 2026-11-11, 2026-11-13). */
+   the usual sign of one point restated per guideline (Jonan 2026-11-11, 2026-11-13). Also a ・ line that gives one
+   value per guideline joined by "or" ("4 to 6 months 〔ASCO〕, or 4 to 6 months 〔NCCN〕"): write one statement with
+   all the tags unless the guidelines truly disagree (Jonan 2026-11-15, HR+ EBC duration line). */
 'use strict';
 const fs = require('fs'), path = require('path');
 const G = '(?:ESMO|NCCN|EHA|ASCO|JSH|JLCS|BSH|PAGA|EBMT|ACCP|ASTRO|JGCA|JSCO|JSMO|CSCO|KSH|ESGO|EAU|AUA|NICE|ASTCT|LYSA|JSGO)';
@@ -55,6 +57,7 @@ for (const dir of fs.readdirSync(__dirname).sort()) {
       const parent = stack[stack.length - 1];
       if (overlap(node.w, parent.w) >= 0.8 && node.w.size >= 4) { review++; console.log(at + 'review, restates its parent line ' + (parent.k + 1) + ': "' + text.slice(0, 80) + '"'); }
       for (const sib of parent.kids) if (overlap(node.w, sib.w) >= 0.8 && Math.min(node.w.size, sib.w.size) >= 4) { review++; console.log(at + 'review, restates line ' + (sib.k + 1) + ': "' + text.slice(0, 80) + '"'); }
+      if (/〕,? or [^〔]*〔/.test(text)) { review++; console.log(at + 'review, one value per guideline joined by "or": merge unless the guidelines truly disagree: "' + text.slice(0, 80) + '"'); }
       parent.kids.push(node);
     }
     stack.push(node);

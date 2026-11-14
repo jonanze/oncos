@@ -119,14 +119,14 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
   Neoadjuvant systemic therapy
     branch: NEO
     ① Chemotherapy indicated: the adjuvant regimen given before surgery 〔ESMO〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕
-      ・The indications are a larger tumour or clinical nodal involvement 〔ESMO〕, or a wish for a smaller operation, inoperable disease or a delay to surgery 〔ASCO Moderate, Conditional〕 〔NCCN〕
+      ・The indications are a larger tumour, clinical nodal involvement, inoperable disease, a wish for a smaller operation or a delay to surgery 〔ESMO〕 〔ASCO Moderate, Conditional〕 〔NCCN〕
     ※ Survival is the same with neoadjuvant and adjuvant chemotherapy 〔ASCO〕
       - NSABP B-18 and B-27 [t-nsabp-b-18-and-nsabp-b-27]
       - EBCTCG 2018 [t-ebctcg-neoadjuvant-meta-analysis]
     ※ Pathological complete response is uncommon 〔ESMO〕, and it is less prognostic than in other subtypes 〔NCCN〕 〔St Gallen〕
       * CTNeoBC [t-ctneobc]
     ② Postmenopausal, no indication for chemotherapy: a neoadjuvant aromatase inhibitor is an option 〔ASCO Moderate, Conditional〕 〔NCCN 2A〕
-      ・The duration is at least 4 and ideally 6 months 〔ASCO〕, or 4 to 6 months 〔NCCN〕
+      ・The duration is 4 to 6 months 〔ASCO〕 〔NCCN〕
     + Spring 2016 meta-analysis [t-spring-et-al]
     + P024 [t-p024]
     ~ ACOSOG Z1031 [t-acosog-z1031]
@@ -220,7 +220,7 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
 panel: Bone-modifying agents
   ① Postmenopausal or on ovarian function suppression, at high risk of relapse: an adjuvant bisphosphonate 〔PAGA I, B〕 〔ESMO I, A〕 〔NCCN 2A〕
     ・Specific evidence in Asian women is lacking, and bisphosphonates are not routinely used to prevent recurrence in Asia 〔PAGA〕
-    ・The duration is up to 5 years 〔ESMO〕, or 3 to 5 years 〔NCCN〕
+    ・The duration is up to 5 years 〔ESMO〕 〔NCCN〕
   + EBCTCG 2015 [t-ebctcg-adjuvant-bisphosphonate-meta-analysis]
   ※ Adjuvant denosumab is not recommended to prevent recurrence 〔ESMO〕 〔NCCN〕
     - D-CARE [t-d-care]
@@ -230,7 +230,7 @@ panel: Monitoring on endocrine therapy
   ① Aromatase inhibitor or ovarian function suppression: bone density is measured regularly 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕, and bone loss is treated with a bisphosphonate 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕 or denosumab 〔NCCN〕
   ② Aromatase inhibitor with ovarian function suppression: oestradiol is monitored 〔NCCN〕
   ③ Tamoxifen: routine transvaginal ultrasound is not recommended 〔PAGA V, D〕 〔ESMO V, D〕 〔NCCN〕
-    ・An annual gynaecological examination may be considered 〔PAGA V, C〕, or is recommended 〔ESMO V, B〕
+    ・An annual gynaecological examination is recommended 〔PAGA V, C〕 〔ESMO V, B〕
     ・CYP2D6 testing is not recommended, and strong CYP2D6 inhibitors such as fluoxetine and paroxetine are used with caution 〔NCCN〕
   ※ Endocrine therapy starts within 8 weeks of surgery or chemotherapy, with or after radiotherapy 〔ASCO Low, Conditional〕
   ※ Adverse effects and adherence are reviewed at every visit 〔ASCO Moderate, Conditional〕 〔NCCN〕
