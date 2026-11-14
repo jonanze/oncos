@@ -47,7 +47,6 @@ band: Potentially resectable metastases
       - ORCHESTRA
   ※ Liver transplantation with chemotherapy for unresectable liver-only metastases in selected patients 〔ESMO II, A〕
     ・Selection: BRAF wild-type, CEA below 80 ng/mL (80 µg/L), disease control for 3 months and no extrahepatic disease 〔ESMO〕
-    ・Transplantation is not addressed in JSCCR, NCCN or ASCO
     + TransMet
   ※ SIRT is not routinely recommended 〔ASCO Low, Weak〕
 
@@ -88,7 +87,6 @@ course: Metastatic colorectal cancer
     ※ Another PD-1 or PD-L1 antibody alone 〔NCCN 2A〕
     ※ dMMR with BRAF V600E: a checkpoint inhibitor first 〔NCCN 2A〕
     ※ Addition of FOLFOX and bevacizumab to atezolizumab prolonged PFS
-      ・Chemotherapy with a checkpoint inhibitor is not in any guideline
       ~ COMMIT
     ※ After progression on a checkpoint inhibitor: treatment by RAS and BRAF status 〔NCCN 2A〕
   RAS and BRAF wild-type, left-sided
@@ -215,7 +213,6 @@ course: Metastatic colorectal cancer
       ・Sotorasib with panitumumab 〔ESMO II, B〕
       ・Adagrasib with cetuximab 〔ESMO III, B〕
       ・Both are licensed in the US, not in the EU
-      ・KRAS G12C is not addressed in JSCCR 2024
     ~ CodeBreaK 300
     ~ KRYSTAL-1
     next: After oxaliplatin and irinotecan

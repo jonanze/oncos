@@ -208,7 +208,6 @@ course: Advanced prostate cancer
       ・US licence
       ・EU authorisation withdrawn
       ・Not available outside the US
-      ・Not in ESMO
       + IMPACT [t-impact--advanced-prostate]
 
   After ADT and docetaxel
@@ -280,22 +279,18 @@ panel: Emerging upfront triplet options > Metastatic, castration-sensitive
   ① BRCA1 or BRCA2 altered: niraparib with abiraterone
     ・BRCA2 only, high volume 〔NCCN 2A, useful in certain circumstances〕
     ・BRCA2 only, low volume 〔NCCN 2B, useful in certain circumstances〕
-    ・Not in ESMO
     ~ AMPLITUDE
     ※ No significant rPFS benefit with other HRR genes in a post hoc analysis
   ② HRR altered: talazoparib with enzalutamide
-    ・Not in ESMO or NCCN
     ~ TALAPRO-3
     ° Toxicity of note: frequent grade 3 or higher anaemia
   ③ PTEN loss: capivasertib with abiraterone 〔NCCN 2B, very select patients only〕
     ・PTEN loss is shown by IHC
     ・US licence
-    ・Not in ESMO
     ~ CAPItello-281
     ※ OS was reported only in a later descriptive analysis
   ④ PSMA PET positive: Lu-177 PSMA-617 with an ARSI 〔NCCN 2A, useful in certain circumstances〕
     ・Low volume 〔NCCN 2B, useful in certain circumstances〕
-    ・Not in ESMO
     ~ PSMAddition
 
 panel: Bone metastases, no visceral disease > Metastatic, castration-resistant

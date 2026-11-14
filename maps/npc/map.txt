@@ -68,7 +68,6 @@ course: Nasopharyngeal carcinoma
     ※ Chemoradiotherapy alone 〔NCCN 2B〕
       ・Induction or adjuvant chemotherapy for every patient in this group 〔CSCO-ASCO〕
     ※ A PD-1 inhibitor with induction and chemoradiotherapy: no recommendation for or against 〔CSCO-ASCO〕
-      ・A PD-1 inhibitor before recurrence is not in NCCN
       ・Toripalimab is not licensed for this use
       ~ DIAMOND [t-diamond]
       ~ Liu 2024 [t-liu-et-al--nasopharyngeal-carcinoma]
@@ -150,7 +149,6 @@ course: Nasopharyngeal carcinoma
     ③ Other doublets: PF, or cisplatin with docetaxel, paclitaxel, nab-paclitaxel or capecitabine 〔CSCO-ASCO-RM Moderate, Conditional〕 〔NCCN 2A〕
     ※ China only: camrelizumab with GP 〔CSCO-ASCO-RM High, Strong〕
       ・Camrelizumab has no licence outside China
-      ・Not in NCCN
       + CAPTAIN-1st
     ※ PD-L1 testing is not required
     next: Maintenance | Disease control

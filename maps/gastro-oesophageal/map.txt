@@ -145,7 +145,6 @@ course: Localised gastric and oesophageal cancer
     ② Docetaxel, cisplatin and fluorouracil, then oesophagectomy 〔JES Strong〕
       ・When radiotherapy is contraindicated 〔ESMO I, B〕
       ・Cisplatin with fluorouracil remains an option for older patients and those with comorbidity
-      ・Preoperative chemotherapy alone is not in NCCN for squamous cell carcinoma
     + JCOG1109 [t-jcog1109]
     + JCOG9907
     ※ Treatment that includes surgery is preferred to definitive chemoradiotherapy 〔JES Weak〕
@@ -161,7 +160,6 @@ course: Localised gastric and oesophageal cancer
       ・CAPOX 〔KGCA High, Strong〕 〔NCCN 1, preferred〕
       ・Six months of S-1 was inferior to 1 year
       ・S-1 is on the Singapore Cancer Drug List
-      ・S-1 is not in NCCN
     + ACTS-GC
     - JCOG1104 [t-opas-1]
     ② Pathological stage III: CAPOX, SOX, or S-1 with docetaxel 〔JGCA recommended〕

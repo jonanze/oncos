@@ -169,7 +169,7 @@ course: Advanced gastric and oesophageal cancer
     + CheckMate 648
     ③ Toripalimab with paclitaxel and cisplatin, for CPS 1 or more 〔ESMO I, A〕
       ・EU licence independent of PD-L1 status
-      ・Not in NCCN, and not licensed in the US for oesophageal cancer
+      ・Not licensed in the US for oesophageal cancer
     + JUPITER-06 [t-jupiter-06]
     ④ PD-L1 below these cut-offs: a platinum with a fluoropyrimidine or a taxane 〔ESMO II, A〕 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕
       ・Triplet chemotherapy is not established 〔JES〕
@@ -218,9 +218,8 @@ course: Advanced gastric and oesophageal cancer
     ② Irinotecan or a taxane, if not previously given 〔KGCA High, Strong〕 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 1, preferred〕
       ・Irinotecan is preferred over a taxane 〔JGCA recommended〕
     ③ Nivolumab, if no prior checkpoint inhibitor 〔JGCA recommended〕 〔KGCA High, Strong〕 〔PAGA I, B〕
-      ・Licensed in Japan, Korea and Singapore
+      ・Licensed in this line in Japan, Korea and Singapore, not in the EU or US
       ・ATTRACTION-2 enrolled Asian patients only
-      ・Not in ESMO, NCCN or ASCO, and not licensed in the EU or US in this line
     + ATTRACTION-2
     ※ The optimal sequence of these options is not established 〔JGCA〕 〔PAGA〕
     ※ NTRK fusion, RET fusion, BRAF V600E or high tumour mutational burden: matched targeted therapy 〔NCCN 2A, useful in certain circumstances〕

@@ -125,7 +125,6 @@ tree: Advanced NSCLC, first line
         + MARIPOSA
         ° Toxicity of note: grade 3 or higher events were more frequent with added chemotherapy (FLAURA2)
         ③ Gefitinib with carboplatin and pemetrexed 〔ESMO I, B〕 〔JLCS BQ2, A〕
-        ・Not in NCCN or ASCO
         ※ With a TP53 co-mutation, addition of chemotherapy to osimertinib prolonged PFS
           ~ Zhou 2026 [t-zhou-et-al]
         ※ Earlier-generation TKIs
@@ -194,7 +193,6 @@ tree: Advanced NSCLC, first line
           ~ LIBRETTO-431
         ・Pralsetinib 〔NCCN 2A, preferred〕 〔ESMO III, A〕
         ・Pralsetinib when selpercatinib is unavailable 〔ASCO Moderate, Strong〕
-        ・Pralsetinib is not in JLCS
         ・Pralsetinib has a US licence
         ・Its EU licence was withdrawn in October 2024 at the company's request
           ~ ARROW [t-arrow]
@@ -230,7 +228,6 @@ tree: Advanced NSCLC, first line
         ~ VISION
         ※ Gumarontinib 〔JLCS C, 1〕
         ・Licensed in Japan and China, not in the EU or US
-        ・Not in NCCN, ASCO or ESMO
       KRAS G12C
         branch: MUT pale
         ① Chemotherapy with PD-1 antibody first, as without a driver 〔ESMO III, A〕
@@ -291,7 +288,6 @@ tree: Advanced NSCLC, first line
         ・Pemetrexed for non-squamous, carboplatin and paclitaxel for squamous
         ・Pembrolizumab or cemiplimab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕
         ・Cemiplimab is licensed in the US at any PD-L1, and in the EU from PD-L1 1%
-        ・Cemiplimab is not in JLCS
           + KEYNOTE-189
           + KEYNOTE-407
           + EMPOWER-Lung 3 [t-empower-lung-3]
@@ -304,7 +300,6 @@ tree: Advanced NSCLC, first line
         ・Tislelizumab, non-squamous, only with PD-L1 50% or more 〔ESMO IV, B〕
         ・Sugemalimab and tislelizumab were tested in China
         ・Both are licensed in the EU, not in the US, for NSCLC
-        ・Neither is in NCCN or ASCO
           ~ RATIONALE-304
           ~ RATIONALE-307
           ~ GEMSTONE-302 [t-gemstone-302]
@@ -393,10 +388,8 @@ panel: Second line > No driver
       + Shepherd 2000 [t-shepherd-et-al]
   ② Adenocarcinoma: nintedanib with docetaxel 〔ESMO II, B〕
   ・EU licence
-  ・Not in NCCN, ASCO or JLCS
   ③ After platinum chemotherapy, PS 0–2: S-1 〔JLCS A, 1〕
   ・Licensed for NSCLC in Japan, not in the EU or US
-  ・Not in NCCN, ASCO or ESMO
     - EAST-LC
     ※ Non-inferior to docetaxel for OS, in a trial in East Asia before PD-1 antibodies
   ④ Pemetrexed for non-squamous, or nab-paclitaxel 〔JLCS A, 1〕
@@ -433,7 +426,6 @@ panel: Later lines, EGFR > EGFR
   ・Osimertinib with savolitinib or tepotinib for acquired MET amplification 〔ASCO Low, Conditional〕
   ・This grade predates the SAFFRON report
   ・Not licensed in the EU or US
-  ・Not in NCCN, ESMO or JLCS
     + SAFFRON
     ~ SACHI
     ~ INSIGHT 2 [t-insight-2]

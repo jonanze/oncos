@@ -1,19 +1,2 @@
 # Trials on the High Grade B-Cell Lymphoma map with no Evidence row yet (name, PMID, where on the map)
-PETAL	PMID 29750632	Work-up, PET and supportive care
-IELSG30	PMID 38181782	CNS prophylaxis
-SWOG S8736	PMID 27382104	Stage I–II
-Dunleavy 2018	PMID 30501868	HGBL with MYC and BCL2 rearrangement
-LYSA/GOELAMS 02-03	PMID 29061568	Consolidation and end of treatment
-EPCORE NHL-2	PMID 39792928	Unsuitable for transplant
-Hutchings 2025	PMID 41115257	Unsuitable for transplant
-IELSG37	PMID 39159403	Primary mediastinal B-cell lymphoma
-CheckMate 436	PMID 31398081	Primary mediastinal B-cell lymphoma
-KEYNOTE-170	PMID 31609651	Primary mediastinal B-cell lymphoma
-IELSG20	PMID 19767089	Primary CNS lymphoma
-IELSG32	PMID 27132696	Primary CNS lymphoma
-HOVON 105	PMID 30630772	Primary CNS lymphoma
-IELSG32 consolidation	PMID 29054815	Primary CNS lymphoma
-PRECIS	PMID 30785830	Primary CNS lymphoma
-G-PCNSL-SG-1	PMID 20970380	Primary CNS lymphoma
-JCOG1114C	PMID 36334050	Primary CNS lymphoma
-Roschewski 2020	PMID 32453640	Burkitt lymphoma
+

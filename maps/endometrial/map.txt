@@ -75,7 +75,7 @@ band: First-line chemotherapy
     ~ GOG 209
   ※ Bevacizumab added to carboplatin-paclitaxel did not improve PFS
     ・Listed for stage III–IV 〔NCCN 2A, preferred〕 and for recurrence 〔NCCN 2A, other recommended〕
-    ・Not licensed and not in ESGO 2025
+    ・No EU or US licence for endometrial cancer
     ・In exploratory analyses of GOG-86P, the benefit was greater in TP53-mutated or p53-overexpressing tumours
     - GOG-86P [t-gog-86p]
     - MITO END-2
