@@ -221,7 +221,7 @@ course: Testicular germ cell tumours after orchidectomy | parallel
       ・The interval is at least 2 months 〔EAU LE 2b〕
     ※ A negative PET is followed by observation only 〔JUA〕 〔ESMO〕 〔EAU〕 〔NCCN〕
     ③ PET-positive residual mass: repeat PET before any further treatment 〔JUA〕 〔EAU〕 〔NCCN 2A, preferred〕
-      ・The interval is 6 weeks 〔EAU〕, 6 to 12 weeks 〔NCCN〕 or 8 to 12 weeks 〔JUA〕
+      ・The interval is 6 to 12 weeks 〔JUA〕 〔EAU〕 〔NCCN〕
       ・Biopsy is recommended before radiotherapy or resection 〔ESMO〕
       ・Resection, or biopsy in selected patients, is the alternative 〔NCCN 2A〕
     ※ Most positive scans are false positive 〔JUA〕 〔ESMO〕

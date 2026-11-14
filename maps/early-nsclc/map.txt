@@ -101,6 +101,10 @@
 #     Steps are named, never numbered. Text never points to a step or an option by its number
 #     No restated lines. Guidelines that agree share one line with all their tags. A ・ line is only for a
 #       real disagreement
+#     No value given once per guideline and joined by "or" when the guidelines agree in substance: "4 to 6 months
+#       〔ASCO〕 〔NCCN〕", never "at least 4 and ideally 6 months 〔ASCO〕, or 4 to 6 months 〔NCCN〕". Lists that
+#       complement each other merge into one list with all the tags. Keep a split only for a different method,
+#       a clinically different cut-off or a different grade for the same thing (Jonan 2026-11-15)
 #     Options for the same population or condition are one numbered line, even when their guideline support
 #       differs: each regimen carries its own tags in the line ("Good risk: three cycles of BEP 〔…〕, or four
 #       cycles of EP 〔…〕"). A new numbered line needs a new population or condition, never a new regimen alone.

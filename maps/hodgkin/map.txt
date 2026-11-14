@@ -197,14 +197,14 @@ course: Classic Hodgkin lymphoma
       ・Used where PD-1 inhibitors are available and reimbursed 〔EHA〕, and when no checkpoint inhibitor was given before 〔NCCN〕
       ・The PD-1 inhibitor is given with chemotherapy, or in sequence when the response to it alone is insufficient 〔EHA〕
       ・Pembrolizumab with GVD or ICE, nivolumab with ICE, or brentuximab vedotin with nivolumab 〔EHA〕 〔NCCN〕
-      ・A PD-1 inhibitor and brentuximab vedotin are not ranked. The choice rests on availability 〔ESMO III, B〕, or on previous treatment, stage, bulk and time to relapse 〔EBMT〕
+      ・A PD-1 inhibitor and brentuximab vedotin are not ranked. The choice rests on availability, previous treatment, stage, bulk and time to relapse 〔ESMO III, B〕 〔EBMT〕
     ~ Pembrolizumab-GVD [t-moskowitz-et-al]
     ~ Pembrolizumab-ICE [t-bryan-et-al]
     ~ Nivolumab-ICE [t-mei-et-al]
     ~ Brentuximab vedotin-nivolumab [t-advani-et-al]
     ② Salvage with brentuximab vedotin and chemotherapy 〔EHA 2A〕 〔NCCN 2A〕
       ・Used without prior brentuximab vedotin when PD-1 inhibitors are unavailable or unsuitable, or after progression on or soon after a PD-1 inhibitor 〔EHA〕
-      ・Combined with DHAP or ESHAP 〔EHA〕, or with ICE or bendamustine 〔NCCN〕
+      ・Combined with DHAP, ESHAP, ICE or bendamustine 〔EHA〕 〔NCCN〕
     ~ BRaVE [t-hovon-llpc-transplant-brave]
     ③ Salvage chemotherapy alone: DHAP, ICE or GVD 〔ESMO III, B〕 〔EHA〕 〔NCCN 2A〕
       ・ESHAP or BEGEV 〔ESMO〕 〔EHA〕
@@ -240,7 +240,7 @@ course: Classic Hodgkin lymphoma
       ・No complete remission before transplant, or one or more of six risk factors 〔EBMT〕
       ・It is an option in patients not given brentuximab vedotin before 〔ESMO〕 〔NCCN〕
       ・After prior brentuximab vedotin, its role is not defined 〔NCCN〕
-      ・After prior brentuximab vedotin, it is an option after a response 〔EHA〕, or after one to six cycles without refractoriness or neurotoxicity, to 16 cycles in total 〔EBMT〕
+      ・After one to six prior cycles of brentuximab vedotin without refractoriness or neurotoxicity, it is an option after a response, to 16 cycles in total 〔EHA〕 〔EBMT〕
     ~ AETHERA
     ※ Off-label pembrolizumab or nivolumab consolidation is an option for high-risk disease refractory to or intolerant of brentuximab vedotin 〔EBMT〕
       ・Brentuximab vedotin with nivolumab, off-label, when neither refractory nor intolerant 〔EBMT〕
