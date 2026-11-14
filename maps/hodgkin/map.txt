@@ -1,0 +1,351 @@
+# oncOS board map: Hodgkin Lymphoma (classic Hodgkin lymphoma from first line to relapse, with older or unfit patients and NLPHL)
+# 2026-11-14, approved by Jonan for publication. Structure plan: board-maps/hodgkin/structure-plan.md. Changes: draft1-changes.md
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-13): one map for the whole sheet. Classic Hodgkin lymphoma is the course: early-stage favourable,
+#   early-stage unfavourable, advanced stage, then relapsed or refractory disease. Patients over 60 or unfit, and nodular
+#   lymphocyte-predominant Hodgkin lymphoma, are two side panels with no join. Follow-up stays inside the step
+#   "End of treatment and follow-up"
+# One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
+#   only where guidelines disagree (a cut-off, a licence, a grade, an order) or a condition
+# Options NCCN alone lists sit on ※ lines or as ・ lines in their drug class (inclusion.txt, Jonan 2026-11-10): the
+#   Deauville score 4 and EORTC-favourable pathways in early-stage favourable disease, continuation of ABVD or BrECADD after
+#   a positive interim PET, nivolumab-AVD and brentuximab vedotin with AVD in early-stage unfavourable disease, sequential
+#   brentuximab vedotin and AVD and four cycles of nivolumab-AVD in older patients, the regimens for disease refractory to
+#   three lines, and the pregnancy pathway. Options EBMT alone lists (checkpoint inhibitor consolidation after autologous
+#   transplant) sit on ※ lines too
+# Tags give the grade as printed, on the statement the guideline graded:
+#   〔ESMO level, grade〕 ESMO Lymphomas Living Guideline v1.2, October 2026, Hodgkin lymphoma pages (parent guideline Eyre,
+#     Ann Oncol 2025;36:1263-1284, to which the tag links). Levels I to V, grades A to E. It prints no trial references and
+#     has no NLPHL, pregnancy, HIV or unfit-patient content
+#   〔EHA grade〕 EHA Hodgkin lymphoma clinical practice guideline (Eichenauer, HemaSphere 2026;10:e70422). Grades printed
+#     as 1A to 5A. The scale is defined only in an online supplement that was not available, so EHA grades are not
+#     translated or compared with ESMO levels. A bare 〔EHA〕 marks ungraded text or a figure
+#   〔NCCN category, preference〕 NCCN Hodgkin Lymphoma 2.2026 (1 July 2026). 2A unless stated, with preferred and useful in
+#     certain circumstances. A bare 〔NCCN〕 marks a footnote, a principle page or the Discussion
+#   〔EBMT〕 EBMT transplant recommendations in adult Hodgkin lymphoma (Bazarbachi, Lancet Haematol 2026;13:e484-e493). Not
+#     graded. Tagged on transplant points only (Jonan 2026-11-13)
+# JSH 2023 and BSH 2022 were considered and dropped by Jonan (2026-11-13). The map has no East Asian source
+# Licensing is taken from the guideline texts, labels not read. BrECADD: EMA approved, not FDA approved. Nivolumab-AVD: FDA
+#   approved, not EMA approved (both ESMO). Brentuximab vedotin is the only agent approved for consolidation after
+#   autologous transplant (EBMT). Per-drug Singapore licence checks were dropped by Jonan (2026-11-13)
+# Order where guidelines disagree (Jonan 2026-11-13): BrECADD ①, nivolumab-AVD ② in advanced stage at age 60 or under.
+#   PD-1 inhibitor with chemotherapy, then brentuximab vedotin with chemotherapy, then chemotherapy alone as salvage.
+#   Escalated BEACOPP 2+2 ① in early-stage unfavourable disease. Chemotherapy alone after a negative interim PET stays
+#   numbered ② in early-stage favourable disease
+# Trial marks: + OS benefit, ~ surrogate endpoint, non-inferiority, single-arm or inconclusive, - no benefit or harm. Marks
+#   follow the Evidence row or intake paper. GHSG HD16 and GHSG HD13 are - because the de-escalation tested gave
+#   significantly poorer tumour control. UK RAPID and RATHL are ~ because non-inferiority was not shown without a
+#   significant loss. EORTC/LYSA/FIL H10 is ~ because omission of radiotherapy failed and escalation after a positive
+#   interim PET improved progression-free survival. These marks were confirmed by Jonan (2026-11-13)
+# Rows (Jonan 2026-11-13): GHSG HD11, HD13, HD15 and HD18 stay on the map. GHSG HD7, HD8 and HD9 are under off:
+# Single-arm trials are cited only where a licence or recommendation rests on them and no randomised trial exists for that
+#   option (inclusion.txt ①): brentuximab vedotin and nivolumab after transplant, checkpoint inhibitor and brentuximab
+#   vedotin salvage combinations, the regimens for older and unfit patients, and BrECADD at age 61 to 75 (the single-arm
+#   older cohort of GHSG HD21, PMID 40674676, filed as a secondary paper of the HD21 row by Jonan's choice). NLPHL has no trial that qualifies
+
+map: Hodgkin Lymphoma
+source: ESMO {url https://doi.org/10.1016/j.annonc.2025.07.014}
+source: EHA {url https://doi.org/10.1002/hem3.70422}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: EBMT {url https://doi.org/10.1016/S2352-3026(26)00102-X}
+branch: EF | Early-stage favourable | sage
+branch: EU | Early-stage unfavourable | blue
+branch: ADV | Advanced stage | violet
+branch: ASCT | Relapse, eligible for autologous transplant | teal
+branch: NOT | Relapse, not eligible for transplant | olive
+branch: AFT | Relapse after autologous transplant | rose
+
+band: Staging, risk factors and PET
+  ① Excisional or surgical biopsy 〔ESMO II, A〕 〔EHA〕 〔NCCN 2A〕
+    ・Core biopsy when excision is not possible, and fine-needle aspiration is insufficient 〔EHA〕 〔NCCN〕
+  ② PET-CT for staging 〔ESMO IV, A〕 〔EHA〕 〔NCCN 2A〕
+    ・Bone marrow biopsy is not recommended after staging by PET-CT 〔ESMO IV, E〕 〔EHA〕 〔NCCN〕
+    ・The exception is unexplained cytopenia other than anaemia with a negative PET 〔NCCN〕
+  ③ GHSG risk factors define the early-stage groups 〔ESMO III, A〕 〔EHA〕
+    ・GHSG, EORTC and NCCN factors each lead to a separate pathway 〔NCCN 2A〕
+  ④ Deauville score 1 to 3 is PET-negative and 4 to 5 PET-positive 〔ESMO〕 〔EHA〕 〔NCCN〕
+    ・RAPID, H10 and HD16 counted only Deauville score 1 to 2 as negative 〔NCCN〕
+    ・Responding disease with Deauville score 4 to 5: the same regimen can continue, with PET repeated after two cycles 〔NCCN〕
+  ⑤ International Prognostic Score in advanced stage 〔ESMO III, A〕 〔NCCN〕
+
+band: Supportive care, radiotherapy technique and pregnancy
+  ① HIV and hepatitis serology, pregnancy test, echocardiography and lung function before treatment 〔EHA〕 〔NCCN 2A〕
+    ・DLCO of 60% or more is acceptable for bleomycin 〔NCCN〕
+  ② Fertility counselling before treatment 〔ESMO V, A〕 〔EHA〕 〔NCCN 2A〕
+  ③ Primary G-CSF and Pneumocystis prophylaxis with BrECADD and with brentuximab vedotin and AVD 〔EHA〕 〔NCCN〕
+    ・The same prophylaxis applies to escalated BEACOPP and eBEACOPDac 〔EHA〕
+    ・Pneumocystis prophylaxis is given with every brentuximab vedotin regimen 〔NCCN〕
+    ・Routine G-CSF is not recommended with ABVD, and neutropenia is not a reason to delay or reduce ABVD 〔NCCN〕
+  ④ ISRT planned with deep-inspiration breath hold for mediastinal disease 〔EHA〕 〔NCCN〕
+    ・Protons in selected patients, such as young adults with mediastinal disease 〔EHA〕 〔NCCN〕
+  ※ Pregnancy: chemotherapy is avoided in the first trimester, and ABVD can be given in the second and third trimesters 〔NCCN 2A〕
+    ・First trimester with severe symptoms: single-agent vinblastine, then ABVD from the second trimester, or termination of pregnancy and urgent treatment 〔NCCN〕
+    ・PET, CT and radiotherapy are avoided during pregnancy 〔NCCN〕
+    ・Escalated BEACOPP and brentuximab vedotin with AVD are avoided 〔NCCN〕
+    ・Staging by shielded chest radiograph and ultrasound or MRI without gadolinium 〔NCCN〕
+  ° Toxicity of note: pulmonary toxicity with bleomycin, peripheral neuropathy and febrile neutropenia with brentuximab vedotin and AVD, and haematological and infectious toxicity with BrECADD
+
+course: Classic Hodgkin lymphoma
+  Newly diagnosed classic Hodgkin lymphoma
+    ① Early-stage favourable: stage I–II with no risk factor 〔ESMO III, A〕 〔EHA〕 〔NCCN 2A〕
+    ② Early-stage unfavourable: stage I or IIA with one or more risk factors, or stage IIB with a raised ESR or three or more nodal areas 〔ESMO〕 〔EHA〕
+    ③ Advanced stage: stage III–IV, and stage IIB with a large mediastinal mass or extranodal disease 〔ESMO〕 〔EHA〕
+      ・Stage IIB with a large mediastinal mass or extranodal disease: PET-adapted BrECADD, four or six cycles, is an option 〔NCCN 2A〕
+    ※ SWOG S1826 and ECHELON-1 enrolled stage III–IV only, and HD21 included stage IIB with a large mediastinal mass or extranodal disease
+    next: Early-stage favourable
+    next: Early-stage unfavourable
+    next: Advanced stage
+  Early-stage favourable
+    branch: EF
+    ① Two cycles of ABVD, then ISRT 20 Gy 〔ESMO I, A〕 〔EHA 1A〕 〔NCCN 2A, preferred〕
+      ・Radiotherapy is given whatever the interim PET result 〔EHA〕
+      ・ISRT 20 Gy is given after interim PET with Deauville score 1 to 3, at age 18 to 60 〔NCCN〕
+    ~ GHSG HD10
+    ② Interim PET negative: chemotherapy alone is an option 〔EHA〕 〔NCCN 2A, useful in certain circumstances〕
+      ・Chemotherapy alone is chosen when the late risk of radiotherapy outweighs the gain in tumour control, judged by age, sex, family history of cancer or heart disease, comorbidity and sites of disease, especially mediastinum and axilla 〔EHA〕 〔NCCN〕
+      ・Deauville score 1 to 2: two further cycles of ABVD, four in total 〔NCCN〕
+      ・Deauville score 3: four cycles of AVD after the two of ABVD 〔NCCN〕
+    - GHSG HD16
+    ~ UK RAPID
+    ~ EORTC/LYSA/FIL H10
+    ※ Interim PET with Deauville score 4: two further cycles of ABVD, then restaging 〔NCCN 2A〕
+      ・Deauville score 5: biopsy first, with a positive biopsy treated as refractory disease 〔NCCN〕
+      ・Deauville score 1 to 3 after four cycles: ISRT 30 Gy 〔NCCN〕
+    ※ EORTC favourable without GHSG favourable criteria: two cycles of ABVD, then interim PET 〔NCCN 2A〕
+      ・Deauville score 1 to 2: one further cycle of ABVD with ISRT 30 Gy, or two further cycles of ABVD alone 〔NCCN〕
+      ・Deauville score 3: two further cycles of ABVD with ISRT 30 Gy, or four cycles of AVD alone 〔NCCN〕
+    ※ Omission of dacarbazine from ABVD reduced tumour control, and non-inferiority of AVD to ABVD was not shown
+      - GHSG HD13
+    next: End of treatment and follow-up
+  Early-stage unfavourable
+    branch: EU
+    ① Age 60 or under: two cycles of escalated BEACOPP and two cycles of ABVD, then ISRT 30 Gy only for Deauville score 4 to 5 on PET at the end of chemotherapy 〔ESMO I, A〕 〔EHA 1A〕
+      ・eBEACOPDac or another procarbazine-free variant in place of escalated BEACOPP is an alternative, without data in early-stage unfavourable disease 〔EHA 4A〕
+    ~ GHSG HD14
+    ~ GHSG HD17
+    ② Four cycles of ABVD, then ISRT 30 Gy 〔ESMO I, A〕 〔EHA 1A〕 〔NCCN 2A〕
+      ・Chosen when a less intensive approach is preferred 〔EHA〕
+      ・Interim PET with Deauville score 1 to 3 after two cycles: four further cycles of AVD without radiotherapy is an alternative in selected patients 〔EHA〕 〔NCCN 2A〕
+      ・Chemotherapy alone avoids radiotherapy but adds doxorubicin, with its cardiac and breast cancer risk 〔EHA〕
+    ~ GHSG HD11
+    ~ EORTC/LYSA/FIL H10
+    ~ RATHL
+    ※ Interim PET positive after two cycles of ABVD: escalation to escalated BEACOPP only in selected patients 〔EHA〕
+      ・The progression-free survival gain of escalation in H10 at 5 years was lost at 10 years 〔EHA〕 〔NCCN〕
+      ・Two further cycles of ABVD, or two of BrECADD with G-CSF, then restaging 〔NCCN 2A〕
+      ・BrECADD has not been formally tested in this setting 〔NCCN〕
+      ・Deauville score 1 to 3 at restaging: ISRT 30 Gy, or two more cycles of BrECADD after BrECADD 〔NCCN〕
+      ・Deauville score 4 at restaging: ISRT 36 to 40 Gy 〔NCCN〕
+    ※ Four cycles of nivolumab-AVD, then ISRT 〔NCCN 2A〕
+      ~ NIVAHL {pmid 36508302}
+    ※ Four cycles of brentuximab vedotin with AVD and G-CSF, then ISRT 〔NCCN 2A〕
+      ~ BREACH {pmid 35867960}
+    next: End of treatment and follow-up
+  Advanced stage
+    branch: ADV
+    ① Fit, age 60 or under: two cycles of BrECADD, then two further cycles for Deauville score 1 to 3 on interim PET, or four further cycles for Deauville score 4 to 5 〔ESMO I, A〕 〔EHA 1A〕 〔NCCN 1, preferred〕
+      ・EMA approved, not FDA approved 〔ESMO〕
+      ・Infertility is less frequent than with escalated BEACOPP 〔EHA〕 〔NCCN〕
+    ~ GHSG HD21
+    ② Six cycles of nivolumab-AVD 〔ESMO I, A〕 〔EHA 1A〕 〔NCCN 1, preferred〕
+      ・Chosen in place of BrECADD when an ABVD-based approach is preferred 〔EHA〕
+      ・FDA approved, not EMA approved 〔ESMO〕
+    ~ SWOG S1826
+    ③ Six cycles of brentuximab vedotin with AVD and G-CSF 〔ESMO I, A〕 〔EHA〕 〔NCCN 1, useful in certain circumstances〕
+      ・Used when nivolumab-AVD is unavailable and BrECADD is unsuitable 〔ESMO〕 〔EHA〕
+      ・Superiority to PET-adapted ABVD has not been established 〔NCCN〕
+    + ECHELON-1
+    ④ ABVD when brentuximab vedotin and PD-1 inhibitors are unavailable or contraindicated 〔ESMO I, A〕 〔EHA〕 〔NCCN 1, useful in certain circumstances〕
+      ・Two cycles of ABVD, then four cycles of AVD for Deauville score 1 to 3 on interim PET 〔EHA〕 〔NCCN 1〕
+      ・Interim PET positive: escalated BEACOPP-based treatment or BEACOPP-14 〔EHA〕
+      ・Interim PET positive: three cycles of BrECADD with G-CSF, not formally tested in this setting 〔NCCN 2A〕
+    ~ RATHL
+    ⑤ PET-guided eBEACOPDac, four or six cycles, when targeted agents are unavailable 〔ESMO IV, B〕 〔EHA 4A〕
+      ・Escalated BEACOPP, four or six cycles guided by PET, is an alternative 〔EHA〕
+    ~ GHSG HD18
+    next: End of treatment and follow-up
+  End of treatment and follow-up
+    ① Advanced stage with PET-positive disease at the end of chemotherapy: ISRT 〔ESMO III, A〕 〔EHA〕 〔NCCN 2A〕
+      ・ISRT 30 Gy for Deauville score 4 to 5 after BrECADD or nivolumab-AVD 〔EHA〕
+      ・After nivolumab-AVD: repeat PET at 12 weeks or biopsy, without routine ISRT 〔NCCN〕
+      ・After BrECADD with Deauville score 4: ISRT, repeat PET at 12 weeks or biopsy, and biopsy for Deauville score 5 〔NCCN〕
+      ・ISRT 36 to 40 Gy for a partial response 〔NCCN〕
+      ・PET-negative: no further treatment 〔ESMO I, A〕
+    ~ GHSG HD15
+    ② Clinical follow-up every 3 months in the first year, every 6 months to the fourth year, then yearly 〔ESMO V, B〕
+      ・Every 3 to 6 months for 1 to 2 years, every 6 to 12 months to the third year, then yearly 〔NCCN〕
+    ③ Thyroid function yearly after radiotherapy to the neck 〔ESMO V, A〕 〔EHA〕 〔NCCN〕
+    ④ Yearly breast screening after radiotherapy to the chest or axilla 〔ESMO V, A〕 〔EHA〕 〔NCCN〕
+      ・Women aged 40 or under at radiotherapy, by mammography from 8 to 10 years after it, with MRI added for those aged 30 or under 〔ESMO〕
+      ・Radiotherapy before age 36, by mammography or MRI from 8 years after it, starting no earlier than age 25 〔EHA〕
+      ・Radiotherapy between ages 10 and 30, by mammography with MRI from 8 years after it, starting no earlier than age 25 〔NCCN〕
+    ⑤ Structured survivorship care with blood pressure, lipids and screening for second cancers 〔EHA 4B〕 〔NCCN〕
+    ※ Routine surveillance PET-CT or CT in complete remission is not recommended 〔ESMO III, D〕 〔EHA〕 〔NCCN〕
+    next: Relapsed or refractory disease | Relapse
+  Relapsed or refractory disease
+    ① Biopsy confirmation of relapsed or refractory disease 〔EHA 3A〕 〔NCCN 2A〕
+    ② Refractory disease: progression during first-line treatment or relapse within 3 months 〔EHA〕
+      ・Primary refractory disease: no complete response after first-line treatment 〔NCCN〕
+      ・Early relapse within 12 months and late relapse after 12 months 〔EHA〕
+    ③ Second-line treatment is chosen by eligibility for high-dose chemotherapy with ASCT 〔EHA〕 〔EBMT〕
+      ・Eligibility is not based on age alone, and fit patients over 65 can be candidates 〔EHA〕
+    next: Salvage and autologous transplant
+    next: Not eligible for transplant
+  Salvage and autologous transplant
+    branch: ASCT
+    ① Salvage with a PD-1 inhibitor and chemotherapy 〔EHA 3B〕 〔NCCN 2A, preferred〕
+      ・Used where PD-1 inhibitors are available and reimbursed 〔EHA〕, and when no checkpoint inhibitor was given before 〔NCCN〕
+      ・The PD-1 inhibitor is given with chemotherapy, or in sequence when the response to it alone is insufficient 〔EHA〕
+      ・Pembrolizumab with GVD or ICE, nivolumab with ICE, or brentuximab vedotin with nivolumab 〔EHA〕 〔NCCN〕
+      ・A PD-1 inhibitor and brentuximab vedotin are not ranked. The choice rests on availability 〔ESMO III, B〕, or on previous treatment, stage, bulk and time to relapse 〔EBMT〕
+    ~ Pembrolizumab-GVD {pmid 34170745}
+    ~ Pembrolizumab-ICE {pmid 36928527}
+    ~ Nivolumab-ICE {pmid 35316328}
+    ~ Brentuximab vedotin-nivolumab {pmid 33827139}
+    ② Salvage with brentuximab vedotin and chemotherapy 〔EHA 2A〕 〔NCCN 2A〕
+      ・Used without prior brentuximab vedotin when PD-1 inhibitors are unavailable or unsuitable, or after progression on or soon after a PD-1 inhibitor 〔EHA〕
+      ・Combined with DHAP or ESHAP 〔EHA〕, or with ICE or bendamustine 〔NCCN〕
+    ~ BRaVE {pmid 32273476}
+    ③ Salvage chemotherapy alone: DHAP, ICE or GVD 〔ESMO III, B〕 〔EHA〕 〔NCCN 2A〕
+      ・ESHAP or BEGEV 〔ESMO〕 〔EHA〕
+      ・IGEV 〔EHA〕 〔NCCN〕
+      ・GDP 〔ESMO〕
+      ・Gemcitabine, bendamustine and vinorelbine 〔NCCN〕
+      ・No regimen has been shown to be superior, and none has been compared in a randomised trial 〔NCCN〕 〔EBMT〕
+    ④ A complete metabolic response is the aim before ASCT 〔EHA〕 〔NCCN〕 〔EBMT〕
+      ・Without it: third-line treatment, or ASCT with radiotherapy to PET-positive sites, brentuximab vedotin maintenance or both 〔EHA 3B〕
+      ・Deauville score 4: ASCT, radiotherapy or further systemic treatment 〔NCCN 2A〕
+      ・Deauville score 5: radiotherapy or further systemic treatment before ASCT 〔NCCN 2A〕
+      ・Partial response with low-volume disease after brentuximab vedotin and checkpoint inhibitor salvage: ASCT 〔EBMT〕
+      ・PET after a checkpoint inhibitor is less predictive, and uptake can reflect inflammation 〔NCCN〕 〔EBMT〕
+    ⑤ High-dose chemotherapy with ASCT 〔ESMO I, A〕 〔EHA 2A〕 〔NCCN 2A〕 〔EBMT〕
+      ・ASCT after Deauville score 1 to 3 on second-line treatment, in primary refractory disease or relapse within 3 months 〔NCCN 1〕
+      ・BEAM is the standard conditioning regimen, and no regimen has been shown to be superior 〔EHA〕 〔EBMT〕
+      ・LEAM or thiotepa when carmustine is in short supply 〔EBMT〕
+    ~ GHSG/EBMT HD-R1
+    ~ BNLI {pmid 8096958}
+    ⑥ Radiotherapy to PET-positive or previously unirradiated sites, before or after ASCT, is an option 〔ESMO IV, C〕 〔EHA 3A〕 〔NCCN 2A〕 〔EBMT〕
+      ・Radiotherapy is mostly given after ASCT 〔EHA〕
+      ・Radiotherapy with a clinically significant lung dose is used with caution 〔EBMT〕
+    ※ Late relapse after treatment for early-stage favourable disease, or early-stage relapse after abbreviated treatment: conventional chemotherapy with or without brentuximab vedotin, a checkpoint inhibitor and radiotherapy is an option 〔EHA 3C〕 〔EBMT〕
+      ・Localised relapse at initial sites after three to four cycles without radiotherapy: second-line systemic treatment, then ISRT in place of ASCT after Deauville score 1 to 3 〔NCCN 2A, useful in certain circumstances〕
+    ※ ASCT is an option for chemotherapy-refractory disease that responds to pembrolizumab 〔ESMO IV, C〕
+    ※ Transplant-free treatment after checkpoint inhibitor salvage is unproven outside selected low-risk patients 〔EBMT〕
+    next: Consolidation after autologous transplant
+  Consolidation after autologous transplant
+    branch: ASCT pale
+    ① High risk of relapse: brentuximab vedotin for up to 16 cycles 〔ESMO I, B〕 〔EHA 1A〕 〔NCCN 2A〕 〔EBMT〕
+      ・High risk: primary refractory disease, relapse within 12 months, or extranodal disease at relapse 〔EHA〕
+      ・Two or more of: remission under 1 year, extranodal disease, PET-positive response at transplant, B symptoms, more than one salvage regimen 〔NCCN〕
+      ・No complete remission before transplant, or one or more of six risk factors 〔EBMT〕
+      ・It is an option in patients not given brentuximab vedotin before 〔ESMO〕 〔NCCN〕
+      ・After prior brentuximab vedotin, its role is not defined 〔NCCN〕
+      ・After prior brentuximab vedotin, it is an option after a response 〔EHA〕, or after one to six cycles without refractoriness or neurotoxicity, to 16 cycles in total 〔EBMT〕
+    ~ AETHERA
+    ※ Off-label pembrolizumab or nivolumab consolidation is an option for high-risk disease refractory to or intolerant of brentuximab vedotin 〔EBMT〕
+      ・Brentuximab vedotin with nivolumab, off-label, when neither refractory nor intolerant 〔EBMT〕
+      ・Brentuximab vedotin is the only agent approved for consolidation after ASCT 〔EBMT〕
+    ※ Lenalidomide and everolimus have no evidence of benefit after ASCT 〔EBMT〕
+    next: Relapse after autologous transplant | Relapse
+  Not eligible for transplant
+    branch: NOT
+    ① A PD-1 inhibitor as single agent 〔EHA 2A〕 〔NCCN 2A, preferred〕
+      ・Pembrolizumab is preferred over brentuximab vedotin when neither was given before, including relapse after ASCT 〔ESMO I, A〕
+      ・A PD-1 inhibitor is preferred especially after first-line brentuximab vedotin 〔EHA〕
+      ・Response is assessed after four cycles, and treatment continues while clinical benefit lasts 〔NCCN〕
+    ~ KEYNOTE-204
+    ② Brentuximab vedotin 〔EHA 2A〕 〔NCCN 2A〕
+      ・For up to 16 cycles when a PD-1 inhibitor is unsuitable or not reimbursed, especially without prior brentuximab vedotin 〔EHA〕
+      ・Continued until progression or unacceptable toxicity 〔NCCN〕
+    ③ Chemotherapy alone or with a PD-1 inhibitor 〔EHA 2B〕 〔NCCN 2A〕
+    ④ Localised relapse: radiotherapy alone or with a PD-1 inhibitor is an option 〔EHA 3A〕 〔NCCN 2A〕
+  Relapse after autologous transplant
+    branch: AFT
+    ① Treatment as for patients not eligible for transplant 〔ESMO〕 〔NCCN 2A〕
+      ・Treatment is chosen individually by previous treatment 〔EHA 3A〕
+      ・No prior PD-1 inhibitor: a PD-1 inhibitor for up to 2 years, with first response assessment after four cycles 〔EHA〕
+      ・After brentuximab vedotin and a PD-1 inhibitor: a clinical trial, or the earlier treatment with the best response, with a donor search 〔EHA〕
+    ~ CheckMate 205
+    ~ Brentuximab vedotin (pivotal) [t-brentuximab-vedotin]
+    ② Allogeneic transplant is an option in eligible patients 〔ESMO III, B〕 〔EHA〕 〔NCCN 2A〕 〔EBMT〕
+      ・Sensitive disease after brentuximab vedotin and a checkpoint inhibitor: transplant is recommended 〔EBMT〕, and discussed with every eligible patient whose disease responds 〔EHA 3B〕
+      ・Refractory disease: the decision is individual 〔EBMT〕, and transplant is discussed with every fit patient whose disease is refractory to or progresses on a PD-1 inhibitor 〔EHA 3A〕
+      ・Transplant can be postponed in complete remission after a checkpoint inhibitor 〔EBMT〕
+      ・Referral is considered after three or more lines 〔NCCN〕
+      ・PD-1 inhibitor stopped at least 6 weeks before transplant 〔EHA〕 〔EBMT〕
+      ・Bridging treatment before transplant to lower the risk of relapse 〔EBMT〕
+      ・Donor: matched sibling, then matched unrelated, then haploidentical or mismatched unrelated 〔EBMT〕
+      ・Reduced-intensity conditioning, and post-transplant cyclophosphamide for GVHD prophylaxis with every donor type 〔EBMT〕
+    ※ Disease refractory to three or more lines: bendamustine, gemcitabine-based regimens, or pembrolizumab with decitabine or vorinostat 〔NCCN 2A〕
+    ※ Maintenance after allogeneic transplant is not recommended outside a trial 〔EBMT〕
+    ※ Relapse after allogeneic transplant: tapering of immunosuppression, donor lymphocyte infusion, brentuximab vedotin, or a checkpoint inhibitor started at a low dose 〔EBMT〕
+      ・The checkpoint inhibitor is nivolumab or pembrolizumab 〔EBMT〕 〔NCCN〕
+    ° Toxicity of note: severe acute GVHD with allogeneic transplant after a PD-1 inhibitor 〔EHA〕 〔EBMT〕
+
+panel: Risk factors in early-stage disease > Newly diagnosed classic Hodgkin lymphoma
+  | Risk factor | GHSG | EORTC | NCCN |
+  | Large mediastinal mass | Over one third of the maximal thoracic width | Over 0.35 of the thoracic width at T5–6 | Over one third of the maximal thoracic width, or any mass over 10 cm |
+  | ESR, mm/h | 50 or more without B symptoms, 30 or more with B symptoms | 50 or more without B symptoms, 30 or more with B symptoms | 50 or more, or any B symptoms |
+  | Nodal areas | 3 or more | 4 or more | 4 or more |
+  | Extranodal disease | Any | - | - |
+  | Age | - | 50 or over | - |
+  | Favourable | Stage I–II with no factor | Stage I–II with no factor | By GHSG or EORTC factors |
+  | Unfavourable | Stage I–IIA with any factor, or stage IIB with raised ESR or 3 or more nodal areas | Stage I–II with any factor | Stage I–II with any factor, and every stage IB and IIB |
+  | Advanced | Stage IIB with a large mediastinal mass or extranodal disease, and stage III–IV | Stage III–IV | Stage III–IV |
+
+panel: Age over 60, or unfit for intensive treatment
+  ① Bleomycin for no more than two cycles over age 60 〔EHA 3A〕 〔NCCN〕
+    ・Omission of bleomycin is considered over age 70 〔EHA〕
+  ② Early-stage favourable: two cycles of ABVD, then ISRT 20 Gy, as at age 60 or under 〔ESMO I, A〕 〔EHA 1A〕 〔NCCN 2A〕
+    ・EORTC favourable: three cycles, then ISRT 30 Gy 〔NCCN〕
+  ③ Early-stage unfavourable: two cycles of ABVD and two of AVD, then ISRT 30 Gy 〔ESMO I, A〕 〔EHA〕 〔NCCN 2A〕
+    ・Two cycles of ABVD, then four of AVD without radiotherapy when interim PET is negative 〔NCCN 2A〕
+    ・Four cycles of nivolumab-AVD, then ISRT, is an option 〔NCCN 2A〕
+  ④ Advanced stage, fit for multiagent chemotherapy: six cycles of nivolumab-AVD 〔ESMO I, A〕 〔EHA 2A〕 〔NCCN 1, preferred〕
+    ・Up to age 80 〔ESMO〕 〔EHA〕
+  ~ SWOG S1826
+  ⑤ Advanced stage, very fit, age 61 to 75: PET-guided BrECADD, four or six cycles, is an option 〔ESMO III, B〕 〔EHA 2B〕
+  ~ GHSG HD21
+  ⑥ Advanced stage: two cycles of ABVD or AVD, then four of AVD, as an alternative to targeted agents 〔EHA 3A〕
+  ⑦ Unfit for multiagent chemotherapy: brentuximab vedotin with dacarbazine or with nivolumab 〔EHA 3B〕 〔NCCN 2A〕
+    ・Nivolumab or pembrolizumab alone is used when brentuximab vedotin is contraindicated 〔NCCN 2A〕
+    ・Single-agent conventional chemotherapy is an alternative 〔EHA〕
+    ・Single-agent brentuximab vedotin or a PD-1 inhibitor is an option, but neither appears to give long-term disease control 〔EHA〕
+    ・ISRT alone is an option when systemic treatment is not feasible 〔NCCN〕
+  ~ Friedberg 2017 {pmid 29038340}
+  ~ Friedberg 2024 {pmid 37946283}
+  ※ Two cycles of brentuximab vedotin, six of AVD, then two of brentuximab vedotin after a complete or partial response without neuropathy 〔NCCN 2A〕
+    ・Stage I–II unfavourable, or stage III–IV when a checkpoint inhibitor is contraindicated 〔NCCN〕
+    ~ Evens 2018 {pmid 30179569}
+  ※ Brentuximab vedotin with AVD did not improve progression-free survival over ABVD in older patients, with more neutropenia and neuropathy 〔EHA〕
+    + ECHELON-1
+  ° Toxicity of note: bleomycin lung toxicity in older patients 〔EHA〕 〔NCCN〕
+
+panel: Nodular lymphocyte-predominant Hodgkin lymphoma
+  ① Stage IA without risk factors: ISRT alone 〔EHA 2A〕 〔NCCN 2A, preferred〕
+    ・30 Gy 〔EHA〕
+    ・30 to 36 Gy 〔NCCN〕
+    ・ISRT alone also applies to contiguous non-bulky stage IIA 〔NCCN〕
+    ・ISRT is also given after complete excision 〔EHA〕
+    ・Observation after complete excision of a solitary node is an option 〔NCCN〕
+  ② Other early stages: treatment as for classic Hodgkin lymphoma, with or without an anti-CD20 antibody 〔EHA 2A〕
+    ・ABVD with or without rituximab, two cycles for favourable or four for unfavourable disease, then radiotherapy 〔EHA〕
+    ・Stage IB, IIB or bulky disease: chemotherapy with rituximab and ISRT 〔NCCN 2A〕
+    ・Non-contiguous stage IIA: chemotherapy with rituximab, or rituximab alone 〔NCCN 2A〕
+  ③ Stage III–IV: from active surveillance to chemotherapy with an anti-CD20 antibody, by age, tumour burden, sites and symptoms 〔EHA 4B〕 〔NCCN 2A〕
+    ・ABVD, CHOP or CVbP with rituximab, with no preferred regimen 〔NCCN〕
+    ・R-CHOP, bendamustine with rituximab or R-CVP is an alternative to classic Hodgkin regimens, on retrospective data only 〔EHA〕
+    ・Rituximab alone or local radiotherapy for palliation 〔NCCN〕
+  ④ Relapse: repeat biopsy to exclude transformation to large B-cell lymphoma 〔EHA〕 〔NCCN 2A〕
+    ・From single-agent anti-CD20 antibody to high-dose chemotherapy with ASCT, by age, previous treatment and stage 〔EHA 4B〕 〔NCCN 2A〕
+    ・Asymptomatic non-bulky relapse: observation, rituximab or ISRT 〔NCCN〕
+  ※ Brentuximab vedotin and PD-1 inhibitors are not recommended 〔EHA 5A〕
+  ※ LP-IPS adverse factors: age 45 or over, stage III–IV, haemoglobin below 10.5 g/dL (105 g/L) and splenic involvement 〔EHA〕 〔NCCN〕
+  ※ Transformation to large B-cell lymphoma occurs in about 10% at 10 years 〔EHA〕
+    ・About 7% at 10 years and 30% at 20 years 〔NCCN〕
+  ※ ICC 2022 name: nodular lymphocyte-predominant B-cell lymphoma 〔EHA〕 〔NCCN〕
+
+off:
+  GHSG HD7 | Superseded: extended-field radiotherapy with or without ABVD. GHSG HD10 is cited for combined-modality treatment
+  GHSG HD8 | Superseded: involved-field against extended-field radiotherapy after COPP/ABVD. ISRT is the current field
+  GHSG HD9 | Superseded: eight cycles of escalated BEACOPP against COPP/ABVD. GHSG HD18 and GHSG HD21 are cited for PET-guided treatment

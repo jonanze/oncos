@@ -33,7 +33,8 @@
     'Nasopharyngeal Carcinoma': 'npc',
     'SCLC': 'sclc',
     'Ovarian Cancer': 'ovarian',
-    'High Grade B-Cell Lymphoma': 'aggressive-bcl'
+    'High Grade B-Cell Lymphoma': 'aggressive-bcl',
+    'Hodgkin Lymphoma': 'hodgkin'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
