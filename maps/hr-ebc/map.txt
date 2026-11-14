@@ -127,8 +127,12 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
       * CTNeoBC [t-ctneobc]
     ② Postmenopausal, no indication for chemotherapy: a neoadjuvant aromatase inhibitor is an option 〔ASCO Moderate, Conditional〕 〔NCCN 2A〕
       ・The duration is at least 4 and ideally 6 months 〔ASCO〕, or 4 to 6 months 〔NCCN〕
+    + Spring 2016 meta-analysis {pmid 27367583}
+    + P024 {pmid 11822750}
+    ~ ACOSOG Z1031 {pmid 21555689}
     ※ In premenopausal women, neoadjuvant endocrine therapy is not routinely offered outside a trial unless chemotherapy is contraindicated 〔ASCO Moderate, Conditional〕
       ・Preoperative endocrine therapy with ovarian function suppression is an option 〔NCCN〕
+      - NEST {pmid 32460816}
     ※ With ER below 10% in stage II or III disease, neoadjuvant chemotherapy can follow triple-negative protocols with pembrolizumab 〔ASCO Moderate, Strong〕 〔St Gallen〕
       ~ KEYNOTE-756 {pmid 39838117}
     ※ A gene expression assay on the core biopsy can inform the choice between chemotherapy and endocrine therapy 〔ASCO Moderate, Conditional〕 〔NCCN〕
