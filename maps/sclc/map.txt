@@ -85,7 +85,6 @@ course: Small-cell lung cancer
       - SWOG S0124 [t-swog-s0124]
     ④ Serplulimab with carboplatin and etoposide
     ・EU licence 2025
-    ・Not in NCCN, ASCO or JLCS
     ・The trial ran mostly in China
       + ASTRUM-005
     ※ Brain metastases 〔NCCN 2A〕
@@ -151,7 +150,6 @@ course: Small-cell lung cancer
     ・60 Gy twice daily and 65 Gy daily were tested in randomised phase II trials
     ・These trials indicate an advantage 〔NCCN〕
     ・Doses above 45 Gy twice daily are not recommended, and the dose with durvalumab is not defined 〔NCCN〕
-    ・Not addressed in JLCS
       + Yu 2024 [t-triss]
       + THORA [t-thora]
       ~ Qiu 2021 [t-qiu-et-al]
@@ -196,11 +194,9 @@ course: Small-cell lung cancer
     ・For patients with at least stable disease after 4 cycles, PS 0–1 and no brain metastases at any time
     ・US licence 2025, EU licence 2026
     ・The ASCO guideline predates IMforte
-    ・Not in JLCS 2025
       + IMforte
     ③ After induction with durvalumab: tarlatamab with durvalumab
     ・Not licensed as of November 2026
-    ・Not in NCCN, ASCO or JLCS
       + DeLLphi-305
     ※ Nivolumab with or without ipilimumab after chemotherapy alone did not improve OS
       - CheckMate 451
@@ -255,11 +251,9 @@ course: Small-cell lung cancer
       + O'Brien 2006 [t-o-brien-et-al]
       - von Pawel 1999 [t-von-pawel-et-al]
     ④ Cisplatin, etoposide and irinotecan 〔JLCS A, 2〕
-    ・Not in NCCN or ASCO
       + JCOG0605 [t-jcog-0605]
     ※ Amrubicin 〔JLCS A, 2〕
     ・Amrubicin is licensed in Japan
-    ・Not in NCCN or ASCO
     ※ Tarlatamab, topotecan and lurbinectedin are equally preferred single agents, in a guideline predating DeLLphi-304 〔ASCO〕
     ※ In GFPC 01–13 the PFS gain was significant only for relapse 180 days or more after chemotherapy
   Refractory relapse

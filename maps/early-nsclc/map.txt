@@ -74,6 +74,13 @@
 #   No explanation where no reason is known: two facts stay two lines, never joined by "as" or "because"
 #     unless a guideline or trial gives that reason (Jonan 2026-11-13)
 #   Side-effect lines open with "Toxicity of note:" (Jonan 2026-11-13)
+#   No omission lines (Jonan 2026-11-13): a ・ line never says that a guideline does not list, cover or mention an
+#     option ("Not in NCCN"). It gives a different recommendation, cut-off or grade, never an absence
+#   No meta lines (Jonan 2026-11-13): no comment on our own reading ("no guideline read cites this analysis"). The
+#     option is stated plainly ("can be considered")
+#   node maps/prose-check.cjs fails omission and meta lines, a guideline as the subject of a sentence, semicolons
+#     and second person, and lists for review a ・ line that repeats its parent or a sibling. A draft is shown only
+#     after it passes and a line-by-line read against these rules (2026-11-14)
 #   A bare 〔ESMO〕 tag names the guideline on a sub-line whose grade sits on the line above, or on an ungraded
 #     statement. An optional recommendation keeps its strength in words: "is an option" (2026-11-13)
 #   PD-L1 and similar cut-offs: lead with the band every guideline agrees on, then one line per band where they
@@ -134,7 +141,6 @@ band: Staging before treatment
     ※ Guidelines differ
     ・Mediastinoscopy before resection when endosonography is negative but CT or PET is positive in the mediastinum 〔NCCN 2A〕
     ・Insufficient evidence either way 〔JLCS〕
-    ・Not addressed in ESMO 1.3
   ④ Peripheral cN0 tumour of 3 cm or less: invasive staging is not required
   ・Invasive staging, EBUS first, for cN1, central, larger than 3 cm or non-FDG-avid tumours 〔ESMO I, A〕
   ・Invasive staging is optional for a peripheral tumour of 3 cm or less with negative CT and PET 〔NCCN 2A〕
@@ -182,15 +188,14 @@ course: Early and locally advanced NSCLC
       ~ CheckMate 77T
       + RATIONALE-315
       ※ Toripalimab improved EFS in a trial in China
-      ・Not in ESMO 1.3, NCCN or JLCS
       ・Toripalimab has EU and US licences for other cancers, not for NSCLC
         ~ Neotorch
     ※ No preference between neoadjuvant only and perioperative treatment 〔ESMO〕
     ※ EGFR exon 19 or L858R, stage II–IIIB: osimertinib with or without chemotherapy before surgery, then osimertinib 〔NCCN 2A〕
     ・Pathological response improved, with no survival data yet
     ・Resection, then adjuvant osimertinib 〔ESMO〕 〔JLCS〕
-    ・Lorlatinib before surgery for ALK is not in any guideline
       ~ NeoADAURA
+    ※ ALK, stage III: lorlatinib before surgery met its pathological complete response endpoint in a single-arm trial
       ~ LORIN [t-lorin]
     ※ Superior sulcus tumour, T3–4 N0–1: concurrent chemoradiotherapy, then surgery 〔ESMO III, B〕 〔NCCN 2A〕 〔JLCS C, 1〕
     ※ Chemotherapy alone before surgery improved survival, when immunotherapy is not suitable 〔NCCN 2A〕 〔JLCS BQ1, B〕
@@ -236,8 +241,8 @@ course: Early and locally advanced NSCLC
       + Meta-analysis 2010 [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis]
       + RTOG 9410
     ※ Unfit for concurrent treatment
-    ・Sequential chemoradiotherapy or radiotherapy alone 〔ESMO I, A〕 〔NCCN 2A〕
-    ・Radiotherapy alone 〔JLCS C, 1〕
+    ・Sequential chemoradiotherapy 〔ESMO I, A〕 〔NCCN 2A〕
+    ・Radiotherapy alone 〔ESMO I, A〕 〔NCCN 2A〕 〔JLCS C, 1〕
     ・Older patients unfit for cisplatin: daily carboplatin with radiotherapy 〔JLCS B, 2〕
     ※ 74 Gy was inferior to 60 Gy and is not recommended 〔NCCN 2A〕 〔JLCS B, 1〕
       - RTOG 0617
@@ -274,7 +279,6 @@ course: Early and locally advanced NSCLC
     ② Node-negative, whole tumour over 2 cm, pathological stage IA3–IIIA, excluding T3 and T4 by invasion or nodule: tegafur-uracil for 1–2 years
     ・Adenocarcinoma 〔JLCS A, 1〕, other histology 〔JLCS C, 2〕
     ・Licensed in Japan, not in the EU or US
-    ・Not in NCCN, ESMO or ACCP
       + Kato 2004 [t-kato-et-al]
       + Meta-analysis 2005 [t-hamada-et-al]
     next: No driver
@@ -296,7 +300,7 @@ course: Early and locally advanced NSCLC
     ・The EU licence for atezolizumab requires PD-L1 50% or more
     ・Pembrolizumab regardless of PD-L1
     ・Atezolizumab only at PD-L1 50% or more, stage IIA–IIIB 〔JLCS C, 2〕
-    ・Insufficient evidence at PD-L1 1–49%, and pembrolizumab not addressed 〔JLCS〕
+    ・Insufficient evidence at PD-L1 1–49% 〔JLCS〕
     ・Benefit of pembrolizumab unclear at PD-L1 under 1% 〔NCCN〕
       ~ IMpower010
       ~ PEARLS/KEYNOTE-091 [t-pearls-keynote-091]
@@ -314,11 +318,9 @@ course: Early and locally advanced NSCLC
     ・Stage II–IIIB 〔JLCS〕
       ~ ALINA
       ※ Ensartinib also improved DFS
-      ・Not in ESMO 1.3, NCCN or JLCS
       ・Ensartinib has a US licence for advanced ALK-positive NSCLC, not for treatment after resection
         ~ ELEVATE
     ③ RET, stage IB–IIIA: selpercatinib for 3 years, also after radiotherapy 〔ESMO I, A〕 〔NCCN 1〕
-    ・Not in JLCS
       ~ LIBRETTO-432
   After chemoradiotherapy, no progression
     branch: CRT pale
@@ -330,7 +332,6 @@ course: Early and locally advanced NSCLC
     ③ No driver: sugemalimab for up to 24 months, after concurrent or sequential chemoradiotherapy 〔ESMO I, A〕
     ・Trial in China
     ・The EU licence requires PD-L1 1% or more
-    ・Not in NCCN or JLCS
       ~ GEMSTONE-301 [t-gemstone-301]
     ※ After sequential chemoradiotherapy
     ・Osimertinib with EGFR exon 19 or L858R 〔ESMO I, A〕 〔NCCN 2A〕

@@ -105,7 +105,6 @@ course: Head and neck squamous cell carcinoma
     ② PD-L1 CPS 1 or more: pembrolizumab before surgery, with postoperative radiotherapy and after it
       ・Oral cavity 〔NCCN 2A, other recommended〕
       ・p16-negative oropharynx, hypopharynx and larynx 〔NCCN 2A, useful in certain circumstances〕
-      ・Not in NCCN for p16-positive oropharynx or N3 disease
       ・Cisplatin is added to radiotherapy for extranodal extension or a positive margin
       ・Licensed in the US, the EU and Singapore for CPS 1 or more
       ・JSHNC 2025 and PAGA 2021 predate KEYNOTE-689
@@ -188,7 +187,6 @@ course: Head and neck squamous cell carcinoma
     ※ Nivolumab added to postoperative cisplatin and radiotherapy improved disease-free survival
       ・Overall survival data are immature
       ・Not licensed for this use as of 12 November 2026
-      ・Not in NCCN
       ~ NIVOPOSTOP [t-nivopostop]
     next: After curative treatment
   Chemoradiotherapy

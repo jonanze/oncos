@@ -169,7 +169,6 @@ course: Large B-cell lymphoma
       ・Under 60 and fit with high CNS risk: an intensive regimen containing high-dose methotrexate, such as R-CHOEP, R-CODOX-M/R-IVAC or R-ACVBP 〔EHA III, B〕
     ※ IPI 3 to 5 or age-adjusted IPI 2 to 3: tafasitamab and lenalidomide with R-CHOP 〔ESMO I, A〕
       ・No EU or US licence in first line
-      ・Not in JSH, EHA, BSH or NCCN
       ~ frontMIND
     ※ R-CHOP-14 was not superior to R-CHOP-21 〔EHA〕 〔BSH〕 〔NCCN〕
       - R-CHOP-14 v 21 [t-r-chop-14-v-21]
@@ -240,7 +239,7 @@ course: Large B-cell lymphoma
     ~ LYSA/GOELAMS 02-03 [t-lamy-et-al]
     ④ ISRT to a site of initial bulk or a single residual PET-positive site is an option 〔ESMO II, B〕 〔EHA II, B〕 〔BSH 2B〕 〔NCCN 2A〕
       ・Bulk of 7 cm or more, or residual FDG-avid disease when biopsy is not feasible 〔ESMO〕
-      ・A single PET-positive residual site 〔EHA〕
+      ・Advanced stage: a single PET-positive residual site only 〔EHA〕
       ・Bulk of 7.5 cm or more in older patients 〔JSH〕
       ・Initially bulky sites in stage I–II 〔NCCN 2B〕
       ・30 Gy in 15 fractions 〔EHA〕 〔BSH〕
@@ -295,7 +294,6 @@ course: Large B-cell lymphoma
     ① Glofitamab with gemcitabine and oxaliplatin 〔ESMO I, A〕 〔EHA I, A〕 〔BSH-RR 1A〕 〔NCCN 2A, preferred〕
       ・Lowered from category 1 for regional inconsistency in STARGLO, which enrolled mostly patients from Asia 〔NCCN〕
       ・EU licence, with no US licence 〔ESMO〕 〔NCCN〕
-      ・Not in JSH
     + STARGLO
     ② Polatuzumab vedotin with bendamustine and rituximab 〔ESMO II, B〕 〔EHA III, B〕 〔BSH-RR 2B〕 〔NCCN 2A, preferred〕 〔JSH〕
       ・Polatuzumab-naive patients 〔ESMO〕 〔BSH-RR〕
@@ -310,7 +308,6 @@ course: Large B-cell lymphoma
       ・Where approved and reimbursed 〔EHA〕
     ~ EPCORE NHL-2 [t-epcore-nhl-2]
     ⑥ Bendamustine with rituximab 〔JSH〕
-      ・Not in ESMO, EHA, BSH or NCCN
     ※ Relapse after 12 months, fit for CAR-T: lisocabtagene maraleucel 〔NCCN 2A, preferred〕
       ・Second-line CAR-T only for relapse within 12 months 〔ESMO〕 〔EHA〕 〔BSH-RR〕
       ~ PILOT
@@ -331,12 +328,10 @@ course: Large B-cell lymphoma
     ② Glofitamab or epcoritamab 〔ESMO III, A〕 〔BSH-RR 1B〕 〔NCCN 2A, preferred〕
       ・After CAR-T 〔EHA III, C〕
       ・Preferred when CAR-T is unsuitable 〔ESMO〕
-      ・Not in JSH
     ~ NP30179
     ~ EPCORE NHL-1
     ③ Odronextamab 〔ESMO III, A〕 〔EHA III, C〕
       ・EU licence, with no US licence
-      ・Not in NCCN or JSH
     ~ ELM-2
     ④ A second-line regimen not used before 〔NCCN 2A〕
       ・Glofitamab with gemcitabine and oxaliplatin 〔ESMO I, A〕

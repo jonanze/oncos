@@ -146,7 +146,6 @@ band: Peritoneal mesothelioma
   ② Unresectable disease or unfit for surgery: systemic treatment largely as for pleural disease 〔NCCN 2A〕
   ・Every regimen is category 2A
   ・Nivolumab and ipilimumab is preferred
-  ・Gemcitabine with ramucirumab is not in the NCCN list for peritoneal disease
   ・The EU and US immunotherapy licences cover pleural disease only
   ※ Biphasic or sarcomatoid histology, nodal disease or PCI over 17: systemic treatment first, then reassessment for cytoreduction 〔NCCN 2A〕
   ※ After progression, without a checkpoint inhibitor before: atezolizumab with bevacizumab 〔NCCN 2A, other recommended〕
@@ -160,9 +159,8 @@ course: Unresectable pleural mesothelioma
     Chosen by histology and performance status
     ※ First line is not split by histology 〔JLCS〕
     ・Nivolumab and ipilimumab at PS 0–2 〔JLCS B, 1〕
-    ・Platinum and pemetrexed with a PD-1 antibody at PS 0–2 〔JLCS B, 2〕
-    ・Platinum and pemetrexed at PS 0–2 〔JLCS B, 2〕
-    ・Any of the three at age 75 or over with PS 0–2 〔JLCS D, 2〕
+    ・Platinum and pemetrexed, with or without a PD-1 antibody, at PS 0–2 〔JLCS B, 2〕
+    ・Any of these options at age 75 or over with PS 0–2 〔JLCS D, 2〕
     next: Non-epithelioid, PS 0–1
     next: Epithelioid, PS 0–1
     next: PS 2 or more
@@ -205,11 +203,9 @@ course: Unresectable pleural mesothelioma
     ・An option in fit patients over 75 〔ASCO〕
     ※ Benefit is maintained after immunotherapy is stopped for severe toxicity 〔ASCO Moderate, Strong〕
     ※ Evidence for tumour treating fields with platinum and pemetrexed is insufficient 〔ASCO Very Low, NA〕
-    ・Not in NCCN
     ※ Atezolizumab added to carboplatin, pemetrexed and bevacizumab did not improve OS
     ・This regimen is not licensed
     ・Benefit was greater in the prespecified non-epithelioid subgroup
-    ・Explicitly not included in NCCN
       - BEAT-meso [t-beat-meso]
     join: Maintenance or observation | No progression
     join: Second line and beyond | Progression
@@ -244,13 +240,11 @@ course: Unresectable pleural mesothelioma
     ・Nivolumab alone after chemotherapy is licensed in Japan (2018)
     ・None is licensed in this setting in the EU or US
     ・Pembrolizumab alone 〔ESMO II, C〕
-    ・Pembrolizumab alone is not in NCCN
       ~ MAPS2
       ~ CONFIRM
       - PROMISE-meso [t-promise-meso]
     ② Gemcitabine with ramucirumab 〔ESMO III, C〕 〔ASCO Moderate, Strong〕 〔NCCN 2A, other recommended〕
     ・Ramucirumab has no licence for this cancer
-    ・Not in JLCS
       + RAMES [t-rames]
     ③ Vinorelbine or gemcitabine alone 〔ESMO II, B〕 〔NCCN 2A, other recommended〕
     ・Oral vinorelbine 〔ASCO Moderate, Strong〕
