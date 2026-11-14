@@ -1,5 +1,5 @@
 # oncOS board map: Hodgkin Lymphoma (classic Hodgkin lymphoma from first line to relapse, with older or unfit patients and NLPHL)
-# 2026-11-14, approved by Jonan for publication. Structure plan: board-maps/hodgkin/structure-plan.md. Changes: draft1-changes.md
+# 2026-11-14, approved by Jonan for publication. Intake chips linked to filed rows 2026-11-14. Structure plan: board-maps/hodgkin/structure-plan.md. Changes: draft1-changes.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Scope (Jonan 2026-11-13): one map for the whole sheet. Classic Hodgkin lymphoma is the course: early-stage favourable,
 #   early-stage unfavourable, advanced stage, then relapsed or refractory disease. Patients over 60 or unfit, and nodular
@@ -137,9 +137,9 @@ course: Classic Hodgkin lymphoma
       ・Deauville score 1 to 3 at restaging: ISRT 30 Gy, or two more cycles of BrECADD after BrECADD 〔NCCN〕
       ・Deauville score 4 at restaging: ISRT 36 to 40 Gy 〔NCCN〕
     ※ Four cycles of nivolumab-AVD, then ISRT 〔NCCN 2A〕
-      ~ NIVAHL {pmid 36508302}
+      ~ NIVAHL [t-nivahl]
     ※ Four cycles of brentuximab vedotin with AVD and G-CSF, then ISRT 〔NCCN 2A〕
-      ~ BREACH {pmid 35867960}
+      ~ BREACH [t-breach]
     next: End of treatment and follow-up
   Advanced stage
     branch: ADV
@@ -198,14 +198,14 @@ course: Classic Hodgkin lymphoma
       ・The PD-1 inhibitor is given with chemotherapy, or in sequence when the response to it alone is insufficient 〔EHA〕
       ・Pembrolizumab with GVD or ICE, nivolumab with ICE, or brentuximab vedotin with nivolumab 〔EHA〕 〔NCCN〕
       ・A PD-1 inhibitor and brentuximab vedotin are not ranked. The choice rests on availability 〔ESMO III, B〕, or on previous treatment, stage, bulk and time to relapse 〔EBMT〕
-    ~ Pembrolizumab-GVD {pmid 34170745}
-    ~ Pembrolizumab-ICE {pmid 36928527}
-    ~ Nivolumab-ICE {pmid 35316328}
-    ~ Brentuximab vedotin-nivolumab {pmid 33827139}
+    ~ Pembrolizumab-GVD [t-moskowitz-et-al]
+    ~ Pembrolizumab-ICE [t-bryan-et-al]
+    ~ Nivolumab-ICE [t-mei-et-al]
+    ~ Brentuximab vedotin-nivolumab [t-advani-et-al]
     ② Salvage with brentuximab vedotin and chemotherapy 〔EHA 2A〕 〔NCCN 2A〕
       ・Used without prior brentuximab vedotin when PD-1 inhibitors are unavailable or unsuitable, or after progression on or soon after a PD-1 inhibitor 〔EHA〕
       ・Combined with DHAP or ESHAP 〔EHA〕, or with ICE or bendamustine 〔NCCN〕
-    ~ BRaVE {pmid 32273476}
+    ~ BRaVE [t-hovon-llpc-transplant-brave]
     ③ Salvage chemotherapy alone: DHAP, ICE or GVD 〔ESMO III, B〕 〔EHA〕 〔NCCN 2A〕
       ・ESHAP or BEGEV 〔ESMO〕 〔EHA〕
       ・IGEV 〔EHA〕 〔NCCN〕
@@ -223,7 +223,7 @@ course: Classic Hodgkin lymphoma
       ・BEAM is the standard conditioning regimen, and no regimen has been shown to be superior 〔EHA〕 〔EBMT〕
       ・LEAM or thiotepa when carmustine is in short supply 〔EBMT〕
     ~ GHSG/EBMT HD-R1
-    ~ BNLI {pmid 8096958}
+    ~ BNLI [t-bnli-beam-vs-mini-beam]
     ⑥ Radiotherapy to PET-positive or previously unirradiated sites, before or after ASCT, is an option 〔ESMO IV, C〕 〔EHA 3A〕 〔NCCN 2A〕 〔EBMT〕
       ・Radiotherapy is mostly given after ASCT 〔EHA〕
       ・Radiotherapy with a clinically significant lung dose is used with caution 〔EBMT〕
@@ -312,11 +312,10 @@ panel: Age over 60, or unfit for intensive treatment
     ・Single-agent conventional chemotherapy is an alternative 〔EHA〕
     ・Single-agent brentuximab vedotin or a PD-1 inhibitor is an option, but neither appears to give long-term disease control 〔EHA〕
     ・ISRT alone is an option when systemic treatment is not feasible 〔NCCN〕
-  ~ Friedberg 2017 {pmid 29038340}
-  ~ Friedberg 2024 {pmid 37946283}
+  ~ SGN35-015 [t-sgn35-015]
   ※ Two cycles of brentuximab vedotin, six of AVD, then two of brentuximab vedotin after a complete or partial response without neuropathy 〔NCCN 2A〕
     ・Stage I–II unfavourable, or stage III–IV when a checkpoint inhibitor is contraindicated 〔NCCN〕
-    ~ Evens 2018 {pmid 30179569}
+    ~ Evens 2018 [t-evens-et-al]
   ※ Brentuximab vedotin with AVD did not improve progression-free survival over ABVD in older patients, with more neutropenia and neuropathy 〔EHA〕
     + ECHELON-1
   ° Toxicity of note: bleomycin lung toxicity in older patients 〔EHA〕 〔NCCN〕
