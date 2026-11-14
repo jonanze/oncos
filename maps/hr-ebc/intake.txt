@@ -1,0 +1,8 @@
+# Trials on the HR+ HER2- EBC map with no Evidence row yet (name, PMID, where on the map)
+EBCTCG 2019	PMID 30739743	Chemotherapy regimens
+EBCTCG 2023	PMID 37061269	Chemotherapy regimens
+KEYNOTE-756	PMID 39838117	Neoadjuvant systemic therapy
+ASTRRA	PMID 37607321	Adjuvant endocrine therapy
+GIM4	PMID 34543613	Endocrine therapy beyond 5 years
+D-CARE	PMID 31806543	Bone-modifying agents
+ABCSG-18	PMID 38319865	Bone-modifying agents
