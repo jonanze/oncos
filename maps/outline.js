@@ -77,7 +77,10 @@
           sec = {title:j[0], join:j[1] || null, lines:[]}; out.panels.push(sec); return;
         }
         if (out.tree) out.errors.push(at + ': only one tree: or course: per map');
-        sec = out.tree = {label:h[2], depth:0, children:[], lines:[], indent:0, at:at, course:h[1] === 'course'};
+        // "course: Title | parallel": the first steps are parallel presentations; canvas.js then sets every later step
+        // level with the steps that lead to it (opt-in, so maps laid out before 2026-11-14 keep their layout)
+        var par = h[1] === 'course' && /\s*\|\s*parallel\s*$/.test(h[2]); if (par) h[2] = h[2].replace(/\s*\|\s*parallel\s*$/, '');
+        sec = out.tree = {label:h[2], depth:0, children:[], lines:[], indent:0, at:at, course:h[1] === 'course', parallel:par};
         stack = [sec];
         return;
       }

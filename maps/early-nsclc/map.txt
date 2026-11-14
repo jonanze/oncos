@@ -101,8 +101,12 @@
 #     Steps are named, never numbered. Text never points to a step or an option by its number
 #     No restated lines. Guidelines that agree share one line with all their tags. A ・ line is only for a
 #       real disagreement
-#     Options with the same population and guideline support merge into one line, with any licence
-#       difference on a ・ line
+#     Options for the same population or condition are one numbered line, even when their guideline support
+#       differs: each regimen carries its own tags in the line ("Good risk: three cycles of BEP 〔…〕, or four
+#       cycles of EP 〔…〕"). A new numbered line needs a new population or condition, never a new regimen alone.
+#       A licence difference goes on a ・ line. Supportive-care and regimen bands do not repeat choices that a
+#       step already states (Jonan 2026-11-14, germ cell map). prose-check.cjs fails two numbered lines in one
+#       block that open with the same text before the colon
 #     One disease state is one step. Differences within it, such as de novo and metachronous disease, go on
 #       ・ lines under the shared option
 #     A vague guideline term such as "selected men" is defined from the guideline's text. Where a paraphrase

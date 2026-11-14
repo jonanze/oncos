@@ -1,0 +1,351 @@
+# oncOS board map: Germ Cell Tumors (testicular germ cell tumours from stage I to salvage, with primary mediastinal germ cell tumours)
+# 2026-11-14, approved by Jonan for publication. Structure plan: board-maps/germ-cell/structure-plan.md. Changes from draft 0
+#   and the answer to each independent-review finding: board-maps/germ-cell/draft1-changes.md. Layout QC: fable-layout-qc.md
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-14): one map for the whole sheet. Stages are parallel presentations, never a sequence (Jonan
+#   rejected stage I leading into stage II into metastatic disease). The six stage steps start the course with no header
+#   step above them (Jonan 2026-11-14: the Seminoma and Non-seminoma boxes were redundant). Relapse follows prior
+#   treatment (Jonan 2026-11-14, "a more clinically accurate representation of relapsed disease"): stage I leads to a
+#   relapse step per histology for relapse after surveillance or adjuvant treatment, treated as disease at presentation.
+#   Stage II and metastatic disease lead to the residual-mass step after chemotherapy, then to first relapse after
+#   cisplatin-based chemotherapy, then to second or later relapse or cisplatin-refractory disease. Clinical stage IS is a
+#   panel of its own for both histologies (Jonan 2026-11-14). The IGCCCG risk groups are a table panel. Primary
+#   mediastinal germ cell tumours are a panel named after the metastatic non-seminoma step, and late relapse a panel
+#   named after the first-relapse step. canvas.js puts every panel in the row below the course with no brace, and each
+#   named panel takes the pale tint of its step. No panel for other extragonadal primaries or for survivorship.
+#   Intracranial germ cell tumours are a separate sheet
+# Layout (Jonan 2026-11-14, "lines bending unnecessarily"): the course carries "| parallel", so canvas.js left-aligns the
+#   columns and sets each later step level with the steps that lead to it. Line labels only where they add information
+# One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
+#   only where guidelines disagree (an option, a cut-off, a dose, a number of cycles, the direction of a grade), a
+#   condition or a licence. Numbered lines name the option with its condition. ※, ・ and ° lines are full sentences
+# East Asian guidelines come first (Jonan 2026-11-10): the JUA tag is printed first. Japanese practice points are recorded
+#   with the JUA tag (consolidation with a salvage regimen before confirmed progression, the paclitaxel licence,
+#   high-dose chemotherapy at few centres, microRNA unavailable). Nedaplatin regimens sit on ※ lines marked Japan only
+# Options NCCN alone lists sit on ※ lines or as ・ lines (inclusion.txt, Jonan 2026-11-10): adjuvant radiotherapy for stage I
+#   seminoma, carboplatin with involved-node radiotherapy, intensification for good-risk seminoma with a high LDH, adjuvant
+#   chemotherapy after resection of viable seminoma, high-dose chemotherapy at first relapse, tumour-agnostic treatment
+# Tags give the grade as printed, on the statement the guideline graded:
+#   〔JUA strength, certainty〕 Japanese Urological Association, clinical practice guideline for testicular cancer, 2024
+#     edition (third edition, Kanehara, 29 February 2024, Japanese only). Strength 1 strong or 2 weak (the book prints
+#     強い and 弱い), certainty A to D. "No recommendation" is printed where the vote reached none. A bare 〔JUA〕 marks
+#     the overview text or an algorithm box, which carry no grade. The tag links to the Minds summary page, not checked
+#     from this machine
+#   〔ESMO level, grade〕 ESMO-EURACAN guideline 2022 (Oldenburg, Ann Oncol 2022, 33:362-375). A bare 〔ESMO〕 marks text or
+#     a figure without a grade
+#   〔EAU Strong〕 or 〔EAU Weak〕 EAU Guidelines on Testicular Cancer 2026, full text (limited update March 2026). 〔EAU LE〕 is
+#     a level of evidence from a summary-of-evidence table. A bare 〔EAU〕 marks narrative text or a figure of the full text.
+#     Points found only in the 2026 summary paper carry no EAU tag
+#   〔NCCN category〕 NCCN Testicular Cancer 1.2027 (6 November 2026). 2A unless stated, with preferred and strongly
+#     preferred as printed. A bare 〔NCCN〕 marks a footnote, a principles page or the Discussion
+#   〔IGCCCG 1997〕, 〔IGCCCG-NS 2021〕 and 〔IGCCCG-S 2021〕 open the three Evidence rows behind the risk table. They are
+#     source: lines because the rows are pooled cohorts, which a trial chip cannot cite (proposal, plan section 9)
+# Order where guidelines disagree is Jonan's call (plan section 9). His answers are pending, and the recommended defaults
+#   are set, each open to a small edit:
+#   stage IIA and IIB seminoma: chemotherapy ①, radiotherapy ②, RPLND ③ (to flip, swap the first two option blocks and
+#     move the EAU preference line with chemotherapy)
+#   stage I non-seminoma with lymphovascular invasion: one cycle of BEP as the option, surveillance on a ・ line
+#   first relapse: four cycles of TIP ①, with high-dose chemotherapy on a ※ line tagged NCCN alone and the ESMO, EAU
+#     and JUA positions on ・ lines (to number it, change that ※ to ② and resection to ③, keeping the ・ lines)
+#   poor-risk non-seminoma: intensification after an unfavourable marker decline as numbered item ③ on ESMO and EAU,
+#     with the JUA recommendation against on a ・ line (to flip, change ③ to ※)
+# Trial marks: + overall survival benefit, ~ surrogate endpoint, non-inferiority, equivalence or single-arm, - no benefit
+#   or harm from the tested change. Loehrer et al. and MRC TE09/EORTC 30896 are - because the tested change (no bleomycin,
+#   carboplatin for cisplatin) gave worse survival. ECOG E3887 and de Wit 1998 are - because VIP was not better than BEP
+# Single-arm trials: Kondagunta et al. (TIP), TI-CE, SEMS (RPLND in stage IIA and IIB seminoma) and SAKK 01/10 (carboplatin
+#   with involved-node radiotherapy) are cited because the recommendations rest on them and no randomised trial of these
+#   options has reported (inclusion.txt ①, plan section 9). Every other non-randomised row is under off:
+
+map: Germ Cell Tumors
+source: JUA {url https://minds.jcqhc.or.jp/summary/c00876/}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2022.01.002}
+source: EAU {url https://uroweb.org/guidelines/testicular-cancer}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: IGCCCG [t-international-germ-cell-cancer-collaborative-group]
+source: IGCCCG-NS [t-igcccg-update]
+source: IGCCCG-S [t-igcccg-update--germ-cell-tumors]
+branch: SEM | Seminoma | blue
+branch: NS | Non-seminoma | sage
+branch: REL | Relapse and salvage | rose
+
+band: Diagnosis, markers and staging
+  ① Radical orchidectomy through an inguinal incision gives the diagnosis and the pT category, and a scrotal approach is avoided 〔JUA〕 〔ESMO III, A〕 〔EAU Strong〕 〔NCCN 2A〕
+    ・In life-threatening metastatic disease with raised markers, chemotherapy starts before orchidectomy 〔ESMO III, A〕 〔EAU Strong〕 〔NCCN〕
+  ② Bilateral testicular ultrasound is performed in every patient with a suspected testicular tumour 〔JUA〕 〔ESMO〕 〔EAU Strong〕 〔NCCN 2A〕
+  ③ AFP, hCG and LDH are measured before and after orchidectomy 〔JUA〕 〔ESMO II, A〕 〔EAU Strong〕 〔NCCN 2A〕
+  ※ The half-life of AFP is 5 to 7 days and that of hCG 1 to 3 days 〔ESMO〕 〔EAU〕 〔NCCN〕
+  ※ Pure seminoma on histology with a clearly raised AFP is treated as non-seminoma 〔JUA〕 〔EAU〕 〔NCCN〕
+    ・A mildly raised, stable AFP can be managed as seminoma 〔NCCN〕
+  ④ Contrast-enhanced CT of the chest, abdomen and pelvis is the staging examination 〔JUA 1, B〕 〔ESMO III, A〕 〔EAU Strong〕
+    ・Seminoma is staged with CT of the abdomen and pelvis and a chest radiograph, with chest CT only when either is abnormal 〔NCCN 2A〕
+  ※ FDG-PET is not used for staging 〔JUA〕 〔ESMO V, D〕 〔EAU Strong〕 〔NCCN〕
+  ⑤ Brain MRI is indicated in poor-risk disease, with multiple lung metastases, a high hCG or neurological symptoms 〔JUA〕 〔ESMO III, A〕 〔EAU Strong〕 〔NCCN〕
+    ・The hCG trigger is above 5,000 mIU/mL (5,000 IU/L) 〔EAU〕 〔NCCN〕
+    ・In non-seminoma, choriocarcinoma predominance and AFP above 10,000 ng/mL (10,000 µg/L) are further triggers 〔NCCN〕
+  ※ Testis-sparing surgery with frozen section is an option for synchronous bilateral tumours or a solitary testis in experienced centres 〔JUA〕 〔ESMO III, A〕 〔EAU〕 〔NCCN 2A〕
+  ※ Contralateral testicular biopsy is not routine, and is discussed with men at high risk of germ cell neoplasia in situ, such as a testicular volume under 12 mL or cryptorchidism 〔ESMO V, C〕 〔EAU Strong〕
+  ※ Serum microRNA-371a-3p is not recommended in routine care 〔JUA no recommendation, C〕 〔ESMO III, D〕
+    ・The test is not available in Japan, even at the patient's own cost 〔JUA〕
+
+band: First-line chemotherapy and supportive care
+  ① BEP every 21 days: cisplatin 20 mg/m² and etoposide 100 mg/m² on days 1 to 5, with bleomycin 30 units weekly 〔JUA〕 〔NCCN〕
+  ~ Williams et al.
+  ※ Full doses at 21-day intervals are kept wherever possible 〔JUA〕
+  ※ Bleomycin is avoided with heavy smoking, lung disease, older age or reduced renal function 〔JUA〕 〔ESMO〕 〔NCCN〕
+    ・A planned lung resection is a further reason 〔JUA〕
+  ② VIP every 21 days with primary G-CSF prophylaxis: etoposide 75 mg/m², ifosfamide 1,200 mg/m² with mesna and cisplatin 20 mg/m² on days 1 to 5 〔ESMO〕 〔EAU〕 〔NCCN〕
+  ③ Sperm banking is discussed before treatment 〔JUA〕 〔ESMO II, B〕 〔EAU Strong〕 〔NCCN 2A〕
+  ④ Thromboprophylaxis during first-line chemotherapy is an individual decision 〔ESMO III, B〕 〔EAU Weak〕
+  ⑤ Peripheral venous access is used in place of a central venous device 〔ESMO III, A〕 〔EAU Weak〕
+  ※ Primary G-CSF prophylaxis is considered in intermediate- and poor-risk disease 〔ESMO〕
+  ※ Filgrastim with BEP-based chemotherapy improved delivery of the planned cycles, with no change in failure-free or overall survival
+    ~ Fosså 1998 {pmid 9469362}
+  ※ G-CSF given with bleomycin was not associated with more bleomycin pulmonary toxicity in observational studies
+    ~ Tolstrup 2026 {pmid 42998777}
+  ° Toxicity of note: pulmonary toxicity with bleomycin, and more myelosuppression with VIP than with BEP 〔JUA〕 〔EAU〕
+
+course: Testicular germ cell tumours after orchidectomy | parallel
+  Stage I seminoma
+    branch: SEM
+    ① Surveillance 〔JUA〕 〔ESMO〕 〔EAU Strong〕 〔NCCN 2A, strongly preferred〕
+    ※ Relapse on surveillance occurs in 12 to 20% at 5 years, and cancer-specific survival exceeds 99% 〔EAU LE 2a〕
+    ※ Abdominal MRI can replace CT for follow-up imaging 〔ESMO I, A〕 〔EAU〕 〔NCCN〕
+      ~ TRISST {pmid 35298280}
+    ② One cycle of carboplatin AUC 7 when surveillance is declined or unsuitable 〔ESMO III, B〕 〔EAU Strong〕
+      ・One or two cycles are given, with no preference between them 〔JUA〕 〔NCCN 2A〕
+      ・Adjuvant carboplatin is not offered to patients without risk factors 〔ESMO III, D〕 〔EAU Strong〕
+    ~ MRC TE19/EORTC 30982
+    ※ The risk factors for relapse are tumour size over 4 cm and rete testis invasion 〔JUA〕 〔EAU LE 2b〕
+      ・Tumour size and rete testis invasion are used as continuous risk factors without a size cut-off 〔ESMO〕
+      ・Hilar invasion, lymphovascular invasion and raised preorchidectomy hCG and LDH also predict relapse 〔EAU LE 2a〕 〔NCCN〕
+      ・Risk-adapted treatment is not recommended, and any size cut-off is arbitrary 〔NCCN〕
+    ※ Adjuvant radiotherapy is not recommended 〔JUA 2, B〕 〔ESMO II, D〕 〔EAU Strong〕
+      ・Para-aortic radiotherapy of 20 Gy in 10 fractions is an option for patients who decline surveillance 〔NCCN 2A〕
+      ・Radiotherapy is reserved for highly selected patients unsuitable for chemotherapy 〔EAU Strong〕
+      ~ MRC TE18 / EORTC 30942
+    ° Toxicity of note: second cancers after adjuvant radiotherapy 〔JUA〕 〔ESMO〕 〔EAU LE 2b〕
+    next: Seminoma relapse after surveillance or adjuvant treatment
+  Stage IIA and IIB seminoma
+    branch: SEM
+    ① Three cycles of BEP, or four cycles of EP 〔JUA〕 〔ESMO II, A〕 〔EAU Weak〕 〔NCCN 2A〕
+    ~ Giannatempo 2015 {pmid 25214543}
+    ② Radiotherapy to the para-aortic and ipsilateral iliac nodes: 30 Gy in stage IIA and 36 Gy in stage IIB 〔JUA〕 〔ESMO II, A〕 〔EAU Weak〕
+      ・Radiotherapy is limited to nodes under 3 cm, with 30 Gy for 1 to 2 cm and 36 Gy for 2 to 3 cm 〔NCCN 2A〕
+      ・In stage IIB, radiotherapy is for patients unsuitable for chemotherapy 〔ESMO II, A〕
+    ③ Nerve-sparing RPLND for marker-negative nodes of 3 cm or less, in expert centres only 〔EAU Weak〕 〔NCCN 2A〕
+      ・The grade is lower for nodes of 2 to 3 cm 〔NCCN 2B〕
+    ~ SEMS {pmid 36913642}
+    ※ Carboplatin AUC 7 followed by involved-node radiotherapy is an option for nodes under 3 cm 〔NCCN 2B〕
+      ・The evidence is insufficient for routine practice 〔EAU〕
+      ~ SAKK 01/10 {pmid 36228644}
+    ※ Single-agent carboplatin has insufficient efficacy in stage II 〔JUA〕
+    ※ Marker-negative nodes under 2 cm are confirmed by repeat imaging after 6 to 8 weeks or by biopsy before treatment 〔JUA〕 〔ESMO III, B〕 〔EAU〕
+      ・The interval is 4 to 8 weeks 〔NCCN〕
+    ※ Stage IIA means nodes of 2 cm or less, and stage IIB nodes over 2 cm and up to 5 cm 〔JUA〕 〔EAU〕 〔NCCN〕
+    next: Residual mass after chemotherapy for seminoma | After chemotherapy
+  Metastatic seminoma, stage IIC and III
+    branch: SEM
+    ① Good risk: three cycles of BEP 〔JUA〕 〔ESMO II, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕, or four cycles of EP 〔JUA〕 〔NCCN 1, preferred〕
+      ・EP is given when bleomycin is contraindicated or undesirable 〔JUA 2, C〕 〔ESMO〕 〔EAU〕
+    ② Intermediate risk: four cycles of BEP 〔JUA〕 〔ESMO II, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕, or four cycles of VIP when bleomycin is contraindicated 〔JUA 2, C〕 〔ESMO〕 〔EAU〕 〔NCCN 2A〕
+    ※ In good-risk disease with LDH above 2.5 times the upper limit of normal, intensification of treatment can be considered 〔NCCN〕
+      ・Treatment as for intermediate risk has a rationale, without prospective data 〔EAU〕
+    ※ Single-agent carboplatin is inferior to cisplatin-based combination chemotherapy 〔EAU LE 1b〕
+      - Bokemeyer 2004 {pmid 15266338}
+    next: Residual mass after chemotherapy for seminoma
+  Stage I non-seminoma
+    branch: NS
+    ① Without lymphovascular invasion: surveillance 〔JUA〕 〔ESMO〕 〔EAU Strong〕 〔NCCN 2A, preferred〕
+      ・One cycle of BEP is given when surveillance is unsuitable 〔ESMO〕 〔EAU Strong〕 〔NCCN 2A〕
+    ② With lymphovascular invasion: one cycle of BEP 〔JUA〕 〔ESMO〕 〔EAU Strong〕 〔NCCN 2A〕
+      ・Surveillance is the alternative 〔JUA〕 〔ESMO III, B〕 〔EAU Strong〕
+      ・Surveillance, one cycle of BEP and RPLND carry no order of preference 〔NCCN 2A〕
+      ・Invasion of the spermatic cord or scrotum also counts as a risk factor 〔NCCN〕
+    ~ AUO AH 01/94 (GTCSG) [t-auo-ah-01-94]
+    ③ Nerve-sparing RPLND when surveillance and chemotherapy are both unsuitable 〔JUA〕 〔EAU Strong〕
+      ・RPLND is not recommended, and is considered only when both other strategies are contraindicated 〔ESMO II, D〕
+      ・RPLND is an option in both risk groups at a high-volume centre 〔NCCN 2A〕
+    ※ With somatic-type malignancy in the primary tumour, RPLND is preferred 〔JUA〕 〔EAU〕 〔NCCN〕
+    ※ Relapse on surveillance occurs in about 15% without and 50% with lymphovascular invasion 〔JUA〕 〔EAU〕
+    next: Non-seminoma relapse after surveillance or one cycle of BEP
+  Stage II non-seminoma
+    branch: NS
+    ① Raised markers: chemotherapy as for good- or intermediate-risk metastatic disease 〔JUA〕 〔ESMO II, A〕 〔EAU Strong〕 〔NCCN 1〕
+    ※ Marker-negative stage IIA nodes are restaged after 6 weeks before treatment is chosen 〔JUA〕 〔ESMO〕 〔EAU Weak〕
+    ② Normal markers, stage IIA: nerve-sparing RPLND in a specialised centre 〔JUA〕 〔ESMO〕 〔EAU Weak〕 〔NCCN 2A〕
+      ・Three cycles of BEP or four cycles of EP are an equal option 〔NCCN 2A〕
+    ③ Normal markers, stage IIB: chemotherapy as for good-risk metastatic disease 〔JUA〕 〔EAU〕 〔NCCN 2A〕
+      ・RPLND is for selected disease confined to the primary landing zone 〔JUA〕 〔NCCN〕
+    ※ Pathological stage II after RPLND is followed by surveillance or by adjuvant chemotherapy of at most two cycles 〔JUA〕 〔EAU〕
+      ・One cycle of BEP is appropriate 〔ESMO〕
+      ・The regimen is two cycles of EP, and surveillance is preferred for pN1 〔NCCN〕
+      ・Disease staged pN3 can receive BEP for 2 to 3 cycles or EP for 2 to 4 cycles 〔NCCN〕
+    ※ Completely resected pure teratoma is followed without chemotherapy 〔ESMO〕 〔EAU〕 〔NCCN〕
+    next: Residual mass after chemotherapy for non-seminoma | After chemotherapy
+  Metastatic non-seminoma by IGCCCG group
+    branch: NS
+    ① Good risk: three cycles of BEP 〔JUA〕 〔ESMO II, A〕 〔EAU LE 1b〕 〔NCCN 1, preferred〕, or four cycles of EP 〔JUA〕 〔NCCN 1, preferred〕
+      ・EP is given when bleomycin is contraindicated or undesirable 〔JUA 2, C〕 〔ESMO II, A〕 〔EAU〕
+    ~ de Wit et al.
+    ~ GETUG T93BP
+    ② Intermediate or poor risk: four cycles of BEP 〔JUA〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕, or four cycles of VIP with G-CSF when bleomycin is contraindicated 〔JUA 2, C〕 〔ESMO〕 〔EAU LE 1b〕 〔NCCN 1〕
+    - ECOG E3887
+    - de Wit 1998 {pmid 9743309}
+    ③ Poor risk: marker decline is assessed after the first cycle, and intensified chemotherapy is considered after an unfavourable decline 〔ESMO II, A〕 〔EAU Weak〕
+      ・Intensified first-line regimens, including dose-dense chemotherapy after an unfavourable marker decline, are not recommended 〔JUA 2, C〕
+    ~ GETUG-13
+    ※ Bleomycin could not be omitted from three cycles of BEP, or from BEP with etoposide 360 mg/m² per cycle, without loss of efficacy
+      - Loehrer et al.
+      - de Wit 1997 {pmid 9164193}
+    ※ Carboplatin in place of cisplatin is inferior, and is used only in patients unfit for cisplatin 〔JUA〕 〔ESMO〕
+      - MRC TE09/EORTC 30896
+    ※ First-line high-dose chemotherapy has shown no survival benefit and is not recommended 〔JUA 2, C〕 〔EAU LE 1b〕
+      - Motzer 2007 {pmid 17235042}
+      - EORTC 30974 {pmid 21059637}
+    ※ With extensive lung or liver metastases or poor general condition, a dose-reduced first cycle is given, followed by the full number of full-dose cycles 〔JUA〕 〔ESMO〕 〔EAU〕
+    ※ Brain metastases at diagnosis are treated with chemotherapy as for poor-risk disease, with radiotherapy or surgery where indicated 〔EAU〕 〔NCCN 2A〕
+      ・Stereotactic treatment is preferred to whole-brain irradiation 〔EAU〕
+      ・The stereotactic limit is four metastases of 3 cm or less 〔JUA〕
+      ・Upfront intensified treatment is an option, preferably within a study 〔EAU〕
+    ※ Poor-risk disease is treated at a high-volume centre 〔JUA〕 〔ESMO〕 〔EAU LE 1b〕 〔NCCN〕
+    next: Residual mass after chemotherapy for non-seminoma
+  Seminoma relapse after surveillance or adjuvant treatment
+    branch: SEM pale
+    ① Relapse on surveillance: radiotherapy or chemotherapy by the stage at relapse, as for disease at presentation 〔NCCN〕
+    ② Relapse after carboplatin or radiotherapy: cisplatin-based chemotherapy by stage 〔EAU〕 〔NCCN〕
+    ※ Relapse after carboplatin is mostly retroperitoneal or iliac, and can be late 〔ESMO〕 〔EAU〕
+  Residual mass after chemotherapy for seminoma
+    branch: SEM pale
+    ① No residual mass, or a mass of 3 cm or less with normal markers: surveillance without PET 〔JUA〕 〔ESMO〕 〔EAU〕 〔NCCN 2A〕
+    ② Residual mass over 3 cm: FDG-PET at least 6 weeks after chemotherapy 〔JUA 2, B〕 〔ESMO III, B〕 〔NCCN 2A〕
+      ・The interval is at least 2 months 〔EAU LE 2b〕
+    ※ A negative PET is followed by observation only 〔JUA〕 〔ESMO〕 〔EAU〕 〔NCCN〕
+    ③ PET-positive residual mass: repeat PET before any further treatment 〔JUA〕 〔EAU〕 〔NCCN 2A, preferred〕
+      ・The interval is 6 weeks 〔EAU〕, 6 to 12 weeks 〔NCCN〕 or 8 to 12 weeks 〔JUA〕
+      ・Biopsy is recommended before radiotherapy or resection 〔ESMO〕
+      ・Resection, or biopsy in selected patients, is the alternative 〔NCCN 2A〕
+    ※ Most positive scans are false positive 〔JUA〕 〔ESMO〕
+    ④ Growing mass or rising markers: second-line treatment 〔JUA〕 〔EAU〕 〔NCCN 2A〕
+      ・Without an hCG rise, a growing mass is biopsied first 〔EAU〕
+    ※ After complete resection of viable seminoma, two cycles of adjuvant chemotherapy can be considered 〔NCCN 2A〕
+    next: First relapse after cisplatin-based chemotherapy
+  Non-seminoma relapse after surveillance or one cycle of BEP
+    branch: NS pale
+    ① Chemotherapy by the IGCCCG group at relapse, as for disease at presentation 〔EAU〕 〔NCCN〕
+    ※ RPLND can be appropriate in selected patients 〔NCCN〕
+    ※ Relapse on surveillance is marker negative in 15 to 35% of patients 〔JUA〕
+    ※ Outcome after relapse following one cycle of BEP may be worse than for metastatic disease at presentation 〔ESMO〕 〔EAU〕
+    ※ About one-third of relapses after one cycle of BEP are late relapses 〔EAU〕
+  Residual mass after chemotherapy for non-seminoma
+    branch: NS pale
+    ① Residual mass over 1 cm with normal or normalising markers: resection of all residual masses 〔JUA〕 〔ESMO II, A〕 〔EAU Strong〕 〔NCCN 2A〕
+    ※ Bilateral nerve-sparing RPLND is the standard template 〔ESMO〕 〔EAU〕 〔NCCN〕
+      ・A modified template is an option in limited disease 〔JUA no recommendation, C〕 〔EAU〕 〔NCCN〕
+    ※ Residual lung metastases are resected as far as safely possible 〔JUA 2, B〕
+    ※ FDG-PET has no role in residual non-seminoma 〔JUA〕 〔EAU〕 〔NCCN〕
+    ② Residual mass under 1 cm: surveillance 〔JUA〕 〔ESMO〕 〔NCCN 2A, preferred〕
+      ・Resection of all residual masses is favoured where feasible 〔JUA no recommendation, C〕
+      ・RPLND is an option in selected patients 〔EAU〕 〔NCCN 2B〕
+      ・After salvage chemotherapy, masses under 1 cm are resected as well 〔EAU〕
+    ③ Necrosis or teratoma in the specimen: no further treatment 〔JUA〕 〔ESMO〕 〔EAU〕 〔NCCN 2A〕
+    ④ Viable cancer in the specimen: two further cycles of chemotherapy 〔JUA 2, C〕 〔NCCN 2A〕
+      ・After complete resection with under 10% viable cells, chemotherapy gives no benefit and surveillance follows 〔ESMO IV, C〕 〔EAU〕 〔NCCN〕
+      ・Chemotherapy is for incomplete resection or over 10% viable cells in intermediate- or poor-risk disease 〔ESMO〕 〔EAU〕
+      ・No chemotherapy follows resection after second-line treatment 〔EAU〕 〔NCCN〕
+    ※ When markers have not normalised at the end of first-line chemotherapy, consolidation with a salvage regimen such as TIP before confirmed progression is widely given in Japan 〔JUA〕
+      ・Raised but stable markers are followed closely, and salvage chemotherapy starts only on documented marker progression 〔EAU〕 〔NCCN 2A〕
+      ・Surgery is an option in highly selected patients with raised but stable markers 〔NCCN 2A〕
+    ※ A growing teratoma with normalised markers is resected early 〔EAU〕
+    next: First relapse after cisplatin-based chemotherapy
+  First relapse after cisplatin-based chemotherapy
+    branch: REL
+    ① Conventional-dose chemotherapy: four cycles of TIP 〔JUA 2, C〕 〔ESMO II, A〕 〔EAU〕 〔NCCN 2A, preferred〕
+      ・VeIP for four cycles is an equal option 〔ESMO〕 〔NCCN 2A, preferred〕
+      ・VIP for four cycles is an equal option 〔ESMO〕 〔EAU〕
+      ・GIP for four cycles is a possible option 〔EAU〕
+      ・Paclitaxel is given at 250 mg/m² over 24 hours or at 175 mg/m² over 3 hours 〔EAU〕
+      ・Paclitaxel is licensed in Japan at 210 mg/m² over 3 hours every 3 weeks 〔JUA〕
+    ~ Kondagunta et al. [t-kondagunta-et-al]
+    ② Resection of residual masses after salvage chemotherapy 〔ESMO III, A〕 〔EAU〕 〔NCCN 2A〕
+    ※ High-dose carboplatin and etoposide with autologous stem-cell support is an equal option to conventional-dose chemotherapy 〔NCCN 2A〕
+      ・The evidence is insufficient to recommend high-dose chemotherapy at first relapse before the TIGER trial reports 〔ESMO〕 〔EAU〕
+      ・High-dose chemotherapy is given at few centres in Japan, preferably within clinical research, and may suit multiply relapsed, platinum-refractory or mediastinal non-seminoma 〔JUA〕
+      ・Sequential high-dose cycles are preferred to a single high-dose cycle 〔EAU〕
+      ~ TI-CE [t-ti-ce]
+      - IT-94 {pmid 15928070}
+      ~ Lorch 2007 {pmid 17602082}
+    ※ Prognosis follows the IPFSG score: histology, primary site, response to first-line treatment, progression-free interval, AFP, hCG, and liver, bone or brain metastases 〔JUA〕 〔ESMO IV, C〕 〔EAU〕
+    ※ Brain metastases at relapse receive multimodal treatment that includes radiotherapy 〔ESMO〕 〔EAU〕 〔NCCN〕
+      ・Consolidation radiotherapy is given even after a complete response to chemotherapy 〔EAU〕
+    ※ TIN (paclitaxel, ifosfamide and nedaplatin) is a Japan-only regimen 〔JUA〕
+    next: Second or later relapse, or cisplatin-refractory disease
+  Second or later relapse, or cisplatin-refractory disease
+    branch: REL pale
+    ※ Cisplatin-refractory disease is progression during cisplatin-based chemotherapy or relapse within 4 to 8 weeks of it or soon after high-dose chemotherapy 〔EAU〕
+    ① High-dose chemotherapy, when not given before 〔JUA〕 〔ESMO II, A〕 〔EAU〕 〔NCCN 2A, preferred〕
+    ② Gemcitabine and oxaliplatin, with or without paclitaxel 〔JUA 2, C〕 〔ESMO〕 〔EAU〕 〔NCCN 2A〕
+      ・A clinical trial is preferred after high-dose chemotherapy 〔NCCN 2A, preferred〕
+      ・Gemcitabine with paclitaxel, and oral etoposide, are further options 〔NCCN 2A〕
+    ③ Resection of all remaining disease where feasible, raised markers included in selected patients 〔ESMO III, A〕 〔EAU〕 〔NCCN 2A〕
+    ※ Irinotecan with nedaplatin is a Japan-only regimen, and irinotecan is not covered by Japanese insurance for this use 〔JUA 2, C〕
+    ※ Immune checkpoint inhibitors and targeted agents are not standard treatment 〔JUA no recommendation, D〕 〔ESMO〕 〔EAU〕
+      ・Tumour-agnostic treatment can be considered for an actionable alteration 〔NCCN〕
+
+
+
+panel: IGCCCG risk groups
+  | IGCCCG risk groups | Non-seminoma | Seminoma |
+  | Good | Testis or retroperitoneal primary, no non-pulmonary visceral metastases, AFP under 1,000 ng/mL (1,000 µg/L), hCG under 5,000 mIU/mL (5,000 IU/L) and LDH under 1.5 times the upper limit of normal | Any primary site, no non-pulmonary visceral metastases, normal AFP, any hCG and any LDH |
+  | Intermediate | Testis or retroperitoneal primary, no non-pulmonary visceral metastases, and any of AFP 1,000 to 10,000 ng/mL (1,000 to 10,000 µg/L), hCG 5,000 to 50,000 mIU/mL (5,000 to 50,000 IU/L) or LDH 1.5 to 10 times the upper limit of normal | Any primary site with non-pulmonary visceral metastases, normal AFP, any hCG and any LDH |
+  | Poor | Any of mediastinal primary, non-pulmonary visceral metastases, AFP over 10,000 ng/mL (10,000 µg/L), hCG over 50,000 mIU/mL (50,000 IU/L) or LDH over 10 times the upper limit of normal | No seminoma is poor risk |
+  | 5-year progression-free and overall survival, 2021 | Good 90% and 96%, intermediate 78% and 89%, poor 54% and 67% | Good 89% and 95%, intermediate 79% and 88% |
+  ※ The 1997 classification sets prognosis and first-line treatment 〔JUA 1, A〕 〔ESMO III, A〕 〔NCCN〕 〔IGCCCG 1997〕
+    ・The 2021 updates require validation before they replace the 1997 groups 〔JUA〕
+  ※ The group is assigned on markers taken immediately before chemotherapy 〔ESMO〕 〔EAU〕
+  ※ In the 2021 non-seminoma update, older age, lung metastases and LDH above 2.5 times the upper limit of normal are added adverse factors 〔ESMO〕 〔EAU〕 〔NCCN〕 〔IGCCCG-NS 2021〕
+  ※ In the 2021 seminoma update, LDH above 2.5 times the upper limit of normal is an adverse factor within the good-risk group 〔ESMO〕 〔EAU〕 〔NCCN〕 〔IGCCCG-S 2021〕
+  ※ Categories S1, S2 and S3 carry the marker thresholds of the good, intermediate and poor non-seminoma groups 〔JUA〕 〔EAU〕 〔NCCN〕
+  ※ Pure seminoma with hCG of 5,000 mIU/mL (5,000 IU/L) or more is treated as intermediate- or poor-risk non-seminoma 〔NCCN〕
+
+panel: Clinical stage IS
+  ① Markers persistently raised or rising after orchidectomy, without visible metastases: systemic chemotherapy 〔JUA〕 〔ESMO〕 〔EAU〕 〔NCCN〕
+    ・The regimen follows the IGCCCG group 〔EAU〕
+    ・Non-seminoma is treated with three cycles of BEP or four cycles of EP 〔NCCN 1, preferred〕
+    ・In seminoma, marker measurement and imaging are repeated before treatment 〔NCCN 2A〕
+  ※ Causes of false-positive markers are excluded before treatment 〔JUA〕 〔ESMO〕 〔NCCN〕
+    ・Stable, slightly raised markers can be monitored first 〔EAU〕
+    ・An AFP below 20 ng/mL (20 µg/L) alone, or a mildly raised LDH or hCG alone in seminoma, is not a reason for treatment 〔NCCN〕
+
+panel: Primary mediastinal germ cell tumours > Metastatic non-seminoma by IGCCCG group
+  ① Mediastinal non-seminoma, poor risk whatever the markers: four cycles of BEP or four cycles of VIP, with close monitoring of lung function 〔JUA〕 〔NCCN 1〕
+    ・BEP is changed to VIP when DLCO falls by 25% or more 〔JUA〕
+    ・BEP is given with particular care when thoracic surgery is planned 〔JUA〕
+  ※ Respiratory failure after thoracic surgery is more frequent after regimens containing bleomycin 〔JUA〕
+  ② Residual mass: resection after chemotherapy, normally once markers are normal 〔JUA〕 〔NCCN〕
+    ・A single resectable residual lesion can be resected with raised markers 〔JUA〕
+  ③ Mediastinal seminoma: chemotherapy by IGCCCG group, as for testicular seminoma 〔JUA〕 〔NCCN〕
+  ※ Initial radiotherapy for mediastinal seminoma gave poorer progression-free survival than chemotherapy 〔JUA〕
+  ※ First-line high-dose chemotherapy is not established 〔JUA〕
+    ・It is an option for selected patients, preferably within a prospective protocol 〔EAU〕
+  ※ Treatment takes place at a high-volume expert centre 〔ESMO II, A〕 〔NCCN〕
+  ※ Diagnosis rests on AFP, hCG, testicular ultrasound and biopsy of the mass 〔JUA〕 〔EAU〕
+    ・Chemotherapy can start without biopsy when markers are markedly raised and delay is unsafe 〔NCCN〕
+  ※ Mediastinal non-seminoma is associated with Klinefelter syndrome and with haematological malignancy 〔JUA〕
+  ※ When a teratoma grows while markers fall, chemotherapy is stopped and the mass is resected 〔JUA〕
+  ※ At relapse a mediastinal primary carries the highest weight in the IPFSG score 〔JUA〕 〔EAU〕
+
+panel: Late relapse > First relapse after cisplatin-based chemotherapy
+  ① Relapse more than 2 years after complete response: complete resection where feasible, in an expert centre 〔JUA 2, C〕 〔ESMO II, A〕 〔EAU〕 〔NCCN 2A, preferred〕
+    ・Resection is indicated whatever the marker level 〔EAU〕 〔NCCN〕
+    ・Resection is for marker-negative disease, and raised markers lead to biopsy and chemotherapy 〔JUA〕 〔ESMO〕
+  ② Unresectable disease: chemotherapy chosen by the histology of the relapse, then resection of residual disease 〔JUA〕 〔ESMO II, A〕 〔EAU〕
+    ・A clinical trial is an option, and chemotherapy has low expected efficacy 〔NCCN 2A〕
+
+off:
+  van de Wetering et al. | Editorial, not a trial. The carboplatin statement cites MRC TE19/EORTC 30982
+  SGCCG risk-adapted studies | Non-randomised pooled cohorts. The risk factors are stated as text with their guideline tags
+  SWENOTECA V | Prospective cohort. Surveillance and carboplatin in stage I seminoma are stated with their guideline tags
+  SWENOTECA | Prospective cohort. One cycle of BEP cites the randomised AUO AH 01/94 trial
+  Spanish GCCG | Single-arm prospective cohort. The chemotherapy statement in stage IIA and IIB seminoma cites the Giannatempo 2015 meta-analysis
+  Einhorn et al. | Retrospective cohort. High-dose chemotherapy cites TI-CE and the randomised IT-94 and Lorch 2007 trials
+  CLIMATE (ANZUP 1906) [t-climate] | Observational cohort of microRNA-371a-3p, a test not recommended in routine care
