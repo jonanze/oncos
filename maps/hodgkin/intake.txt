@@ -1,0 +1,12 @@
+# Trials on the Hodgkin Lymphoma map with no Evidence row yet (name, PMID, where on the map)
+NIVAHL	PMID 36508302	Early-stage unfavourable
+BREACH	PMID 35867960	Early-stage unfavourable
+Pembrolizumab-GVD	PMID 34170745	Salvage and autologous transplant
+Pembrolizumab-ICE	PMID 36928527	Salvage and autologous transplant
+Nivolumab-ICE	PMID 35316328	Salvage and autologous transplant
+Brentuximab vedotin-nivolumab	PMID 33827139	Salvage and autologous transplant
+BRaVE	PMID 32273476	Salvage and autologous transplant
+BNLI	PMID 8096958	Salvage and autologous transplant
+Friedberg 2017	PMID 29038340	Age over 60, or unfit for intensive treatment
+Friedberg 2024	PMID 37946283	Age over 60, or unfit for intensive treatment
+Evens 2018	PMID 30179569	Age over 60, or unfit for intensive treatment
