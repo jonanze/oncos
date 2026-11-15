@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="application-version" content="2.2.46">
-<title>oncOS</title>
+<title>ONCOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#dfe4ea">
 <link rel="apple-touch-icon" href="/apple-touch-icon-180.png?v=e8be7250de40">
 <link rel="icon" type="image/png" href="/icon-192.png?v=e8be7250de40">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="oncOS">
+<meta name="apple-mobile-web-app-title" content="ONCOS">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script>(function(){try{var t=localStorage.getItem('oncos-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
@@ -789,7 +789,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
      only on a phone, where it holds the strip's Sections / Search / Theme.
      Router hooks are unchanged: .suite-link + data-nav carry aria-current,
      #viewnav receives each view's nav, #burger is the phone Sections button. -->
-<div class="oncos-rail" role="complementary" aria-label="oncOS navigation">
+<div class="oncos-rail" role="complementary" aria-label="ONCOS navigation">
   <div class="rail-top">
     <button class="rail-icon rail-collapse" id="rail-collapse" type="button" aria-label="Hide sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 4h18v16H3zM9 4v16"/></svg></button>
     <button class="rail-icon" id="rail-back" type="button" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
@@ -797,7 +797,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
     <a class="rail-icon rail-home" href="/evidence/" aria-label="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
     <span class="rail-top-fill"></span>
     <button class="theme-toggle" type="button" aria-label="Toggle dark mode" ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path fill="currentColor" stroke="none" d="M4 4h16L4 20z"/><path d="M4 4h16v16H4z"/></svg></button>
-    <button id="global-search-open" class="rail-icon global-search-open" type="button" aria-label="Search all oncOS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
+    <button id="global-search-open" class="rail-icon global-search-open" type="button" aria-label="Search all ONCOS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
   </div>
   <nav class="suite-nav rail-main" aria-label="Main">
     <a class="suite-link" href="/evidence/" data-nav="evidence"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM15 3v4h4M8 12h8M8 16h8"/></svg></span><span class="rail-label">Evidence</span></a><a class="suite-link" href="/staging/" data-nav="staging"><span class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 21h18M6 21v-6M12 21V10M18 21V5"/></svg></span><span class="rail-label">Staging</span></a>
@@ -836,7 +836,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
     <a class="rail-icon rail-home rail-home-strip" href="/evidence/" aria-label="Watch list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></a>
     <button class="rail-icon rail-back-strip" type="button" aria-label="Back" onclick="history.back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
     <button id="burger" class="rail-icon rail-sections" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="railsection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-    <button class="rail-icon rail-search-strip" type="button" aria-label="Search all oncOS" onclick="document.getElementById('global-search-open').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
+    <button class="rail-icon rail-search-strip" type="button" aria-label="Search all ONCOS" onclick="document.getElementById('global-search-open').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
     <button class="theme-toggle" type="button" aria-label="Toggle dark mode" ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path fill="currentColor" stroke="none" d="M4 4h16L4 20z"/><path d="M4 4h16v16H4z"/></svg></button>
   </div>
 </div>
@@ -848,9 +848,9 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
 <input id="q" type="hidden" class="barsearch">
 <div class="global-search-dialog" id="global-search-dialog" role="dialog" aria-modal="true" aria-labelledby="global-search-label" hidden>
   <section class="global-search-panel">
-    <h2 class="sr-only" id="global-search-label">Search all oncOS</h2>
+    <h2 class="sr-only" id="global-search-label">Search all ONCOS</h2>
     <div class="global-search-head">
-      <input id="global-search-query" type="search" autocomplete="off" aria-label="Search all oncOS">
+      <input id="global-search-query" type="search" autocomplete="off" aria-label="Search all ONCOS">
       <button class="global-search-close" id="global-search-close" type="button" aria-label="Close search">&times;</button>
     </div>
     <div class="global-search-status" id="global-search-status" role="status"></div>
@@ -868,7 +868,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
      the section nav from keyboard and assistive tech. -->
 <div hidden aria-hidden="true" data-chrome-stubs><div id="backdrop" class="backdrop"></div></div>
 <main id="viewroot"></main>
-<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#181b1f',L=(m&&m.getAttribute('content'))||'#dfe4ea';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','oncOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0,pS=-1e9;function pOn(){pT=null;if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){pOff();if(e.touches.length!==1||Date.now()-pS<150)return;var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r&&r!==t)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;pT=setTimeout(pOn,120);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls,shown=!pT;clearTimeout(pT);pT=null;pEls=null;var off=function(){els.forEach(function(n){n.classList.remove('is-pressed');});};if(shown){off();return;}els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(off,100);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',function(){pS=Date.now();pOff();},{passive:true,capture:true});}})();</script>
+<script>(function(){var m=document.querySelector('meta[name="theme-color"]');var D='#181b1f',L=(m&&m.getAttribute('content'))||'#dfe4ea';function s(){if(m)m.setAttribute('content',document.documentElement.getAttribute('data-theme')==='dark'?D:L);}s();document.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.theme-toggle'):null;if(!b)return;var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('oncos-theme',t);}catch(x){}s();});document.addEventListener('keydown',function(e){if(e.defaultPrevented)return;if(e.key==='/'){var t=e.target,g=(t&&t.tagName||'').toLowerCase();if(g==='input'||g==='textarea'||g==='select'||(t&&t.isContentEditable))return;var q=document.querySelector('.barsearch');if(q){e.preventDefault();q.focus();}}else if(e.key==='Escape'){if(document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');}else{var q=document.querySelector('.barsearch');if(q&&document.activeElement===q){q.blur();}}}});var sb=document.querySelector('aside.sidebar,aside#sidebar');if(sb&&!document.querySelector('.suite-nav')){var here=(location.pathname.match(/\/(evidence|staging|drugs|tox|acute|notes)\//)||[])[1]||'';var mods=[['hub','Hub','../'],['evidence','Evidence','../evidence/'],['staging','Staging','../staging/'],['drugs','Drugs','../drugs/'],['tox','Tox','../tox/'],['acute','Acute','../acute/'],['notes','Notes','../notes/']];var h='<div class="suite-label">Suite</div>';mods.forEach(function(m){var cur=m[0]===here;h+='<a class="suite-link" href="'+m[2]+'"'+(cur?' aria-current="page"':'')+'>'+'<span class="sdot sdot-'+m[0]+'"></span>'+m[1]+'</a>';});var d=document.createElement('nav');d.className='suite-nav';d.setAttribute('aria-label','ONCOS suite');d.innerHTML=h;sb.insertBefore(d,sb.firstChild);}if(!matchMedia('(hover: hover)').matches){var pSEL='a,button,summary,[role="button"],tr.row,tr.trial';var pT=null,pEls=null,pX=0,pY=0,pS=-1e9;function pOn(){pT=null;if(pEls)pEls.forEach(function(n){n.classList.add('is-pressed');});}function pOff(){clearTimeout(pT);pT=null;if(pEls){pEls.forEach(function(n){n.classList.remove('is-pressed');});pEls=null;}}document.addEventListener('touchstart',function(e){pOff();if(e.touches.length!==1||Date.now()-pS<150)return;var t=e.target&&e.target.closest?e.target.closest(pSEL):null;if(!t)return;pEls=[t];var r=t.closest('tr');if(r&&r!==t)pEls.push(r);pX=e.touches[0].clientX;pY=e.touches[0].clientY;pT=setTimeout(pOn,120);},{passive:true,capture:true});document.addEventListener('touchmove',function(e){if(!pEls)return;var dx=e.touches[0].clientX-pX,dy=e.touches[0].clientY-pY;if(dx*dx+dy*dy>64)pOff();},{passive:true,capture:true});document.addEventListener('touchend',function(){if(!pEls)return;var els=pEls,shown=!pT;clearTimeout(pT);pT=null;pEls=null;var off=function(){els.forEach(function(n){n.classList.remove('is-pressed');});};if(shown){off();return;}els.forEach(function(n){n.classList.add('is-pressed');});setTimeout(off,100);},{passive:true,capture:true});document.addEventListener('touchcancel',pOff,{passive:true,capture:true});window.addEventListener('scroll',function(){pS=Date.now();pOff();},{passive:true,capture:true});}})();</script>
 <script>
 // Sidebar controls: hide/show (remembered, applied before first paint by the
 // head script), and back/forward — the installed app has no browser buttons.
@@ -1046,7 +1046,7 @@ html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
     return {valid:validate(module,target),module,target,searchOpen:url.searchParams.has('search')};
   }
   function href(module, target = {}, origin = 'https://oncos.invalid') {
-    if (!validate(module,target)) throw new TypeError('Invalid oncOS location');
+    if (!validate(module,target)) throw new TypeError('Invalid ONCOS location');
     const url = new URL(module==='hub' ? '/' : '/'+module+'/',origin);
     for (const field of fields) {
       if ((module==='evidence' || module==='drugs') && field==='record') continue;
@@ -1272,7 +1272,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
   }
   function syncSuiteChrome(name){
     var v = VIEWS[name];
-    document.title = name==='hub' ? 'oncOS' : 'oncOS — ' + (v?v.title:name);
+    document.title = name==='hub' ? 'ONCOS' : 'ONCOS — ' + (v?v.title:name);
     var mtag = document.getElementById('mast-mod');
     if (mtag) mtag.textContent = name==='hub' ? '' : (v?v.title:name);
     // suite active state — masthead tabs and the mobile dropdown alike
@@ -1379,7 +1379,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     if(current==='evidence'&&heading)label=heading.firstChild.textContent.trim();
     var parsed=locations.read(location.href);
     if(!label&&parsed.valid)label=parsed.target.group;
-    document.title=label&&label!==VIEWS[current].title?label+' · oncOS '+VIEWS[current].title:'oncOS — '+VIEWS[current].title;
+    document.title=label&&label!==VIEWS[current].title?label+' · ONCOS '+VIEWS[current].title:'ONCOS — '+VIEWS[current].title;
   }
 
   // The cell loader over a view that is still downloading (CSS delays it, so
@@ -1393,7 +1393,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     var mark = document.createElement('span'); mark.className = 'cell-loader'; mark.setAttribute('aria-hidden','true');
     mark.appendChild(document.createElement('canvas'));
     var label = document.createElement('span');
-    label.textContent = 'Loading ' + ((VIEWS[name] || {}).title || 'oncOS') + '…';
+    label.textContent = 'Loading ' + ((VIEWS[name] || {}).title || 'ONCOS') + '…';
     wait.append(mark,label); box.appendChild(wait); viewroot.prepend(box);
   }
   function hideViewLoading(){
@@ -1412,7 +1412,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
     var heading = document.createElement('h1'); heading.id = 'view-title';
     heading.textContent = loading ? 'Unable to load this page' : 'Entry unavailable';
     var button = document.createElement('button'); button.type = 'button';
-    button.textContent = loading ? 'Try again' : 'Browse ' + ((VIEWS[name] || {}).title || 'oncOS');
+    button.textContent = loading ? 'Try again' : 'Browse ' + ((VIEWS[name] || {}).title || 'ONCOS');
     button.onclick = function(){
       if (loading) go(name, false);
       else go(name, true, '', {});
@@ -1660,7 +1660,7 @@ window.oncosViews = {"evidence": {"title": "Evidence", "searchId": "q"}, "stagin
           mount(name,prepared); viewroot.classList.remove('leaving');
           settleLocation(name,requested,push);
         } catch (error) {
-          console.error('oncOS view failed:',name,error.message); showViewError(name,true);
+          console.error('ONCOS view failed:',name,error.message); showViewError(name,true);
         }
       },0); };
       if (window.requestAnimationFrame) window.requestAnimationFrame(build); else build();

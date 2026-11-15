@@ -254,7 +254,10 @@ function createStore(indexedDB) {
     async installSnapshot(manifest, records) {
       validateSnapshot(manifest, records);
       const db = await open();
+      // Only the active build is kept: earlier snapshots are removed in the same
+      // transaction, so a failed install leaves the previous one in place.
       const tx = db.transaction(['snapshots', 'meta'], 'readwrite');
+      tx.objectStore('snapshots').clear();
       tx.objectStore('snapshots').put({
         build: manifest.build,
         manifest: structuredClone(manifest),

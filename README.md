@@ -1,6 +1,6 @@
-# oncOS
+# ONCOS
 
-oncOS is a clinical-reference suite delivered as one web application: Evidence (trials and maps), Staging (tables and practice cases), and the Appendix (Drugs, Tox, Acute).
+ONCOS is a clinical-reference suite delivered as one web application: Evidence (trials and maps), Staging (tables and practice cases), and the Appendix (Drugs, Tox, Acute).
 
 The current release is the number in `VERSION`; `CHANGELOG.md` records each release.
 

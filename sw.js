@@ -2,28 +2,28 @@
  * STORAGE FIRST (Jonan, 2026-11-10): the release in storage opens at once; a new
  * release installs in the background and shows at the next open. Every file is
  * stored under its own content hash, so a release downloads only what changed. */
-const VERSION = '528ae20625f0';
+const VERSION = '5f578849bbdd';
 const STORE = 'oncos-one-files';
 const RUNTIME = 'oncos-one-runtime';
 const PREFIX = 'oncos-one-';
 const ASSETS = [
-  ['./', '7aaa3dafe04fdbad'],
-  ['./index.html', '7aaa3dafe04fdbad'],
-  ['./manifest.webmanifest', '683d723a65e56ade'],
+  ['./', '7d6dbc21af56b5eb'],
+  ['./index.html', '7d6dbc21af56b5eb'],
+  ['./manifest.webmanifest', '232ec07c01160992'],
   ['./icon-192.png', '5a5c1ffe7e24816d'],
   ['./icon-512.png', 'ce1e5434261aca67'],
   ['./icon-maskable-512.png', '54f1a59ed8d3506a'],
   ['./apple-touch-icon-180.png', 'd4c8e006d10ba297'],
-  ['./search_runtime.js', '93f9734d36afe3d6'],
-  ['./search_ui.js', '8b8d2e50017b491f'],
+  ['./search_runtime.js', '8827946cea335b51'],
+  ['./search_ui.js', '1f23a979c21bd215'],
   ['./search/manifest.json', 'e8d774e55698f274'],
   ['./cell-loader.js', 'c3c3767ed7602a79'],
   ['./cell-loader.png', 'b543a3ef1b48ed09'],
   ['./views/evidence.html', '450d502bc7d551cf'],
-  ['./views/staging.html', 'e187fc5ffae01842'],
+  ['./views/staging.html', '4c518b968ff4e758'],
   ['./views/drill.html', '05985f0899a085c6'],
   ['./views/drugs.html', '7ad82e38457b8c7b'],
-  ['./views/tox.html', '6a636722d33dd09b'],
+  ['./views/tox.html', '7e036cc988053597'],
   ['./views/acute.html', 'e03ec1bd023d144d'],
   ['./data/evidence.json', '01e31c86aef8f66e'],
   ['./search/staging.json', 'd3e3e48319ba8a21'],
