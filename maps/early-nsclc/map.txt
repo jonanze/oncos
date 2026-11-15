@@ -12,8 +12,9 @@
 #   + Trial         a trial line, the trial's name only; it draws as a chip, and a tap opens its card with the
 #                   results. No figures on maps (Jonan 2026-11-11). The mark records the result and is not drawn:
 #                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
-#   Trial [t-...]   picks the Evidence row by its anchor when the name is not enough
-#   Trial {pmid N}  a trial with no Evidence row yet: PubMed link, dashed chip, listed for intake
+#   Trial {pmid N}  the usual form: links to the Evidence row that cites the PMID (on this map's sheet if filed on two),
+#                   so filing and publishing link it with no map edit; before that, PubMed link, dashed chip, listed for intake
+#   Trial [t-...]   picks the Evidence row by its anchor: only where the row has no PMID or the PMID is on two rows of this sheet
 #   Trial {url https://...}  a randomised trial with no PubMed record yet (congress abstract): link, listed for intake
 #   trial lines in a row draw as one row of chips, starting at the text of the line above
 #   ※ text          caveat             ° text          side effects, grey
@@ -141,11 +142,11 @@ branch: CRT | Chemoradiotherapy | apricot
 
 band: Staging before treatment
   ① CT and PET-CT before surgery, for nodal staging 〔ESMO I, A〕 〔NCCN 2A〕 〔JLCS A, 1〕
-    ~ Fischer 2009 [t-fischer-et-al]
+    ~ Fischer 2009 {pmid 19571281}
   ② Nodes abnormal on CT or PET: endosonography with needle aspiration first 〔ESMO I, A〕 〔JLCS A, 1〕
     ~ ASTER
   ③ Mediastinoscopy is optional after negative systematic endosonography
-    ~ MEDIASTrial
+    ~ MEDIASTrial {pmid 37018653}
     ※ Guidelines differ
     ・Mediastinoscopy before resection when endosonography is negative but CT or PET is positive in the mediastinum 〔NCCN 2A〕
     ・Insufficient evidence either way 〔JLCS〕
@@ -185,37 +186,37 @@ course: Early and locally advanced NSCLC
     Stage II–III with no EGFR, ALK or RET alteration: platinum doublet with a PD-1 or PD-L1 antibody for 3 or 4 cycles, then surgery 〔ESMO I, A〕 〔NCCN 1〕
     ① Neoadjuvant only: nivolumab 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
     ・The EU licence requires PD-L1 1% or more
-      + CheckMate 816
+      + CheckMate 816 {pmid 35403841}
     ② Perioperative: a PD-1 or PD-L1 antibody continued after surgery 〔JLCS A, 2〕
     ・Pembrolizumab, durvalumab or nivolumab 〔ESMO I, A〕 〔NCCN 1〕
     ・Tislelizumab 〔ESMO I, A〕
     ・The EU licence for nivolumab requires PD-L1 1% or more
     ・Tislelizumab: EU licence, trial in China
-      + KEYNOTE-671
-      ~ AEGEAN
-      ~ CheckMate 77T
-      + RATIONALE-315
+      + KEYNOTE-671 {pmid 37272513}
+      ~ AEGEAN {pmid 37870974}
+      ~ CheckMate 77T {pmid 38749033}
+      + RATIONALE-315 {pmid 39581197}
       ※ Toripalimab improved EFS in a trial in China
       ・Toripalimab has EU and US licences for other cancers, not for NSCLC
-        ~ Neotorch
+        ~ Neotorch {pmid 38227033}
     ※ No preference between neoadjuvant only and perioperative treatment 〔ESMO〕
     ※ EGFR exon 19 or L858R, stage II–IIIB: osimertinib with or without chemotherapy before surgery, then osimertinib 〔NCCN 2A〕
     ・Pathological response improved, with no survival data yet
     ・Resection, then adjuvant osimertinib 〔ESMO〕 〔JLCS〕
-      ~ NeoADAURA
+      ~ NeoADAURA {pmid 40454705}
     ※ ALK, stage III: lorlatinib before surgery met its pathological complete response endpoint in a single-arm trial
       ~ LORIN [t-lorin]
     ※ Superior sulcus tumour, T3–4 N0–1: concurrent chemoradiotherapy, then surgery 〔ESMO III, B〕 〔NCCN 2A〕 〔JLCS C, 1〕
     ※ Chemotherapy alone before surgery improved survival, when immunotherapy is not suitable 〔NCCN 2A〕 〔JLCS BQ1, B〕
     ・Not in stage I–IIA 〔JLCS C, 2〕
-      + Meta-analysis 2014 [t-nsclc-meta-analysis-collaborative-group]
+      + Meta-analysis 2014 {pmid 24576776}
     next: After chemotherapy with immunotherapy and surgery
   Upfront resection
     branch: SX pale
     Extent of resection
     ① Peripheral, node-negative, 2 cm or less: sublobar resection, segmentectomy rather than wedge 〔ESMO I, A〕
       + JCOG0802 [t-jcog-0802-wjog-4607l]
-      ~ CALGB 140503 [t-calgb-140503]
+      ~ CALGB 140503 {pmid 36780674}
       ※ Lobectomy, segmentectomy and wedge resection are rated equivalent here 〔ACCP Moderate, Conditional〕
       ※ Segmentectomy or wedge resection for peripheral T1a–b N0 〔NCCN 2A〕
       ※ Choice by the solid component of the tumour 〔JLCS B, 1〕
@@ -238,28 +239,28 @@ course: Early and locally advanced NSCLC
     ・By SBRT or another high-precision technique 〔JLCS B, 1〕
     ※ Central or ultracentral tumours: more fractions
     ・Caution with central tumours 〔JLCS〕
-      + CHISEL [t-chisel]
+      + CHISEL {pmid 30770291}
     ※ Atezolizumab added to SBRT did not improve OS or PFS
-      - SWOG S1914 [t-swog-s1914-nrg-s1914]
+      - SWOG S1914 {pmid 42702214}
   Chemoradiotherapy
     branch: CRT
     Concurrent chemoradiotherapy with 2–3 cycles of a platinum doublet 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS A, 1〕
     ・60 Gy in daily fractions
     ・60–70 Gy 〔NCCN 2A〕
-      + Meta-analysis 2010 [t-nsclc-collaborative-group-concomitant-versus-sequential-radiochemotherapy-meta-analysis]
-      + RTOG 9410
+      + Meta-analysis 2010 {pmid 20351327}
+      + RTOG 9410 {pmid 21903745}
     ※ Unfit for concurrent treatment
     ・Sequential chemoradiotherapy 〔ESMO I, A〕 〔NCCN 2A〕
     ・Radiotherapy alone 〔ESMO I, A〕 〔NCCN 2A〕 〔JLCS C, 1〕
     ・Older patients unfit for cisplatin: daily carboplatin with radiotherapy 〔JLCS B, 2〕
     ※ 74 Gy was inferior to 60 Gy and is not recommended 〔NCCN 2A〕 〔JLCS B, 1〕
-      - RTOG 0617
+      - RTOG 0617 {pmid 25601342}
     ※ With radiotherapy, cisplatin–pemetrexed was not superior to cisplatin–etoposide
     ・Both remain preferred regimens, cisplatin–pemetrexed for non-squamous only 〔ESMO I, A〕
-      - PROCLAIM
+      - PROCLAIM {pmid 26811519}
     ※ Durvalumab or nivolumab started during chemoradiotherapy did not improve PFS
-      - PACIFIC-2
-      - CheckMate 73L
+      - PACIFIC-2 {pmid 41082707}
+      - CheckMate 73L {pmid 42129521}
     next: After chemoradiotherapy, no progression | No progression
   After chemotherapy with immunotherapy and surgery
     branch: NEO pale
@@ -274,21 +275,21 @@ course: Early and locally advanced NSCLC
     ・Stage II–IIIB 〔JLCS A, 1〕
     ・Stage IIB–IIIB, and IB–IIA with high-risk features 〔NCCN 2A〕
     ・Carboplatin doublet if cisplatin is unsuitable 〔ESMO II, B〕
-      + LACE meta-analysis
+      + LACE meta-analysis {pmid 18506026}
         ※ The benefit was significant in stage II and III, and not in stage I
-      + IALT
-      + JBR.10
-      + ANITA
+      + IALT {pmid 14736927}
+      + JBR.10 {pmid 15972865}
+      + ANITA {pmid 16945766}
       ※ Stage I under 4 cm without EGFR or RET: no adjuvant treatment 〔ACCP Moderate, Strong〕
       ・Tegafur-uracil for node-negative tumours over 2 cm 〔JLCS〕
       ※ Carboplatin and paclitaxel in stage IB did not improve survival
       ・The benefit in tumours of 4 cm or more came from an unplanned analysis
-        - CALGB 9633
+        - CALGB 9633 {pmid 18809614}
     ② Node-negative, whole tumour over 2 cm, pathological stage IA3–IIIA, excluding T3 and T4 by invasion or nodule: tegafur-uracil for 1–2 years
     ・Adenocarcinoma 〔JLCS A, 1〕, other histology 〔JLCS C, 2〕
     ・Licensed in Japan, not in the EU or US
       + Kato 2004 [t-kato-et-al]
-      + Meta-analysis 2005 [t-hamada-et-al]
+      + Meta-analysis 2005 {pmid 16051951}
     next: No driver
     next: EGFR, ALK or RET
     next: Radiotherapy after resection
@@ -298,7 +299,7 @@ course: Early and locally advanced NSCLC
     ・In pathological stage I–II 〔JLCS A, 1〕
       ※ PORT is an option for selected high-risk N2, such as extranodal extension or several stations involved 〔NCCN 2A〕
       ・Insufficient evidence in N2 〔JLCS〕
-      - Lung ART
+      - Lung ART {pmid 34919827}
     ② Positive margin (R1): PORT is an option, 60 Gy in 30 fractions 〔ESMO III, C〕
     ・Re-resection is preferred in stage IA–IIA 〔NCCN 2A〕
   No driver
@@ -310,8 +311,8 @@ course: Early and locally advanced NSCLC
     ・Atezolizumab only at PD-L1 50% or more, stage IIA–IIIB 〔JLCS C, 2〕
     ・Insufficient evidence at PD-L1 1–49% 〔JLCS〕
     ・Benefit of pembrolizumab unclear at PD-L1 under 1% 〔NCCN〕
-      ~ IMpower010
-      ~ PEARLS/KEYNOTE-091 [t-pearls-keynote-091]
+      ~ IMpower010 {pmid 34555333}
+      ~ PEARLS/KEYNOTE-091 {pmid 36108662}
       ※ In PEARLS, DFS improved in all patients
       ・The co-primary endpoint in TPS 50% or more was not met
       ※ Adjuvant nivolumab for 1 year did not improve DFS
@@ -320,27 +321,27 @@ course: Early and locally advanced NSCLC
     branch: ADJ pale
     ① EGFR exon 19 or L858R, stage IB–IIIA: osimertinib for 3 years, after chemotherapy where given 〔ESMO I, A〕 〔NCCN 1〕
     ・Stage II–IIIB, after platinum chemotherapy 〔JLCS B, 2〕
-      + ADAURA
+      + ADAURA {pmid 32955177}
     ② ALK, stage II (4 cm or more) to IIIA: alectinib for 2 years in place of chemotherapy 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
     ・Chemotherapy first as an option 〔ESMO II, C〕
     ・Stage II–IIIB 〔JLCS〕
-      ~ ALINA
+      ~ ALINA {pmid 38598794}
       ※ Ensartinib also improved DFS
       ・Ensartinib has a US licence for advanced ALK-positive NSCLC, not for treatment after resection
-        ~ ELEVATE
+        ~ ELEVATE {pmid 42418775}
     ③ RET, stage IB–IIIA: selpercatinib for 3 years, also after radiotherapy 〔ESMO I, A〕 〔NCCN 1〕
       ~ LIBRETTO-432
   After chemoradiotherapy, no progression
     branch: CRT pale
     ① EGFR exon 19 or L858R: osimertinib until progression 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
-      ~ LAURA
+      ~ LAURA {pmid 38828946}
     ② No driver: durvalumab for 12 months, starting within 42 days of concurrent chemoradiotherapy 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 1〕
     ・The EU licence requires PD-L1 1% or more
-      + PACIFIC
+      + PACIFIC {pmid 28885881}
     ③ No driver: sugemalimab for up to 24 months, after concurrent or sequential chemoradiotherapy 〔ESMO I, A〕
     ・Trial in China
     ・The EU licence requires PD-L1 1% or more
-      ~ GEMSTONE-301 [t-gemstone-301]
+      ~ GEMSTONE-301 {pmid 35038429}
     ※ After sequential chemoradiotherapy
     ・Osimertinib with EGFR exon 19 or L858R 〔ESMO I, A〕 〔NCCN 2A〕
     ・Durvalumab 〔ESMO II, B〕 〔NCCN 2A〕
@@ -348,7 +349,7 @@ course: Early and locally advanced NSCLC
     ※ Durvalumab after sequential treatment
     ・The PFS benefit was smaller than in PACIFIC, with no OS benefit at the interim analysis
     ・The effect was similar after sequential and concurrent chemoradiotherapy, and neither subgroup was powered
-      ~ PACIFIC-5
+      ~ PACIFIC-5 {pmid 41354932}
 
 off:
   PLUS [t-plus-trial] | Same finding as Fischer 2009, with PET alone

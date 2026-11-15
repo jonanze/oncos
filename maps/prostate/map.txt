@@ -89,13 +89,13 @@ band: ADT, testing and bone
     ・Fewer major cardiovascular events than with leuprolide, in a prespecified safety analysis
     ・EU and US licence
     ・No LHRH antagonist named in ESMO
-    ~ HERO [t-hero]
+    ~ HERO {pmid 32469183}
   ③ Intermittent ADT is an option for PSA relapse after a good PSA response 〔NCCN 2A〕
     ・Non-inferior to continuous ADT for relapse after radiotherapy
     ・Non-inferiority was not shown in metastatic disease
     ・In metastatic disease, only when ADT is given alone 〔NCCN 2A〕
-    ~ PR.7 [t-swog-jpr7]
-    - SWOG 9346 [t-hussain-et-al]
+    ~ PR.7 {pmid 22931259}
+    - SWOG 9346 {pmid 23550669}
   ④ Germline and tumour testing in all metastatic disease 〔NCCN 2A〕
     ・Germline testing in castration-sensitive disease 〔ESMO III, A〕
     ・Tumour testing for BRCA1, BRCA2, CDK12 and PALB2 before the first treatment for castration-resistant disease 〔ESMO III, A〕
@@ -103,11 +103,11 @@ band: ADT, testing and bone
     ・PTEN IHC in castration-sensitive disease 〔NCCN 2A〕
   ⑤ Fracture risk on ADT: denosumab 60 mg every 6 months, zoledronic acid 5 mg yearly or alendronate 70 mg weekly 〔NCCN 2A〕
     ・Low bone density or a prior fragility fracture: a bisphosphonate or denosumab 〔ESMO III, A〕
-    ~ HALT [t-halt]
+    ~ HALT {pmid 19671656}
   ⑥ Bone metastases in castration-resistant disease: denosumab 120 mg every 4 weeks 〔NCCN 1, preferred〕 〔ESMO I, A〕
     ・Zoledronic acid 4 mg every 12 weeks 〔NCCN 2A〕
     ・Monthly dosing is not recommended in castration-sensitive disease 〔NCCN 2A〕 〔ESMO II, E〕
-    ~ Fizazi 2011 [t-fizazi-et-al]
+    ~ Fizazi 2011 {pmid 21353695}
 
 course: Advanced prostate cancer
   Rising PSA after surgery or radiotherapy, no metastases on CT or bone scan
@@ -116,7 +116,7 @@ course: Advanced prostate cancer
     next: Castration-resistant, no metastases on CT or bone scan | PSA rises on ADT
     ① PSA doubling time 9 months or less: enzalutamide with leuprolide 〔NCCN 1〕
       ・Enzalutamide alone 〔NCCN 2A〕
-    + EMBARK
+    + EMBARK {pmid 37851874}
     ※ Enzalutamide alone delayed metastases without prolonging OS
     ※ After prostatectomy with PSA 0.5 ng/mL or more: apalutamide with ADT 〔NCCN 2B〕
 
@@ -127,34 +127,34 @@ course: Advanced prostate cancer
       ・Addition of radiotherapy to the prostate is an option in de novo disease 〔ESMO II, A〕 〔NCCN 2A, other recommended〕
       ・Addition of docetaxel is an option in de novo disease, for men fit for it who want the most intensive treatment 〔ESMO III, C〕 〔NCCN 2B, other recommended〕
       ・Docetaxel is not recommended in metachronous low-volume disease 〔ESMO II, E〕
-      - STAMPEDE arm H [t-stampede--advanced-prostate-3]
+      - STAMPEDE arm H {pmid 30355464}
       ※ The trial was negative in all patients
         ・The low-burden subgroup was prespecified
       ※ Arm H used ADT with or without docetaxel, without an ARSI
       ※ With abiraterone, radiotherapy prolonged rPFS but not OS, and reduced serious urinary events
-        ~ PEACE-1 radiotherapy [t-peace-1]
+        ~ PEACE-1 radiotherapy {pmid 35405085}
       ※ Benefit was confined to fewer than 5 bone metastases
-        - HORRAD [t-horrad]
-        ~ STOPCAP [t-stopcap-m1-prostate-radiotherapy-meta-analysis]
+        - HORRAD {pmid 30266309}
+        ~ STOPCAP {pmid 30826218}
     ② High volume: ADT with an ARSI and docetaxel 〔NCCN 1, preferred〕 〔ESMO II, A〕
       ・The ARSI is abiraterone or darolutamide
       ・ADT with an ARSI alone for men unfit for or declining docetaxel 〔NCCN 1, preferred〕 〔ESMO I, A〕
       ・ADT with docetaxel and an ARSI also in metachronous high-volume disease 〔ESMO II, B〕
       ・Addition of radiotherapy to the prostate is an option in de novo disease, to prevent severe urinary symptoms 〔ESMO II, B〕
-      + PEACE-1
-      + ARASENS
+      + PEACE-1 {pmid 35405085}
+      + ARASENS {pmid 35179323}
       ° Toxicity of note: more grade 3 or higher hypertension with abiraterone (PEACE-1)
       ※ The comparator in both trials was ADT and docetaxel
         ・Neither trial compared against ADT and an ARSI
       ※ Docetaxel added to ADT alone improved OS in high volume and not in low volume
         ・ADT with docetaxel alone only where no ARSI is available 〔ESMO I, A〕
-        + CHAARTED
-        + STAMPEDE docetaxel [t-stampede--advanced-prostate]
-        - GETUG-AFU 15
+        + CHAARTED {pmid 26244877}
+        + STAMPEDE docetaxel {pmid 26719232}
+        - GETUG-AFU 15 {pmid 23306100}
     ③ Relapse with 1 to 3 metastases: stereotactic radiotherapy to every site, with or without ADT 〔NCCN 2A, useful in certain circumstances〕 〔ESMO II, B〕
       ・Neither trial had an OS endpoint
-      ~ ORIOLE [t-oriole]
-      ~ STOMP [t-stomp]
+      ~ ORIOLE {pmid 32215577}
+      ~ STOMP {pmid 29240541}
     ※ ADT alone is not recommended 〔NCCN 2A〕 〔ESMO I, D〕
       ・Except for unfit men with a short life expectancy 〔ESMO I, C〕
 
@@ -163,9 +163,9 @@ course: Advanced prostate cancer
     next: Metastatic, castration-resistant | Metastases appear
     ① PSA doubling time 10 months or less: apalutamide, enzalutamide or darolutamide, with ADT 〔NCCN 1, preferred〕 〔ESMO I, A〕
       ・Life expectancy over 5 years 〔ESMO I, A〕
-    + SPARTAN
-    + PROSPER
-    + ARAMIS
+    + SPARTAN {pmid 29420164}
+    + PROSPER {pmid 29949494}
+    + ARAMIS {pmid 30763142}
     ※ Metastasis-free survival approximately doubled in each trial
     ※ PSMA PET is optional at this stage 〔ESMO III, C〕
     ※ Metastases on this treatment are classed as progression after an ARSI
@@ -188,18 +188,18 @@ course: Advanced prostate cancer
   After ADT alone
     branch: CR pale
     ① Abiraterone or enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
-    + COU-AA-302
-    + PREVAIL
+    + COU-AA-302 {pmid 23228172}
+    + PREVAIL {pmid 24881730}
     ② Docetaxel 〔NCCN 1, other recommended〕 〔ESMO I, A〕
       ・50 mg/m² every 2 weeks for frail men 〔ESMO I, C〕
-    + TAX 327
+    + TAX 327 {pmid 15470213}
     ③ BRCA altered: olaparib or niraparib with abiraterone, or talazoparib with enzalutamide 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
       ・Other HRR genes: talazoparib with enzalutamide 〔NCCN 1, useful in certain circumstances〕
       ・No HRR alteration: talazoparib with enzalutamide or olaparib with abiraterone in selected men 〔ESMO II, C〕
       ・EU licence for talazoparib with enzalutamide and for olaparib with abiraterone without a biomarker
-    + TALAPRO-2
-    ~ PROpel
-    ~ MAGNITUDE
+    + TALAPRO-2 {pmid 37285865}
+    ~ PROpel {pmid 38319800}
+    ~ MAGNITUDE {pmid 36952634}
     ※ Olaparib or niraparib with abiraterone prolonged rPFS
       ・OS was not significantly longer
     ※ Most men now start an ARSI in castration-sensitive disease
@@ -208,16 +208,16 @@ course: Advanced prostate cancer
       ・US licence
       ・EU authorisation withdrawn
       ・Not available outside the US
-      + IMPACT [t-impact--advanced-prostate]
+      + IMPACT {pmid 20818862}
 
   After ADT and docetaxel
     branch: CR pale
     ① Abiraterone or enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
-    + COU-AA-301
-    + AFFIRM
+    + COU-AA-301 {pmid 21612468}
+    + AFFIRM {pmid 22894553}
     ② Cabazitaxel 〔ESMO I, A〕
       ・Cabazitaxel only after an ARSI and docetaxel 〔NCCN〕
-    + TROPIC
+    + TROPIC {pmid 20888992}
     ※ All three trials predate ARSI use in castration-sensitive disease
 
   After ADT and an ARSI
@@ -231,11 +231,11 @@ course: Advanced prostate cancer
       ・PALB2: a PARP inhibitor 〔ESMO II, B〕
       ・Not for most men with CHEK2 or ATM alterations 〔ESMO II, D〕
       ・Rucaparib is licensed in the US, not in the EU, for prostate cancer
-    + PROfound
-    ~ TRITON3
+    + PROfound {pmid 32343890}
+    ~ TRITON3 {pmid 36795891}
     ③ PSMA PET positive, docetaxel not yet planned: Lu-177 PSMA-617 〔NCCN 2A, useful in certain circumstances〕 〔ESMO I, B〕
       ・US licence, no EU licence before a taxane
-    ~ PSMAfore
+    ~ PSMAfore {pmid 39293462}
     ※ Lu-177 PSMA-617 before a taxane prolonged rPFS
       ・OS did not differ
     ※ A second ARSI was inferior to cabazitaxel in CARD
@@ -243,11 +243,11 @@ course: Advanced prostate cancer
   After ADT, an ARSI and docetaxel
     branch: CR pale
     ① Cabazitaxel 〔NCCN 1, preferred〕 〔ESMO I, A〕
-    + CARD
+    + CARD {pmid 31566937}
     ※ In CARD, cabazitaxel improved OS over a second ARSI
     ② Lu-177 PSMA-617, 7.4 GBq every 6 weeks, if PSMA PET is positive with no PSMA-negative lesions 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, A〕
       ・Cabazitaxel instead when PSMA uptake is low or does not match CT 〔ESMO II, B〕
-    + VISION [t-vision--advanced-prostate]
+    + VISION {pmid 34161051}
     ※ Docetaxel again 〔NCCN 2A, preferred〕
     ※ BRCA altered with no PARP inhibitor so far: olaparib 〔NCCN 1, useful in certain circumstances〕
 
@@ -255,19 +255,19 @@ panel: ARSI options > Metastatic, castration-sensitive
   ① Abiraterone with prednisone 5 mg once daily 〔NCCN 1, preferred〕 〔ESMO I, A〕
     ・No EU or US licence in low-volume disease
     ・De novo disease only 〔ESMO〕
-    + LATITUDE
-    + STAMPEDE arm G [t-stampede--advanced-prostate-2]
+    + LATITUDE {pmid 28578607}
+    + STAMPEDE arm G {pmid 28578639}
     ° Toxicity of note: hypertension, hypokalaemia and oedema
     ° Toxicity of note: hepatotoxicity, with liver tests monitored frequently in the first 12 weeks
   ② Enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
-    + ENZAMET
-    + ARCHES
+    + ENZAMET {pmid 31157964}
+    + ARCHES {pmid 31329516}
   ③ Apalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
-    + TITAN
+    + TITAN {pmid 31150574}
     ° Toxicity of note: rash, hypothyroidism and fracture (SPARTAN)
   ④ Darolutamide 〔NCCN 2A, other recommended〕 〔ESMO I, A〕
     ・Low volume 〔NCCN 2B, other recommended〕
-    ~ ARANOTE
+    ~ ARANOTE {pmid 39279580}
     ° Toxicity of note: fatigue
     ・Low brain penetration
   ※ Drug interactions
@@ -279,7 +279,7 @@ panel: Emerging upfront triplet options > Metastatic, castration-sensitive
   ① BRCA1 or BRCA2 altered: niraparib with abiraterone
     ・BRCA2 only, high volume 〔NCCN 2A, useful in certain circumstances〕
     ・BRCA2 only, low volume 〔NCCN 2B, useful in certain circumstances〕
-    ~ AMPLITUDE
+    ~ AMPLITUDE {pmid 41057655}
     ※ No significant rPFS benefit with other HRR genes in a post hoc analysis
   ② HRR altered: talazoparib with enzalutamide
     ~ TALAPRO-3
@@ -287,21 +287,21 @@ panel: Emerging upfront triplet options > Metastatic, castration-sensitive
   ③ PTEN loss: capivasertib with abiraterone 〔NCCN 2B, very select patients only〕
     ・PTEN loss is shown by IHC
     ・US licence
-    ~ CAPItello-281
+    ~ CAPItello-281 {pmid 41120017}
     ※ OS was reported only in a later descriptive analysis
   ④ PSMA PET positive: Lu-177 PSMA-617 with an ARSI 〔NCCN 2A, useful in certain circumstances〕
     ・Low volume 〔NCCN 2B, useful in certain circumstances〕
-    ~ PSMAddition
+    ~ PSMAddition {pmid 42561994}
 
 panel: Bone metastases, no visceral disease > Metastatic, castration-resistant
   ① Radium-223 with a bone-protecting agent, for symptomatic bone metastases 〔NCCN 1, useful in certain circumstances〕
     ・After docetaxel or if unfit for it 〔ESMO I, A〕
     ・Not recommended as a single agent with nodal or visceral metastases 〔ESMO III, E〕
-    + ALSYMPCA
+    + ALSYMPCA {pmid 23863050}
     ※ Radium-223 is not recommended with abiraterone
       ・Fractures were more frequent with the combination
-      - ERA 223 [t-era-223]
+      - ERA 223 {pmid 30738780}
   ② Before any ARSI: radium-223 with enzalutamide and a bone-protecting agent 〔NCCN 1, useful in certain circumstances〕 〔ESMO II, C〕
     ・No EU or US licence for the combination
     ・Fractures were more frequent than with enzalutamide alone
-    + PEACE-3 [t-peace-3]
+    + PEACE-3 {pmid 40450503}

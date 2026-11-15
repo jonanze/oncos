@@ -223,6 +223,7 @@
   var ctrl = null;
   function draw(pane, id, html){
     var model = window.oncosOutline.parse(html.src);
+    window.oncosOutline.link(model, html.rows);
     window.oncosOutline.figures(model, html.rows);
     ctrl = window.oncosCanvas.render(pane, model, {id: id, figures: html.rows ? 'Evidence' + (rowsDate ? ' ' + rowsDate : ', live') : 'Evidence did not load'});
     var fs = document.createElement('div');

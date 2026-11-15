@@ -89,7 +89,7 @@ band: Diagnosis, markers and staging
 
 band: First-line chemotherapy and supportive care
   ① BEP every 21 days: cisplatin 20 mg/m² and etoposide 100 mg/m² on days 1 to 5, with bleomycin 30 units weekly 〔JUA〕 〔NCCN〕
-  ~ Williams et al.
+  ~ Williams et al. {pmid 2437455}
   ※ Full doses at 21-day intervals are kept wherever possible 〔JUA〕
   ※ Bleomycin is avoided with heavy smoking, lung disease, older age or reduced renal function 〔JUA〕 〔ESMO〕 〔NCCN〕
     ・A planned lung resection is a further reason 〔JUA〕
@@ -99,9 +99,9 @@ band: First-line chemotherapy and supportive care
   ⑤ Peripheral venous access is used in place of a central venous device 〔ESMO III, A〕 〔EAU Weak〕
   ※ Primary G-CSF prophylaxis is considered in intermediate- and poor-risk disease 〔ESMO〕
   ※ Filgrastim with BEP-based chemotherapy improved delivery of the planned cycles, with no change in failure-free or overall survival
-    ~ Fosså 1998 [t-eortc-30985-mrc-te-13]
+    ~ Fosså 1998 {pmid 9469362}
   ※ G-CSF given with bleomycin was not associated with more bleomycin pulmonary toxicity in observational studies
-    ~ Tolstrup 2026 [t-tolstrup-et-al]
+    ~ Tolstrup 2026 {pmid 42998777}
   ° Toxicity of note: pulmonary toxicity with bleomycin, and more myelosuppression with VIP than with BEP 〔JUA〕 〔EAU〕
 
 course: Testicular germ cell tumours after orchidectomy | parallel
@@ -110,11 +110,11 @@ course: Testicular germ cell tumours after orchidectomy | parallel
     ① Surveillance 〔JUA〕 〔ESMO〕 〔EAU Strong〕 〔NCCN 2A, strongly preferred〕
     ※ Relapse on surveillance occurs in 12 to 20% at 5 years, and cancer-specific survival exceeds 99% 〔EAU LE 2a〕
     ※ Abdominal MRI can replace CT for follow-up imaging 〔ESMO I, A〕 〔EAU〕 〔NCCN〕
-      ~ TRISST [t-trisst]
+      ~ TRISST {pmid 35298280}
     ② One cycle of carboplatin AUC 7 when surveillance is declined or unsuitable 〔ESMO III, B〕 〔EAU Strong〕
       ・One or two cycles are given, with no preference between them 〔JUA〕 〔NCCN 2A〕
       ・Adjuvant carboplatin is not offered to patients without risk factors 〔ESMO III, D〕 〔EAU Strong〕
-    ~ MRC TE19/EORTC 30982
+    ~ MRC TE19/EORTC 30982 {pmid 16039331}
     ※ The risk factors for relapse are tumour size over 4 cm and rete testis invasion 〔JUA〕 〔EAU LE 2b〕
       ・Tumour size and rete testis invasion are used as continuous risk factors without a size cut-off 〔ESMO〕
       ・Hilar invasion, lymphovascular invasion and raised preorchidectomy hCG and LDH also predict relapse 〔EAU LE 2a〕 〔NCCN〕
@@ -122,22 +122,22 @@ course: Testicular germ cell tumours after orchidectomy | parallel
     ※ Adjuvant radiotherapy is not recommended 〔JUA 2, B〕 〔ESMO II, D〕 〔EAU Strong〕
       ・Para-aortic radiotherapy of 20 Gy in 10 fractions is an option for patients who decline surveillance 〔NCCN 2A〕
       ・Radiotherapy is reserved for highly selected patients unsuitable for chemotherapy 〔EAU Strong〕
-      ~ MRC TE18 / EORTC 30942
+      ~ MRC TE18 / EORTC 30942 {pmid 15718317}
     ° Toxicity of note: second cancers after adjuvant radiotherapy 〔JUA〕 〔ESMO〕 〔EAU LE 2b〕
     next: Seminoma relapse after surveillance or adjuvant treatment
   Stage IIA and IIB seminoma
     branch: SEM
     ① Three cycles of BEP, or four cycles of EP 〔JUA〕 〔ESMO II, A〕 〔EAU Weak〕 〔NCCN 2A〕
-    ~ Giannatempo 2015 [t-giannatempo-et-al]
+    ~ Giannatempo 2015 {pmid 25214543}
     ② Radiotherapy to the para-aortic and ipsilateral iliac nodes: 30 Gy in stage IIA and 36 Gy in stage IIB 〔JUA〕 〔ESMO II, A〕 〔EAU Weak〕
       ・Radiotherapy is limited to nodes under 3 cm, with 30 Gy for 1 to 2 cm and 36 Gy for 2 to 3 cm 〔NCCN 2A〕
       ・In stage IIB, radiotherapy is for patients unsuitable for chemotherapy 〔ESMO II, A〕
     ③ Nerve-sparing RPLND for marker-negative nodes of 3 cm or less, in expert centres only 〔EAU Weak〕 〔NCCN 2A〕
       ・The grade is lower for nodes of 2 to 3 cm 〔NCCN 2B〕
-    ~ SEMS [t-sems]
+    ~ SEMS {pmid 36913642}
     ※ Carboplatin AUC 7 followed by involved-node radiotherapy is an option for nodes under 3 cm 〔NCCN 2B〕
       ・The evidence is insufficient for routine practice 〔EAU〕
-      ~ SAKK 01/10 [t-sakk-01-10]
+      ~ SAKK 01/10 {pmid 36228644}
     ※ Single-agent carboplatin has insufficient efficacy in stage II 〔JUA〕
     ※ Marker-negative nodes under 2 cm are confirmed by repeat imaging after 6 to 8 weeks or by biopsy before treatment 〔JUA〕 〔ESMO III, B〕 〔EAU〕
       ・The interval is 4 to 8 weeks 〔NCCN〕
@@ -151,7 +151,7 @@ course: Testicular germ cell tumours after orchidectomy | parallel
     ※ In good-risk disease with LDH above 2.5 times the upper limit of normal, intensification of treatment can be considered 〔NCCN〕
       ・Treatment as for intermediate risk has a rationale, without prospective data 〔EAU〕
     ※ Single-agent carboplatin is inferior to cisplatin-based combination chemotherapy 〔EAU LE 1b〕
-      - Bokemeyer 2004 [t-bokemeyer-et-al]
+      - Bokemeyer 2004 {pmid 15266338}
     next: Residual mass after chemotherapy for seminoma
   Stage I non-seminoma
     branch: NS
@@ -161,7 +161,7 @@ course: Testicular germ cell tumours after orchidectomy | parallel
       ・Surveillance is the alternative 〔JUA〕 〔ESMO III, B〕 〔EAU Strong〕
       ・Surveillance, one cycle of BEP and RPLND carry no order of preference 〔NCCN 2A〕
       ・Invasion of the spermatic cord or scrotum also counts as a risk factor 〔NCCN〕
-    ~ AUO AH 01/94 (GTCSG) [t-auo-ah-01-94]
+    ~ AUO AH 01/94 (GTCSG) {pmid 18458040}
     ③ Nerve-sparing RPLND when surveillance and chemotherapy are both unsuitable 〔JUA〕 〔EAU Strong〕
       ・RPLND is not recommended, and is considered only when both other strategies are contraindicated 〔ESMO II, D〕
       ・RPLND is an option in both risk groups at a high-volume centre 〔NCCN 2A〕
@@ -186,22 +186,22 @@ course: Testicular germ cell tumours after orchidectomy | parallel
     branch: NS
     ① Good risk: three cycles of BEP 〔JUA〕 〔ESMO II, A〕 〔EAU LE 1b〕 〔NCCN 1, preferred〕, or four cycles of EP 〔JUA〕 〔NCCN 1, preferred〕
       ・EP is given when bleomycin is contraindicated or undesirable 〔JUA 2, C〕 〔ESMO II, A〕 〔EAU〕
-    ~ de Wit et al.
-    ~ GETUG T93BP
+    ~ de Wit et al. {pmid 11250991}
+    ~ GETUG T93BP {pmid 17351252}
     ② Intermediate or poor risk: four cycles of BEP 〔JUA〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕, or four cycles of VIP with G-CSF when bleomycin is contraindicated 〔JUA 2, C〕 〔ESMO〕 〔EAU LE 1b〕 〔NCCN 1〕
-    - ECOG E3887
-    - de Wit 1998 [t-de-wit-et-al--germ-cell-tumors-2]
+    - ECOG E3887 {pmid 9552027}
+    - de Wit 1998 {pmid 9743309}
     ③ Poor risk: marker decline is assessed after the first cycle, and intensified chemotherapy is considered after an unfavourable decline 〔ESMO II, A〕 〔EAU Weak〕
       ・Intensified first-line regimens, including dose-dense chemotherapy after an unfavourable marker decline, are not recommended 〔JUA 2, C〕
-    ~ GETUG-13
+    ~ GETUG-13 {pmid 25456363}
     ※ Bleomycin could not be omitted from three cycles of BEP, or from BEP with etoposide 360 mg/m² per cycle, without loss of efficacy
-      - Loehrer et al.
-      - de Wit 1997 [t-de-wit-et-al--germ-cell-tumors]
+      - Loehrer et al. {pmid 7531223}
+      - de Wit 1997 {pmid 9164193}
     ※ Carboplatin in place of cisplatin is inferior, and is used only in patients unfit for cisplatin 〔JUA〕 〔ESMO〕
-      - MRC TE09/EORTC 30896
+      - MRC TE09/EORTC 30896 {pmid 9164194}
     ※ First-line high-dose chemotherapy has shown no survival benefit and is not recommended 〔JUA 2, C〕 〔EAU LE 1b〕
-      - Motzer 2007 [t-motzer-et-al--germ-cell-tumors]
-      - EORTC 30974 [t-eortc-30974]
+      - Motzer 2007 {pmid 17235042}
+      - EORTC 30974 {pmid 21059637}
     ※ With extensive lung or liver metastases or poor general condition, a dose-reduced first cycle is given, followed by the full number of full-dose cycles 〔JUA〕 〔ESMO〕 〔EAU〕
     ※ Brain metastases at diagnosis are treated with chemotherapy as for poor-risk disease, with radiotherapy or surgery where indicated 〔EAU〕 〔NCCN 2A〕
       ・Stereotactic treatment is preferred to whole-brain irradiation 〔EAU〕
@@ -265,15 +265,15 @@ course: Testicular germ cell tumours after orchidectomy | parallel
       ・GIP for four cycles is a possible option 〔EAU〕
       ・Paclitaxel is given at 250 mg/m² over 24 hours or at 175 mg/m² over 3 hours 〔EAU〕
       ・Paclitaxel is licensed in Japan at 210 mg/m² over 3 hours every 3 weeks 〔JUA〕
-    ~ Kondagunta et al. [t-kondagunta-et-al]
+    ~ Kondagunta et al. {pmid 16170162}
     ② Resection of residual masses after salvage chemotherapy 〔ESMO III, A〕 〔EAU〕 〔NCCN 2A〕
     ※ High-dose carboplatin and etoposide with autologous stem-cell support is an equal option to conventional-dose chemotherapy 〔NCCN 2A〕
       ・The evidence is insufficient to recommend high-dose chemotherapy at first relapse before the TIGER trial reports 〔ESMO〕 〔EAU〕
       ・High-dose chemotherapy is given at few centres in Japan, preferably within clinical research, and may suit multiply relapsed, platinum-refractory or mediastinal non-seminoma 〔JUA〕
       ・Sequential high-dose cycles are preferred to a single high-dose cycle 〔EAU〕
-      ~ TI-CE [t-ti-ce]
-      - IT-94 [t-it94]
-      ~ Lorch 2007 [t-lorch-et-al]
+      ~ TI-CE {pmid 20194867}
+      - IT-94 {pmid 15928070}
+      ~ Lorch 2007 {pmid 17602082}
     ※ Prognosis follows the IPFSG score: histology, primary site, response to first-line treatment, progression-free interval, AFP, hCG, and liver, bone or brain metastases 〔JUA〕 〔ESMO IV, C〕 〔EAU〕
     ※ Brain metastases at relapse receive multimodal treatment that includes radiotherapy 〔ESMO〕 〔EAU〕 〔NCCN〕
       ・Consolidation radiotherapy is given even after a complete response to chemotherapy 〔EAU〕

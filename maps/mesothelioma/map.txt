@@ -88,9 +88,9 @@ band: Surgery
   ・Surgery alone is insufficient 〔ASCO Moderate, Strong〕
   ・Adjuvant treatment after upfront surgery 〔STS 6〕
   ④ Lymph node dissection at surgery, including hilar, mediastinal, internal mammary, diaphragmatic, pericardial and intercostal stations 〔STS 8.1, 8.2〕
-    ~ EORTC 1205 [t-eortc-1205]
+    ~ EORTC 1205 {pmid 38843916}
   ※ Pleurectomy decortication or extended pleurectomy decortication added to chemotherapy shortened survival and increased serious adverse events
-    - MARS 2
+    - MARS 2 {pmid 38740044}
   ※ ESMO 2022 predates MARS 2
   ・Contraindications to surgery: sarcomatoid histology, contralateral or supraclavicular nodes and extrathoracic disease, without a stage limit 〔ESMO 2022〕
   ・No evidence that surgery added to systemic therapy improves survival 〔NCCN 1.2027〕
@@ -104,7 +104,7 @@ band: Surgery
   ※ Extrapleural pneumonectomy within trimodal therapy showed no benefit and possible harm
   ・An option in highly selected patients in expert centres 〔ASCO Moderate, Strong〕
   ・Only when pleurectomy decortication cannot clear the tumour and prognostic factors are favourable 〔STS 7.2〕
-    - MARS
+    - MARS {pmid 21723781}
 
 band: Treatment around surgery
   ※ Adjuvant hemithoracic radiotherapy is not standard
@@ -112,11 +112,11 @@ band: Treatment around surgery
   ・An option after extrapleural pneumonectomy, preferably in expert centres 〔ASCO Moderate, Strong〕
   ・Hemithoracic radiotherapy after extrapleural pneumonectomy 〔JLCS D, 2〕
   ・3D conformal radiotherapy or IMRT 〔JLCS C, 2〕
-    - SAKK 17/04 [t-sakk-17-04]
+    - SAKK 17/04 {pmid 26538423}
   ※ After pleurectomy decortication or lung-sparing surgery: hemithoracic IMRT 〔ASCO Moderate, Conditional〕, in experienced centres 〔NCCN 2A〕
   ・Radiotherapy is not recommended after pleurectomy decortication or without surgery 〔JLCS D, 2〕
   ・Radiotherapy is not recommended before lung-sparing surgery 〔ASCO Low, Strong〕
-    + Trovo 2021 [t-cro-2012-38]
+    + Trovo 2021 {pmid 33259933}
   ※ Neoadjuvant immunotherapy is an option 〔ASCO Low, Conditional〕
   ・Role unknown 〔ESMO 2022〕
   ・Nivolumab and ipilimumab before surgery 〔NCCN〕
@@ -131,11 +131,11 @@ band: Effusion and radiotherapy
   ・Indwelling catheters are not recommended in surgical candidates, because of tract seeding 〔ASCO Moderate, Strong〕
   ・Pleurodesis after drainage to control the effusion 〔JLCS C, 2〕
   ・Drainage when disease may be operable, drainage or pleurodesis when it is not 〔NCCN 2A〕
-    - MesoVATS [t-mesovats]
+    - MesoVATS {pmid 24942631}
   ② Palliative radiotherapy to painful or symptomatic sites 〔ESMO III, B〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕
   ③ Prophylactic radiotherapy to procedure tracts is not recommended 〔ESMO I, D〕 〔ASCO High, Strong〕 〔NCCN 2A〕
-    - SMART [t-smart]
-    - PIT [t-pit]
+    - SMART {pmid 27345639}
+    - PIT {pmid 30920878}
   ※ Recurrence after surgery
   ・Resection of an isolated recurrence 〔STS 13.1〕 〔JLCS D, 2〕, or SBRT to an isolated pleural recurrence 〔STS 13.2〕
   ・Conventionally fractionated or mildly hypofractionated radiotherapy for diffuse or bulky recurrence in selected patients 〔STS 13.3〕
@@ -168,10 +168,10 @@ course: Unresectable pleural mesothelioma
     branch: NE
     ① Nivolumab and ipilimumab 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ・For up to 2 years 〔ASCO Moderate, Strong〕
-      + CheckMate 743 [t-checkmate-743]
+      + CheckMate 743 {pmid 33485464}
     ② Platinum and pemetrexed for up to 6 cycles with pembrolizumab, pembrolizumab continued for up to 2 years 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
     ・EU licence for non-epithelioid only
-      + KEYNOTE-483
+      + KEYNOTE-483 {pmid 37931632}
     ③ Platinum and pemetrexed 〔ESMO I, A〕
     ・Only when immunotherapy is contraindicated 〔ASCO High, Strong〕
     ・With or without bevacizumab 〔NCCN 1, other recommended〕
@@ -187,8 +187,8 @@ course: Unresectable pleural mesothelioma
     ・Bevacizumab, when given, is continued until progression 〔ESMO I, A〕
     ・Bevacizumab added to cisplatin and pemetrexed 〔JLCS B, 2〕
     ・Bevacizumab has no licence for this cancer
-      + EMPHACIS
-      + MAPS
+      + EMPHACIS {pmid 12860938}
+      + MAPS {pmid 26719230}
     ③ Platinum and pemetrexed with pembrolizumab 〔ASCO High, Strong〕 〔NCCN 1, other recommended〕
     ・Moved down from preferred in NCCN 1.2027
     ・Licensed in the US, and the EU licence excludes epithelioid disease
@@ -206,7 +206,7 @@ course: Unresectable pleural mesothelioma
     ※ Atezolizumab added to carboplatin, pemetrexed and bevacizumab did not improve OS
     ・This regimen is not licensed
     ・Benefit was greater in the prespecified non-epithelioid subgroup
-      - BEAT-meso [t-beat-meso]
+      - BEAT-meso {pmid 39814199}
     join: Maintenance or observation | No progression
     join: Second line and beyond | Progression
   PS 2 or more
@@ -227,9 +227,9 @@ course: Unresectable pleural mesothelioma
     ② Otherwise a break after 4 to 6 cycles 〔ASCO Low, Strong〕
     ・Switch maintenance gemcitabine is an option, not routine 〔ESMO II, C〕 〔ASCO Moderate, Conditional〕 〔JLCS C, 2〕
     ・Gemcitabine improved PFS, not OS
-      ~ NVALT19 [t-nvalt-19]
+      ~ NVALT19 {pmid 33515500}
     ※ Pemetrexed maintenance is not recommended 〔ESMO II, E〕 〔ASCO Moderate, Strong〕 〔JLCS C, 2〕
-      - CALGB 30901 [t-calgb-30901]
+      - CALGB 30901 {pmid 32727707}
     next: Second line and beyond | Progression
   Second line and beyond
     branch: SL
@@ -240,20 +240,20 @@ course: Unresectable pleural mesothelioma
     ・Nivolumab alone after chemotherapy is licensed in Japan (2018)
     ・None is licensed in this setting in the EU or US
     ・Pembrolizumab alone 〔ESMO II, C〕
-      ~ MAPS2
-      ~ CONFIRM
-      - PROMISE-meso [t-promise-meso]
+      ~ MAPS2 {pmid 30660609}
+      ~ CONFIRM {pmid 34656227}
+      - PROMISE-meso {pmid 32976938}
     ② Gemcitabine with ramucirumab 〔ESMO III, C〕 〔ASCO Moderate, Strong〕 〔NCCN 2A, other recommended〕
     ・Ramucirumab has no licence for this cancer
-      + RAMES [t-rames]
+      + RAMES {pmid 34499874}
     ③ Vinorelbine or gemcitabine alone 〔ESMO II, B〕 〔NCCN 2A, other recommended〕
     ・Oral vinorelbine 〔ASCO Moderate, Strong〕
     ・Vinorelbine, gemcitabine, or both together 〔JLCS C, 2〕
     ・Vinorelbine improved PFS but not OS
-      ~ VIM
+      ~ VIM {pmid 35706488}
     ④ Pemetrexed alone, if not previously given 〔ESMO III, C〕 〔NCCN 1, other recommended〕
     ・Pemetrexed alone, including retreatment 〔JLCS C, 2〕
-      ~ Jassem 2008 [t-jassem-et-al]
+      ~ Jassem 2008 {pmid 18375898}
     ⑤ Platinum and pemetrexed again in selected patients 〔ESMO II, B〕
     ・After disease control of more than 6 months 〔ASCO Low, Strong〕
     ・After a good response 〔NCCN 2A〕
