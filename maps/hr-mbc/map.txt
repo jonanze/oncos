@@ -1,5 +1,5 @@
 # oncOS board map: HR+ HER2- MBC (systemic course of hormone receptor-positive, HER2-negative metastatic breast cancer)
-# Draft 1 (thread prose pass applied), 2026-11-14. Not approved, not live. Draft 0 by the structure planner, reviewed by independent QA
+# Draft 2.2, approved by Jonan for publication 2026-11-15. Intake chips linked to filed rows 2026-11-15 (ASCENT-07 awaits a PMID). Draft 0 by the structure planner, reviewed by independent QA
 #   (board-maps/hr-mbc/independent-review.md, 40 findings). Draft 1 changed: HER2-ultralow on its own line with
 #   chemotherapy first, licence and grade attachments corrected, ABC8 conditions written in, seven chips added, ・ lines
 #   that restated a point merged (board-maps/hr-mbc/draft1-changes.md)
@@ -94,11 +94,11 @@ band: Chemotherapy
     ・An anthracycline or a taxane is the usual first chemotherapy when neither was given for early disease 〔ABC8 I/A〕
     ・An anthracycline or a taxane can be given again after a disease-free interval of 12 months or more 〔PAGA II, B〕 〔ESMO II, B〕
     ・Metronomic chemotherapy is an option when no rapid response is needed 〔ABC8 I/B〕
-    + EMBRACE {pmid 21376385}
+    + EMBRACE [t-embrace]
   ② Imminent organ failure: combination chemotherapy 〔PAGA II, A〕 〔ESMO V, A〕
     ・Combinations are also used for symptomatic, rapidly progressing or immediately life-threatening disease 〔ASCO Moderate, Strong〕 〔NCCN〕
   ※ Chemotherapy generally continues until progression or intolerable toxicity 〔PAGA I, B〕 〔ASCO〕 〔NCCN 2A〕, within the cumulative dose limit for anthracyclines 〔PAGA〕
-    + Gennari 2011 {pmid 21464403}
+    + Gennari 2011 [t-gennari-et-al]
   ※ Bevacizumab may be added to capecitabine or a taxane in the first chemotherapy line 〔PAGA I, C〕 〔ESMO I, C〕, and in the second 〔PAGA〕
     ・Bevacizumab has no EMA or FDA licence in this line 〔ESMO〕
   ※ Dihydropyrimidine dehydrogenase testing precedes capecitabine 〔ESMO V, A〕
@@ -121,9 +121,9 @@ course: Systemic treatment of HR+ HER2- metastatic breast cancer | parallel
     ~ FALCON [t-falcon]
     - SONIA [t-sonia]
     ※ Fulvestrant with anastrozole or letrozole is an option when no CDK4/6 inhibitor is given and no adjuvant endocrine therapy was received 〔ASCO〕 〔NCCN 1〕 〔ABC8 II/D〕
-      + SWOG S0226 {pmid 22853014}
-      - FACT {pmid 22370325}
-      - SoFEA {pmid 23902874}
+      + SWOG S0226 [t-swog-s0226]
+      - FACT [t-fact]
+      - SoFEA [t-sofea]
     ※ When an ESR1 mutation appears in ctDNA after at least 6 months of treatment, without radiological progression, a switch of the aromatase inhibitor to camizestrant, with the same CDK4/6 inhibitor, can be considered 〔NCCN 2B〕
       ・The clinical utility of serial ctDNA testing to change treatment before progression is not yet established 〔ABC8 I/D〕
       ~ SERENA-6 [t-serena-6]
@@ -154,9 +154,9 @@ course: Systemic treatment of HR+ HER2- metastatic breast cancer | parallel
       ・Examples are bilirubin rising rapidly above 1.5 times the upper limit of normal without biliary obstruction, and dyspnoea at rest that pleural drainage does not relieve 〔ABC8 Expert opinion/NA〕
     ※ Extensive or symptomatic visceral disease without organ failure is treated with endocrine therapy and a CDK4/6 inhibitor in preference to chemotherapy 〔NCCN〕 〔ABC8 I/A〕
       ~ RIGHT Choice [t-right-choice]
-      ~ PADMA {pmid 42275799}
-      - PEARL {pmid 33385521}
-      ~ Young-PEARL {pmid 31668850}
+      ~ PADMA [t-padma]
+      - PEARL [t-pearl]
+      ~ Young-PEARL [t-young-pearl]
     next: After progression on first-line therapy
   After progression on first-line therapy
     branch: SEC
@@ -196,11 +196,11 @@ course: Systemic treatment of HR+ HER2- metastatic breast cancer | parallel
       ・CDK4/6 inhibitor rechallenge may be possible after a treatment-free interval of 12 months 〔PAGA〕
       ・A second CDK4/6 inhibitor is less preferred, and is reserved for patients with no other targeted option who had more than 12 months on the first, with both drugs changed 〔ABC8 II/C〕
     ~ BOLERO-2 [t-bolero-2]
-    ~ TAMRAD {pmid 22565002}
+    ~ TAMRAD [t-tamrad]
     ~ MAINTAIN [t-maintain]
     ~ postMONARCH [t-postmonarch]
-    - PACE {pmid 38513188}
-    - PALMIRA {pmid 40294349}
+    - PACE [t-pace]
+    - PALMIRA [t-palmira]
     ~ VIKTORIA-1 [t-viktoria-1]
     ※ In endocrine-sensitive disease, endocrine therapy continues with agents not yet received for metastatic disease 〔PAGA III, B〕 〔ESMO III, B〕, including tamoxifen, megestrol acetate or oestradiol in indolent disease 〔ASCO〕 〔NCCN 2A〕
     ※ The choice between endocrine-based and other treatment rests on disease aggressiveness and extent, organ function, the response to previous endocrine therapy, mutation status and toxicity 〔PAGA〕 〔ESMO V, B〕
@@ -252,10 +252,10 @@ panel: Bone-modifying agents
     ・Zoledronic acid is given every 12 weeks in stable disease after 3 to 6 monthly doses 〔PAGA I, B〕, after 9 months or more 〔ESMO I, B〕, or from the start 〔NCCN 1〕
     ・Treatment can be interrupted after 2 years in patients in remission 〔PAGA II, B〕 〔ESMO II, B〕
     ・Treatment can continue beyond 2 years, with limited safety data 〔NCCN〕
-  ~ Stopeck 2010 {pmid 21060033}
-  ~ ZOOM {pmid 23684411}
-  ~ OPTIMIZE-2 {pmid 28125763}
-  ~ CALGB 70604 {pmid 28030702}
+  ~ Stopeck 2010 [t-20050136]
+  ~ ZOOM [t-zoom]
+  ~ OPTIMIZE-2 [t-optimize-2]
+  ~ CALGB 70604 [t-calgb-70604]
   ※ A dental examination with any dental treatment needed precedes the first dose, and calcium and vitamin D are given 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 1〕
     ・With a bisphosphonate, calcium is 1200 to 1500 mg and vitamin D3 400 to 800 IU daily, and serum creatinine is measured before each dose 〔NCCN〕
     ・With denosumab, supplements start before the first dose 〔NCCN〕
@@ -265,10 +265,10 @@ panel: De novo stage IV disease, surgery of the primary tumour
   ① No local symptoms: systemic therapy, without routine locoregional treatment of the primary tumour 〔PAGA II, D〕 〔ESMO II, D〕 〔NCCN〕
     ・Surgery may be considered for patients with bone-only metastases, a good response to systemic therapy, age under 55 or oligometastatic disease 〔PAGA II, B〕
     ・Surgery can be considered after multidisciplinary discussion by patient preference, in disease responding to systemic therapy, or to improve quality of life 〔ESMO V, C〕 〔NCCN〕 〔ABC8 I/C〕
-  - Tata Memorial trial {pmid 26363985}
-  - ABCSG-28 POSYTIVE {pmid 31082916}
-  + MF07-01 {pmid 29777404}
-  - ECOG-ACRIN E2108 {pmid 34995128}
+  - Tata Memorial trial [t-badwe-et-al]
+  - ABCSG-28 POSYTIVE [t-posytive]
+  + MF07-01 [t-mf07-01]
+  - ECOG-ACRIN E2108 [t-ecog-acrin-e2108]
   ② Local symptoms from the primary tumour: locoregional treatment is considered 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN〕
     ・Surgery requires complete local clearance and no immediately life-threatening disease elsewhere, and radiotherapy is an alternative 〔NCCN〕
   ※ The decision is made in a multidisciplinary team 〔PAGA II, B〕 〔ESMO II, B〕
