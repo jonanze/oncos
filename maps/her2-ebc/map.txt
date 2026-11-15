@@ -1,5 +1,5 @@
 # oncOS board map: HER2+ EBC (systemic course of stage I to III HER2-positive breast cancer)
-# Draft 1, 2026-11-15, after the independent review. Not approved, not live.
+# 2026-11-15, approved by Jonan for publication (oncos PR #83). Endocrine-alone line under pT1a-b removed by Jonan 2026-11-15
 #   Structure plan: board-maps/her2-ebc/structure-plan.md. Changes from draft 0: board-maps/her2-ebc/draft1-changes.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Scope (Jonan 2026-11-15): the systemic course, with two panels: cardiac monitoring, and endocrine therapy and neratinib
@@ -105,7 +105,6 @@ course: Systemic treatment of stage I to III HER2-positive breast cancer | paral
     ① pT1a-b pN0: weekly paclitaxel for 12 weeks with trastuzumab for 1 year 〔PAGA III, B〕 〔ESMO III, B〕 〔St Gallen〕
       ・Chemotherapy with trastuzumab can be considered in pT1b disease 〔NCCN 2A〕 and in pT1a disease 〔NCCN 2B〕
       ・The tumour size threshold for chemotherapy with trastuzumab is about 0.5 cm 〔St Gallen〕
-      ・In HR-positive disease, endocrine therapy alone is an alternative 〔NCCN 2A〕
     ~ APT {pmid 25564897}
     ② pT1c pN0: weekly paclitaxel with trastuzumab 〔ESMO III, B〕 〔St Gallen〕, or chemotherapy with trastuzumab 〔NCCN 1〕
       ・Pertuzumab is an option 〔St Gallen〕
