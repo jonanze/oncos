@@ -112,7 +112,7 @@ async function bootstrap() {
       records = next;
     }
   } catch (error) {
-    console.warn('oncOS search refresh failed:', error.message);
+    console.warn('ONCOS search refresh failed:', error.message);
     if (!active) {
       try { active = await store.loadActive(); } catch (_) { active = null; }
     }
