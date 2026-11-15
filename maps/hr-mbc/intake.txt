@@ -1,0 +1,21 @@
+# Trials on the HR+ HER2- MBC map with no Evidence row yet (name, PMID, where on the map)
+EMBRACE	PMID 21376385	Chemotherapy
+Gennari 2011	PMID 21464403	Chemotherapy
+SWOG S0226	PMID 22853014	First line, de novo disease or relapse more than 12 months after adjuvant endocrine therapy
+FACT	PMID 22370325	First line, de novo disease or relapse more than 12 months after adjuvant endocrine therapy
+SoFEA	PMID 23902874	First line, de novo disease or relapse more than 12 months after adjuvant endocrine therapy
+PADMA	PMID 42275799	Visceral crisis at presentation
+PEARL	PMID 33385521	Visceral crisis at presentation
+Young-PEARL	PMID 31668850	Visceral crisis at presentation
+TAMRAD	PMID 22565002	After progression on first-line therapy
+PACE	PMID 38513188	After progression on first-line therapy
+PALMIRA	PMID 40294349	After progression on first-line therapy
+ASCENT-07	no PMID yet https://doi.org/10.1158/1557-3265.SABCS25-GS1-09	First cytotoxic line in endocrine-resistant disease
+Stopeck 2010	PMID 21060033	Bone-modifying agents
+ZOOM	PMID 23684411	Bone-modifying agents
+OPTIMIZE-2	PMID 28125763	Bone-modifying agents
+CALGB 70604	PMID 28030702	Bone-modifying agents
+Tata Memorial trial	PMID 26363985	De novo stage IV disease, surgery of the primary tumour
+ABCSG-28 POSYTIVE	PMID 31082916	De novo stage IV disease, surgery of the primary tumour
+MF07-01	PMID 29777404	De novo stage IV disease, surgery of the primary tumour
+ECOG-ACRIN E2108	PMID 34995128	De novo stage IV disease, surgery of the primary tumour
