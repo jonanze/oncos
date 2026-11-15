@@ -396,7 +396,7 @@ panel: Primary CNS lymphoma
     ・R-MPV or R-MT is preferred, with MATRix listed as other recommended 〔NCCN 2A〕
     ・Methotrexate dose adjusted to renal function 〔ESMO III, A〕 〔EHA-ESMO III, A〕 〔NCCN 2A〕
   ~ IELSG20 [t-ielsg20]
-  ~ IELSG32 [t-ielsg-32]
+  ~ IELSG32 induction [t-ielsg32--high-grade-b-cell-lymphoma]
   ~ Morris 2013 [t-morris-et-al]
   ④ The benefit of rituximab in induction is unclear 〔EHA-ESMO II, B〕
     ・Part of every preferred regimen 〔NCCN 2A, preferred〕

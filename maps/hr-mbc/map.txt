@@ -252,7 +252,7 @@ panel: Bone-modifying agents
     ・Zoledronic acid is given every 12 weeks in stable disease after 3 to 6 monthly doses 〔PAGA I, B〕, after 9 months or more 〔ESMO I, B〕, or from the start 〔NCCN 1〕
     ・Treatment can be interrupted after 2 years in patients in remission 〔PAGA II, B〕 〔ESMO II, B〕
     ・Treatment can continue beyond 2 years, with limited safety data 〔NCCN〕
-  ~ Stopeck 2010 [t-20050136]
+  ~ Stopeck 2010 [t-stopeck-et-al]
   ~ ZOOM [t-zoom]
   ~ OPTIMIZE-2 [t-optimize-2]
   ~ CALGB 70604 [t-calgb-70604]
