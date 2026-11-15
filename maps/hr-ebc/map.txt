@@ -59,7 +59,7 @@ band: Receptors, risk and genomic assays
     ・No assay is preferred over another, and RSClin is preferred to the recurrence score alone 〔ASCO〕
     ・A Ki-67 of 10% or less after 4 weeks of preoperative endocrine therapy can estimate the benefit of chemotherapy with 0 to 3 nodes 〔ESMO〕
   ※ With high clinical risk and low 70-gene risk, chemotherapy gave no benefit above age 50, and a small benefit at age 50 or younger 〔NCCN〕
-    ~ MINDACT [t-mindact]
+    ~ MINDACT {pmid 27557300}
   ※ Chemotherapy directed by the Prosigna score was non-inferior to chemotherapy for all in high clinical-risk disease, mostly node-positive (congress abstract) 〔ASCO〕
     ~ OPTIMA [t-optima]
   ⑤ Germline BRCA1/2 testing is offered to patients who meet national criteria and to candidates for adjuvant olaparib 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕
@@ -69,21 +69,21 @@ band: Receptors, risk and genomic assays
 
 band: Chemotherapy regimens
   ① Higher risk: an anthracycline followed by a taxane 〔ESMO〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕, given dose-dense with G-CSF 〔PAGA I, B〕 〔NCCN 1, preferred〕
-  + INT 0148 (CALGB 9344) [t-int-0148]
-  ~ NSABP B-28 [t-nsabp-b-28]
-  + ECOG E1199 [t-ecog-e1199]
-  + INT C9741 (CALGB 9741) [t-int-c9741]
-  + EBCTCG 2019 [t-ebctcg-dose-intensification-meta-analysis]
+  + INT 0148 (CALGB 9344) {pmid 12637460}
+  ~ NSABP B-28 {pmid 15897552}
+  + ECOG E1199 {pmid 18420499}
+  + INT C9741 (CALGB 9741) {pmid 12668651}
+  + EBCTCG 2019 {pmid 30739743}
   ※ Dose-dense AC is doxorubicin 60 mg/m² and cyclophosphamide 600 mg/m² every 14 days for four cycles, followed by paclitaxel 175 mg/m² every 14 days for four cycles or 80 mg/m² weekly for 12 weeks 〔NCCN〕
   ※ Adjuvant chemotherapy reduces the relative risk of recurrence and improves survival by 25 to 30%, irrespective of subtype 〔ESMO〕
-    + EBCTCG 2012 [t-ebctcg-polychemotherapy-meta-analysis]
+    + EBCTCG 2012 {pmid 22152853}
   ② Lower risk, or cardiac risk: docetaxel 75 mg/m² and cyclophosphamide 600 mg/m² (TC) every 21 days for four to six cycles 〔ESMO〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕
-  + US Oncology 9735 [t-us-oncology-9735]
-  ~ WSG PlanB [t-wsg-planb]
-  - ABC trials [t-abc-trials]
+  + US Oncology 9735 {pmid 17135639}
+  ~ WSG PlanB {pmid 30785826}
+  - ABC trials {pmid 28398846}
   ※ An anthracycline is favoured above a 25% estimated 10-year risk of breast cancer death and avoided below 20% 〔ASCO〕
     ・A non-anthracycline regimen is favoured for node-negative disease with a recurrence score of 26 to 30, and an anthracycline with a taxane for node-positive disease or a score above 30 〔St Gallen〕
-    + EBCTCG 2023 [t-ebctcg-anthracycline-and-taxane-chemotherapy-meta-analysis]
+    + EBCTCG 2023 {pmid 37061269}
   ③ Fit older patients: a standard multidrug regimen 〔PAGA II, B〕 〔ESMO II, B〕 after geriatric assessment 〔PAGA II, A〕 〔ESMO II, A〕
   ※ Adjuvant chemotherapy starts within 4 to 6 weeks 〔ESMO〕 or 8 weeks 〔ASCO Low, Conditional〕 of surgery, and no later than 12 weeks 〔ESMO〕 〔ASCO〕
   ※ Endocrine therapy follows chemotherapy and is not given with it 〔NCCN〕
@@ -93,25 +93,25 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
   Postmenopausal after primary surgery: chemotherapy or not
     branch: POST
     ① Node-negative, recurrence score 25 or less: endocrine therapy without chemotherapy 〔ESMO〕 〔NCCN 1〕
-    ~ TAILORx [t-tailorx]
+    ~ TAILORx {pmid 29860917}
     ② One to three positive nodes, recurrence score 25 or less: endocrine therapy without chemotherapy 〔ESMO〕 〔NCCN 1〕
-    ~ RxPONDER [t-rxponder]
+    ~ RxPONDER {pmid 34914339}
     ③ Recurrence score 26 or more, or four or more positive nodes: chemotherapy followed by endocrine therapy 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕
       ・With four nodes and a low recurrence score, about two thirds of the panel favoured chemotherapy 〔St Gallen〕
-    ~ Paik et al. [t-paik-et-al]
+    ~ Paik et al. {pmid 16720680}
     ※ At age 70 or older with a high genomic grade index, chemotherapy added to endocrine therapy did not improve overall survival 〔ASCO〕
-      - ASTER 70s [t-aster-70s]
+      - ASTER 70s {pmid 40752909}
     next: Adjuvant endocrine therapy
   Premenopausal after primary surgery: chemotherapy or not
     branch: PRE
     ① Node-negative, recurrence score 15 or less: endocrine therapy without chemotherapy 〔NCCN 2A〕
     ② Node-negative, recurrence score 16 to 25: chemotherapy followed by endocrine therapy, or ovarian function suppression with endocrine therapy 〔NCCN 2A〕
       ・Endocrine therapy alone is limited to a score of 12, and above it ovarian function suppression comes first, with chemotherapy added as the risk rises 〔St Gallen〕
-    ~ TAILORx [t-tailorx]
+    ~ TAILORx {pmid 29860917}
     ③ One to three positive nodes, recurrence score 25 or less: chemotherapy followed by endocrine therapy, or ovarian function suppression with endocrine therapy 〔NCCN 2A〕
       ・Premenopausal node-positive disease is high clinical risk, and chemotherapy is considered 〔PAGA I, A〕 〔ESMO I, A〕
       ・Ovarian function suppression and chemotherapy are favoured together 〔St Gallen〕
-    ~ RxPONDER [t-rxponder]
+    ~ RxPONDER {pmid 34914339}
     ④ Recurrence score 26 or more 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕, or four or more positive nodes 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕: chemotherapy followed by endocrine therapy
     ※ The benefit of chemotherapy at lower scores may reflect the ovarian suppression it induces 〔ESMO〕 〔NCCN〕
     ※ Under age 35, both ovarian function suppression and chemotherapy are strongly favoured 〔St Gallen〕
@@ -121,48 +121,48 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
     ① Chemotherapy indicated: the adjuvant regimen given before surgery 〔ESMO〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕
       ・The indications are a larger tumour, clinical nodal involvement, inoperable disease, a wish for a smaller operation or a delay to surgery 〔ESMO〕 〔ASCO Moderate, Conditional〕 〔NCCN〕
     ※ Survival is the same with neoadjuvant and adjuvant chemotherapy 〔ASCO〕
-      - NSABP B-18 and B-27 [t-nsabp-b-18-and-nsabp-b-27]
-      - EBCTCG 2018 [t-ebctcg-neoadjuvant-meta-analysis]
+      - NSABP B-18 and B-27 {pmid 18258986}
+      - EBCTCG 2018 {pmid 29242041}
     ※ Pathological complete response is uncommon 〔ESMO〕, and it is less prognostic than in other subtypes 〔NCCN〕 〔St Gallen〕
-      * CTNeoBC [t-ctneobc]
+      * CTNeoBC {pmid 24529560}
     ② Postmenopausal, no indication for chemotherapy: a neoadjuvant aromatase inhibitor is an option 〔ASCO Moderate, Conditional〕 〔NCCN 2A〕
       ・The duration is 4 to 6 months 〔ASCO〕 〔NCCN〕
-    + Spring 2016 meta-analysis [t-spring-et-al]
+    + Spring 2016 meta-analysis {pmid 27367583}
     + P024 [t-p024]
-    ~ ACOSOG Z1031 [t-acosog-z1031]
+    ~ ACOSOG Z1031 {pmid 21555689}
     ※ In premenopausal women, neoadjuvant endocrine therapy is not routinely offered outside a trial unless chemotherapy is contraindicated 〔ASCO Moderate, Conditional〕
       ・Preoperative endocrine therapy with ovarian function suppression is an option 〔NCCN〕
-      - NEST [t-nest]
+      - NEST {pmid 32460816}
     ※ With ER below 10% in stage II or III disease, neoadjuvant chemotherapy can follow triple-negative protocols with pembrolizumab 〔ASCO Moderate, Strong〕 〔St Gallen〕
-      ~ KEYNOTE-756 [t-keynote-756]
+      ~ KEYNOTE-756 {pmid 39838117}
     ※ A gene expression assay on the core biopsy can inform the choice between chemotherapy and endocrine therapy 〔ASCO Moderate, Conditional〕 〔NCCN〕
     next: Adjuvant endocrine therapy
   Adjuvant endocrine therapy
     branch: ET
     ① Postmenopausal: an aromatase inhibitor for 5 years 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1〕, tamoxifen for 2 to 3 years followed by an aromatase inhibitor 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1〕, or an aromatase inhibitor for 2 to 3 years followed by tamoxifen 〔ESMO I, A〕 〔NCCN 1〕
-    ~ ATAC [t-atac]
-    ~ BIG 1-98 [t-big-1-98]
-    - FATA-GIM3 [t-fata-gim3]
-    + EBCTCG 2015 [t-ebctcg-meta-analysis-aromatase-inhibitor-vs-tamoxifen-in-postmenopausal-women]
+    ~ ATAC {pmid 12090977}
+    ~ BIG 1-98 {pmid 16382061}
+    - FATA-GIM3 {pmid 29482983}
+    + EBCTCG 2015 {pmid 26211827}
     ※ Anastrozole, letrozole and exemestane have similar efficacy 〔ASCO〕 〔NCCN〕
-      - NCIC CTG MA.27 [t-ncic-ctg-ma-27]
-      - FACE [t-face]
+      - NCIC CTG MA.27 {pmid 23358971}
+      - FACE {pmid 28113032}
     ② Postmenopausal, lower risk, or an aromatase inhibitor not tolerated: tamoxifen for 5 years 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1〕
       ・Tamoxifen alone is limited to patients who decline or cannot take an aromatase inhibitor 〔NCCN〕
       ・Significant osteoporosis is a further reason for tamoxifen 〔ASCO〕
-    + EBCTCG 2011 [t-ebctcg-meta-analysis-adjuvant-tamoxifen]
+    + EBCTCG 2011 {pmid 21802721}
     ③ Premenopausal, low risk, such as luminal A-like stage I disease: tamoxifen for 5 years 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1〕
     ④ Premenopausal, higher risk: ovarian function suppression with an aromatase inhibitor 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1〕, or with tamoxifen 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1〕
       ・Higher risk means young age, grade 3 disease or positive nodes 〔NCCN〕 〔St Gallen〕, or an estimated 10-year risk of breast cancer death above 10% 〔ASCO〕
       ・The aromatase inhibitor is preferred, with a change to tamoxifen for toxicity 〔ASCO High, Strong〕
-    ~ TEXT & SOFT [t-text-soft]
-    ~ SOFT [t-soft]
-    ~ EBCTCG 2022 [t-ebctcg-meta-analysis-aromatase-inhibitors-vs-tamoxifen-with-ovarian-suppression-in-early-breast-cancer]
-    + EBCTCG 2026 [t-ebctcg-meta-analysis-ovarian-function-suppression-in-early-breast-cancer]
+    ~ TEXT & SOFT {pmid 24881463}
+    ~ SOFT {pmid 25495490}
+    ~ EBCTCG 2022 {pmid 35123662}
+    + EBCTCG 2026 {pmid 42070572}
     ※ Ovarian function suppression lasts 5 years, with a minimum of 2 years 〔NCCN〕
       ・Extension beyond 5 years is unproven 〔ASCO〕 〔NCCN〕 but may reduce recurrence further 〔St Gallen〕
     ※ A GnRH agonist, such as goserelin 3.6 mg every 4 weeks or 10.8 mg every 12 weeks, starts before or with chemotherapy, or after it in patients who remain premenopausal 〔NCCN〕
-      ~ ASTRRA [t-astrra]
+      ~ ASTRRA {pmid 37607321}
     ° Toxicity of note: fractures with aromatase inhibitors, and thrombosis and endometrial cancer with tamoxifen 〔ASCO〕
     next: Treatment added to endocrine therapy in higher-risk disease
   Treatment added to endocrine therapy in higher-risk disease
@@ -172,14 +172,14 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
       ・Olaparib is reasonable for selected high-risk patients outside the OlympiA criteria 〔ASCO〕
       ・Olaparib is not combined with abemaciclib and is given first when both are used 〔PAGA V, A〕 〔ESMO V, A〕, with priority over a CDK4/6 inhibitor 〔ASCO〕
       ・The best sequence of olaparib and a CDK4/6 inhibitor is unknown 〔NCCN〕
-    + OlympiA [t-olympia]
+    + OlympiA {pmid 34081848}
     ② Four or more positive nodes, or one to three with grade 3 disease, a tumour of 5 cm or more, or a Ki-67 of 20% or more: abemaciclib 150 mg twice daily for 2 years 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
-    + monarchE [t-monarche]
+    + monarchE {pmid 32954927}
     ③ Any positive node other than micrometastasis, or a node-negative tumour over 5 cm, or a node-negative tumour of 2 to 5 cm with grade 3 disease or with grade 2 disease and either a Ki-67 of 20% or more or high genomic risk: ribociclib 400 mg daily on days 1 to 21 of 28 for 3 years, with an aromatase inhibitor 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
       ・Ribociclib is not licensed for early breast cancer in Japan or Korea 〔PAGA〕
       ・Before menopause, ribociclib is given with ovarian function suppression 〔NCCN〕, and never with tamoxifen, for the risk of QTc prolongation 〔ASCO〕
       ・Ribociclib is also considered after a pathological complete response 〔NCCN〕
-    ~ NATALEE [t-natalee]
+    ~ NATALEE {pmid 38507751}
     ※ Treatment starts after surgery, chemotherapy and radiotherapy 〔ASCO〕 〔NCCN〕, typically within 2 to 12 weeks 〔ASCO〕
     ※ When both drugs are indicated, abemaciclib is favoured for its shorter course and its overall survival benefit 〔ASCO〕
       ・Abemaciclib and ribociclib are equally preferred 〔NCCN 1, preferred〕
@@ -188,10 +188,10 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
     ※ A CDK4/6 inhibitor does not replace indicated chemotherapy 〔ASCO〕
       ・Many panellists set a higher threshold for chemotherapy when a CDK4/6 inhibitor is an option 〔St Gallen〕
     ※ Palbociclib did not improve invasive disease-free survival after primary surgery or in residual disease after neoadjuvant chemotherapy, and is not a standard option 〔ASCO〕 〔NCCN〕
-      - PALLAS [t-pallas]
-      - PENELOPE-B [t-penelope-b]
+      - PALLAS {pmid 33460574}
+      - PENELOPE-B {pmid 33793299}
     ※ Capecitabine for residual disease after neoadjuvant chemotherapy is limited to triple-negative disease 〔ESMO〕 〔NCCN〕, and adjuvant capecitabine is not recommended in HR+ disease 〔ASCO Moderate, Strong〕
-      - CREATE-X [t-create-x]
+      - CREATE-X {pmid 28564564}
     ° Toxicity of note: diarrhoea and venous thromboembolism with abemaciclib, with more thromboembolism alongside tamoxifen 〔ASCO〕 〔NCCN〕
     next: Endocrine therapy beyond 5 years
   Endocrine therapy beyond 5 years
@@ -199,19 +199,19 @@ course: Systemic treatment of stage I to III HR+ HER2- breast cancer | parallel
     ① Low risk, such as T1c N0 grade 2 disease: endocrine therapy stops at 5 years 〔ASCO High, Strong〕 〔St Gallen〕
     ② Higher risk, postmenopausal: an aromatase inhibitor for a further 2 to 5 years 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕
       ・A total of 7 to 8 years is sufficient for most high-risk patients 〔PAGA I, A〕 〔ESMO I, A〕
-      - ABCSG-16 / SALSA [t-abcsg-16-salsa]
-      - IDEAL [t-ideal-boog-2006-05]
+      - ABCSG-16 / SALSA {pmid 34320285}
+      - IDEAL {pmid 28922787}
       ・The extension is 3 to 5 years, and node-positive disease may benefit from 7.5 to 10 years in total 〔NCCN 2A〕
       ・After 5 years of tamoxifen, an aromatase inhibitor is given for 5 years 〔NCCN 1〕
       ・The total is 7 to 8 years with high genomic risk or one positive node, and 10 years with three or more positive nodes 〔St Gallen〕
-    ~ EBCTCG 2025 [t-ebctcg-meta-analysis-extended-adjuvant-aromatase-inhibitor-therapy]
-    ~ MA.17 (NCIC CTG) [t-ma-17]
-    - NSABP B-33 [t-nsabp-b-33]
-    ~ MA.17R [t-ma-17r]
-    ~ NRG Oncology/NSABP B-42 [t-nrg-oncology-nsabp-b-42]
-    + GIM4 [t-gim4]
+    ~ EBCTCG 2025 {pmid 40783288}
+    ~ MA.17 (NCIC CTG) {pmid 14551341}
+    - NSABP B-33 {pmid 18332472}
+    ~ MA.17R {pmid 27264120}
+    ~ NRG Oncology/NSABP B-42 {pmid 30509771}
+    + GIM4 {pmid 34543613}
     ③ Higher risk, tamoxifen for 5 years and still premenopausal: tamoxifen to 10 years 〔ASCO High, Strong〕 〔NCCN 2A〕
-    + ATLAS [t-atlas]
+    + ATLAS {pmid 23219286}
     ※ CTS5, PAM50 ROR and EndoPredict estimate the risk of late recurrence 〔ASCO High, Strong〕
       ・A high Breast Cancer Index (H/I) ratio predicts benefit from extended therapy 〔ASCO High, Strong〕 〔NCCN 2A〕
       ・The benefit of this test is unknown after ovarian function suppression, a CDK4/6 inhibitor or olaparib 〔NCCN〕
@@ -221,10 +221,10 @@ panel: Bone-modifying agents
   ① Postmenopausal or on ovarian function suppression, at high risk of relapse: an adjuvant bisphosphonate 〔PAGA I, B〕 〔ESMO I, A〕 〔NCCN 2A〕
     ・Specific evidence in Asian women is lacking, and bisphosphonates are not routinely used to prevent recurrence in Asia 〔PAGA〕
     ・The duration is up to 5 years 〔ESMO〕 〔NCCN〕
-  + EBCTCG 2015 [t-ebctcg-adjuvant-bisphosphonate-meta-analysis]
+  + EBCTCG 2015 {pmid 26211824}
   ※ Adjuvant denosumab is not recommended to prevent recurrence 〔ESMO〕 〔NCCN〕
-    - D-CARE [t-d-care]
-    ~ ABCSG-18 [t-abcsg-18]
+    - D-CARE {pmid 31806543}
+    ~ ABCSG-18 {pmid 38319865}
 
 panel: Monitoring on endocrine therapy
   ① Aromatase inhibitor or ovarian function suppression: bone density is measured regularly 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕, and bone loss is treated with a bisphosphonate 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕 or denosumab 〔NCCN〕

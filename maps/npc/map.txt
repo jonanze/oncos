@@ -56,77 +56,77 @@ course: Nasopharyngeal carcinoma
     ① Concurrent chemoradiotherapy, particularly for T2 N1 〔CSCO-ASCO High, Strong〕 〔NCCN 2A〕
       ・Concurrent chemotherapy is optional in low-risk disease, with low EBV DNA or limited nodes
       ・A bulky tumour or high EBV DNA: induction or adjuvant chemotherapy is an option 〔NCCN 2A〕
-    ~ Tang 2022 [t-tang-et-al--nasopharyngeal-carcinoma]
+    ~ Tang 2022 {pmid 35997729}
     next: Chemoradiotherapy
   Stage II–III except T3 N0
     branch: LA
     ① Induction chemotherapy, then chemoradiotherapy 〔CSCO-ASCO High, Strong〕 〔NCCN 1, preferred〕
-    + MAC-NPC
+    + MAC-NPC {pmid 25957714}
     ② No induction: chemoradiotherapy, then adjuvant chemotherapy 〔CSCO-ASCO High, Strong〕 〔NCCN 2A〕
-    + Intergroup 0099
-    ~ Guo 2025 [t-guo-et-al]
+    + Intergroup 0099 {pmid 9552031}
+    ~ Guo 2025 {pmid 40531520}
     ※ Chemoradiotherapy alone 〔NCCN 2B〕
       ・Induction or adjuvant chemotherapy for every patient in this group 〔CSCO-ASCO〕
     ※ A PD-1 inhibitor with induction and chemoradiotherapy: no recommendation for or against 〔CSCO-ASCO〕
       ・Toripalimab is not licensed for this use
-      ~ DIAMOND [t-diamond]
-      ~ Liu 2024 [t-liu-et-al--nasopharyngeal-carcinoma]
+      ~ DIAMOND {pmid 40839372}
+      ~ Liu 2024 {pmid 39522541}
     ※ China only: sintilimab or camrelizumab with induction and chemoradiotherapy
       ・Neither drug has a licence outside China
-      ~ CONTINUUM
-      ~ You 2026 [t-you-et-al]
+      ~ CONTINUUM {pmid 38824941}
+      ~ You 2026 {pmid 41667193}
     next: Chemoradiotherapy
   T3 N0
     branch: T3
     ① Concurrent chemoradiotherapy, unless the primary is small and EBV DNA is low 〔CSCO-ASCO Moderate, Conditional〕 〔NCCN 2A〕
       ・Low-risk disease: IMRT alone
       ・Addition of adjuvant or induction chemotherapy is an option
-    ~ Tang 2022 [t-tang-et-al--nasopharyngeal-carcinoma]
+    ~ Tang 2022 {pmid 35997729}
     next: Chemoradiotherapy
   Chemoradiotherapy
     ① Cisplatin 100 mg/m² every 3 weeks, or 40 mg/m² weekly, with IMRT 〔CSCO-ASCO High, Strong〕 〔NCCN 2A〕
       ・Target cumulative cisplatin dose 200 mg/m² or more 〔CSCO-ASCO High, Strong〕
       ・IMRT to 70 Gy in 33 to 35 fractions with daily image guidance 〔CSCO-ASCO High, Strong〕
-    + MAC-NPC
+    + MAC-NPC {pmid 25957714}
     ② Cisplatin contraindicated: carboplatin or nedaplatin 〔CSCO-ASCO Moderate, Strong〕
       ・Carboplatin 〔NCCN 2A, useful in certain circumstances〕
       ・Nedaplatin is licensed in Japan
-    ~ Chitapanarux 2007 [t-chitapanarux-et-al]
-    ~ Tang 2018 [t-tang-et-al]
+    ~ Chitapanarux 2007 {pmid 17467265}
+    ~ Tang 2018 {pmid 29501366}
     ③ Platinum-ineligible: a concurrent fluoropyrimidine, or radiotherapy alone 〔CSCO-ASCO Low, Conditional〕
     ※ China only: lobaplatin in place of cisplatin 〔CSCO-ASCO Moderate, Strong〕
       ・Lobaplatin has no licence outside China
-      ~ Lv 2021 [t-lv-et-al]
+      ~ Lv 2021 {pmid 33857411}
     next: After chemoradiotherapy
   After chemoradiotherapy
     branch: LA pale
     ① After induction and chemoradiotherapy, stage II–III except T3 N0–1: capecitabine 650 mg/m² twice daily for 1 year 〔CSCO-ASCO High, Strong〕
       ・Particularly with persistent EBV DNA or residual disease on imaging
       ・EBV-associated T4 N1–3 or any T N2–3 〔NCCN 2A, useful in certain circumstances〕
-    + Chen 2021 [t-chen-et-al]
+    + Chen 2021 {pmid 34111416}
     ② After chemoradiotherapy without induction: PF or GP for 3 cycles, or capecitabine 〔CSCO-ASCO High, Strong〕
       ・Capecitabine as 8 cycles of 1000 mg/m² twice daily, or the 1-year schedule
       ・Cisplatin with infusional 5-FU 〔NCCN 2A, preferred〕
       ・Carboplatin with 5-FU 〔NCCN 2A〕
-    - Chen 2012 [t-chen-et-al--nasopharyngeal-carcinoma]
-    ~ Liu 2023 [t-liu-et-al]
-    ~ Miao 2022 [t-miao-et-al]
+    - Chen 2012 {pmid 22154591}
+    ~ Liu 2023 {pmid 37290468}
+    ~ Miao 2022 {pmid 36227615}
     ※ China only: camrelizumab for 1 year after induction and chemoradiotherapy
       ・Camrelizumab has no licence outside China
-      ~ DIPPER
+      ~ DIPPER {pmid 40079940}
     next: Surgery or re-irradiation | Locoregional recurrence only
     next: First line, recurrent or metastatic | Distant metastases
   Surgery or re-irradiation
     branch: LR
     ① Resectable local recurrence: endoscopic nasopharyngectomy 〔CSCO-ASCO-RM High, Strong〕
-    + Liu 2021 [t-liu-et-al--nasopharyngeal-carcinoma-2]
+    + Liu 2021 {pmid 33600761}
     ② Resectable regional recurrence: neck dissection 〔CSCO-ASCO-RM High, Strong〕
       ・Retropharyngeal node: transoral dissection is an option 〔CSCO-ASCO-RM Moderate, Conditional〕
       ・Positive margin or extranodal extension, more than 12 months after the first radiotherapy: postoperative re-irradiation 〔CSCO-ASCO-RM Moderate, Conditional〕
     ③ Unresectable, or surgery declined, more than 12 months after the first radiotherapy: re-irradiation with IMRT or proton therapy 〔CSCO-ASCO-RM High, Strong〕
       ・Hyperfractionated re-irradiation 〔CSCO-ASCO-RM High, Conditional〕
       ・Re-irradiation with a platinum 〔NCCN 2A〕
-    + You 2023 [t-you-et-al--nasopharyngeal-carcinoma]
+    + You 2023 {pmid 36842439}
     ④ Not suitable for surgery or re-irradiation: systemic treatment as for distant metastases 〔CSCO-ASCO-RM High, Strong〕
   First line, recurrent or metastatic
     branch: RM
@@ -139,17 +139,17 @@ course: Nasopharyngeal carcinoma
       ・Carboplatin is an alternative to cisplatin
       ・M1 at diagnosis with curative intent: chemotherapy with immunotherapy first 〔Guo High, Strong〕
       ・Local treatment after 4 to 6 cycles 〔Guo Moderate, Strong〕
-    + JUPITER-02
-    ~ RATIONALE-309
-    ~ AK105-304
+    + JUPITER-02 {pmid 34341578}
+    ~ RATIONALE-309 {pmid 37207654}
+    ~ AK105-304 {pmid 41946687}
     ② GP for up to 6 cycles, when a PD-1 inhibitor is unsuitable or declined 〔CSCO-ASCO-RM High, Strong〕 〔NCCN 1〕
       ・Chemotherapy alone when a PD-1 inhibitor is declined 〔CSCO-ASCO-RM Moderate, Conditional〕
       ・GP rechallenge when more than 6 months have passed since curative treatment
-    + GEM20110714
+    + GEM20110714 {pmid 27567279}
     ③ Other doublets: PF, or cisplatin with docetaxel, paclitaxel, nab-paclitaxel or capecitabine 〔CSCO-ASCO-RM Moderate, Conditional〕 〔NCCN 2A〕
     ※ China only: camrelizumab with GP 〔CSCO-ASCO-RM High, Strong〕
       ・Camrelizumab has no licence outside China
-      + CAPTAIN-1st
+      + CAPTAIN-1st {pmid 34174189}
     ※ PD-L1 testing is not required
     next: Maintenance | Disease control
     next: Curative-intent local treatment | M1 at diagnosis, disease control
@@ -160,8 +160,8 @@ course: Nasopharyngeal carcinoma
     ② After chemotherapy alone: capecitabine or S-1 for up to 2 years 〔CSCO-ASCO-RM High, Strong〕
       ・S-1 is on the Singapore Cancer Drug List
       ・Capecitabine after induction chemotherapy in oligometastatic M1 disease 〔NCCN 2A, useful in certain circumstances〕
-    ~ Liu 2022 [t-liu-et-al--nasopharyngeal-carcinoma-3]
-    + Lu 2023 [t-lu-et-al]
+    ~ Liu 2022 {pmid 35175316}
+    + Lu 2023 {pmid 36075994}
     next: Later lines | Progression
   Curative-intent local treatment
     branch: M1
@@ -169,7 +169,7 @@ course: Nasopharyngeal carcinoma
       ・After disease control on chemotherapy without a PD-1 inhibitor 〔CSCO-ASCO-RM High, Strong〕
       ・After chemotherapy with a PD-1 inhibitor, the evidence is observational
       ・Concurrent cisplatin if tolerated 〔Guo Expert opinion, Strong〕
-    + You 2020 [t-you-et-al--nasopharyngeal-carcinoma-2]
+    + You 2020 {pmid 32701129}
     ② Local treatment of metastases that persist after induction, with radiotherapy preferred 〔Guo Expert opinion, Strong〕
       ・Local treatment of metastases is part of curative treatment 〔Guo Moderate, Strong〕
     ③ Maintenance with a PD-1 inhibitor 〔Guo High, Strong〕
@@ -188,11 +188,11 @@ course: Nasopharyngeal carcinoma
       ・Nivolumab or tislelizumab 〔NCCN 2B〕
       ・Penpulimab after platinum and one other line 〔NCCN 2B〕
       ・Pembrolizumab did not improve overall survival over chemotherapy
-    - KEYNOTE-122 [t-keynote-122]
+    - KEYNOTE-122 {pmid 36535566}
     ② After platinum and a PD-1 inhibitor: capecitabine, gemcitabine or docetaxel 〔CSCO-ASCO-RM Moderate, Conditional〕 〔NCCN 2A〕
     ※ China only: izalontamab brengitecan after two or more lines that include platinum and a PD-1 inhibitor 〔CSCO-ASCO-RM High, Strong〕
       ・Izalontamab brengitecan has no licence outside China
-      ~ Yang 2025 [t-yang-et-al]
+      ~ Yang 2025 {pmid 41125110}
     ※ TMB-high: pembrolizumab 〔NCCN 2A, useful in certain circumstances〕
 
 panel: Induction regimens > Stage II–III except T3 N0
@@ -200,15 +200,15 @@ panel: Induction regimens > Stage II–III except T3 N0
     ・At least 2 cycles 〔CSCO-ASCO High, Strong〕
     ・Chemoradiotherapy starts within 28 days of day 1 of the last cycle 〔CSCO-ASCO High, Strong〕
     ・TPF at adjusted doses 〔NCCN〕
-  + Zhang 2019 [t-zhang-et-al]
-  + Sun 2016 [t-sun-et-al]
+  + Zhang 2019 {pmid 31150573}
+  + Sun 2016 {pmid 27686945}
   ② TP, PF or cisplatin with capecitabine 〔CSCO-ASCO High, Strong〕
     ・PF 〔NCCN 2A〕
     ・Cisplatin with docetaxel 〔NCCN 2B〕
-  + Xie 2025 [t-xie-et-al]
+  + Xie 2025 {pmid 40233976}
   ※ China only: lobaplatin with 5-FU 〔CSCO-ASCO High, Strong〕
     ・Lobaplatin has no licence outside China
-    ~ Lv 2021 [t-lv-et-al]
+    ~ Lv 2021 {pmid 33857411}
 
 off:
   Guangzhou-01 | No licence or recommendation: concurrent oxaliplatin is in no guideline, and MAC-NPC carries the evidence for concurrent chemotherapy

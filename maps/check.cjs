@@ -1,6 +1,7 @@
 /* Release check for the board maps: node maps/check.cjs
    - every map trial points at an Evidence row, or carries a PMID (or, before PubMed lists it, a {url}) and is listed for intake;
-     a PMID already filed in any sheet fails, naming the row to link
+     a {pmid N} trial links itself to the one row whose reference cites that PMID (filing and publishing link it, no map edit);
+     a PMID cited by several rows, or found only in a row's text, fails, naming the rows
    - a trial line gives the trial's name only, with no figure; results are on the trial card (Jonan 2026-11-11)
    - outline errors, including more than eight branch: lines or a branch: on a box carrying the risk ramp (outline.js)
    - every row of the sheet is on the map or under off: with a reason; the rest are listed in unplaced.txt and fail
@@ -38,11 +39,15 @@ for (const dir of fs.readdirSync(__dirname)) {
     const hit = (/^\s*[+~-]\s/.test(t) ? BANNED.slice(0, 1) : BANNED).find(b => b.test(t));
     if (hit) { bad++; console.log(dir + '/map.txt:' + (k + 1) + ' wording: "' + t.trim().slice(0, 70) + '" matches ' + hit); }
   });
+  // A {pmid N} trial links itself to the one row citing that PMID, as on the page (outline.js link).
+  const many = O.link(m, Object.fromEntries(byAnchor));
   for (const {line, where} of O.trials(m)) {
     const tag = dir + '/map.txt:' + line.at + ' ' + line.name;
+    if (line.pmid && many[line.pmid]) {
+      bad++; console.log(tag + ': PMID ' + line.pmid + ' is cited by ' + many[line.pmid].length + ' rows (' + many[line.pmid].join(', ') + '); give the [t-...] anchor'); continue; }
     if (line.pmid && !line.anchor) {
       const pm = new RegExp('(^|\\D)' + line.pmid + '(\\D|$)'), filed = rows.find(r => pm.test(JSON.stringify(r)));
-      if (filed) { bad++; console.log(tag + ': PMID ' + line.pmid + ' is already filed as ' + filed.study + ' [' + filed.anchor + '] in ' + filed.sheet + '; give that anchor'); continue; }
+      if (filed) { bad++; console.log(tag + ': PMID ' + line.pmid + ' appears only in the text of ' + filed.study + ' [' + filed.anchor + '] in ' + filed.sheet + ', not as its reference PMID; give that anchor'); continue; }
       intake.push(line.name + '\tPMID ' + line.pmid + '\t' + where); continue; }
     if (line.url && !line.anchor) { intake.push(line.name + '\tno PMID yet ' + line.url + '\t' + where); continue; }
     const r = byAnchor.get(line.anchor);

@@ -254,6 +254,37 @@
     }
     return {text:'', live:true, ok:false};
   }
+  // A trial given by {pmid N} links itself to the one Evidence row that cites that PMID (a reference's
+  // pmid or the row's PubMed link), so filing and publishing the paper links the map with no map edit
+  // (Jonan 2026-11-15). rows: anchor -> row. A paper filed on two sheets links to the row on the map's own sheet.
+  // Returns {pmid: [anchors]} for every PMID still on more than one row;
+  // a trial with such a PMID keeps its PubMed link until it is given its [t-...] anchor.
+  function pmids(row){
+    var out = [];
+    (row.refs || []).forEach(function(r){ if (r && r.pmid) out.push(String(r.pmid)); });
+    var m = /pubmed\.ncbi\.nlm\.nih\.gov\/(\d+)/.exec(row.link || '');
+    if (m) out.push(m[1]);
+    return out;
+  }
+  function link(model, rows){
+    var by = {}, many = {};
+    Object.keys(rows || {}).forEach(function(a){
+      pmids(rows[a]).forEach(function(p){ (by[p] = by[p] || []).indexOf(a) < 0 && by[p].push(a); });
+    });
+    trials(model).forEach(function(t){
+      var l = t.line;
+      if (!l.pmid || l.anchor) return;
+      var hit = by[l.pmid] || [];
+      // one paper filed on two sheets: the row on this map's own sheet
+      if (hit.length > 1) {
+        var own = hit.filter(function(a){ return rows[a].sheet === model.map; });
+        if (own.length === 1) hit = own;
+      }
+      if (hit.length === 1) l.anchor = hit[0];
+      else if (hit.length > 1) many[l.pmid] = hit;
+    });
+    return many;
+  }
   // Fill live figures from the Evidence rows (anchor -> row). Returns the lines that did not resolve.
   function figures(model, rows){
     var miss = [];
@@ -267,5 +298,5 @@
     });
     return miss;
   }
-  return {parse:parse, walk:walk, trials:trials, tags:tags, TAG:TAG, slug:slug, live:live, figure:figure, figures:figures};
+  return {parse:parse, walk:walk, trials:trials, tags:tags, TAG:TAG, slug:slug, live:live, figure:figure, figures:figures, link:link, pmids:pmids};
 });

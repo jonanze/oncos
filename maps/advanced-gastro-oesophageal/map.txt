@@ -44,7 +44,7 @@ band: Older or frail patients
   ① Oxaliplatin and capecitabine at a reduced dose 〔ESMO I, A〕
     ・Also applicable to squamous cell carcinoma 〔ESMO II, A〕
     ・Starting dose 60% of the full dose
-    ~ GO2
+    ~ GO2 {pmid 33983395}
   ※ Age is weighed in the choice of chemotherapy for fit older patients 〔JGCA B, Weak〕
 
 band: Peritoneal metastases from gastric cancer
@@ -53,12 +53,12 @@ band: Peritoneal metastases from gastric cancer
     ・Patients had a peritoneal cancer index below 7 and no progression after 3 or more cycles
     ・Cytoreduction with intraperitoneal chemotherapy remains an option at a peritoneal cancer index of 10 or less after 3 months of systemic treatment 〔NCCN 2A〕
     ・This recommendation predates PERISCOPE II
-    - PERISCOPE II
+    - PERISCOPE II {pmid 42419336}
   ※ Intraperitoneal with intravenous paclitaxel and S-1 improved overall survival over intravenous paclitaxel with S-1 in a trial in China
     ・An earlier trial in Japan showed no significant survival benefit
     ・Intraperitoneal chemotherapy is graded investigational, in a recommendation predating DRAGON-01 〔KGCA Low, Investigational〕
-    + DRAGON-01
-    - PHOENIX-GC [t-phoenix-gc]
+    + DRAGON-01 {pmid 42166134}
+    - PHOENIX-GC {pmid 29746229}
 
 band: Limited metastases and surgery
   ① Resection after chemotherapy for a few para-aortic nodes in stations 16a2 and 16b1, or resection of a solitary liver metastasis, with no other non-curable factor 〔JGCA C, Weak〕
@@ -70,14 +70,14 @@ band: Limited metastases and surgery
     ・Survival was longer with surgery in the subgroup with retroperitoneal nodal metastases only
     - RENAISSANCE [t-ikf-575-renaissance]
   ※ Gastrectomy is not recommended for metastatic disease, except for symptom control 〔JGCA Strong against〕 〔KGCA High, Strong against〕 〔PAGA I, D〕
-    - REGATTA [t-regatta]
+    - REGATTA {pmid 26822397}
   ※ Conversion surgery after a good response is investigational 〔KGCA Low, Investigational〕
 
 band: Symptom control
   ① Dysphagia from oesophageal cancer: palliative radiotherapy 〔JES Weak〕
     ・Addition of chemotherapy did not improve dysphagia relief and increased toxicity
     ・Stenting in selected patients, with shorter duration of relief than radiotherapy 〔NCCN 2A〕
-    - TROG 03.01 [t-trog-03-01]
+    - TROG 03.01 {pmid 29248399}
   ② Gastric outlet obstruction: a stent or gastrojejunostomy 〔JGCA D, Weak〕 〔KGCA Low, Conditional〕
     ・Palliative resection for bleeding or stenosis 〔JGCA D, Weak〕
   ③ Tumour bleeding: haemostatic radiotherapy 〔JGCA C, Weak〕
@@ -110,36 +110,36 @@ course: Advanced gastric and oesophageal cancer
       ・No survival benefit with pembrolizumab at CPS below 1 in KEYNOTE-811
       ・Zanidatamab is licensed in the US, not in the EU
       ° Toxicity of note: diarrhoea with zanidatamab, managed with antidiarrhoeal prophylaxis and omission of bolus fluorouracil from FOLFOX
-    + HERIZON-GEA-01
+    + HERIZON-GEA-01 {pmid 42202319}
     ② Zanidatamab with a fluoropyrimidine and platinum, when a checkpoint inhibitor is contraindicated 〔NCCN 2A, preferred〕
       ・IHC 3+ only 〔ESMO I, B〕
     ③ Trastuzumab and pembrolizumab with a fluoropyrimidine and platinum, for CPS 1 or more 〔KGCA High, Strong〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕
-    + KEYNOTE-811
+    + KEYNOTE-811 {pmid 37871604}
     ④ Trastuzumab with a fluoropyrimidine and platinum 〔JGCA recommended〕 〔KGCA High, Strong〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕
       ・Preferred at PD-L1 CPS below 1 〔ASCO Moderate, Strong〕
       ・Chemotherapy: capecitabine or S-1 with cisplatin, CAPOX or SOX
-    + ToGA
+    + ToGA {pmid 20728210}
     next: HER2-positive, second line and later | Progression
   HER2-negative adenocarcinoma
     branch: NEG
     ① CPS 5 or more: nivolumab, pembrolizumab or tislelizumab with a fluoropyrimidine and platinum 〔JGCA A, Strong〕 〔KGCA High, Strong〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO High, Conditional〕
       ・Tislelizumab: TAP 5% or more, interchangeable with CPS 5 or more
       ・CPS 1 to 4: pembrolizumab is endorsed by all guidelines, with a small survival benefit (pooled HR 0.85, five trials)
-    + CheckMate 649
-    + KEYNOTE-859
-    + RATIONALE-305
-    ~ ATTRACTION-4 [t-attraction-4]
-    ~ Lai 2026 [t-lai-et-al]
+    + CheckMate 649 {pmid 34102137}
+    + KEYNOTE-859 {pmid 37875143}
+    + RATIONALE-305 {pmid 38806195}
+    ~ ATTRACTION-4 {pmid 35030335}
+    ~ Lai 2026 {pmid 42477829}
     ② CLDN18.2-positive: zolbetuximab with CAPOX or FOLFOX 〔JGCA recommended〕 〔KGCA High, Strong〕 〔ESMO I, A〕 〔NCCN 1, preferred〕
       ・Preferred at PD-L1 CPS below 1, given the limited benefit of checkpoint inhibitors 〔ASCO Moderate, Strong〕
       ° Toxicity of note: nausea and vomiting, mainly during the first doses
-    + SPOTLIGHT
-    + GLOW
+    + SPOTLIGHT {pmid 37068504}
+    + GLOW {pmid 37524953}
     ③ CPS below 1 and CLDN18.2-negative: a fluoropyrimidine and platinum alone 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A, preferred〕 〔ASCO High, Strong〕
     ※ PD-L1-positive and CLDN18.2-positive: a checkpoint inhibitor or zolbetuximab, chosen individually 〔ASCO Moderate, Conditional〕
       ・No head-to-head comparison has been reported
       ・Zolbetuximab is favoured at CPS below 5, given the small checkpoint inhibitor benefit 〔PAGA〕
-      ~ Shitara 2026 [t-shitara-et-al]
+      ~ Shitara 2026 {pmid 42748508}
     ※ China only: retlirafusp alfa with CAPOX improved overall survival
       + RELIGHT
     next: Second line, adenocarcinoma | Progression
@@ -153,29 +153,29 @@ course: Advanced gastric and oesophageal cancer
     ② After chemotherapy without a checkpoint inhibitor: pembrolizumab 〔JGCA recommended〕 〔JES Weak〕 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN 2A, useful in certain circumstances〕
       ・Third line, if not previously given 〔ESMO III, A〕
       ・Dostarlimab, or nivolumab with ipilimumab 〔NCCN 2A, useful in certain circumstances〕
-    ~ KEYNOTE-158 [t-keynote-158--tumour-agnostic-basket-trials]
-    ~ Chao 2021 [t-keynote-059-keynote-061-and-keynote-062-msi-h-pooled-analysis]
+    ~ KEYNOTE-158 {pmid 31682550}
+    ~ Chao 2021 {pmid 33792646}
   Oesophageal squamous cell carcinoma
     branch: SCC
     ① PD-L1 1 or more: nivolumab, pembrolizumab or tislelizumab with a fluoropyrimidine and platinum 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕
       ・Cut-offs of the EU licences: nivolumab TPS 1%, pembrolizumab CPS 10, tislelizumab TAP 5% 〔ESMO I, A〕
       ・Pembrolizumab or nivolumab with cisplatin and fluorouracil, with TPS considered for nivolumab 〔JES Strong〕
       ・Tislelizumab is also used with a platinum and paclitaxel 〔NCCN 2A, preferred〕
-    + KEYNOTE-590
-    + CheckMate 648
-    + RATIONALE-306
+    + KEYNOTE-590 {pmid 34454674}
+    + CheckMate 648 {pmid 35108470}
+    + RATIONALE-306 {pmid 37080222}
     ② Nivolumab with ipilimumab, PD-L1 1 or more 〔JES Strong〕 〔ESMO I, B〕 〔NCCN 2A, preferred〕 〔ASCO Moderate, Conditional〕
       ・Lower response rate and more early progression than with chemotherapy-containing regimens
-    + CheckMate 648
+    + CheckMate 648 {pmid 35108470}
     ③ Toripalimab with paclitaxel and cisplatin, for CPS 1 or more 〔ESMO I, A〕
       ・EU licence independent of PD-L1 status
       ・Not licensed in the US for oesophageal cancer
-    + JUPITER-06 [t-jupiter-06]
+    + JUPITER-06 {pmid 35245446}
     ④ PD-L1 below these cut-offs: a platinum with a fluoropyrimidine or a taxane 〔ESMO II, A〕 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕
       ・Triplet chemotherapy is not established 〔JES〕
     ※ China only: camrelizumab or sintilimab with chemotherapy improved overall survival
-      + ESCORT-1st
-      + ORIENT-15
+      + ESCORT-1st {pmid 34519801}
+      + ORIENT-15 {pmid 35440464}
     next: Second line and later, squamous cell carcinoma | Progression
   HER2-positive, second line and later
     branch: HER2 pale
@@ -184,43 +184,43 @@ course: Advanced gastric and oesophageal cancer
       ・DESTINY-Gastric04 required HER2 positivity on a biopsy after trastuzumab
       ・A new biopsy to confirm HER2, where feasible 〔ASCO〕 〔PAGA〕
       ° Toxicity of note: interstitial lung disease
-    + DESTINY-Gastric04
-    + DESTINY-Gastric01 [t-destiny-gastric01]
+    + DESTINY-Gastric04 {pmid 40454632}
+    + DESTINY-Gastric01 {pmid 32469182}
     ※ Trastuzumab deruxtecan after zanidatamab has not been evaluated
     ※ Continuation of trastuzumab beyond progression is not recommended 〔JGCA A, Strong against〕 〔PAGA I, D〕
-      - T-ACT [t-t-act]
+      - T-ACT {pmid 32208960}
     join: Second line, adenocarcinoma | Other options
   Second line, adenocarcinoma
     branch: NEG pale
     ① Ramucirumab with paclitaxel 〔JGCA recommended〕 〔KGCA High, Strong〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕
       ・Ramucirumab with nab-paclitaxel 〔JGCA conditionally recommended〕
-    + RAINBOW
+    + RAINBOW {pmid 25240821}
     ② Paclitaxel, docetaxel or irinotecan alone, when ramucirumab is unavailable or contraindicated 〔JGCA conditionally recommended〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕
       ・Nab-paclitaxel 〔JGCA conditionally recommended〕
       ・FOLFIRI 〔PAGA II, B〕 〔ESMO III, B〕 〔NCCN 2A, preferred〕
       ・Ramucirumab with FOLFIRI after docetaxel or in the presence of neuropathy 〔NCCN 2A, other recommended〕 〔ASCO Moderate, Conditional〕
-    + COUGAR-02 [t-cougar-02]
-    ~ Thuss-Patience 2011 [t-thuss-patience-et-al]
-    + Kang 2012 [t-kang-et-al]
-    - WJOG 4007 [t-wjog-4007]
-    ~ ABSOLUTE [t-absolute]
+    + COUGAR-02 {pmid 24332238}
+    ~ Thuss-Patience 2011 {pmid 21742485}
+    + Kang 2012 {pmid 22412140}
+    - WJOG 4007 {pmid 24190112}
+    ~ ABSOLUTE {pmid 28404157}
     ③ Ramucirumab alone, when chemotherapy is contraindicated 〔JGCA conditionally recommended〕 〔PAGA I, B〕 〔ESMO I, B〕 〔NCCN 1, other recommended〕
-    + REGARD
+    + REGARD {pmid 24094768}
     ※ Continuation or rechallenge of a fluoropyrimidine or ramucirumab after progression is not recommended 〔JGCA A, Strong against〕
     ※ China only: oral paclitaxel solution was non-inferior to intravenous paclitaxel
-      + Li 2026 [t-li-et-al]
+      + Li 2026 {pmid 42617423}
     next: Third line and later, adenocarcinoma | Progression
   Third line and later, adenocarcinoma
     branch: NEG pale
     ① Trifluridine/tipiracil 〔JGCA recommended〕 〔KGCA High, Strong〕 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕
       ・Not recommended for oesophageal adenocarcinoma, which was not enrolled in TAGS 〔NCCN〕
-    + TAGS
+    + TAGS {pmid 30355453}
     ② Irinotecan or a taxane, if not previously given 〔KGCA High, Strong〕 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 1, preferred〕
       ・Irinotecan is preferred over a taxane 〔JGCA recommended〕
     ③ Nivolumab, if no prior checkpoint inhibitor 〔JGCA recommended〕 〔KGCA High, Strong〕 〔PAGA I, B〕
       ・Licensed in this line in Japan, Korea and Singapore, not in the EU or US
       ・ATTRACTION-2 enrolled Asian patients only
-    + ATTRACTION-2
+    + ATTRACTION-2 {pmid 28993052}
     ※ The optimal sequence of these options is not established 〔JGCA〕 〔PAGA〕
     ※ NTRK fusion, RET fusion, BRAF V600E or high tumour mutational burden: matched targeted therapy 〔NCCN 2A, useful in certain circumstances〕
   Second line and later, squamous cell carcinoma
@@ -228,9 +228,9 @@ course: Advanced gastric and oesophageal cancer
     ① Checkpoint inhibitor-naive: nivolumab or tislelizumab 〔JES Strong〕 〔ESMO I, A〕 〔NCCN 1〕 〔ASCO Moderate, Conditional〕
       ・PD-L1 1 or more 〔ASCO Moderate, Conditional〕
       ・Pembrolizumab for CPS 10 or more 〔JES Weak〕 〔NCCN 1〕 〔ASCO Moderate, Conditional〕
-    + ATTRACTION-3
-    + RATIONALE-302 [t-rationale-302]
-    ~ KEYNOTE-181 [t-keynote-181]
+    + ATTRACTION-3 {pmid 31582355}
+    + RATIONALE-302 {pmid 35442766}
+    ~ KEYNOTE-181 {pmid 33026938}
     ② Paclitaxel, docetaxel or irinotecan 〔ESMO II, B〕 〔NCCN 1〕
       ・Paclitaxel in the second or third line, if taxane-naive 〔JES Weak〕
       ・FOLFIRI 〔NCCN 2A〕
@@ -240,17 +240,17 @@ panel: Choice of chemotherapy > HER2-negative adenocarcinoma
     ・Oxaliplatin is preferred over cisplatin, particularly in older patients 〔PAGA I, A〕 〔ESMO I, A〕
     ・S-1 is an alternative to fluorouracil or capecitabine 〔PAGA I, A〕 〔ESMO I, A〕
     ・S-1 or capecitabine with cisplatin 〔JGCA recommended〕
-  ~ JCOG9912 [t-jcog-9912]
-  ~ REAL-2
-  + SPIRITS [t-spirits]
-  ~ G-SOX [t-g-sox]
+  ~ JCOG9912 {pmid 19818685}
+  ~ REAL-2 {pmid 18172173}
+  + SPIRITS {pmid 18282805}
+  ~ G-SOX {pmid 25316259}
   ② Docetaxel, oxaliplatin and fluorouracil for selected fit patients with no biomarker-directed option 〔ESMO I, B〕
     ・Docetaxel, cisplatin and fluorouracil, or the oxaliplatin-based regimen, for fit patients 〔NCCN 2A, other recommended〕
     ・Not a standard in Asia, where the addition of docetaxel to cisplatin and S-1 did not improve survival and rates of later-line treatment exceed those in GASTFOX 〔PAGA I, C〕
-  + GASTFOX
-  + V325
-  - JCOG1013 [t-jcog-1013]
+  + GASTFOX {pmid 40286809}
+  + V325 {pmid 17075117}
+  - JCOG1013 {pmid 31101534}
   ③ Platinum-ineligible: FOLFIRI, or a fluoropyrimidine alone or with a taxane 〔PAGA II, B〕 〔NCCN 2A, other recommended〕
     ・FOLFIRI, including after progression during or soon after perioperative FLOT 〔ESMO I, B〕
     ・In Japan: S-1 alone, docetaxel with S-1, fluorouracil with paclitaxel, or fluorouracil with leucovorin
-  ~ Guimbaud 2014 [t-guimbaud-et-al]
+  ~ Guimbaud 2014 {pmid 25287828}

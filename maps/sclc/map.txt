@@ -74,19 +74,19 @@ course: Small-cell lung cancer
     ・Durvalumab with cisplatin or carboplatin
     ・At PS 0–1 〔JLCS A, 1〕
     ・Older patients with PS 0–1 〔ASCO Moderate, Strong〕
-      + IMpower133
-      + CASPIAN
+      + IMpower133 {pmid 30280641}
+      + CASPIAN {pmid 33285097}
       ※ CASPIAN included asymptomatic untreated brain metastases
     ② Immunotherapy contraindicated: platinum and etoposide for 4–6 cycles 〔NCCN 2A, other recommended〕
     ③ Irinotecan with a platinum, cisplatin or carboplatin 〔NCCN 2A, useful in certain circumstances〕
     ・Platinum doublets including cisplatin and irinotecan, at age 70 or under 〔JLCS BQ1, A〕
     ・The survival gain in Japan was not confirmed in North America
-      + JCOG9511
-      - SWOG S0124 [t-swog-s0124]
+      + JCOG9511 {pmid 11784874}
+      - SWOG S0124 {pmid 19349543}
     ④ Serplulimab with carboplatin and etoposide
     ・EU licence 2025
     ・The trial ran mostly in China
-      + ASTRUM-005
+      + ASTRUM-005 {pmid 36166026}
     ※ Brain metastases 〔NCCN 2A〕
     ・Symptomatic: brain radiotherapy first unless systemic treatment is urgent
     ・Asymptomatic: systemic treatment first
@@ -102,10 +102,10 @@ course: Small-cell lung cancer
     ・Drug treatment is not recommended at PS 4 〔JLCS D, 2〕
     ※ Age 71 or over: platinum-based treatment 〔JLCS BQ2, B〕
     ・Carboplatin and irinotecan did not improve OS over carboplatin and etoposide
-      - JCOG1201/TORG1528 [t-shimokawa-et-al]
+      - JCOG1201/TORG1528 {pmid 37156212}
     ※ Pembrolizumab improved PFS, but OS did not meet its significance boundary
     ・Not licensed in this setting
-      ~ KEYNOTE-604
+      ~ KEYNOTE-604 {pmid 32468956}
     next: Extensive stage, after induction | No progression
   Surgery or SABR
     branch: SX
@@ -124,7 +124,7 @@ course: Small-cell lung cancer
     Platinum and etoposide for 4 cycles 〔JLCS C, 1〕
     ・Cisplatin and etoposide 〔NCCN 2A, preferred〕 〔ASCO High, Strong〕
     ・Carboplatin and etoposide when cisplatin is contraindicated or not tolerated 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
-      + Sundstrøm 2002 [t-sundstr-m-et-al]
+      + Sundstrøm 2002 {pmid 12488411}
     ※ Myeloid growth factors
     ・GM-CSF is not recommended 〔NCCN 1〕
     ・G-CSF is not recommended 〔NCCN 2A〕
@@ -133,26 +133,26 @@ course: Small-cell lung cancer
   Thoracic radiotherapy
     branch: CRT pale
     Thoracic radiotherapy with chemotherapy improves survival
-      + Pignon 1992 [t-pignon-et-al]
+      + Pignon 1992 {pmid 1331787}
     ① 45 Gy in 30 fractions twice daily 〔NCCN 1〕 〔JLCS B, 1〕
     ・Started with chemotherapy cycle 1 or 2 〔NCCN 1〕 〔JLCS B, 1〕
     ・Chemotherapy is not delayed until radiotherapy can start 〔ASCO Low, Strong〕
-      + Intergroup 0096
+      + Intergroup 0096 {pmid 9920950}
     ※ Survival was numerically longer with concurrent than with sequential radiotherapy, without statistical significance
-      - JCOG 9104 [t-jcog-9104]
+      - JCOG 9104 {pmid 12118018}
     ② 66–70 Gy in once-daily fractions over 6.5–7 weeks, an accepted alternative 〔NCCN 2A〕
     ・Once-daily treatment only when twice daily is not feasible 〔JLCS〕
-      - CONVERT
+      - CONVERT {pmid 28642008}
     ※ 70 Gy once daily was not superior to 45 Gy twice daily
-      - CALGB 30610 [t-calgb-30610-rtog-0538]
+      - CALGB 30610 {pmid 36623230}
     ※ Higher-dose accelerated radiotherapy
     ・54 Gy in 30 twice-daily fractions, with a simultaneous boost to the gross tumour, improved OS in a phase III trial in China
     ・60 Gy twice daily and 65 Gy daily were tested in randomised phase II trials
     ・These trials indicate an advantage 〔NCCN〕
     ・Doses above 45 Gy twice daily are not recommended, and the dose with durvalumab is not defined 〔NCCN〕
-      + Yu 2024 [t-triss]
+      + Yu 2024 {pmid 39146944}
       + THORA [t-thora]
-      ~ Qiu 2021 [t-qiu-et-al]
+      ~ Qiu 2021 {pmid 33992717}
     next: Limited stage, after chemoradiotherapy | No progression
   After surgery or SABR
     branch: SX pale
@@ -170,8 +170,8 @@ course: Small-cell lung cancer
     ① PCI 25 Gy in 10 fractions after response, given before durvalumab 〔NCCN 2A〕
     ・After complete response 〔JLCS B, 1〕
     ・25 Gy in 10 fractions 〔JLCS B, 2〕
-      + Aupérin 1999 [t-aup-rin-et-al]
-      - PCI 99-01 [t-pci-99-01-eortc-22003-08004-rtog-0212-ifct-99-01]
+      + Aupérin 1999 {pmid 10441603}
+      - PCI 99-01 {pmid 19386548}
       ※ PCI is not recommended with PS 3–4 or impaired cognition 〔NCCN 2A〕
       ・Cognitive decline after PCI is more likely from age 60
       ※ Brain MRI surveillance without PCI is also accepted 〔NCCN 2A〕
@@ -181,10 +181,10 @@ course: Small-cell lung cancer
     ② Durvalumab every 4 weeks for up to 24 months when there is no progression after chemoradiotherapy 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS B, 1〕
     ・ADRIATIC enrolled PS 0–1
     ・EU licence 2025
-      + ADRIATIC
+      + ADRIATIC {pmid 39268857}
     ※ Atezolizumab with and after chemoradiotherapy, or for 1 year after it, did not improve OS
     ・ACHILES is a congress abstract
-      - NRG LU005 [t-nrg-lu005]
+      - NRG LU005 {pmid 41529214}
       - ACHILES [t-achiles]
     join: Recurrent/progressive disease | Relapse
   Extensive stage, after induction
@@ -194,23 +194,23 @@ course: Small-cell lung cancer
     ・For patients with at least stable disease after 4 cycles, PS 0–1 and no brain metastases at any time
     ・US licence 2025, EU licence 2026
     ・The ASCO guideline predates IMforte
-      + IMforte
+      + IMforte {pmid 40473449}
     ③ After induction with durvalumab: tarlatamab with durvalumab
     ・Not licensed as of November 2026
       + DeLLphi-305
     ※ Nivolumab with or without ipilimumab after chemotherapy alone did not improve OS
-      - CheckMate 451
+      - CheckMate 451 {pmid 33683919}
     ※ Thoracic radiotherapy, 30 Gy in 10 fractions up to definitive doses 〔NCCN 2A〕
     ・After complete or near-complete response with residual thoracic disease and low-bulk extrathoracic disease
     ・Before or during maintenance
     ・No recommendation 〔JLCS〕
-      - CREST
+      - CREST {pmid 25230595}
     ※ PCI
     ・PCI is not recommended 〔JLCS B, 1〕
     ・Brain MRI surveillance, with PCI as an option 〔NCCN 2A〕
     ・PCI dose 25 Gy in 10 fractions or 20 Gy in 5 〔NCCN 2A〕
-      + EORTC 22993-08993
-      - Takahashi 2017 [t-takahashi-et-al]
+      + EORTC 22993-08993 {pmid 17699816}
+      - Takahashi 2017 {pmid 28343976}
     next: Recurrent/progressive disease | Progression
   Recurrent/progressive disease
     branch: REL
@@ -239,19 +239,19 @@ course: Small-cell lung cancer
     ① Tarlatamab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕
     ・At PS 0–1 〔JLCS B, 1〕
     ・US accelerated licence 2024, full licence 2025, EU licence 2026
-      + DeLLphi-304
+      + DeLLphi-304 {pmid 40454646}
     ② Platinum and etoposide rechallenge, with or without immunotherapy, PS 0–2 〔NCCN 2A, preferred〕
     ・Platinum rechallenge 〔ASCO Moderate, Strong〕
     ・Carboplatin and etoposide 〔JLCS A, 2〕
-      ~ GFPC 01–13 [t-groupe-fran-ais-de-pneumo-canc-rologie-01-13]
+      ~ GFPC 01–13 {pmid 32888454}
     ③ Topotecan or lurbinectedin as a single agent
     ・Topotecan, oral or intravenous, PS 0–2 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS A, 2〕
     ・Lurbinectedin if not given before 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕
     ・Lurbinectedin alone has no US licence since September 2026 and was never licensed alone in the EU
-      + O'Brien 2006 [t-o-brien-et-al]
-      - von Pawel 1999 [t-von-pawel-et-al]
+      + O'Brien 2006 {pmid 17135646}
+      - von Pawel 1999 {pmid 10080612}
     ④ Cisplatin, etoposide and irinotecan 〔JLCS A, 2〕
-      + JCOG0605 [t-jcog-0605]
+      + JCOG0605 {pmid 27312053}
     ※ Amrubicin 〔JLCS A, 2〕
     ・Amrubicin is licensed in Japan
     ※ Tarlatamab, topotecan and lurbinectedin are equally preferred single agents, in a guideline predating DeLLphi-304 〔ASCO〕
