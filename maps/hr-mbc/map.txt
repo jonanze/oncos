@@ -1,0 +1,284 @@
+# oncOS board map: HR+ HER2- MBC (systemic course of hormone receptor-positive, HER2-negative metastatic breast cancer)
+# Draft 2.2, approved by Jonan for publication 2026-11-15. Intake chips linked to filed rows 2026-11-15 (ASCENT-07 awaits a PMID). Draft 0 by the structure planner, reviewed by independent QA
+#   (board-maps/hr-mbc/independent-review.md, 40 findings). Draft 1 changed: HER2-ultralow on its own line with
+#   chemotherapy first, licence and grade attachments corrected, ABC8 conditions written in, seven chips added, ・ lines
+#   that restated a point merged (board-maps/hr-mbc/draft1-changes.md)
+#   Structure plan: board-maps/hr-mbc/structure-plan.md. Clinical content: board-maps/hr-mbc/guideline-read-notes.md only
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-14): the systemic course by line (first line, after first progression, then chemotherapy and
+#   antibody-drug conjugates), with three small panels: bone-modifying agents, surgery of the primary tumour in de novo
+#   stage IV disease, and oligometastatic disease. Brain metastases and palliative radiotherapy are out. Chips may cite
+#   OlympiAD, EMBRACA and NRG BR002 from the shared sheet "General Principles", and SABR-COMET from "Supportive Care"
+# Layout: the course carries "| parallel". Three presentations start side by side: first line in endocrine-sensitive
+#   disease, first line after early relapse, and visceral crisis. All three lead into one step after first progression,
+#   whose numbered lines are the populations by previous treatment and biomarker. Their order is the ESMO display order,
+#   not a ranking. Two steps follow in time order: the first cytotoxic line, then treatment after chemotherapy. No
+#   header step and no line labels.
+#   Testing, the rules shared by every endocrine-based line and chemotherapy are bands. Eligibility criteria are written
+#   into the numbered lines (Jonan 2026-11-14, no criteria table, no assay panel)
+# One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
+#   (a cut-off, a line of treatment, a grade), a condition or a licence. One numbered line per population
+# Guideline set (Jonan 2026-11-14): PAGA 2023, ESMO 2026 with Living Guideline v2.0, ASCO 2021 with rapid updates to
+#   2024, NCCN 9.2026, and ABC8 2026 tagged only where it adds a point. JBCS is out. Tag order PAGA, ESMO, ASCO, NCCN, ABC8
+# Tags give the grade as printed, evidence first and strength second, on the statement the guideline graded:
+#   〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline for metastatic breast cancer 2023 (Im, ESMO Open 2023;8:101541),
+#     adapted from ESMO 2021. A bare 〔PAGA〕 marks body text, a figure footnote or an ungraded Table 1 row
+#   〔ESMO level, grade〕 ESMO metastatic breast cancer guideline 2026 (de Azambuja, Ann Oncol 2026;37:1203-1219), read
+#     from the Living Guideline v2.0 pages (August 2026). A bare 〔ESMO〕 marks an algorithm footnote or a printed order
+#   〔ASCO quality, strength〕 ASCO endocrine and targeted therapy update 2021 (Burstein), chemotherapy and targeted therapy
+#     update 2021 (Moy) and the rapid updates of 2022 (trastuzumab deruxtecan), 2023 (sacituzumab govitecan, ESR1) and
+#     2024 (capivasertib). A bare 〔ASCO〕 marks a 2016 recommendation reprinted without a rating, a qualifying statement,
+#     a table or the clinical interpretation
+#   〔NCCN category〕 NCCN Breast Cancer 9.2026 (22 October 2026), with "preferred" as printed. A bare 〔NCCN〕 marks a
+#     footnote, a principles page or the Discussion
+#   〔ABC8 level/grade〕 ABC8 international consensus 2026 (Cardoso, Breast 2026;90:104921), LoE/GoR as printed, without
+#     the consensus percentage. The two SERENA-6 grades were placed from the row image on PDF page 15
+# Trial marks: + overall survival benefit, ~ surrogate endpoint or non-inferiority, - no benefit from the tested change,
+#   * no comparison for the statement. Single-arm trials are not chips (Jonan), so TBCRC 048 and BYLieve stay off the map.
+#   MF07-01 is marked - because its 36-month survival analysis was not improved (inclusion.txt, Result), with the later
+#   survival gain left to Jonan
+# Giredestrant with everolimus is a ※ line after first progression (ABC8 alone, Jonan 2026-11-14). Gedatolisib is in ⑥
+#   after first progression (Jonan 2026-11-14)
+# ※ lines for options that NCCN lists and no core guideline grades: camizestrant switch. Imlunestrant with
+#   abemaciclib and vepdegestrant sit as ・ lines in the ESR1 class (header Rule ⑦)
+
+map: HR+ HER2- MBC
+source: PAGA {url https://doi.org/10.1016/j.esmoop.2023.101541}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2026.05.707}
+source: ASCO {url https://doi.org/10.1200/JCO.24.00248}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ABC8 {url https://doi.org/10.1016/j.breast.2026.104921}
+branch: SENS | First line, endocrine-sensitive | blue
+branch: RES | First line, early relapse | rose
+branch: VC | Visceral crisis | apricot
+branch: SEC | After first progression | violet
+branch: CYT | Chemotherapy and antibody-drug conjugates | teal
+
+band: Biopsy and testing
+  ① A metastatic lesion is biopsied at the first diagnosis of metastatic disease, to confirm histology and reassess ER, PgR and HER2 〔PAGA I, B〕 〔ESMO I, A〕 〔NCCN 2A〕
+    ・With discordant receptor results, treatment follows the biopsy of the recurrence 〔PAGA〕 〔ESMO V, B〕
+    ・Endocrine therapy is considered when ER is positive in at least one biopsy 〔ABC8 Expert opinion/B〕
+    ・When a biopsy cannot be obtained safely, treatment starts on the receptor status of the primary tumour 〔NCCN〕
+  ※ ER-low disease (1 to 10%) is eligible for endocrine therapy 〔NCCN〕
+    ・ER-low disease is not treated with endocrine therapy alone 〔ABC8 III/B〕
+  ② HER2 is reassessed as low, ultralow or 0 before treatment that is not endocrine-based 〔ESMO I, A〕
+    ・HER2-low is IHC 1+, or IHC 2+ with negative in situ hybridisation 〔PAGA〕 〔ASCO〕 〔NCCN〕
+    ・HER2-ultralow is IHC 0 with faint, incomplete membrane staining in 10% of tumour cells or fewer 〔NCCN〕
+    ・HER2-low status on one sample, from any stage of the disease, is sufficient for trastuzumab deruxtecan 〔ABC8 I/A〕
+  ③ Germline BRCA1/2 status is tested in HER2-negative metastatic disease 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕
+    ・Where treatment is available, germline PALB2 〔ESMO I, A〕 and somatic BRCA1/2 〔ESMO III, A〕 are also tested
+  ④ PIK3CA 〔PAGA I, A〕, AKT1 and PTEN alterations are tested on tumour tissue or ctDNA, mainly in endocrine-resistant disease 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN〕
+    ・When ctDNA shows no alteration, tumour tissue is tested 〔ASCO High, Strong〕 〔NCCN〕
+    ・Tissue is preferred to ctDNA for homozygous loss of PTEN 〔NCCN〕
+  ⑤ ESR1 mutations are tested at progression on endocrine therapy, with or without a CDK4/6 inhibitor 〔PAGA〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN〕
+    ・ctDNA is the preferred sample 〔ASCO High, Strong〕 〔NCCN〕, with tissue testing when no mutation is detected 〔NCCN〕 〔ABC8 I/B〕
+    ・ESR1 wild-type disease is tested again at later progression 〔ASCO High, Strong〕
+  ※ Broader genomic profiling is limited to results that change treatment or give access to a trial 〔PAGA V, B〕 〔ESMO III, B〕
+
+band: Endocrine-based therapy at every line
+  ① Pre- and perimenopausal women: ovarian function suppression or ablation with every endocrine-based therapy 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO〕 〔NCCN〕
+    ・Suppression starts with or before endocrine therapy 〔NCCN〕
+    ・Tamoxifen alone is an option 〔PAGA〕 〔ASCO〕
+    ・Tamoxifen alone is limited to women who decline ovarian suppression 〔ABC8 I/C〕
+    ・On an aromatase inhibitor, oestradiol is measured serially, even with amenorrhoea 〔ABC8 Expert opinion/B〕
+  ② Men: the same treatment as for women 〔NCCN〕, with a GnRH analogue when an aromatase inhibitor is given 〔ASCO High, Strong〕 〔NCCN〕
+    ・An aromatase inhibitor without a GnRH analogue may be considered, with close monitoring of response 〔ABC8 IV/B〕
+    ・Tamoxifen is a preferred agent for untreated disease or relapse after more than 12 months, and can be combined with abemaciclib or palbociclib 〔ABC8 IV/B〕
+  ※ CDK4/6 inhibitors are as effective at 70 or older as in younger patients, and cause more fatigue, diarrhoea, neutropenia and hepatotoxicity at 75 or older 〔ASCO〕
+    ・A G8 screen comes first, with a full geriatric assessment when the score is low 〔ABC8 I/A〕
+
+band: Chemotherapy
+  ① No need for a rapid response: single agents in sequence 〔PAGA II, A〕 〔ESMO II, A〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕
+    ・The agents are an anthracycline, a taxane, capecitabine, eribulin, vinorelbine, gemcitabine or a platinum 〔PAGA〕 〔NCCN〕
+    ・As the first chemotherapy, capecitabine or a taxane may be considered 〔ESMO I, C〕, and oral chemotherapy is generally preferred 〔NCCN〕
+    ・An anthracycline or a taxane is the usual first chemotherapy when neither was given for early disease 〔ABC8 I/A〕
+    ・An anthracycline or a taxane can be given again after a disease-free interval of 12 months or more 〔PAGA II, B〕 〔ESMO II, B〕
+    ・Metronomic chemotherapy is an option when no rapid response is needed 〔ABC8 I/B〕
+    + EMBRACE [t-embrace]
+  ② Imminent organ failure: combination chemotherapy 〔PAGA II, A〕 〔ESMO V, A〕
+    ・Combinations are also used for symptomatic, rapidly progressing or immediately life-threatening disease 〔ASCO Moderate, Strong〕 〔NCCN〕
+  ※ Chemotherapy generally continues until progression or intolerable toxicity 〔PAGA I, B〕 〔ASCO〕 〔NCCN 2A〕, within the cumulative dose limit for anthracyclines 〔PAGA〕
+    + Gennari 2011 [t-gennari-et-al]
+  ※ Bevacizumab may be added to capecitabine or a taxane in the first chemotherapy line 〔PAGA I, C〕 〔ESMO I, C〕, and in the second 〔PAGA〕
+    ・Bevacizumab has no EMA or FDA licence in this line 〔ESMO〕
+  ※ Dihydropyrimidine dehydrogenase testing precedes capecitabine 〔ESMO V, A〕
+    ・Testing may be considered before treatment or after unexpected toxicity, since the deficiency is rare in Asian countries 〔PAGA II, D〕
+
+course: Systemic treatment of HR+ HER2- metastatic breast cancer | parallel
+  First line, de novo disease or relapse more than 12 months after adjuvant endocrine therapy
+    branch: SENS
+    ① An aromatase inhibitor with a CDK4/6 inhibitor 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕, as ribociclib 〔NCCN 1, preferred〕, abemaciclib or palbociclib 〔NCCN 2A, preferred〕
+      ・The order of preference is ribociclib, abemaciclib, then palbociclib 〔ESMO〕
+      ・Ribociclib has improved overall survival and palbociclib has not 〔PAGA〕 〔NCCN〕
+      ・Fulvestrant with a CDK4/6 inhibitor is also an option at first line 〔ASCO High, Strong〕 〔ABC8 I/A〕, particularly with intolerance of aromatase inhibitors 〔ASCO〕
+      ・In 2023 ribociclib was unavailable or limited in China and Japan 〔PAGA〕
+    + MONALEESA-2 [t-monaleesa-2]
+    + MONALEESA-7 [t-monaleesa-7]
+    ~ MONARCH 3 [t-monarch-3]
+    ~ PALOMA-2 [t-paloma-2]
+    ② Comorbidity or a performance status that precludes a CDK4/6 inhibitor: endocrine therapy alone 〔PAGA V, A〕 〔ESMO V, B〕 〔NCCN〕
+      ・Endocrine therapy alone is also acceptable for selected postmenopausal women with a low disease burden or a long disease-free interval, with the CDK4/6 inhibitor given at second line 〔ASCO〕 〔NCCN〕 〔ABC8 I/A〕
+    ~ FALCON [t-falcon]
+    - SONIA [t-sonia]
+    ※ Fulvestrant with anastrozole or letrozole is an option when no CDK4/6 inhibitor is given and no adjuvant endocrine therapy was received 〔ASCO〕 〔NCCN 1〕 〔ABC8 II/D〕
+      + SWOG S0226 [t-swog-s0226]
+      - FACT [t-fact]
+      - SoFEA [t-sofea]
+    ※ When an ESR1 mutation appears in ctDNA after at least 6 months of treatment, without radiological progression, a switch of the aromatase inhibitor to camizestrant, with the same CDK4/6 inhibitor, can be considered 〔NCCN 2B〕
+      ・The clinical utility of serial ctDNA testing to change treatment before progression is not yet established 〔ABC8 I/D〕
+      ~ SERENA-6 [t-serena-6]
+    ※ After an adjuvant CDK4/6 inhibitor, a CDK4/6 inhibitor is used again when relapse comes 12 months or more after its completion, in ER-positive disease without visceral crisis 〔ABC8 Expert opinion/B〕
+    next: After progression on first-line therapy
+  First line, relapse during or within 12 months of adjuvant endocrine therapy
+    branch: RES
+    ① PIK3CA wild type: fulvestrant with a CDK4/6 inhibitor 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕, as ribociclib or abemaciclib 〔NCCN 1, preferred〕 or palbociclib 〔NCCN 2A, preferred〕
+      ・The 12-month cut-off counts from the end of an adjuvant aromatase inhibitor 〔PAGA〕 〔ASCO〕
+      ・Ribociclib and abemaciclib with fulvestrant have improved overall survival 〔PAGA〕 〔NCCN〕
+    + MONALEESA-3 [t-monaleesa-3]
+    + MONARCH 2 [t-monarch-2]
+    ~ PALOMA-3 [t-paloma-3]
+    ② PIK3CA mutation: fulvestrant with palbociclib and inavolisib 〔ESMO I, A〕 〔NCCN 1, preferred〕, with controlled glycaemia 〔ABC8 I/A〕, or fulvestrant with a CDK4/6 inhibitor 〔ESMO I, B〕
+    + INAVO120 [t-inavo120]
+    ※ With an ESR1 mutation after an adjuvant aromatase inhibitor, imlunestrant alone is an option 〔NCCN 2A〕 〔ABC8 I/B〕
+    ※ After relapse during or within 12 months of an adjuvant CDK4/6 inhibitor, another endocrine-based treatment is chosen by biomarker, and a CDK4/6 inhibitor is not preferred 〔ABC8 Expert opinion/B〕
+    ※ Primary endocrine resistance is relapse in the first 2 years of adjuvant endocrine therapy, or progression in the first 6 months of first-line endocrine-based therapy 〔ABC8 III/B〕
+    ° Toxicity of note: hyperglycaemia, rash, diarrhoea and stomatitis with inavolisib, which need careful monitoring and early management 〔ABC8 I/A〕
+    next: After progression on first-line therapy
+  Visceral crisis at presentation
+    branch: VC
+    ① Chemotherapy 〔PAGA III, B〕 〔ESMO V, B〕 〔ASCO〕 〔NCCN 2A〕, or endocrine therapy with a CDK4/6 inhibitor in certain circumstances 〔NCCN〕 〔ABC8 II/B〕
+      ・In liver visceral crisis, weekly chemotherapy at lower doses is recommended 〔ABC8 IV/B〕
+      ・With bone marrow infiltration, weekly reduced-dose paclitaxel, capecitabine, or endocrine therapy with a CDK4/6 inhibitor are among the best options 〔ABC8 IV/B〕
+      ・After response or stabilisation, treatment can change to endocrine therapy 〔PAGA〕 〔NCCN〕, with a CDK4/6 inhibitor when none was given 〔PAGA〕 〔ABC8 Expert opinion/B〕
+    ※ Visceral crisis is severe organ dysfunction with rapid progression, and not the presence of visceral metastases alone 〔NCCN〕
+      ・Examples are bilirubin rising rapidly above 1.5 times the upper limit of normal without biliary obstruction, and dyspnoea at rest that pleural drainage does not relieve 〔ABC8 Expert opinion/NA〕
+    ※ Extensive or symptomatic visceral disease without organ failure is treated with endocrine therapy and a CDK4/6 inhibitor in preference to chemotherapy 〔NCCN〕 〔ABC8 I/A〕
+      ~ RIGHT Choice [t-right-choice]
+      ~ PADMA [t-padma]
+      - PEARL [t-pearl]
+      ~ Young-PEARL [t-young-pearl]
+    next: After progression on first-line therapy
+  After progression on first-line therapy
+    branch: SEC
+    ① No previous CDK4/6 inhibitor: fulvestrant with a CDK4/6 inhibitor 〔PAGA〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕
+    ② PIK3CA, AKT1 or PTEN alteration: fulvestrant with capivasertib 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕, or with alpelisib for a PIK3CA mutation after an aromatase inhibitor and with an appropriate HbA1c 〔PAGA I, B〕 〔ESMO I, B〕 〔ASCO High, Moderate〕 〔NCCN 1, preferred〕
+      ・Both combinations are for patients who have not received fulvestrant 〔ESMO〕
+      ・The choice between them rests on the risks of hyperglycaemia, diarrhoea and discontinuation for adverse events 〔ASCO Low, Weak〕
+      ・Alpelisib is the less preferred agent where capivasertib is available 〔ABC8 I/B〕
+      ・After progression on a PI3K pathway inhibitor, another has limited data 〔NCCN〕 and is not recommended 〔ABC8 NA/D〕
+    ~ CAPItello-291 [t-capitello-291]
+    ~ SOLAR-1 [t-solar-1]
+    ③ ESR1 mutation: elacestrant 〔PAGA〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 2A〕 or imlunestrant 〔ESMO I, A〕 〔NCCN 2A〕
+      ・Patients whose response to the previous CDK4/6 inhibitor lasted more than 6 months are the preferred candidates 〔ESMO〕 〔ABC8 I/C〕
+      ・Imlunestrant with abemaciclib is a further option 〔NCCN 2A〕
+      ・The combination is approved in ESR1-mutated disease 〔NCCN〕, while only imlunestrant monotherapy is approved 〔ABC8〕
+      ・Vepdegestrant is a further option after endocrine therapy with a CDK4/6 inhibitor for metastatic disease 〔NCCN 2A〕, where approved 〔ABC8 I/C〕
+      ・An oral SERD after progression on another oral SERD is not recommended 〔ABC8 NA/D〕
+    ~ EMERALD [t-emerald]
+    ~ EMBER-3 [t-ember-3]
+    ~ VERITAC-2 [t-veritac-2]
+    ④ Germline BRCA1/2 variant: olaparib or talazoparib 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO Intermediate, Strong〕 〔NCCN 1, preferred〕
+      ・A PARP inhibitor replaces chemotherapy from the first to the third line once endocrine therapy no longer gives benefit, after endocrine therapy with a CDK4/6 inhibitor 〔ASCO〕 〔ABC8 Expert opinion/A〕
+      ・Complete endocrine resistance and previous anthracycline and taxane treatment are not required 〔PAGA II, B〕
+      ・A PARP inhibitor appears more effective when used earlier 〔NCCN〕
+      ・In Japan olaparib is licensed only after an anthracycline and a taxane 〔PAGA〕
+    ~ OlympiAD [t-olympiad]
+    ~ EMBRACA [t-embraca]
+    ⑤ Germline PALB2 or somatic BRCA1/2 variant: olaparib 〔PAGA〕 〔ESMO II, B〕 〔ABC8 II/B〕 or talazoparib 〔ESMO II, B〕 can be considered
+      ・For germline PALB2, olaparib follows previous chemotherapy 〔NCCN 2A〕
+      ・For a somatic BRCA1/2 variant, olaparib is useful in certain circumstances 〔NCCN 2B〕
+      ・Neither drug has an EMA or FDA licence for germline PALB2 〔ESMO〕
+    ⑥ No targetable alteration: exemestane with everolimus 〔PAGA I, B〕 〔ESMO I, B〕 〔ASCO High, Strong〕 〔NCCN 2A, preferred〕, fulvestrant or tamoxifen with everolimus 〔PAGA II, B〕 〔ESMO II, B〕 〔ASCO High, Strong〕 〔NCCN 2A, preferred〕, fulvestrant with gedatolisib, with or without palbociclib 〔NCCN 1, preferred〕 〔ABC8 I/B〕, a change of CDK4/6 inhibitor with fulvestrant 〔ESMO II, C〕, or fulvestrant alone 〔ESMO I, C〕 〔ASCO〕 〔NCCN 2A〕
+      ・Everolimus is also an option irrespective of tumour genomics 〔PAGA〕 〔ASCO〕 〔NCCN〕
+      ・Gedatolisib is for PIK3CA wild-type disease after endocrine therapy with a CDK4/6 inhibitor and no chemotherapy for advanced disease, where approved 〔ABC8〕
+      ・Fulvestrant or tamoxifen with everolimus has no EMA or FDA licence 〔ESMO〕
+      ・Everolimus is not given again after progression on an everolimus regimen 〔NCCN〕 〔ABC8 NA/E〕
+      ・CDK4/6 inhibitor rechallenge may be possible after a treatment-free interval of 12 months 〔PAGA〕
+      ・A second CDK4/6 inhibitor is less preferred, and is reserved for patients with no other targeted option who had more than 12 months on the first, with both drugs changed 〔ABC8 II/C〕
+    ~ BOLERO-2 [t-bolero-2]
+    ~ TAMRAD [t-tamrad]
+    ~ MAINTAIN [t-maintain]
+    ~ postMONARCH [t-postmonarch]
+    - PACE [t-pace]
+    - PALMIRA [t-palmira]
+    ~ VIKTORIA-1 [t-viktoria-1]
+    ※ In endocrine-sensitive disease, endocrine therapy continues with agents not yet received for metastatic disease 〔PAGA III, B〕 〔ESMO III, B〕, including tamoxifen, megestrol acetate or oestradiol in indolent disease 〔ASCO〕 〔NCCN 2A〕
+    ※ The choice between endocrine-based and other treatment rests on disease aggressiveness and extent, organ function, the response to previous endocrine therapy, mutation status and toxicity 〔PAGA〕 〔ESMO V, B〕
+      ・With both a PI3K pathway alteration and an ESR1 mutation, either targeted treatment can come first 〔ABC8 Expert opinion/C〕
+    ※ In ESR1-mutated disease after a CDK4/6 inhibitor and no chemotherapy for advanced disease, giredestrant with everolimus is an option in the second or third line, where approved 〔ABC8 I/B〕
+      ~ evERA Breast Cancer [t-evera-breast-cancer]
+    ° Toxicity of note: hyperglycaemia with PI3K pathway and mTOR inhibitors, monitored with glycaemia and lipids from baseline 〔ABC8 II/A〕, and weekly in the first 4 weeks of alpelisib, which is withheld in uncontrolled diabetes 〔ASCO〕
+    ° Toxicity of note: stomatitis with everolimus, prevented by a steroid mouthwash 〔PAGA〕 〔ESMO V, A〕
+    next: First cytotoxic line in endocrine-resistant disease
+  First cytotoxic line in endocrine-resistant disease
+    branch: CYT
+    ① HER2-low: trastuzumab deruxtecan after two or more lines of endocrine therapy for metastatic disease, or after one line with progression within 6 months of endocrine therapy and a CDK4/6 inhibitor or within 24 months of adjuvant endocrine therapy 〔ESMO I, A〕 〔NCCN 2A〕 〔ABC8 I/A〕, or single-agent chemotherapy 〔PAGA V, B〕 〔ESMO I, B〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕
+      ・One previous endocrine-based line for metastatic disease is sufficient for trastuzumab deruxtecan 〔NCCN〕
+    ~ DESTINY-Breast06 [t-destiny-breast06]
+    ② HER2-ultralow: single-agent chemotherapy 〔PAGA V, B〕 〔ESMO I, B〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕, or trastuzumab deruxtecan after the same endocrine therapy as in HER2-low disease 〔ESMO I, A〕 〔NCCN 2A〕
+      ・More data are needed before trastuzumab deruxtecan can be recommended in HER2-ultralow disease 〔ABC8 I/C〕
+    ③ HER2 0 without membrane staining: single-agent chemotherapy 〔PAGA V, B〕 〔ESMO I, B〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕
+    ※ At least two lines of endocrine-based therapy precede chemotherapy in endocrine-sensitive disease 〔PAGA V, A〕 〔ESMO V, B〕
+      ・Cytotoxic therapy follows up to three endocrine regimens without clinical benefit, or symptomatic visceral disease 〔NCCN 2A〕
+      ・After progression within 3 months on any endocrine-based line, the next line is usually not endocrine-based unless a targetable alteration is found 〔ABC8 Expert opinion/NA〕
+    ※ In endocrine-resistant disease, chemotherapy or an antibody-drug conjugate follows once targeted agents have been used or ruled out 〔ESMO V, B〕
+    ※ Sacituzumab govitecan is not recommended as the first cytotoxic treatment 〔ABC8 I/E〕
+      - ASCENT-07 {url https://doi.org/10.1158/1557-3265.SABCS25-GS1-09}
+    ※ Progression is declared on unequivocal evidence, and a rise in tumour markers alone does not define it 〔ASCO〕 〔NCCN〕
+    ° Toxicity of note: interstitial lung disease with trastuzumab deruxtecan, with regular monitoring that includes CT surveillance 〔NCCN〕 〔ABC8 I/A〕
+    next: After at least one line of chemotherapy for metastatic disease
+  After at least one line of chemotherapy for metastatic disease
+    branch: CYT pale
+    ① HER2-low: trastuzumab deruxtecan, when not given before 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕
+      ・Trastuzumab deruxtecan is also an option in HER2-ultralow disease 〔NCCN 2A〕
+      ・In March 2023 trastuzumab deruxtecan was unavailable in most of the ten countries of the PAGA panel 〔PAGA〕
+    + DESTINY-Breast04 [t-destiny-breast04--hr-her2-mbc]
+    ② Any HER2-negative status: sacituzumab govitecan 〔ESMO I, B〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕, datopotamab deruxtecan 〔ESMO I, B〕 〔NCCN 2A〕, or further single-agent chemotherapy 〔ESMO I, B〕 〔NCCN 2A〕
+      ・Sacituzumab govitecan follows at least two lines of chemotherapy 〔PAGA〕 〔ASCO〕 〔NCCN〕, one of them a taxane 〔PAGA〕 〔NCCN〕
+      ・Sacituzumab govitecan is for patients who are not candidates for trastuzumab deruxtecan 〔NCCN〕
+      ・Datopotamab deruxtecan is not a preferred option, since it did not improve overall survival 〔NCCN〕 〔ABC8 I/C〕
+    + TROPiCS-02 [t-tropics-02]
+    ~ TROPION-Breast01 [t-tropion-breast01]
+    ※ After progression on one antibody-drug conjugate, another not yet given can follow 〔ESMO〕
+      ・Routine sequencing of antibody-drug conjugates is not recommended 〔ABC8 Expert opinion/C〕
+      ・Trastuzumab deruxtecan is the preferred antibody-drug conjugate when one is given 〔ABC8 I/A〕
+      ・The benefit of datopotamab deruxtecan after another antibody-drug conjugate is unknown 〔NCCN〕
+    ° Toxicity of note: diarrhoea and nausea with sacituzumab govitecan, which need patient education and prophylaxis 〔ABC8 I/B〕, and with datopotamab deruxtecan, mouthwashes for stomatitis and ophthalmological surveillance 〔ABC8〕
+
+panel: Bone-modifying agents
+  ① Bone metastases, with or without symptoms: denosumab or a bisphosphonate, with systemic therapy 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕
+    ・Denosumab every 4 weeks delays skeletal events more than zoledronic acid 〔PAGA I, B〕 〔ESMO I, A〕
+    ・Denosumab, zoledronic acid and pamidronate are equal options, for an expected survival of 3 months or more and adequate renal function 〔NCCN 1〕
+    ・Zoledronic acid is given every 12 weeks in stable disease after 3 to 6 monthly doses 〔PAGA I, B〕, after 9 months or more 〔ESMO I, B〕, or from the start 〔NCCN 1〕
+    ・Treatment can be interrupted after 2 years in patients in remission 〔PAGA II, B〕 〔ESMO II, B〕
+    ・Treatment can continue beyond 2 years, with limited safety data 〔NCCN〕
+  ~ Stopeck 2010 [t-20050136]
+  ~ ZOOM [t-zoom]
+  ~ OPTIMIZE-2 [t-optimize-2]
+  ~ CALGB 70604 [t-calgb-70604]
+  ※ A dental examination with any dental treatment needed precedes the first dose, and calcium and vitamin D are given 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 1〕
+    ・With a bisphosphonate, calcium is 1200 to 1500 mg and vitamin D3 400 to 800 IU daily, and serum creatinine is measured before each dose 〔NCCN〕
+    ・With denosumab, supplements start before the first dose 〔NCCN〕
+  ° Toxicity of note: osteonecrosis of the jaw with both classes, and hypocalcaemia with denosumab 〔NCCN〕
+
+panel: De novo stage IV disease, surgery of the primary tumour
+  ① No local symptoms: systemic therapy, without routine locoregional treatment of the primary tumour 〔PAGA II, D〕 〔ESMO II, D〕 〔NCCN〕
+    ・Surgery may be considered for patients with bone-only metastases, a good response to systemic therapy, age under 55 or oligometastatic disease 〔PAGA II, B〕
+    ・Surgery can be considered after multidisciplinary discussion by patient preference, in disease responding to systemic therapy, or to improve quality of life 〔ESMO V, C〕 〔NCCN〕 〔ABC8 I/C〕
+  - Tata Memorial trial [t-badwe-et-al]
+  - ABCSG-28 POSYTIVE [t-posytive]
+  + MF07-01 [t-mf07-01]
+  - ECOG-ACRIN E2108 [t-ecog-acrin-e2108]
+  ② Local symptoms from the primary tumour: locoregional treatment is considered 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN〕
+    ・Surgery requires complete local clearance and no immediately life-threatening disease elsewhere, and radiotherapy is an alternative 〔NCCN〕
+  ※ The decision is made in a multidisciplinary team 〔PAGA II, B〕 〔ESMO II, B〕
+
+panel: Oligometastatic disease
+  ① Systemic therapy first, with local treatment decided by the response 〔PAGA V, C〕 〔ESMO V, B〕, as multimodality treatment planned in a multidisciplinary team 〔PAGA V, B〕 〔ESMO V, B〕
+    ・Ablation of metastases may be considered 〔PAGA II, C〕 〔ESMO II, C〕
+    ・Routine ablation of asymptomatic lesions is not recommended outside a trial, since it has not prolonged progression-free or overall survival 〔NCCN〕 〔ABC8 II/D〕
+    ・In de novo disease with favourable features, locoregional treatment of the primary tumour with ablation of all metastases may be considered 〔NCCN〕
+  - NRG BR002 [t-nrg-br002]
+  + SABR-COMET [t-sabr-comet]
+  ※ Oligometastatic disease is up to five lesions, not necessarily in one organ, that local treatment can bring to complete remission 〔ABC8 Expert opinion/NA〕
+

@@ -36,7 +36,8 @@
     'High Grade B-Cell Lymphoma': 'aggressive-bcl',
     'Hodgkin Lymphoma': 'hodgkin',
     'Germ Cell Tumors': 'germ-cell',
-    'HR+ HER2- EBC': 'hr-ebc'
+    'HR+ HER2- EBC': 'hr-ebc',
+    'HR+ HER2- MBC': 'hr-mbc'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
