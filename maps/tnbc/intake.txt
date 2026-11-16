@@ -1,0 +1,5 @@
+# Trials on the Triple Negative BC map with no Evidence row yet (name, PMID, where on the map)
+PEARLY	PMID 42218963	Early disease: primary surgery, then adjuvant chemotherapy
+PATTERN	PMID 32789480	Early disease: primary surgery, then adjuvant chemotherapy
+ALEXANDRA/IMpassion030	PMID 39883436	Early disease: primary surgery, then adjuvant chemotherapy
+SYSUCC-001	PMID 33300950	Early disease: after adjuvant chemotherapy
