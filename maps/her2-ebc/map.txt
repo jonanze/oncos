@@ -27,6 +27,10 @@
 #     (pT2 pN0: I, A in the text, I, B in the figure). The pT1c pN0 line rests on the Figure 6 box for pT1 pN0
 #   〔NCCN category〕 NCCN Breast Cancer 9.2026 (22 October 2026), with "preferred" as printed. A bare 〔NCCN〕 marks a
 #     footnote, a principles page or the Discussion
+#   〔ASCO-CAP〕 ASCO-CAP HER2 testing guideline update 2023 (Wolff, J Clin Oncol 2023;41:3867-3872), read in full from
+#     Jonan's PDF (2026-11-16). It affirms and reprints the 2018 recommendations (Table A2, Fig 1) and adds the reporting
+#     comment on IHC 0 versus 1+. Ungraded, so the tag is bare. The HER2 definition lines are the same on the HER2+ EBC
+#     and HER2+ MBC maps (Jonan 2026-11-16), with each map's own guideline tags
 #   〔St Gallen〕 St Gallen consensus 2025 (Burstein, Ann Oncol 2025;36:1433-1446), a panel vote with no grade, tagged only
 #     where it adds a point. The source is declared as "St" so that the tag prints "St Gallen" (outline.js reads the first
 #     word of a tag as the source name)
@@ -56,6 +60,7 @@ map: HER2+ EBC
 source: PAGA {url https://doi.org/10.1016/j.esmoop.2024.102974}
 source: ESMO {url https://doi.org/10.1016/j.annonc.2023.11.016}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ASCO-CAP {url https://doi.org/10.1200/JCO.22.02864}
 source: St {url https://doi.org/10.1016/j.annonc.2025.09.007}
 source: ESC {url https://doi.org/10.1093/eurheartj/ehac244}
 source: FDA {url https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=492dbdb2-077e-4064-bff3-372d6af0a7a2}
@@ -63,7 +68,14 @@ branch: NEO | Neoadjuvant therapy | teal
 branch: SURG | Primary surgery | blue
 
 band: HER2 testing and work-up
-  ① An IHC score of 2+ is tested by in situ hybridisation 〔ESMO I, A〕 〔NCCN〕, and HER2 is positive with an IHC score of 3+, or with a score of 2+ and a positive in situ hybridisation result 〔NCCN〕
+  ① HER2 is positive with an IHC score of 3+, or with dual-probe in situ hybridisation showing a HER2/CEP17 ratio of 2.0 or more and an average HER2 copy number of 4.0 or more signals per cell 〔NCCN〕 〔ASCO-CAP〕
+    ・An IHC score of 3+ is complete, intense circumferential membrane staining in more than 10% of tumour cells 〔NCCN〕 〔ASCO-CAP〕
+    ・An IHC score of 2+ is weak to moderate complete membrane staining in more than 10% of tumour cells. It is equivocal and is resolved by in situ hybridisation on the same or a new specimen 〔ESMO I, A〕 〔NCCN〕 〔ASCO-CAP〕
+    ・A ratio of 2.0 or more with a copy number below 4.0 (group 2), or a ratio below 2.0 with a copy number of 4.0 to below 6.0 (group 4), is positive only with IHC 3+ on the same tissue 〔NCCN〕 〔ASCO-CAP〕
+    ・A ratio below 2.0 with a copy number of 6.0 or more (group 3) is positive with IHC 3+, or with IHC 2+ when a blinded recount confirms group 3 〔NCCN〕 〔ASCO-CAP〕
+    ・With IHC 2+ in groups 2 to 4, an additional observer, blinded to the first count, recounts at least 20 cells in the area of IHC 2+ staining 〔NCCN〕 〔ASCO-CAP〕
+    ・IHC 0 and 1+ are both HER2-negative. The IHC score is always reported, because IHC 1+, or 2+ without amplification, gives eligibility for trastuzumab deruxtecan 〔NCCN〕 〔ASCO-CAP〕
+  ※ After a negative HER2 result on a core biopsy, a new test on the excision specimen can be ordered on clinical criteria such as grade 3 〔ASCO-CAP〕
   ② ER, PgR, HER2 and a proliferation marker such as Ki-67 are assessed on every tumour before treatment 〔PAGA I, A〕 〔ESMO I, A〕
   ※ The HER2DX genomic assay is not recommended for routine treatment decisions 〔St Gallen〕
 
