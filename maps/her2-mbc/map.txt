@@ -1,0 +1,227 @@
+# oncOS board map: HER2+ MBC (systemic course of HER2-positive metastatic breast cancer)
+# Draft 1, 2026-11-15: independent review applied and every block rewritten for consolidation. Not approved, not published
+#   Structure plan: board-maps/her2-mbc/structure-plan.md. Clinical content: board-maps/her2-mbc/guideline-read-notes.md only,
+#   with trial results from the Evidence rows (board-maps/her2-mbc/her2-mbc-rows.json)
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-15): the systemic course by line (first line, second line, third line and later), with two panels:
+#   brain metastases, and endocrine-containing therapy in HR-positive HER2-positive disease. Bone-modifying agents, surgery
+#   of the primary tumour in de novo stage IV disease and oligometastatic disease are out (they are on the HR+ HER2- MBC map)
+# Layout: the course carries "| parallel". Two presentations start side by side: first line in de novo disease or late
+#   relapse, and relapse during or within 12 months of neoadjuvant or adjuvant anti-HER2 therapy. First line leads to maintenance
+#   after induction chemotherapy, a later step of the same branch (pale tint). Both lanes lead into second line, then third
+#   line and later. No header step and no line labels. The HR-positive panel holds endocrine therapy without chemotherapy,
+#   and the maintenance step carries HR-positive maintenance. Neither panel is joined to a step.
+#   Biopsy and HER2 status, the rules for every line and toxicity monitoring are bands
+# One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a real
+#   difference (an option, an order, a population, a cut-off, a grade), a condition or a licence. One numbered line per population
+# Guideline set (Jonan 2026-11-15): PAGA 2023, ESMO 2026 living, NCCN 9.2026, ASCO 2022 and ABC8 2026, all full members.
+#   Tag order PAGA, ESMO, NCCN, ASCO, ABC8 (East Asian guideline first). No JBCS
+# Tags give the grade as printed, evidence first and strength second, on the statement the guideline graded:
+#   〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline for metastatic breast cancer 2023 (Im, ESMO Open 2023;8:101541),
+#     adapted from ESMO 2021. A bare 〔PAGA〕 marks body text, a figure footnote or an ungraded Table 1 row
+#   〔ESMO level, grade〕 ESMO metastatic breast cancer guideline 2026 (de Azambuja, Ann Oncol 2026;37:1203-1219), read
+#     from the Living Guideline v2.0 pages (August 2026, first-line pages edited 12 October 2026). A bare 〔ESMO〕 marks an
+#     algorithm footnote, a printed order or preference label, a licence note or an ESMO-MCBS score. For brain metastases
+#     the grades of the HER2-positive brain metastases page are used, not those of the line algorithms
+#   〔NCCN category〕 NCCN Breast Cancer 9.2026 (22 October 2026), with "preferred" as printed. A bare 〔NCCN〕 marks a
+#     footnote, a principles page or the Discussion. On the brain metastases panel the tag is NCCN Central Nervous System
+#     Cancers 4.2026 (2 November 2026), to which NCCN Breast defers (Jonan 2026-11-15), except the imaging lines, which
+#     rest on NCCN Breast
+#   〔ASCO quality, strength〕 ASCO 2022 updates on systemic therapy (Giordano, J Clin Oncol 2022;40:2612-2635) and on brain
+#     metastases (Ramakrishna, J Clin Oncol 2022;40:2636-2655) in HER2-positive advanced breast cancer. A bare 〔ASCO〕 marks
+#     the Discussion, a qualifying statement, an algorithm or the abstract. The source link is the systemic therapy paper
+#   〔ASCO-CAP〕 ASCO-CAP HER2 testing guideline update 2023 (Wolff, J Clin Oncol 2023;41:3867-3872), read in full from
+#     Jonan's PDF (2026-11-16). It affirms and reprints the 2018 recommendations (Table A2, Fig 1) and adds the reporting
+#     comment on IHC 0 versus 1+. Ungraded, so the tag is bare. The HER2 definition lines are the same on the HER2+ EBC
+#     and HER2+ MBC maps (Jonan 2026-11-16), with each map's own guideline tags
+#   〔ABC8 level/grade〕 ABC8 international consensus 2026 (Cardoso, Breast 2026;90:104921), LoE/GoR as printed, without
+#     the consensus percentage. A bare 〔ABC8〕 marks a figure label, a narrative statement or a sentence in an ungraded cell
+# Trial marks: + overall survival benefit, ~ surrogate endpoint, non-inferiority or single-arm, - no benefit from the
+#   tested change, * no comparison for the statement
+# Single-arm exceptions (inclusion rule ①, as LORIN on the early NSCLC map and APT on the HER2+ EBC map): PERUSE, since the
+#   choice of paclitaxel or nab-paclitaxel with trastuzumab and pertuzumab rests on it and no randomised trial compares the
+#   taxanes, and DESTINY-Breast12, since trastuzumab deruxtecan for active brain metastases rests on it and no randomised
+#   trial covers active brain metastases. DESTINY-Breast01 is under off: because DESTINY-Breast02 is the randomised trial
+#   in the same setting
+# China-only drugs (Jonan 2026-11-15): anbenitamab with HB1801, trastuzumab botidotin, trastuzumab rezetecan and pyrotinib
+#   stay on ※ lines that say the trial ran in China and that the drug has no EU or US licence
+# PRECIOUS sits on a ※ line beside the ABC8 statement against dual blockade beyond progression, as the trial that
+#   conflicts with it (header rule on a trial and a guideline that disagree)
+
+map: HER2+ MBC
+source: PAGA {url https://doi.org/10.1016/j.esmoop.2023.101541}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2026.05.707}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ASCO {url https://doi.org/10.1200/JCO.22.00519}
+source: ASCO-CAP {url https://doi.org/10.1200/JCO.22.02864}
+source: ABC8 {url https://doi.org/10.1016/j.breast.2026.104921}
+branch: FIRST | First line and maintenance | blue
+branch: EARLY | Early relapse | rose
+branch: SEC | Second line | violet
+branch: LATER | Third line and later | teal
+band: Biopsy and HER2 status
+  ① A metastatic lesion is biopsied at the first diagnosis of metastatic disease, to confirm histology and reassess ER, PgR and HER2 〔PAGA I, B〕 〔ESMO I, A〕 〔NCCN 2A〕 〔ASCO-CAP〕 〔ABC8 I/B〕
+    ・When the receptor status of the metastasis differs from that of the primary tumour, treatment follows the metastasis 〔PAGA〕 〔ESMO V, B〕
+    ・Anti-HER2 therapy is considered when HER2 is positive in at least one biopsy 〔ABC8 Expert opinion/B〕
+  ② HER2 is positive with an IHC score of 3+, or with dual-probe in situ hybridisation showing a HER2/CEP17 ratio of 2.0 or more and an average HER2 copy number of 4.0 or more signals per cell 〔NCCN〕 〔ASCO-CAP〕 〔ABC8 Expert opinion/A〕
+    ・An IHC score of 3+ is complete, intense circumferential membrane staining in more than 10% of tumour cells 〔NCCN〕 〔ASCO-CAP〕
+    ・An IHC score of 2+ is weak to moderate complete membrane staining in more than 10% of tumour cells. It is equivocal and is resolved by in situ hybridisation on the same or a new specimen 〔NCCN〕 〔ASCO-CAP〕
+    ・A ratio of 2.0 or more with a copy number below 4.0 (group 2), or a ratio below 2.0 with a copy number of 4.0 to below 6.0 (group 4), is positive only with IHC 3+ on the same tissue 〔NCCN〕 〔ASCO-CAP〕
+    ・A ratio below 2.0 with a copy number of 6.0 or more (group 3) is positive with IHC 3+, or with IHC 2+ when a blinded recount confirms group 3 〔NCCN〕 〔ASCO-CAP〕
+    ・With IHC 2+ in groups 2 to 4, an additional observer, blinded to the first count, recounts at least 20 cells in the area of IHC 2+ staining 〔NCCN〕 〔ASCO-CAP〕
+    ・IHC 0 and 1+ are both HER2-negative. The IHC score is always reported, because IHC 1+, or 2+ without amplification, gives eligibility for trastuzumab deruxtecan 〔NCCN〕 〔ASCO-CAP〕
+    ・HER2-low (IHC 1+, or 2+ without amplification) is named as a category in the report 〔ABC8 Expert opinion/A〕, whereas a HER2-low category is judged premature and the report keeps the HER2-negative result with a comment on eligibility 〔ASCO-CAP〕
+  ※ ER-low disease (1 to 10% of cells staining) is eligible for endocrine therapy and often behaves like ER-negative disease 〔NCCN〕
+band: Anti-HER2 therapy at every line
+  ① Anti-HER2 therapy is part of first-line treatment for every patient without a contraindication 〔ASCO High, Strong〕 〔ABC8 I/A〕
+    ・With clinical heart failure or a markedly reduced LVEF, the use of anti-HER2 therapy is individualised 〔ASCO〕
+  + H0648g {pmid 11248153}
+  ② After progression, anti-HER2 therapy continues in each further line 〔PAGA〕 〔NCCN 2A〕 〔ABC8 I/A〕
+    ・The regimen at each line is chosen according to previous anti-HER2 therapy, the disease-free interval and availability 〔NCCN〕 〔ABC8 I/A〕
+  ③ An approved biosimilar can replace trastuzumab 〔NCCN〕 〔ASCO〕 〔ABC8 I/A〕
+    ・Subcutaneous trastuzumab, alone or with pertuzumab, can replace intravenous trastuzumab and pertuzumab, and is no substitute for trastuzumab emtansine or trastuzumab deruxtecan 〔NCCN〕
+    ・The data are insufficient for a recommendation on the subcutaneous route 〔ASCO〕
+  ④ Older patients are offered anti-HER2 therapy unless they have an absolute cardiac contraindication 〔ABC8 I/A〕
+    ・Frail older patients may need a lower starting dose of a tyrosine kinase inhibitor or an antibody-drug conjugate 〔ABC8 Expert opinion/A〕
+  ※ Anti-HER2 drugs are contraindicated throughout pregnancy 〔NCCN〕 〔ABC8 Expert opinion/A〕
+band: Monitoring and toxicity
+  ① Interstitial lung disease with trastuzumab deruxtecan is monitored regularly 〔NCCN〕 〔ASCO〕, including by CT 〔ABC8 I/A〕
+    ・At grade 1, with radiological changes only, trastuzumab deruxtecan is withheld and prednisone at 0.5 mg/kg or more is considered 〔ABC8 I/A〕
+    ・After grade 1, trastuzumab deruxtecan restarts at the same dose when the changes resolve within 28 days, and one dose level lower when they resolve later 〔ABC8 I/A〕
+    ・At grade 2 or higher, trastuzumab deruxtecan is stopped permanently, and prednisone at 1 mg/kg or more is started promptly and tapered over at least 4 weeks 〔ABC8 I/A〕
+  ② Cardiac function is monitored during and after anti-HER2 therapy 〔NCCN〕
+    ・Trastuzumab and pertuzumab are not given concurrently with an anthracycline 〔NCCN〕
+  ° Toxicity of note: nausea and vomiting with trastuzumab deruxtecan, which need prophylaxis 〔ABC8 I/A〕
+  ° Toxicity of note: diarrhoea with tucatinib, trastuzumab and capecitabine, managed by patient education and early intervention 〔ABC8 I/A〕
+course: Systemic treatment of HER2-positive metastatic breast cancer | parallel
+  First line, de novo disease or relapse more than 12 months after neoadjuvant or adjuvant anti-HER2 therapy
+    branch: FIRST
+    ① Fit for chemotherapy: trastuzumab and pertuzumab with docetaxel 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO High, Strong〕 〔ABC8 I/A〕 or paclitaxel 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN 2A, preferred〕 〔ASCO High, Strong〕 〔ABC8 I/B〕, or trastuzumab deruxtecan with pertuzumab 〔ESMO I, A〕 〔NCCN 2A, preferred〕 〔ABC8 I/A〕
+      ・Trastuzumab deruxtecan with pertuzumab is an option where approved, with its gain in progression-free survival weighed against immature overall survival data, greater toxicity and the activity of trastuzumab deruxtecan in later lines 〔ABC8〕
+      ・The taxane is given for 4 to 6 months, or to maximal response, when tolerated 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO Intermediate, Moderate〕
+      ・Nab-paclitaxel can replace docetaxel or paclitaxel 〔PAGA II, A〕 〔ESMO II, A〕 〔ABC8 II/B〕, but only for medical necessity such as hypersensitivity 〔NCCN〕
+      ・Eribulin 〔ABC8 I/A〕, vinorelbine 〔ESMO III, A〕 〔ABC8 II/A〕 or capecitabine 〔ABC8 I/A〕 can replace docetaxel or paclitaxel
+      ・When pertuzumab is not given, trastuzumab is combined with a taxane or vinorelbine 〔ABC8 I/A〕
+    + CLEOPATRA {pmid 22149875}
+    ~ DESTINY-Breast09 {pmid 41160818}
+    ~ PERUSE {pmid 30796821}
+    ~ JBCRG-M06/EMERALD {pmid 42480197}
+    ② Taxane contraindicated: trastuzumab and pertuzumab with a less toxic chemotherapy such as capecitabine or vinorelbine 〔PAGA III, C〕 〔ESMO III, C〕
+    ③ Chemotherapy contraindicated, HR-negative: trastuzumab with or without pertuzumab 〔PAGA III, C〕 〔ESMO III, C〕 〔ABC8 Expert opinion/C〕
+    ※ Anbenitamab with albumin-bound docetaxel (HB1801) improved progression-free survival over docetaxel with trastuzumab and pertuzumab in a trial run in China, and anbenitamab has no EU or US licence
+      ~ HEALER {pmid 42929681}
+    ※ Pyrotinib added to trastuzumab and docetaxel improved progression-free survival in a trial run in China 〔PAGA〕, and pyrotinib has no EU or US licence
+      ~ PHILA {pmid 37907210}
+    next: Maintenance after induction chemotherapy
+  Relapse during or within 12 months of neoadjuvant or adjuvant anti-HER2 therapy
+    branch: EARLY
+    ① A second-line regimen 〔PAGA II, B〕 〔ESMO II, B〕 〔ASCO Intermediate, Moderate〕, preferably trastuzumab deruxtecan alone 〔PAGA〕 〔ESMO〕 〔ASCO〕 or with pertuzumab 〔ABC8 I/A〕
+      ・Trastuzumab deruxtecan alone is an option with rapid progression within 6 months of trastuzumab, or within 12 months of trastuzumab with pertuzumab 〔NCCN 2A〕
+      ・Early relapse covers relapse within 6 to 12 months of neoadjuvant or adjuvant anti-HER2 therapy, including adjuvant trastuzumab emtansine 〔ESMO〕
+    + DESTINY-Breast03 {pmid 35320644}
+    ~ DESTINY-Breast09 {pmid 41160818}
+    ※ DESTINY-Breast09 enrolled patients with a disease-free interval of more than 6 months 〔ABC8〕
+    next: Second line, after progression on first-line treatment
+  Maintenance after induction chemotherapy
+    branch: FIRST pale
+    ① HR-negative: trastuzumab and pertuzumab with tucatinib 〔ESMO I, A〕 〔NCCN 2A〕 〔ABC8 I/A〕, or trastuzumab and pertuzumab alone 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕 〔ASCO Intermediate, Moderate〕 〔ABC8 I/A〕
+      ・Tucatinib maintenance is preferred 〔ABC8〕
+    ~ HER2CLIMB-05 {pmid 41369677}
+    ° Toxicity of note: raised liver enzymes with tucatinib maintenance
+    ② HR-positive: trastuzumab and pertuzumab with endocrine therapy and palbociclib 〔ESMO I, C〕 〔NCCN 2A〕 〔ABC8 I/A〕, with endocrine therapy 〔PAGA〕 〔ESMO I, A〕 〔NCCN 2A〕 〔ASCO Insufficient, Weak〕 〔ABC8 Expert opinion/B〕, or with tucatinib 〔ESMO I, A〕 〔NCCN 2A〕 〔ABC8 I/A〕
+      ・The palbociclib regimen is preferred 〔ESMO〕 〔ABC8〕
+      ・Endocrine therapy is added to tucatinib maintenance 〔ABC8〕
+      ・The endocrine therapy is an aromatase inhibitor 〔NCCN〕
+      ・Palbociclib can be deferred to a later line 〔NCCN〕
+      ・Trastuzumab and pertuzumab without endocrine therapy are an option 〔NCCN 2A〕
+    ~ PATINA {pmid 41604639}
+    ~ PERTAIN {pmid 30106636}
+    ※ Maintenance follows a response or stable disease on induction chemotherapy and continues until progression or unacceptable toxicity 〔PAGA I, A〕 〔ESMO〕 〔NCCN〕 〔ASCO Intermediate, Moderate〕 〔ABC8 Expert opinion/B〕
+    ※ As maintenance, palbociclib and tucatinib have an FDA licence and no EMA licence 〔ESMO〕
+    ※ In sustained complete remission, the optimal duration of anti-HER2 therapy is unknown 〔NCCN〕 〔ASCO〕
+      ・Stopping anti-HER2 therapy after several years of sustained complete remission may be considered when rechallenge is available 〔ABC8 Expert opinion/C〕
+    next: Second line, after progression on first-line treatment
+  Second line, after progression on first-line treatment
+    branch: SEC
+    ① Trastuzumab deruxtecan when not given before 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ABC8 I/A〕, tucatinib with trastuzumab and capecitabine 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ABC8 I/A〕, or trastuzumab emtansine when trastuzumab deruxtecan is unavailable or unsuitable 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕 〔ABC8 I/A〕
+      ・Trastuzumab deruxtecan is preferred to the tucatinib regimen 〔ESMO〕 〔ABC8〕
+    ~ DESTINY-Breast03 {pmid 35320644}
+    + HER2CLIMB {pmid 31825569}
+    + EMILIA {pmid 23020162}
+    ※ Pyrotinib with capecitabine, tested in a trial run in China, is licensed there for second-line treatment after a taxane or an anthracycline 〔PAGA〕, and pyrotinib has no EU or US licence
+      ~ PHOEBE {pmid 33581774}
+    ※ Trastuzumab botidotin and trastuzumab rezetecan improved progression-free survival over trastuzumab emtansine and over pyrotinib with capecitabine, respectively, in trials run in China, and neither has an EU or US licence
+      ~ KL166-III-06 {pmid 42727044}
+      ~ HORIZON-Breast01 {pmid 42385760}
+    next: Third line and later
+  Third line and later
+    branch: LATER
+    ① A regimen not yet given: trastuzumab deruxtecan 〔PAGA III, A〕 〔ESMO II, A〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ABC8 I/A〕, tucatinib with trastuzumab and capecitabine 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ABC8 I/A〕, or trastuzumab emtansine 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕 〔ASCO High, Strong〕 〔ABC8 I/A〕
+      ・Trastuzumab deruxtecan is preferred when it was not given in the second line 〔ABC8〕
+      ・The three regimens are not ranked, and the choice also weighs toxicity and schedule 〔PAGA〕 〔ESMO〕 〔ASCO〕
+    + DESTINY-Breast02 {pmid 37086745}
+    + HER2CLIMB {pmid 31825569}
+    + TH3RESA {pmid 24793816}
+    ② After trastuzumab deruxtecan, the tucatinib regimen and trastuzumab emtansine: trastuzumab with a chemotherapy not yet given 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A〕 〔ASCO Moderate, Weak〕 〔ABC8 II/A〕, lapatinib with trastuzumab 〔PAGA I, C〕 〔ESMO I, C〕 〔NCCN 2A〕 〔ASCO Moderate, Weak〕 〔ABC8 I/B〕 or with capecitabine 〔PAGA I, C〕 〔ESMO I, C〕 〔NCCN 2A〕 〔ASCO Moderate, Weak〕, neratinib with capecitabine 〔PAGA I, C〕 〔ESMO I, C〕 〔NCCN 2A〕 〔ASCO Moderate, Weak〕, or margetuximab with chemotherapy 〔PAGA I, B〕 〔ESMO I, C〕 〔NCCN 2A〕 〔ASCO Moderate, Weak〕
+      ・Neratinib with capecitabine and margetuximab with chemotherapy are not recommended in routine practice 〔ABC8 I/D〕
+      ・Neratinib and margetuximab have an FDA licence and no EMA licence 〔PAGA〕 〔ESMO〕
+    ~ EGF100151 {pmid 17192538}
+    + EGF104900 {pmid 20124187}
+    ~ NALA {pmid 32678716}
+    ~ SOPHIA {pmid 33480963}
+    ※ Data on these regimens after trastuzumab deruxtecan or tucatinib are lacking 〔PAGA〕 〔ESMO〕 〔NCCN〕 〔ABC8 I/B〕
+    ※ After the first line, pertuzumab can be given with trastuzumab, with or without chemotherapy, to patients who have not received it 〔NCCN〕 〔ASCO Insufficient, Weak〕 〔ABC8 II/B〕
+      - PHEREXA {pmid 28437161}
+    ※ Trastuzumab and pertuzumab with chemotherapy are not continued beyond progression outside a trial 〔ABC8 I/E〕
+    ※ Pertuzumab given again with trastuzumab and chemotherapy, after an intervening regimen, improved progression-free and overall survival in a randomised trial in Japan
+      + PRECIOUS {pmid 35754298}
+    ※ With a germline BRCA1/2 pathogenic variant, olaparib or talazoparib is an option 〔NCCN 2A〕
+panel: HR-positive disease, endocrine therapy without chemotherapy
+  ① First line when chemotherapy is unsuitable: endocrine therapy with trastuzumab 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕 〔ASCO Moderate, Strong〕 〔ABC8 I/B〕, with trastuzumab and pertuzumab 〔PAGA II, B〕 〔ESMO II, B〕 〔ABC8 I/B〕, with lapatinib and trastuzumab 〔PAGA II, B〕 〔ESMO II, C〕 〔NCCN 2A〕 〔ABC8 I/B〕, or with lapatinib 〔PAGA II, B〕 〔ESMO II, C〕 〔NCCN 2A〕 〔ASCO Moderate, Strong〕
+    ・Endocrine therapy, with or without anti-HER2 therapy, is an initial option alongside chemotherapy 〔NCCN 2A〕
+    ・Dual anti-HER2 blockade with endocrine therapy improves progression-free survival, with more side effects, a higher cost and no proven overall survival benefit 〔ABC8 I/B〕
+  ~ TAnDEM {pmid 19786670}
+  ~ EGF30008 {pmid 19786658}
+  ~ ALTERNATIVE {pmid 32822287}
+  ② Comorbidity that precludes anti-HER2 therapy, such as cardiac disease: endocrine therapy alone 〔PAGA III, C〕 〔ESMO III, C〕 〔ASCO Intermediate, Weak〕
+  ③ Later lines: endocrine therapy with trastuzumab 〔ESMO III, A〕 〔ABC8 II/A〕 or with lapatinib 〔PAGA I, C〕 〔ESMO I, C〕, or abemaciclib with fulvestrant and trastuzumab 〔NCCN 2B〕 〔ASCO Moderate, Weak〕
+  ~ monarcHER {pmid 32353342}
+  ④ Premenopausal and perimenopausal women: ovarian function suppression or ablation with endocrine therapy 〔PAGA〕 〔ESMO I, A〕 〔NCCN〕 〔ABC8 Expert opinion/A〕
+    ・Tamoxifen with anti-HER2 therapy, without ovarian function suppression, is also an option 〔NCCN〕
+panel: Brain metastases
+  ① No neurological symptoms: routine brain imaging is not recommended 〔PAGA〕 〔ESMO V, D〕 〔NCCN〕 〔ABC8 II/D〕
+    ・Brain imaging may be considered when brain metastases would change the systemic therapy 〔PAGA V, C〕 〔ESMO V, C〕 〔ABC8 Expert opinion/C〕
+    ・The data are insufficient to recommend for or against surveillance MRI, and the decision is shared with the patient 〔ASCO Low, Weak〕
+  ② Neurological symptoms: brain imaging 〔ESMO II, A〕, preferably MRI 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕 〔ASCO Low, Strong〕
+  ③ One or a limited number of brain metastases: stereotactic radiosurgery 〔NCCN 2A, preferred〕 〔ASCO Intermediate, Weak〕 〔ABC8 I/B〕, or resection of a metastasis over 3 to 4 cm or with symptomatic mass effect 〔NCCN 2A〕 〔ASCO Intermediate, Strong〕 〔ABC8 I/B〕
+    ・Radiosurgery is preferred to whole-brain radiotherapy 〔ESMO I, A〕 〔NCCN〕 〔ABC8 I/A〕
+    ・Whole-brain radiotherapy is not added routinely after radiosurgery 〔NCCN〕 〔ASCO〕
+    ・Radiotherapy to the cavity follows resection 〔NCCN〕 〔ASCO Intermediate, Weak〕
+    ・Local therapy can be deferred for metastases under 2 cm without symptomatic mass effect when an anti-HER2 therapy with brain activity is available, after multidisciplinary discussion 〔ASCO Low, Moderate〕
+  - NCCTG N0574 {pmid 27458945}
+  ④ Extensive brain metastases: whole-brain radiotherapy with hippocampal avoidance and memantine, or stereotactic radiosurgery 〔NCCN 2A〕 〔ASCO Low, Moderate〕
+    ・Hippocampal avoidance requires no metastasis within 5 mm of the hippocampi 〔NCCN〕 〔ASCO〕 and a life expectancy of at least 4 months 〔NCCN〕
+    ・Memantine starts with whole-brain radiotherapy and is given for 6 months in total 〔NCCN〕 〔ASCO〕
+  ~ NRG CC001 {pmid 32058845}
+  - RTOG 0614 {pmid 23956241}
+  ~ Aizer 2026 {pmid 41712219}
+  ⑤ After local therapy, without extracranial progression: the current systemic therapy continues unchanged 〔PAGA〕 〔ESMO IV, B〕 〔ASCO Low, Moderate〕 〔ABC8 I/D〕
+    ・Tucatinib with trastuzumab and capecitabine is an alternative, either at once or at progression after local therapy 〔ASCO〕 〔ABC8 I/A〕
+  ⑥ Progression in the brain after at least one anti-HER2 regimen, without an indication for local therapy: tucatinib with trastuzumab and capecitabine 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN 1, preferred〕 〔ASCO Low, Weak〕 〔ABC8 I/A〕, trastuzumab deruxtecan 〔PAGA II, A〕 〔ESMO III, A〕 〔NCCN 2A, preferred〕 〔ABC8 II/B〕, or trastuzumab emtansine 〔ESMO III, B〕 〔NCCN 2A〕 〔ABC8 II/A〕
+    ・Trastuzumab deruxtecan is preferred in the second line, with the tucatinib regimen when trastuzumab deruxtecan is unavailable or unsuitable 〔ESMO〕 and after progression on it 〔ESMO I, A〕
+    ・The tucatinib regimen is preferred 〔ABC8〕
+  + HER2CLIMB {pmid 31825569}
+  ~ DESTINY-Breast12 {pmid 39271844}
+  ※ Further options are capecitabine with lapatinib or with neratinib 〔ESMO III, B〕 〔NCCN 2A〕, trastuzumab emtansine with neratinib 〔NCCN 2A〕, and pertuzumab with high-dose trastuzumab 〔NCCN 2A〕
+    ・The role of neratinib with capecitabine in brain metastases needs further study 〔ASCO〕 〔ABC8 I/D〕
+  ※ Stereotactic radiotherapy is not given concurrently with an antibody-drug conjugate 〔ESMO IV, D〕
+  ⑦ Poor performance status or poor prognosis: best supportive care, with short-course whole-brain radiotherapy for symptoms 〔NCCN 2A〕 〔ASCO Low, Weak〕
+  ⑧ Brain recurrence after radiotherapy: repeat radiosurgery, surgery, or whole-brain radiotherapy with memantine when not given before 〔NCCN 2A〕 〔ASCO Low, Moderate〕, or systemic therapy with activity in the brain 〔NCCN 2A〕 〔ASCO Intermediate, Moderate〕
+  ⑨ Leptomeningeal disease: a change of systemic therapy, with radiotherapy, intrathecal therapy or both 〔ESMO V, A〕
+    ・The systemic options are trastuzumab deruxtecan 〔ESMO III, A〕 〔NCCN 2A, preferred〕 〔ABC8 III/B〕 and tucatinib with trastuzumab and capecitabine 〔ESMO III, A〕 〔ABC8 III/B〕
+    ・Radiotherapy is directed at nodular or symptomatic sites 〔ESMO V, A〕 〔NCCN 2A〕 〔ABC8 III/B〕
+    ・Intrathecal therapy, including intrathecal trastuzumab, may be considered after multidisciplinary discussion 〔ESMO III, C〕 〔NCCN 2A〕 〔ABC8 III/C〕
+  ※ Treatment is planned by a multidisciplinary team 〔ESMO V, A〕 〔NCCN〕 〔ASCO Intermediate, Strong〕 〔ABC8 Expert opinion/C〕
+  ※ After treatment, brain MRI is repeated every 2 to 3 months for 1 to 2 years and every 4 to 6 months after that 〔NCCN〕
+off:
+  DESTINY-Breast01 [t-destiny-breast01] | Single-arm trial with randomised evidence available. DESTINY-Breast02 is the randomised trial of trastuzumab deruxtecan after trastuzumab emtansine and sits on the map, with DESTINY-Breast03 in the second line
