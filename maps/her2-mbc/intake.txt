@@ -1,13 +1,2 @@
 # Trials on the HER2+ MBC map with no Evidence row yet (name, PMID, where on the map)
-PHILA	PMID 37907210	First line, de novo disease or relapse more than 12 months after neoadjuvant or adjuvant anti-HER2 therapy
-PERTAIN	PMID 30106636	Maintenance after induction chemotherapy
-PHOEBE	PMID 33581774	Second line, after progression on first-line treatment
-EGF104900	PMID 20124187	Third line and later
-PHEREXA	PMID 28437161	Third line and later
-TAnDEM	PMID 19786670	HR-positive disease, endocrine therapy without chemotherapy
-EGF30008	PMID 19786658	HR-positive disease, endocrine therapy without chemotherapy
-ALTERNATIVE	PMID 32822287	HR-positive disease, endocrine therapy without chemotherapy
-monarcHER	PMID 32353342	HR-positive disease, endocrine therapy without chemotherapy
-NRG CC001	PMID 32058845	Brain metastases
-RTOG 0614	PMID 23956241	Brain metastases
-Aizer 2026	PMID 41712219	Brain metastases
+
