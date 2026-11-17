@@ -42,7 +42,8 @@
     'HER2+ MBC': 'her2-mbc',
     'Triple Negative BC': 'tnbc',
     'Resectable & BR Pancreatic': 'pancreatic',
-    'Advanced Pancreatic': 'advanced-pancreatic'
+    'Advanced Pancreatic': 'advanced-pancreatic',
+    'HCC': 'hcc'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };

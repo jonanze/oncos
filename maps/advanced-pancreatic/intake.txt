@@ -1,8 +1,2 @@
 # Trials on the Advanced Pancreatic map with no Evidence row yet (name, PMID, where on the map)
-NEOPAN	PMID 40378359	Locally advanced disease: induction therapy
-JCOG1407	PMID 36652891	Locally advanced disease: induction therapy
-E4201	PMID 21969502	Locally advanced disease: induction therapy
-CONKO-007	PMID 40802908	Locally advanced disease: after induction
-JCOG1611	PMID 40720715	Metastatic disease: first line
-PANCREOX	PMID 27621395	Metastatic disease: second and later lines
-GEMPAX	PMID 38232341	Metastatic disease: second and later lines
+

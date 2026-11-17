@@ -1,0 +1,388 @@
+# oncOS board map: HCC (hepatocellular carcinoma, one map for the Evidence sheet "HCC")
+# Version 1, 2026-11-17, after an independent clinical review, a block-by-block rewrite and a prose review. Clinical content:
+#   board-maps/hcc/guideline-read-notes.md and notes-*.md, hcc-rows.json and plan.md only. Licence facts checked
+#   on 2026-11-17 against FDA labels, EMA product pages and FDA-related reports, sources in draft1-changes.md
+#
+# How to read and edit this file
+#   Indent 2 spaces per level.
+#   tree:   a decision tree; each plain line is a node, its children are indented under it
+#   course: a disease course instead of a tree; each line at 2 spaces is a step, everything indented
+#           under it is its content, and "next: Step | label" draws a line to a later step;
+#           "join: Step | label" draws the same line but keeps the two steps in separate branches,
+#           and several join: lines to one step with one label share an upright and that label
+#   band:   a block above the tree for the whole sheet
+#   panel:  a block beside the tree, joined by a brace to the node named after ">"
+#   + Trial         a trial line, the trial's name only; it draws as a chip, and a tap opens its card with the
+#                   results. No figures on maps (Jonan 2026-11-11). The mark records the result and is not drawn:
+#                   + OS benefit, ~ surrogate only (PFS, response, single-arm), - no benefit or harm, * no comparison
+#   Trial {pmid N}  the usual form: links to the Evidence row that cites the PMID (on this map's sheet if filed on two),
+#                   so filing and publishing link it with no map edit; before that, PubMed link, dashed chip, listed for intake
+#   Trial [t-...]   picks the Evidence row by its anchor: only where the row has no PMID or the PMID is on two rows of this sheet
+#   Trial {url https://...}  a randomised trial with no PubMed record yet (congress abstract): link, listed for intake
+#   trial lines in a row draw as one row of chips, starting at the text of the line above
+#   ※ text          caveat             ° text          side effects, grey
+#   ・ text          one statement under the line above (a guideline's position, a licence, a condition);
+#                   one statement per line, no chains of clauses joined by semicolons (Jonan 2026-11-10)
+#   ① text          a numbered option or item, in order of guideline preference, in every step, node,
+#                   band and panel. A single option is ① too (Jonan 2026-11-11)
+#   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
+#   off:            sheet rows left off on purpose: Trial [t-...] | reason
+#   source: ESMO {url https://...}   a guideline, held as a link; 〔ESMO I, A〕 at the end of a statement marks it as
+#                   resting on that guideline, with its printed level of evidence and grade, and opens the link.
+#                   Guidelines are not Evidence rows (Jonan 2026-11-11)
+#   scale: Low | Intermediate | High-intermediate | High   four risk groups of an adjuvant or local-treatment
+#                   decision, lowest first, each naming a grid row; those rows, and the ① and ※ lines in
+#                   the same block that open with a risk group, take that group's colour
+#   branch: Key | legend | hue   at the top: one fill colour for a branch of the map. Hues: blue, violet, sage,
+#                   rose, sand, teal, apricot, olive (at most eight; without a hue the next unused one is taken).
+#                   "branch: Key" under a step or tree node gives it that fill, "branch: Key pale" the pale tint
+#                   (later steps of the same branch); a node's children take it too; a step for every branch stays
+#                   plain grey; a panel takes the pale tint of the node it is joined to. Every map has branches
+#                   (Jonan 2026-11-11, "more colours and variations"). Never on a map with scale: (2026-11-11)
+#
+# Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
+#   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
+#   Whiteboard look (Jonan 2026-11-11, early colon map as the reference): filled rounded blocks, no title block,
+#   bold numbered options, trial names as chips with no figures, lines with rounded corners and no arrowheads
+#   that share one trunk where they fan out; spec doc https://claude.ai/artifact/Gt1iJC47Qa9LSMGDteysBJ
+#   No result colours (the marks above are kept as data, not drawn); colour means one thing on a box: a box
+#   carrying the risk ramp (scale:, a grid or a line opening with a risk group) stays grey, branch: colours go
+#   on the other boxes (Jonan 2026-11-11)
+#   Size and shape (Jonan 2026-11-11, "optimal box height/width ratio ... on a typical pc screen"): text runs in
+#   columns of one reading width (460 px) balanced by the browser; a box takes another column only when every
+#   column gets text and the columns come out near even; the columns per box are chosen so the whole map shows
+#   at the largest scale in the 1600 x 850 map area of a 1920 x 1080 screen (most maps come out near 0.55
+#   height to width); grid columns 220 px; bands share one row (canvas.js)
+#   Full screen button beside Fit (evidence-maps.js); lines meet boxes at their middle and boxes centre on
+#   each other; rounded corners; chips centred on their line (render-check.cjs)
+# * Every sheet row is on the map or under off: with a reason
+# * Trial lines cite clinical trials, pooled analyses of trials or meta-analyses; no cohort, review,
+#   consensus, PK, animal or healthy-volunteer papers (the statement can stay as plain text)
+#   Superseded trials go under off: unless an option still in use rests on them
+#   Standard options only; trials of options not in standard use go under off: (Jonan 2026-11-09, Lung-MAP)
+#   Which trials go in the database and on a map: maps/inclusion.txt (Jonan 2026-11-10); trials screened
+#   and left out are listed in the map folder's excluded.txt
+#   Adjuvant, maintenance and consolidation choices are a later step after the primary treatment,
+#   never a branch beside it (Jonan 2026-11-09)
+#   Columns follow the decisions in order: surgery or no surgery; treatment before surgery or
+#   upfront resection; treatment after the primary treatment (Jonan 2026-11-09)
+# * Plain clinical wording: no arrows, no metaphors such as "backbone"
+#   Full words in prose: "chemotherapy", "with or without"; plain sentences with a subject and verb (Jonan 2026-11-11)
+#   Language rule (Jonan 2026-11-13, every map): simple clinical statements with the backing guidelines as tags,
+#     never "PAGA suggests", "ESMO uses" or "JGCA lists". One narrative: a point agreed by several guidelines is one
+#     statement carrying all their tags, never repeated per guideline. A ・ line explains a difference only where
+#     guidelines disagree (a cut-off, a line of treatment, a licence, a grade set before a trial)
+#   Register (Jonan 2026-11-13): the impersonal register of clinical papers and abstracts. No second person, no
+#     imperatives ("Test HER2" reads "HER2 testing before first-line treatment"), no conversational phrasing
+#     ("case by case", "is not done", "adds little")
+#   No explanation where no reason is known: two facts stay two lines, never joined by "as" or "because"
+#     unless a guideline or trial gives that reason (Jonan 2026-11-13)
+#   Side-effect lines open with "Toxicity of note:" (Jonan 2026-11-13)
+#   No omission lines (Jonan 2026-11-13): a ・ line never says that a guideline does not list, cover or mention an
+#     option ("Not in NCCN"). It gives a different recommendation, cut-off or grade, never an absence
+#   No meta lines (Jonan 2026-11-13): no comment on our own reading ("no guideline read cites this analysis"). The
+#     option is stated plainly ("can be considered")
+#   node maps/prose-check.cjs fails omission and meta lines, a guideline as the subject of a sentence, semicolons
+#     and second person, and lists for review a ・ line that repeats its parent or a sibling. A draft is shown only
+#     after it passes and a line-by-line read against these rules (2026-11-14)
+#   A bare 〔ESMO〕 tag names the guideline on a sub-line whose grade sits on the line above, or on an ungraded
+#     statement. An optional recommendation keeps its strength in words: "is an option" (2026-11-13)
+#   PD-L1 and similar cut-offs: lead with the band every guideline agrees on, then one line per band where they
+#     split (Jonan 2026-11-13)
+# * Labels on connecting lines start with a capital, like every other label
+#   A statement that rests on a guideline rather than a trial carries its 〔source level, grade〕 tag;
+#   where a trial and the guideline disagree, or the trial came later, a ※ line says so
+#   Rule ⑦ (Jonan 2026-11-10): an option one guideline recommends, with no EU or US licence and no NCCN
+#     listing, is not a map option; options NCCN alone lists sit on ※ lines or as ・ lines in their drug class;
+#     the tag names the guideline, so the text does not repeat it (Jonan 2026-11-11)
+#   East Asian guidelines come first in Jonan's practice (2026-11-10): a JLCS option licensed in Japan and marketed
+#     internationally is a numbered option with its tag and a licence note, never ※-only or under off: (S-1).
+#     A drug licensed in China only, with no international marketing, stays on a ※ line (Jonan 2026-11-11)
+#   Presentation (Jonan 2026-11-11). node maps/render-check.cjs checks the drawn map and must report 0 faults
+#     on every draft and release, with node maps/check.cjs
+#     Square lines with no arrowheads. Every line label is centred on the line as drawn. No line runs under
+#       a box or crosses another line
+#     Steps are named, never numbered. Text never points to a step or an option by its number
+#     No restated lines. Guidelines that agree share one line with all their tags. A ・ line is only for a
+#       real disagreement
+#     No value given once per guideline and joined by "or" when the guidelines agree in substance: "4 to 6 months
+#       〔ASCO〕 〔NCCN〕", never "at least 4 and ideally 6 months 〔ASCO〕, or 4 to 6 months 〔NCCN〕". Lists that
+#       complement each other merge into one list with all the tags. Keep a split only for a different method,
+#       a clinically different cut-off or a different grade for the same thing (Jonan 2026-11-15)
+#     Options for the same population or condition are one numbered line, even when their guideline support
+#       differs: each regimen carries its own tags in the line ("Good risk: three cycles of BEP 〔…〕, or four
+#       cycles of EP 〔…〕"). A new numbered line needs a new population or condition, never a new regimen alone.
+#       A licence difference goes on a ・ line. Supportive-care and regimen bands do not repeat choices that a
+#       step already states (Jonan 2026-11-14, germ cell map). prose-check.cjs fails two numbered lines in one
+#       block that open with the same text before the colon
+#     One disease state is one step. Differences within it, such as de novo and metachronous disease, go on
+#       ・ lines under the shared option
+#     A vague guideline term such as "selected men" is defined from the guideline's text. Where a paraphrase
+#       reads unclear, the guideline's own words are used
+#     A laboratory threshold gives the SI unit beside the conventional unit: 50 ng/dL (1.7 nmol/L)
+#     A wrapped line starts under its text. No word is carried down to a tag's line. An untagged statement
+#       keeps no single word alone on its last line. Each trial name has a ・ bullet and never wraps
+#   Tags give evidence first, strength second, as printed, on the statement the guideline graded. Tag order on every
+#   line: PAGA, JSH, KLCA, ESMO, NCCN, EASL, AASLD (East Asian guidelines first, Jonan 2026-11-17)
+#     〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline for HCC 2026 (Tan et al. ESMO Open 2026;11:107771),
+#       Table 1 rows 1a to 8e. A bare 〔PAGA〕 marks the narrative or a regional note. Figures 1 and 2 unread
+#     〔JSH evidence, strength〕 Japan Society of Hepatology HCC guideline. A graded tag is the 2021 fifth edition
+#       (English text) or its 2023 web revision of CQ39, used only where the 2025 sixth edition keeps the content.
+#       A bare 〔JSH〕 marks a 2025 sentence whose strength and evidence grade are unknown (main text unread), a 2021
+#       recommendation whose 2025 counterpart is unread, or the 2021 explanation text
+#     〔KLCA level, strength〕 2026 KLCA-NCC Korea practice guidelines (Clin Mol Hepatol 2026;32:e2026.0943),
+#       Oxford levels 1 to 5, strong or weak. A bare 〔KLCA〕 marks ungraded narrative. Tables and the
+#       treatment overview figure unread, so no modified UICC definition is on the map
+#     〔ESMO level, grade〕 ESMO HCC guideline 2025 (Vogel et al. Ann Oncol 2025;36:491-506). A bare 〔ESMO〕
+#       marks the narrative
+#     〔NCCN category〕 NCCN Hepatocellular Carcinoma 2.2026 (14 August 2026). Category 2A unless stated, with
+#       "preferred" where printed. A bare 〔NCCN〕 marks a footnote or the Discussion
+#     〔EASL level, strength〕 EASL HCC guideline 2025 (J Hepatol 2025;82:315-374), Oxford levels. A bare 〔EASL〕
+#       marks the narrative
+#     〔AASLD level, strength〕 AASLD Practice Guidance 2023 (Singal et al. Hepatology 2023;78:1922-1965) with the
+#       2025 Critical Update (revised statement 32). READING GAP: statements 38 onward are unread, so every AASLD
+#       point on ablation, TACE, radioembolisation, radiotherapy, systemic therapy and Child-Pugh B is a bare
+#       〔AASLD〕 from the narrative and carries no grade yet
+#     A bare tag on a ・ line names a guideline whose grade sits on the numbered line above
+#     BCLC 2022 (Reig et al. J Hepatol 2022;76:681-693) is the staging frame, named in text and never tagged
+#   Licence lines carry no tag when they state a regulator's current decision checked on 2026-11-17
+# Layout (Jonan 2026-11-17): one map, three stage blocks in parallel. No next: line joins one stage to another.
+#   next: lines join time order only: treatment then recurrence, TACE then refractoriness, first line then later lines.
+#   Poor performance status and impaired liver function are a panel of the advanced block, not a fourth block
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint, non-inferiority, single-arm data or a
+#   trial closed early, - primary endpoint not met or no benefit from the tested treatment
+# Single-arm exception (inclusion rule ①, Jonan to confirm): CheckMate 040, since nivolumab with ipilimumab after
+#   sorafenib 〔KLCA 3, strong〕 〔NCCN 2A〕 and its current FDA licence rest on it and no randomised trial tested that
+#   option after sorafenib. Nivolumab alone lost its US licence after sorafenib in 2021
+# East Asian rule (Jonan 2026-11-17): an option graded by an East Asian guideline and licensed internationally or in
+#   the region is numbered with its tag (tislelizumab, TACE with lenvatinib, hepatic arterial infusion). China-only
+#   regimens stay on ※ lines: camrelizumab with rivoceranib, sintilimab with a bevacizumab biosimilar and toripalimab
+#   with bevacizumab
+# Option order where guidelines disagree (Jonan 2026-11-17, first-line order, TACE with lenvatinib and ablation first decided): atezolizumab with bevacizumab, STRIDE,
+#   then nivolumab with ipilimumab in the first line. When combinations are unsuitable, durvalumab, tislelizumab,
+#   lenvatinib or sorafenib, then pembrolizumab. Ablation before resection up to 2 cm, resection before ablation above
+#   2 cm. Immunotherapy combinations with TACE before TACE with lenvatinib. Portal vein invasion: resection, TACE with
+#   or without radiotherapy, then hepatic arterial infusion. Lenvatinib before sorafenib after immunotherapy
+# The IMbrave050 row now cites the updated analysis (Yopp, J Hepatol 2026, PMID 41580093). IMbrave251 has no PMID,
+#   and the XXL row has no reference PMID, so both are cited by their anchors
+# Units: AFP in ng/mL with µg/L beside it, bilirubin in mg/dL with µmol/L beside it
+
+map: HCC
+source: PAGA {url https://doi.org/10.1016/j.esmoop.2026.107771}
+source: JSH {url https://doi.org/10.1111/hepr.13892}
+source: KLCA {url https://doi.org/10.3350/cmh.2026.0943}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2025.02.006}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: EASL {url https://doi.org/10.1016/j.jhep.2024.08.028}
+source: AASLD {url https://doi.org/10.1097/HEP.0000000000000466}
+branch: EARLY | Very early and early stage | teal
+branch: INT | Intermediate stage | sand
+branch: ADV | Advanced stage | rose
+
+band: Staging and liver function
+  ① Staging: the BCLC 2022 system is used for prognosis and treatment allocation 〔PAGA IV, A〕 〔ESMO IV, A〕 〔EASL 1, strong〕 〔AASLD 5, strong〕
+    ・Other validated systems may be used in Asia 〔PAGA IV, A〕, with an algorithm by liver function, extrahepatic spread, vascular invasion, tumour number and tumour size in Japan 〔JSH〕 and modified UICC staging as the primary staging system in Korea 〔KLCA 3, strong〕
+  | BCLC stage | Tumour | Liver function and performance status |
+  | 0, very early | Single, 2 cm or less | Preserved, performance status 0 |
+  | A, early | Single of any size, or up to 3 nodules of 3 cm or less | Preserved, performance status 0 |
+  | B, intermediate | Multifocal beyond stage A, no vascular invasion or extrahepatic spread | Preserved, performance status 0 |
+  | C, advanced | Vascular invasion or extrahepatic spread | Preserved, performance status 0 to 2 |
+  | D, end stage | Any | Performance status above 2, or impaired liver function without a transplant option |
+  ② Liver function: Child-Pugh class or ALBI grade is assessed 〔PAGA III, A〕 〔ESMO III, A〕, and MELD-Na sets transplant priority 〔PAGA IV, A〕 〔ESMO IV, A〕
+    ・ALBI grade 1 is a score of −2.60 or less, grade 2 above −2.60 to −1.39, and grade 3 above −1.39 〔NCCN〕
+    ・Before resection, indocyanine green retention at 15 minutes is weighed with laboratory tests against the planned resection volume 〔JSH〕 〔EASL〕, and a retention of 14% or less allows major hepatectomy 〔KLCA〕
+    ・The minimum future liver remnant in cirrhosis is 40% 〔KLCA〕 〔AASLD〕, or 30 to 40% in Child-Pugh A 〔NCCN〕, and without cirrhosis 20% 〔NCCN〕 or 30% 〔AASLD〕
+  ③ Portal hypertension: assessment follows the Baveno VII criteria 〔PAGA III, A〕 〔ESMO III, A〕
+    ・Non-invasive assessment comes first, with invasive measurement reserved for inconclusive results or for a value that alters management 〔PAGA III, A〕
+    ・Clinically significant portal hypertension is a hepatic venous pressure gradient of 10 mmHg or more 〔KLCA〕 〔AASLD〕 or above 10 mmHg 〔ESMO〕 〔EASL〕
+    ・Indirect signs are varices or splenomegaly with a platelet count below 100 × 10⁹/L 〔KLCA〕 〔ESMO〕, and ascites 〔KLCA〕
+  ④ Histology before systemic therapy for advanced disease: confirmation is recommended 〔PAGA III, A〕 〔ESMO III, A〕, and biopsy, the preferred method, is considered when no earlier histology exists 〔NCCN 2A〕
+    ・Imaging-based diagnosis is the practice in Japan 〔PAGA〕, and non-invasive imaging criteria establish the diagnosis in cirrhosis, chronic hepatitis B or after an earlier hepatocellular carcinoma 〔EASL 1, strong〕
+  ⑤ Tumour board: multidisciplinary management is strongly recommended in early and intermediate stage disease 〔PAGA II, A〕 〔ESMO II, A〕 and is part of the initial work-up 〔NCCN〕 〔AASLD 3, strong〕
+  ⑥ Viral hepatitis: antiviral therapy is recommended for every patient with active hepatitis B 〔PAGA II, A〕 〔ESMO II, A〕, and direct-acting antivirals for active hepatitis C are timed individually 〔PAGA IV, B〕 〔ESMO IV, B〕
+    ・Treatment of hepatitis B extends below the usual HBV DNA threshold of 2000 IU/mL 〔PAGA〕, while antiviral therapy follows the standard hepatitis B and C treatment criteria 〔AASLD 2, strong〕
+    ・HBsAg is tested before any treatment 〔KLCA 2, strong〕, and HBsAg-positive patients receive entecavir or tenofovir during TACE, chemotherapy or resection 〔KLCA 2, strong〕, during tyrosine kinase inhibitor, immune checkpoint inhibitor, radiotherapy or hepatic arterial infusion treatment 〔KLCA 3, strong〕, and during radiofrequency ablation 〔KLCA 3, weak〕
+
+band: Regimens and doses
+  ① Atezolizumab with bevacizumab: atezolizumab 1200 mg and bevacizumab 15 mg/kg are given intravenously every 3 weeks 〔KLCA〕
+  ② STRIDE: one dose of tremelimumab 300 mg with durvalumab 1500 mg is followed by durvalumab 1500 mg every 4 weeks 〔KLCA〕 〔ESMO〕, and durvalumab alone is given at 1500 mg every 4 weeks in HIMALAYA
+  ③ Nivolumab with ipilimumab: nivolumab 1 mg/kg with ipilimumab 3 mg/kg every 3 weeks for 4 doses is followed by nivolumab 480 mg every 4 weeks 〔KLCA〕 for at most 2 years 〔EASL〕
+    ・After sorafenib, the same 4 doses are followed by nivolumab 240 mg every 2 weeks 〔KLCA〕 〔NCCN〕
+  ④ Tyrosine kinase inhibitors: lenvatinib is given at 12 mg once daily at a body weight of 60 kg or more and 8 mg once daily below 60 kg, and sorafenib at 400 mg twice daily 〔KLCA〕
+  ⑤ Other agents: regorafenib is given at 160 mg once daily for the first 3 weeks of each 4-week cycle, cabozantinib at 60 mg once daily, ramucirumab at 8 mg/kg intravenously every 2 weeks and pembrolizumab at 200 mg intravenously every 3 weeks for up to 35 cycles
+  ⑥ With TACE: durvalumab 1500 mg every 4 weeks starts 7 days after the first TACE and durvalumab 1120 mg with bevacizumab 15 mg/kg every 3 weeks starts 14 days after the last TACE in EMERALD-1, and lenvatinib at the weight-based dose with pembrolizumab 400 mg every 6 weeks is given for up to 2 years in LEAP-012
+  ⑦ Radioembolisation with yttrium-90: a tumour dose of 205 Gy or more may be associated with longer survival, and a dose above 400 Gy to 25% or less of the liver is recommended in Child-Pugh A 〔NCCN〕
+  ⑧ External beam radiotherapy: SBRT delivers 27.5 to 60 Gy in 3 to 5 fractions, and hepatic pain from a high tumour burden is treated with 8 Gy in 1 fraction 〔NCCN〕
+
+course: Hepatocellular carcinoma | parallel
+  Very early and early stage: first treatment
+    branch: EARLY
+    ① Single tumour of 2 cm or less: thermal ablation 〔PAGA II, A〕 〔JSH A, strong〕 〔KLCA 2, strong〕 〔ESMO II, A〕 〔NCCN 2A〕 〔EASL 2, strong〕 〔AASLD〕, or resection 〔JSH A, strong〕 〔KLCA 2, strong〕 〔ESMO II, A〕 〔NCCN 2A, preferred〕 〔EASL 2, strong〕
+      ・Ablation and resection are equal choices, decided by liver function, tumour location and the risk of recurrence 〔KLCA〕 〔EASL〕, and ablation is preferred when resection would need a major hepatectomy 〔EASL〕
+      ・In transplant candidates, an ablate-and-wait strategy can be recommended 〔EASL 2, strong〕
+      - SURF {pmid 35949295}
+    ② Single tumour larger than 2 cm, with preserved liver function, no portal hypertension and a sufficient liver remnant: resection 〔PAGA II, A〕 〔JSH A, strong〕 〔KLCA 2, strong〕 〔ESMO II, A〕 〔NCCN 2A, preferred〕 〔EASL 2, strong〕 〔AASLD 2, strong〕
+      ・Ablation is an alternative to resection in BCLC stage A 〔PAGA II, A〕 〔ESMO II, A〕, and the choice between them considers technical limitations and is made by the multidisciplinary team 〔PAGA III, A〕 〔ESMO III, A〕
+      ・Up to 3 cm, ablation and resection are equal choices 〔JSH A, strong〕, while from 2 to 3 cm radiofrequency ablation is preferred only when resection is difficult 〔KLCA 2, strong〕
+    ③ 2 or 3 tumours of 3 cm or less: resection 〔JSH A, strong〕 〔KLCA 3, weak〕 〔EASL 2, weak〕, or ablation 〔PAGA II, B〕 〔JSH A, strong〕 〔ESMO II, B〕 〔EASL 2, weak〕
+      ・Resection requires preserved liver function 〔KLCA〕, and ablation is reserved for patients unsuitable for surgery 〔PAGA〕 〔ESMO〕
+    ④ Single tumour of 3 to 5 cm, not suitable for surgery: ablation combined with TACE 〔PAGA II, B〕 〔JSH〕 〔KLCA〕, or ablation alone 〔JSH〕 〔ESMO II, B〕
+      ・Local control after ablation declines from 3 cm, and ablation is not recommended above 5 cm 〔NCCN 2A〕
+    ⑤ Within the Milan criteria: liver transplantation 〔PAGA II, A〕 〔KLCA 2, strong〕 〔ESMO II, A〕 〔NCCN 2A, preferred〕 〔EASL 2, strong〕 〔AASLD 2, strong〕
+      ・Transplantation is the first choice when resection is unsuitable because of tumour location, liver dysfunction or clinically significant portal hypertension 〔KLCA〕 〔EASL〕 〔AASLD〕, and resection and transplantation are both preferred when both sets of criteria are met 〔NCCN〕
+      ・In Japan, transplantation is limited to Child-Pugh B and C 〔PAGA〕 and is recommended within the Milan criteria or the 5-5-500 rule, of up to 5 tumours of 5 cm or less with AFP of 500 ng/mL (500 µg/L) or less, in Child-Pugh C 〔JSH B, strong〕 and Child-Pugh B 〔JSH〕
+    ⑥ Resection and ablation not suitable: SBRT or proton therapy 〔PAGA II, B〕 〔JSH B, weak〕 〔KLCA 3, strong〕 〔ESMO II, B〕 〔NCCN 2A〕 〔EASL 4, weak〕, high-dose-rate brachytherapy 〔PAGA II, B〕 〔ESMO II, B〕, or radiation segmentectomy with yttrium-90 for a single tumour of 8 cm or less 〔PAGA III, B〕 〔KLCA 3, weak〕 〔ESMO III, B〕 〔NCCN 2A〕 〔EASL 3, weak〕
+      ・Radiotherapy is an option for a single tumour of 3 cm or less when resection is not feasible 〔KLCA 3, weak〕, an alternative to ablation 〔NCCN〕, and an option when a size above 3 cm or the tumour location gives a high risk of recurrence after ablation 〔EASL〕
+      ・Radiotherapy applies to 1 to 3 tumours of 5 cm or less in Child-Pugh A to B7 〔JSH〕 or to 1 to 5 tumours 〔NCCN〕, and is avoided at a Child-Pugh score of 8 or more 〔AASLD〕
+      ・Radioembolisation is not approved in Japan 〔PAGA〕
+    ⑦ Child-Pugh B or portal hypertension: limited resection can be considered in well-selected patients 〔PAGA III, B〕 〔KLCA 3, weak〕 〔ESMO III, B〕 〔EASL 3, weak〕
+      ・Resection is limited to a single tumour in Child-Pugh A or B7 with mild portal hypertension 〔KLCA〕, to highly selected patients with Child-Pugh B and no portal hypertension 〔NCCN 2A〕, and to 2 segments or fewer 〔EASL 3, strong〕
+    ※ Advanced age alone does not exclude resection 〔JSH B, strong〕 〔KLCA 2, strong〕 〔EASL 3, strong〕
+    ※ Neoadjuvant systemic therapy is not recommended outside clinical trials 〔JSH〕 〔EASL 3, strong〕 〔AASLD 1, strong〕
+    next: After resection or ablation | After treatment
+  After resection or ablation
+    branch: EARLY pale
+    ① Adjuvant systemic therapy: no tyrosine kinase inhibitor or immune checkpoint inhibitor regimen is recommended 〔PAGA I, E〕 〔JSH〕 〔KLCA 2, strong〕 〔ESMO I, E〕 〔NCCN〕 〔EASL 2, strong〕 〔AASLD 1, strong〕
+      ~ IMbrave050 {pmid 41580093}
+      - STORM {pmid 26361969}
+    ② Viral hepatitis after curative treatment: antiviral therapy is recommended 〔JSH〕, and hepatitis B with detectable HBV DNA is treated with nucleoside or nucleotide analogues 〔KLCA 2, strong〕 〔EASL 2, strong〕
+      ・Direct-acting antivirals for hepatitis C improve survival 〔KLCA 3, strong〕 〔AASLD〕 and reduce recurrence 〔KLCA 4, strong〕, while their effect on recurrence is inconclusive 〔EASL 3, weak〕
+    ③ Follow-up: contrast-enhanced CT or MRI every 3 to 6 months for 2 years, then every 6 months 〔PAGA III, A〕 〔KLCA 3, strong〕 〔ESMO III, A〕 〔NCCN 2A〕 〔AASLD 3, strong〕
+    next: Recurrence after resection or ablation | Recurrence
+  Recurrence after resection or ablation
+    branch: EARLY pale
+    ① Recurrence confined to the liver: repeat resection, ablation or TACE by the criteria for a first tumour 〔JSH〕 〔KLCA〕 〔NCCN〕
+    ② Recurrence within the Milan criteria: salvage transplantation 〔KLCA〕 〔EASL〕 〔AASLD 3, strong〕
+    ③ Recurrence beyond the Milan criteria and within downstaging criteria: locoregional therapy, then transplantation after successful downstaging 〔AASLD〕
+    ④ Local recurrence after ablation or another local treatment: SBRT or proton therapy 〔PAGA II, B〕 〔JSH〕 〔ESMO II, B〕
+    ⑤ Vascular invasion, extrahepatic spread or unsuitability for locoregional therapy: systemic therapy as in advanced disease 〔AASLD〕
+  Intermediate stage: first treatment
+    branch: INT
+    ① Unsuitable for resection, transplantation and ablation, without vascular invasion or extrahepatic spread: TACE 〔PAGA I, B〕 〔JSH A, strong〕 〔KLCA 2, strong〕 〔ESMO I, B〕 〔NCCN 2A〕 〔EASL〕 〔AASLD〕, radioembolisation with yttrium-90 〔PAGA II, B〕 〔KLCA 3, weak〕 〔ESMO II, B〕 〔NCCN 2A〕 〔AASLD〕, or bland embolisation 〔PAGA II, C〕 〔JSH A, strong〕 〔ESMO II, C〕 〔NCCN 2A〕 〔EASL 1, strong〕
+      ・Conventional and drug-eluting bead TACE are equivalent 〔PAGA I, B〕 〔JSH B, strong〕 〔ESMO I, B〕 〔EASL 2, strong〕, while drug-eluting beads are an alternative to conventional TACE only for tumours of 3 cm or more 〔KLCA 2, weak〕
+      ・TACE applies to 4 or more tumours, or to 1 to 3 tumours larger than 3 cm, in Child-Pugh A or B 〔JSH〕
+      ・TACE is contraindicated in Child-Pugh C 〔JSH〕 〔NCCN〕, and arterial therapy is relatively contraindicated with bilirubin above 3 mg/dL (51 µmol/L) unless segmental 〔NCCN〕
+      ・For multiple tumours unsuitable for TACE or surgery, radioembolisation is not an alternative to systemic therapy and is acceptable only when systemic therapy is contraindicated 〔EASL 4, weak〕
+      ・Prognostic scores are not recommended for selecting patients for TACE 〔PAGA III, D〕 〔ESMO III, D〕 〔EASL 3, strong〕
+      + Llovet et al. {pmid 12049862}
+      + Lo et al. {pmid 11981766}
+      ~ DOSISPHERE-01 {pmid 33166497}
+    ② Resectable multinodular disease in selected patients: resection 〔PAGA II, A〕 〔JSH B, strong〕 〔KLCA 3, weak〕 〔ESMO II, A〕 〔NCCN 2A〕
+      ・Resection is desirable for up to 3 tumours of any size and may be performed for 4 or more 〔JSH〕, while it is reserved for disease unsuitable for intra-arterial therapy 〔ESMO〕
+    ③ Systemic therapy with TACE: durvalumab with bevacizumab or lenvatinib with pembrolizumab 〔PAGA I, C〕 〔JSH〕 〔ESMO I, C〕, atezolizumab with bevacizumab 〔PAGA I, C〕 〔JSH〕, or lenvatinib when an immunotherapy combination is not feasible 〔PAGA II, C〕 〔JSH B, weak〕
+      ・The long-term benefit of an immunotherapy combination with TACE is not established 〔PAGA〕 〔ESMO〕, and the evidence is insufficient to recommend routine use of any systemic combination with TACE 〔KLCA〕 〔EASL 2, strong〕
+      ・TACE with a tyrosine kinase inhibitor is not recommended in any patient 〔ESMO I, E〕, in intermediate disease with a large tumour burden 〔EASL 2, strong〕 or outside clinical trials 〔AASLD〕, and sorafenib after TACE is not recommended 〔NCCN〕
+      ・No combination of TACE with systemic therapy holds an EU or US licence 〔PAGA〕 〔ESMO〕
+      ~ EMERALD-1 {pmid 39798579}
+      ~ LEAP-012 {pmid 39798578}
+      ~ TACTICS {pmid 31801872}
+      ※ TACE with tremelimumab, durvalumab and lenvatinib prolonged progression-free survival, without a significant overall survival gain at the interim analysis 〔KLCA〕
+        ~ EMERALD-3 {pmid 42636832}
+    ④ Unsuitable for TACE: systemic therapy with the first-line regimens of advanced disease 〔JSH〕 〔ESMO〕 〔NCCN 2A〕 〔AASLD〕
+      ・Systemic therapy first may be considered for a tumour larger than 10 cm, infiltrative morphology, a burden beyond the up-to-seven or seven-eleven criteria, or main portal vein invasion 〔KLCA〕
+      ・TACE is preferred to systemic therapy when a selective approach is possible, with limited tumour size and number, no infiltrative appearance and preserved portal flow 〔EASL 4, strong〕
+    next: Intermediate stage: after TACE | After TACE
+  Intermediate stage: after TACE
+    branch: INT pale
+    ① No objective response or substantial necrosis after repeated sessions: TACE is stopped 〔PAGA III, A〕 〔JSH C, weak〕 〔KLCA 3, strong〕 〔ESMO III, A〕 〔EASL 3, strong〕 〔AASLD〕, and treatment changes to systemic therapy 〔JSH C, weak〕 〔KLCA 3, strong〕 〔NCCN 2A〕 or external beam radiotherapy 〔KLCA 3, strong〕
+      ・Response is assessed by mRECIST 〔PAGA III, A〕 〔ESMO III, A〕
+      ・Refractoriness also covers new vascular invasion or extrahepatic spread 〔JSH〕 〔KLCA〕, and new intrahepatic lesions or persistently raised tumour markers 〔JSH〕
+      ・Refractoriness is judged after the second session 〔PAGA〕 〔ESMO〕, after two or more consecutive on-demand sessions within 6 months 〔KLCA〕, or after one or two sessions 〔EASL〕 〔AASLD〕
+    ② Downsizing after locoregional treatment: resection 〔KLCA 3, strong〕 〔NCCN〕 〔EASL 2, strong〕 or transplantation 〔EASL 2, strong〕
+  Advanced stage: first line
+    branch: ADV
+    ① Child-Pugh A and ECOG performance status 0 to 1: atezolizumab with bevacizumab 〔PAGA I, A〕 〔JSH A, strong〕 〔KLCA 1, strong〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔EASL 1, strong〕 〔AASLD〕, tremelimumab with durvalumab (STRIDE) 〔PAGA I, A〕 〔JSH A, strong〕 〔KLCA 1, strong〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔EASL 1, strong〕 〔AASLD〕, or nivolumab with ipilimumab 〔PAGA I, B〕 〔JSH〕 〔KLCA 1, strong〕 〔ESMO I, B〕 〔NCCN 1, preferred〕 〔EASL 1, strong〕
+      ・The three combinations are not ranked 〔KLCA〕 〔NCCN〕 〔EASL〕, and aetiology does not influence the choice 〔KLCA〕 〔EASL 1, strong〕
+      ・Overall survival curves for nivolumab with ipilimumab crossed after about 12 months 〔ESMO〕
+      ・Counselling before nivolumab with ipilimumab covers immune-mediated toxicity and an increased rate of early death in the first 6 months 〔NCCN〕
+      ・Variceal screening precedes atezolizumab with bevacizumab in portal hypertension 〔PAGA IV, A〕 〔ESMO IV, A〕 and in every patient 〔KLCA〕 〔NCCN〕 〔AASLD〕
+      ・With a risk of bleeding, atezolizumab with bevacizumab is avoided 〔ESMO〕, and STRIDE 〔KLCA〕 〔AASLD〕 or nivolumab with ipilimumab 〔KLCA〕 may be safer
+      ・STRIDE or nivolumab with ipilimumab is favoured with ALBI grade 2 or 3 〔KLCA〕
+      ・HIMALAYA and CheckMate 9DW excluded main portal vein invasion, and IMbrave150 included it 〔ESMO〕
+      + IMbrave150 {pmid 32402160}
+      + HIMALAYA {pmid 38319892}
+      + CheckMate 9DW {pmid 40349714}
+      ※ Camrelizumab with rivoceranib can be recommended 〔PAGA I, B〕 〔ESMO I, B〕
+        ・The regimen has no EU or US licence and is not approved in Korea 〔KLCA〕
+        ・CARES-310 enrolled mainly in Asia 〔EASL〕, and its applicability outside Asia is unclear 〔AASLD〕
+        + CARES-310 {pmid 37499670}
+    ② Unsuitable for an immunotherapy combination: durvalumab 〔PAGA I, A〕 〔JSH A, strong〕 〔ESMO I, A〕 〔NCCN 1〕 〔EASL〕 〔AASLD〕, tislelizumab 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕 〔EASL〕, lenvatinib or sorafenib 〔JSH A, strong〕 〔NCCN 1〕, or pembrolizumab 〔NCCN 2B〕
+      ・Durvalumab alone holds an EU licence and no US licence in this disease, and tislelizumab holds neither
+      ~ RATIONALE-301 {pmid 37796513}
+      ※ First-line nivolumab did not improve overall survival over sorafenib 〔KLCA〕 〔EASL〕 〔AASLD〕
+        - CheckMate 459 {pmid 34914889}
+    ③ Contraindication to immune checkpoint inhibitors: lenvatinib or sorafenib 〔PAGA I, A〕 〔KLCA 1, strong〕 〔ESMO I, A〕 〔NCCN 1〕 〔EASL〕 〔AASLD〕
+      ・Lenvatinib is favoured for its higher response rate and longer progression-free survival 〔ESMO〕
+      ・The contraindications include uncontrolled or severe autoimmune disease and earlier liver transplantation 〔JSH〕 〔KLCA〕 〔AASLD〕
+      ~ REFLECT {pmid 29433850}
+      + SHARP {pmid 18650514}
+      + Cheng et al. {pmid 19095497}
+    ④ Portal vein invasion confined to the liver, with preserved liver function: resection 〔JSH B, strong〕 〔KLCA 3, strong〕 〔ESMO〕 〔NCCN〕, TACE with or without external beam radiotherapy 〔JSH C, weak〕 〔KLCA 3, weak〕, or hepatic arterial infusion of 5-fluorouracil with cisplatin or of FOLFOX 〔JSH B, weak〕 〔KLCA 3, weak〕
+      ・Resection applies to invasion up to the first portal branch 〔JSH〕 and to Vp1 or Vp2 invasion 〔KLCA〕 〔ESMO〕, with Vp3 decided by the multidisciplinary team 〔KLCA〕 and major vascular invasion only in highly selected patients 〔NCCN〕
+      ・Hepatic arterial infusion also applies to multiple intrahepatic tumours unsuitable for surgery or TACE 〔JSH〕, and follows failure of or ineligibility for systemic therapy 〔KLCA〕
+      ・TACE with radiotherapy is not recommended over TACE alone for lack of evidence in Western patients 〔EASL 3, strong〕
+      ~ START {pmid 29543938}
+      ・In segmental or lobar portal vein invasion, external beam radiotherapy is not an alternative to immune checkpoint inhibitor combinations 〔EASL 3, weak〕 and radioembolisation is not an alternative to systemic therapy 〔EASL 3, strong〕, while radioembolisation may be appropriate there but not in main portal vein invasion 〔NCCN〕
+      - SARAH {pmid 29107679}
+    ⑤ Response to systemic therapy: resection 〔KLCA 3, strong〕 〔NCCN〕, resection or transplantation within prospective studies where possible 〔EASL 3, weak〕, or the addition of TACE or ablation 〔JSH〕
+    ※ Systemic chemotherapy has not improved survival and is not recommended 〔PAGA II, D〕 〔ESMO II, D〕
+    ※ Sintilimab with a bevacizumab biosimilar and toripalimab with bevacizumab are licensed in China 〔PAGA〕 and hold no EU or US licence in this disease
+      ・The relevance of ORIENT-32, which enrolled in China alone, is unclear elsewhere 〔KLCA〕 〔ESMO〕 〔EASL〕
+    ※ Stopping immune checkpoint inhibitors during a sustained response is decided with the patient 〔EASL 4, weak〕
+    next: Advanced stage: second and later lines | Progression
+  Advanced stage: second and later lines
+    branch: ADV pale
+    ① After an immunotherapy combination: lenvatinib 〔PAGA IV, A〕 〔JSH〕 〔ESMO IV, A〕 〔EASL 4, weak〕 〔AASLD〕, sorafenib 〔PAGA IV, B〕 〔JSH〕 〔ESMO IV, B〕 〔EASL 4, weak〕 〔AASLD〕, regorafenib or cabozantinib 〔JSH〕 〔ESMO IV, A〕 〔NCCN 1〕 〔EASL 4, weak〕, ramucirumab with AFP of 400 ng/mL (400 µg/L) or more 〔JSH〕 〔KLCA 4, weak〕 〔ESMO IV, B〕 〔AASLD〕, or an unused immunotherapy combination with a different mechanism 〔JSH〕 〔NCCN〕, such as STRIDE after atezolizumab with bevacizumab 〔KLCA 4, weak〕
+      ・A tyrosine kinase inhibitor is recommended after atezolizumab with bevacizumab 〔KLCA 3, strong〕 and is an option after STRIDE or nivolumab with ipilimumab 〔KLCA 5, weak〕
+      ・STRIDE and nivolumab with ipilimumab require no previous anti-CTLA-4 therapy 〔NCCN〕
+      ・Lenvatinib has no EU or US licence for second-line use 〔PAGA〕 〔ESMO〕
+      ※ Continuing atezolizumab with a tyrosine kinase inhibitor after progression on atezolizumab with bevacizumab did not improve survival over the tyrosine kinase inhibitor alone 〔KLCA〕
+        - IMbrave251 [t-imbrave251]
+    ② After first-line lenvatinib: sorafenib 〔PAGA IV, C〕 〔JSH〕 〔KLCA 3, strong〕 〔ESMO IV, A〕, regorafenib 〔JSH〕 〔KLCA 4, weak〕 〔ESMO IV, A〕 〔NCCN 1〕, cabozantinib 〔JSH〕 〔ESMO IV, A〕 〔NCCN 1〕, ramucirumab with AFP of 400 ng/mL (400 µg/L) or more 〔JSH〕 〔ESMO IV, B〕, or atezolizumab with bevacizumab without a contraindication to immune checkpoint inhibitors 〔KLCA 3, strong〕 〔NCCN〕
+    ③ After first-line sorafenib: regorafenib or cabozantinib 〔PAGA I, A〕 〔JSH A, strong〕 〔KLCA 2, strong〕 〔ESMO I, A〕 〔NCCN 1〕, ramucirumab with AFP of 400 ng/mL (400 µg/L) or more 〔PAGA I, B〕 〔JSH A, strong〕 〔KLCA 2, strong〕 〔ESMO I, B〕 〔NCCN 1〕, or lenvatinib 〔KLCA 4, weak〕
+      ・Regorafenib requires earlier tolerance of sorafenib 〔JSH〕, defined as 400 mg a day or more for at least 20 of the last 28 days 〔ESMO〕 〔NCCN〕
+      + RESORCE {pmid 27932229}
+      + CELESTIAL {pmid 29972759}
+      + REACH-2 {pmid 30665869}
+    ④ After sorafenib, without earlier immune checkpoint inhibitor therapy: pembrolizumab 〔KLCA 2, strong〕 〔NCCN 2B〕 〔AASLD〕, nivolumab with or without ipilimumab 〔KLCA 3, strong〕 〔NCCN 2A〕, or atezolizumab with bevacizumab 〔KLCA 4, weak〕 〔NCCN 2A〕
+      ・Pembrolizumab 〔NCCN〕 and nivolumab with ipilimumab hold US licences after sorafenib, nivolumab alone has held none since 2021, and the EU licence of nivolumab with ipilimumab covers the first line only
+      + KEYNOTE-394 {pmid 36455168}
+      - KEYNOTE-240 {pmid 31790344}
+      ~ CheckMate 040 {pmid 28434648}
+    ⑤ Third and later lines: an agent with a mechanism of action different from earlier treatment 〔KLCA 4, strong〕, such as cabozantinib, the only agent with phase III data in this line 〔AASLD〕
+    ※ All approved drugs are used in sequence after immunotherapy combinations or lenvatinib 〔PAGA III, A〕 〔ESMO III, A〕
+    ※ When no evidence-based next treatment exists, systemic therapy may continue beyond progression while clinical benefit lasts 〔EASL 3, weak〕
+
+panel: Liver transplantation > Very early and early stage: first treatment
+  ① Beyond the Milan criteria: transplantation can be considered within the UCSF criteria 〔PAGA III, B〕 〔ESMO III, B〕, is recommended over locoregional therapy when the expected 5-year survival exceeds 50% 〔PAGA II, B〕 〔ESMO II, B〕, and may follow a favourable response without vascular invasion or metastasis 〔KLCA 3, weak〕
+  ② AFP above 1000 ng/mL (1000 µg/L): transplantation is contraindicated 〔EASL 3, strong〕 〔AASLD 2, strong〕 until downstaging brings AFP to 1000 ng/mL (1000 µg/L) or less for at least 3 months 〔EASL〕 or below 500 ng/mL (500 µg/L) 〔AASLD〕
+  ③ Beyond the Milan criteria and downstaged to within them: transplantation 〔KLCA 2, strong〕 〔NCCN〕 〔EASL 2, strong〕 〔AASLD 2, strong〕
+    ・Transplantation follows 3 to 6 months of observation after downstaging, and immune checkpoint inhibitors are stopped at least 3 months before it 〔AASLD〕
+    ・After downstaging with systemic therapy that includes immune checkpoint inhibitors, transplantation can be considered, with a higher risk of rejection at a shorter interval from the last dose 〔PAGA IV, C〕 〔ESMO IV, C〕, while the evidence is insufficient to recommend systemic therapy for downstaging 〔EASL 3, strong〕
+    + XXL [t-xxl]
+  ④ Living donor: transplantation should be considered for selected patients in experienced centres 〔EASL 3, strong〕, including beyond the usual criteria 〔KLCA〕 〔AASLD〕
+  ⑤ Long expected wait: bridging with ablation, TACE, radioembolisation or SBRT 〔PAGA III, B〕 〔KLCA 3, strong〕 〔ESMO III, B〕 〔NCCN 2A〕 〔EASL 4, strong〕 〔AASLD 3, strong〕
+    ・Bridging starts at an expected wait beyond 3 months 〔PAGA〕 〔ESMO〕 or beyond 6 months 〔KLCA〕 〔EASL〕
+    ・Radioembolisation is recommended over TACE for small tumours 〔PAGA II, A〕 〔ESMO II, A〕, while no locoregional method is preferred 〔AASLD 3, weak〕 and systemic therapy as a bridge is not routinely recommended 〔AASLD 5, weak〕
+    ・Treatment before a scheduled transplantation is not recommended 〔JSH〕
+  ⑥ After transplantation: adjuvant anticancer therapy is not recommended 〔PAGA IV, E〕 〔ESMO IV, E〕, and a switch to an mTOR inhibitor is not routinely recommended 〔PAGA I, D〕 〔ESMO I, D〕
+    ・mTOR inhibitors are used routinely in China 〔PAGA〕, suppress recurrence 〔JSH〕 and should be considered 〔KLCA〕
+  ⑦ Recurrence after transplantation: resection of a solitary recurrence arising 1 year or more after transplantation 〔PAGA IV, A〕 〔ESMO IV, A〕 or whenever possible 〔JSH〕, locoregional therapy 〔PAGA IV, B〕 〔ESMO IV, B〕, sorafenib or lenvatinib for unresectable or multifocal recurrence 〔PAGA IV, B〕 〔JSH〕 〔KLCA〕 〔ESMO IV, B〕 〔EASL 4, weak〕 〔AASLD〕, or ramucirumab after a tyrosine kinase inhibitor with AFP of 400 ng/mL (400 µg/L) or more 〔PAGA IV, B〕 〔ESMO IV, B〕
+    ・Immune checkpoint inhibitors are not recommended after transplantation 〔KLCA〕 〔ESMO〕 〔EASL 4, weak〕 〔AASLD〕
+
+panel: Poor performance status or liver function > Advanced stage: first line
+  ① ECOG performance status 2 or more, or poor liver function: best supportive care, including SBRT for pain 〔PAGA III, A〕 〔ESMO III, A〕
+    ・In BCLC 2022, performance status 2 remains stage C, and only tumour-related symptoms count towards performance status
+  ② Child-Pugh B with ECOG performance status 0 to 1: systemic therapy may be considered in selected patients 〔KLCA 3, weak〕 〔EASL 3, weak〕 〔AASLD〕, such as nivolumab 〔KLCA〕 〔AASLD〕, or pembrolizumab or durvalumab alone 〔AASLD〕
+    ・Selection favours Child-Pugh B7 〔KLCA〕 〔AASLD〕, especially without ascites 〔KLCA〕, and is limited to Child-Pugh B7 or B8 〔EASL〕
+    ・Systemic therapy is restricted to Child-Pugh A 〔JSH A, strong〕
+    ・Doses are individualised from the product information 〔NCCN〕
+
+panel: Radiotherapy and oligometastatic disease > Advanced stage: first line
+  ① Systemic therapy for advanced disease: external beam radiotherapy can be added 〔KLCA 3, weak〕
+    ・NRG/RTOG 1112 closed early, and its limitations preclude a formal recommendation 〔EASL〕 〔AASLD〕
+    ~ NRG/RTOG 1112 {pmid 39699905}
+  ② Symptomatic disease: palliative external beam radiotherapy 〔KLCA 3, strong〕 〔NCCN 2A〕, for painful bone metastases 〔PAGA III, A〕 〔JSH A, strong〕 〔ESMO III, A〕 and for hepatic pain from a high tumour burden 〔PAGA II, A〕 〔ESMO II, A〕
+  ③ Extrahepatic oligometastases: external beam radiotherapy for up to 5 lesions 〔KLCA 3, weak〕, or resection of a few metastases when all can be treated 〔JSH〕
+    ・Radiotherapy to extrahepatic metastases with survival as its only aim is limited to clinical research 〔JSH〕
+  ④ Oligoprogression on systemic therapy: local treatment while systemic therapy continues 〔KLCA〕 〔EASL 5, weak〕
