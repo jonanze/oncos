@@ -40,7 +40,9 @@
     'HR+ HER2- MBC': 'hr-mbc',
     'HER2+ EBC': 'her2-ebc',
     'HER2+ MBC': 'her2-mbc',
-    'Triple Negative BC': 'tnbc'
+    'Triple Negative BC': 'tnbc',
+    'Resectable & BR Pancreatic': 'pancreatic',
+    'Advanced Pancreatic': 'advanced-pancreatic'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
