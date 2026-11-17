@@ -1,0 +1,224 @@
+# oncOS board map: Resectable & BR Pancreatic (resectable and borderline resectable pancreatic ductal adenocarcinoma)
+# Draft 1, 2026-11-17: draft 0 rewritten after the independent review (board-maps/pancreatic/independent-review.md),
+#   decisions in board-maps/pancreatic/draft1-changes.md. Clinical content: the guideline notes in that folder and
+#   pancreatic-rows.json only. Structure plan: board-maps/pancreatic/structure-plan.md
+# Draft 2, 2026-11-17: prose-only pass against the language, register and presentation rules, clinical content unchanged
+#   (board-maps/pancreatic/prose-review.md)
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-16): one map for the sheet. Systemic therapy and radiotherapy. Surgical technique, arterial
+#   resection, biliary drainage, nutrition and pain procedures are out. Locally advanced and metastatic disease are on
+#   the Advanced Pancreatic map
+# Layout (Jonan 2026-11-16): a root step fans out to three steps side by side: resectable disease with upfront surgery,
+#   resectable disease with neoadjuvant therapy, and borderline resectable disease. The three are never joined to each
+#   other. Each next: line joins true time order only. Resectability, workup and testing, regimens with doses, and
+#   radiotherapy dose with the concurrent drug are bands. Older, unfit or medically inoperable patients are a panel
+#   joined to the root step
+# One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
+#   (a cut-off, a population, an order, a grade), a condition or a licence. One numbered line per population
+# Guideline set (Jonan 2026-11-16): PAGA 2025, JPS 2025, ESMO 2023, NCCN 4.2026, ASTRO 2026. No ASCO.
+#   Tag order PAGA, JPS, ESMO, NCCN, ASTRO (East Asian first)
+# Tags give the grade as printed, evidence first and strength second, on the statement the guideline graded:
+#   〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline for pancreatic cancer 2025 (Tai, ESMO Open 2025;10:105826),
+#     Table 2 rows. A bare 〔PAGA〕 marks the narrative, the Discussion or a licence note
+#   〔JPS evidence, strength〕 Japan Pancreas Society guidelines 2025, English synopsis (Abe, Pancreas 2026;55:e120-e133).
+#     Evidence A to D, strength strong or weak, without the printed vote. A bare 〔JPS〕 marks a figure or a footnote.
+#     The synopsis prints no doses, durations or trial names
+#   〔ESMO level, grade〕 ESMO pancreatic cancer guideline 2023 (Conroy, Ann Oncol 2023;34:987-1002). A bare 〔ESMO〕 marks
+#     ungraded text or an algorithm node. The 2025 and 2026 Express Updates cover metastatic disease only
+#   〔NCCN category〕 NCCN Pancreatic Adenocarcinoma 4.2026 (11 September 2026), with "preferred" as printed. Category 2A
+#     unless stated. A bare 〔NCCN〕 marks a footnote, a principles page (radiotherapy doses) or the Discussion
+#   〔ASTRO quality, strength〕 ASTRO radiation therapy for pancreatic cancer guideline 2026 (Chuong, Pract Radiat Oncol
+#     2026;16:598-625). A bare 〔ASTRO〕 marks an implementation remark or the narrative. Doses are written in Gy
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint, non-inferiority, historical-control design
+#   or a trial closed early, - primary endpoint not met or no benefit from the tested change, * no comparison
+# Licence test (Jonan 2026-11-16): S-1 is marketed internationally and is on the Singapore Cancer Drug List, so S-1
+#   options are numbered options. PAXG and the other regimens that NCCN alone lists sit on ※ or ・ lines (rule ⑦)
+# Option order where guidelines disagree is Jonan's call and is drafted here as: mFOLFIRINOX before S-1 after
+#   resection, chemotherapy before chemoradiotherapy in borderline resectable disease, the statement against adjuvant
+#   chemoradiotherapy before the options for it (draft1-changes.md, open questions)
+# Intake (cited by {pmid N}, no Evidence row yet): RTOG 0848 radiotherapy randomisation (42456089), Jang 2018
+#   (29462005). The PRODIGE 24 five-year paper (36048453) is an update of the PRODIGE 24 row, cited by its primary PMID
+# No single-arm row on this sheet. Every row of the sheet is placed, so there is no off: list
+
+map: Resectable & BR Pancreatic
+source: PAGA {url https://doi.org/10.1016/j.esmoop.2025.105826}
+source: JPS {url https://doi.org/10.1097/MPA.0000000000002600}
+source: ESMO {url https://www.esmo.org/guidelines/esmo-clinical-practice-guidelines-gastrointestinal-cancers/cancer-of-the-pancreas-esmo-clinical-practice-guidelines}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ASTRO {url https://doi.org/10.1016/j.prro.2026.07.002}
+branch: UP | Resectable, upfront surgery | blue
+branch: NEO | Resectable, neoadjuvant therapy | teal
+branch: BR | Borderline resectable | violet
+
+band: Resectability
+  ① Resectability is assessed by the NCCN anatomical criteria together with biological and conditional criteria 〔PAGA III, B〕 〔ESMO III, B〕
+    ・Biological criteria are a CA 19-9 above 500 IU/mL (500 kU/L) or regional node metastases on biopsy or PET-CT 〔PAGA〕 〔ESMO〕
+    ・The conditional criterion is an ECOG performance status of 2 or more 〔PAGA〕 〔ESMO〕
+    ・Anatomical criteria alone define resectability at diagnosis 〔NCCN 2A〕, and response criteria are added after neoadjuvant therapy 〔NCCN〕
+    ・The categories resectable, borderline resectable and unresectable follow the General Rules for the Study of Pancreatic Cancer, seventh edition 〔JPS〕
+  ② Resectable: no arterial contact, and no contact with the superior mesenteric or portal vein or contact of 180° or less without contour irregularity 〔NCCN 2A〕
+  ③ Borderline resectable, arteries: contact with the common hepatic artery without extension to the coeliac axis or the hepatic artery bifurcation, contact with the superior mesenteric artery of 180° or less, or, for a body or tail tumour, contact with the coeliac axis of 180° or less 〔NCCN 2A〕
+  ④ Borderline resectable, veins: contact with the superior mesenteric or portal vein of more than 180°, or of 180° or less with contour irregularity or thrombosis, with enough vessel for reconstruction, or solid tumour contact with the inferior vena cava 〔NCCN 2A〕
+  ⑤ Locally advanced: contact with the superior mesenteric artery or coeliac axis of more than 180°, coeliac axis contact with aortic involvement in a body or tail tumour, or a superior mesenteric or portal vein that cannot be reconstructed 〔NCCN 2A〕
+  ※ Venous contact of 90° to 180° without contour irregularity is resectable by the NCCN criteria and borderline resectable by the Dutch criteria used in PREOPANC 〔ASTRO〕
+
+band: Workup and testing
+  ① Cytology or biopsy, preferably guided by endoscopic ultrasound, confirms the diagnosis before chemotherapy 〔PAGA III, A〕 〔JPS B, weak〕 〔ESMO III, A〕 〔NCCN 2A〕
+    ・Biopsy is not required before upfront resection 〔ESMO〕 〔NCCN〕
+  ② Staging laparoscopy is suggested before curative resection 〔JPS C, weak〕 〔NCCN 2A〕
+    ・Surgery is not suggested with positive peritoneal cytology 〔JPS C, weak〕, which is treated as metastatic disease 〔NCCN〕
+  ③ CA 19-9 measures disease burden and can guide treatment decisions 〔PAGA III, B〕 〔ESMO III, B〕
+    ・CA 19-9 is best measured after biliary decompression, once the bilirubin is normal 〔NCCN 3〕
+  ④ Germline testing is recommended for every patient with pancreatic adenocarcinoma, as BRCA testing 〔PAGA IV, B〕 or a comprehensive panel of hereditary cancer genes 〔NCCN 2A〕, and BRCA testing is generally recommended 〔ESMO IV, B〕
+    ・Germline BRCA testing is suggested in unresectable disease 〔JPS C, weak〕
+    ・Genetic counselling is offered when the family history suggests a hereditary syndrome 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN〕
+  ⑤ Tumour molecular profiling is performed in localised disease when clinically indicated 〔NCCN 2A〕
+    ・Somatic KRAS testing 〔PAGA IV, B〕 and tumour profiling at diagnosis 〔ESMO II, A〕 are recommended in unresectable disease
+  ※ No consensus recommendation exists for circulating tumour DNA as a test for residual disease 〔NCCN〕
+
+band: Regimens and doses
+  ① mFOLFIRINOX after resection, PRODIGE 24 schedule of 12 cycles every 14 days: oxaliplatin 85 mg/m², leucovorin 400 mg/m², irinotecan 150 mg/m² (180 mg/m² before a protocol reduction) and 5-FU 2400 mg/m² over 46 hours without a bolus 〔PAGA〕
+    ・Lower-dose schedules are in use in Asia, and the optimal dose and timing of mFOLFIRINOX are not established 〔PAGA〕
+  ② S-1 after resection, JASPAC 01 schedule: 40, 50 or 60 mg by body surface area twice daily for 28 days, every 6 weeks for four cycles
+  ③ Gemcitabine with capecitabine, ESPAC-4 schedule of six 4-week cycles: gemcitabine 1000 mg/m² weekly for 3 of 4 weeks with capecitabine 830 mg/m² twice daily (1660 mg/m² a day) for 21 of 28 days 〔NCCN〕
+  ④ Gemcitabine, CONKO-001 schedule: 1000 mg/m² on days 1, 8 and 15 every 4 weeks for six cycles
+  ⑤ 5-FU with leucovorin, ESPAC-3 schedule: folinic acid 20 mg/m² then 5-FU 425 mg/m² as boluses on 5 consecutive days every 28 days for six cycles
+  ⑥ Neoadjuvant gemcitabine with S-1, Prep-02/JSAP05 schedule: gemcitabine 1000 mg/m² on days 1 and 8 with S-1 40 to 60 mg twice daily on days 1 to 14, every 3 weeks for two cycles, then surgery 2 to 4 weeks after the last dose of S-1
+  ※ PAXG, PACT-21 CASSANDRA schedule: capecitabine 625 mg/m² twice daily with cisplatin 30 mg/m², nab-paclitaxel 150 mg/m² and gemcitabine 800 mg/m² every 14 days for 4 months 〔NCCN〕
+  ※ Systemic therapy before surgery lasts up to 6 months, and therapy before and after surgery together typically lasts 6 months 〔NCCN〕
+  ※ FOLFIRINOX and mFOLFIRINOX are limited to ECOG performance status 0 to 1, and the 5-FU bolus is often omitted 〔NCCN〕
+  ° Toxicity of note: grade 3 or 4 adverse events were frequent with adjuvant mFOLFIRINOX in PRODIGE 24, a trial of mainly Caucasian patients 〔PAGA〕
+
+band: Radiotherapy dose, concurrent drug and timing
+  ① Concurrent drug: a single agent 〔ASTRO Moderate, Strong〕, with capecitabine or infusional 5-FU preferred to gemcitabine 〔NCCN 2A, preferred〕 〔ASTRO〕
+    ・Concurrent chemotherapy is not given with SBRT 〔ASTRO〕
+  ② Preoperative chemoradiotherapy: 36 Gy in 15 fractions 〔NCCN〕 〔ASTRO Moderate, Strong〕, or conventional fractionation of 50 to 54 Gy in 25 to 30 fractions 〔ASTRO Moderate, Strong〕 or 45 to 54 Gy in fractions of 1.8 to 2.0 Gy 〔NCCN〕, with higher doses only in a trial 〔NCCN〕
+    ・In resectable disease, 36 Gy in 15 fractions is conditionally recommended 〔ASTRO Moderate, Conditional〕
+  ③ Adjuvant chemoradiotherapy: 50 to 50.4 Gy in 25 to 28 fractions 〔ASTRO Moderate, Strong〕, or 45 to 50.4 Gy in fractions of 1.8 to 2.0 Gy to the tumour bed, the anastomoses and the nodal basins 〔NCCN〕
+    ・A boost to 54 to 60 Gy is reasonable for a positive margin 〔ASTRO〕
+  ④ Surgery follows 4 to 8 weeks after preoperative chemoradiotherapy or radiotherapy 〔ASTRO Low, Strong〕, and this interval is ideal after any neoadjuvant therapy 〔NCCN〕
+  ⑤ Restaging excludes metastatic progression after chemotherapy and before chemoradiotherapy 〔NCCN〕 〔ASTRO〕
+
+course: Resectable and borderline resectable pancreatic cancer
+  Localised pancreatic adenocarcinoma
+    ① The multidisciplinary tumour board in an expert centre assigns the resectability category and sets the treatment strategy 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN〕 〔ASTRO〕
+    ※ Enrolment in a clinical trial is preferred in borderline resectable disease 〔PAGA III, A〕 〔ESMO III, A〕, and is encouraged before any neoadjuvant therapy 〔NCCN〕
+    next: Resectable disease: upfront surgery | Surgery first
+    next: Resectable disease: neoadjuvant therapy | Treatment before surgery
+    next: Borderline resectable disease: neoadjuvant therapy | Borderline resectable
+  Resectable disease: upfront surgery
+    branch: UP
+    ① Upfront surgery is the standard of care for resectable disease 〔PAGA〕 〔ESMO〕
+      ・Upfront surgery is for disease without high-risk features, which are equivocal imaging, a markedly elevated CA 19-9, a large primary tumour, large regional nodes, excessive weight loss and extreme pain 〔NCCN 2A〕
+      ・With a CA 19-9 of 500 IU/mL (500 kU/L) or more, the prognosis after surgery is worse and immediate surgery is considered with caution 〔ESMO〕
+      ・Clinical stage 0 disease is treated with upfront surgery 〔JPS〕
+    next: Adjuvant chemotherapy after upfront surgery
+  Adjuvant chemotherapy after upfront surgery
+    branch: UP pale
+    Adjuvant chemotherapy is recommended after macroscopically complete resection 〔JPS A, strong〕 〔NCCN 2A〕, is completed over 6 months 〔PAGA I, A〕 〔ESMO I, A〕 and ideally starts within 12 weeks of surgery 〔NCCN〕
+    ① ECOG performance status 0 to 1: mFOLFIRINOX 〔PAGA I, A〕 〔JPS A, weak〕 〔ESMO I, A〕 〔NCCN 1, preferred〕, or S-1 〔PAGA I, A〕 〔JPS A, strong〕
+      ・S-1 is preferred in some regions of Asia 〔PAGA〕
+      ・mFOLFIRINOX and gemcitabine with capecitabine are outside Japanese national health insurance for this use 〔JPS〕
+      + PRODIGE 24 {pmid 30575490}
+      + JASPAC 01 {pmid 27265347}
+    ② Not a candidate for mFOLFIRINOX: gemcitabine with capecitabine 〔PAGA II, B〕 〔JPS A, weak〕 〔ESMO I, B〕 〔NCCN 1, preferred〕, or S-1 〔PAGA II, B〕
+      ・Age over 75 years, ECOG performance status 2 or a contraindication excludes mFOLFIRINOX 〔ESMO〕
+      ・In Japan, S-1 is used routinely for older patients and at ECOG performance status 2 〔PAGA〕
+      ・Gemcitabine with capecitabine is a preferred regimen whatever the fitness for mFOLFIRINOX 〔NCCN〕
+      + ESPAC-4 {pmid 28129987}
+    ③ Not a candidate for S-1 or combination chemotherapy: gemcitabine 〔PAGA IV, B〕 〔JPS A, strong〕 〔ESMO I, B〕 〔NCCN 1〕, or 5-FU with leucovorin 〔PAGA IV, B〕 〔ESMO I, B〕 〔NCCN 1〕
+      ・Single-agent treatment is limited to frail patients 〔ESMO〕
+      ・Continuous-infusion 5-FU 〔NCCN 2A〕 and capecitabine 〔NCCN 2B〕 are further options
+      + CONKO-001 {pmid 17227978}
+      - ESPAC-3 {pmid 20823433}
+      + ESPAC-1 {pmid 15028824}
+    ※ Gemcitabine with nab-paclitaxel has no role after resection 〔ESMO〕
+      - APACT {pmid 36521097}
+    next: Adjuvant chemoradiotherapy | After chemotherapy
+  Adjuvant chemoradiotherapy
+    branch: UP pale
+    ① Adjuvant chemoradiotherapy is not recommended outside a clinical trial 〔PAGA I, E〕 〔ESMO I, E〕
+      - ESPAC-1 {pmid 15028824}
+      - EORTC 40891 {pmid 10615932}
+      + GITSG {pmid 4015380}
+    ② Node-negative (pN0) disease without preoperative radiotherapy: chemoradiotherapy after multi-agent chemotherapy is conditionally recommended 〔ASTRO Moderate, Conditional〕
+      ・Chemotherapy followed by chemoradiotherapy, with or without further chemotherapy, is an option after resection 〔NCCN 2A〕
+      ・Radiotherapy improved survival in node-negative disease after single-agent chemotherapy in RTOG 0848 〔NCCN〕, and no patient in the trial received FOLFIRINOX after surgery 〔ASTRO〕
+      - RTOG 0848 {pmid 42456089}
+      - RTOG 97-04 {pmid 18319412}
+    ③ Positive margin (R1): chemoradiotherapy after chemotherapy 〔NCCN 2A〕 〔ASTRO〕
+      ・Chemoradiotherapy after chemotherapy is also reasonable for involved nodes (pN+) 〔ASTRO〕
+      ・Chemoradiotherapy gave no benefit after R1 resection in ESPAC-1 〔ESMO〕
+    ※ The grades against adjuvant chemoradiotherapy were set before the radiotherapy results of RTOG 0848 were published
+  Resectable disease: neoadjuvant therapy
+    branch: NEO
+    Neoadjuvant therapy for resectable disease is not recommended outside a clinical trial 〔PAGA II, D〕 〔ESMO II, E〕
+    ・Neoadjuvant therapy is an option with or without high-risk features 〔NCCN 2A〕
+    ① Chemotherapy: gemcitabine with S-1 〔JPS D, weak〕
+      ・Neoadjuvant chemotherapy is part of standard treatment for clinical stage I and II resectable disease in Japan 〔JPS〕
+      + Prep-02/JSAP05 {pmid 40235447}
+      ※ Gemcitabine with nab-paclitaxel, or FOLFIRINOX or mFOLFIRINOX, each with or without consolidation chemoradiotherapy, are the preferred regimens, and cisplatin with gemcitabine is a further choice for a known BRCA1/2 or PALB2 variant 〔NCCN 2A, preferred〕
+        - SWOG S1505 {pmid 33475684}
+        - NORPACT-1 {pmid 38237621}
+        ・PAXG is useful in certain circumstances 〔NCCN 2A〕
+          ~ PACT-21 CASSANDRA {pmid 41275879}
+    ② Chemoradiotherapy is conditionally recommended once preoperative therapy is chosen 〔ASTRO Moderate, Conditional〕
+      ・Multi-agent chemotherapy with or without later chemoradiotherapy is also reasonable 〔ASTRO〕
+      + PREOPANC {pmid 32105518}
+      - PREOPANC-2 {pmid 40945523}
+      ※ The survival benefit of preoperative chemoradiotherapy in PREOPANC was confined to borderline resectable disease in an unplanned subgroup analysis 〔ASTRO〕
+    next: Resectable disease: adjuvant therapy after neoadjuvant therapy | After surgery
+  Resectable disease: adjuvant therapy after neoadjuvant therapy
+    branch: NEO pale
+    ① After neoadjuvant gemcitabine with S-1 and resection: adjuvant S-1 for 6 months, as in Prep-02/JSAP05 〔JPS〕
+      + Prep-02/JSAP05 {pmid 40235447}
+    ② After other neoadjuvant therapy: additional chemotherapy is considered 〔NCCN 2A〕
+      ・The benefit of adjuvant chemotherapy after neoadjuvant therapy and resection is not established 〔ESMO〕
+      ・Chemoradiotherapy is considered only when none was given before surgery 〔NCCN 2A〕, and no published data guide it after preoperative chemotherapy 〔ASTRO〕
+  Borderline resectable disease: neoadjuvant therapy
+    branch: BR
+    Induction therapy is recommended over upfront surgery 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN〕, given the high probability of an R1 resection with upfront surgery 〔PAGA III, A〕 〔ESMO III, A〕
+    ① Induction chemotherapy 〔JPS C, weak〕: FOLFIRINOX or mFOLFIRINOX, or gemcitabine with nab-paclitaxel 〔PAGA II, B〕 〔ESMO III, B〕 〔NCCN 2A, preferred〕
+      ・Gemcitabine with nab-paclitaxel has no EMA or FDA licence as induction therapy 〔PAGA〕 〔ESMO〕
+      ・When neither regimen is feasible, gemcitabine may be combined with S-1 〔PAGA II, C〕, or with oxaliplatin or capecitabine 〔PAGA IV, C〕 〔ESMO II, C〕
+      ・With a known BRCA1/2 or PALB2 variant, cisplatin with gemcitabine or FOLFIRINOX is preferred 〔NCCN 2A, preferred〕
+      ~ Alliance A021501 {pmid 35834226}
+      - ESPAC5 {pmid 36521500}
+      ※ PAXG is useful in certain circumstances 〔NCCN 2A〕
+        ~ PACT-21 CASSANDRA {pmid 41275879}
+    ② Chemoradiotherapy or radiotherapy before surgery 〔JPS B, weak〕 〔ASTRO Moderate, Strong〕
+      ・Chemoradiotherapy with S-1 can be considered 〔PAGA II, C〕, and chemoradiotherapy with other drugs is not recommended 〔PAGA〕
+      ・Chemoradiotherapy with capecitabine may be considered after induction chemotherapy 〔ESMO III, C〕, and consolidation chemoradiotherapy is a preferred option 〔NCCN 2A, preferred〕
+      ・Multi-agent chemotherapy first, with or without later chemoradiotherapy or radiotherapy, is also reasonable 〔ASTRO〕
+      ・No evidence supports radiotherapy alongside induction FOLFIRINOX or gemcitabine with nab-paclitaxel 〔PAGA〕
+      + PREOPANC {pmid 32105518}
+      - PREOPANC-2 {pmid 40945523}
+      ~ Jang 2018 {pmid 29462005}
+    ※ Preoperative SBRT, 33 to 40 Gy in 5 fractions, is conditionally recommended 〔ASTRO Low, Conditional〕
+      ・Dose escalation is an option, as SBRT of more than 40 Gy and up to 50 Gy in 5 fractions, or as 67.5 Gy in 15 or 75 Gy in 25 fractions 〔ASTRO〕
+      ・Further studies are needed before SBRT is recommended in borderline resectable disease 〔NCCN〕
+      ・SBRT after seven cycles of mFOLFIRINOX showed no benefit over mFOLFIRINOX alone 〔ESMO〕, in a trial whose radiotherapy arm closed early for futility on R0 resection without showing inferior survival 〔ASTRO〕
+      - Alliance A021501 {pmid 35834226}
+      ※ SBRT after induction chemotherapy reduced locoregional recurrence in high-risk localised disease, in a later randomised phase II trial that closed early
+        ~ MASTERPLAN {pmid 42914998}
+    next: Borderline resectable disease: restaging and surgery | After induction
+  Borderline resectable disease: restaging and surgery
+    branch: BR pale
+    ① Medically fit, without progression and with a fall in CA 19-9: surgical exploration 〔PAGA III, A〕 〔ESMO III, A〕
+      ・Response is reassessed before surgery 〔JPS C, weak〕 〔NCCN〕
+      ・Response is judged on radiological, biochemical and metabolic criteria, and a significant response leads to resection whenever an R0 resection is feasible 〔NCCN〕
+      ・A fall in CA 19-9 of more than 50%, or its normalisation, is associated with longer survival, and persisting perivascular soft tissue is not synonymous with residual tumour 〔ESMO〕
+    ② Local progression without metastases: a change of neoadjuvant regimen 〔NCCN 2A〕
+    next: Borderline resectable disease: adjuvant therapy | After resection
+  Borderline resectable disease: adjuvant therapy
+    branch: BR pale
+    ① Adjuvant chemotherapy is suggested after resection 〔JPS C, weak〕 〔NCCN 2A〕
+      ・The type and duration of adjuvant therapy after induction treatment are not established 〔ESMO〕
+      ・Chemoradiotherapy is considered only when none was given before surgery 〔NCCN 2A〕
+
+panel: Older, unfit or medically inoperable patients > Localised pancreatic adenocarcinoma
+  ① Age alone does not exclude pancreatectomy 〔ESMO〕, and surgery is suggested at 80 years or older when curative resection is expected 〔JPS C, weak〕
+    ・Surgery may be avoided with an ECOG performance status above 2 from comorbidity, or with severe malnutrition 〔ESMO〕
+  ② Medically inoperable, or fit and declining surgery: multi-agent chemotherapy followed by chemoradiotherapy or radiotherapy 〔ASTRO Expert Opinion, Strong〕
+    ・Medically inoperable disease is treated as locally advanced disease 〔NCCN〕
+  ③ Geriatric assessment is suggested before treatment 〔JPS D, weak〕

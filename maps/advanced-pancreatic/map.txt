@@ -1,0 +1,262 @@
+# oncOS board map: Advanced Pancreatic (locally advanced and metastatic pancreatic ductal adenocarcinoma)
+# Draft 1, 2026-11-17: draft 0 rewritten after the independent review (board-maps/pancreatic/independent-review.md),
+#   decisions in board-maps/pancreatic/draft1-changes.md. Clinical content: the guideline notes in that folder and
+#   pancreatic-rows.json only. Structure plan: board-maps/pancreatic/structure-plan.md
+# Draft 2, 2026-11-17: prose-only pass against the language, register and presentation rules, clinical content unchanged
+#   (board-maps/pancreatic/prose-review.md)
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-16): one map for the sheet. Systemic therapy and radiotherapy. Surgical technique, biliary
+#   drainage, nutrition and pain procedures are out. Resectable and borderline resectable disease are on the
+#   Resectable & BR Pancreatic map. Chips may cite rows of the shared sheet "Tumour-Agnostic Basket Trials"
+# Layout (Jonan 2026-11-17, "needless bends"): the course carries "| parallel". Two presentations start side by side,
+#   with no root step: induction therapy for locally advanced disease and first-line treatment of metastatic disease.
+#   Each next: line joins true time order only: induction, then the step after induction or conversion surgery. First
+#   line, then maintenance, then second and later lines, one chain as on the advanced colon and SCLC maps (no second
+#   line from first line, which ran a line under the maintenance box). Progression after induction for locally advanced
+#   disease joins the second and later lines step (Jonan 2026-11-17)
+#   Testing, regimens with doses, and supportive and local treatment are bands. Radiotherapy dose and technique,
+#   biomarker-directed therapy, and older patients are panels
+# One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
+#   (a cut-off, a population, an order, a grade), a condition or a licence. One numbered line per population
+# Guideline set (Jonan 2026-11-16): PAGA 2025, JPS 2025, ESMO 2023 with the 2025 and 2026 Express Updates, NCCN 4.2026,
+#   ASTRO 2026. No ASCO. Tag order PAGA, JPS, ESMO, NCCN, ASTRO (East Asian first)
+# Tags give the grade as printed, evidence first and strength second, on the statement the guideline graded:
+#   〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline for pancreatic cancer 2025 (Tai, ESMO Open 2025;10:105826),
+#     Table 2 rows. A bare 〔PAGA〕 marks the narrative, the Discussion or a licence note. PAGA predates daraxonrasib
+#   〔JPS evidence, strength〕 Japan Pancreas Society guidelines 2025, English synopsis (Abe, Pancreas 2026;55:e120-e133).
+#     Evidence A to D, strength strong or weak, without the printed vote. A bare 〔JPS〕 marks a figure or a footnote.
+#     The synopsis prints no doses, durations or trial names, and predates daraxonrasib
+#   〔ESMO level, grade〕 ESMO pancreatic cancer guideline 2023 (Conroy, Ann Oncol 2023;34:987-1002) for locally advanced
+#     disease, maintenance and biomarker-directed therapy. The Express Updates of 2025 (ESMO Open 2025;10:104528) and
+#     2026 (Ann Oncol 2026;37:1463-1466) for testing at diagnosis and for first-line and later-line treatment of
+#     metastatic disease. A bare 〔ESMO〕 marks ungraded text, an algorithm node or a licence note
+#   〔NCCN category〕 NCCN Pancreatic Adenocarcinoma 4.2026 (11 September 2026), with "preferred" as printed. Category 2A
+#     unless stated. A bare 〔NCCN〕 marks a footnote, a principles page (radiotherapy doses) or the Discussion
+#   〔ASTRO quality, strength〕 ASTRO radiation therapy for pancreatic cancer guideline 2026 (Chuong, Pract Radiat Oncol
+#     2026;16:598-625). A bare 〔ASTRO〕 marks an implementation remark or the narrative. Doses are written in Gy
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint, non-inferiority, single-arm or pooled
+#   single-arm data, or a trial closed early, - primary endpoint not met or no benefit from the tested change,
+#   * no comparison for the statement (PANOPTIMOX is noncomparative)
+# Single-arm exception (inclusion rule ①, as NeoPACT on the TNBC map): CodeBreaK 100 and KRYSTAL-1, since the NCCN
+#   later-line option of sotorasib or adagrasib for KRAS G12C rests on them and no randomised trial exists in pancreatic
+#   cancer. The same exception covers the basket rows of the Tumour-Agnostic sheet (KEYNOTE-158 and its TMB analysis,
+#   the larotrectinib and entrectinib pooled analyses, ROAR, NCI-MATCH Subprotocol H, LIBRETTO-001, eNRGy and
+#   DESTINY-PanTumor02), each behind a guideline option with no randomised trial. Options that NCCN alone lists sit on
+#   ※ or ・ lines (rule ⑦). The Suker meta-analysis is under off: because NEOPAN gives randomised evidence for
+#   FOLFIRINOX in locally advanced disease (Jonan to confirm)
+# Licence test (Jonan 2026-11-16): S-1 is marketed internationally and is on the Singapore Cancer Drug List, so S-1
+#   options are numbered options. Nimotuzumab is licensed in China only and stays on a ※ line
+# Option order where guidelines disagree is Jonan's call and is drafted here as: FOLFIRINOX, NALIRIFOX, then
+#   gemcitabine with nab-paclitaxel in the first line. Induction chemotherapy before chemoradiotherapy in locally
+#   advanced disease. Daraxonrasib before chemotherapy in the second line. Gemcitabine with paclitaxel before
+#   gemcitabine with nab-paclitaxel after FOLFIRINOX (draft1-changes.md, open questions)
+# RASolute 302 is cited by {pmid 42223072}, which resolves through the row's PubMed link until the reference PMID is filled
+# PANOVA-3 (tumour treating fields) is under off: by inclusion rule ③ until a licence is confirmed or Jonan names it
+# Liposomal irinotecan doses are written as irinotecan free base, as the EU SmPC (May 2025, section 4.2) prints them:
+#   70 mg/m² with 5-FU and leucovorin, 50 mg/m² in NALIRIFOX. NAPOLI-1 reported its dose as 80 mg/m²
+# Intake (cited by {pmid N}, no Evidence row yet): NEOPAN (40378359), CONKO-007 (40802908), JCOG1407 (36652891),
+#   E4201 (21969502), JCOG1611 (40720715), PANCREOX (27621395), GEMPAX (38232341). The POLO overall survival paper
+#   (35834777) is an update of the POLO row, cited by its primary PMID
+
+map: Advanced Pancreatic
+source: PAGA {url https://doi.org/10.1016/j.esmoop.2025.105826}
+source: JPS {url https://doi.org/10.1097/MPA.0000000000002600}
+source: ESMO {url https://www.esmo.org/guidelines/esmo-clinical-practice-guidelines-gastrointestinal-cancers/cancer-of-the-pancreas-esmo-clinical-practice-guidelines}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ASTRO {url https://doi.org/10.1016/j.prro.2026.07.002}
+branch: LA | Locally advanced disease | teal
+branch: MET | Metastatic disease | rose
+
+band: Testing
+  ① BRCA testing is offered to every patient with metastatic disease, to select platinum-based chemotherapy and olaparib maintenance 〔PAGA I, B〕 〔ESMO I, B〕, and germline BRCA testing is suggested in all unresectable disease 〔JPS C, weak〕
+    ・Germline testing is recommended for every patient with pancreatic cancer, as BRCA testing 〔PAGA IV, B〕 or a comprehensive panel of hereditary cancer genes 〔NCCN 2A〕
+  ② Tumour molecular profiling is recommended at diagnosis for every patient with unresectable disease 〔ESMO II, A〕 〔NCCN 2A〕
+    ・Somatic KRAS testing comes first 〔PAGA IV, B〕, a KRAS wild-type tumour is tested for MSI, NTRK fusions and other rare fusions 〔PAGA III, B〕, and somatic BRCA testing can be considered 〔PAGA IV, C〕
+    ・Next-generation sequencing with RNA sequencing for fusions is preferred 〔NCCN〕, and testing uses tissue, with a blood-based panel when tissue testing is not feasible 〔JPS〕 〔NCCN〕
+    ・A RAS G12 mutation selects daraxonrasib after chemotherapy 〔ESMO〕
+  ③ Response is assessed every 8 to 12 weeks from clinical status, the CA 19-9 trend and imaging 〔PAGA III, A〕 〔ESMO III, A〕
+  ※ Without multigene sequencing, MSI and NTRK fusions are tested by standard methods 〔PAGA IV, B〕 〔ESMO IV, B〕
+  ※ In Japan, germline BRCA testing is insured before chemotherapy and tumour panels only after standard chemotherapy, which is recommended regardless of genomic findings 〔JPS〕
+
+band: Regimens and doses
+  ① FOLFIRINOX, PRODIGE 4 schedule: oxaliplatin 85 mg/m², irinotecan 180 mg/m², leucovorin 400 mg/m² and 5-FU 400 mg/m² as a bolus then 2400 mg/m² over 46 hours, every 2 weeks 〔PAGA〕
+    ・mFOLFIRINOX in the Japanese trial JCOG1611 consists of oxaliplatin 85 mg/m², irinotecan 150 mg/m², l-leucovorin 200 mg/m² and 5-FU 2400 mg/m² over 46 hours without a bolus 〔PAGA〕
+  ② NALIRIFOX, NAPOLI-3 schedule: liposomal irinotecan 50 mg/m², oxaliplatin 60 mg/m², leucovorin 400 mg/m² and 5-FU 2400 mg/m² over 46 hours, on days 1 and 15 every 28 days
+  ③ Gemcitabine with nab-paclitaxel, MPACT schedule: nab-paclitaxel 125 mg/m² then gemcitabine 1000 mg/m² on days 1, 8 and 15 every 4 weeks
+  ④ Gemcitabine: 1000 mg/m² over 30 minutes weekly for 3 weeks every 28 days 〔NCCN〕
+  ⑤ S-1, GEST schedule: 80, 100 or 120 mg a day by body surface area, in two divided doses, on days 1 to 28 every 42 days
+  ⑥ Liposomal irinotecan with 5-FU and leucovorin, NAPOLI-1 schedule: liposomal irinotecan 70 mg/m² as free base (80 mg/m² in the NAPOLI-1 report), folinic acid 400 mg/m² and 5-FU 2400 mg/m² over 46 hours, every 2 weeks
+  ⑦ OFF, CONKO-003 schedule: oxaliplatin 85 mg/m² on days 8 and 22, with folinic acid 200 mg/m² and 5-FU 2000 mg/m² over 24 hours on days 1, 8, 15 and 22, every 6 weeks
+  ⑧ Olaparib 300 mg twice daily, started 4 to 8 weeks after the last dose of platinum in POLO
+  ⑨ Daraxonrasib 300 mg once daily 〔ESMO〕
+  ※ The optimal dose and timing of mFOLFIRINOX are not established 〔PAGA〕, and the 5-FU bolus is often omitted 〔NCCN〕
+
+band: Supportive and local treatment
+  ① Primary thromboprophylaxis is considered for patients with advanced disease on chemotherapy, in the absence of contraindications 〔PAGA I, C〕 〔ESMO I, B〕
+    ・Low-molecular-weight heparin 〔JPS B, weak〕 or a direct oral anticoagulant 〔JPS C, weak〕 is suggested, without approval for this use in Japan 〔JPS〕
+    ・Prophylactic low-molecular-weight heparin is not recommended, for lack of evidence of a survival benefit 〔NCCN〕
+    ・Primary thromboprophylaxis carries a lower grade for Asian patients, as venous thromboembolism appears less frequent and prophylaxis has shown no survival benefit 〔PAGA〕
+  ② Oligometastatic disease 〔ASTRO Low, Conditional〕 or oligoprogressive disease 〔ASTRO Expert Opinion, Conditional〕: radiotherapy with definitive intent to the metastases and the untreated primary tumour is conditionally recommended after multidisciplinary discussion
+    ・Metastasis-directed therapy is reserved for rare cases of indolent or oligometastatic disease, in a high-volume centre 〔NCCN〕
+    ・After resection, radiotherapy is suggested for lung metastases and is not suggested for liver metastases 〔JPS D, weak〕
+  ③ Isolated locoregional recurrence without previous radiotherapy: chemoradiotherapy or radiotherapy with definitive intent 〔ASTRO Low, Strong〕
+    ・After resection, radiotherapy is suggested for local and regional nodal recurrence 〔JPS D, weak〕
+    ・Reirradiation is conditionally recommended, preferably 6 to 12 months or more after the first course 〔ASTRO Low, Conditional〕
+  ④ Pain or bleeding from the tumour: palliative radiotherapy, 30 Gy in 10 fractions or 20 Gy in 5 fractions 〔ASTRO Moderate, Strong〕
+    ・Radiotherapy is recommended for painful bone metastases 〔JPS B, strong〕, and radiotherapy or chemoradiotherapy is suggested for a symptomatic primary tumour 〔JPS C, weak〕
+
+course: Locally advanced and metastatic pancreatic cancer | parallel
+  Locally advanced disease: induction therapy
+    branch: LA
+    ① Induction chemotherapy for up to 6 months: FOLFIRINOX or mFOLFIRINOX, or gemcitabine with nab-paclitaxel 〔PAGA IV, B〕 〔JPS C, weak〕 〔ESMO I, B〕 〔NCCN 2A, preferred〕
+      ・The evidence level is IV because no trial has compared surgery with no surgery after induction 〔PAGA〕
+      ・Gemcitabine with nab-paclitaxel has no EMA or FDA licence in locally advanced disease 〔PAGA〕 〔ESMO〕
+      ・NALIRIFOX is a further preferred regimen, by extrapolation from metastatic disease 〔NCCN 2A, preferred〕
+      ・With a known BRCA1/2 or PALB2 variant, cisplatin with gemcitabine or FOLFIRINOX is preferred 〔NCCN 2A, preferred〕, and with a germline BRCA variant a platinum-containing regimen is suggested 〔JPS C, weak〕
+      ・Resectability is reviewed by the multidisciplinary tumour board every 2 to 3 months 〔PAGA III, A〕 〔ESMO III, A〕, and a second opinion on unresectability is sought from a high-volume centre 〔NCCN〕
+      ~ NEOPAN {pmid 40378359}
+      * JCOG1407 {pmid 36652891}
+    ② Combination chemotherapy not feasible: gemcitabine 〔JPS C, weak〕 〔NCCN 2A〕, or S-1 〔JPS C, weak〕
+    ③ Chemoradiotherapy as the first treatment is an alternative to chemotherapy alone 〔JPS B, weak〕
+      ・Upfront chemoradiotherapy or SBRT is reserved for patients who are not candidates for induction chemotherapy, or who have poorly controlled pain or local obstruction 〔NCCN 2A〕
+      ・Gemcitabine alone is not suggested as induction chemotherapy before chemoradiotherapy 〔JPS C, weak〕
+      ~ E4201 {pmid 21969502}
+    ※ Enrolment in a clinical trial is encouraged 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN〕
+    next: Locally advanced disease: after induction | After induction
+    next: Locally advanced disease: conversion surgery | Response
+  Locally advanced disease: after induction
+    branch: LA pale
+    ① No metastatic progression after multi-agent chemotherapy: chemoradiotherapy or radiotherapy 〔NCCN 2A〕 〔ASTRO Moderate, Strong〕
+      ・Induction preferably lasts 4 to 6 months before chemoradiotherapy 〔NCCN〕
+      ・The aims are local control and prevention of local morbidity, and randomised trials have shown no overall survival benefit 〔NCCN〕 〔ASTRO〕
+      ・Without downstaging, the options are continued chemotherapy 〔ESMO I, B〕, a treatment pause or chemoradiotherapy 〔ESMO〕
+      - LAP07 {pmid 27139057}
+      - CONKO-007 {pmid 40802908}
+    ② Progression confined to the primary tumour, without radiotherapy before: chemoradiotherapy or SBRT 〔NCCN 2A〕
+    ※ Germline BRCA variant without progression on a platinum-containing regimen: olaparib maintenance is suggested 〔JPS C, weak〕
+      ・The EMA and FDA licences for olaparib cover metastatic disease 〔ESMO〕
+    next: Metastatic disease: second and later lines | Progression
+  Locally advanced disease: conversion surgery
+    branch: LA pale
+    ① Marked fall in CA 19-9, clinical improvement and downstaging: exploration for resection is discussed 〔PAGA IV, B〕 〔JPS C, weak〕 〔ESMO IV, B〕
+      ・Stable imaging with clinical improvement or a falling CA 19-9 also leads to referral to a high-volume centre for resection 〔NCCN 2A〕
+      ・Surgery after chemoradiotherapy or radiotherapy is feasible for a minority of patients with a favourable radiological or CA 19-9 response 〔ASTRO〕
+      ・Adjuvant chemotherapy is suggested after resection 〔JPS C, weak〕
+  Metastatic disease: first line
+    branch: MET
+    ① ECOG performance status 0 to 1, bilirubin below 1.5 times the upper limit of normal and no major comorbidities: FOLFIRINOX 〔PAGA I, A〕 〔JPS A, strong〕 〔ESMO I, A〕 〔NCCN 1, preferred〕, NALIRIFOX 〔PAGA I, A〕 〔JPS B, weak〕 〔ESMO I, A〕 〔NCCN 1, preferred〕, or gemcitabine with nab-paclitaxel 〔PAGA I, A〕 〔JPS A, strong〕 〔ESMO I, B〕 〔NCCN 1, preferred〕
+      ・mFOLFIRINOX is a further option 〔PAGA III, B〕 〔NCCN 2A, preferred〕
+      ・FOLFIRINOX and NALIRIFOX may be preferred for patients able to tolerate them, and gemcitabine with nab-paclitaxel when gastrointestinal toxicity is a concern 〔ESMO〕
+      ・NALIRIFOX has no apparent advantage over FOLFIRINOX 〔NCCN〕, and is not approved in Japan 〔JPS〕
+      + PRODIGE 4/ACCORD 11 {pmid 21561347}
+      + NAPOLI-3 {pmid 37708904}
+      + MPACT {pmid 24131140}
+      ※ In a Japanese randomised trial, mFOLFIRINOX and S-IROX were not superior to gemcitabine with nab-paclitaxel, and the trial stopped for futility 〔PAGA〕
+        - JCOG1611 {pmid 40720715}
+    ② BRCA1/2 variant: platinum-based chemotherapy 〔PAGA III, A〕 〔ESMO III, A〕, as FOLFIRINOX 〔NCCN 1, preferred〕, or cisplatin with gemcitabine or mFOLFIRINOX 〔NCCN 2A, preferred〕
+      ・With a germline BRCA variant, a platinum-containing regimen is suggested 〔JPS C, weak〕
+      ・The same regimens are preferred with a PALB2 variant, at ECOG performance status 0 to 1 〔NCCN〕
+    ③ ECOG performance status 2: gemcitabine with nab-paclitaxel with a Karnofsky score of 70 or more and bilirubin up to 1.5 times the upper limit of normal 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN 1, preferred〕, and otherwise gemcitabine 〔PAGA IV, B〕 〔JPS A, weak〕 〔ESMO I, A〕 〔NCCN 2A, preferred〕 or S-1 〔PAGA IV, B〕 〔JPS A, weak〕
+      ・Capecitabine, CAPEOX, FOLFIRI and FOLFOX are further preferred regimens at ECOG performance status 2 〔NCCN 2A, preferred〕
+      ・Gemcitabine or S-1 alone is used in poor general condition or advanced age 〔JPS〕
+      + Burris et al. {pmid 9196156}
+      ~ GEST {pmid 23547081}
+    ④ ECOG performance status 3 to 4: symptom-directed care 〔PAGA IV, A〕 〔ESMO IV, A〕 〔NCCN 2A, preferred〕, with gemcitabine as a further option at performance status 3 〔NCCN 1〕
+    ※ Gemcitabine with erlotinib 〔NCCN 1〕 and gemcitabine with capecitabine 〔NCCN 2A〕 are other recommended regimens
+      ・The benefit of erlotinib was small 〔NCCN〕, and gemcitabine combinations gave limited benefit 〔ESMO〕
+      + NCIC PA.3 {pmid 17452677}
+      - GEM-CAP {pmid 19858379}
+    ※ Daraxonrasib in untreated metastatic disease is useful in certain circumstances 〔NCCN 2B〕, at category 2A for ECOG performance status 2 to 3 〔NCCN 2A〕
+      ・The FDA licence covers patients who are not candidates for multi-agent therapy 〔NCCN〕
+      ・Daraxonrasib follows first-line chemotherapy 〔ESMO〕
+    ※ Nimotuzumab with gemcitabine is licensed in China for KRAS wild-type disease in the first line, and has no EU or US licence 〔PAGA〕
+    ※ Metastatic relapse 6 months or more after the end of treatment for localised disease: the earlier regimen is repeated or another first-line regimen is given 〔NCCN〕
+    next: Metastatic disease: maintenance | No progression
+  Metastatic disease: maintenance
+    branch: MET pale
+    ① Germline BRCA1/2 variant, stable or responding after platinum-based chemotherapy: olaparib 〔PAGA I, B〕 〔JPS C, weak〕 〔ESMO I, B〕 〔NCCN 2A, preferred〕
+      ・Olaparib follows 4 to 6 months of first-line platinum-based chemotherapy without progression 〔NCCN〕
+      ・Olaparib prolonged progression-free survival, without a difference in overall survival 〔ESMO〕
+      ・After progression on olaparib, rechallenge with chemotherapy is considered 〔ESMO IV, C〕
+      ~ POLO {pmid 31157963}
+      ※ Rucaparib is useful in certain circumstances with a germline or somatic BRCA1/2 or PALB2 variant, after platinum without progression 〔NCCN 2A〕
+    ※ Response or stable disease after 4 to 6 months of chemotherapy: a chemotherapy holiday or maintenance chemotherapy is an option 〔NCCN〕
+      ・Maintenance after FOLFIRINOX is capecitabine, or 5-FU with leucovorin or FOLFIRI when oxaliplatin is stopped for neuropathy 〔NCCN 2A〕, or FOLFOX 〔NCCN 2B〕
+      ・Maintenance after gemcitabine with nab-paclitaxel is a modified schedule or gemcitabine alone 〔NCCN 2B〕
+      * PANOPTIMOX {pmid 34288696}
+    next: Metastatic disease: second and later lines | Progression
+  Metastatic disease: second and later lines
+    branch: MET pale
+    ① RAS G12 mutation and ECOG performance status 0 to 1, after chemotherapy: daraxonrasib 〔ESMO I, A〕 〔NCCN 1, preferred〕
+      ・Daraxonrasib is preferred at performance status 0 to 2 and useful at performance status 3, whatever the RAS status 〔NCCN 1〕, and expert opinion is divided for RAS wild-type, G13 or Q61 tumours 〔ESMO〕
+      ・The FDA licence covers metastatic disease after one or more lines 〔NCCN〕, and no EMA licence exists 〔ESMO〕
+      ・Metastatic relapse within 6 months of neoadjuvant or adjuvant chemotherapy is treated in the same way 〔ESMO I, A〕 〔NCCN 1〕
+      + RASolute 302 {pmid 42223072}
+    ② After a gemcitabine-based first line: liposomal irinotecan with 5-FU and leucovorin 〔PAGA I, B〕 〔JPS B, strong〕 〔ESMO I, B〕 〔NCCN 1, preferred〕, mFOLFIRINOX or FOLFIRINOX 〔PAGA II, B〕 〔JPS C, weak〕 〔NCCN 2A, preferred〕, or mFOLFOX6 or OFF when oxaliplatin was not given before 〔PAGA II, C〕 〔ESMO II, C〕 〔NCCN 2A, preferred〕
+      ・Liposomal irinotecan with 5-FU and leucovorin requires ECOG performance status 0 to 1 〔PAGA〕 〔ESMO〕, and mFOLFIRINOX is not given at performance status 2 〔PAGA〕
+      ・At performance status 2, liposomal irinotecan with 5-FU and leucovorin and FOLFOX remain preferred regimens 〔NCCN〕
+      ・The benefit of oxaliplatin in the second line is disputed 〔PAGA〕 〔ESMO〕
+      ・mFOLFOX6 shortened survival compared with 5-FU and leucovorin in PANCREOX 〔ESMO〕, a trial with an imbalance in performance status 2 and with crossover 〔NCCN〕
+      ・Capecitabine, CAPEOX, FOLFIRI and infusional 5-FU are further preferred regimens 〔NCCN 2A, preferred〕
+      + NAPOLI-1 {pmid 26615328}
+      + CONKO-003 {pmid 24982456}
+      - PANCREOX {pmid 27621395}
+    ③ After FOLFIRINOX or another fluoropyrimidine-based first line: a gemcitabine-containing regimen 〔JPS C, weak〕, as gemcitabine with paclitaxel 〔PAGA III, B〕 〔ESMO I, B〕, gemcitabine with nab-paclitaxel 〔PAGA III, B〕 〔ESMO III, C〕 〔NCCN 2A, preferred〕, or gemcitabine alone 〔PAGA III, B〕 〔ESMO III, C〕 〔NCCN 2A, preferred〕
+      ・Gemcitabine with paclitaxel is the preferred regimen 〔ESMO〕
+      ・These regimens may be offered at ECOG performance status 0 to 2 〔PAGA〕
+      ・Gemcitabine with nab-paclitaxel has no licence as second-line therapy 〔ESMO〕
+      ・After NALIRIFOX, a gemcitabine-based regimen may be offered 〔ESMO V, C〕
+      ・Liposomal irinotecan with 5-FU and leucovorin is an option when no irinotecan was given before 〔NCCN 2A, preferred〕
+      ※ Gemcitabine with paclitaxel prolonged progression-free survival over gemcitabine alone, without a gain in overall survival 〔PAGA〕
+        - GEMPAX {pmid 38232341}
+    ④ ECOG performance status 3 to 4: symptom-directed care 〔PAGA IV, A〕 〔ESMO IV, A〕 〔NCCN 2A, preferred〕
+    ⑤ Third line: no standard regimen exists, and a clinical trial is the first option for patients in good condition 〔PAGA〕 〔ESMO〕
+      ・Further systemic therapy is chosen by molecular profile, with no limit on the number of lines 〔NCCN〕
+
+panel: Radiotherapy dose and technique > Locally advanced disease: after induction
+  ① Standard dose: 50 to 54 Gy in 25 to 30 fractions, or SBRT of 33 to 40 Gy in 5 fractions 〔ASTRO Moderate, Strong〕
+    ・Chemoradiotherapy uses 45 to 56 Gy in fractions of 1.8 to 2.2 Gy, and SBRT uses 25 to 50 Gy in 5 fractions 〔NCCN〕
+  ② Dose escalation with high-precision radiotherapy 〔JPS C, weak〕: 67.5 Gy in 15 fractions, 75 Gy in 25 fractions, or SBRT of more than 40 Gy and up to 50 Gy in 5 fractions 〔ASTRO Low, Strong〕
+    ・Ablative doses are acceptable, optimally in a trial 〔NCCN〕
+    ・Dose-escalated SBRT requires adaptive radiotherapy 〔ASTRO Moderate, Strong〕
+  ③ Concurrent drug with conventional fractionation: a fluoropyrimidine or gemcitabine 〔JPS C, weak〕 〔ASTRO Moderate, Strong〕, with capecitabine or infusional 5-FU preferred to gemcitabine 〔NCCN 2A, preferred〕 〔ASTRO〕
+    ・Concurrent chemotherapy is not given with SBRT, and gemcitabine calls for caution with dose-escalated regimens 〔ASTRO〕
+  ④ Elective irradiation of regional nodes and other high-risk sites 〔JPS C, weak〕 〔ASTRO Low, Strong〕
+  ※ Hyperthermia with chemoradiotherapy has insufficient evidence for a recommendation 〔JPS D, no recommendation〕
+  ° Toxicity of note: gross invasion of the stomach or bowel may substantially raise the risk of severe toxicity from SBRT 〔ASTRO〕, and SBRT is avoided with direct invasion 〔NCCN〕
+
+panel: Biomarker-directed therapy > Metastatic disease: second and later lines
+  ① MSI-H or dMMR: pembrolizumab in the second or a later line 〔PAGA II, B〕 〔JPS C, weak〕 〔ESMO II, B〕 〔NCCN 2A〕
+    ・Pembrolizumab is also an option for a tumour mutational burden of 10 mutations per megabase or more 〔JPS D, weak〕 〔NCCN 2A〕, and in the first line 〔NCCN 2A〕
+    ・The FDA licence is tumour-agnostic, and the EMA licence excludes pancreatic cancer 〔PAGA〕 〔ESMO〕
+    ~ KEYNOTE-158 {pmid 31682550}
+    ~ KEYNOTE-158 TMB analysis {pmid 32919526}
+  ② NTRK fusion: larotrectinib or entrectinib 〔PAGA III, A〕 〔JPS C, weak〕 〔ESMO III, A〕 〔NCCN 2A〕, or repotrectinib 〔PAGA III, A〕 〔NCCN 2A〕
+    ・These agents are given from the second line 〔PAGA〕 〔ESMO〕, or from the first line 〔NCCN〕
+    ・In later lines, repotrectinib follows progression on another NTRK inhibitor 〔NCCN〕
+    ~ Larotrectinib pooled analysis {pmid 29466156}
+    ~ Entrectinib integrated analysis {pmid 35144967}
+    ~ ALKA/STARTRK {pmid 31838007}
+  ③ BRAF V600E: dabrafenib with trametinib 〔JPS C, weak〕 〔NCCN 2A〕
+    ・The combination is suggested when standard options are limited 〔JPS〕, and is also a first-line option 〔NCCN〕
+    ~ ROAR {pmid 37059834}
+    ~ NCI-MATCH Subprotocol H {pmid 41533998}
+  ④ RET fusion: selpercatinib 〔JPS C, weak〕 〔NCCN 2A〕
+    ~ LIBRETTO-001 {pmid 36108661}
+  ※ KRAS G12C: sotorasib or adagrasib is useful in certain circumstances in later lines 〔NCCN 2A〕
+    ・Response rates were modest and progression-free survival was short in previously treated disease 〔ESMO〕
+    ~ CodeBreaK 100 {pmid 36546651}
+    ~ KRYSTAL-1 {pmid 37099736}
+  ※ NRG1 fusion: zenocutuzumab after progression on systemic therapy 〔NCCN 2A〕
+    ~ eNRGy {pmid 39908431}
+  ※ HER2 IHC 3+, or IHC 2+ with amplification: trastuzumab deruxtecan in later lines 〔NCCN 2A〕
+    ~ DESTINY-PanTumor02 [t-destiny-pantumor02--tumour-agnostic-basket-trials]
+
+panel: Older patients > Metastatic disease: first line
+  ① Older patients, by performance status and comorbidity: gemcitabine with nab-paclitaxel, gemcitabine or S-1 〔JPS C, weak〕
+    ・Treatment is chosen by ECOG performance status at any age 〔NCCN〕
+  ② Geriatric assessment is suggested before treatment 〔JPS D, weak〕 〔NCCN〕
+
+off:
+  FOLFIRINOX in LAPC (Suker meta-analysis) [t-folfirinox-in-lapc] | Non-randomised with randomised evidence available: NEOPAN tested FOLFIRINOX against gemcitabine in locally advanced disease
+  PANOVA-3 [t-panova-3] | No licence or recommendation for tumour treating fields in pancreatic cancer
