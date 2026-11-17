@@ -10,11 +10,10 @@
 #   Resectable & BR Pancreatic map. Chips may cite rows of the shared sheet "Tumour-Agnostic Basket Trials"
 # Layout (Jonan 2026-11-17, "needless bends"): the course carries "| parallel". Two presentations start side by side,
 #   with no root step: induction therapy for locally advanced disease and first-line treatment of metastatic disease.
-#   The two stages are never joined by a line. Each next: line
-#   joins true time order only: induction, then the step after induction or conversion surgery. First line, then
-#   maintenance, then second and later lines, one chain as on the advanced colon and SCLC maps (no second line from
-#   first line, which ran a line under the maintenance box). Progression of
-#   locally advanced disease points to the metastatic subsequent-therapy regimens in words, not by a line.
+#   Each next: line joins true time order only: induction, then the step after induction or conversion surgery. First
+#   line, then maintenance, then second and later lines, one chain as on the advanced colon and SCLC maps (no second
+#   line from first line, which ran a line under the maintenance box). Progression after induction for locally advanced
+#   disease joins the second and later lines step (Jonan 2026-11-17)
 #   Testing, regimens with doses, and supportive and local treatment are bands. Radiotherapy dose and technique,
 #   biomarker-directed therapy, and older patients are panels
 # One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
@@ -133,9 +132,10 @@ course: Locally advanced and metastatic pancreatic cancer | parallel
       ・Without downstaging, the options are continued chemotherapy 〔ESMO I, B〕, a treatment pause or chemoradiotherapy 〔ESMO〕
       - LAP07 {pmid 27139057}
       - CONKO-007 {pmid 40802908}
-    ② Progression after induction: the subsequent-therapy regimens of metastatic disease, or chemoradiotherapy or SBRT when the primary tumour is the only site of progression and no radiotherapy was given before 〔NCCN 2A〕
+    ② Progression confined to the primary tumour, without radiotherapy before: chemoradiotherapy or SBRT 〔NCCN 2A〕
     ※ Germline BRCA variant without progression on a platinum-containing regimen: olaparib maintenance is suggested 〔JPS C, weak〕
       ・The EMA and FDA licences for olaparib cover metastatic disease 〔ESMO〕
+    next: Metastatic disease: second and later lines | Progression
   Locally advanced disease: conversion surgery
     branch: LA pale
     ① Marked fall in CA 19-9, clinical improvement and downstaging: exploration for resection is discussed 〔PAGA IV, B〕 〔JPS C, weak〕 〔ESMO IV, B〕
