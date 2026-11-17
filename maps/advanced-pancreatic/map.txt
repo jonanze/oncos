@@ -8,10 +8,12 @@
 # Scope (Jonan 2026-11-16): one map for the sheet. Systemic therapy and radiotherapy. Surgical technique, biliary
 #   drainage, nutrition and pain procedures are out. Resectable and borderline resectable disease are on the
 #   Resectable & BR Pancreatic map. Chips may cite rows of the shared sheet "Tumour-Agnostic Basket Trials"
-# Layout (Jonan 2026-11-16): a root step fans out to two steps side by side: induction therapy for locally advanced
-#   disease and first-line treatment of metastatic disease. The two stages are never joined by a line. Each next: line
+# Layout (Jonan 2026-11-17, "needless bends"): the course carries "| parallel". Two presentations start side by side,
+#   with no root step: induction therapy for locally advanced disease and first-line treatment of metastatic disease.
+#   The two stages are never joined by a line. Each next: line
 #   joins true time order only: induction, then the step after induction or conversion surgery. First line, then
-#   maintenance, then second and later lines, which also follow first line directly on progression. Progression of
+#   maintenance, then second and later lines, one chain as on the advanced colon and SCLC maps (no second line from
+#   first line, which ran a line under the maintenance box). Progression of
 #   locally advanced disease points to the metastatic subsequent-therapy regimens in words, not by a line.
 #   Testing, regimens with doses, and supportive and local treatment are bands. Radiotherapy dose and technique,
 #   biomarker-directed therapy, and older patients are panels
@@ -104,13 +106,7 @@ band: Supportive and local treatment
   ④ Pain or bleeding from the tumour: palliative radiotherapy, 30 Gy in 10 fractions or 20 Gy in 5 fractions 〔ASTRO Moderate, Strong〕
     ・Radiotherapy is recommended for painful bone metastases 〔JPS B, strong〕, and radiotherapy or chemoradiotherapy is suggested for a symptomatic primary tumour 〔JPS C, weak〕
 
-course: Locally advanced and metastatic pancreatic cancer
-  Unresectable pancreatic adenocarcinoma
-    ① Locally advanced disease: resectability is reviewed by the multidisciplinary tumour board every 2 to 3 months 〔PAGA III, A〕 〔ESMO III, A〕
-      ・A second opinion on unresectability is sought from a high-volume centre 〔NCCN〕
-    ※ Enrolment in a clinical trial is encouraged 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN〕
-    next: Locally advanced disease: induction therapy | Locally advanced
-    next: Metastatic disease: first line | Metastatic
+course: Locally advanced and metastatic pancreatic cancer | parallel
   Locally advanced disease: induction therapy
     branch: LA
     ① Induction chemotherapy for up to 6 months: FOLFIRINOX or mFOLFIRINOX, or gemcitabine with nab-paclitaxel 〔PAGA IV, B〕 〔JPS C, weak〕 〔ESMO I, B〕 〔NCCN 2A, preferred〕
@@ -118,6 +114,7 @@ course: Locally advanced and metastatic pancreatic cancer
       ・Gemcitabine with nab-paclitaxel has no EMA or FDA licence in locally advanced disease 〔PAGA〕 〔ESMO〕
       ・NALIRIFOX is a further preferred regimen, by extrapolation from metastatic disease 〔NCCN 2A, preferred〕
       ・With a known BRCA1/2 or PALB2 variant, cisplatin with gemcitabine or FOLFIRINOX is preferred 〔NCCN 2A, preferred〕, and with a germline BRCA variant a platinum-containing regimen is suggested 〔JPS C, weak〕
+      ・Resectability is reviewed by the multidisciplinary tumour board every 2 to 3 months 〔PAGA III, A〕 〔ESMO III, A〕, and a second opinion on unresectability is sought from a high-volume centre 〔NCCN〕
       ~ NEOPAN {pmid 40378359}
       * JCOG1407 {pmid 36652891}
     ② Combination chemotherapy not feasible: gemcitabine 〔JPS C, weak〕 〔NCCN 2A〕, or S-1 〔JPS C, weak〕
@@ -125,6 +122,7 @@ course: Locally advanced and metastatic pancreatic cancer
       ・Upfront chemoradiotherapy or SBRT is reserved for patients who are not candidates for induction chemotherapy, or who have poorly controlled pain or local obstruction 〔NCCN 2A〕
       ・Gemcitabine alone is not suggested as induction chemotherapy before chemoradiotherapy 〔JPS C, weak〕
       ~ E4201 {pmid 21969502}
+    ※ Enrolment in a clinical trial is encouraged 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN〕
     next: Locally advanced disease: after induction | After induction
     next: Locally advanced disease: conversion surgery | Response
   Locally advanced disease: after induction
@@ -174,7 +172,6 @@ course: Locally advanced and metastatic pancreatic cancer
     ※ Nimotuzumab with gemcitabine is licensed in China for KRAS wild-type disease in the first line, and has no EU or US licence 〔PAGA〕
     ※ Metastatic relapse 6 months or more after the end of treatment for localised disease: the earlier regimen is repeated or another first-line regimen is given 〔NCCN〕
     next: Metastatic disease: maintenance | No progression
-    next: Metastatic disease: second and later lines | Progression
   Metastatic disease: maintenance
     branch: MET pale
     ① Germline BRCA1/2 variant, stable or responding after platinum-based chemotherapy: olaparib 〔PAGA I, B〕 〔JPS C, weak〕 〔ESMO I, B〕 〔NCCN 2A, preferred〕
