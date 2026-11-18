@@ -1,0 +1,31 @@
+# Trials on the Bladder & UTUC map with no Evidence row yet (name, PMID, where on the map)
+Sylvester 2016	PMID 26091833	NMIBC at first resection
+SWOG S0337	PMID 29801011	NMIBC at first resection
+OLYMPUS	PMID 32631491	Localised UTUC by risk group
+Margulis 2020	PMID 31702432	Localised UTUC by risk group
+EORTC 30924	PMID 11352955	Advanced disease, first line
+EORTC 30986	PMID 22162575	Advanced disease, first line
+KEYNOTE-361	PMID 34051178	Advanced disease, first line
+IMvigor130	PMID 32416780	Advanced disease, first line
+EORTC 30962	PMID 23141049	NMIBC after TURBT by risk group
+Malmström 2009	PMID 19409692	NMIBC after TURBT by risk group
+NIMBUS	PMID 32446864	NMIBC after TURBT by risk group
+CREST	PMID 40450141	NMIBC after TURBT by risk group
+ALBAN	PMID 41110692	NMIBC after TURBT by risk group
+ATLAS	PMID 37548555	NMIBC after TURBT by risk group
+BA06 30894	PMID 21502557	Treatment before cystectomy
+Choudhury 2021	PMID 33539743	Trimodality treatment
+ODMIT-C	PMID 21684068	After nephroureterectomy
+Ito 2013	PMID 23460707	After nephroureterectomy
+JCOG1403	PMID 42435772	After nephroureterectomy
+KEYNOTE-057	PMID 34051177	High-grade recurrence after BCG
+KEYNOTE-057 cohort B	PMID 38740030	High-grade recurrence after BCG
+Boorjian 2021	PMID 33253641	High-grade recurrence after BCG
+QUILT-3.032	PMID 38320011	High-grade recurrence after BCG
+SunRISe-1	PMID 40737582	High-grade recurrence after BCG
+ABC adjuvant meta-analysis 2022	PMID 34802798	After radical cystectomy
+Zaghloul 2018	PMID 29188298	After radical cystectomy
+THOR cohort 2	PMID 37871702	Second and later lines
+IMvigor211	PMID 29268948	Second and later lines
+Bellmunt 2009	PMID 19687335	Second and later lines
+TROPiCS-04	PMID 39934055	Second and later lines

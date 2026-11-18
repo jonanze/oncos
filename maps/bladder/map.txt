@@ -1,0 +1,358 @@
+# oncOS board map: Bladder & UTUC (urothelial carcinoma of the bladder and upper urinary tract)
+# Draft 4, 2026-11-18. Content approved by Jonan 2026-11-18 00:15 UTC, layout 00:39 UTC ("looks good"). Draft 1: draft 0
+#   with the independent review and Jonan's decisions of 2026-11-17 (board-maps/bladder/draft1-changes.md). Draft 2: a
+#   prose-only review (board-maps/bladder/prose-review.md). Draft 3: thread pass on NCCN grades. Draft 4: layout only,
+#   first line, maintenance and second line run as one chain (pancreatic precedent), so no line bends
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-17): one map for the whole sheet. Four parallel stages, never chained: non-muscle-invasive bladder
+#   cancer (NMIBC), muscle-invasive bladder cancer (MIBC), upper tract urothelial carcinoma (UTUC) and advanced disease.
+#   Lines run only inside a stage, in time order. Platinum eligibility and biomarkers are two bands. The NMIBC risk
+#   groups, the BCG failure definitions and the UTUC risk groups are ・ lines under the option they select, and the
+#   UTUC diagnosis and Lynch syndrome lines are ※ lines in the UTUC step (draft 1: the three panels drew below the
+#   advanced-disease row, far from their steps). Surgical technique, urinary diversion and follow-up schedules are left out
+# Guideline set (Jonan 2026-11-17) and tag forms, grade as printed, on the statement the guideline graded:
+#   〔JUA strength, certainty〕 Japanese Urological Association, clinical practice guidelines for upper tract urothelial
+#     carcinoma 2023, English summary (Mori, Int J Urol 2024, PMID 38113344). UTUC only, so the tag appears in the UTUC
+#     stage and on the advanced-disease statements that the guideline grades for unresectable UTUC. Strength is printed
+#     as "Recommended (strongly recommended)" or "Propose to do (weak recommendation)", written here Strong or Weak,
+#     certainty A to D. A bare 〔JUA〕 marks an ungraded general statement. The JUA tag is printed first (East Asian
+#     guidelines come first, Jonan 2026-11-10)
+#   〔ESMO level, grade〕 ESMO bladder cancer guideline 2022 (Powles, Ann Oncol 2022, PMID 34861372) with the 2024
+#     interim update on first-line advanced disease (Powles, Ann Oncol 2024, PMID 38490358, doi 10.1016/j.annonc.2024.03.001).
+#     The 2024 update rewrote first-line advanced disease, erdafitinib and sacituzumab govitecan after chemotherapy and a
+#     checkpoint inhibitor, and care after enfortumab vedotin with pembrolizumab. Every other grade, including pembrolizumab,
+#     enfortumab vedotin, atezolizumab, vinflunine, taxanes and platinum rechallenge after platinum, is a 2022 grade, and the
+#     2022 grades predate NIAGARA, the perioperative enfortumab vedotin trials, AMBASSADOR, IMvigor011 and the CheckMate 274
+#     survival update. A bare 〔ESMO〕 marks text without a grade. ESMO-MCBS scores are left off the map, as on other maps
+#     (avelumab maintenance 4, gemcitabine and cisplatin with nivolumab 2)
+#   〔EAU Strong〕 or 〔EAU Weak〕 EAU guidelines 2026, full texts: NMIBC in the NMIBC stage, muscle-invasive and metastatic
+#     bladder cancer in the MIBC and advanced stages, UTUC in the UTUC stage. 〔EAU LE〕 is a level of evidence from a
+#     summary-of-evidence statement. A bare 〔EAU〕 marks text, a table or a figure. Where the UTUC guideline grades an
+#     advanced-disease option differently, a ・ line opening "In upper tract disease" says so
+#   〔NCCN category〕 NCCN Bladder Cancer 3.2026 (6 August 2026), algorithm pages. 2A unless stated, with the preference
+#     label as printed. A bare 〔NCCN〕 marks a footnote, a principles page or the Discussion. The Discussion of MIBC,
+#     UTUC and metastatic disease is dated 17 January 2025 and is older than the algorithm, which governs
+#   〔AUA strength, evidence〕 AUA/SUO NMIBC guideline, 2026 update (Clark, J Urol 2026, PMID 42689553) in the NMIBC stage,
+#     and AUA/ASCO/SUO non-metastatic MIBC guideline, 2024 amendment (Holzbeierlein, J Urol 2024, PMID 38661067) in the
+#     MIBC stage. Strong, Moderate or Conditional with evidence grade A to C, or Expert Opinion. A bare 〔AUA〕 marks text
+#     or the algorithm figure
+# Jonan's decisions (2026-11-17, final):
+#   1. Cisplatin-eligible MIBC, in this order: perioperative enfortumab vedotin with pembrolizumab (KEYNOTE-B15), then
+#      gemcitabine and cisplatin with durvalumab (NIAGARA), then neoadjuvant cisplatin-based chemotherapy alone, as three
+#      numbered lines because Jonan set an order between the regimens. The lines name the population in the sentence,
+#      not before a colon, so that prose-check reads them as one population in order
+#   2. A checkpoint inhibitor added to BCG in high-risk NMIBC stays a ※ line (EAU Strong "discuss") with ・ lines for the
+#      NCCN and AUA positions, not numbered. A ※ line about a trial result is not an option, so rule ⑦ does not take
+#      CREST or sasanlimab off the map. The CREST chip stays
+#   3. First line, cisplatin-eligible, enfortumab vedotin unsuitable: platinum then avelumab maintenance first,
+#      gemcitabine and cisplatin with nivolumab second
+#   4. VOLGA is a numbered option for cisplatin-ineligible MIBC after enfortumab vedotin with pembrolizumab ("Have volga
+#      be a numbered option in addition to EVP"): the durvalumab with enfortumab vedotin arm only, three cycles before
+#      cystectomy and nine cycles of durvalumab after, which improved event-free and overall survival over cystectomy
+#      alone. No guideline in the set covers VOLGA, so the line carries no tag. The tremelimumab arm (event-free survival
+#      only) is one ・ line under it
+#   5. JUA tags as printed words, one tag per society, KEYNOTE-052 and IMvigor210 cohort 1 cited (~) for
+#      platinum-ineligible patients, RC48-C016 on a ※ line saying the trial ran only in China (disitamab vedotin is a
+#      China-only drug, so it stays ※)
+#   6. JCOG1403 (single pirarubicin instillation after nephroureterectomy, Lancet Oncol 2026, PMID 42435772, checked on
+#      PubMed 2026-11-17) is added with the post-nephroureterectomy instillation and listed for intake
+#   7. SWOG S1602 is dropped: no results paper, and AUA gives no graded statement on BCG strain
+# Trial marks: + overall survival benefit, ~ surrogate endpoint, non-inferiority or single-arm, - primary endpoint not met
+#   or no benefit. VESPER, EORTC 30924 and EORTC 30986 are - (primary endpoint not met). SWOG-8710 is + (the survival
+#   difference the guidelines cite, two-sided P = 0.06). IMvigor130 is - (overall survival not improved). von der Maase is ~
+#   (similar survival, not a formal non-inferiority design). VOLGA is + for the durvalumab with enfortumab vedotin arm
+# Single-arm trials cited because the recommendation rests on them and no randomised trial of the option exists in that
+#   setting (inclusion.txt ①): KEYNOTE-052 and IMvigor210 cohort 1 (platinum-ineligible first line), KEYNOTE-057 cohorts
+#   A and B, Boorjian 2021, QUILT-3.032 and SunRISe-1 (BCG-unresponsive NMIBC), OLYMPUS and Margulis 2020 (UTUC),
+#   DESTINY-PanTumor02 (HER2 3+)
+
+map: Bladder & UTUC
+source: JUA {url https://doi.org/10.1111/iju.15362}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2021.11.012}
+source: EAU {url https://uroweb.org/guidelines}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: AUA {url https://www.auanet.org/guidelines}
+branch: NM | NMIBC | blue
+branch: MI | MIBC | teal
+branch: UT | UTUC | sage
+branch: ADV | Advanced disease | rose
+
+band: Cisplatin and platinum eligibility
+  ① Cisplatin is unsuitable with any one of: ECOG performance status of 2 or more, GFR under 60 mL/min, hearing loss of grade 2 or more, peripheral neuropathy of grade 2 or more, or NYHA class III heart failure 〔ESMO〕 〔EAU〕
+    ・A measured GFR replaces the estimate when the value is borderline 〔EAU〕 〔NCCN〕
+  ② Split-dose cisplatin, 35 mg/m² on days 1 and 8 or on days 1 and 2, is an option for borderline renal function, studied at a GFR of 40 to 60 mL/min 〔EAU〕 〔NCCN 2B〕
+    ・Gemcitabine with full-dose cisplatin can be considered at a creatinine clearance of 50 to 60 mL/min in otherwise fit patients 〔ESMO III, B〕
+  ③ Carboplatin is suitable with ECOG performance status 2, or with a GFR of 30 to 60 mL/min 〔EAU〕
+  ④ Platinum is unsuitable with any one of: GFR under 30 mL/min, ECOG performance status above 2, ECOG performance status 2 together with GFR under 60 mL/min, or comorbidity above grade 2 〔EAU〕
+  ⑤ Enfortumab vedotin with pembrolizumab requires ECOG performance status 0 to 2, a GFR of 30 mL/min or more and adequate organ function 〔EAU〕
+    ・Uncontrolled diabetes 〔ESMO〕 〔EAU〕, peripheral neuropathy of grade 2 or more and significant skin disease 〔EAU〕 are reasons against the combination
+
+band: Biomarker testing in advanced disease
+  ① Tumour testing for FGFR3 alterations at the diagnosis of metastatic disease selects patients for erdafitinib 〔EAU Strong〕 〔NCCN〕, by PCR or next-generation sequencing 〔ESMO〕 〔NCCN〕 on tumour tissue, preferably the invasive tumour or a metastasis 〔EAU〕
+  ② HER2 immunohistochemistry, scored by the gastric cancer criteria, selects patients for trastuzumab deruxtecan 〔EAU Weak〕 〔NCCN〕
+  ③ Microsatellite instability or mismatch repair status is tested in unresectable or metastatic disease 〔NCCN〕
+  ※ Enfortumab vedotin is given without nectin-4 testing 〔ESMO〕 〔EAU〕
+
+course: Urothelial carcinoma of the bladder and upper urinary tract | parallel
+  NMIBC at first resection
+    branch: NM
+    ① Complete TURBT with detrusor muscle in the specimen gives the diagnosis, the stage and the grade 〔ESMO IV, A〕 〔EAU Strong〕
+    ② One immediate instillation of intravesical chemotherapy within 24 hours of TURBT 〔EAU Weak〕 〔NCCN〕, for presumed low-risk tumours and for small papillary recurrences found more than 1 year after the previous resection 〔ESMO I, A〕 〔EAU Strong〕
+      ・Any suspected NMIBC receives the instillation, with gemcitabine preferred over mitomycin 〔NCCN 1, preferred〕
+      ・Mitomycin, epirubicin, pirarubicin and gemcitabine all reduce recurrence, with no preferred agent 〔EAU〕
+      ・The instillation is omitted after perforation or with bleeding that needs irrigation 〔EAU Strong〕 〔NCCN〕, and is not effective with more than one recurrence per year 〔EAU〕 〔NCCN〕
+    ~ Sylvester 2016 {pmid 26091833}
+    ~ SWOG S0337 {pmid 29801011}
+    ③ Second TURBT within 6 weeks of the first resection for every T1 tumour 〔ESMO I, A〕 〔EAU Strong〕 〔AUA Strong, B〕, and after an incomplete first resection or a specimen without detrusor muscle, except in Ta low-grade tumours and primary CIS 〔ESMO I, A〕 〔EAU Strong〕
+      ・Every high-grade tumour except primary CIS is a further indication 〔ESMO I, A〕, whereas repeat TURBT is for high-grade T1 disease and is considered for selected high-grade Ta disease 〔NCCN〕
+      ・The second resection can be omitted in selected patients after a complete or en bloc first resection 〔AUA〕
+    next: NMIBC after TURBT by risk group
+  MIBC, cT2 to T4a: choice of local treatment
+    branch: MI
+    ① Radical cystectomy with pelvic lymph node dissection 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN〕
+      ・Cystectomy is not delayed beyond 3 months from diagnosis, unless neoadjuvant treatment is given 〔EAU Strong〕 〔NCCN〕
+    ② Trimodality bladder preservation for selected patients who wish to keep the bladder, and for patients unfit for cystectomy 〔ESMO II, B〕 〔EAU Strong〕 〔AUA〕 〔NCCN 1〕
+      ・The choice is a shared decision in a multidisciplinary team 〔ESMO IV, B〕 〔EAU Strong〕 〔AUA〕
+    ※ Radiotherapy alone, TURBT alone and chemotherapy alone are not recommended as curative treatment 〔EAU Strong〕
+      ・Radiotherapy alone is for patients unfit for both cystectomy and chemoradiotherapy 〔EAU LE 3〕 〔NCCN 2A〕
+    ※ Pure squamous cell carcinoma and pure adenocarcinoma are treated with primary radical cystectomy 〔ESMO IV, B〕 〔EAU〕, and small-cell carcinoma with neoadjuvant chemotherapy followed by cystectomy or radiotherapy 〔ESMO IV, B〕 〔NCCN〕
+    next: Treatment before cystectomy | Radical cystectomy
+    next: Trimodality treatment | Bladder preservation
+  Localised UTUC by risk group
+    branch: UT
+    ※ Ureteroscopy with biopsy raises the risk of bladder recurrence and is reserved for patients in whom imaging and cytology leave the diagnosis or the risk group uncertain 〔JUA Weak, C〕 〔EAU Strong〕
+    ① Low risk: kidney-sparing treatment by ureteroscopic ablation 〔JUA〕 〔ESMO II, B〕 〔EAU Strong〕 〔NCCN 2A〕
+      ・Low risk requires a unifocal tumour under 2 cm, cytology negative for high grade, a low-grade ureteroscopic biopsy and no invasion on CT 〔EAU Strong〕
+      ・The size limit for low risk is 1 cm 〔ESMO〕, and 1.5 cm for a low-grade unifocal tumour in a four-tier risk model 〔NCCN〕
+      ・No risk model is established, and the EAU and NCCN criteria select patients for kidney-sparing surgery 〔JUA〕
+      ・For low-risk tumours of the distal ureter, distal ureterectomy is an equal choice 〔EAU Strong〕
+      ・A second-look ureteroscopy follows within 8 weeks 〔EAU Weak〕
+    ※ After complete or near-complete endoscopic treatment, mitomycin in a reverse thermal gel, instilled into the upper tract once a week for 6 weeks, is an option for a residual solitary low-grade tumour of 5 to 15 mm in patients not seeking nephroureterectomy 〔NCCN 2A〕
+      ・Long-term outcomes are uncertain, and ureteric stenosis is frequent 〔EAU〕
+      ・The gel is not covered by Japanese insurance 〔JUA〕
+      ~ OLYMPUS {pmid 32631491}
+    ② High risk: radical nephroureterectomy with excision of a bladder cuff 〔JUA〕 〔ESMO II, B〕 〔EAU Strong〕 〔NCCN 2A〕
+      ・High risk is any one of high-grade cytology, high-grade biopsy, local invasion on CT or a histological subtype, with multifocality, a size of 2 cm or more and hydronephrosis as weaker criteria 〔EAU〕
+      ・A template-based lymphadenectomy is added 〔EAU Weak〕, although its therapeutic value is not established 〔JUA〕
+    ③ High risk confined to the distal ureter: distal ureterectomy in selected patients 〔EAU Weak〕 〔NCCN 2A〕
+    ④ Solitary kidney, bilateral tumours or severe chronic kidney disease: kidney-sparing treatment, despite a higher risk of progression 〔JUA〕 〔EAU Strong〕 〔NCCN〕
+    ※ Cisplatin-based neoadjuvant chemotherapy is considered in selected high-risk patients, while renal function still allows cisplatin 〔NCCN 2A〕
+      ・No randomised trial has reported, and the evidence is not conclusive 〔JUA〕 〔EAU〕
+      ・Carboplatin is not used as neoadjuvant treatment 〔EAU〕
+      ~ Margulis 2020 {pmid 31702432}
+    ※ Personal and family history is taken to screen for Lynch syndrome 〔JUA〕 〔EAU Strong〕 〔NCCN〕
+      ・Germline testing follows clinical suspicion: age under 60, a personal history of a Lynch-spectrum cancer, one first-degree relative under 50 with such a cancer, or two first-degree relatives with one 〔EAU Strong〕
+      ・Tumour testing for mismatch repair proteins or microsatellite instability is offered to patients without clinical suspicion 〔EAU Weak〕
+    next: After nephroureterectomy
+  Advanced disease, first line
+    branch: ADV
+    ① Enfortumab vedotin with pembrolizumab, whatever the platinum eligibility 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕, with enfortumab vedotin until progression and pembrolizumab for at most 35 cycles 〔ESMO〕 〔EAU〕
+      ・After relapse 12 months or more from the end of perioperative treatment, the choice is the same as for untreated disease 〔EAU〕
+    + EV-302 (KEYNOTE-A39) {pmid 38446675}
+    ° Toxicity of note: skin reactions, peripheral neuropathy and hyperglycaemia with enfortumab vedotin 〔ESMO〕 〔EAU〕
+    ② Enfortumab vedotin unsuitable or unavailable, cisplatin-eligible: up to six cycles of gemcitabine with cisplatin, then avelumab maintenance 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1〕, or gemcitabine and cisplatin with nivolumab, then nivolumab maintenance 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1〕
+      ・In upper tract disease, gemcitabine and cisplatin with nivolumab is a weaker option, for lack of a subgroup analysis by tumour site 〔EAU Weak〕
+      ・Dose-dense MVAC with G-CSF is an alternative to gemcitabine with cisplatin 〔ESMO I, B〕 〔EAU〕 〔NCCN 1〕
+    ~ von der Maase et al. {pmid 11001674}
+    + CheckMate 901 {pmid 37870949}
+    - EORTC 30924 {pmid 11352955}
+    ③ Enfortumab vedotin unsuitable or unavailable, cisplatin-ineligible: up to six cycles of gemcitabine with carboplatin, then avelumab maintenance 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A〕
+    - EORTC 30986 {pmid 22162575}
+    ④ Unfit for enfortumab vedotin with pembrolizumab and for platinum: pembrolizumab 〔EAU Weak〕 〔NCCN 2A〕, or atezolizumab 〔EAU Weak〕 〔NCCN 2B〕
+      ・The EMA licences require PD-L1 expression, a combined positive score of 10 or more for pembrolizumab and immune-cell staining of 5% or more for atezolizumab 〔EAU〕
+      ・Pembrolizumab is given whatever the PD-L1 expression 〔NCCN 2A〕, and the US first-line indication for atezolizumab was withdrawn in 2022 〔NCCN〕
+      ・Single-agent checkpoint inhibitors have a limited first-line role and are not routinely recommended 〔ESMO I, D〕
+    ~ KEYNOTE-052 {pmid 28967485}
+    ~ IMvigor210 (cohort 1) {pmid 27939400}
+    ※ Adding pembrolizumab or atezolizumab to platinum chemotherapy did not improve survival and is not recommended 〔JUA〕 〔ESMO〕 〔EAU LE 1b〕 〔NCCN〕
+      - KEYNOTE-361 {pmid 34051178}
+      - IMvigor130 {pmid 32416780}
+    ※ In HER2-expressing disease, disitamab vedotin with toripalimab improved progression-free and overall survival over platinum chemotherapy in a trial run only in China
+      ・Disitamab vedotin is licensed in China, and not in the EU or US
+      + RC48-C016 {pmid 41124210}
+    ※ Node-positive or unresectable disease without distant metastases receives systemic treatment first, and cystectomy or radiotherapy is considered after a response 〔NCCN 2A〕
+    ※ After a response to systemic treatment, resection or radiotherapy of a single metastatic site can be considered 〔EAU Strong〕 〔NCCN〕
+    ※ Zoledronic acid or denosumab, with calcium and vitamin D, is considered for bone metastases 〔EAU LE 1b〕
+    next: Maintenance after platinum chemotherapy | No progression on platinum
+  NMIBC after TURBT by risk group
+    branch: NM pale
+    ※ The EAU groups predict progression without BCG from stage, grade, CIS and three risk factors: age over 70, multiple papillary tumours and diameter over 3 cm 〔EAU Strong〕
+      ・Progression at 5 years without BCG is 0.93% at low, 4.9% at intermediate, 9.6% at high and 40% at very high risk 〔EAU LE 2b〕
+    ① Low risk: surveillance after the single instillation 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A〕
+      ・Low risk is a primary single Ta or T1 G1 tumour under 3 cm without CIS at age 70 or younger, or a primary Ta G1 tumour without CIS with at most one risk factor 〔EAU〕
+      ・Low risk is a solitary low-grade Ta tumour of 3 cm or less 〔NCCN〕
+    ② Intermediate risk: intravesical chemotherapy for up to 1 year, or full-dose BCG for 1 year with three weekly instillations at 3, 6 and 12 months after induction 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A〕
+      ・Intermediate risk is any tumour without CIS outside the other groups 〔EAU〕
+      ・Intermediate risk is low-grade Ta disease that is recurrent, multifocal or over 3 cm, or low-grade T1 disease 〔NCCN〕
+      ・Chemotherapy is the first choice in most patients, with BCG as the alternative 〔EAU Strong〕
+      ・A 6-week induction course is an option 〔AUA Conditional, B〕, as is maintenance after a complete response to induction chemotherapy 〔AUA Conditional, C〕
+      ・Surveillance alone is the alternative to intravesical treatment 〔NCCN 2A〕
+    ③ High risk: full-dose BCG, six weekly induction instillations 〔AUA Strong, B〕, then three weekly instillations at 3, 6 and 12 months and every 6 months after 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕
+      ・High risk is T1 high-grade G3 without CIS and all CIS outside very high risk, and, without CIS, Ta low-grade G2 or T1 G1 with all three risk factors, Ta high-grade G3 or T1 low-grade with at least two, and T1 G2 with at least one 〔EAU〕
+      ・High risk is high-grade disease that is T1, over 3 cm, multifocal or accompanied by CIS 〔NCCN〕, and every high-grade Ta tumour 〔ESMO〕 〔AUA〕
+      ・Maintenance lasts 1 to 3 years, with the gain from the second and third years weighed against toxicity and BCG supply 〔ESMO I, A〕 〔EAU Strong〕, whereas 3 years is given as tolerated 〔AUA Moderate, B〕 〔NCCN〕
+      ・Immediate radical cystectomy is discussed as the alternative 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A〕
+    ~ EORTC 30962 {pmid 23141049}
+    ~ Malmström 2009 {pmid 19409692}
+    - NIMBUS {pmid 32446864}
+    ※ Durvalumab or sasanlimab added to BCG induction and maintenance is an option to discuss with selected BCG-naive patients at high or very high risk 〔EAU Strong〕
+      ・The option is limited to durvalumab with BCG 〔NCCN 2A〕
+      ・Neither trial has shown a gain in progression, cancer-specific survival or overall survival, and serious immune toxicity remains a concern 〔AUA〕
+      ・A checkpoint inhibitor added to BCG induction alone gave no benefit in either trial, nor did atezolizumab with BCG 〔EAU〕
+      ~ POTOMAC {pmid 41115436}
+      ~ CREST {pmid 40450141}
+      - ALBAN {pmid 41110692}
+    ④ Very high risk: immediate radical cystectomy is discussed, and BCG for 1 to 3 years is the option for patients who decline or are unfit for cystectomy 〔ESMO I, A〕 〔EAU Strong〕
+      ・Very high risk is Ta high-grade G3 with CIS and all three risk factors, T1 G2 with CIS and at least two, T1 high-grade G3 with CIS and at least one, and T1 high-grade G3 without CIS with all three 〔EAU〕, together with CIS in the prostatic urethra, lymphovascular invasion and some histological subtypes 〔ESMO〕 〔EAU〕 〔NCCN〕
+      ・With subtype histology, early radical cystectomy is discussed 〔AUA Expert Opinion〕 〔NCCN 2A〕
+      ・BCG induction and maintenance remains the preferred treatment, on lower-level evidence than without these features 〔NCCN 2A, preferred〕
+    ※ CIS is treated with BCG, which gives more complete responses than intravesical chemotherapy 〔EAU LE 1b〕
+    ※ No BCG strain has proved superior 〔EAU〕
+    ※ When BCG is in short supply, induction and the first year of maintenance for high-risk disease take priority 〔NCCN〕
+    ※ For small recurrent low-grade Ta tumours, office fulguration 〔EAU Strong〕, active surveillance or chemoablation 〔EAU Weak〕 are alternatives to resection under anaesthesia 〔AUA Expert Opinion〕
+      ・Chemoablation is mitomycin in a reverse thermal gel, instilled once a week for 6 weeks 〔EAU〕 〔AUA〕 〔NCCN 2A〕
+      ~ ATLAS {pmid 37548555}
+    next: High-grade recurrence after BCG
+  Treatment before cystectomy
+    branch: MI pale
+    ① Perioperative enfortumab vedotin with pembrolizumab in cisplatin-eligible patients, four cycles before cystectomy, then five cycles of enfortumab vedotin and 13 cycles of pembrolizumab 〔NCCN 2A, preferred〕
+    + KEYNOTE-B15/EV-304 {pmid 42485627}
+    ② Gemcitabine and cisplatin with durvalumab in cisplatin-eligible patients, four cycles before cystectomy, then eight cycles of durvalumab 〔EAU Strong〕 〔NCCN 1, preferred〕
+      ・The regimen is given from a GFR of 40 mL/min, with split-dose cisplatin at 40 to 60 mL/min, and extends to cN1 disease 〔EAU〕
+    + NIAGARA {pmid 39282910}
+    ③ Neoadjuvant cisplatin-based combination chemotherapy alone in cisplatin-eligible patients 〔ESMO I, A〕 〔EAU Strong〕 〔AUA Strong, B〕 〔NCCN 1〕
+      ・Gemcitabine with cisplatin and dose-dense MVAC are both used, with no preferred regimen 〔ESMO III, B〕 〔EAU〕 〔AUA〕
+      ・Dose-dense MVAC with G-CSF for three to six cycles is the preferred chemotherapy 〔NCCN 2A, preferred〕
+    + SWOG-8710 {pmid 12944571}
+    + ABC meta-analysis 2003 {pmid 12801735}
+    + BA06 30894 {pmid 21502557}
+    ※ In VESPER, six cycles of dose-dense MVAC did not meet the primary endpoint of progression-free survival against four cycles of gemcitabine with cisplatin, and the neoadjuvant subgroup favoured dose-dense MVAC 〔EAU〕
+      - GETUG-AFU V05 VESPER {pmid 35254888}
+    ④ Perioperative enfortumab vedotin with pembrolizumab in cisplatin-ineligible patients, three cycles before cystectomy, then six cycles of enfortumab vedotin and 14 cycles of pembrolizumab 〔EAU Strong〕 〔NCCN 2A, preferred〕
+      ・Carboplatin combinations are not given as neoadjuvant treatment 〔EAU Strong〕 〔NCCN〕
+      ・Cystectomy alone is for patients who can receive neither cisplatin nor enfortumab vedotin with pembrolizumab 〔NCCN 2A〕
+    + KEYNOTE-905/EV-303 {pmid 41707170}
+    ⑤ Durvalumab with enfortumab vedotin in cisplatin-ineligible patients, three cycles before cystectomy, then nine cycles of durvalumab
+      ・Adding tremelimumab improved event-free survival but not overall survival
+    + VOLGA {pmid 42929692}
+    ※ Neoadjuvant checkpoint inhibitors without chemotherapy remain investigational 〔ESMO III, B〕 〔EAU〕
+    next: After radical cystectomy
+  Trimodality treatment
+    branch: MI pale
+    ① Maximal TURBT, then radiotherapy with concurrent radiosensitising chemotherapy 〔ESMO II, B〕 〔EAU Strong〕 〔AUA Strong, B〕 〔NCCN 1〕
+    ② The best candidates have a solitary tumour, a visibly complete TURBT, no hydronephrosis, no extensive or multifocal CIS and good bladder function 〔ESMO〕 〔NCCN〕, and a tumour under 6 cm 〔NCCN〕
+      ・Unilateral hydronephrosis is accepted, and the stage is cT2 to T3a 〔EAU〕
+      ・Any CIS counts against bladder preservation 〔AUA〕
+    ③ The radiosensitiser is fluorouracil with mitomycin 〔ESMO I, A〕 〔EAU〕 〔NCCN 2A, preferred〕, cisplatin 〔ESMO II, B〕 〔EAU〕 〔NCCN 2A, preferred〕 or low-dose gemcitabine 〔EAU〕 〔NCCN 2A, preferred〕
+      ・Fluorouracil with mitomycin or gemcitabine replaces cisplatin when renal function is reduced 〔EAU〕 〔NCCN〕, and carboplatin is not an effective radiosensitiser 〔NCCN〕
+    ~ BC2001 {pmid 22512481}
+    ④ The dose is 55 Gy in 20 fractions, or 60 to 66 Gy in fractions of 1.8 to 2 Gy 〔EAU〕 〔NCCN〕
+    ~ Choudhury 2021 {pmid 33539743}
+    ⑤ Response is assessed by cystoscopy with biopsy 2 to 3 months after treatment 〔ESMO〕 〔NCCN〕
+      ・Muscle-invasive recurrence is treated with salvage cystectomy 〔ESMO II, A〕 〔EAU Strong〕 〔AUA〕, and non-muscle-invasive recurrence with TURBT and intravesical treatment 〔ESMO〕 〔EAU〕 〔NCCN〕
+    ※ Chemotherapy before chemoradiotherapy showed no survival benefit 〔NCCN〕
+      ・Neoadjuvant chemotherapy may be considered for T3 to T4 or node-positive disease, on limited evidence 〔EAU〕
+    ※ Checkpoint inhibitors with chemoradiotherapy are investigational 〔EAU〕 〔AUA〕
+  After nephroureterectomy
+    branch: UT pale
+    ① One intravesical instillation of mitomycin or pirarubicin after surgery, to reduce bladder recurrence 〔JUA Weak, C〕 〔EAU Strong〕 〔NCCN 2A〕
+      ・The instillation is given 2 to 10 days after surgery, to patients without a history of bladder cancer 〔EAU〕, whereas the window is 24 to 48 hours, or up to 1 week after a cystogram 〔NCCN〕
+      ・In the Japanese phase III trial JCOG1403, one instillation of pirarubicin within 24 hours of surgery reduced bladder recurrence
+      ・The instillation is not covered by Japanese insurance for this use 〔JUA〕
+    ~ ODMIT-C {pmid 21684068}
+    ~ Ito 2013 {pmid 23460707}
+    ~ JCOG1403 {pmid 42435772}
+    ② No neoadjuvant chemotherapy, pT2 to pT4 or node-positive: four cycles of gemcitabine with cisplatin, started within 90 days of surgery 〔JUA Strong, B〕 〔ESMO II, C〕 〔EAU Strong〕 〔NCCN 2A〕
+      ・The threshold for adjuvant chemotherapy is pT3 or node-positive disease 〔JUA〕 〔NCCN〕
+      ・Carboplatin replaces cisplatin at a GFR of 30 mL/min or more, and split-dose cisplatin is possible down to 45 mL/min 〔EAU〕
+      ・Gemcitabine with carboplatin may be insufficient at a GFR of 30 to 49 mL/min 〔JUA〕, and adjuvant carboplatin is not recommended 〔ESMO II, D〕
+    ~ POUT {pmid 32145825}
+    ③ Unfit for or declining platinum, with pT3 to pT4 or node-positive disease, or ypT2 to ypT4 or node-positive disease after neoadjuvant chemotherapy: nivolumab 〔JUA Weak, C〕 〔EAU Weak〕 〔NCCN 2A〕, or pembrolizumab 〔EAU Weak〕 〔NCCN 2A〕
+      ・Checkpoint inhibitors are offered as an alternative to platinum, not only after platinum is declined 〔NCCN 2A〕
+      ・Nivolumab is limited to PD-L1-positive tumours, following the EMA licence, and a positive margin is a further indication for pembrolizumab 〔EAU Weak〕
+      ・Upper tract tumours seemed to benefit less than bladder tumours in the subgroup analyses 〔ESMO〕 〔EAU〕, with a possible benefit after neoadjuvant chemotherapy in a very small subgroup 〔JUA〕
+      ・Checkpoint inhibitors were not recommended for upper tract disease in 2022 〔ESMO〕
+    ~ CheckMate 274 {pmid 34077643}
+    ~ AMBASSADOR (Alliance A031501) {pmid 39282902}
+    ※ Adjuvant radiotherapy is not recommended 〔NCCN〕
+    ※ Unresectable or metastatic upper tract disease is treated as advanced bladder cancer 〔ESMO IV, B〕 〔NCCN〕
+  Maintenance after platinum chemotherapy
+    branch: ADV pale
+    ① No progression after four to six cycles of gemcitabine with cisplatin or carboplatin: avelumab until progression, started within 10 weeks of the last cycle 〔JUA Weak, C〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1〕
+    + JAVELIN Bladder 100 {pmid 32945632}
+    ② After gemcitabine and cisplatin with nivolumab: nivolumab continues for up to 2 years 〔EAU〕 〔NCCN 1〕
+    next: Second and later lines | Progression
+  High-grade recurrence after BCG
+    branch: NM pale
+    ① BCG-unresponsive disease: radical cystectomy 〔ESMO III, B〕 〔EAU Strong〕 〔NCCN 2A, preferred〕, or a clinical trial 〔NCCN 2A, preferred〕
+      ・BCG-unresponsive disease is high-grade T1 at the first assessment after induction, persistent high-grade disease at 6 months despite adequate BCG, high-grade Ta or T1 recurrence within 6 months of the last adequate BCG, or CIS within 12 months of it 〔EAU〕 〔AUA〕 〔NCCN〕
+      ・Adequate BCG is at least five of six induction instillations and two of three instillations of the first maintenance course 〔EAU〕 〔AUA〕 〔NCCN〕, and two of six instillations of a second induction course also count 〔EAU〕
+      ・For high-grade T1 disease after one induction course, cystectomy is offered to patients fit for surgery 〔AUA Moderate, B〕
+    ② Unfit for or declining cystectomy: bladder-sparing treatment, preferably within a clinical trial 〔EAU Weak〕 〔AUA Moderate, C〕
+      ・The intravesical options, with no order of preference, are nadofaragene firadenovec 〔ESMO III, C〕 〔AUA〕 〔NCCN 2A〕, BCG with nogapendekin alfa inbakicept 〔AUA〕 〔NCCN 2A〕, the gemcitabine intravesical system TAR-200 〔AUA〕 〔NCCN 2A〕 and sequential gemcitabine with docetaxel 〔AUA〕 〔NCCN 2A〕, which rests on retrospective series 〔EAU〕
+      ・Intravenous pembrolizumab, with more systemic toxicity, is a further option for disease with CIS 〔ESMO III, C〕 〔AUA〕 〔NCCN 2A〕 and for papillary disease without CIS 〔NCCN 2B〕
+      ・Nadofaragene firadenovec, nogapendekin alfa inbakicept, TAR-200 and pembrolizumab hold FDA licences for this use 〔EAU〕 〔AUA〕
+    ~ KEYNOTE-057 {pmid 34051177}
+    ~ KEYNOTE-057 cohort B {pmid 38740030}
+    ~ Boorjian 2021 {pmid 33253641}
+    ~ QUILT-3.032 {pmid 38320011}
+    ~ SunRISe-1 {pmid 40737582}
+    ※ Further BCG is not given for BCG-unresponsive disease, or for BCG-intolerant disease, in which toxicity prevented adequate BCG 〔EAU〕 〔AUA Moderate, C〕
+      ・BCG re-induction can be considered in patients unwilling or unable to have cystectomy 〔ESMO II, B〕, whereas further BCG is for highly selected patients after other options are exhausted 〔NCCN〕
+    ※ Concurrent chemoradiotherapy is an option for recurrent T1 disease in patients who are not candidates for cystectomy 〔NCCN 2A〕
+      ・Further prospective studies are required before routine use 〔AUA〕
+    ③ BCG-exposed disease: according to the individual situation, a repeat course of BCG 〔EAU〕 〔NCCN 2A, preferred〕, or radical cystectomy 〔EAU〕 〔NCCN 2A〕
+      ・BCG-exposed disease is high-grade recurrence after inadequate BCG, or after adequate BCG but later than the BCG-unresponsive windows 〔EAU〕 〔NCCN〕
+    ※ A low-grade recurrence after BCG is not BCG failure 〔EAU〕
+  After radical cystectomy
+    branch: MI pale
+    ※ After gemcitabine and cisplatin with durvalumab, or after enfortumab vedotin with pembrolizumab, the postoperative part of the same regimen follows 〔NCCN〕
+    ① No neoadjuvant treatment, pT3 to pT4 or node-positive: adjuvant cisplatin-based chemotherapy 〔ESMO II, B〕 〔EAU Strong〕 〔AUA Moderate, C〕 〔NCCN 2A, preferred〕, or nivolumab for 1 year 〔EAU Strong〕 〔AUA Moderate, C〕 〔NCCN 1〕
+      ・Nivolumab is for patients who are ineligible for or decline cisplatin 〔EAU Strong〕
+      ・Carboplatin does not replace cisplatin 〔ESMO I, D〕 〔NCCN〕
+    + ABC adjuvant meta-analysis 2022 {pmid 34802798}
+    ② After neoadjuvant cisplatin-based chemotherapy alone, ypT2 to ypT4a or node-positive: nivolumab for 1 year 〔EAU Strong〕 〔AUA Moderate, C〕 〔NCCN 1, preferred〕
+      ・Adjuvant nivolumab was not recommended in 2022, pending overall survival results 〔ESMO I, D〕
+    ~ CheckMate 274 {pmid 34077643}
+    ※ The EMA licence for adjuvant nivolumab is limited to tumour-cell PD-L1 expression of 1% or more, and the FDA licence carries no PD-L1 limit 〔EAU〕
+    ③ Circulating tumour DNA detected within 1 year of cystectomy on a tumour-informed assay, with no previous checkpoint inhibitor: atezolizumab 〔EAU LE 1b〕 〔NCCN 1〕
+      ・In IMvigor011, patients who stayed negative for circulating tumour DNA received no adjuvant treatment 〔EAU〕
+    + IMvigor011 {pmid 41124204}
+    ※ Pembrolizumab for 1 year is a further option in both pathological groups 〔NCCN 2A〕
+      ~ AMBASSADOR (Alliance A031501) {pmid 39282902}
+    ※ Atezolizumab without selection by circulating tumour DNA is not recommended 〔ESMO〕 〔AUA〕
+      - IMvigor010 {pmid 33721560}
+    ※ Adjuvant radiotherapy of 45 to 50.4 Gy to the cystectomy bed and pelvic nodes is an option for pT3b to pT4, node-positive or margin-positive disease, and improves local control without a survival gain 〔EAU Weak〕
+      ・Adjuvant radiotherapy is an option for pT3 to pT4 disease after an ileal conduit 〔NCCN 2B〕
+      ・Adjuvant radiotherapy is not standard treatment 〔ESMO III, C〕
+      ~ Zaghloul 2018 {pmid 29188298}
+  Second and later lines
+    branch: ADV pale
+    ① After enfortumab vedotin with pembrolizumab: gemcitabine with cisplatin 〔ESMO IV, B〕 〔EAU Weak〕 〔NCCN 2A, preferred〕 or with carboplatin 〔ESMO IV, B〕 〔EAU Weak〕 〔NCCN 2B, preferred〕, or erdafitinib for susceptible FGFR3 alterations 〔ESMO IV, B〕 〔EAU Strong〕 〔NCCN 2A, preferred〕
+      ・Avelumab maintenance is not given after this chemotherapy 〔ESMO IV, B〕, and rechallenge with a single-agent checkpoint inhibitor is discouraged 〔ESMO V, D〕
+      ・Gemcitabine and cisplatin with nivolumab is an option on lower-level evidence 〔NCCN 2B〕
+      ・In upper tract disease, platinum combination chemotherapy is the second-line treatment of choice when not given first line 〔EAU Strong〕
+    ② After platinum chemotherapy and a checkpoint inhibitor: enfortumab vedotin 〔JUA Weak, C〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕, or erdafitinib for susceptible FGFR3 alterations 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕
+    + EV-301 {pmid 33577729}
+    + THOR (Cohort 1) {pmid 37870920}
+    ③ After platinum chemotherapy without a checkpoint inhibitor: pembrolizumab 〔JUA Weak, C〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1〕
+      ・Enfortumab vedotin with pembrolizumab is preferred 〔NCCN 2A, preferred〕
+      ・Platinum chemotherapy can be repeated after a progression-free interval of more than 12 months 〔ESMO IV, B〕 〔NCCN〕
+      ・Erdafitinib before a checkpoint inhibitor is an alternative for FGFR-altered tumours 〔ESMO III, B〕 〔NCCN 2A〕, whereas it is offered after a checkpoint inhibitor 〔EAU Strong〕
+    + KEYNOTE-045 {pmid 28212060}
+    - THOR cohort 2 {pmid 37871702}
+    ※ Atezolizumab after platinum did not improve survival over chemotherapy, and its US indication was withdrawn 〔EAU〕 〔NCCN〕
+      ・Atezolizumab remains an option on weaker evidence 〔ESMO III, B〕
+      - IMvigor211 {pmid 29268948}
+    ④ HER2 immunohistochemistry 3+ after enfortumab vedotin, platinum and a checkpoint inhibitor: trastuzumab deruxtecan 〔EAU Weak〕 〔NCCN 2A〕
+      ・Trastuzumab deruxtecan can be considered for immunohistochemistry 2+ 〔EAU Weak〕 〔NCCN 2A〕, and in any later line 〔NCCN〕
+      ・The FDA licence is a tumour-agnostic accelerated approval for immunohistochemistry 3+ 〔EAU〕 〔NCCN〕
+    ~ DESTINY-PanTumor02 [t-destiny-pantumor02--tumour-agnostic-basket-trials]
+    ⑤ Later lines without a targeted option: docetaxel or paclitaxel 〔ESMO III, C〕 〔EAU Weak〕 〔NCCN 2A〕, or vinflunine 〔ESMO II, C〕 〔EAU Weak〕
+      ・Vinflunine holds an EMA licence 〔ESMO〕
+      ・In upper tract disease, vinflunine is given second line only when immunotherapy and combination chemotherapy are not feasible 〔EAU Strong〕
+      ・A clinical trial or best supportive care is the alternative 〔EAU Strong〕
+    - Bellmunt 2009 {pmid 19687335}
+    ※ Sacituzumab govitecan did not improve survival over chemotherapy in TROPiCS-04, and its FDA accelerated approval was withdrawn 〔EAU〕
+      ・Sacituzumab govitecan remains an option after platinum and a checkpoint inhibitor 〔NCCN 2A〕, graded in 2024 before TROPiCS-04 〔ESMO III, B〕
+      - TROPiCS-04 {pmid 39934055}

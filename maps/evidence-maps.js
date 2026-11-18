@@ -23,6 +23,7 @@
     'Advanced Gastroesophageal': 'advanced-gastro-oesophageal',
     'Advanced NSCLC': 'nsclc',
     'Advanced Prostate': 'prostate',
+    'Bladder & UTUC': 'bladder',
     'Early & Locally Adv NSCLC': 'early-nsclc',
     'Early CRC': 'early-colon',
     'Endometrial Cancer': 'endometrial',

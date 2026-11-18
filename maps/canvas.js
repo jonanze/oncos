@@ -425,12 +425,36 @@
       }
       // several parallel first steps: each later step sits level with the middle of the steps that lead to it, so a
       // single line runs straight and two lines that join fork evenly; steps keep their order and at least SG apart
-      if (multiRoot) for (var c2 = 1; c2 < cols.length; c2++) {
-        var l2 = cols[c2], floor = -Infinity;
-        l2.forEach(function(t){
-          var w = t.preds.length ? centreOf(t.preds.map(function(p){ return p.cy; })) : t.cy;
-          t.y = Math.max(w - hgt(t) / 2, floor); t.cy = t.y + hgt(t) / 2; floor = t.y + hgt(t) + SG;
+      // The steps one step leads to sit as one fan, its middle level with that step, so its lines fork evenly.
+      // Each first step then centres on the steps it leads to; where the steps beside it hold it back, the
+      // steps below it move down instead, and the later columns follow, until every line runs straight or
+      // forks evenly as far as the column heights allow (Jonan 2026-11-18, bladder: "symmetry and minimal line bends")
+      function later(){
+        for (var c2 = 1; c2 < cols.length; c2++) {
+          var l2 = cols[c2], floor = -Infinity, i = 0;
+          while (i < l2.length) {
+            var t = l2[i], j = i + 1, p0 = t.preds.length === 1 ? t.preds[0] : null;
+            if (p0) while (j < l2.length && l2[j].preds.length === 1 && l2[j].preds[0] === p0) j++;
+            var fan = l2.slice(i, j), w = t.preds.length ? centreOf(t.preds.map(function(p){ return p.cy; })) : t.cy;
+            stack(fan, 0);
+            var d = w - centreOf(fan.map(function(n){ return n.cy; }));
+            move(fan, Math.max(d, floor - fan[0].y));
+            floor = fan[fan.length - 1].y + hgt(fan[fan.length - 1]) + SG; i = j;
+          }
+        }
+      }
+      if (multiRoot) for (var it = 0; it < 12; it++) {
+        later();
+        var floor0 = -Infinity, still = true;
+        cols[0].forEach(function(n){
+          // a first step whose line joins another stays put, so the joined step keeps the middle of the two
+          var own = n.next.length && n.next.every(function(e){ return e.node.preds.length === 1; });
+          var y = own ? centreOf(n.next.map(function(e){ return e.node.cy; })) - hgt(n) / 2 : n.y;
+          y = Math.max(y, floor0);
+          if (Math.abs(y - n.y) > 0.5) still = false;
+          n.y = y; n.cy = y + hgt(n) / 2; floor0 = y + hgt(n) + SG;
         });
+        if (still) break;
       }
       // a step moves by d within its column, and the single line into it carries the move on to the left;
       // a first step is centred on its steps below
@@ -444,7 +468,7 @@
         if (n.preds.length === 1 && n.preds[0].next.length === 1) shift(n.preds[0], d);
       }
       // a first step centres on the steps it leads to, as far as the steps beside it allow
-      (cols[0] || []).forEach(function(n, k, list){
+      if (!multiRoot) (cols[0] || []).forEach(function(n, k, list){
         if (!n.next.length) return;
         var dy = centreOf(n.next.map(function(e){ return e.node.cy; })) - n.cy, up = list[k - 1], dn = list[k + 1];
         if (dy > 0 && dn) dy = Math.min(dy, dn.y - SG - (n.y + hgt(n)));
