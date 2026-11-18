@@ -1,0 +1,313 @@
+# oncOS board map: RCC (renal cell carcinoma, one map for the Evidence sheet "RCC")
+# Draft 5, 2026-11-19. Draft 0 was reviewed independently (board-maps/rcc/independent-review.md) and rewritten as draft 1.
+#   Draft 1 had a prose-only review (board-maps/rcc/prose-review.md) and every block was rewritten again. Draft 3
+#   applies Jonan's four option-order answers. Draft 4 applies the check of every PAGA tag against the PDF.
+#   Draft 5 applies the check of every ESMO tag against the living guideline v1.1
+#   Clinical content: board-maps/rcc/notes-paga.md, notes-esmo.md, notes-eau.md, notes-nccn.md, rcc-rows.json and plan.md
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (thread default 2026-11-18, stated to Jonan): one map for the whole sheet. Four parallel stages, never chained:
+#   localised disease with the adjuvant step, advanced clear-cell RCC (first line, then later lines), nephrectomy and
+#   local treatment in metastatic disease, and advanced non-clear-cell RCC by subtype. Lines run only inside a stage,
+#   in time order. The IMDC criteria, histology with germline testing, and the first-line regimens are three bands.
+#   The KEYNOTE-564 risk groups are ・ lines under the adjuvant option. Von Hippel-Lindau disease and FH-deficient RCC
+#   are numbered lines of the localised step. Sarcomatoid differentiation is a numbered line of the first-line step.
+#   Surgical technique, imaging protocols, follow-up schedules, angiomyolipoma and the screening of hereditary
+#   syndromes are left out
+# Guideline set (Jonan 2026-11-18) and tag forms, grade as printed, on the statement the guideline graded. Tag order on
+#   every line: PAGA, ESMO, EAU, NCCN (East Asian guidelines first)
+#   〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline for RCC 2026 (Kanesvaran, ESMO Open 2026;11:108552,
+#     PMID 42914499), Table 1 rows 1a to 5c. A bare 〔PAGA〕 marks the narrative, a figure or a regional note. Every
+#     PAGA tag was checked against the PDF (Table 1, Figures 1 to 5 and the narrative) on 2026-11-19. The
+#     supplementary files, with Figure S1 and the country tables, are unread
+#   〔ESMO level, grade〕 ESMO renal cell carcinoma living guideline v1.1, June 2025 (parent guideline Powles, Ann
+#     Oncol 2024;35:692-706, PMID 38788900). The nine recommendation pages were read on 2026-11-19 and every graded
+#     ESMO tag was checked against them. A bare 〔ESMO〕 marks an ungraded sentence of the living guideline or the
+#     narrative of the 2024 paper. v1.1 differs from the 2024 print: a PD-1-targeted combination is the preferred
+#     option in papillary RCC, ipilimumab with nivolumab is an option in papillary and chromophobe RCC [II, C],
+#     the savolitinib statement and the germline line for exhausted treatment options are gone, and young age is
+#     set at under 45 years. v1.1 predates LenCabo, LITESPARK-011, LITESPARK-022 and the COSMIC-313 final analysis
+#   〔EAU Strong〕 or 〔EAU Weak〕 EAU RCC guideline, limited update March 2026. 〔EAU LE〕 is a level of evidence from a
+#     summary-of-evidence statement. A bare 〔EAU〕 marks text, a table or a figure. Its evidence search closed on
+#     1 May 2025, before LITESPARK-022, LITESPARK-011 and LenCabo. Sarcomatoid disease: the first-line table grades the
+#     checkpoint inhibitor combinations Strong and section 7.5.4.a.4 grades the same sentence Weak. The map prints Strong
+#   〔NCCN category〕 NCCN Kidney Cancer 2.2027 (7 October 2026), algorithm pages. 2A unless stated. On the systemic
+#     therapy pages the preference label is printed too (preferred, other recommended, useful in certain
+#     circumstances). A bare 〔NCCN〕 marks a footnote, a principles page or the Discussion. The Discussion is dated
+#     14 April 2026 and is older than the algorithm, which governs. The first-line table has no risk column, so its
+#     categories apply to every IMDC risk group. The non-clear-cell table is not split by subtype, so its categories
+#     apply to every subtype unless a footnote or the Discussion excludes one
+#   ESMO-MCBS scores are left off the map, as on other maps
+# Option order where guidelines disagree (Jonan's card answers 2026-11-18 where marked):
+#   1. Favourable risk, first line (Jonan 2026-11-18): PD-1 inhibitor with a VEGFR TKI, then ipilimumab with nivolumab
+#      beside them (PAGA selected patients, ESMO I, C by a 70% author majority, EAU Weak, NCCN 1, preferred), then
+#      sunitinib or pazopanib. The PAGA limits stay on ・ lines
+#   2. After a PD-1 inhibitor combination: cabozantinib first, then lenvatinib with everolimus. PAGA prefers both,
+#      ESMO and EAU prefer cabozantinib alone, and each preference is a ・ line
+#   3. Options NCCN alone lists are ※ or ・ lines (rule ⑦, Jonan 2026-11-18): adjuvant pembrolizumab with
+#      belzutifan (LITESPARK-022), belzutifan with lenvatinib after a PD-1 inhibitor (LITESPARK-011), and the further
+#      non-clear-cell agents
+#   4. Papillary (Jonan 2026-11-18): the PD-1 inhibitor combinations first. PAGA recommendation 4q makes a PD-1
+#      combination the preferred option and counts ipilimumab with nivolumab among them, so it sits in the leading
+#      group after lenvatinib with pembrolizumab and cabozantinib with nivolumab (grade B before grade C, and NCCN
+#      preferred before other recommended). PAGA Figure 4 lists ipilimumab with nivolumab first, by level of
+#      evidence. Then cabozantinib (the preferred single agent), sunitinib and pembrolizumab
+#   5. Axitinib with avelumab is a ※ line with the four positions. Toripalimab with axitinib is a ※ line (Jonan
+#      2026-11-18) although PAGA and ESMO grade it I, C: its RCC licence is in China only. Benmelstobart with
+#      anlotinib is a ※ line (China-only trial, no recommendation)
+#   6. The three PD-1 inhibitor and VEGFR TKI combinations are in alphabetical order, as no guideline ranks them
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint, non-inferiority, single-arm data or a trial
+#   closed early, - primary endpoint not met or no benefit. SUNNIFORECAST is + (its primary endpoint was the 12-month
+#   overall survival rate). SURTIME and EORTC 30904 are ~ (closed early). COSMIC-313 is ~ (progression-free
+#   survival met, no overall survival gain at the final analysis)
+# Single-arm trials cited because the recommendation or licence rests on them and no randomised trial of the option
+#   exists in that setting (inclusion.txt ①, Jonan to confirm): LITESPARK-004 (belzutifan in von Hippel-Lindau disease),
+#   KEYNOTE-B61 and Lee 2022 (PD-1 inhibitor combinations in non-clear-cell RCC), KEYNOTE-427 cohort B (pembrolizumab
+#   in papillary RCC), BONSAI (cabozantinib in collecting duct carcinoma), Srinivasan 2025 (bevacizumab with erlotinib
+#   in FH-deficient RCC), FASTRACK II (SBRT for the primary tumour), Rini 2016 (active surveillance)
+# Not yet on the sheet: 7 chips were filed for intake on 2026-11-18 (CARMENA, SURTIME, CABOSUN, Study 205,
+#   LITESPARK-012, KEYNOTE-B61, LITESPARK-004). 16 more are proposed and need Jonan's go: EORTC 30904, EORTC 30881,
+#   FASTRACK II, RENOTORCH, ETER100, STAR, Lee 2022, Srinivasan 2025, TIVO-1, Rini 2016, KEYNOTE-427 cohort B, ASPEN,
+#   BONSAI, PROTECT, ATLAS, EVEREST. Left out: ESPN and SORCE (no guideline in the set cites them for a statement)
+#   and SAVOIR (the ESMO statement against savolitinib is not in the living guideline, and savolitinib has no RCC
+#   licence). The CLEAR chip uses PMID 38227898 because the row's first reference has an empty PMID (primary paper
+#   33616314)
+
+map: RCC
+source: PAGA {url https://doi.org/10.1016/j.esmoop.2026.108552}
+source: ESMO {url https://www.esmo.org/guidelines/living-guidelines/esmo-living-guideline-renal-cell-carcinoma}
+source: EAU {url https://uroweb.org/guidelines}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+branch: LOC | Localised disease | blue
+branch: CC | Advanced clear-cell RCC | teal
+branch: MET | Nephrectomy and metastases | sand
+branch: NCC | Non-clear-cell RCC | rose
+
+band: IMDC risk groups
+  ① The IMDC model assigns risk in advanced disease 〔PAGA I, A〕 〔ESMO I, A〕 〔EAU〕
+  ② One point is given for each of six factors: Karnofsky performance status under 80%, less than 1 year from diagnosis to systemic therapy, haemoglobin below the lower limit of normal, corrected calcium above the upper limit of normal, neutrophils above the upper limit of normal and platelets above the upper limit of normal 〔EAU〕 〔NCCN〕
+  ③ Favourable risk is 0 points, intermediate risk 1 or 2 points and poor risk 3 to 6 points 〔EAU〕 〔NCCN〕
+    ・The MSKCC model uses LDH above 1.5 times the upper limit of normal in place of the neutrophil and platelet counts, and its poor-risk group is 3 to 5 points 〔EAU〕 〔NCCN〕
+  ※ PD-L1 expression is not used to select treatment 〔PAGA〕 〔ESMO〕 〔EAU LE 2b〕
+
+band: Histology and germline testing
+  ① The histological subtype is confirmed on a biopsy or nephrectomy specimen before systemic treatment 〔PAGA I, A〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A〕
+    ・Clear-cell, papillary and chromophobe RCC are the three main subtypes 〔EAU〕
+    ・Sarcomatoid change is dedifferentiation of any subtype and is graded ISUP 4 〔EAU〕
+    ・A core biopsy is recommended before ablation 〔ESMO〕 〔EAU Strong〕 〔NCCN〕
+  ② Germline assessment is recommended for young patients, for bilateral or multifocal tumours, for a first- or second-degree relative with RCC and for histology or other tumours that suggest a syndrome 〔PAGA IV, A〕 〔ESMO IV, A〕 〔EAU Strong〕 〔NCCN 2A〕
+    ・The upper age limit for young patients is 45 to 46 years 〔PAGA〕 〔ESMO〕 〔EAU〕 〔NCCN〕
+
+band: First-line regimens
+  ① Axitinib 5 mg twice daily with pembrolizumab 200 mg every 3 weeks 〔EAU〕
+  ② Cabozantinib 40 mg once daily with nivolumab 240 mg every 2 weeks 〔EAU〕
+  ③ Lenvatinib 20 mg once daily with pembrolizumab 200 mg every 3 weeks 〔EAU〕
+  ④ Ipilimumab 1 mg/kg with nivolumab 3 mg/kg every 3 weeks for four doses, then nivolumab 3 mg/kg every 2 weeks 〔EAU〕
+  ⑤ Sunitinib 50 mg once daily for 4 weeks of each 6-week cycle 〔EAU〕
+
+course: Renal cell carcinoma | parallel
+  Localised RCC: local treatment
+    branch: LOC
+    ① Localised RCC at any T stage: surgical resection, by a minimally invasive or open approach according to tumour size and complexity 〔PAGA I, A〕 〔ESMO I, A〕 〔EAU Strong〕
+    ② T1, 7 cm or less: partial nephrectomy 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A〕, or radical nephrectomy when partial nephrectomy is not feasible 〔ESMO I, A〕 〔NCCN 2A〕
+      ・For T1b tumours, partial and radical nephrectomy are alternatives 〔NCCN 2A〕
+      ・Minimally invasive radical nephrectomy is not recommended for a T1 tumour when partial nephrectomy is feasible by any approach, including open surgery 〔EAU Strong〕
+    ※ The one randomised trial of partial against radical nephrectomy closed early for poor accrual
+      ・Non-inferiority of partial nephrectomy for overall survival was not shown
+      ・Few deaths in the trial were from renal cancer
+      ~ EORTC 30904 {pmid 21186077}
+    ③ T1a, 4 cm or less, with high surgical risk, frailty, a solitary kidney, impaired renal function, hereditary RCC or bilateral tumours: thermal ablation, SBRT or active surveillance 〔PAGA III, B〕 〔ESMO III, B〕 〔EAU Weak〕 〔NCCN 2A〕
+      ・Ablation is limited to tumours of 3 cm or less 〔NCCN〕, and radiofrequency ablation of tumours above 3 cm or cryoablation of tumours above 4 cm is not routinely recommended 〔EAU Weak〕
+      ・Active surveillance is an option for tumours under 2 cm, predominantly cystic tumours and patients with significant competing risks of death 〔EAU Weak〕 〔NCCN〕
+      ・SBRT is delivered in one to five fractions, such as 25 to 26 Gy in one fraction for tumours of 4 cm or less 〔EAU〕 〔NCCN〕
+      ・SBRT is an option for T1b tumours in patients who are not candidates for surgery 〔EAU Weak〕 〔NCCN 2A〕, and may be considered for stage II tumours up to 10 cm 〔NCCN 2B〕
+      ・Watchful waiting is an option for highly frail patients with a limited life expectancy 〔EAU Weak〕
+    ~ FASTRACK II {pmid 38423047}
+    ④ T2, larger than 7 cm: radical nephrectomy 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A〕, or partial nephrectomy 〔NCCN 2A〕
+      ・A minimally invasive approach is preferred for radical nephrectomy 〔ESMO〕 〔EAU Strong〕
+      ・Partial nephrectomy is an option for a solitary kidney or chronic kidney disease when technically feasible 〔EAU Weak〕
+    ⑤ T3 to T4 or node-positive: radical nephrectomy 〔ESMO I, A〕 〔EAU〕 〔NCCN 2A〕, with removal of a venous tumour thrombus when present 〔EAU Strong〕
+      ・An open approach is standard for complex tumours, and a robotic or laparoscopic approach can be considered 〔ESMO〕
+      ・Lymph node dissection is recommended for clinically enlarged nodes 〔EAU Weak〕 〔NCCN〕, and is not routinely recommended without them 〔ESMO〕 〔EAU Weak〕
+      ・Adrenalectomy is not recommended without evidence of adrenal invasion 〔ESMO〕 〔EAU Strong〕 〔NCCN〕
+    - EORTC 30881 {pmid 18848382}
+    ⑥ Von Hippel-Lindau disease: surveillance until the largest tumour reaches 3 cm 〔EAU Strong〕 〔NCCN〕, then nephron-sparing surgery 〔ESMO〕 〔EAU〕 〔NCCN〕, or belzutifan for tumours that do not need immediate surgery 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A, preferred〕
+      ・Belzutifan is an option for patients who are not candidates for surgery 〔EAU Weak〕
+      ・Belzutifan reduces or delays the need for surgery and does not replace surgery 〔PAGA〕
+      ・Belzutifan holds an FDA licence and a conditional EMA licence for von Hippel-Lindau disease 〔EAU〕
+      ・Pazopanib is a further option 〔NCCN 2A, useful in certain circumstances〕
+    ~ LITESPARK-004 {pmid 34818478}
+    ⑦ FH-deficient RCC: resection without a period of surveillance 〔EAU〕 〔NCCN〕
+      ・Radical nephrectomy can be considered 〔NCCN〕
+    ※ Neoadjuvant systemic therapy is not recommended outside a clinical trial 〔ESMO〕 〔EAU Weak〕
+      ・Neoadjuvant systemic therapy may be considered for clear-cell T2 to T4 tumours when complete resection is not feasible at the outset, or when the kidney must be preserved and partial nephrectomy is not yet feasible 〔NCCN 2A〕
+    next: After nephrectomy
+  Advanced clear-cell RCC: first line
+    branch: CC
+    ① IMDC intermediate or poor risk: axitinib with pembrolizumab, cabozantinib with nivolumab, lenvatinib with pembrolizumab, or ipilimumab with nivolumab 〔PAGA I, A〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1, preferred〕
+      ・No PD-1 inhibitor and VEGFR TKI combination is preferred over another 〔PAGA〕 〔ESMO〕
+    + KEYNOTE-426 {pmid 30779529}
+    + CheckMate 9ER {pmid 33657295}
+    + CLEAR {pmid 38227898}
+    + CheckMate 214 {pmid 29562145}
+    ② IMDC favourable risk: axitinib with pembrolizumab, cabozantinib with nivolumab or lenvatinib with pembrolizumab 〔PAGA I, A〕 〔ESMO I, A〕 〔EAU Weak〕 〔NCCN 1, preferred〕, ipilimumab with nivolumab 〔PAGA I, C〕 〔ESMO I, C〕 〔EAU Weak〕 〔NCCN 1, preferred〕, sunitinib or pazopanib 〔PAGA I, C〕 〔ESMO I, C〕 〔EAU Weak〕 〔NCCN 2A, other recommended〕, tivozanib 〔PAGA II, C〕 〔ESMO II, C〕, or active surveillance for asymptomatic patients with indolent, low-volume disease 〔PAGA III, C〕 〔ESMO III, C〕 〔NCCN 2A, useful in certain circumstances〕
+      ・The PD-1 inhibitor and VEGFR TKI combinations improve progression-free survival and response over sunitinib in this group, without an overall survival gain 〔ESMO〕 〔EAU LE 2b〕
+      ・Ipilimumab with nivolumab is limited to patients unsuited to a VEGFR TKI, or with adverse tumour biology such as PD-L1-positive disease with sarcomatoid features 〔PAGA〕
+      ・Sarcomatoid differentiation alone is a supporting factor and not an indication in favourable risk 〔PAGA〕
+      ・Tivozanib is not recommended in the first line 〔EAU〕
+      ・Tivozanib holds an EMA licence for first-line treatment 〔EAU〕
+    ~ Rini 2016 {pmid 27498080}
+    ③ PD-1 inhibitor contraindicated or unavailable: sunitinib or pazopanib 〔PAGA I, A〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A, other recommended〕, cabozantinib in intermediate or poor risk 〔PAGA II, A〕 〔ESMO II, A〕 〔EAU Strong〕 〔NCCN 2A, preferred〕, or tivozanib 〔PAGA II, B〕 〔ESMO II, B〕
+      ・Cabozantinib alone is a preferred option in intermediate or poor risk whether or not a PD-1 inhibitor can be given 〔NCCN 2A, preferred〕
+    ~ Motzer et al. {pmid 17215529}
+    ~ COMPARZ {pmid 23964934}
+    ~ CABOSUN {pmid 28199818}
+    ~ TIVO-1 {pmid 24019545}
+    ④ Sarcomatoid differentiation: ipilimumab with nivolumab or a PD-1 inhibitor with a VEGFR TKI, in preference to a VEGFR TKI alone 〔PAGA III, A〕 〔ESMO III, A〕 〔EAU Strong〕
+      ・The option applies to sarcomatoid-predominant histology 〔PAGA〕 〔ESMO〕, and to any sarcomatoid features 〔EAU〕
+      ・When a checkpoint inhibitor is contraindicated, the alternatives are sunitinib 〔PAGA II, B〕 〔ESMO II, B〕 and pazopanib 〔PAGA V, C〕 〔ESMO V, C〕
+    ⑤ Recurrence during adjuvant pembrolizumab or within 6 months of its last dose: a VEGFR TKI, without a checkpoint inhibitor 〔EAU Weak〕
+      ・For recurrence more than 12 months after pembrolizumab, the benefit of a checkpoint inhibitor combination is unknown 〔EAU〕
+    ※ Axitinib with avelumab improved progression-free survival over sunitinib, without an overall survival gain 〔EAU LE 1b〕
+      ・The combination is an option when the other combinations are unavailable 〔PAGA I, B〕, and an option without that condition 〔NCCN 2A, other recommended〕
+      ・The combination is not recommended over a VEGFR TKI alone 〔ESMO I, D〕
+      ・The combination cannot currently be recommended 〔EAU〕
+      ~ JAVELIN Renal 101 {pmid 30779531}
+    ※ Toripalimab with axitinib is an option in intermediate- or poor-risk disease where it is licensed 〔PAGA I, C〕 〔ESMO I, C〕
+      ・The combination improved progression-free survival over sunitinib in a trial run only in China 〔EAU LE 1b〕
+      ・Toripalimab with axitinib holds an RCC licence in China and has no EMA or FDA licence for RCC 〔PAGA〕 〔ESMO〕
+      ~ RENOTORCH {pmid 37872020}
+    ※ Benmelstobart with anlotinib improved progression-free survival over sunitinib in a trial run only in China 〔EAU LE 1b〕
+      ・The combination holds a licence in China 〔PAGA〕 and has no EMA or FDA licence
+      ~ ETER100 {pmid 40907513}
+    ※ Adding cabozantinib to ipilimumab with nivolumab improved progression-free survival 〔EAU LE 1b〕, with more toxicity and no overall survival gain at the final analysis 〔EAU〕
+      ・The triplet is not recommended 〔ESMO〕
+      ~ COSMIC-313 {pmid 37163623}
+    ※ Adding belzutifan or a CTLA-4 inhibitor to lenvatinib with pembrolizumab improved neither progression-free nor overall survival
+      - LITESPARK-012 {pmid 42927856}
+    ※ Chemotherapy is not recommended for metastatic clear-cell RCC 〔EAU Strong〕
+    ※ Stopping the checkpoint inhibitor after 2 years of treatment can be considered 〔PAGA IV, B〕 〔ESMO IV, B〕
+      ・The time to stop depends on response, toxicity and the remaining options, and is agreed with the patient 〔PAGA〕
+      ・After ipilimumab is stopped for toxicity before the fourth dose, nivolumab alone can be continued when it is safe 〔EAU Weak〕
+    ※ Breaks from VEGFR TKI treatment do not appear to reduce efficacy 〔PAGA I, C〕 〔ESMO I, C〕
+      ・Intermittent VEGFR TKI treatment can be offered after a response or stable disease lasting more than 6 months 〔EAU Weak〕
+      ~ STAR {pmid 36796394}
+    ° Toxicity of note: grade 3 or higher adverse events are frequent with ipilimumab with nivolumab and with the PD-1 inhibitor and VEGFR TKI combinations 〔EAU LE 1b〕
+    next: Advanced clear-cell RCC: second and later lines | Progression
+  Metastatic RCC: nephrectomy and local treatment of metastases
+    branch: MET
+    ① Synchronous metastases with the primary tumour in place: systemic therapy without upfront cytoreductive nephrectomy 〔PAGA II, B〕 〔ESMO I, B〕 〔EAU Weak〕 〔NCCN 1〕, or upfront cytoreductive nephrectomy in selected patients 〔NCCN 2A〕
+      ・Candidates are selected at multidisciplinary review from patients at intermediate risk 〔PAGA〕 〔ESMO〕, and also from patients at favourable risk 〔ESMO〕
+      ・Selection is based on tumour biology, symptoms, metastatic burden and oligometastatic disease 〔PAGA〕
+      ・Candidates have an ECOG performance status of 0 or 1 and no brain metastases 〔NCCN〕
+      ・Systemic therapy is recommended first for large-volume metastases or a large sarcomatoid component 〔NCCN〕
+      ・Cytoreductive nephrectomy is not recommended in poor-risk disease 〔PAGA〕 〔EAU Strong〕
+      ・Upfront cytoreductive nephrectomy is an option for patients with a good performance status who do not need systemic therapy, and for oligometastatic disease when all sites can be treated locally 〔EAU Weak〕
+    ~ CARMENA {pmid 29860937}
+    ② After a response to systemic therapy: deferred cytoreductive nephrectomy 〔PAGA II, B〕 〔ESMO II, B〕 〔EAU Weak〕
+      ・The option is for a durable, near-complete response at the metastatic sites 〔PAGA〕 〔ESMO〕
+    ~ SURTIME {pmid 30543350}
+    ③ Oligometastatic disease, with few metastases and a low disease burden: metastasectomy, SBRT or ablation, or observation, chosen by a multidisciplinary team 〔PAGA III, B〕 〔ESMO III, B〕 〔EAU Weak〕 〔NCCN 2A〕
+      ・Local treatment and observation should both be avoided with a high metastatic burden, a short interval to recurrence or aggressive disease 〔PAGA〕 〔ESMO〕
+      ・Repeat imaging is recommended before metastasectomy to exclude rapid progression 〔EAU Weak〕
+      ・For oligometastatic disease that cannot be resected, a period of observation until progression is confirmed is discussed with the patient before systemic therapy 〔EAU Weak〕
+      ・A VEGFR TKI is not recommended after metastasectomy that leaves no evidence of disease 〔EAU Strong〕
+    ④ No evidence of disease after complete resection of metastases: adjuvant pembrolizumab 〔PAGA II, B〕 〔ESMO II, B〕 〔EAU Strong〕 〔NCCN 2A〕
+      ・Adjuvant pembrolizumab applies when the metastases were resected within 1 year of nephrectomy 〔EAU〕 〔NCCN〕
+      ・Metastasectomy within 1 year of nephrectomy is not routinely recommended 〔ESMO I, D〕
+      ・For recurrence within 1 year of nephrectomy, metastasectomy with adjuvant pembrolizumab has not been shown to be better than observation with systemic therapy at progression, and is not encouraged 〔EAU〕
+    + KEYNOTE-564 {pmid 34407342}
+    ⑤ Brain metastases: stereotactic radiotherapy 〔PAGA III, B〕 〔ESMO III, B〕 〔EAU Weak〕 〔NCCN 2A〕
+      ・Whole-brain radiotherapy should be avoided 〔PAGA III, D〕 〔ESMO III, D〕, and is reserved for palliation when stereotactic treatment is not feasible 〔NCCN〕
+    ⑥ Bone metastases: radiotherapy to symptomatic sites, preferably stereotactic 〔EAU Weak〕 〔NCCN〕, with or without zoledronic acid or denosumab 〔PAGA IV, C〕 〔ESMO IV, C〕 〔NCCN〕
+      ・Bone-targeted agents require a creatinine clearance of 30 mL/min (0.5 mL/s) or more 〔NCCN〕
+  Advanced non-clear-cell RCC
+    branch: NCC
+    ① Any subtype: enrolment in a clinical trial where one is available 〔EAU〕 〔NCCN 2A, preferred〕
+      ・Trial enrolment is recommended for chromophobe, collecting duct, medullary and other non-papillary subtypes 〔PAGA IV, A〕 〔ESMO IV, A〕
+    ② Papillary: lenvatinib with pembrolizumab or cabozantinib with nivolumab 〔PAGA III, B〕 〔ESMO III, B〕 〔EAU Weak〕 〔NCCN 2A, preferred〕, ipilimumab with nivolumab 〔PAGA II, C〕 〔ESMO II, C〕 〔EAU Weak〕 〔NCCN 2A, other recommended〕, cabozantinib 〔PAGA II, B〕 〔ESMO II, B〕 〔EAU Weak〕 〔NCCN 2A, preferred〕, sunitinib 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A, other recommended〕 or pembrolizumab 〔PAGA III, B〕 〔ESMO III, B〕 〔NCCN 2A, other recommended〕
+      ・A PD-1 inhibitor combination is the preferred option 〔PAGA〕 〔ESMO〕, particularly for patients fit for a checkpoint inhibitor when a higher response rate is the aim of treatment 〔PAGA〕
+      ・Lenvatinib with pembrolizumab and cabozantinib with nivolumab have high response rates, without proven superiority over single agents 〔PAGA〕 〔ESMO〕
+      ・Cabozantinib is the preferred single agent 〔PAGA〕 〔ESMO〕
+      ・Pembrolizumab alone has no EMA or FDA licence for this use 〔PAGA〕 〔ESMO〕
+      ・Bevacizumab with erlotinib, lenvatinib with everolimus and nivolumab alone are further options 〔NCCN 2A, other recommended〕
+      ・Second-line treatment is an agent not given before 〔PAGA IV, C〕 〔ESMO IV, C〕
+    ~ KEYNOTE-B61 {pmid 37451291}
+    ~ Lee 2022 {pmid 35298296}
+    + SUNNIFORECAST {pmid 40180121}
+    ~ SWOG 1500 (PAPMET) {pmid 33592176}
+    ~ KEYNOTE-427 (cohort B) {pmid 33529058}
+    ③ Chromophobe: sunitinib 〔PAGA II, C〕 〔ESMO II, C〕 〔EAU Weak〕 〔NCCN 2A, other recommended〕, ipilimumab with nivolumab 〔PAGA II, C〕 〔ESMO II, C〕 〔EAU Weak〕 〔NCCN 2A, other recommended〕, lenvatinib with everolimus 〔PAGA II, C〕 〔ESMO II, C〕 〔NCCN 2A, other recommended〕, everolimus 〔PAGA II, C〕 〔ESMO II, C〕 〔NCCN 2A, useful in certain circumstances〕, lenvatinib with pembrolizumab 〔PAGA III, C〕 〔ESMO III, C〕 〔EAU Weak〕 〔NCCN 2A, preferred〕 or pazopanib 〔PAGA IV, C〕 〔ESMO IV, C〕
+      ・Lenvatinib with everolimus and everolimus alone have no EMA or FDA licence for first-line treatment 〔PAGA〕 〔ESMO〕
+      ・Cabozantinib is a further option 〔NCCN 2A, preferred〕
+      ・The chromophobe cohort of the phase II trial of cabozantinib with nivolumab closed early for lack of efficacy 〔NCCN〕
+    ~ ASPEN {pmid 26794930}
+    ④ Collecting duct carcinoma and SMARCB1-deficient medullary carcinoma: platinum-based chemotherapy 〔PAGA III, C〕 〔ESMO III, C〕 〔EAU〕 〔NCCN〕, cabozantinib 〔PAGA III, C〕 〔ESMO III, C〕, or sunitinib or pazopanib 〔PAGA V, C〕 〔ESMO V, C〕
+      ・Cisplatin is the platinum agent 〔PAGA〕 〔ESMO〕, and carboplatin is an alternative 〔NCCN〕
+      ・In medullary carcinoma, VEGFR TKIs alone are generally ineffective 〔EAU〕 〔NCCN〕
+      ・In medullary carcinoma, checkpoint inhibitors should be avoided outside a clinical trial 〔NCCN〕
+    ~ BONSAI {pmid 35420628}
+    ⑤ FH-deficient RCC: bevacizumab with erlotinib 〔PAGA III, B〕 〔ESMO III, B〕 〔EAU〕 〔NCCN 2A, other recommended〕
+      ・The combination has no EMA or FDA licence for this use 〔PAGA〕 〔ESMO〕 〔NCCN〕
+      ・Cabozantinib with nivolumab is a further option 〔NCCN 2A, useful in certain circumstances〕
+    ~ Srinivasan 2025 {pmid 40532152}
+    ※ In TFE3-rearranged RCC, retrospective series show responses to checkpoint inhibitors, alone or with a VEGFR TKI, and to cabozantinib 〔EAU〕
+  After nephrectomy
+    branch: LOC pale
+    ① Clear-cell RCC at intermediate-high or high risk of recurrence: pembrolizumab 200 mg every 3 weeks for 17 cycles 〔PAGA I, A〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 1〕, or surveillance 〔NCCN 2A〕
+      ・Intermediate-high risk is pT2 with grade 4 or sarcomatoid features, or pT3 of any grade, without nodal or distant metastases 〔PAGA〕 〔ESMO〕 〔EAU〕 〔NCCN〕
+      ・High risk is pT4 of any grade, or nodal metastases with any pT stage, without distant metastases 〔PAGA〕 〔ESMO〕 〔EAU〕 〔NCCN〕
+      ・Treatment should start within 12 to 16 weeks of nephrectomy 〔PAGA〕 〔ESMO〕 〔EAU〕
+      ・Counselling covers long-term immune toxicity, overtreatment of patients already cured and the negative results of the other adjuvant checkpoint inhibitor trials 〔ESMO〕 〔EAU Strong〕
+      ・In pT4 disease, adjuvant pembrolizumab is an option 〔NCCN 2A〕
+    + KEYNOTE-564 {pmid 34407342}
+    ※ Pembrolizumab with belzutifan is a further adjuvant option in the same risk groups and after complete resection of metastases 〔NCCN 2A〕
+      ・The combination improved disease-free survival over pembrolizumab alone, with more toxicity of grade 3 or higher
+      ・Overall survival data are not yet mature
+      ~ LITESPARK-022 {pmid 42384869}
+    ② Non-clear-cell RCC: surveillance or a clinical trial 〔NCCN 2A〕
+      ・Adjuvant pembrolizumab is not recommended for non-clear-cell histology 〔NCCN〕
+    ※ Adjuvant sunitinib and other VEGFR TKIs are not recommended 〔PAGA I, D〕 〔ESMO I, D〕 〔EAU Weak〕 〔NCCN〕
+      ・Sunitinib improved disease-free survival in one trial and not in another 〔EAU LE 1b〕
+      ・No adjuvant VEGFR TKI or everolimus has improved overall survival 〔EAU LE 1b〕
+      ~ S-TRAC {pmid 27718781}
+      - ASSURE (ECOG-ACRIN E2805) {pmid 26969090}
+      - PROTECT {pmid 28902533}
+      - ATLAS {pmid 30346481}
+      - EVEREST {pmid 37524096}
+    ※ Adjuvant atezolizumab, nivolumab alone or with ipilimumab, and perioperative nivolumab did not improve disease-free survival 〔EAU LE 1b〕
+      - IMmotion010 {pmid 36099926}
+      - CheckMate 914 (Part A) {pmid 36774933}
+      - PROSPER (ECOG-ACRIN EA8143) {pmid 38942046}
+    ※ Adjuvant radiotherapy has shown no benefit 〔EAU〕 〔NCCN〕
+  Advanced clear-cell RCC: second and later lines
+    branch: CC pale
+    ① Second line after a PD-1 inhibitor combination: cabozantinib 〔PAGA II, B〕 〔ESMO II, B〕 〔EAU Strong〕 〔NCCN 2A, other recommended〕, lenvatinib with everolimus 〔PAGA II, B〕 〔ESMO III, B〕 〔NCCN 2A, other recommended〕, axitinib or tivozanib 〔PAGA III, B〕 〔ESMO III, B〕 〔NCCN 2A, other recommended〕, sunitinib or pazopanib 〔PAGA III, B〕 〔ESMO III, B〕 〔NCCN 2A, useful in certain circumstances〕, or belzutifan after a PD-1 inhibitor with a VEGFR TKI 〔PAGA III, B〕 〔ESMO III, B〕 〔NCCN 2A, other recommended〕
+      ・A VEGFR TKI not given before is the standard 〔PAGA I, B〕 〔ESMO I, B〕 〔EAU Strong〕
+      ・Cabozantinib and lenvatinib with everolimus are the preferred agents 〔PAGA〕
+      ・Cabozantinib alone is the preferred agent 〔ESMO〕 〔EAU LE 3〕
+    ~ LenCabo {pmid 41115467}
+    ※ Belzutifan with lenvatinib is a further option after a PD-1 inhibitor 〔NCCN 2A, other recommended〕
+      ・The combination improved progression-free survival over cabozantinib, without a significant overall survival gain
+      ~ LITESPARK-011 {pmid 42586114}
+    ② Second line after a VEGFR TKI alone: nivolumab or cabozantinib 〔PAGA I, A〕 〔ESMO I, A〕 〔EAU Strong〕 〔NCCN 2A, other recommended〕, lenvatinib with everolimus 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A, other recommended〕, axitinib 〔PAGA II, B〕 〔ESMO II, B〕 〔EAU〕 〔NCCN 2A, useful in certain circumstances〕 or everolimus 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A, useful in certain circumstances〕
+      ・In the third line, whichever of nivolumab and cabozantinib was not given in the second line is recommended 〔EAU Weak〕
+      ・The first-line checkpoint inhibitor combinations are also options for patients who have not had a checkpoint inhibitor 〔NCCN 2A, other recommended〕
+    + CheckMate 025 {pmid 26406148}
+    + METEOR {pmid 26406150}
+    ~ AXIS {pmid 22056247}
+    ~ Study 205 {pmid 26482279}
+    ③ Third and later lines, after a PD-1 inhibitor and a VEGFR TKI: belzutifan 〔PAGA I, B〕 〔ESMO I, B〕 〔EAU Weak〕 〔NCCN 2A, other recommended〕, a VEGFR TKI not given before 〔PAGA III, B〕 〔ESMO III, B〕 〔NCCN 2A〕, or everolimus 〔PAGA II, C〕 〔ESMO II, C〕 〔NCCN 2A, useful in certain circumstances〕
+      ・Belzutifan is preferred over everolimus 〔PAGA I, B〕 〔ESMO I, B〕
+      ・Everolimus is an option when the other agents are unavailable or unsuitable 〔PAGA〕 〔ESMO〕
+      ・Tivozanib improved progression-free survival over sorafenib in the third or fourth line, including after a checkpoint inhibitor 〔EAU〕
+    ~ LITESPARK-005 {pmid 39167807}
+    ~ TIVO-3 {pmid 31810797}
+    ~ RECORD-1 {pmid 18653228}
+    ※ A further PD-1 or PD-L1 inhibitor after progression on one is not recommended 〔PAGA I, D〕 〔ESMO I, D〕 〔EAU Weak〕
+      ・Ipilimumab with nivolumab remains an option after an earlier checkpoint inhibitor 〔NCCN 2A, useful in certain circumstances〕
+      - CONTACT-03 {pmid 37290461}
+      - TiNivo-2 {pmid 39284329}
+
+off:
+  AVOREN [t-avoren] | Superseded: bevacizumab with interferon is no longer a first-line option
+  RAMPART (Arm C) [t-rampart] | No licence or recommendation for durvalumab with tremelimumab in RCC, and no peer-reviewed report yet
