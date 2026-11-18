@@ -9,6 +9,8 @@
      nearest box edges or junctions, along the line or across it
    - a line runs under a box
    - two lines cross (a run passing through the middle of another run, not a junction)
+   - a single line bends, or any line jogs by an upright under 40 px or kinks under 40 px off its stem (Jonan 2026-11-18); a fork or join off the
+     middle of its branches is printed as a note, since some forks are uneven by design (rectal, 2026-11-11)
    - the last word of a statement goes to the next line although it fitted on the line above (Jonan 2026-11-11)
    - a single word is alone on the last line, or a wrapped line starts left of the text (under ① or ※)
    Needs Playwright (require('playwright')). Run it with node maps/check.cjs before every draft and release. */
@@ -83,6 +85,33 @@ function measure(){
     if (vs.k > hs.a + T && vs.k < hs.b - T && hs.k > vs.a + T && hs.k < vs.b - T) {
       const key = 'x' + vs.k + ',' + hs.k; if (!seen.has(key)) { seen.add(key); res.push('lines cross at x ' + Math.round(vs.k) + ', y ' + Math.round(hs.k)); } }
   }));
+  // bends: each upright joins the runs that end just left of it (lines in) to the runs that start just right of it
+  // (lines out). One line in and one out is a single line that bends; an upright under 40 px is a jog; a fork or a
+  // join whose stem is off the middle of its branches is uneven (Jonan 2026-11-18, bladder: "symmetry and minimal
+  // line bends"). With an odd number of branches the middle one runs straight on, as canvas.js joins them
+  const warn = [], mid = ys => { ys = ys.slice().sort((a, z) => a - z); return ys.length % 2 ? ys[ys.length >> 1] : (ys[0] + ys[ys.length - 1]) / 2; };
+  // the lines of one fan each draw the shared upright, so uprights at one x that meet are one upright
+  const ups = [];
+  segs.filter(s => !s.h).slice().sort((p, q) => p.k - q.k || p.a - q.a).forEach(v => {
+    const u = ups.find(u => Math.abs(u.k - v.k) < .5 && v.a <= u.b + 22 && v.b >= u.a - 22);
+    if (u) { u.a = Math.min(u.a, v.a); u.b = Math.max(u.b, v.b); } else ups.push({k:v.k, a:v.a, b:v.b});
+  });
+  ups.forEach(v => {
+    const near = y => y >= v.a - 11 && y <= v.b + 11;
+    const ys = list => [...new Set(list.map(s => Math.round(s.k * 2) / 2))];
+    const into = ys(segs.filter(s => s.h && near(s.k) && s.b <= v.k + .5 && v.k - s.b <= 11));
+    const out = ys(segs.filter(s => s.h && near(s.k) && s.a >= v.k - .5 && s.a - v.k <= 11));
+    if (!into.length || !out.length) return;
+    const at = 'at x ' + Math.round(v.k) + ', y ' + Math.round(v.a);
+    const run = v.b - v.a + 20;
+    if (run < 40) res.push('a line jogs ' + Math.round(run) + ' px ' + at);
+    // a branch a few pixels off its stem kinks where it should run straight on
+    const stem = into.length === 1 ? into : out.length === 1 ? out : [], branches = into.length === 1 ? out : into;
+    if (stem.length && branches.length > 1) branches.forEach(y => { const d = Math.abs(y - stem[0]); if (d > .5 && d < 40) res.push('a line kinks ' + Math.round(d) + ' px off its stem ' + at); });
+    if (into.length === 1 && out.length === 1) res.push('a single line bends ' + Math.round(Math.abs(out[0] - into[0])) + ' px ' + at);
+    else if (into.length === 1 && Math.abs(into[0] - mid(out)) > T) warn.push('a fork is ' + Math.round(Math.abs(into[0] - mid(out))) + ' px off the middle of its ' + out.length + ' branches ' + at);
+    else if (out.length === 1 && Math.abs(out[0] - mid(into)) > T) warn.push('a join is ' + Math.round(Math.abs(out[0] - mid(into))) + ' px off the middle of its ' + into.length + ' lines ' + at);
+  });
   chips.forEach(e => {
     const c = R(e), cx = (c.l + c.r) / 2, cy = (c.t + c.b) / 2, name = e.textContent.trim().slice(0, 40);
     const H = segs.filter(s => s.h && Math.abs(s.k - cy) <= T && s.a < cx && cx < s.b);
@@ -125,7 +154,7 @@ function measure(){
     if (words.length > 1) { const first = words.find(w => !/^[①-⑳※・★]$/.test(w.w)); const lefts = words.filter(w => w.top - words[0].top > 4).map(w => w.left).concat(tags.filter(r => r.top - words[0].top > 4).map(r => r.left));
       if (first && lefts.length && Math.min(...lefts) < first.left - 3 && !el.matches('.ln.cv, .sb, .sub')) res.push('a wrapped line starts left of the text in "' + el.textContent.trim().slice(0, 50) + '"'); }
   });
-  return {n:chips.length, res};
+  return {n:chips.length, res, warn};
 }
 
 (async () => {
@@ -142,6 +171,7 @@ function measure(){
     bad += out.res.length;
     console.log(m.id + ' (' + theme + '): ' + out.n + ' line labels, ' + (out.res.length ? out.res.length + ' fault(s)' : '0 faults'));
     out.res.forEach(r => console.log('  ' + r));
+    out.warn.forEach(r => console.log('  note: ' + r));
     await ctx.close();
   }
   await b.close(); srv.close();
