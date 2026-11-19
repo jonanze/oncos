@@ -1,0 +1,290 @@
+# oncOS board map: Cervical Cancer (one map for the Evidence sheet "Cervical Cancer")
+# Draft 1 with the prose review applied, approved by Jonan 2026-11-19. Rewritten from draft 0 after the independent review.
+#   Planning files: board-maps/cervical/ (independent-review.md, prose-review-draft1.md, draft1-changes.md)
+#   Clinical content: board-maps/cervical/notes-jsgo.md, notes-jsgo-updates.md, notes-esmo.md, notes-esmo-figures.md,
+#   notes-nccn.md, cervical-rows.json and plan.md. Structure: board-maps/cervical/structure-plan.md
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (thread default 2026-11-18): one map for the whole sheet. Three parallel stages, never chained: early disease
+#   (FIGO 2018 stage IA1 to IB2 and IIA1) with the step after hysterectomy, locally advanced disease (IB3 to IVA), and
+#   recurrent or metastatic disease. The third stage has two first boxes in one colour: local treatment (pelvic
+#   recurrence, few metastases, palliative radiotherapy) and first-line systemic treatment, which leads to the later
+#   lines. Lines run only inside a stage, in time order. Three panels: fertility-sparing surgery and sentinel node
+#   biopsy beside the early box, and the risk groups beside the step after hysterectomy. The FIGO 2018 stage groups,
+#   the tests and the regimens are bands. No scale: grid, as the adjuvant decision has three groups and the criteria
+#   read as numbered lines. Screening, vaccination, neuroendocrine carcinoma, pregnancy, radiotherapy planning,
+#   imaging protocols and follow-up schedules are left out
+# Guideline set (Jonan's card 2026-11-18) and tag forms, grade as printed, on the statement the guideline graded. Tag
+#   order on every line: JSGO, ESMO, NCCN (East Asian guidelines first)
+#   〔JSGO evidence, strength〕 Japan Society of Gynecologic Oncology 2022 guidelines for uterine cervical neoplasm
+#     treatment (English version: Seino, J Gynecol Oncol 2024;35:e15, PMID 38037547), with the published Japanese
+#     updates of CQ19 (drug with chemoradiotherapy), CQ21 (stage IVB) and CQ29 (chemotherapy for recurrence), which
+#     replace those three CQs. Evidence A to D, strength 1 recommend or 2 suggest, "against" for a recommendation not
+#     to. A bare 〔JSGO〕 marks the explanatory text of an update or a figure footnote. The 2022 search closed in
+#     December 2020, before SHAPE, INTERLACE, OUTBACK and GOG-263. The updates predate the BEATcc and innovaTV 301
+#     results. Supplementary Table S3 (the JSGO risk groups after surgery) is unread
+#   〔ESMO level, grade〕 ESMO Clinical Practice Guideline for cervical cancer 2026 (Lorusso, ESMO Open 2026;11:108364,
+#     PMID 42914498). A bare 〔ESMO〕 marks the narrative, a figure footnote or an ungraded statement. ESMO-MCBS scores
+#     are left off the map, as on other maps
+#   〔NCCN category〕 NCCN Cervical Cancer 1.2027 (15 October 2026), algorithm pages. 2A unless stated. On the systemic
+#     therapy page the preference label is printed too. A bare 〔NCCN〕 marks a footnote, a table or a principles page.
+#     The Discussion is older than the algorithm and is not used where they differ
+# Grades by stage in locally advanced disease (review M1): NCCN category 1 on chemoradiotherapy is printed for stage
+#   IB3 and IIA2 only. JSGO grade A, 1 is for stage III to IVA, and B, 1 for IB3, IIA2 and IIB
+# Option order where guidelines disagree (Jonan's card answers 2026-11-19 where marked, otherwise defaults):
+#   1. First line, CPS below 1 (Jonan 2026-11-19): bevacizumab with chemotherapy first (all three guidelines), then pembrolizumab with
+#      chemotherapy (JSGO, Japan licence regardless of CPS). Atezolizumab with bevacizumab and chemotherapy (BEATcc)
+#      is the ※ line directly below (NCCN alone lists it, rule ⑦). No EU, US or Japanese licence for atezolizumab in
+#      cervical cancer was found on a web search, 2026-11-19
+#   2. Second line without an earlier checkpoint inhibitor (Jonan 2026-11-19): tisotumab vedotin, then pembrolizumab,
+#      then cemiplimab (NCCN order)
+#   3. Stage IB3 and IIA2 (Jonan 2026-11-19): chemoradiotherapy first, radical hysterectomy second on the same line
+#   4. Intermediate risk after hysterectomy: radiotherapy first, chemoradiotherapy second (JSGO alone)
+#   5. Cadonilimab is a ※ line (trial in China only). Ipilimumab with nivolumab, nivolumab, pembrolizumab with
+#      tisotumab vedotin and neratinib are ※ and ・ lines (NCCN alone, rule ⑦). The NTRK and RET drugs are a numbered
+#      line, as each holds a tumour-agnostic FDA licence (review M6)
+# Doses in the Regimens band follow the trial protocols, as the guidelines print almost none
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint or single-arm data, - primary endpoint not
+#   met, no benefit or harm. LACC, GOG 204, GOG 71 and CALLA are -. SHAPE, JCOG0505 and SENTICOL-2 are ~ (their
+#   non-inferiority mark is a question across maps, review L9)
+# Single-arm trials cited because a recommendation or licence rests on them and no randomised trial of the option
+#   exists in that setting (inclusion.txt ①, Jonan to confirm): KEYNOTE-158 (pembrolizumab after chemotherapy, and its
+#   MSI-H and TMB analyses on the Tumour-Agnostic Basket Trials sheet), DESTINY-PanTumor02 (same sheet) and
+#   CheckMate 358 (ipilimumab with nivolumab, randomised between two regimens only)
+# Chips with the row anchor beside the PMID: SWOG 8797 and GOG 92, whose rows have an empty PMID field (editor fix:
+#   10764420 and 10329031), and DESTINY-PanTumor02, whose paper is filed on two sheets
+# Not yet on the sheet (intake.txt): GOG-263, Gupta et al. (Tata Memorial), EORTC 55994, SENTICOL-2, Landoni 1997,
+#   GOG 71 and CALLA (inclusion ⑥d: durvalumab is licensed in endometrial cancer). RTOG 0724 has no PubMed record,
+#   so its statement is plain text with no chip
+
+map: Cervical Cancer
+source: JSGO {url https://jsgo.or.jp/guideline/keiganguide2022.html}
+source: ESMO {url https://doi.org/10.1016/j.esmoop.2026.108364}
+source: NCCN {url https://www.nccn.org/guidelines/guidelines-detail?category=1&id=1426}
+branch: EARLY | Early disease | blue
+branch: LA | Locally advanced disease | teal
+branch: RM | Recurrent or metastatic disease | rose
+
+band: FIGO 2018 stage groups
+  ① Stage IA1 has stromal invasion of 3 mm or less, and stage IA2 has more than 3 mm and up to 5 mm 〔NCCN〕
+    ・Lymphovascular space invasion (LVSI) does not change the stage 〔ESMO〕 〔NCCN〕
+  ② Stage IB is confined to the cervix with invasion deeper than 5 mm: IB1 is 2 cm or less, IB2 is more than 2 cm and up to 4 cm, and IB3 is more than 4 cm 〔NCCN〕
+    ・A tumour of exactly 2 cm falls in IB2 and one of exactly 4 cm in IB3 〔ESMO〕
+  ③ Stage IIA involves the upper two-thirds of the vagina without parametrial invasion: IIA1 is 4 cm or less and IIA2 more than 4 cm 〔NCCN〕
+  ④ Stage IIB involves the parametrium short of the pelvic wall 〔NCCN〕
+  ⑤ Stage IIIA involves the lower third of the vagina, and stage IIIB reaches the pelvic wall or causes hydronephrosis or a non-functioning kidney 〔NCCN〕
+  ⑥ Stage IIIC1 has pelvic nodal metastases and stage IIIC2 para-aortic nodal metastases, whatever the size and extent of the tumour 〔NCCN〕
+    ・Nodal stage is assigned on imaging (r) or pathology (p) 〔ESMO〕 〔NCCN〕
+    ・Micrometastases count as nodal metastases, and isolated tumour cells do not 〔NCCN〕
+    ・Node-positive stage IB2 to IIB by FIGO 2014 is stage IIIC by FIGO 2018 〔JSGO〕
+  ⑦ Stage IVA invades the mucosa of the bladder or rectum, and stage IVB has distant metastases 〔NCCN〕
+
+band: Histology and biomarker tests
+  ① PD-L1 testing by combined positive score (CPS) in recurrent, progressive or metastatic disease 〔ESMO I, A〕 〔NCCN 2A〕
+  ② HER2 immunohistochemistry in advanced, recurrent or metastatic disease 〔NCCN 2A〕
+  ③ Multigene panel testing in advanced or recurrent disease, covering at least HER2, MMR or MSI, TMB, NTRK and RET 〔NCCN 2A〕
+    ・Genomic profiling is suggested once standard treatment is completed or expected to be completed 〔JSGO D, 2〕
+    ・TMB-high is 10 or more mutations per megabase 〔NCCN〕
+  ④ HPV status in every cervical adenocarcinoma 〔NCCN 2A〕
+    ・Gastric-type adenocarcinoma is the most common HPV-independent type 〔ESMO〕 〔NCCN〕
+    ・Gastric-type adenocarcinoma has a poor prognosis 〔ESMO〕 〔NCCN〕
+
+band: Regimens
+  ① Chemoradiotherapy: cisplatin 40 mg/m² once a week during external-beam radiotherapy, for five or six cycles 〔JSGO〕
+    ・Carboplatin replaces cisplatin when cisplatin is not tolerated 〔NCCN 2A, preferred〕
+    ・Carboplatin or nedaplatin is considered when renal function is impaired 〔JSGO〕
+  ② Pembrolizumab with chemoradiotherapy: 200 mg every 3 weeks for five cycles, then 400 mg every 6 weeks for 15 cycles
+  ③ Induction before chemoradiotherapy: carboplatin AUC 2 with paclitaxel 80 mg/m² once a week for 6 weeks
+  ④ Cisplatin with paclitaxel: paclitaxel 175 mg/m² over 3 hours and cisplatin 50 mg/m² on day 1, every 3 weeks
+  ⑤ Carboplatin with paclitaxel: paclitaxel 175 mg/m² over 3 hours and carboplatin AUC 5 on day 1, every 3 weeks
+  ⑥ Additions to platinum and paclitaxel, all every 3 weeks: pembrolizumab 200 mg for up to 35 cycles, bevacizumab 15 mg/kg, or atezolizumab 1200 mg with bevacizumab
+  ⑦ Tisotumab vedotin: 2.0 mg/kg, up to 200 mg, every 3 weeks
+
+course: Cervical cancer | parallel
+  Early disease, stage IA1 to IB2 and IIA1: local treatment
+    branch: EARLY
+    ① Stage IA1 without LVSI: simple hysterectomy 〔JSGO B, 1〕 〔ESMO I, A〕 〔NCCN 2A〕
+      ・Nodal staging is not required 〔ESMO〕 〔NCCN〕
+    ② Stage IA1 with LVSI: simple hysterectomy with sentinel node biopsy 〔ESMO I, A〕 〔NCCN 2A〕, or simple or modified radical hysterectomy with pelvic lymph node dissection 〔JSGO C, 2〕
+    ③ Stage IA2 to IB1 within the conservative-surgery criteria: simple hysterectomy with sentinel node biopsy 〔ESMO I, A〕 〔NCCN 2A〕
+      ・The criteria are a tumour of 2 cm or less, stromal invasion under 10 mm on the cone or under 50% on MRI, and no metastasis on imaging 〔ESMO〕 〔NCCN〕
+      ・Squamous cell carcinoma, adenocarcinoma and adenosquamous carcinoma qualify, with or without LVSI 〔ESMO〕
+      ・Tumours without LVSI and usual-type adenocarcinoma of grade 1 or 2 are preferred 〔NCCN〕
+      ・Simple hysterectomy is performed by an open approach 〔ESMO I, A〕
+      ・A vaginal, open or minimally invasive route is accepted 〔NCCN〕
+      ・In stage IA2, modified radical hysterectomy with pelvic lymph node dissection is suggested, a grade set before SHAPE was reported 〔JSGO C, 2〕
+    ~ SHAPE {pmid 38416430}
+    ④ Stage IA2 to IB1 outside the criteria, stage IB2 and stage IIA1: radical hysterectomy with nodal staging 〔JSGO B, 1〕 〔ESMO I, A〕 〔NCCN 1〕, or chemoradiotherapy with brachytherapy 〔JSGO B, 1〕 〔NCCN 2A〕
+      ・Open radical hysterectomy is the standard approach 〔ESMO I, A〕 〔NCCN 1〕
+      ・Minimally invasive surgery with measures against tumour spread is an option for tumours of 2 cm or less 〔JSGO C, 2〕
+      ・Radiotherapy with brachytherapy, with or without chemotherapy, is for patients unsuitable for surgery 〔ESMO III, B〕
+      ・Ovarian preservation is recommended for young patients with squamous cell carcinoma up to stage IB2 〔JSGO B, 1〕
+      ・Ovarian preservation, or transposition outside the radiotherapy field, is considered in premenopausal patients 〔NCCN〕
+    - LACC {pmid 30380365}
+    + Landoni 1997 {pmid 9284774}
+    ⑤ Stage IA1, unsuitable for surgery: radiotherapy 〔JSGO〕 given as brachytherapy 〔ESMO III, B〕, with external-beam radiotherapy added when LVSI is present 〔ESMO IV, C〕 〔NCCN 2A〕
+      ・Without LVSI and after a cone with negative margins, observation is an option 〔NCCN 2A〕
+    next: After hysterectomy
+  Locally advanced disease, stage IB3 to IVA
+    branch: LA
+    ① Stage IB3 and IIA2: chemoradiotherapy with image-guided brachytherapy 〔JSGO B, 1〕 〔ESMO I, A〕 〔NCCN 1〕, or radical hysterectomy with pelvic lymph node dissection 〔JSGO B, 1〕 〔ESMO IV, C〕 〔NCCN 2A〕
+      ・Surgery is for selected patients who are unlikely to need postoperative radiotherapy, in specialised centres 〔ESMO IV, C〕
+      ・Minimally invasive surgery is not suggested for tumours larger than 4 cm 〔JSGO B, 2 against〕
+      ・Completion hysterectomy is considered for residual disease after chemoradiotherapy, or when image-guided brachytherapy is not feasible 〔NCCN〕
+      ・Hysterectomy after primary radiotherapy is not suggested 〔JSGO C, 2 against〕
+    + RTOG 90-01 {pmid 10202164}
+    + GOG 123 {pmid 10202166}
+    - GOG 71 {pmid 12798694}
+    ② Stage IIB: chemoradiotherapy with image-guided brachytherapy 〔JSGO B, 1〕 〔ESMO I, A〕 〔NCCN 2A〕, or radical hysterectomy by a certified gynaecological oncologist 〔JSGO C, 2〕
+      ・Hysterectomy is not the usual treatment from stage IIB upwards 〔NCCN〕
+    + GOG 120 {pmid 10202165}
+    + CCCMAC {pmid 19001332}
+    ③ Stage IIIA, IIIB and IVA, and stage IIIC with a primary tumour of IIIA or IIIB extent: chemoradiotherapy with pembrolizumab 〔JSGO B, 2〕 〔ESMO I, A〕 〔NCCN 1, preferred〕, or chemoradiotherapy alone 〔JSGO A, 1〕 〔ESMO I, A〕 〔NCCN 2A〕
+      ・The FDA and EMA licences and the category 1 grade cover FIGO 2014 stage III to IVA 〔ESMO〕 〔NCCN〕
+      ・The licence in Japan dates from November 2024 and covers locally advanced disease 〔JSGO〕
+      ・Carboplatin is given with pembrolizumab when cisplatin is not tolerated 〔NCCN 1, preferred〕
+    + KEYNOTE-A18 {pmid 38521086}
+    ※ Durvalumab with and after chemoradiotherapy did not improve progression-free survival
+      - CALLA {pmid 38039991}
+    ④ Stage IIIC with a primary tumour below IIIA extent: chemoradiotherapy 〔JSGO C, 2〕 〔ESMO I, A〕 〔NCCN 2A〕, with pembrolizumab as an option 〔JSGO B, 2〕 〔NCCN 2B〕
+      ・In stage IIIC1, radical hysterectomy with lymph node dissection is an alternative 〔JSGO C, 2〕
+      ・In an exploratory analysis of KEYNOTE-A18, the gain in progression-free survival was seen in FIGO 2014 stage III to IVA and not in node-positive stage IB2 to IIB 〔JSGO〕 〔NCCN〕
+      ・Pembrolizumab is given with caution in this group 〔JSGO〕
+      ・Entry to KEYNOTE-A18 on nodal grounds required a node of 15 mm or more in short axis 〔JSGO〕
+    ⑤ Para-aortic nodal metastases (stage IIIC2): chemoradiotherapy with extended-field radiotherapy 〔JSGO C, 2〕 〔NCCN 2A〕
+      ・Prophylactic para-aortic irradiation is not suggested when only pelvic nodes are involved 〔JSGO C, 2 against〕
+      ・Extended-field radiotherapy may be added for selected pelvic nodal disease, such as common iliac nodes 〔NCCN〕
+    ⑥ Stage IB3 to IVA without para-aortic nodal metastases: induction carboplatin with paclitaxel, then chemoradiotherapy within 7 days 〔ESMO II, B〕 〔NCCN 2A, other recommended〕
+      ・Induction is limited to stage IB3 to IIB where IMRT, VMAT or image-guided brachytherapy is not available 〔ESMO II, B〕
+      ・Chemotherapy before chemoradiotherapy is not suggested, a grade set before INTERLACE was reported 〔JSGO C, 2 against〕
+    + INTERLACE {pmid 39419054}
+    ※ IMRT or SBRT is not a routine substitute for brachytherapy 〔NCCN〕
+    ※ The whole course of chemoradiotherapy with brachytherapy is completed within 8 weeks 〔ESMO III, A〕 〔NCCN〕
+    ※ Adjuvant chemotherapy after chemoradiotherapy is not suggested 〔JSGO C, 2 against〕
+      ・Four cycles of carboplatin with paclitaxel after chemoradiotherapy did not improve overall survival 〔ESMO〕
+      - OUTBACK {pmid 37080223}
+    ※ Neoadjuvant chemotherapy before radical hysterectomy is not suggested in stage IB to II 〔JSGO C, 2 against〕
+      ・Neoadjuvant chemotherapy followed by surgery did not improve survival over chemoradiotherapy 〔ESMO〕
+      ・Disease-free survival was worse with neoadjuvant chemotherapy followed by surgery in one trial 〔ESMO〕
+      - Gupta et al. {pmid 29432076}
+      - EORTC 55994 {pmid 37656948}
+    ※ Surgical resection is not suggested in stage IIIA, IIIB and IVA, or in stage IIIC with a primary tumour of IIIA or IIIB extent 〔JSGO C, 2 against〕
+    ※ Surgical staging is not recommended 〔ESMO I, E〕
+      ・Biopsy of pelvic or para-aortic nodes is suggested before treatment when metastasis is suspected and imaging cannot confirm it 〔JSGO C, 2〕
+  Recurrent or metastatic disease: local treatment
+    branch: RM
+    ① Pelvic recurrence without earlier radiotherapy: chemoradiotherapy, with or without brachytherapy 〔JSGO C, 2〕 〔ESMO III, A〕 〔NCCN 2A〕
+      ・Radiotherapy alone is an alternative for one or a few localised lesions 〔JSGO C, 2〕
+      ・Surgical resection is considered when feasible 〔NCCN 2A〕
+    ② Central pelvic recurrence after radiotherapy: pelvic exenteration 〔JSGO C, 2〕 〔ESMO III, B〕 〔NCCN 2A〕, or re-irradiation when surgery is not feasible 〔ESMO III, C〕 〔NCCN 2A〕
+      ・PET-CT is performed before exenteration to exclude distant metastases 〔ESMO IV, A〕
+      ・Radical hysterectomy is an option for a small central recurrence 〔JSGO C, 2〕 〔NCCN 2A〕
+    ③ Pelvic recurrence after radiotherapy that is not central: systemic therapy 〔JSGO C, 2〕 〔NCCN 2A〕, resection or radiotherapy 〔NCCN 2A〕, or best supportive care 〔JSGO C, 2〕 〔NCCN 2A〕
+    ④ Oligometastatic disease: radiotherapy to the metastases together with treatment of the primary tumour and regional nodes 〔JSGO C, 2〕, or resection or ablative treatment 〔NCCN 2A〕
+      ・Ablative treatment of one to five metastases requires a controlled primary tumour 〔NCCN 2B〕
+      ・SBRT is an option for oligometastatic disease 〔ESMO〕
+      ・Systemic therapy is considered after local treatment 〔NCCN 2A〕
+    + SABR-COMET {pmid 30982687}
+    ⑤ Lesions causing severe symptoms: palliative radiotherapy 〔JSGO B, 1〕 〔ESMO〕 〔NCCN〕
+  Recurrent or metastatic disease: first line
+    branch: RM
+    ① PD-L1 CPS 1 or more: pembrolizumab with platinum and paclitaxel, with or without bevacizumab 〔JSGO B, 1〕 〔ESMO I, A〕 〔NCCN 1, preferred〕
+      ・Bevacizumab is added when it is not contraindicated 〔ESMO〕
+    + KEYNOTE-826 {pmid 34534429}
+    ② PD-L1 CPS below 1: bevacizumab with platinum and paclitaxel 〔JSGO B, 1〕 〔ESMO I, A〕 〔NCCN 1, preferred〕, or pembrolizumab with platinum and paclitaxel, with or without bevacizumab 〔JSGO B, 1〕
+      ・Platinum and paclitaxel alone are given when bevacizumab is contraindicated 〔JSGO B, 1〕 〔ESMO I, A〕 〔NCCN 1, other recommended〕
+      ・The licence in Japan covers pembrolizumab with chemotherapy whatever the CPS 〔JSGO〕
+      ・Patients with PD-L1 CPS below 1 were a small subgroup of KEYNOTE-826 〔JSGO〕 〔ESMO〕
+      ・The benefit of pembrolizumab with PD-L1 CPS below 1 is uncertain 〔JSGO〕 〔ESMO〕
+    + GOG 240 {pmid 24552320}
+    ※ Atezolizumab with bevacizumab, platinum and paclitaxel is an option whatever the PD-L1 status 〔NCCN 1, preferred〕
+      + BEATcc {pmid 38048793}
+    ※ Cadonilimab with platinum and paclitaxel, with or without bevacizumab, improved progression-free and overall survival in a trial run only in China
+      ・Cadonilimab has no EMA or FDA licence
+      + COMPASSION-16 {pmid 39426385}
+    ③ Earlier platinum or impaired renal function: carboplatin in place of cisplatin 〔JSGO B, 1〕 〔NCCN 1, other recommended〕
+      ・Category 1 applies after earlier cisplatin 〔NCCN〕
+      ・Paclitaxel with either cisplatin or carboplatin is standard 〔ESMO〕
+    ~ JCOG0505 {pmid 25732161}
+    - GOG 204 {pmid 19720909}
+    ④ Platinum not possible: paclitaxel with topotecan, with or without bevacizumab 〔JSGO〕 〔NCCN 2A, other recommended〕
+      ・Category 1 applies with bevacizumab 〔NCCN〕
+    ⑤ Taxane not possible: cisplatin with topotecan 〔JSGO〕 〔NCCN 2A, other recommended〕
+    ⑥ Stage IVB controlled by systemic therapy: pelvic radiotherapy can be considered for local control 〔ESMO III, B〕 〔NCCN〕
+      ・The benefit of pelvic radiotherapy with chemotherapy in stage IVB is not established in randomised trials 〔JSGO〕
+    ⑦ Progression at a few sites during systemic therapy: SBRT, surgery or thermal ablation, with the systemic therapy continued 〔ESMO IV, B〕
+    ※ Best supportive care, with early palliative care, is an option at every line 〔ESMO IV, A〕 〔NCCN 2A〕
+    ° Toxicity of note: hypertension, proteinuria, fistula and thromboembolism with bevacizumab 〔ESMO〕
+    next: Recurrent or metastatic disease: second and later lines | Progression
+  After hysterectomy
+    branch: EARLY pale
+    ① High risk after radical hysterectomy: chemoradiotherapy 〔JSGO B, 1〕 〔ESMO I, A〕 〔NCCN 1〕
+      ・Vaginal brachytherapy is added for a positive vaginal margin 〔NCCN〕
+      ・Para-aortic nodal metastases found at surgery are treated with extended-field chemoradiotherapy 〔NCCN 1〕
+    + SWOG 8797 [t-swog-8797] {pmid 10764420}
+    ※ Chemotherapy given after postoperative chemoradiotherapy did not improve disease-free or overall survival and increased toxicity 〔ESMO〕
+    ② Intermediate risk after radical hysterectomy: pelvic radiotherapy 〔JSGO C, 2〕 〔ESMO I, B〕 〔NCCN 1〕, or chemoradiotherapy, a grade set before GOG-263 was reported 〔JSGO C, 2〕
+      ・Adding chemotherapy to radiotherapy is not recommended 〔ESMO I, D〕 〔NCCN〕
+    ~ GOG 92 [t-gog-92] {pmid 10329031}
+    - GOG-263 {pmid 40947016}
+    ③ Neither risk group: observation 〔NCCN 2A〕
+    ④ Invasive cancer found after simple hysterectomy: radiotherapy or chemoradiotherapy 〔JSGO C, 2〕 〔NCCN 2A〕, or completion parametrectomy with upper vaginectomy and pelvic lymph node dissection 〔NCCN 2A〕
+      ・For a tumour within the conservative-surgery criteria, pelvic lymph node dissection is the preferred option 〔NCCN 2A〕
+      ・A positive margin or a tumour of stage IB2 or more is treated with chemoradiotherapy 〔NCCN 2A〕
+  Recurrent or metastatic disease: second and later lines
+    branch: RM pale
+    ① No earlier checkpoint inhibitor: tisotumab vedotin 〔ESMO I, B〕 〔NCCN 1, preferred〕, pembrolizumab 〔ESMO III, B〕 〔NCCN 2A, preferred〕, or cemiplimab 〔JSGO B, 2〕 〔ESMO I, A〕 〔NCCN 2A, other recommended〕
+      ・Tisotumab vedotin has held a licence in Japan since March 2025
+      ・Pembrolizumab is given for PD-L1 CPS 1 or more 〔ESMO〕 〔NCCN〕
+      ・Pembrolizumab alone holds an FDA licence and no EMA licence for this use 〔ESMO〕
+      ・Cemiplimab is given whatever the PD-L1 status 〔JSGO〕 〔ESMO〕
+      ・Cemiplimab holds an EMA licence and no FDA licence for cervical cancer 〔ESMO〕
+      ・Cemiplimab has held a licence in Japan since March 2023 〔JSGO〕
+    + innovaTV 301 {pmid 38959480}
+    ~ KEYNOTE-158 {pmid 30943124}
+    + EMPOWER-Cervical 1 {pmid 35139273}
+    ② After a checkpoint inhibitor: tisotumab vedotin 〔ESMO I, B〕 〔NCCN 1, preferred〕, or single-agent chemotherapy without platinum 〔ESMO III, C〕 〔NCCN 2A, other recommended〕
+      ・Single-agent chemotherapy is considered when tisotumab vedotin is not available 〔ESMO〕
+      ・Single agents include paclitaxel, nab-paclitaxel, docetaxel, gemcitabine, vinorelbine, irinotecan, pemetrexed, topotecan, fluorouracil and bevacizumab 〔ESMO〕 〔NCCN〕
+    ③ HER2 immunohistochemistry 3+: trastuzumab deruxtecan 〔ESMO III, A〕 〔NCCN 2A, useful in certain circumstances〕
+      ・HER2 immunohistochemistry 2+ also qualifies 〔NCCN〕
+      ・The FDA licence is tumour-agnostic
+    ~ DESTINY-PanTumor02 [t-destiny-pantumor02--tumour-agnostic-basket-trials] {pmid 37870536}
+    ④ MSI-H, MMR-deficient or TMB-high tumours: pembrolizumab 〔JSGO C, 2〕 〔NCCN 2A, preferred〕
+      ・Dostarlimab is an option for MSI-H or MMR-deficient tumours 〔NCCN 2A, preferred〕
+    ~ KEYNOTE-158 (MSI-H or dMMR) {pmid 31682550}
+    ~ KEYNOTE-158 (TMB) {pmid 32919526}
+    ⑤ NTRK or RET gene fusion: larotrectinib, entrectinib or repotrectinib for NTRK, or selpercatinib for RET 〔NCCN 2A, useful in certain circumstances〕
+      ・Each drug holds a tumour-agnostic FDA licence for its fusion
+    ※ Ipilimumab with nivolumab is an option 〔NCCN 2A, other recommended〕
+      ・Nivolumab alone is an option for tumours that express PD-L1 〔NCCN 2A, useful in certain circumstances〕
+      ・Pembrolizumab with tisotumab vedotin is an option for tumours that express PD-L1, with no earlier checkpoint inhibitor 〔NCCN 2A, useful in certain circumstances〕
+      ~ CheckMate 358 {pmid 38608691}
+    ※ HER2-mutant tumours: neratinib is an option 〔NCCN 2A, useful in certain circumstances〕
+    ° Toxicity of note: ocular events and peripheral neuropathy with tisotumab vedotin, and interstitial lung disease with trastuzumab deruxtecan
+
+panel: Fertility-sparing surgery > Early disease, stage IA1 to IB2 and IIA1: local treatment
+  ① Stage IA1 without LVSI: conisation with negative margins 〔JSGO C, 2〕 〔ESMO III, A〕 〔NCCN 2A〕
+    ・Cold-knife conisation is the preferred technique 〔ESMO I, A〕 〔NCCN〕
+    ・A cone with positive margins is followed by repeat conisation or hysterectomy 〔ESMO〕 〔NCCN 2A〕
+  ② Stage IA1 with LVSI to IB1, and selected IB2: conisation or simple trachelectomy with sentinel node biopsy 〔ESMO III, A〕 〔NCCN 2A〕, or radical trachelectomy 〔JSGO B, 2〕 〔NCCN 2A〕
+    ・Candidates have a tumour of 2 cm or less and negative nodes 〔ESMO III, B〕
+    ・HPV-independent adenocarcinoma, including gastric type, is unsuitable 〔ESMO〕 〔NCCN〕
+    ・Conisation is for stage IA1 with LVSI, and for stage IA2 to IB1 with a tumour under 2 cm, stromal invasion under 10 mm, no LVSI and negative margins 〔ESMO III, A〕
+    ・Radical trachelectomy is the operation for stage IB1 beyond those limits and for selected stage IB2 〔NCCN 2A〕
+    ・In stage IB2, neoadjuvant chemotherapy before fertility-sparing surgery may be considered 〔ESMO IV, C〕
+
+panel: Sentinel node biopsy > Early disease, stage IA1 to IB2 and IIA1: local treatment
+  ① Tumours under 4 cm: sentinel node biopsy 〔ESMO III, B〕 〔NCCN 2A〕
+    ・Systematic lymph node dissection can be omitted after a negative sentinel node when a trained team and pathologist are available 〔JSGO B, 2〕
+    ・Lymph node dissection is performed on a pelvic side where no sentinel node is detected 〔ESMO I, A〕 〔NCCN〕
+    ・Sentinel nodes are examined by ultrastaging 〔ESMO III, A〕 〔NCCN〕
+  ~ SENTICOL-2 {pmid 33773275}
+
+panel: Risk groups after radical hysterectomy > After hysterectomy
+  ① High risk is any one of positive pelvic nodes, a positive surgical margin or parametrial involvement 〔ESMO〕 〔NCCN〕
+  ② Intermediate risk is a combination of tumour size, depth of stromal invasion and LVSI, with negative nodes, margins and parametria 〔ESMO〕 〔NCCN〕
+    ・With LVSI: deep-third invasion at any size, middle-third invasion at 2 cm or more, or superficial-third invasion at 5 cm or more 〔NCCN〕
+    ・Without LVSI: a tumour of 4 cm or more that invades beyond the superficial third of the stroma 〔NCCN〕
+    ・Tumour size is measured by clinical palpation 〔NCCN〕
+  ※ The intermediate-risk criteria were developed mainly in squamous cell carcinoma 〔ESMO〕 〔NCCN〕
+    ・In adenocarcinoma, tumour size carries more weight than depth of invasion 〔ESMO〕 〔NCCN〕
