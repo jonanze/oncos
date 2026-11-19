@@ -46,7 +46,8 @@
     'Advanced Pancreatic': 'advanced-pancreatic',
     'HCC': 'hcc',
     'RCC': 'rcc',
-    'Cervical Cancer': 'cervical'
+    'Cervical Cancer': 'cervical',
+    'Biliary Tract Cancer': 'biliary'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };

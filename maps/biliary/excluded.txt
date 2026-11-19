@@ -1,0 +1,6 @@
+# Biliary tract cancer trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
+# Trial | identifier | screened | class and result | reason
+NuTide:121 | PMID 39978598 | 2026-11-19 | class C, negative | NUC-1031 with cisplatin, stopped early for futility. No licence or recommendation
+SUMMIT (biliary cohort) | PMID 36746967 | 2026-11-19 | non-randomised, class C | Neratinib for HER2-mutant tumours. No licence, and no guideline in the set recommends it
+HERB | PMID 39102634 | 2026-11-19 | non-randomised | Trastuzumab deruxtecan, single-arm, Japan. The four guidelines rest the option on DESTINY-PanTumor02, which is cited (inclusion ①). Open question for Jonan
+Takada 2002 (mitomycin C with 5-FU, adjuvant) | PMID 12365016 | 2026-11-19 | class C, negative | Mitomycin C has no licence or recommendation in biliary tract cancer, and the benefit was confined to an unplanned gallbladder subgroup (a subgroup does not change the label). NCCN cites it in the Discussion only
