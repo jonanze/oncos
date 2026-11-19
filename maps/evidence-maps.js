@@ -45,7 +45,8 @@
     'Resectable & BR Pancreatic': 'pancreatic',
     'Advanced Pancreatic': 'advanced-pancreatic',
     'HCC': 'hcc',
-    'RCC': 'rcc'
+    'RCC': 'rcc',
+    'Cervical Cancer': 'cervical'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };

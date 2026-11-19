@@ -1,0 +1,3 @@
+# Cervical cancer trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
+# Trial | identifier | screened | class and result | reason
+innovaTV 204 | PMID 33845034 | 2026-11-18 | non-randomised | Tisotumab vedotin, single-arm; the randomised innovaTV 301 is on the sheet (inclusion ①)
