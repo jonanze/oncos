@@ -13,6 +13,8 @@
      middle of its branches is printed as a note, since some forks are uneven by design (rectal, 2026-11-11)
    - the last word of a statement goes to the next line although it fitted on the line above (Jonan 2026-11-11)
    - a single word is alone on the last line, or a wrapped line starts left of the text (under ① or ※)
+   - in a flowchart (a flow band): a line under a box, lines crossing, a branch label off its line's centre, or a
+     label over a box, another label or another line
    Needs Playwright (require('playwright')). Run it with node maps/check.cjs before every draft and release. */
 'use strict';
 const http = require('http'), fs = require('fs'), path = require('path');
@@ -153,6 +155,37 @@ function measure(){
     // a wrapped line starts left of the first line's text (under a mark such as ①)
     if (words.length > 1) { const first = words.find(w => !/^[①-⑳※・★]$/.test(w.w)); const lefts = words.filter(w => w.top - words[0].top > 4).map(w => w.left).concat(tags.filter(r => r.top - words[0].top > 4).map(r => r.left));
       if (first && lefts.length && Math.min(...lefts) < first.left - 3 && !el.matches('.ln.cv, .sb, .sub')) res.push('a wrapped line starts left of the text in "' + el.textContent.trim().slice(0, 50) + '"'); }
+  });
+  // flowcharts in flow bands (Jonan 2026-11-20): lines in the chart's own frame; no line under a box, no lines
+  // crossing, each branch label centred on its own line and clear of boxes, other labels and other lines
+  world.querySelectorAll('.flow').forEach(fl => {
+    const fs = [];
+    fl.querySelectorAll('.om-flow-wires line').forEach(x => {
+      const a = +x.getAttribute('x1'), b = +x.getAttribute('y1'), c = +x.getAttribute('x2'), d = +x.getAttribute('y2');
+      if (Math.abs(b - d) < .5) fs.push({h:1, k:b, a:Math.min(a, c), b:Math.max(a, c)}); else fs.push({h:0, k:a, a:Math.min(b, d), b:Math.max(b, d)});
+    });
+    const fb = [...fl.querySelectorAll('.fnode')].map(R), labs = [...fl.querySelectorAll('.flab')];
+    fs.forEach(s => fb.forEach(bx => {
+      const hit = s.h ? (s.k > bx.t + T && s.k < bx.b - T && Math.min(s.b, bx.r) - Math.max(s.a, bx.l) > T)
+                      : (s.k > bx.l + T && s.k < bx.r - T && Math.min(s.b, bx.b) - Math.max(s.a, bx.t) > T);
+      if (hit) res.push('flowchart: a line runs under a box at ' + (s.h ? 'y ' : 'x ') + Math.round(s.k));
+    }));
+    fs.filter(s => s.h).forEach(hs => fs.filter(s => !s.h).forEach(vs => {
+      if (vs.k > hs.a + T && vs.k < hs.b - T && hs.k > vs.a + T && hs.k < vs.b - T) res.push('flowchart: lines cross at x ' + Math.round(vs.k) + ', y ' + Math.round(hs.k));
+    }));
+    const lr = labs.map(R);
+    labs.forEach((e, i) => {
+      const c = lr[i], cx = (c.l + c.r) / 2, cy = (c.t + c.b) / 2, name = e.textContent.trim().slice(0, 40);
+      const own = fs.filter(s => !s.h && Math.abs(s.k - cx) <= T && s.a < cy && cy < s.b);
+      if (!own.length) { res.push('flowchart: "' + name + '" is not on a line'); return; }
+      const o = own[0];
+      if (Math.abs(cy - (o.a + o.b) / 2) > T) res.push('flowchart: "' + name + '" is ' + Math.round(Math.abs(cy - (o.a + o.b) / 2)) + ' px off centre along its line');
+      if (fb.some(bx => Math.min(c.r, bx.r) - Math.max(c.l, bx.l) > 1 && Math.min(c.b, bx.b) - Math.max(c.t, bx.t) > 1)) res.push('flowchart: "' + name + '" overlaps a box');
+      lr.forEach((d, j) => { if (j > i && Math.min(c.r, d.r) - Math.max(c.l, d.l) > 1 && Math.min(c.b, d.b) - Math.max(c.t, d.t) > 1) res.push('flowchart: "' + name + '" overlaps another label'); });
+      fs.forEach(s => { if (s === o) return;
+        const hit = s.h ? (s.k > c.t && s.k < c.b && Math.min(s.b, c.r) - Math.max(s.a, c.l) > 1) : (s.k > c.l && s.k < c.r && Math.min(s.b, c.b) - Math.max(s.a, c.t) > 1);
+        if (hit) res.push('flowchart: a line runs under "' + name + '"'); });
+    });
   });
   return {n:chips.length, res, warn};
 }
