@@ -65,6 +65,9 @@
 #   upfront resection; treatment after the primary treatment (Jonan 2026-11-09)
 # * Plain clinical wording: no arrows, no metaphors such as "backbone"
 #   Full words in prose: "chemotherapy", "with or without"; plain sentences with a subject and verb (Jonan 2026-11-11)
+#   Numbered lines name the recommended action as a noun phrase, with purpose or timing as a to-infinitive:
+#   "MRI within 48 hours of surgery to document the extent of resection", "Radiotherapy to start 3 to 5 weeks after surgery".
+#   Sub-lines (・) and caveats (※) stay full sentences (Jonan 2026-11-19)
 #   Language rule (Jonan 2026-11-13, every map): simple clinical statements with the backing guidelines as tags,
 #     never "PAGA suggests", "ESMO uses" or "JGCA lists". One narrative: a point agreed by several guidelines is one
 #     statement carrying all their tags, never repeated per guideline. A ・ line explains a difference only where

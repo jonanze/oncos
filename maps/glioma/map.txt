@@ -1,0 +1,345 @@
+# oncOS board map: Adult Diffuse Glioma (one map for the Evidence sheet "Adult Diffuse Glioma")
+# Draft 7, 2026-11-19. Draft 5 moved vorasidenib into the regimens and option ② lines; draft 6 draws the WHO
+#   diagnosis band as a flowchart. Draft 7 makes surgery the first step, with lines to the three diagnoses. Draft 2 was rewritten block by block after the prose review (prose-review.md). Draft 3 merged
+#   the glioblastoma first boxes. Draft 4 removes the diffuse midline glioma branch (Jonan 2026-11-19) and splits the
+#   oligodendroglioma radiotherapy line by grade. Not approved.
+# Terms used throughout (draft2-changes.md): temozolomide chemoradiotherapy (radiotherapy with concurrent and
+#   maintenance temozolomide), short-course temozolomide chemoradiotherapy (40.05 Gy in 15 fractions), radiotherapy
+#   followed by temozolomide (maintenance only), maintenance temozolomide, MGMT promoter-methylated or -unmethylated at
+#   first use in a box and methylated or unmethylated tumours after it, observation, best supportive care, a clinical
+#   trial where available, under, up to, above, or N years or older for ages, ESCAT tiers hyphenated (I-A, II-B, III-A)
+#   Planning files: board-maps/glioma/ (plan.md, structure-plan.md, independent-review.md, prose-review.md,
+#   draft1-changes.md, draft2-changes.md)
+#   Clinical content: board-maps/glioma/notes-eano.md, notes-nccn.md, notes-asco.md and glioma-rows.json
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-19): one map for the whole sheet, WHO 2021 adult-type diffuse gliomas. The H3 K27-altered
+#   diffuse midline glioma branch of draft 3 was removed at Jonan's request (map-draft3.txt keeps it). The top-level branches are diagnoses, never stages, set in parallel with no line
+#   between them: glioblastoma IDH-wildtype (one first box for fit and for older or frail patients, Jonan 2026-11-20
+#   asked to fix its lines), astrocytoma IDH-mutant, and oligodendroglioma IDH-mutant and 1p/19q-codeleted. Lines run only in time order: newly diagnosed glioblastoma to maintenance to
+#   recurrence in one straight line, and each other diagnosis to its box at progression. Recurrent or progressive
+#   disease is drawn as these later boxes (Jonan card 2026-11-19 14:11 UTC; the five-branch variant of draft 0 is
+#   board-maps/glioma/map-draft0-five-branches.txt). The progression box of the two IDH-mutant diagnoses is shared and
+#   grey, reached by a line from each, and holds progression on observation or vorasidenib as well as progression after
+#   radiotherapy or chemotherapy. Three bands: WHO 2021 diagnosis (the steps of the UpToDate figure "Classification
+#   of diffuse gliomas in adults" Jonan sent on 2026-11-19, redrawn as a flowchart in our own wording, "band: ... | flow",
+#   Jonan's card 2026-11-19 22:36 UTC; the WHO 2021 entities it ends in are those EANO and NCCN define), molecular testing, every newly diagnosed diffuse glioma (resection, timing and trial referral) and
+#   the regimens. Vorasidenib (Jonan 2026-11-19): dose, monitoring and toxicity in the regimens band, and the INDIGO
+#   population and the licences under option ② of each IDH-mutant diagnosis, written out in both. Left out: circumscribed gliomas,
+#   ependymoma, IDH-wildtype astrocytoma without the molecular features of glioblastoma, paediatric practice, steroids
+#   and antiseizure drugs, imaging schedules, radiotherapy volumes, and treatment of IDH-mutant glioma with a KPS
+#   below 60
+# Guideline set (Jonan 2026-11-19 11:34 UTC) and tag forms, grade as printed, on the statement the guideline graded.
+#   Tag order on every line: EANO, NCCN, ASCO. Where clauses carry different tags, the EANO clause comes first
+#   〔EANO class, level〕 EANO guideline on diffuse gliomas of adulthood (Weller, Nat Rev Clin Oncol 2021;18:170-186,
+#     PMID 33293629), printed "C: II, L: B" (class of evidence I to IV, level of recommendation A to C). A bare 〔EANO〕
+#     marks the text, Box 1 or Table 2, a sub-line whose grade sits on the line above, and the abstract and text of the
+#     molecular testing guideline Update 1 (van den Bent, Neuro Oncol 2025;27:331-337, PMID 39387386). 〔EANO ESCAT
+#     tier〕 is the tier Update 1 prints for a drug target, written hyphenated (Update 1 prints both forms). The 2021 guideline follows WHO 2016 with cIMPACT-NOW and
+#     predates INDIGO, the CATNON 2021 and 2026 analyses and RTOG 1205. Its Figure 2 and
+#     reference list are unread (notes-eano.md)
+#   〔NCCN category〕 NCCN Central Nervous System Cancers 4.2026 (2 November 2026), algorithm pages GLIO-2 to GLIO-13.
+#     2A unless stated. The preference label of the systemic therapy tables (GLIO-A) is printed too. A bare 〔NCCN〕
+#     marks a footnote, a principles page (BRAIN-B, BRAIN-C, BRAIN-E) or the Discussion. The glioblastoma Discussion
+#     dates from 2022. It still calls regorafenib a preferred option, while the current tables carry no regorafenib,
+#     so no NCCN tag stands on the regorafenib line. The combination of lomustine with temozolomide was removed in
+#     version 1.2026. Category 1 for vorasidenib is printed in GLIO-A for residual or measurable disease. The Discussion
+#     alone cites the CATNON final analysis, and calls radiotherapy then temozolomide category 1 in grade 3 astrocytoma,
+#     while GLIO-5 and GLIO-A print 2A (the map prints the algorithm, review question 3)
+#   〔ASCO quality, strength〕 ASCO-SNO guideline 2022 (Mohile, J Clin Oncol 2022;40:403-426, PMID 34898238) with the
+#     rapid update of 2025 on vorasidenib (Blakeley, J Clin Oncol 2025;43:2129-2133, PMID 40300117), which reprints
+#     every "weak" grade as "conditional". 〔ASCO Strong〕 alone marks the recommendation for trial referral at recurrence,
+#     printed "Evidence quality: no evidence considered". A bare 〔ASCO〕 marks the text, a qualifying statement,
+#     Table 2 (doses) or the two "no recommendation" statements. It predates the CATNON final analysis
+# Licence notes (checked 2026-11-19). A licence sits on its own ・ line, tagged only where a guideline prints it:
+#   Vorasidenib: FDA 6 August 2024 as printed by ASCO. EU marketing authorisation 17 September 2025 (EMA EPAR for
+#     Voranigo, read 2026-11-19): predominantly non-enhancing grade 2 astrocytoma or oligodendroglioma with an IDH1 R132
+#     or IDH2 R172 mutation, from 12 years and 40 kg, surgery only, no immediate need for radiotherapy or chemotherapy.
+#     Singapore status unknown
+#   Bevacizumab: licensed for recurrent glioblastoma in the United States (NCCN, ASCO) and not in the European Union
+#     (EANO). Licensed in Japan for malignant glioma (PMDA package insert, revision of June 2026, read 2026-11-19),
+#     approved 17 June 2013 for newly diagnosed glioblastoma with radiotherapy and temozolomide and for recurrent
+#     disease (Roche announcement as reported by European Pharmaceutical Review). Japan counts as a licence
+#     (inclusion.txt). The first-line option stays a ※ line, as ASCO advises against it and no guideline recommends it
+#     beyond EANO's large symptomatic tumour (Jonan to confirm)
+#   Carmustine wafer: FDA licence for newly diagnosed high-grade glioma and recurrent glioblastoma (ASCO text names the
+#     first). Tumour-treating fields: FDA licence for newly diagnosed (2015) and recurrent glioblastoma (NCCN). Both
+#     stay ※ lines at recurrence or at resection, as NCCN alone grades them there (2B) and EANO and ASCO report no
+#     gain or make no statement
+#   Dabrafenib with trametinib: tumour-agnostic FDA licence for BRAF V600E solid tumours after earlier treatment.
+#     Larotrectinib and entrectinib: tumour-agnostic EU and FDA licences for NTRK fusions (EANO 2023), repotrectinib
+#     FDA. Pembrolizumab: tumour-agnostic FDA licences for MSI-H or mismatch repair-deficient and for TMB-high solid
+#     tumours
+# Option order where guidelines disagree (defaults, Jonan's call, questions in structure-plan.md section 7):
+#   1. Glioblastoma maintenance: temozolomide alone first (all three), then with tumour-treating fields on the same
+#      line (NCCN category 1 preferred, ASCO conditional, EANO no recommendation)
+#   2. Grade 2 IDH-mutant glioma with residual disease: vorasidenib first, then observation (NCCN order, ASCO ranks
+#      neither). After gross total resection: observation first, then vorasidenib (NCCN order)
+#   3. Grade 2 astrocytoma needing treatment: radiotherapy then PCV first (EANO, NCCN preferred), then radiotherapy
+#      followed by temozolomide and temozolomide chemoradiotherapy on the same line (ASCO grades the first two equally)
+#   4. Oligodendroglioma: radiotherapy then PCV first, radiotherapy followed by temozolomide and temozolomide
+#      chemoradiotherapy after it on the same line. PCV
+#      after radiotherapy
+#   5. Grade 3 astrocytoma: radiotherapy then temozolomide first, temozolomide chemoradiotherapy
+#      second on the same line (draft 0 had the second on a ・ line; one numbered line per population)
+#   6. Older or frail glioblastoma: short-course temozolomide chemoradiotherapy, then radiotherapy alone or temozolomide
+#      alone by MGMT status, then best supportive care (ASCO prints best supportive care first of the three)
+#   7. Recurrent glioblastoma: trial, then lomustine, temozolomide rechallenge and bevacizumab (NCCN prints
+#      bevacizumab first), then second surgery, re-irradiation and the matched drugs
+#   8. Options NCCN alone lists are ※ or ・ lines (rule ⑦): radiotherapy alone for unmethylated glioblastoma in fit
+#      patients (kept on the numbered line as a second option), carmustine wafer, tumour-treating fields at recurrence,
+#      erdafitinib, cobimetinib with vemurafenib (on the dabrafenib line, one population one line), an IDH inhibitor in grade 3 tumours and after radiotherapy and
+#      chemotherapy, ivosidenib, carboplatin and etoposide. Regorafenib is a ※ line on ASCO's text and REGOMA (Jonan's
+#      default). Numbered although NCCN alone grades them, as each holds an FDA licence: the TRK
+#      inhibitors and dabrafenib with trametinib
+#   9. Trial referral at diagnosis is one line in the band for every newly diagnosed diffuse glioma, as NCCN prints
+#      it first and preferred in every newly diagnosed box with good performance status
+# Doses in the Regimens band are those printed by ASCO Table 2, EANO and NCCN BRAIN-C. The vorasidenib dose is from
+#   the INDIGO row
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint or single-arm data, - primary endpoint not
+#   met or no benefit. NOA-08, Roa et al. and the IAEA trial are ~ (non-inferiority or equivalence not established),
+#   a question across maps (cervical review L9). AVAglio is ~ (co-primary progression-free survival met, overall
+#   survival not). EORTC 26951 is + on its long-term report (van den Bent, J Clin Oncol 2013, PMID 23071237): overall
+#   survival longer by intention to treat. RTOG 9402 is - in the 2006 report and the long-term report (Cairncross,
+#   J Clin Oncol 2013, PMID 23071247): overall survival not improved in all patients. Its gain in codeleted tumours
+#   comes from an unplanned subgroup analysis, which does not change the label (inclusion.txt, Result). Both rows
+#   carry the 2006 reports, and the 2013 reports go onto them as row updates with the intake (draft1-changes.md),
+#   as for the KEYNOTE-826 final analysis on the cervical map. CODEL is - (temozolomide alone gave shorter
+#   progression-free survival in a secondary comparison, 36 patients, closed early). EORTC 26101 and RTOG 1205 are -
+#   (overall survival)
+# Single-arm trials cited because a licence or recommendation rests on them and no randomised trial of the option
+#   exists in that setting (inclusion.txt ①, Jonan to confirm): the ROAR
+#   glioma cohorts and, from the Tumour-Agnostic Basket Trials sheet, NCI-MATCH subprotocol H, ALKA-372-001/STARTRK
+#   (the entrectinib analysis NCCN cites, with no primary brain tumour in its efficacy population on the reviewer's
+#   reading, review question 6) and RAGNAR
+# CATNON: the row carries the 2017 report and the final analysis of 2026 (PMID 41449147) as an update, so the chip
+#   needs no intake
+# Not yet on the sheet, as chips (intake.txt, each needs Jonan's go). From plan.md: IAEA trial (Roa 2015), CODEL,
+#   EORTC 22033-26033, NOA-04, RTOG 1205, ROAR glioma cohorts (Wen 2022). Added at the
+#   guideline read: EF-11, GEINO 14-01, RTOG 0525, TAVAREC. Row updates, no chip of their own: EORTC 26951 long-term
+#   (PMID 23071237) and RTOG 9402 long-term (PMID 23071247). Not cited: RTOG 9813 (NCCN cites it for prognosis only)
+
+map: Adult Diffuse Glioma
+source: EANO {url https://doi.org/10.1038/s41571-020-00447-z}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ASCO {url https://doi.org/10.1200/JCO.21.02036}
+branch: GBM | Glioblastoma, IDH-wildtype | blue
+branch: AST | Astrocytoma, IDH-mutant | teal
+branch: OLI | Oligodendroglioma, IDH-mutant and 1p/19q-codeleted | violet
+
+band: WHO 2021 diagnosis | flow
+  ? Diffuse astrocytic glioma or oligodendroglioma on histology: IDH mutation status
+    ‹IDH-mutant› ? Testing for 1p/19q codeletion, ATRX, TP53 and CDKN2A/B
+      ‹1p/19q codeletion› ? Oligodendroglioma: grade by histology and CDKN2A/B status
+        ‹Grade 2, CDKN2A/B not deleted› ■ Oligodendroglioma, IDH-mutant and 1p/19q-codeleted, grade 2 | OLI
+        ‹Grade 3, or homozygous CDKN2A/B deletion› ■ Oligodendroglioma, IDH-mutant and 1p/19q-codeleted, grade 3 | OLI
+      ‹ATRX loss, TP53 mutation› ? Astrocytoma, IDH-mutant: microvascular proliferation or necrosis
+        ‹No› ? Testing for CDKN2A/B
+          ‹CDKN2A/B not deleted› ? Grade by histology
+            ‹Grade 2› ■ Astrocytoma, IDH-mutant, grade 2 | AST
+            ‹Grade 3› ■ Astrocytoma, IDH-mutant, grade 3 | AST
+          ‹Homozygous CDKN2A/B deletion› ■ Astrocytoma, IDH-mutant, grade 4 | AST
+        ‹Yes› see: Astrocytoma, IDH-mutant, grade 4
+    ‹IDH-wildtype› ? Microvascular proliferation or necrosis
+      ‹Yes› see: Glioblastoma, IDH-wildtype, grade 4
+      ‹No› ? Testing for EGFR, TERT, chromosomes 7 and 10, H3 K27 and H3 G34
+        ‹EGFR amplification, TERT promoter mutation, or chromosome 7 gain with chromosome 10 loss› ■ Glioblastoma, IDH-wildtype, grade 4 | GBM
+        ‹H3 G34 mutation› ■ Diffuse hemispheric glioma, H3 G34-mutant, grade 4
+        ‹H3 K27 alteration› ■ Diffuse midline glioma, H3 K27-altered, grade 4
+  ※ Glioblastoma on microvascular proliferation or necrosis assumes negative H3 K27M testing in a midline tumour and negative H3 G34 testing in a younger patient
+  ※ An IDH-wildtype glioma with none of these alterations is a provisional astrocytoma, IDH-wildtype, not elsewhere classified, of uncertain behaviour
+  ※ An H3 K27-altered glioma outside the midline does not meet the criteria for diffuse midline glioma
+  ※ Diffuse hemispheric glioma, H3 G34-mutant: temozolomide chemoradiotherapy is a reasonable approach 〔EANO〕
+
+band: Molecular testing
+  ① Every diffuse glioma: immunohistochemistry for IDH1 R132H and for nuclear ATRX 〔EANO IV, B〕 〔NCCN〕
+    ・Multigene panel testing is the preferred approach to the pathological work-up 〔NCCN〕
+    ・Beyond IDH, BRAF V600E is the only target found by panel testing with a treatment of proven benefit 〔EANO〕
+  ② Negative IDH1 R132H staining in a grade 2 or 3 tumour, patient under 55 years: sequencing of IDH1 codon 132 and IDH2 codon 172 〔EANO IV, B〕 〔NCCN〕 〔ASCO〕
+    ・Sequencing extends to every grade 2 or 3 tumour 〔EANO〕, and to tumours with glioblastoma histology in patients under 55 years 〔EANO〕 〔NCCN〕
+  ③ IDH-mutant glioma with retained ATRX: 1p/19q codeletion testing 〔EANO II, B〕 〔NCCN〕
+  ④ IDH-mutant astrocytoma: testing for homozygous CDKN2A/B deletion 〔EANO IV, B〕 〔NCCN〕
+  ⑤ IDH-wildtype diffuse glioma without necrosis or microvascular proliferation: testing for TERT promoter mutation, EGFR amplification and gain of chromosome 7 with loss of chromosome 10 〔EANO IV, B〕 〔NCCN〕
+  ⑥ Glioblastoma, notably in older or frail patients: MGMT promoter methylation testing, which guides the use of temozolomide 〔EANO I, B〕 〔NCCN〕 〔ASCO〕
+  ⑦ IDH-wildtype diffuse glioma: BRAF V600E testing can be considered 〔EANO IV, C〕 〔NCCN〕
+  ⑧ Mismatch repair testing is considered in patients under 50 years, with unusual tumour features or with a suggestive personal or family history 〔EANO〕, and is recommended in newly diagnosed glioblastoma with a high tumour mutational burden (TMB-high) 〔NCCN〕
+  ※ Mismatch repair-deficient or TMB-high glioma: responses to immune checkpoint inhibitors are rare, and treatment within a trial or registry is preferred at diagnosis 〔EANO ESCAT III-A〕 and after earlier treatment 〔EANO ESCAT III-B〕
+    ・Pembrolizumab holds tumour-agnostic FDA licences for microsatellite instability-high (MSI-H) or mismatch repair-deficient and for TMB-high solid tumours
+
+band: Regimens
+  ① Temozolomide chemoradiotherapy, 6-week course: 60 Gy in 30 fractions with concurrent temozolomide 75 mg/m² daily, then maintenance temozolomide 150 to 200 mg/m² on days 1 to 5 every 28 days for six cycles 〔EANO〕 〔NCCN〕 〔ASCO〕
+  ② Short-course temozolomide chemoradiotherapy, 3-week course: 40.05 Gy in 15 fractions with concurrent temozolomide 75 mg/m² daily for 21 days, then maintenance temozolomide 150 to 200 mg/m² on days 1 to 5 every 28 days for up to 12 cycles 〔ASCO〕
+  ③ Temozolomide alone in older patients: 100 mg/m² on days 1 to 7 every 14 days until progression, or 200 mg/m² on days 1 to 5 every 28 days for up to six cycles 〔ASCO〕
+    ・The 5-day schedule continues until progression or for 12 months 〔EANO〕
+  ④ Tumour-treating fields: worn for more than 18 hours a day, from the start of maintenance temozolomide until second progression 〔ASCO〕
+  ⑤ Radiotherapy in IDH-mutant glioma: 50 to 54 Gy in grade 2 and 59.4 to 60 Gy in grade 3, in fractions of 1.8 to 2 Gy 〔EANO〕 〔NCCN〕 〔ASCO〕
+    ・A dose as low as 45 Gy may be appropriate in grade 2 〔NCCN〕
+  ⑥ PCV after radiotherapy: lomustine 110 mg/m² on day 1, procarbazine 60 mg/m² on days 8 to 21 and vincristine 1.4 mg/m² on days 8 and 29, every 8 weeks for six cycles 〔ASCO〕
+    ・Carmustine may replace lomustine 〔NCCN〕
+  ⑦ Radiotherapy followed by temozolomide in IDH-mutant glioma: maintenance temozolomide 150 to 200 mg/m² on days 1 to 5 every 28 days for 12 cycles 〔EANO〕 〔ASCO〕
+  ⑧ Re-irradiation of recurrent glioblastoma: 35 Gy in 10 fractions 〔NCCN〕
+  ⑨ Vorasidenib: 40 mg once daily, continuously
+    ・Liver function is tested every 2 weeks for 2 months and monthly thereafter 〔ASCO〕
+    ・Vorasidenib should not be offered during pregnancy or breastfeeding, or to patients of either sex seeking pregnancy 〔ASCO〕
+  ° Toxicity of note: raised transaminases with vorasidenib, mainly reversible and asymptomatic 〔ASCO〕
+
+course: Adult diffuse glioma | parallel
+  Newly diagnosed diffuse glioma
+    ① Maximal safe resection, or biopsy when resection is not safe 〔EANO IV, B〕 〔NCCN〕
+      ・In IDH1-mutant tumours, resection of the whole T2 or FLAIR abnormality, and beyond it when safe, can be considered 〔NCCN〕
+    ② MRI within 48 hours of surgery to document the extent of resection 〔EANO〕 〔NCCN〕
+    ③ Radiotherapy to start 3 to 5 weeks after surgery 〔EANO〕
+    ④ Eligible patients: a clinical trial where available 〔NCCN 2A, preferred〕
+    ※ A carmustine wafer placed at resection of a grade 3 or 4 glioma is an option 〔NCCN 2B〕
+      ・In the randomised trial in newly diagnosed grade 3 or 4 glioma, the survival difference with the wafer was not significant once grade 3 tumours were excluded 〔EANO〕
+      ・The wafer holds an FDA licence for newly diagnosed grade 3 or 4 glioma 〔ASCO〕 and for recurrent glioblastoma
+    next: Glioblastoma, IDH-wildtype: newly diagnosed
+    next: Astrocytoma, IDH-mutant
+    next: Oligodendroglioma, IDH-mutant and 1p/19q-codeleted
+  Glioblastoma, IDH-wildtype: newly diagnosed
+    branch: GBM
+    ① Up to 70 years and fit, after resection or biopsy: temozolomide chemoradiotherapy 〔EANO I, A〕 〔NCCN 1〕 〔ASCO Moderate, Strong〕
+      ・Temozolomide chemoradiotherapy is standard up to 70 years with a Karnofsky performance status (KPS) of 70 or more 〔EANO〕 〔ASCO〕, while a KPS of 60 or more suffices 〔NCCN〕
+    + EORTC 22981/26981 {pmid 15758009}
+    ② Up to 70 years and fit, MGMT promoter-unmethylated tumour: temozolomide chemoradiotherapy 〔NCCN 1〕 〔ASCO Moderate, Strong〕, or radiotherapy alone 〔NCCN 2A〕
+      ・The activity of temozolomide is probably marginal in unmethylated tumours 〔EANO II, B〕
+    ③ Older or frail, fit for temozolomide chemoradiotherapy but not for the 6-week course: short-course temozolomide chemoradiotherapy 〔EANO〕 〔NCCN 1〕 〔ASCO Moderate, Conditional〕
+      ・The regimen is limited to MGMT promoter-methylated tumours 〔EANO〕, while unmethylated tumours remain eligible 〔NCCN 2A〕 〔ASCO〕
+      ・Hypofractionation is appropriate above 65 to 70 years or with a KPS below 70 〔EANO〕, while no absolute cut-off of age or performance status is endorsed 〔ASCO〕
+      ・Above 70 years with a KPS of 60 or more, the 6-week course with tumour-treating fields is an option 〔NCCN 1〕, as is the 6-week course alone 〔NCCN 2A〕
+    + Perry et al. {pmid 28296618}
+    ④ Older or frail, unsuited to temozolomide chemoradiotherapy, unmethylated tumour: hypofractionated radiotherapy alone, such as 40 Gy in 15 fractions 〔EANO II, B〕 〔NCCN 2A〕 〔ASCO Low, Conditional〕
+      ・Unknown MGMT status is treated as unmethylated 〔EANO〕, while an indeterminate result is treated as methylated 〔NCCN〕
+      ・Shorter schedules are 34 Gy in 10 fractions, and 25 Gy in 5 fractions for a smaller tumour in a patient who would not tolerate a longer course 〔NCCN〕
+    ~ Roa et al. (2004) {pmid 15051755}
+    ~ IAEA trial (Roa 2015) {pmid 26392096}
+    ⑤ Older or frail, unsuited to temozolomide chemoradiotherapy, methylated tumour: temozolomide alone 〔EANO II, B〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Low, Conditional〕
+    ~ NOA-08 {pmid 22578793}
+    + Nordic {pmid 22877848}
+    ⑥ Poor performance status with a large or multifocal tumour: best supportive care 〔EANO〕 〔NCCN 2A〕 〔ASCO Low, Conditional〕
+      ・In patients 70 years or older with a KPS of 70 or more, radiotherapy prolonged survival over best supportive care 〔EANO〕 〔ASCO〕
+    + Keime-Guibert et al. {pmid 17429084}
+    ※ Lomustine added to temozolomide chemoradiotherapy improved overall survival in MGMT promoter-methylated glioblastoma in a small trial 〔EANO〕 〔ASCO〕
+      + CeTeG/NOA-09 {pmid 30782343}
+    ※ Bevacizumab added to temozolomide chemoradiotherapy is not recommended 〔ASCO Moderate, Conditional〕, as it did not improve overall survival in two trials 〔EANO〕 〔ASCO〕
+      ・Bevacizumab could be useful in a patient with a large, highly symptomatic tumour who might not otherwise tolerate radiotherapy 〔EANO〕
+      ・Bevacizumab is licensed in Japan for malignant glioma, including newly diagnosed glioblastoma with temozolomide chemoradiotherapy
+      ~ AVAglio {pmid 24552318}
+      - RTOG 0825 {pmid 24552317}
+    ° Toxicity of note: myelosuppression with temozolomide, notably thrombocytopenia 〔EANO〕
+    ° Toxicity of note: neurocognitive adverse events after 25 Gy in 5 fractions in patients with longer survival 〔EANO〕
+    next: Glioblastoma, IDH-wildtype: maintenance
+  Astrocytoma, IDH-mutant
+    branch: AST
+    ① Grade 2, gross total resection without measurable disease: observation 〔EANO〕 〔NCCN 2A〕 〔ASCO Low, Conditional〕, or vorasidenib 〔NCCN 2A, preferred〕
+      ・Observation is reserved for patients under about 40 years 〔EANO〕 〔ASCO〕 with no symptoms other than seizures 〔EANO〕
+      ・Grade 2 astrocytoma progresses faster than grade 2 oligodendroglioma, so vorasidenib after gross total resection may also be reasonable 〔NCCN〕
+      ・The uncertain benefit of starting vorasidenib at once is weighed against observation until measurable tumour appears 〔ASCO〕
+    ※ Early radiotherapy prolonged progression-free survival, but not overall survival, compared with radiotherapy at progression 〔EANO〕 〔NCCN〕 〔ASCO〕
+      ~ EORTC 22845 {pmid 16168780}
+    ② Grade 2, residual disease or recurrence after surgery alone, radiotherapy and chemotherapy deferred: vorasidenib 〔EANO ESCAT I-A〕 〔NCCN 1, preferred〕 〔ASCO High, Conditional〕, or observation 〔NCCN 2A〕 〔ASCO Low, Conditional〕
+      ・Ivosidenib is an alternative in IDH1-mutant tumours when vorasidenib is not tolerated 〔NCCN 2A, useful in certain circumstances〕
+      ・Vorasidenib is licensed by the FDA from 12 years of age after biopsy or any resection 〔ASCO〕, and in the EU from 40 kg for a predominantly non-enhancing tumour treated by surgery alone, when radiotherapy or chemotherapy is not needed at once
+    ~ INDIGO {pmid 37272516}
+    ※ Data on vorasidenib are inadequate with measurable or nodular enhancement, uncontrolled seizures or brainstem involvement 〔ASCO〕
+      ・INDIGO enrolled patients from 12 years of age 1 to 5 years after surgery alone, with measurable non-enhancing disease 〔NCCN〕 〔ASCO〕
+      ・The window of 1 to 5 years is arbitrary, and vorasidenib can be discussed at any time after recovery from surgery 〔ASCO〕
+    ③ Grade 2 requiring radiotherapy and chemotherapy: radiotherapy followed by PCV 〔EANO II, B〕 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕, radiotherapy followed by temozolomide 〔NCCN 2A, other recommended〕 〔ASCO Moderate, Strong〕, or temozolomide chemoradiotherapy 〔EANO〕 〔NCCN 2A, other recommended〕
+      ・Radiotherapy is considered after incomplete resection or in patients above 40 years 〔EANO〕
+    + RTOG 9802 {pmid 27050206}
+    ④ Grade 3: radiotherapy followed by 12 cycles of temozolomide 〔EANO II, B〕 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕, or temozolomide chemoradiotherapy 〔NCCN 2A, preferred〕
+      ・Concurrent temozolomide has no established survival benefit 〔EANO〕 〔NCCN〕 〔ASCO〕
+      ・Observation after resection is an alternative 〔EANO〕, while observation is inappropriate for most patients 〔ASCO〕
+      ・An IDH inhibitor is an option when only non-enhancing tumour remains after resection 〔NCCN 2B, useful in certain circumstances〕
+    + CATNON {pmid 28801186}
+    ⑤ Grade 4: temozolomide chemoradiotherapy as for glioblastoma, or radiotherapy followed by temozolomide as for grade 3 〔EANO〕 〔NCCN 2A, preferred〕 〔ASCO Very low, Conditional〕
+      ・Tumour-treating fields can be added to maintenance temozolomide 〔NCCN 2A, preferred〕
+    ※ In grade 2, chemotherapy alone remains investigational and is an option only when radiotherapy is not feasible, as with a large tumour 〔EANO〕
+      - EORTC 22033-26033 {pmid 27686946}
+    next: IDH-mutant glioma: recurrence or progression | Progression
+  Oligodendroglioma, IDH-mutant and 1p/19q-codeleted
+    branch: OLI
+    ① Grade 2, gross total resection without measurable disease: observation 〔EANO〕 〔NCCN 2A〕 〔ASCO Low, Conditional〕, or vorasidenib 〔NCCN 2A, preferred〕
+      ・The uncertain benefit of starting vorasidenib at once is weighed against observation until measurable tumour appears 〔ASCO〕
+    ② Grade 2, residual disease or recurrence after surgery alone, radiotherapy and chemotherapy deferred: vorasidenib 〔EANO ESCAT I-A〕 〔NCCN 1, preferred〕 〔ASCO High, Conditional〕, or observation 〔EANO〕 〔NCCN 2A〕 〔ASCO Low, Conditional〕
+      ・Observation after an incomplete resection is limited to patients under 40 years with no symptoms other than seizures 〔EANO〕
+      ・Ivosidenib is an alternative in IDH1-mutant tumours when vorasidenib is not tolerated 〔NCCN 2A, useful in certain circumstances〕
+      ・Vorasidenib is licensed by the FDA from 12 years of age after biopsy or any resection 〔ASCO〕, and in the EU from 40 kg for a predominantly non-enhancing tumour treated by surgery alone, when radiotherapy or chemotherapy is not needed at once
+    ~ INDIGO {pmid 37272516}
+    ※ Data on vorasidenib are inadequate with measurable or nodular enhancement, uncontrolled seizures or brainstem involvement 〔ASCO〕
+      ・INDIGO enrolled patients from 12 years of age 1 to 5 years after surgery alone, with measurable non-enhancing disease 〔NCCN〕 〔ASCO〕
+      ・The window of 1 to 5 years is arbitrary, and vorasidenib can be discussed at any time after recovery from surgery 〔ASCO〕
+    ③ Grade 2 requiring radiotherapy and chemotherapy: radiotherapy followed by PCV 〔EANO III, B〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕, radiotherapy followed by temozolomide 〔NCCN 2A, other recommended〕 〔ASCO Low, Conditional〕, or temozolomide chemoradiotherapy 〔NCCN 2A, other recommended〕
+    + RTOG 9802 {pmid 27050206}
+    ④ Grade 3: radiotherapy followed by PCV 〔EANO II, B〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕, radiotherapy followed by temozolomide 〔NCCN 2A, other recommended〕 〔ASCO Low, Conditional〕, or temozolomide chemoradiotherapy 〔NCCN 2A, other recommended〕
+      ・PCV before radiotherapy was tolerated less well 〔NCCN〕
+      ・Observation after gross total resection can be considered in patients under 40 years without homozygous CDKN2A/B deletion or neurological deficit 〔EANO〕
+      ・An IDH inhibitor is an option 〔NCCN 2B, useful in certain circumstances〕
+    + EORTC 26951 {pmid 16782911}
+    - RTOG 9402 {pmid 16782910}
+    ※ A survival gain with temozolomide similar to that with PCV is unproven 〔EANO〕 〔NCCN〕, and temozolomide replaces PCV only when toxicity is a concern 〔ASCO〕
+    ※ Chemotherapy alone was not superior to radiotherapy alone in any molecular subgroup of grade 3 glioma, and remains investigational 〔EANO〕
+      - NOA-04 {pmid 27370396}
+      ・In grade 3 oligodendroglioma, temozolomide alone gave shorter progression-free survival than radiotherapy-based treatment in a small trial closed early
+        - CODEL {pmid 32678879}
+    next: IDH-mutant glioma: recurrence or progression | Progression
+  Glioblastoma, IDH-wildtype: maintenance
+    branch: GBM pale
+    ① After radiotherapy with concurrent temozolomide, without progression: six cycles of maintenance temozolomide 〔EANO I, A〕 〔NCCN 1〕 〔ASCO Moderate, Strong〕, alone or with tumour-treating fields 〔NCCN 1, preferred〕 〔ASCO Moderate, Conditional〕
+      ・Tumour-treating fields are limited to supratentorial tumours 〔NCCN〕 〔ASCO〕
+      ・Tumour-treating fields remain controversial and are not widely available in Europe 〔EANO〕
+    + EF-14 {pmid 29260225}
+    ※ Maintenance temozolomide beyond six cycles, or on a dose-dense schedule, gave no survival benefit 〔EANO〕 〔NCCN〕 〔ASCO〕
+      - GEINO 14-01 {pmid 32328662}
+      - RTOG 0525 {pmid 24101040}
+    ※ Pseudoprogression is part of the differential diagnosis in the first months after radiotherapy with concurrent temozolomide 〔EANO IV, B〕 〔NCCN〕
+      ・In the first 2 months of maintenance temozolomide, progression requires new enhancement outside the radiotherapy field or histological proof 〔ASCO〕
+    next: Glioblastoma, IDH-wildtype: recurrence or progression | Progression
+  Glioblastoma, IDH-wildtype: recurrence or progression
+    branch: GBM pale
+    ① Any recurrence or progression: a clinical trial where available 〔EANO II, B〕 〔NCCN 2A, preferred〕 〔ASCO Strong〕
+    ② Fit for further treatment: lomustine or another nitrosourea, temozolomide rechallenge or bevacizumab 〔EANO II, B〕 〔NCCN 2A, preferred〕
+      ・An overall survival benefit is unproven for any treatment of recurrent glioblastoma 〔EANO〕 〔ASCO〕
+      ・Temozolomide rechallenge is reserved for MGMT promoter-methylated tumours 〔EANO〕 and for recurrence after a long interval since earlier temozolomide 〔NCCN〕 〔ASCO〕
+      ・The main value of bevacizumab is transient symptom control with less need for steroids 〔EANO〕 〔ASCO〕
+      ・Bevacizumab is licensed for recurrent glioblastoma in the United States 〔NCCN〕 〔ASCO〕 and in Japan, and not in the European Union 〔EANO〕
+    - EORTC 26101 {pmid 29141164}
+    ③ Symptomatic, circumscribed recurrence or progression at least 6 months after the first operation: second surgery 〔EANO II, B〕 〔NCCN 2A〕, with a benefit that may be limited to gross total resection of the enhancing tumour 〔EANO〕
+    ④ Focal recurrence or progression at least 6 months after radiotherapy: re-irradiation 〔EANO II, B〕 〔NCCN 2B〕
+      ・Re-irradiation added to bevacizumab prolonged progression-free survival but not overall survival 〔EANO〕 〔NCCN〕
+    - RTOG 1205 {pmid 36260832}
+    ⑤ BRAF V600E mutation: dabrafenib with trametinib, or cobimetinib with vemurafenib 〔NCCN 2A, useful in certain circumstances〕
+      ・Dabrafenib with trametinib holds a tumour-agnostic FDA licence for BRAF V600E solid tumours after earlier treatment
+    ~ ROAR glioma cohorts {pmid 34838156}
+    ~ NCI-MATCH subprotocol H {pmid 41533998}
+    ⑥ NTRK fusion: TRK inhibition with larotrectinib, entrectinib or repotrectinib 〔NCCN 2B, useful in certain circumstances〕
+      ・Evidence of clinical benefit in adults with glioma is limited 〔EANO〕
+      ・Larotrectinib and entrectinib hold tumour-agnostic EU and FDA licences, and repotrectinib an FDA licence
+    ~ ALKA-372-001/STARTRK {pmid 31838007}
+    ⑦ Poor performance status: best supportive care 〔NCCN 2A〕
+    ※ Regorafenib improved overall survival over lomustine in a randomised phase II trial 〔ASCO〕
+      ・Survival in the lomustine arm was shorter than expected, and larger trials are required 〔ASCO〕
+      + REGOMA {pmid 30522967}
+    ※ Tumour-treating fields are an option 〔NCCN 2B〕
+      ・Tumour-treating fields were not superior to chemotherapy of the physician's choice 〔EANO〕 〔ASCO〕
+      ・Tumour-treating fields hold an FDA licence for recurrent glioblastoma 〔NCCN〕
+      - EF-11 {pmid 22608262}
+    ※ Continuation of any treatment beyond confirmed progression on it, bevacizumab included, is advised against 〔EANO〕
+      ・After progression on bevacizumab, chemotherapy added to continued bevacizumab is an option 〔NCCN 2A, other recommended〕
+    ※ Irinotecan and platinum compounds are not active against glioma and should not be used 〔EANO〕
+      ・Carboplatin 〔NCCN 3〕 and oral etoposide 〔NCCN 2B〕 are options after progression on or intolerance of the other systemic options
+    ※ FGFR alteration: erdafitinib is an option 〔NCCN 2B, useful in certain circumstances〕
+      ~ RAGNAR {pmid 37541273}
+  IDH-mutant glioma: recurrence or progression
+    ① Resectable progression: second surgery 〔EANO〕 〔NCCN 2A〕
+    ② No earlier radiotherapy, including progression on observation or vorasidenib: radiotherapy followed by PCV 〔EANO〕 〔NCCN 2A, preferred〕, or radiotherapy with or followed by temozolomide 〔NCCN 2A, other recommended〕
+      ・In oligodendroglioma, radiotherapy followed by PCV is the preferred option 〔NCCN 1, preferred〕
+    ③ After radiotherapy, no earlier temozolomide: temozolomide 〔EANO II, B〕 〔NCCN 2A, preferred〕, or lomustine or another nitrosourea, or PCV 〔EANO〕 〔NCCN 2A, preferred〕
+      ・Temozolomide is often chosen over PCV for its safety and ease of use 〔EANO〕
+    ④ After radiotherapy and temozolomide: lomustine or another nitrosourea, or PCV 〔EANO〕 〔NCCN 2A, preferred〕, or temozolomide rechallenge 〔EANO〕
+    ⑤ Small or geometrically favourable progression: re-irradiation, about 12 months or more after the first course 〔EANO〕 〔NCCN〕
+    ※ Vorasidenib after radiotherapy and chemotherapy is an option in grade 2 tumours and in grade 3 oligodendroglioma 〔NCCN 2A, preferred〕, and in grade 3 or 4 astrocytoma 〔NCCN 2B, preferred〕
+      ・Randomised data are lacking after radiotherapy or chemotherapy 〔ASCO〕
+    ※ Bevacizumab is a preferred option in grade 3 oligodendroglioma and in grade 3 or 4 astrocytoma 〔NCCN 2A, preferred〕
+      ・Added to temozolomide, bevacizumab prolonged neither progression-free nor overall survival in recurrent astrocytoma 〔EANO〕
+        - TAVAREC {pmid 30115593}
+      ・In oligodendroglioma, bevacizumab is limited to symptom control when radiotherapy and alkylating drugs are not options 〔EANO〕

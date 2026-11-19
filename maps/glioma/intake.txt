@@ -1,0 +1,11 @@
+# Trials on the Adult Diffuse Glioma map with no Evidence row yet (name, PMID, where on the map)
+IAEA trial (Roa 2015)	PMID 26392096	Glioblastoma, IDH-wildtype: newly diagnosed
+EORTC 22033-26033	PMID 27686946	Astrocytoma, IDH-mutant
+NOA-04	PMID 27370396	Oligodendroglioma, IDH-mutant and 1p/19q-codeleted
+CODEL	PMID 32678879	Oligodendroglioma, IDH-mutant and 1p/19q-codeleted
+GEINO 14-01	PMID 32328662	Glioblastoma, IDH-wildtype: maintenance
+RTOG 0525	PMID 24101040	Glioblastoma, IDH-wildtype: maintenance
+RTOG 1205	PMID 36260832	Glioblastoma, IDH-wildtype: recurrence or progression
+ROAR glioma cohorts	PMID 34838156	Glioblastoma, IDH-wildtype: recurrence or progression
+EF-11	PMID 22608262	Glioblastoma, IDH-wildtype: recurrence or progression
+TAVAREC	PMID 30115593	IDH-mutant glioma: recurrence or progression

@@ -1,0 +1,5 @@
+# Adult diffuse glioma trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
+# Trial | identifier | screened | class and result | reason
+CheckMate 143 | PMID 32437507 | 2026-11-19 | class C, negative | Nivolumab against bevacizumab in recurrent glioblastoma, overall survival not improved. Nivolumab has no licence or recommendation in glioma
+CheckMate 498 | PMID 35419607 | 2026-11-19 | class C, negative | Nivolumab with radiotherapy against temozolomide with radiotherapy in newly diagnosed unmethylated glioblastoma, overall survival not improved. No licence or recommendation
+ACT IV | PMID 28844499 | 2026-11-19 | class C, negative | Rindopepimut with temozolomide in newly diagnosed EGFRvIII-positive glioblastoma, overall survival not improved. No licence or recommendation

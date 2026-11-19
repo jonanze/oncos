@@ -16,6 +16,14 @@
   // 〔ESGO II, A〕 at the end of a statement: it rests on the guideline declared by "source: ESGO [t-...]".
   // A bare 〔ESGO〕 names the guideline on a sub-line where its grade sits on the line above (Jonan 2026-11-13)
   var TAG = /〔([^\s〕]+)(?:\s+([^〕]+))?〕/g;
+  // "band: Title | flow" draws its flow lines as a flowchart, top down (Jonan 2026-11-20, WHO diagnosis of glioma):
+  //   ? Question or step        a box; the lines indented under it are its branches, left to right
+  //   ‹Branch› ? Question        a branch: the label on the line into the box
+  //   ‹Branch› ■ Diagnosis | KEY a final box, filled with the hue of branch: KEY when one is named
+  //   ‹Branch› see: Diagnosis    a second line into a final box drawn elsewhere in the same chart
+  // Other lines of the band (※, ・) sit under the chart as usual
+  var FLOW = /^(?:‹([^›]+)›\s*)?(\?|■|see:)\s*(.+)$/;
+  function bare(t){ return String(t).replace(TAG, '').replace(/\s+/g, ' ').trim(); }
 
   function slug(name){
     return 't-' + String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -71,7 +79,10 @@
           sec = null; return;
         }
         if (h[1] === 'off') { sec = out.off; return; }
-        if (h[1] === 'band') { sec = {title:h[2], lines:[]}; out.bands.push(sec); return; }
+        if (h[1] === 'band') {
+          var fl = /\s*\|\s*flow\s*$/.test(h[2]);
+          sec = {title:h[2].replace(/\s*\|\s*flow\s*$/, ''), lines:[], flow:fl, at:at}; out.bands.push(sec); return;
+        }
         if (h[1] === 'panel') {
           var j = h[2].split(/\s+>\s+/);
           sec = {title:j[0], join:j[1] || null, lines:[]}; out.panels.push(sec); return;
@@ -96,6 +107,13 @@
         // a panel's "next: Panel | label" draws a line from it to another panel
         var pn = sec.join !== undefined && /^next:\s*(.+?)\s*(?:\|\s*(.+))?$/.exec(text);
         if (pn) { (sec.next = sec.next || []).push({to:pn[1], label:pn[2] || '', at:at}); return; }
+        var fm = sec.flow && FLOW.exec(text);
+        if (fm) {
+          var fk = null, ft = fm[3], km = fm[2] === '■' && /^(.*?)\s*\|\s*([A-Za-z0-9_-]+)$/.exec(ft);
+          if (km) { ft = km[1]; fk = km[2]; }
+          sec.lines.push({kind:'flow', level:ind / 2 - 1, edge:fm[1] ? fm[1].trim() : '', mark:fm[2] === '?' ? 'q' : fm[2] === '■' ? 'dx' : 'ref', text:ft, key:fk, at:at});
+          return;
+        }
         sec.lines.push(line(text, ind / 2 - 1, at));
         return;
       }
@@ -165,6 +183,26 @@
       b.n = b.hue; bkeys[b.key] = b.hue;
     });
     if (out.branches.length > HUES.length) out.errors.push(out.branches[HUES.length].at + ': at most ' + HUES.length + ' branch: colours');
+    out.bands.forEach(function(b){
+      if (!b.flow) return;
+      var fl = b.lines.filter(function(l){ return l.kind === 'flow'; }), dx = {}, prev = null;
+      if (!fl.length) { out.errors.push(b.at + ': a flow band has no ? or ■ lines'); return; }
+      fl.forEach(function(l, i){
+        if (l.mark === 'dx') { var k = bare(l.text); if (dx[k]) out.errors.push(l.at + ': final box "' + k + '" is drawn twice'); dx[k] = l; }
+        if (l.key) { if (!bkeys[l.key]) out.errors.push(l.at + ': branch: no "' + l.key + '" declared'); else l.br = bkeys[l.key]; }
+        if (i === 0) { if (l.level !== 0 || l.edge || l.mark !== 'q') out.errors.push(l.at + ': a flowchart opens with one "? " box at the first indent'); }
+        else {
+          if (l.level === 0) out.errors.push(l.at + ': a flowchart has one first box');
+          if (!l.edge) out.errors.push(l.at + ': a branch needs its label, as ‹Label›');
+          if (l.level > prev.level + 1) out.errors.push(l.at + ': indent by one step under the box above');
+          if (l.level > prev.level && prev.mark !== 'q') out.errors.push(l.at + ': only a "? " box has branches');
+        }
+        var nx = fl[i + 1];
+        if (l.mark === 'q' && !(nx && nx.level > l.level)) out.errors.push(l.at + ': a "? " box needs branches under it');
+        prev = l;
+      });
+      fl.forEach(function(l){ if (l.mark === 'ref' && !dx[bare(l.text)]) out.errors.push(l.at + ': see: no final box "' + bare(l.text) + '"'); });
+    });
     (function inherit(n, k, pale){
       if (!n) return;
       if (n.branch && !bkeys[n.branch]) out.errors.push(n.branchAt + ': branch: no "' + n.branch + '" declared');
@@ -212,7 +250,7 @@
   function tags(model){
     var all = [];
     function scan(text, at){ String(text || '').replace(TAG, function(m, src, grade){ all.push({source:src, grade:grade, at:at}); return m; }); }
-    function lines(ls){ ls.forEach(function(l){ scan(l.text || l.fig, l.at); (l.cells || []).forEach(function(c){ scan(c, l.at); }); }); }
+    function lines(ls){ ls.forEach(function(l){ scan(l.text || l.fig, l.at); scan(l.edge, l.at); (l.cells || []).forEach(function(c){ scan(c, l.at); }); }); }
     model.bands.forEach(function(b){ lines(b.lines); });
     walk(model.tree, function(n){ scan(n.label, n.at); lines(n.lines); });
     model.panels.forEach(function(p){ lines(p.lines); });
@@ -298,5 +336,5 @@
     });
     return miss;
   }
-  return {parse:parse, walk:walk, trials:trials, tags:tags, TAG:TAG, slug:slug, live:live, figure:figure, figures:figures, link:link, pmids:pmids};
+  return {FLOW:FLOW, bare:bare, parse:parse, walk:walk, trials:trials, tags:tags, TAG:TAG, slug:slug, live:live, figure:figure, figures:figures, link:link, pmids:pmids};
 });

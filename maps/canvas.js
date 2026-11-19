@@ -170,6 +170,88 @@
            ' Q'+(x+d)+' '+m+' '+(x+d)+' '+(m+k)+' L'+(x+d)+' '+(y2-k)+' Q'+(x+d)+' '+y2+' '+x+' '+y2;
   }
 
+  /* a flowchart, top down: a box per step, its branches fanning out below it from one level line, each branch
+     labelled on its own line, the final boxes of one step level with the deepest final box under that step, and a
+     see: branch running straight down into the side of its final box nearest it. Square lines, no arrowheads
+     (Jonan 2026-11-11). Returns the chart's size. */
+  function drawFlow(fl, fls){
+    var NW = 244, HG = 28, BUS = 18, LG = 10, IN = 12, O = window.oncosOutline;
+    var root = null, stack = [], all = [], dx = {};
+    while (fl.lastChild && fl.lastChild !== fl.firstChild) fl.removeChild(fl.lastChild);
+    fls.forEach(function(l){
+      var n = {l:l, kids:[], parent:null};
+      while (stack.length && stack[stack.length - 1].l.level >= l.level) stack.pop();
+      n.parent = stack.length ? stack[stack.length - 1] : null;
+      if (n.parent) n.parent.kids.push(n); else if (!root) root = n;
+      stack.push(n); all.push(n);
+      if (l.mark !== 'ref') {
+        n.el = document.createElement('div');
+        n.el.className = 'fnode ' + (l.mark === 'dx' ? 'dx' + (l.br ? ' br' + l.br : '') : 'q');
+        n.el.innerHTML = keep(l.text); n.el.style.width = NW + 'px';
+        fl.appendChild(n.el);
+        if (l.mark === 'dx') dx[O.bare(l.text)] = n;
+      }
+      if (l.edge) {
+        n.lab = document.createElement('div'); n.lab.className = 'flab';
+        n.lab.innerHTML = keep(l.edge); n.lab.style.maxWidth = (NW - 2 * IN - 16) + 'px';
+        fl.appendChild(n.lab);
+      }
+    });
+    if (!root) return {w:0, h:0};
+    all.forEach(function(n){ if (n.l.mark === 'ref') n.target = dx[O.bare(n.l.text)] || null; });
+    function real(n){ return n.kids.filter(function(k){ return k.l.mark !== 'ref'; }); }
+    function holds(n, t){ return n === t || real(n).some(function(k){ return holds(k, t); }); }
+    // levels: a final box sits level with the deepest final box under its step
+    (function dep(n, d){ n.d = d; real(n).forEach(function(k){ dep(k, d + 1); }); })(root, 0);
+    function deepest(n){ var r = real(n); return r.length ? Math.max.apply(null, r.map(deepest)) : n.d; }
+    var push = all.filter(function(n){ return n.l.mark === 'dx' && n.parent; }).map(function(n){ return [n, deepest(n.parent)]; });
+    push.forEach(function(p){ p[0].d = p[1]; });
+    // across: final boxes left to right in order, each step centred over the lines into its branches
+    var x0 = 0;
+    (function place(n){ var r = real(n); if (!r.length) { n.cx = x0 + NW / 2; x0 += NW + HG; return; } r.forEach(place); })(root);
+    function entry(p, k){
+      if (k.l.mark !== 'ref') return k.cx;
+      var t = k.target; if (!t) return p.cx;
+      var i = p.kids.indexOf(k), j = -1;
+      p.kids.forEach(function(s, m){ if (s.l.mark !== 'ref' && holds(s, t)) j = m; });
+      return i < j ? t.cx - NW / 2 + IN : t.cx + NW / 2 - IN;
+    }
+    (function centre(n){
+      var r = real(n); if (!r.length) return;
+      r.forEach(centre);
+      var xs = n.kids.map(function(k){ return entry(n, k); });
+      n.cx = (Math.min.apply(null, xs) + Math.max.apply(null, xs)) / 2;
+    })(root);
+    var boxes = all.filter(function(n){ return n.el; }), maxD = 0;
+    boxes.forEach(function(n){ if (n.d > maxD) maxD = n.d; });
+    var rowH = [], zone = [], y = [0];
+    for (var d = 0; d <= maxD; d++) {
+      rowH[d] = 0; zone[d] = 0;
+      boxes.forEach(function(n){ if (n.d === d) rowH[d] = Math.max(rowH[d], n.el.offsetHeight); });
+      all.forEach(function(n){ if (n.lab && n.parent && n.parent.d === d) zone[d] = Math.max(zone[d], n.lab.offsetHeight); });
+      if (d) y[d] = y[d - 1] + rowH[d - 1] + BUS + zone[d - 1] + 2 * LG;
+    }
+    var H = y[maxD] + rowH[maxD], W = x0 - HG, svg = '';
+    function ln(a, b, c, e){ return '<line x1="' + a + '" y1="' + b + '" x2="' + c + '" y2="' + e + '"/>'; }
+    boxes.forEach(function(n){ n.el.style.left = (n.cx - NW / 2) + 'px'; n.el.style.top = y[n.d] + 'px'; });
+    all.forEach(function(p){
+      if (!p.el || !p.kids.length) return;
+      var bus = y[p.d] + rowH[p.d] + BUS, xs = p.kids.map(function(k){ return entry(p, k); });
+      var lo = Math.min.apply(null, xs.concat(p.cx)), hi = Math.max.apply(null, xs.concat(p.cx));
+      svg += ln(p.cx, y[p.d] + p.el.offsetHeight, p.cx, bus);
+      if (hi - lo > 0.5) svg += ln(lo, bus, hi, bus);
+      p.kids.forEach(function(k, i){
+        var t = k.l.mark === 'ref' ? k.target : k; if (!t) return;
+        var top = y[t.d], x = xs[i];
+        svg += ln(x, bus, x, top);
+        if (k.lab) { k.lab.style.left = (x - k.lab.offsetWidth / 2) + 'px'; k.lab.style.top = ((bus + top) / 2 - k.lab.offsetHeight / 2) + 'px'; }
+      });
+    });
+    fl.style.width = W + 'px'; fl.style.height = H + 'px';
+    var sv = fl.firstChild; sv.setAttribute('width', W); sv.setAttribute('height', H); sv.innerHTML = svg;
+    return {w:W, h:H};
+  }
+
   function render(host, model, opts){
     opts = opts || {};
     var O = window.oncosOutline;
@@ -245,10 +327,26 @@
     // no title block: the map opens on the flowsheet itself (Jonan 2026-11-11, "remove the title altogether"),
     // and no colour key either: the risk grid names its rows (Jonan 2026-11-11, "I also don't need this")
     var tblk = null;
+    var flows = [];
     var bands = model.bands.map(function(b){
+      if (b.flow) return flowBand(b);
       var el = add('band', '<h2>' + esc(b.title) + '</h2>' + colsHtml(b.lines));
       sized(el, b.lines, function(w){ el.w = w; }).band = true; return el;
     });
+    // a flow band: its chart is drawn once at its own size, and the band is never narrower than the chart; the
+    // band's other lines run in columns under it
+    function flowBand(b){
+      var fls = b.lines.filter(function(l){ return l.kind === 'flow'; }), rest = b.lines.filter(function(l){ return l.kind !== 'flow'; });
+      var el = add('band flowband', '<h2>' + esc(b.title) + '</h2><div class="flow"><svg class="om-flow-wires" aria-hidden="true"></svg></div>' + (rest.length ? colsHtml(rest) : ''));
+      var fl = el.querySelector('.flow'), fw = drawFlow(fl, fls).w + PAD + 1;
+      // drawn again before each layout, once the web font has loaded and the boxes have their final heights
+      flows.push(function(){ fw = drawFlow(fl, fls).w + PAD + 1; });
+      var sb = sized(el, rest, function(w){ el.w = w; });
+      sb.band = true; sb.flow = true; sb.full = true;
+      sb.width = function(n){ return Math.max(fw, colsWidth(n)); };
+      sb.cols(1); sb.c1 = el.querySelector('.cols') ? el.querySelector('.cols').offsetHeight : 0;
+      return el;
+    }
     var panels = model.panels.map(function(p){
       // a table panel whose first header cell is the panel's name carries no title above the table, so its top
       // lines up with the boxes beside it (Jonan 2026-11-14, IGCCCG table on the germ cell map)
@@ -290,6 +388,7 @@
     // columns that makes it about r times as tall as it is wide; of a range of r, the layout whose whole map
     // fits that area at the largest scale is kept, which brings most maps near 0.55 height to width
     function layout(){
+      flows.forEach(function(f){ f(); });
       blocks.forEach(function(b){ b.cols(1); b.h1 = b.el.offsetHeight; b.c1 = b.el.querySelector('.cols') ? b.el.querySelector('.cols').offsetHeight : 0; });
       function shape(r){
         // the bands start at one column and widen in bandsRow to the width of the map below them
@@ -314,13 +413,13 @@
       if (span && bands.length) {
         var bb = blocks.filter(function(b){ return bands.indexOf(b.el) >= 0; });
         var rowW = function(){ return bb.reduce(function(t, b){ return t + b.width(b.n); }, 0) + 40 * (bb.length - 1); };
-        bb.forEach(function(b){ b.full = false; });
+        bb.forEach(function(b){ b.full = !!b.flow; });
         // on a board, first every band with two to four groups takes one column per group, tallest first, while the row fits
-        if (split) bb.filter(function(b){ return !b.grid && b.groups > 1 && b.groups <= COL_MAX; })
+        if (split) bb.filter(function(b){ return !b.grid && !b.flow && b.groups > 1 && b.groups <= COL_MAX; })
           .sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })
           .forEach(function(b){ if (rowW() + (b.groups - b.n) * (COL_W + COL_GAP) <= span) { b.split(); b.full = true; } });
         for (var guard = 0; guard < 24; guard++) {
-          var tall = bb.filter(function(b){ return !b.grid && !b.full && b.n < COL_MAX; }).sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })[0];
+          var tall = bb.filter(function(b){ return !b.grid && !b.flow && !b.full && b.n < COL_MAX; }).sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })[0];
           if (!tall || rowW() + COL_W + COL_GAP > span) break;
           var was = tall.n; tall.cols(was + 1);
           if (tall.n === was) tall.full = true;
@@ -467,6 +566,9 @@
         move([n], d);
         if (n.preds.length === 1 && n.preds[0].next.length === 1) shift(n.preds[0], d);
       }
+      // a parallel course with one first step (glioma: surgery leads to each diagnosis, Jonan 2026-11-20) places its
+      // later steps as a parallel board does, so the lines that join a shared step fork evenly
+      if (!multiRoot && model.tree.parallel) later();
       // a first step centres on the steps it leads to, as far as the steps beside it allow
       if (!multiRoot) (cols[0] || []).forEach(function(n, k, list){
         if (!n.next.length) return;
