@@ -1,0 +1,297 @@
+# oncOS board map: Biliary Tract Cancer (one map for the Evidence sheet "Biliary Tract Cancer")
+# Approved by Jonan 2026-11-19 06:14 UTC (draft 3). Line pass on draft 2 (bile duct line, iCCA transplant line moved, second-line chips under their results). Draft 2 was the prose review of draft 1 (board-maps/biliary/prose-review.md). Draft 1 was rewritten from draft 0
+#   after the independent review (board-maps/biliary/independent-review.md), changes in board-maps/biliary/draft1-changes.md
+#   Planning files: board-maps/biliary/ (plan.md, structure-plan.md)
+#   Clinical content: board-maps/biliary/notes-paga.md, notes-esmo.md, notes-nccn.md, notes-asco.md and btc-rows.json
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-19): one map for the whole sheet, covering intrahepatic, perihilar and distal
+#   cholangiocarcinoma and gallbladder cancer. Three parallel stages, never chained: resectable disease with the step
+#   after resection, unresectable or metastatic disease, and treatment matched to a molecular alteration. The second
+#   stage has two first boxes in one colour: local treatment of unresectable disease without distant metastases, and
+#   first-line systemic treatment, which leads to the later lines without a matched treatment. The matched-treatment
+#   stage is one box, as two guidelines place several of its options in the first line as well as later. Lines run
+#   only inside a stage, in time order. Subtypes with staging, molecular alterations by site, molecular testing and
+#   the regimens are four bands (alterations band added at Jonan's request 2026-11-19, frequencies as printed).
+#   Ampullary cancer, mixed hepatocellular-cholangiocarcinoma, imaging protocols, drainage and stent technique,
+#   surgical technique beyond the operation by site, radiotherapy fractionation, follow-up schedules and screening in
+#   primary sclerosing cholangitis are left out
+# Guideline set (Jonan 2026-11-19) and tag forms, grade as printed, on the statement the guideline graded. Tag order
+#   on every line: PAGA, ESMO, NCCN, ASCO (East Asian guidelines first)
+#   〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline for biliary tract cancer 2024 (Chen, ESMO Open 2024;9:103647,
+#     PMID 39232586) with its corrigendum (ESMO Open 2025;10:104074, PMID 39864890), Table 1. A bare 〔PAGA〕 marks the
+#     narrative, a figure footnote or a country note. It predates the ESMO 2024 update and every sheet trial reported
+#     after mid 2024. Table 1 rechecked 2026-11-19 for 4h: dabrafenib with trametinib is printed [III, A]
+#   〔ESMO level, grade〕 ESMO Clinical Practice Guideline 2022 (Vogel, Ann Oncol 2023;34:127-140, PMID 36372281) with
+#     the interim update of December 2024 (Vogel, ESMO Open 2025;10:104003, PMID 39864891), which replaces the 2022
+#     text on first-line immunotherapy, molecular profiling, FGFR2, HER2, NTRK and RET. A bare 〔ESMO〕 marks the
+#     narrative or a figure footnote. ESMO-MCBS and ESCAT scores are left off the map, as on other maps
+#   〔NCCN category〕 NCCN Biliary Tract Cancers 2.2026 (8 October 2026), algorithm pages. 2A unless stated. On the
+#     systemic therapy pages the preference label is printed too. A bare 〔NCCN〕 marks a footnote, a principles page,
+#     a table or the Discussion. It predates ACTICCA-1 and COMPANION-002
+#   〔ASCO quality, strength〕 ASCO living guideline, treatment of advanced biliary tract cancer, version 2026.1.0
+#     (Shroff, J Clin Oncol 2026, PMID 42874012). It covers unresectable and metastatic disease only. A bare 〔ASCO〕
+#     marks the good practice statement on testing, a qualifying statement, a note, the algorithm or the text
+# Licence notes (2026-11-19): only where a guideline prints a current one or an FDA or EMA licence decides whether an
+#   option is numbered: S-1 (East Asian rule), lirafugratinib, toripalimab (GOLP). Approval notes printed in 2022 and
+#   2024 that are out of date are left off
+# Option order where guidelines disagree (defaults, Jonan's call, open questions in draft1-changes.md):
+#   1. Adjuvant: S-1 first (PAGA I, A), then capecitabine (PAGA II, A, ESMO II, A, NCCN 1)
+#   2. First line: the two checkpoint inhibitor regimens first, in alphabetical order as no guideline ranks them,
+#      then gemcitabine and cisplatin with S-1 (PAGA II, B) on the same line. The population "ECOG performance
+#      status 0 to 1" is the eligibility of the three trials and the ESMO 2022 wording, set against ECOG 2 below
+#   3. Cisplatin unsuitable: gemcitabine with oxaliplatin, gemcitabine with carboplatin, gemcitabine alone, by the
+#      number of guidelines behind each
+#   4. Later lines without a target: FOLFIRI, liposomal irinotecan with 5-FU and leucovorin, irinotecan alone,
+#      capecitabine with irinotecan, by the number of guidelines and the NCCN category behind each
+#   5. HER2: zanidatamab before trastuzumab deruxtecan (ESMO wording and ASCO order)
+#   6. FGFR2: futibatinib, lirafugratinib and pemigatinib in alphabetical order. Lirafugratinib is on the numbered
+#      line with an NCCN tag alone, as it holds an FDA licence (23 September 2026)
+#   7. PARP inhibitor: a numbered line, as PAGA and ESMO both grade it [V, B] (rule ⑦ needs one guideline alone)
+#   8. Options NCCN alone lists are ※ or ・ lines (rule ⑦): the further adjuvant and first-line chemotherapy
+#      regimens, regorafenib, nivolumab, pertuzumab or tucatinib with trastuzumab, erdafitinib, dostarlimab,
+#      ipilimumab with nivolumab, pralsetinib and adagrasib
+#   9. GOLP is a ※ line (trial in China only, toripalimab without a biliary licence in the EU or US)
+# Doses in the Regimens band follow the trial protocols on the sheet rows, as the guidelines print almost none. The
+#   KEYNOTE-966 schedule is from the trial report, as the row carries no doses
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint, non-inferiority, single-arm data or a trial
+#   closed early, - primary endpoint not met or no benefit. BILCAP is - (overall survival not improved by intention to
+#   treat). GAIN is ~ (closed early with 68 patients). FIGHT-302 is ~ (progression-free survival, closed early)
+# Single-arm trials cited because a recommendation or licence rests on them and no randomised trial of the option
+#   exists in that setting (inclusion.txt ①, Jonan to confirm): SWOG S0809, FOENIX-CCA2, FIGHT-202, HERIZON-BTC-01,
+#   MyPathway, SGNTUC-019, ROAR, Kim 2020 (nivolumab, behind the NCCN 2B option), and from the Tumour-Agnostic Basket Trials sheet DESTINY-PanTumor02, NCI-MATCH
+#   subprotocol H, KEYNOTE-158 (MSI-H or dMMR, and TMB), the larotrectinib and entrectinib analyses, LIBRETTO-001,
+#   eNRGy and KRYSTAL-1, and for the NCCN-only options on ・ lines ARROW, RAGNAR, GARNET (dMMR solid tumours) and TRIDENT-1
+# Chips by row anchor: DESTINY-PanTumor02 (its paper is filed on two sheets) and GAIN (congress abstract, no PMID)
+# Not yet on the sheet, as chips (intake.txt, each needs Jonan's go): KHBO1401-MITSUBA, FUGA-BT, FIGHT-202, BCAT, STAMP,
+#   NALIRICC, SGNTUC-019, FIREFOX, GB-SELECT, Sharma 2010, Sharma 2019, REACHIN, Kim 2020 (nivolumab), Kim 2019 and PRODIGE 38 AMEBICA, and for the
+#   Tumour-Agnostic Basket Trials sheet CheckMate 848, ARROW, RAGNAR, GARNET (dMMR solid tumours) and TRIDENT-1 (NTRK). Lirafugratinib (ReFocus) has no PubMed
+#   record, so its statement is plain text with no chip
+# Screened 2026-11-19 for the database with no map statement (inclusion ② and ③, off: once filed; listed again at the
+#   end of intake.txt, which check.cjs rewrites): GECCOR-GB 38958997 (class A, adjuvant gemcitabine with cisplatin
+#   against capecitabine with chemoradiotherapy in GBC), BT22 20628385 (class A, gemcitabine with cisplatin, the
+#   statement rests on ABC-02), NIFE 38843469 and Yang 2025 40819029 (first-line liposomal irinotecan and nab-paclitaxel with cisplatin,
+#   ASCO alone, rule ⑦), RACE-GB 39675683 (consolidation chemoradiotherapy in unresectable GBC, no guideline option
+#   follows) and BEER BTC 39102628 (class C positive, maintenance bevacizumab with erlotinib, inclusion ③).
+#   POLCAGB (neoadjuvant chemoradiotherapy in GBC, class B as NCCN advises against it) has a congress abstract only
+#   and no verified link, so it waits for its report
+
+map: Biliary Tract Cancer
+source: PAGA {url https://doi.org/10.1016/j.esmoop.2024.103647}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2022.10.506}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ASCO {url https://doi.org/10.1200/JCO-26-02462}
+branch: RES | Resectable disease | blue
+branch: ADV | Unresectable or metastatic disease | teal
+branch: MOL | Matched to a molecular alteration | rose
+
+band: Subtypes and staging
+  ① Intrahepatic cholangiocarcinoma (iCCA) arises proximal to the second-order bile ducts, perihilar (pCCA) in the right or left hepatic duct or at their junction, distal (dCCA) distal to the insertion of the cystic duct, and gallbladder cancer (GBC) in the gallbladder or cystic duct 〔ESMO〕 〔NCCN〕
+    ・Extrahepatic cholangiocarcinoma (eCCA) covers pCCA and dCCA 〔PAGA〕 〔NCCN〕, and the term is discouraged as anatomically non-specific 〔ESMO〕
+  ② Staging follows the TNM 8th edition for each subtype, with the Bismuth-Corlette classification for the ductal extent of pCCA 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN〕
+  ③ A core biopsy is obtained for pathology and molecular profiling before any non-surgical treatment 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN〕
+    ・In resectable disease, percutaneous biopsy is avoided in pCCA and dCCA 〔PAGA〕 〔ESMO〕, and biopsy of a gallbladder mass is not necessary, as it risks peritoneal spread 〔NCCN〕
+
+band: Molecular alterations by site
+  ① About 40% of biliary tract cancers carry a potentially targetable alteration 〔ESMO〕 〔ASCO〕
+  ② iCCA: FGFR2 fusions or rearrangements in 9% to 15% and IDH1 mutations in 10% to 20%, both rare at other sites 〔NCCN〕
+    ・Targetable alterations are enriched in small duct type iCCA 〔ESMO〕
+  ③ GBC and eCCA: HER2 overexpression or amplification is more frequent than in iCCA 〔ESMO〕, at 15% to 30% of GBC and 5% to 20% of cholangiocarcinoma 〔NCCN〕
+  ④ All sites, each in 5% or fewer: BRAF V600E in 1% to 5%, MSI-H or dMMR in 1% to 3%, TMB-high in under 5%, KRAS G12C in 1%, and NTRK, RET and NRG1 fusions in under 1% 〔NCCN〕
+    ・FGFR2 fusions and BRAF mutations are more frequent in patients under 50 years 〔ASCO〕
+  ⑤ Germline pathogenic variants are found in 9% to 11%, most often BRCA2 〔NCCN〕
+
+band: Molecular testing
+  ① Molecular profiling is recommended in unresectable or metastatic disease suitable for systemic treatment 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕 〔ASCO〕
+    ・Profiling is performed before or during first-line treatment 〔PAGA〕 〔ESMO〕 〔NCCN〕
+    ・Profiling is performed at diagnosis, at any stage 〔ASCO〕
+  ② The panel covers FGFR2 fusions or rearrangements, IDH1, HER2, BRAF V600E, MSI or MMR status, TMB, NTRK, RET and NRG1 fusions, KRAS G12C, and BRCA1, BRCA2 and PALB2 〔PAGA〕 〔ESMO〕 〔NCCN〕 〔ASCO〕
+    ・FGFR2, IDH1 and NRG1 testing is recommended in iCCA and eCCA, and FGFR2 and IDH1 testing is considered in GBC 〔NCCN〕
+    ・PD-L1 testing is not recommended 〔NCCN〕
+  ③ Next-generation sequencing of tumour tissue is the preferred method, with RNA-based sequencing for fusions and immunohistochemistry for HER2 and MMR 〔ESMO〕 〔NCCN〕 〔ASCO〕
+    ・Plasma ctDNA testing is an option when tissue is insufficient or unavailable 〔ESMO〕 〔NCCN〕 〔ASCO Moderate, Conditional〕, with lower sensitivity than tissue for FGFR2 fusions 〔NCCN〕 〔ASCO〕
+    ・No standard criteria define HER2 positivity 〔ESMO〕 〔NCCN〕, and immunohistochemistry is scored by the criteria for gastric cancer 〔ESMO〕
+  ④ Germline testing is considered for young age, a strong personal or family history, or a tumour variant suspected to be germline 〔NCCN〕
+  ⑤ DPYD genotyping is recommended before treatment with a fluoropyrimidine 〔NCCN〕 〔ASCO〕
+
+band: Regimens
+  ① Gemcitabine with cisplatin, ABC-02 schedule: gemcitabine 1000 mg/m² and cisplatin 25 mg/m² on days 1 and 8, every 3 weeks for up to eight cycles
+  ② Checkpoint inhibitor schedules: durvalumab 1500 mg every 3 weeks with up to eight cycles of gemcitabine and cisplatin, then every 4 weeks until progression (TOPAZ-1), or pembrolizumab 200 mg every 3 weeks for up to 35 cycles with cisplatin for up to eight cycles and gemcitabine until progression (KEYNOTE-966)
+  ③ Adjuvant schedules: S-1 40, 50 or 60 mg by body surface area twice daily for 4 weeks, every 6 weeks for four cycles (ASCOT), or capecitabine 1250 mg/m² twice daily on days 1 to 14, every 3 weeks for eight cycles (BILCAP)
+  ④ Adjuvant chemoradiotherapy, SWOG S0809 schedule: four 3-week cycles of gemcitabine 1000 mg/m² on days 1 and 8 with capecitabine 1500 mg/m² per day on days 1 to 14, then radiotherapy with capecitabine 1330 mg/m² per day
+    ・Radiotherapy is given with capecitabine or 5-FU, and concurrent gemcitabine is not recommended 〔NCCN〕
+  ⑤ FOLFOX, ABC-06 schedule: oxaliplatin 85 mg/m², L-folinic acid 175 mg, 5-FU 400 mg/m² as a bolus and 2400 mg/m² over 46 hours, every 2 weeks for up to 12 cycles
+  ⑥ Liposomal irinotecan, NIFTY schedule: 70 mg/m² with leucovorin 400 mg/m² and 5-FU 2400 mg/m² over 46 hours, every 2 weeks
+  ⑦ Targeted drugs at the doses of their trials: ivosidenib 500 mg once daily, zanidatamab 20 mg/kg every 2 weeks, and dabrafenib 150 mg twice daily with trametinib 2 mg once daily
+
+course: Biliary tract cancer | parallel
+  Resectable disease: surgery
+    branch: RES
+    ① Resectable disease at any site: radical resection with lymphadenectomy, planned by a specialist hepatobiliary multidisciplinary team 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A〕
+      ・Portal vein embolisation is considered when the future liver remnant is small 〔PAGA IV, A〕 〔ESMO IV, A〕 〔NCCN〕, in high-volume centres only 〔PAGA〕
+      ・Staging laparoscopy before resection is recommended in GBC and considered in cholangiocarcinoma 〔NCCN〕
+    ② iCCA without multifocal disease, nodes beyond the porta hepatis or distant metastases: hepatic resection with lymphadenectomy of the porta hepatis 〔NCCN 2A〕
+    ③ pCCA: major hepatectomy with resection of the caudate lobe 〔NCCN 2A〕
+    ④ dCCA: pancreaticoduodenectomy 〔NCCN 2A〕
+    ⑤ GBC seen on imaging: cholecystectomy with en bloc hepatic resection and lymphadenectomy 〔NCCN 2A〕
+      ・A tumour of the infundibulum requires resection of the bile duct and the duodenal bulb, and in some cases of the pancreatic head 〔PAGA III, A〕 〔ESMO III, A〕
+      ・Routine bile duct excision is not advised, as it adds morbidity without a proven survival gain, and the bile duct is excised when it is involved 〔NCCN〕
+      ・Jaundice is a relative contraindication to resection 〔NCCN〕
+    ⑥ GBC found after cholecystectomy, stage T1b or higher: re-resection with radical intent in fit patients without metastases 〔PAGA IV, A〕 〔ESMO IV, A〕 〔NCCN 2A〕, removing segments IVb and V, in whole or in part, with lymphadenectomy of the hepatoduodenal ligament 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN 2A〕
+      ・Stage T1a with negative margins is observed, and T1a with positive margins is managed as T1b 〔NCCN 2A〕
+      ・Port-site resection may be considered when the gallbladder was perforated or removed without a retrieval bag 〔PAGA IV, C〕 〔ESMO IV, C〕, and is not advised as it has not been shown effective 〔NCCN〕
+    ※ A neoadjuvant approach is reserved for selected cases 〔PAGA〕 〔ESMO〕
+      ・In GBC, neoadjuvant systemic therapy can be considered for locoregionally advanced disease, a positive cystic duct node, or a tumour of stage T1b or higher found after cholecystectomy 〔NCCN 2A〕, and with jaundice 〔NCCN 2B〕
+      ・The regimens are those of first-line treatment, given for 2 to 6 months with reassessment every 2 to 3 months 〔NCCN〕
+      ・Neoadjuvant chemoradiotherapy is not recommended in GBC 〔NCCN〕
+    ※ Three cycles of gemcitabine with cisplatin before and after resection improved overall survival over immediate resection in a randomised trial that closed early with 68 patients, reported as a congress abstract
+      ~ GAIN [t-gain]
+    ※ Neoadjuvant toripalimab, lenvatinib and gemcitabine with oxaliplatin improved event-free survival over immediate resection of high-risk iCCA, in a trial run only in China
+      ・Toripalimab and lenvatinib hold no EU or US licence for biliary tract cancer
+      ~ GOLP {pmid 41780001}
+    next: After resection
+  Unresectable disease without distant metastases: local treatment
+    branch: ADV
+    ① iCCA of 3 cm or less, unsuitable for surgery: local ablation 〔PAGA III, B〕 〔ESMO III, A〕 〔NCCN 2A〕
+      ・Ablation is an alternative to resection for a single tumour under 3 cm, particularly at high surgical risk 〔NCCN〕
+    ② Liver-limited iCCA, unsuitable for surgery: SBRT 〔PAGA III, C〕 〔ESMO III, C〕 〔NCCN 2A〕, or intra-arterial therapy with systemic chemotherapy 〔PAGA III, C〕 〔ESMO III, C〕
+      ・Intra-arterial therapy can be given alone or followed by systemic chemotherapy, and with systemic therapy when extrahepatic disease is limited 〔NCCN 2A〕
+      ・Intra-arterial therapy is discussed by the multidisciplinary team according to local availability 〔PAGA〕, and hepatic arterial infusion is given in a clinical trial or at an experienced centre 〔NCCN〕
+      ・For unresectable iCCA in a cirrhotic liver, referral to a transplant centre can be considered after locoregional or systemic therapy and 6 months without new lesions or extrahepatic disease 〔NCCN 2A〕
+    ③ Locally advanced unresectable disease: systemic therapy as for metastatic disease 〔PAGA〕 〔ESMO〕 〔NCCN 2A〕 〔ASCO〕
+      ・Definitive radiotherapy or chemoradiotherapy for locally advanced cholangiocarcinoma, and photodynamic therapy or intraductal radiofrequency ablation for pCCA, are not recommended outside a clinical trial 〔PAGA II, D〕 〔ESMO II, D〕
+      ・Chemoradiotherapy with capecitabine or 5-FU, alone or combined with chemotherapy, is an option for unresectable iCCA and eCCA 〔NCCN 2A〕
+    ④ Unresectable pCCA: liver transplantation is not a standard treatment, and trial participation is encouraged 〔PAGA III, D〕 〔ESMO III, D〕
+      ・Referral to a transplant centre can be considered for a tumour of 3 cm or less in radial diameter without nodal or distant metastases, and for pCCA in primary sclerosing cholangitis 〔NCCN 2A〕
+    ⑤ Response to systemic or locoregional treatment: reassessment for resection by the multidisciplinary team 〔PAGA IV, B〕 〔ESMO IV, B〕 〔NCCN 2A〕
+  Unresectable or metastatic disease: first line
+    branch: ADV
+    ① ECOG performance status 0 to 1: gemcitabine and cisplatin with durvalumab or pembrolizumab 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO High, Strong〕, or gemcitabine and cisplatin with S-1 〔PAGA II, B〕
+      ・The durvalumab regimen is an option for recurrence more than 6 months after surgery and after the end of adjuvant therapy 〔NCCN〕
+      ・S-1 is available in Japan and holds no FDA licence 〔PAGA〕 〔ASCO〕
+    + TOPAZ-1 {pmid 38319896}
+    + KEYNOTE-966 {pmid 37075781}
+    + KHBO1401-MITSUBA {pmid 35900311}
+    ② Not a candidate for a checkpoint inhibitor: gemcitabine with cisplatin 〔ESMO I, A〕 〔NCCN 1, other recommended〕 〔ASCO Moderate, Conditional〕
+    + ABC-02 {pmid 20375404}
+    ③ Cisplatin unsuitable, as with impaired renal function or hearing: gemcitabine with oxaliplatin 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A, other recommended〕 〔ASCO〕, gemcitabine with carboplatin 〔PAGA II, B〕 〔NCCN〕 〔ASCO〕, or gemcitabine alone 〔ASCO〕
+      ・Carboplatin can replace cisplatin in the checkpoint inhibitor regimens 〔NCCN〕
+    + Sharma 2010 {pmid 20855823}
+    - Sharma 2019 {pmid 31707181}
+    ④ Peripheral sensory neuropathy, or a high risk of it: gemcitabine with S-1 〔PAGA II, B〕
+      ・The non-inferiority result, from a trial run in Japan, may not apply outside Japan 〔ASCO〕
+    ~ FUGA-BT {pmid 31566666}
+    ⑤ ECOG performance status 2, or a high risk of platinum toxicity: gemcitabine alone 〔PAGA IV, B〕 〔ESMO IV, B〕 〔NCCN 2A, other recommended〕
+    ※ Other options are gemcitabine with nab-paclitaxel, gemcitabine with capecitabine, capecitabine with oxaliplatin, FOLFOX, capecitabine alone and 5-FU with leucovorin 〔NCCN 2A, other recommended〕
+      ・Capecitabine with oxaliplatin was non-inferior to gemcitabine with oxaliplatin for 6-month progression-free survival in a trial in Korea 〔NCCN〕
+        ~ Kim 2019 {pmid 30785198}
+      ・FOLFOX is an option when raised bilirubin prevents the use of gemcitabine 〔ASCO〕
+    ※ Adding nab-paclitaxel to gemcitabine with cisplatin did not improve overall survival and increased toxicity 〔ESMO〕 〔ASCO〕
+      - SWOG S1815 {pmid 39671534}
+    ※ mFOLFIRINOX was not superior to gemcitabine with cisplatin in a randomised phase II trial 〔ESMO〕 〔NCCN〕 〔ASCO〕
+      - PRODIGE 38 AMEBICA {pmid 34662180}
+    ※ Evidence is insufficient to continue gemcitabine with cisplatin alone beyond 6 months 〔ESMO〕
+    ※ Biliary obstruction is drained before systemic therapy starts 〔PAGA IV, A〕 〔ESMO IV, A〕 〔NCCN〕
+    ° Toxicity of note: grade 3 to 5 immune-related adverse events are more frequent when a checkpoint inhibitor is added to gemcitabine with cisplatin, without an increase in all grade 3 to 5 adverse events 〔ASCO〕
+    next: Second and later lines without a matched treatment | Progression
+  Molecular alteration: matched treatment
+    branch: MOL
+    ① FGFR2 fusion or rearrangement in cholangiocarcinoma, after at least one line: futibatinib 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕, lirafugratinib 〔NCCN 2A, useful in certain circumstances〕, or pemigatinib 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕
+      ・Lirafugratinib has held an FDA licence since September 2026, based on a trial in patients without earlier FGFR inhibitor treatment
+      ・Erdafitinib is an option, and the other three drugs are preferred over it 〔NCCN 2A, useful in certain circumstances〕
+        ~ RAGNAR {pmid 37541273}
+    ~ FOENIX-CCA2 {pmid 36652354}
+    ~ FIGHT-202 {pmid 32203698}
+    ※ First-line pemigatinib improved progression-free survival over gemcitabine with cisplatin, without an overall survival gain, in a trial that closed early
+      ・Pemigatinib may be discussed as a first-line option for patients who are not candidates for a checkpoint inhibitor, with 5-FU-based chemotherapy as the next line 〔ASCO〕
+      ~ FIGHT-302 {pmid 42223137}
+    ② IDH1 mutation in cholangiocarcinoma, after at least one line: ivosidenib 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, useful in certain circumstances〕 〔ASCO High, Strong〕
+    ~ ClarIDHy {pmid 32416072}
+    ③ HER2 overexpression or amplification, after earlier treatment: zanidatamab 〔ESMO III, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕, or trastuzumab deruxtecan 〔ESMO III, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕
+      ・HER2-directed therapy is recommended without a preferred drug 〔PAGA III, A〕
+      ・Both drugs are limited to immunohistochemistry 3+ 〔NCCN〕 〔ASCO〕
+      ・Pertuzumab with trastuzumab and tucatinib with trastuzumab are options when HER2 is positive by immunohistochemistry 3+, by in situ hybridisation or by sequencing 〔NCCN 2A, useful in certain circumstances〕
+      ・With fluctuating liver function or recent biliary sepsis, zanidatamab or pertuzumab with trastuzumab is favoured 〔NCCN〕
+    ~ HERIZON-BTC-01 {pmid 37276871}
+    ~ DESTINY-PanTumor02 [t-destiny-pantumor02--tumour-agnostic-basket-trials] {pmid 37870536}
+    ~ MyPathway {pmid 34339623}
+    ~ SGNTUC-019 {pmid 37751561}
+    ④ BRAF V600E mutation, after at least one line: dabrafenib with trametinib 〔PAGA III, A〕 〔ESMO I, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕
+    ~ ROAR {pmid 32818466}
+    ~ NCI-MATCH subprotocol H {pmid 41533998}
+    ⑤ MSI-H or dMMR, after earlier treatment without a checkpoint inhibitor: pembrolizumab 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕
+      ・Pembrolizumab alone is a first-line option when the status is known before treatment 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Very low, Conditional〕
+      ・Dostarlimab is an option after earlier treatment 〔NCCN 2B, useful in certain circumstances〕
+        ~ GARNET (dMMR solid tumours) {pmid 37917058}
+    ~ KEYNOTE-158 (MSI-H or dMMR) {pmid 31682550}
+    ⑥ TMB-high, 10 or more mutations per megabase, after earlier treatment without a checkpoint inhibitor: pembrolizumab 〔PAGA IV, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO〕
+      ・Ipilimumab with nivolumab is an option for disease refractory to standard treatment 〔NCCN 2A, useful in certain circumstances〕, and in the first line 〔NCCN 2B, useful in certain circumstances〕
+        ~ CheckMate 848 {pmid 39107131}
+    ~ KEYNOTE-158 (TMB) {pmid 32919526}
+    ⑦ NTRK fusion, after earlier treatment: entrectinib, larotrectinib or repotrectinib 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕
+      ・The three drugs are first-line options 〔NCCN 2A, useful in certain circumstances〕, and only repotrectinib is used after progression on a TRK inhibitor 〔NCCN〕
+    ~ Larotrectinib pooled analysis {pmid 29466156}
+    ~ Entrectinib integrated analysis {pmid 35144967}
+    ~ TRIDENT-1 (NTRK) {pmid 41639379}
+    ⑧ RET fusion, after earlier treatment: selpercatinib 〔PAGA III, A〕 〔ESMO III, A〕 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕
+      ・Pralsetinib is an option after earlier treatment, and either drug is a first-line option 〔NCCN 2B, useful in certain circumstances〕
+        ~ ARROW {pmid 35962206}
+    ~ LIBRETTO-001 {pmid 36108661}
+    ⑨ NRG1 fusion in cholangiocarcinoma, after standard chemotherapy: zenocutuzumab 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Moderate, Strong〕
+      ・Zenocutuzumab is a first-line option 〔NCCN 2B, useful in certain circumstances〕
+    ~ eNRGy {pmid 39908431}
+    ⑩ BRCA1, BRCA2 or PALB2 mutation with a response to platinum: a PARP inhibitor can be considered 〔PAGA V, B〕 〔ESMO V, B〕
+      ・Use within a clinical trial is preferred 〔PAGA〕
+    ※ KRAS G12C mutation: adagrasib is an option after earlier treatment 〔NCCN 2A, useful in certain circumstances〕
+      ~ KRYSTAL-1 {pmid 37099736}
+    ※ When a target is found, the matched treatment is preferred over chemotherapy in the second line 〔ASCO〕
+    ° Toxicity of note: hyperphosphataemia with FGFR inhibitors 〔ASCO〕, and interstitial lung disease with trastuzumab deruxtecan, a boxed warning in its FDA label
+  After resection
+    branch: RES pale
+    ① Resected cholangiocarcinoma or GBC: adjuvant S-1 〔PAGA I, A〕, or capecitabine 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN 1, preferred〕
+      ・Adjuvant treatment lasts up to 6 months 〔NCCN〕
+      ・S-1 is available in Japan, where adjuvant capecitabine is not approved 〔PAGA〕, and S-1 is not available in the United States 〔NCCN〕
+      ・Capecitabine did not improve overall survival in the intention-to-treat analysis of its trial, and did in the per-protocol analysis 〔PAGA〕 〔ESMO〕 〔NCCN〕
+      ・Observation is an alternative after an R0, node-negative resection 〔NCCN 2A〕
+    + ASCOT {pmid 36681415}
+    - BILCAP {pmid 30922733}
+    ※ Other options are gemcitabine with cisplatin, gemcitabine with capecitabine, 5-FU with leucovorin and gemcitabine alone 〔NCCN 2A, other recommended〕
+      ・Gemcitabine with cisplatin did not improve disease-free or overall survival over capecitabine in two randomised trials
+        - ACTICCA-1 {pmid 42926109}
+        - STAMP {pmid 37070950}
+      ・Gemcitabine alone did not improve survival over observation in resected bile duct cancer 〔ESMO〕 〔NCCN〕
+        - BCAT {pmid 29405274}
+      ・Gemcitabine with oxaliplatin did not improve relapse-free survival over surveillance 〔ESMO〕 〔NCCN〕
+        - PRODIGE 12 {pmid 30707660}
+    ② R1 resection of GBC, pCCA or dCCA: radiotherapy 〔PAGA III, C〕 〔ESMO III, C〕 or chemoradiotherapy 〔PAGA III, C〕 〔NCCN 2A〕 after adjuvant chemotherapy can be considered
+      ・Chemoradiotherapy without chemotherapy first is an option 〔NCCN 2A〕
+      ・The indication extends to node-positive disease 〔PAGA III, C〕 〔NCCN 2A〕, and to R1 or node-positive iCCA 〔NCCN 2A〕
+      ・After an R0, node-negative resection, chemoradiotherapy is an option in eCCA 〔NCCN 2A〕, and in GBC when combined with chemotherapy 〔NCCN 2B〕
+    ~ SWOG S0809 {pmid 25964250}
+    ③ R2 resection: treatment as for unresectable disease 〔NCCN 2A〕
+  Second and later lines without a matched treatment
+    branch: ADV pale
+    ① After gemcitabine and cisplatin-based treatment, ECOG performance status 0 to 1: FOLFOX 〔PAGA II, B〕 〔ESMO I, A〕 〔NCCN 2A, preferred〕 〔ASCO Moderate, Conditional〕
+      ・Active symptom control alone is the alternative, chosen by shared decision 〔ASCO Moderate, Conditional〕
+      ・The lower grade reflects a small survival gain in a single trial without Asian patients 〔PAGA〕
+    + ABC-06 {pmid 33798493}
+    ② Oxaliplatin unsuitable, or as an alternative to FOLFOX: FOLFIRI 〔PAGA III, B〕 〔NCCN 2A, other recommended〕 〔ASCO Low, Conditional〕, liposomal irinotecan with 5-FU and leucovorin 〔PAGA III, B〕 〔NCCN 2B, other recommended〕 〔ASCO Low, Conditional〕, irinotecan alone 〔PAGA III, B〕 〔ASCO Low, Conditional〕, or capecitabine with irinotecan 〔PAGA III, B〕 〔ASCO Low, Conditional〕
+      ・These regimens are reserved for patients unsuited to oxaliplatin 〔ASCO〕
+      ・Evidence for irinotecan-based treatment is limited 〔ESMO〕
+      ・Liposomal irinotecan with 5-FU and leucovorin improved progression-free survival over 5-FU with leucovorin in a trial in Korea, and not in a trial in Germany 〔PAGA〕 〔NCCN〕 〔ASCO〕
+        ~ NIFTY {pmid 34656226}
+        - NALIRICC {pmid 38870977}
+      ・FOLFIRI was not superior to FOLFOX in a trial in Korea 〔ASCO〕
+        - FIREFOX {pmid 34303267}
+      ・Adding capecitabine to irinotecan did not improve overall survival in GBC in a trial in India 〔ASCO〕
+        - GB-SELECT {pmid 33270098}
+    ※ Other options are regorafenib 〔NCCN 2B, other recommended〕 and a first-line regimen not yet used 〔NCCN 2A〕
+      ・Regorafenib improved progression-free survival over placebo, without an overall survival gain, in a randomised phase II trial
+        ~ REACHIN {pmid 32464280}
+    ※ Nivolumab is an option after earlier treatment 〔NCCN 2B, useful in certain circumstances〕
+      ・A checkpoint inhibitor, alone or with gemcitabine and cisplatin, is used only when none was given earlier 〔NCCN〕
+      ・Nivolumab gave a centrally reviewed response rate of 11% in a single-arm phase II trial
+        ~ Kim 2020 (nivolumab) {pmid 32352498}
+
+off:
+  NEO-GAP [t-neo-gap] | Non-randomised (single-arm phase II of neoadjuvant gemcitabine, cisplatin and nab-paclitaxel in iCCA): no licence or guideline recommendation rests on it (inclusion ①)
+  COMPANION-002 [t-companion-002] | No licence or recommendation for tovecimig: the response rate improved and overall survival did not (inclusion ③)
