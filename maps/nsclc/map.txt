@@ -66,7 +66,7 @@
 #     〔ASCO quality, strength〕 ASCO living guidelines for stage IV NSCLC, version 2026.3.4 (30 September 2026):
 #       with driver alterations (Reuss) on the Driver found branch and Later lines panels, without driver
 #       alterations (Puri) on the No driver branch and Second line panel; the tag links ASCO's guideline list
-#     〔ESMO evidence, grade〕 ESMO living guidelines: oncogene-addicted metastatic NSCLC v1.3 (February 2026)
+#     〔ESMO evidence, grade〕 ESMO living guidelines: oncogene-addicted metastatic NSCLC v1.4 (November 2026)
 #       and non-oncogene-addicted metastatic NSCLC v1.2 (January 2025), read on esmo.org; the tag links
 #       ESMO's living guideline list
 #     〔JLCS evidence, strength〕 Japan Lung Cancer Society guideline 2025 (web edition, 6 November 2025),
@@ -139,6 +139,7 @@ tree: Advanced NSCLC, first line
         branch: EGFR pale
         ① Amivantamab with carboplatin and pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕 〔JLCS B, 1〕
         ~ PAPILLON {pmid 37870976}
+        ※ Platinum doublet with or without immunotherapy is the option when amivantamab is not available 〔ESMO IV, B〕
         ※ Sunvozertinib alone improved PFS over chemotherapy, OS immature
         ・Recommended first line 〔ASCO Moderate, Strong〕
         ・Only after platinum chemotherapy 〔NCCN〕 〔ESMO〕
@@ -171,15 +172,14 @@ tree: Advanced NSCLC, first line
         ~ eXalt3 {pmid 34473194}
         ° Toxicity of note: raised cholesterol and triglycerides with lorlatinib
         ※ Guidelines differ on preference
-        ・Lorlatinib is preferred, with alectinib, brigatinib or ensartinib when lorlatinib does not suit 〔ASCO High, Strong〕
-        ・Lorlatinib preferred with brain metastases 〔ESMO〕
-        ・Alectinib graded highest 〔JLCS〕
+        ・Lorlatinib is preferred 〔ASCO High, Strong〕 〔ESMO II, A〕
+        ・Brain metastases are a particular reason for lorlatinib 〔ESMO〕
+        ・Alectinib, brigatinib or ensartinib is used when lorlatinib does not suit 〔ASCO〕
+        ・Alectinib is graded highest 〔JLCS〕
         ② PS 2–4: alectinib 〔JLCS C, 1〕
       ROS1
         branch: FUS pale
-        ① Crizotinib, entrectinib, repotrectinib or taletrectinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔JLCS C, 1〕
-        ・Crizotinib, entrectinib or repotrectinib 〔ESMO III, A〕
-        ・Taletrectinib 〔ESMO III, B〕
+        ① Crizotinib, entrectinib, repotrectinib or taletrectinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
         ・Taletrectinib is licensed in the US, not in the EU
         ~ PROFILE 1001 {pmid 25264305}
         ~ STARTRK pooled {pmid 31838015}
@@ -207,7 +207,8 @@ tree: Advanced NSCLC, first line
         ※ Repotrectinib after an earlier NTRK inhibitor 〔ESMO III, A〕 〔ASCO Low, Conditional〕
       NRG1
         branch: FUS pale
-        ① After first line: zenocutuzumab 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
+        ① Chemotherapy with or without immunotherapy, as without a driver 〔ESMO IV, B〕
+        ② After first line: zenocutuzumab 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
         ・US licence, not EU
         ~ eNRGy {pmid 39908431}
     Mutation
@@ -241,21 +242,19 @@ tree: Advanced NSCLC, first line
         ※ Hepatotoxicity is common when sotorasib follows a PD-1 antibody
       HER2
         branch: MUT pale
-        ① Chemotherapy with or without immunotherapy, as without a driver 〔ESMO IV, B〕 〔JLCS〕
-        ② A HER2 tyrosine kinase inhibitor
-        ・Zongertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕
-        ・Sevabertinib 〔NCCN 2A〕
+        ① Tyrosine kinase domain mutation: zongertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕 or sevabertinib 〔NCCN 2A〕 〔ESMO III, A〕
+        ・Neither drug is licensed in the EU
+          ~ Beamion LUNG-1 {pmid 40293180}
+          ~ SOHO-01 {pmid 41104928}
+        ② Chemotherapy with or without immunotherapy, as without a driver
+        ・It comes before a HER2 tyrosine kinase inhibitor 〔JLCS〕
+        ・It is the first-line option when neither drug is available or the mutation is outside the kinase domain 〔ESMO IV, B〕
         ③ After first line: trastuzumab deruxtecan 5.4 mg/kg, zongertinib or sevabertinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
         ・Trastuzumab deruxtecan 〔ESMO III, B〕 〔JLCS C, 1〕
         ・Zongertinib 〔JLCS C, 1〕
-        ~ DESTINY-Lung02 {pmid 37694347}
-        ~ Beamion LUNG-1 {pmid 40293180}
-        ~ SOHO-01 {pmid 41104928}
-        ※ Zongertinib and sevabertinib
-        ・First line in NCCN and ASCO only
-        ・Recommended after earlier treatment 〔ESMO III, B〕
-        ・After earlier treatment, licensed in the US, not in the EU
-        ・For tyrosine kinase domain mutations 〔NCCN〕
+        ・Zongertinib or sevabertinib after first line is limited to non-squamous disease with a kinase domain mutation 〔ESMO III, B〕
+        ・After earlier treatment, zongertinib and sevabertinib are licensed in the US, not in the EU
+          ~ DESTINY-Lung02 {pmid 37694347}
   No driver
     branch: ND
     PS 0–1
@@ -411,6 +410,7 @@ panel: Second line > No driver
     ~ LUMINOSITY {pmid 38843488}
 
 panel: Later lines, EGFR > EGFR
+  ※ NGS is an option at progression on an EGFR TKI, on tissue, or on plasma followed by tissue when plasma finds no target 〔ESMO III, C〕
   ① T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
     ~ AURA3 {pmid 27959700}
   ② After osimertinib: amivantamab added to carboplatin and pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
@@ -449,6 +449,7 @@ panel: Later lines, EGFR > EGFR
   ・Amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
   ・Sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
   ・Sunvozertinib is licensed in the US, not in the EU
+    ~ WU-KONG1B {pmid 40923280}
   ⑥ Transformation to small cell, mostly after an EGFR TKI: platinum with etoposide
   ・Rebiopsy at progression to detect transformation
   next: Second line | After TKIs and platinum chemotherapy
@@ -471,9 +472,12 @@ panel: Later lines, ALK and ROS1 > Fusion
   ① ALK after a second-generation TKI: lorlatinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕
   ・After alectinib: brigatinib, lorlatinib or ceritinib 〔JLCS C, 2〕
   ・After lorlatinib: platinum and pemetrexed 〔ESMO III, A〕
+  ・After lorlatinib, atezolizumab with bevacizumab, carboplatin and paclitaxel is an option 〔ESMO III, C〕
   ② ROS1 after crizotinib or entrectinib: repotrectinib or taletrectinib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕
   ・Repotrectinib after crizotinib 〔ESMO III, A〕
-  ・Lorlatinib or zidesamtinib 〔NCCN〕
+  ・Taletrectinib or zidesamtinib after any ROS1 TKI 〔ESMO III, A〕
+  ・Zidesamtinib or lorlatinib is a further option 〔NCCN〕
+  ・Zidesamtinib is licensed in the US, not in the EU
   ③ Platinum doublet after all suitable TKIs, pemetrexed-based for adenocarcinoma: ALK 〔ESMO III, A〕, ROS1 〔ESMO IV, A〕
   next: Second line | After TKIs and platinum chemotherapy
 
