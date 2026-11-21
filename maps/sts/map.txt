@@ -1,4 +1,5 @@
 # oncOS board map: STS (one map for the Evidence sheet "STS")
+# Draft 8, 2026-11-21. NCCN Uterine Neoplasms 3.2026 tags on the uterine sarcoma lines (Jonan's card, 09:24 UTC).
 # Draft 7, 2026-11-20. Line layout (Jonan 07:54 "your lines are a mess"): desmoid and TGCT steps declared before the localised subtree so the advanced fan sits beside its box; angiosarcoma later lines merged into its box.
 # Draft 6, 2026-11-20. One treatment tree (Jonan 07:38 UTC, "rebuild the entire mind map using this", "integrate the second line
 #   pathways in, to have a unified flowsheet"): each decision of the draft 5 flowchart is a box holding its lines.
@@ -25,8 +26,9 @@
 #     trial, SARC041, MANEUVER and SU2C-SARC032
 #   〔NCCN category〕 NCCN Soft Tissue Sarcoma 5.2026 (23 July 2026), algorithm pages and SARC-G. 2A unless stated.
 #     The preference label is printed on the systemic therapy pages. A bare 〔NCCN〕 marks a footnote, a principles
-#     page or the Discussion. NCCN STS refers uterine sarcoma to NCCN Uterine Neoplasms, which is not on file, so the
-#     localised uterine lines carry ESMO tags only
+#     page or the Discussion. NCCN STS refers uterine sarcoma to NCCN Uterine Neoplasms
+#   〔NCCN Uterine category〕 NCCN Uterine Neoplasms 3.2026 (16 June 2026), uterine sarcoma pages UTSARC-1 to UTSARC-5
+#     and UTSARC-C. 2A unless stated. Used only on lines about uterine sarcoma
 # Uterine leiomyosarcoma (Jonan 2026-11-20): localised uterine LMS is in the uterine box. Advanced uterine LMS is in
 #   the leiomyosarcoma box, as ESMO treats it as STS. LMS-04, GeDDiS, CR018004 and PALETTE enrolled uterine LMS
 # Licence notes: pimicotinib (FDA, November 2026, after NCCN 5.2026), afamitresgene autoleucel (FDA accelerated),
@@ -165,14 +167,22 @@ course: STS | parallel
       ・The value of chemotherapy before or after surgery is not established 〔ESMO〕
   Localised uterine sarcoma
     branch: VIS
-    ① Uterine leiomyosarcoma, endometrial stromal sarcoma or undifferentiated uterine sarcoma: en bloc total hysterectomy without morcellation 〔ESMO IV, A〕
+    ① Uterine leiomyosarcoma, endometrial stromal sarcoma or undifferentiated uterine sarcoma: en bloc total hysterectomy without morcellation 〔ESMO IV, A〕 〔NCCN Uterine〕
       ・Systematic lymphadenectomy is not useful 〔ESMO〕
       ・Ovarian preservation is possible 〔ESMO〕
+      ・Oophorectomy is decided individually at reproductive age, and favoured for oestrogen or progesterone receptor-positive tumours 〔NCCN Uterine〕
+      ・Oestrogen and progesterone receptor testing is considered for leiomyosarcoma, endometrial stromal sarcoma and adenosarcoma 〔NCCN Uterine〕
     ② After hysterectomy: no adjuvant radiotherapy 〔ESMO I, D〕
       ・Adjuvant chemotherapy for uterine leiomyosarcoma is not standard 〔ESMO IV, C〕
+      ・Stage I high-grade endometrial stromal sarcoma, undifferentiated uterine sarcoma or leiomyosarcoma: observation 〔NCCN Uterine〕
+      ・Stage II or III: observation after complete resection with negative margins, or systemic therapy, radiotherapy or both are considered 〔NCCN Uterine〕
       - EORTC 55874 {pmid 18378136}
     ※ Adjuvant gemcitabine with docetaxel, then doxorubicin, did not improve overall survival over observation in uterine-limited leiomyosarcoma, in a trial closed for poor accrual
       - GOG 0277 {pmid 30289732}
+    ③ Low-grade endometrial stromal sarcoma or adenosarcoma without sarcomatous overgrowth: bilateral salpingo-oophorectomy 〔NCCN Uterine〕
+      ・Stage I: observation after salpingo-oophorectomy 〔NCCN Uterine〕
+      ・Stage II to IV: endocrine therapy is an option 〔NCCN Uterine〕, and radiotherapy for stage II to IVA 〔NCCN Uterine 2B〕
+      ・Adenosarcoma with sarcomatous overgrowth, stage II to IV: systemic therapy is considered, and recommended for residual measurable disease 〔NCCN Uterine〕
   Isolated lung metastases
     ① Resectable lung metastases after a disease-free interval of 1 year or more: surgery 〔ESMO IV, B〕 〔NCCN〕
       ・Chemotherapy before surgery is an option 〔ESMO IV, B〕 〔NCCN〕
@@ -184,6 +194,7 @@ course: STS | parallel
       ・Histotypes insensitive to cytotoxic chemotherapy include ASPS, extraskeletal myxoid chondrosarcoma, clear cell sarcoma and extremity atypical lipomatous tumour 〔NCCN〕
       ・ASPS and clear cell sarcoma are refractory to an anthracycline with ifosfamide 〔ESMO〕
       ・Advanced uterine leiomyosarcoma, undifferentiated endometrial sarcoma and adenosarcoma with sarcomatous overgrowth are treated as STS 〔ESMO〕
+      ・Gemcitabine with docetaxel is a preferred first-line option for uterine sarcoma 〔NCCN Uterine, preferred〕
     ② NTRK fusion screening: pan-TRK immunohistochemistry, with molecular confirmation of a positive result 〔ESMO〕
     next: Isolated lung metastases | Isolated lung metastases
     next: Actionable biomarker, any line | Actionable biomarker
@@ -224,6 +235,8 @@ course: STS | parallel
     ⑥ ALK-positive inflammatory myofibroblastic tumour: crizotinib or another ALK inhibitor 〔ESMO〕 〔NCCN〕
       ~ EORTC 90101 CREATE {pmid 29669701}
     ⑦ Advanced low-grade endometrial stromal sarcoma: hormone therapy with a progestin, an aromatase inhibitor or a GnRH analogue 〔ESMO V, B〕
+      ・An aromatase inhibitor is preferred, with a GnRH analogue before the menopause when salpingo-oophorectomy is not suitable 〔NCCN Uterine, preferred〕
+      ・Fulvestrant 〔NCCN Uterine〕 and progestins 〔NCCN Uterine 2B〕 are other options
       ・Tamoxifen is contraindicated 〔ESMO〕
     ⑧ Epithelioid haemangioendothelioma: STS regimens, pazopanib, sirolimus or trametinib 〔NCCN〕
     ⑨ Extraskeletal osteosarcoma: ifosfamide, or cisplatin with doxorubicin 〔NCCN〕
@@ -260,7 +273,7 @@ course: STS | parallel
     next: After first line: histotype
   Doxorubicin with dacarbazine or with trabectedin
     branch: LMS
-    ① Leiomyosarcoma, soft tissue or uterine: doxorubicin with dacarbazine 〔ESMO IV, B〕 〔NCCN〕, or doxorubicin with trabectedin 〔NCCN〕
+    ① Leiomyosarcoma, soft tissue or uterine: doxorubicin with dacarbazine 〔ESMO IV, B〕 〔NCCN〕 〔NCCN Uterine, preferred〕, or doxorubicin with trabectedin 〔NCCN〕 〔NCCN Uterine, preferred〕
       ・Advanced uterine leiomyosarcoma is treated as soft tissue leiomyosarcoma 〔ESMO〕
       ・The activity of ifosfamide in leiomyosarcoma is far less convincing 〔ESMO〕
       ~ LMS-04 {pmid 35835135}
@@ -282,6 +295,7 @@ course: STS | parallel
     branch: LMS
     ① After doxorubicin: trabectedin 〔ESMO I, B〕 〔NCCN 1〕, gemcitabine with docetaxel or with dacarbazine 〔ESMO II, B〕 〔NCCN〕, pazopanib 〔ESMO I, B〕 〔NCCN〕 or dacarbazine 〔ESMO〕 〔NCCN〕
       ・Gemcitabine alone, eribulin and regorafenib are options 〔NCCN〕
+      ・In uterine leiomyosarcoma, trabectedin is preferred after first line 〔NCCN Uterine, preferred〕, and a PARP inhibitor is considered for a BRCA-altered tumour 〔NCCN Uterine〕
       ~ CR018004 {pmid 26371143}
       + SARC002 {pmid 17602081}
   Liposarcoma after first line
