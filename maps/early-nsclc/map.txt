@@ -124,7 +124,7 @@
 #       keeps no single word alone on its last line. Each trial name has a ・ bullet and never wraps
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
 #     〔NCCN category〕 NCCN Non-Small Cell Lung Cancer 1.2027 (20 November 2026), stage I–III pages,
-#       NSCL-B, NSCL-C and NSCL-E; category 2A unless stated
+#       NSCL-B, NSCL-C, NSCL-E and NSCL-H; category 2A unless stated
 #     〔ESMO evidence, grade〕 ESMO living guideline, early and locally advanced NSCLC v1.3 (August 2026)
 #     〔JLCS evidence, strength〕 Japan Lung Cancer Society guideline 2025 (web edition, 6 November 2025),
 #       chapter Ⅰ CQ23–25 and chapter Ⅱ sections 1–6; strength 1 strong or 2 weak, evidence A to D;
@@ -164,12 +164,12 @@ band: Staging before treatment
 
 band: Testing before treatment
   ① EGFR and RET from stage IB, ALK from stage II at 4 cm or more 〔ESMO I, A〕
+  ・Testing uses tissue, preferably a multigene panel, with targeted gene testing when a panel would delay treatment 〔NCCN 2A〕
   ② PD-L1 before neoadjuvant chemotherapy with immunotherapy 〔ESMO IV, A〕
   ・PD-L1 in every resected stage II–IIIA tumour not treated that way 〔ESMO I, A〕
   ・EGFR, ALK, RET and PD-L1 from stage IB, and in central stage I 〔NCCN 2A〕
-  ・Testing is on tissue, preferably by multigene panel, with targeted gene testing when a panel would delay treatment 〔NCCN 2A〕
-  ・A rebiopsy only to complete testing is not required when it would delay definitive treatment 〔NCCN 2A〕
   ③ Biomarker results are required before treatment starts, with the order of systemic treatment and surgery decided by the MDT 〔ESMO V, A〕
+  ・Rebiopsy solely to complete biomarker testing is not required when it would delay definitive treatment 〔NCCN 2A〕
   ④ ctDNA is not used to add or withhold adjuvant treatment 〔ESMO IV, E〕
 
 course: Early and locally advanced NSCLC
@@ -212,7 +212,7 @@ course: Early and locally advanced NSCLC
     ※ ALK, stage III: lorlatinib before surgery met its pathological complete response endpoint in a single-arm trial
       ~ LORIN [t-lorin]
     ※ Superior sulcus tumour, T3–4 N0–1: concurrent chemoradiotherapy, then surgery 〔ESMO III, B〕 〔NCCN 2A〕 〔JLCS C, 1〕
-    ※ Chemotherapy alone before surgery improved survival, when immunotherapy or targeted therapy is not suitable 〔NCCN 2A〕 〔JLCS BQ1, B〕
+    ※ Chemotherapy alone before surgery improved survival 〔JLCS BQ1, B〕 and is an option when immunotherapy or targeted therapy is not suitable 〔NCCN 2A〕
     ・Not in stage I–IIA 〔JLCS C, 2〕
       + Meta-analysis 2014 {pmid 24576776}
     next: After chemotherapy with immunotherapy and surgery
@@ -331,7 +331,7 @@ course: Early and locally advanced NSCLC
     ・Chemotherapy first as an option 〔ESMO II, C〕
     ・Stage II–IIIB 〔JLCS〕
       ~ ALINA {pmid 38598794}
-      ※ Ensartinib after adjuvant chemotherapy, stage IB–IIIB 〔NCCN 2A〕
+      ※ Ensartinib after adjuvant chemotherapy is an option in stage IB–IIIB 〔NCCN 2A〕
       ・Ensartinib improved DFS
       ・Ensartinib has a US licence for advanced ALK-positive NSCLC, not for treatment after resection
         ~ ELEVATE {pmid 42418775}

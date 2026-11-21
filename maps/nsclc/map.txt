@@ -88,8 +88,9 @@ branch: ND | No driver | sand
 band: Before first line
   Tissue NGS, with plasma when tissue is short, before first line: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK, NRG1 〔NCCN 2A〕 〔ASCO High, Strong〕 〔ESMO III, A〕
   ・RNA-based NGS for fusions 〔ESMO III, B〕
-  PD-L1 TPS (22C3), and HER2 and c-Met protein by IHC 〔NCCN 2A〕 〔ASCO High, Strong〕
-  ・PD-L1 〔ESMO I, A〕
+  PD-L1 TPS (22C3), and HER2 and c-Met protein by IHC 〔ASCO High, Strong〕
+  ・PD-L1 〔NCCN 1〕 〔ESMO I, A〕
+  ・HER2 and c-Met protein by IHC when tissue allows 〔NCCN 2A〕
   ※ A negative plasma test requires confirmation on tissue 〔ESMO II, A〕
   ※ Driver found at PS 2: targeted treatment 〔JLCS C, 1〕, at PS 3–4 〔JLCS C, 2〕, at PS over 2 〔ASCO Low, Conditional〕
   ※ A checkpoint inhibitor alone gives a low response rate in EGFR-mutant disease 〔ASCO Moderate, Strong〕 〔JLCS BQ3, C〕
@@ -107,11 +108,11 @@ band: Local treatment and bone
     ~ Henry 2011 {pmid 21343556}
   ④ Asymptomatic bone metastases at high risk of skeletal events: prophylactic radiotherapy, stereotactic or conventional 〔NCCN 2A〕
     + Gillespie 2024 {pmid 37748124}
-    ※ The trial was a randomised phase 2 trial across several solid tumours
+    ※ It was a randomised phase 2 trial in several solid tumour types
   ⑤ Up to 5 sites progressing on systemic therapy: radiotherapy to those sites, with continuation of systemic therapy 〔NCCN 2A〕
   ・With a driver 〔ESMO IV, C〕
-  ・With a driver, surgery or image-guided thermal ablation in selected patients 〔NCCN 2A〕
     ~ CURB {pmid 38104577}
+  ・With a driver, surgery or image-guided thermal ablation of those sites is an alternative to radiotherapy 〔NCCN 2A〕
 
 tree: Advanced NSCLC, first line
   Driver found
@@ -235,13 +236,12 @@ tree: Advanced NSCLC, first line
         ・Smoking history: immunotherapy with or without chemotherapy 〔ESMO IV, B〕
       MET exon 14
         branch: MUT pale
-        ① Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
-        ・Crizotinib 〔NCCN 2A, useful in certain circumstances〕
-        ・Crizotinib has no EU or US licence for this mutation
+        ① Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕, or immunotherapy with or without chemotherapy, as without a driver 〔NCCN 2A, other recommended〕
+        ・The choice between targeted treatment and immunotherapy rests on disease burden, smoking history and PD-L1 〔NCCN〕
         ~ GEOMETRY mono-1 {pmid 32877583}
         ~ VISION {pmid 32469185}
-        ② Immunotherapy with or without chemotherapy, as without a driver 〔NCCN 2A, other recommended〕
-        ・The choice rests on disease burden, smoking history and PD-L1 〔NCCN〕
+        ※ Crizotinib 〔NCCN 2A, useful in certain circumstances〕
+        ・No EU or US licence for this mutation
         ※ Gumarontinib 〔JLCS C, 1〕
         ・Licensed in Japan and China, not in the EU or US
       KRAS G12C
@@ -429,14 +429,14 @@ panel: Later lines, EGFR > EGFR
   ① T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
     ~ AURA3 {pmid 27959700}
   ② After osimertinib: amivantamab added to carboplatin and pemetrexed 〔NCCN 1〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
-  ・Amivantamab with lazertinib is a further option 〔NCCN 2A, useful in certain circumstances〕
-  ・Amivantamab with lazertinib is licensed in the EU and US for first line only
     ~ MARIPOSA-2 {pmid 37879444}
     ※ Ivonescimab with chemotherapy improved OS in a trial in China
     ・Ivonescimab is licensed in China only
     ・In the global trial PFS improved and OS did not
       + HARMONi-A {pmid 38820549}
       ~ HARMONi {pmid 42636833}
+  ※ After osimertinib, amivantamab with lazertinib is an option 〔NCCN 2A, useful in certain circumstances〕
+  ・Licensed in the EU and US for first line only
   ※ MET amplification or overexpression after an EGFR TKI: osimertinib with savolitinib improved PFS over platinum and pemetrexed
   ・SAFFRON enrolled after osimertinib
   ・SACHI enrolled after any EGFR TKI, in China only
@@ -453,7 +453,7 @@ panel: Later lines, EGFR > EGFR
     ・Platinum chemotherapy, given alone or with osimertinib 〔ASCO Moderate, Conditional〕
       ~ COMPEL {pmid 41139117}
   ⑤ After a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕 〔ESMO III, B〕
-  ・Non-squamous disease only 〔NCCN〕
+  ・It is recommended in non-squamous disease only 〔NCCN〕
   ・US licence, not EU
     ~ TROPION-Lung05 {pmid 39761483}
     ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel
