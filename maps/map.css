@@ -150,27 +150,21 @@
 .om-world .ln.t1b{border-color:var(--om-c1)}.om-world .ln.t2b{border-color:var(--om-c2)}
 .om-world .ln.t3b{border-color:var(--om-c3)}.om-world .ln.t4b{border-color:var(--om-c4)}
 
-/* trial card: same ruled label | value cells as an open Evidence row */
+/* trial card: the open Evidence row's own fields (rowFields from the Evidence view).
+   The body is a size container named like the shell's #viewroot, so the Evidence
+   view's narrow-width rules lay the fields out as on a narrow Evidence list. */
 #om-card{position:fixed;z-index:60;display:none;flex-direction:column;background:var(--b-paper);color:var(--b-ink);border:1px solid var(--b-line)}
 #om-card.open{display:flex}
 #om-card .hd{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--b-band);border-bottom:1px solid var(--b-line);font-weight:var(--w-bold)}
 #om-card .hd button{margin-left:auto;background:none;border:0;color:var(--b-ink);cursor:pointer;font-size:18px;line-height:1;padding:0 2px}
-#om-card .cb{overflow:auto;padding:12px}
-#om-card table{display:table;border-collapse:collapse;width:100%;font-size:var(--t-base)}
-#om-card tr{display:table-row}
-#om-card th,#om-card td{display:table-cell;border:1px solid var(--b-line);padding:6px 8px;vertical-align:top;text-align:left;line-height:1.45}
-#om-card th{width:9em;font-weight:var(--w-bold);font-size:var(--t-sm)}
-#om-card th::before{content:"【"}
-#om-card th::after{content:"】"}
-#om-card a{color:var(--accent-on-soft)}
+#om-card .cb{overflow:auto;container:oncos / inline-size}
 #om-card .ev{display:block;padding:8px 12px;border-top:1px solid var(--b-line);text-decoration:none;color:var(--b-ink);font-weight:var(--w-bold)}
 #om-card .ev::after{content:"\25B8";margin-left:8px;color:var(--muted)}
 @media (hover:hover){#om-card .ev:hover{background:var(--b-band)}}
 @media (min-width:900px){
-  #om-card{top:calc(env(safe-area-inset-top,0px) + 16px);right:max(16px, env(safe-area-inset-right,0px));width:400px;max-height:calc(100vh - 32px)}
+  #om-card{top:calc(env(safe-area-inset-top,0px) + 16px);right:max(16px, env(safe-area-inset-right,0px));width:440px;max-height:calc(100vh - 32px)}
 }
 @media (max-width:899px){
-  #om-card th{width:7.5em}
   #om-card{left:0;right:0;bottom:0;max-height:62vh;border-left:0;border-right:0;padding-bottom:env(safe-area-inset-bottom,0px)}
 }
 

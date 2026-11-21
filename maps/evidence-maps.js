@@ -274,11 +274,10 @@
 
   /* ---- trial card ---- */
   var card = null, cardKey = null;
-  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function makeCard(){
     card = document.createElement('aside');
     card.id = 'om-card'; card.setAttribute('aria-live', 'polite');
-    card.innerHTML = '<div class="hd"><span class="t"></span><button type="button" aria-label="Close">×</button></div><div class="cb"><table></table></div><a class="ev" hidden>Open the Evidence row</a>';
+    card.innerHTML = '<div class="hd"><span class="t"></span><button type="button" aria-label="Close">×</button></div><div class="cb"><div class="detail"><div class="inner"></div></div></div><a class="ev" hidden>Open the Evidence row</a>';
     card.querySelector('.hd button').addEventListener('click', closeCard);
     document.body.appendChild(card);
   }
@@ -298,29 +297,29 @@
     rows.catch(function(){ rows = null; });
     return rows;
   }
-  function multi(s){ return esc(s).replace(/\n/g, '<br>'); }
   function openRowCard(anchor, btn){
     if (!card) makeCard();
     var pane = document.getElementById('map');
     if (pane) pane.querySelectorAll('.trial.on').forEach(function(x){ x.classList.remove('on'); });
     btn.classList.add('on'); cardKey = anchor;
+    var body = card.querySelector('.inner');
     card.querySelector('.t').textContent = btn.textContent;
-    card.querySelector('table').innerHTML = '';
+    body.innerHTML = '';
     var ev = card.querySelector('.ev');
     ev.hidden = false; ev.setAttribute('href', '/evidence/#' + anchor);
     card.classList.add('open');
     evidenceRows().then(function(m){
       if (cardKey !== anchor) return;
       var t = m[anchor];
-      if (!t) { card.querySelector('table').innerHTML = ''; return; }
+      // The fields come from the Evidence view itself (rowFields), so the card shows
+      // the row exactly as the Evidence list does: arm letters, ★ conclusions,
+      // label | value results, ※ limitations, references with their PubMed lines.
+      var v = window.oncosView;
+      if (!t || !v || v.name !== 'evidence' || typeof v.rowFields !== 'function') { body.innerHTML = ''; return; }
       card.querySelector('.t').textContent = t.study + ' \u00b7 ' + t.year;
-      var ref = esc(t.ref) + (t.link ? ' \u00b7 <a href="' + esc(t.link) + '" target="_blank" rel="noopener">PubMed</a>' : '');
-      var f = [['Design', t.type], ['Population', t.population], ['Arms', t.arms], ['Endpoints', t.endpoint], ['Results', t.findings]];
-      card.querySelector('table').innerHTML = f.filter(function(r){ return r[1]; }).map(function(r){
-        return '<tr><th>' + r[0] + '</th><td>' + multi(r[1]) + '</td></tr>'; }).join('') +
-        '<tr><th>Reference</th><td>' + ref + '</td></tr>';
+      body.innerHTML = v.rowFields(t);
       card.querySelector('.cb').scrollTop = 0;
-    }, function(){ if (cardKey === anchor) card.querySelector('table').innerHTML = ''; });
+    }, function(){ if (cardKey === anchor) body.innerHTML = ''; });
   }
   function closeCard(){
     if (card) card.classList.remove('open');
