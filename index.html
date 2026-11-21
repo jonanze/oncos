@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="application-version" content="2.2.46">
+<meta name="application-version" content="2.2.47">
 <title>ONCOS</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#dfe4ea">
@@ -626,7 +626,7 @@ select{border-radius:0;}
 #viewroot :is(em,i,cite,address){font-style:normal;}
 html[data-view="evidence"] #viewroot tr.detail .inner{max-width:900px;}
 @media (pointer:coarse){#viewroot .wl-tab, #viewroot .wl-select, #viewroot select{min-height:44px;}
-#viewroot .detail .refline a, #viewroot .rf-v a, #viewroot .related a{display:inline-block;padding:12px 0;margin:-12px 0;}}
+:is(#viewroot,#om-card) .detail .refline a, #viewroot .rf-v a, #viewroot .related a{display:inline-block;padding:12px 0;margin:-12px 0;}}
 #viewroot .rf{margin:0 0 16px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);min-width:0;}
 #viewroot .rf-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:8px 12px;
   background:var(--b-cell);border-bottom:1px solid var(--b-line);}
@@ -705,17 +705,17 @@ html[data-view="drugs"] #viewroot .azdiv::after{content:"】";content:"】" / ""
 .oncos-rail .rail-appendix{gap:0;}
 .oncos-rail .rail-group{height:32px;padding:0 12px;}
 .oncos-rail .rail-appendix .suite-link{height:32px;margin:0;padding:0 12px;border-bottom:1px solid var(--b-grid);}}
-html[data-view="evidence"] #viewroot .detail .arm-vs{border-color:var(--b-mark);}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .arm-vs{border-color:var(--b-mark);}
 html[data-view="tox"] #viewroot :is(.csc.on,.aert.act,.fnbopt.on,.mucpill.on,.cv-pick .cvp.on){border-color:var(--b-mark);}
 :root[data-theme="light"] .oncos-rail .tico, :root[data-theme="light"] .oncos-rail .rail-icon, :root[data-theme="light"] .sbtn svg{color:#4f6178;}
 :root[data-theme="light"] .cell-loader{color:#4f6178;}
-@media (max-width:760px){html[data-view="evidence"] #viewroot .detail .refline{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;margin:0;padding:7px 0;border-top:1px solid var(--b-grid);font-size:.94em;line-height:1.45;}
-html[data-view="evidence"] #viewroot .detail .refline:first-child{border-top:0;padding-top:0;}
-html[data-view="evidence"] #viewroot .detail .refline:last-child{padding-bottom:0;}
-html[data-view="evidence"] #viewroot .detail .refline > a.src{flex:0 0 100%;display:block;padding-left:1.4em;text-indent:-1.4em;}
-html[data-view="evidence"] #viewroot .detail .refline .refpm{order:1;margin:0;padding-left:1.4em;font-size:1em;}
-html[data-view="evidence"] #viewroot .detail .refline .reftag{order:2;margin-left:0;}}
-html[data-view="evidence"] #viewroot .detail .refline .nw{white-space:nowrap;}
+@media (max-width:760px){html[data-view="evidence"] :is(#viewroot,#om-card) .detail .refline{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;margin:0;padding:7px 0;border-top:1px solid var(--b-grid);font-size:.94em;line-height:1.45;}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .refline:first-child{border-top:0;padding-top:0;}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .refline:last-child{padding-bottom:0;}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .refline > a.src{flex:0 0 100%;display:block;padding-left:1.4em;text-indent:-1.4em;}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .refline .refpm{order:1;margin:0;padding-left:1.4em;font-size:1em;}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .refline .reftag{order:2;margin-left:0;}}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .refline .nw{white-space:nowrap;}
 html[data-view="evidence"] #viewroot tr.secrow td, html:is([data-view="staging"],[data-view="acute"],[data-view="tox"]) #viewroot table.list tr.secrow td, html[data-view="staging"] #viewroot .sgrid .block > h4, html[data-view="tox"] #viewroot :is(.iseclabel,.seclabel), html[data-view="evidence"] #viewroot .wl-group{text-transform:uppercase;letter-spacing:.02em;}
 @font-face{font-family:'oncOS Marks';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/oncOSMarks-rx.woff2) format('woff2');unicode-range:U+211E;}
 @font-face{font-family:'oncOS Marks';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/oncOSMarks-warn.woff2) format('woff2');unicode-range:U+26A0;}
@@ -763,13 +763,13 @@ html .rail-icon:is(.rail-back-strip,.rail-home-strip), html .rail-home-strip{dis
 html[data-view="tox"] .oncos-rail #viewnav .facet .sbtn svg{display:none;}
 html[data-view="tox"] .oncos-rail #viewnav .facet .sbtn::before{content:"\21C4";content:"\21C4" / "";display:inline-flex;justify-content:center;
   width:var(--ico-nav);font-size:var(--t-md);line-height:1;color:var(--b-bullet);}
-html[data-view="evidence"] #viewroot .detail .ext{display:inline-block;width:.9em;height:.9em;margin-left:.3em;vertical-align:-.08em;
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .ext{display:inline-block;width:.9em;height:.9em;margin-left:.3em;vertical-align:-.08em;
   background-color:currentColor;
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='square'%3E%3Cpath d='M10 4H4v16h16v-6M14 4h6v6M20 4l-9 9'/%3E%3C/svg%3E") center/contain no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='square'%3E%3Cpath d='M10 4H4v16h16v-6M14 4h6v6M20 4l-9 9'/%3E%3C/svg%3E") center/contain no-repeat;}
-html[data-view="evidence"] #viewroot .detail .reftag::before{content:"\25C6\00A0";content:"\25C6\00A0" / "";}
-html[data-view="evidence"] #viewroot .detail .reftag::after{content:none;}
-html[data-view="evidence"] #viewroot .detail .reftag.sc{text-transform:none;}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .reftag::before{content:"\25C6\00A0";content:"\25C6\00A0" / "";}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .reftag::after{content:none;}
+html[data-view="evidence"] :is(#viewroot,#om-card) .detail .reftag.sc{text-transform:none;}
 </style>
 <style data-touch-press>
 @media (hover:none){
