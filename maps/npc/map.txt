@@ -64,6 +64,7 @@ course: Nasopharyngeal carcinoma
     + MAC-NPC {pmid 25957714}
     ② No induction: chemoradiotherapy, then adjuvant chemotherapy 〔CSCO-ASCO High, Strong〕 〔NCCN 2A〕
     + Intergroup 0099 {pmid 9552031}
+    + NPC-9901 [t-npc-9901]
     ~ Guo 2025 {pmid 40531520}
     ※ Chemoradiotherapy alone 〔NCCN 2B〕
       ・Induction or adjuvant chemotherapy for every patient in this group 〔CSCO-ASCO〕
