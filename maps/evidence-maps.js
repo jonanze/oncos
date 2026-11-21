@@ -48,7 +48,9 @@
     'RCC': 'rcc',
     'Cervical Cancer': 'cervical',
     'Biliary Tract Cancer': 'biliary',
-    'Adult Diffuse Glioma': 'glioma'
+    'Adult Diffuse Glioma': 'glioma',
+    'GIST': 'gist',
+    'STS': 'sts'
   };
   var ANCHOR = 'map';
   var has = function(sheet){ return !!sheet && Object.prototype.hasOwnProperty.call(MAPS, sheet); };
