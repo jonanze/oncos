@@ -60,8 +60,8 @@
 #     A wrapped line starts under its text. No word is carried down to a tag's line. An untagged statement
 #       keeps no single word alone on its last line. Each trial name has a ・ bullet and never wraps
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
-#     〔NCCN category, preference〕 NCCN Non-Small Cell Lung Cancer 9.2026 (22 September 2026), stage IV
-#       pages NSCL-19 to 39, NSCL-J and NSCL-K; category 2A unless stated; options NCCN alone lists sit on ※ lines
+#     〔NCCN category, preference〕 NCCN Non-Small Cell Lung Cancer 1.2027 (20 November 2026), stage IV
+#       pages NSCL-19 to 39, NSCL-C, NSCL-J and NSCL-K; category 2A unless stated; options NCCN alone lists sit on ※ lines
 #       or as ・ lines in their drug class; the tag names the guideline, so the text does not repeat it (Jonan 2026-11-11)
 #     〔ASCO quality, strength〕 ASCO living guidelines for stage IV NSCLC, version 2026.3.4 (30 September 2026):
 #       with driver alterations (Reuss) on the Driver found branch and Later lines panels, without driver
@@ -89,7 +89,8 @@ band: Before first line
   Tissue NGS, with plasma when tissue is short, before first line: EGFR, ALK, ROS1, BRAF V600E, KRAS G12C, MET exon 14, RET, HER2, NTRK, NRG1 〔NCCN 2A〕 〔ASCO High, Strong〕 〔ESMO III, A〕
   ・RNA-based NGS for fusions 〔ESMO III, B〕
   PD-L1 TPS (22C3), and HER2 and c-Met protein by IHC 〔ASCO High, Strong〕
-  ・PD-L1 〔ESMO I, A〕
+  ・PD-L1 〔NCCN 1〕 〔ESMO I, A〕
+  ・HER2 and c-Met protein by IHC when tissue allows 〔NCCN 2A〕
   ※ A negative plasma test requires confirmation on tissue 〔ESMO II, A〕
   ※ Driver found at PS 2: targeted treatment 〔JLCS C, 1〕, at PS 3–4 〔JLCS C, 2〕, at PS over 2 〔ASCO Low, Conditional〕
   ※ A checkpoint inhibitor alone gives a low response rate in EGFR-mutant disease 〔ASCO Moderate, Strong〕 〔JLCS BQ3, C〕
@@ -105,9 +106,13 @@ band: Local treatment and bone
     ~ NCCTG N0574 {pmid 27458945}
   ③ Bone metastases: denosumab 120 mg every 4 weeks
     ~ Henry 2011 {pmid 21343556}
-  ④ Up to 5 sites progressing on systemic therapy: radiotherapy to those sites, with continuation of systemic therapy 〔NCCN 2A〕
+  ④ Asymptomatic bone metastases at high risk of skeletal events: prophylactic radiotherapy, stereotactic or conventional 〔NCCN 2A〕
+    + Gillespie 2024 {pmid 37748124}
+    ※ It was a randomised phase 2 trial in several solid tumour types
+  ⑤ Up to 5 sites progressing on systemic therapy: radiotherapy to those sites, with continuation of systemic therapy 〔NCCN 2A〕
   ・With a driver 〔ESMO IV, C〕
     ~ CURB {pmid 38104577}
+  ・With a driver, surgery or image-guided thermal ablation of those sites is an alternative to radiotherapy 〔NCCN 2A〕
 
 tree: Advanced NSCLC, first line
   Driver found
@@ -128,7 +133,8 @@ tree: Advanced NSCLC, first line
         ※ With a TP53 co-mutation, addition of chemotherapy to osimertinib prolonged PFS
           ~ Zhou 2026 {pmid 42574006}
         ※ Earlier-generation TKIs
-        ・Afatinib, dacomitinib, erlotinib or gefitinib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, B〕
+        ・Afatinib, erlotinib or gefitinib 〔NCCN 1, useful in certain circumstances〕 〔ESMO I, B〕
+        ・Dacomitinib 〔ESMO I, B〕
         ・Erlotinib with ramucirumab or bevacizumab 〔NCCN 2A, useful in certain circumstances〕 〔ESMO I, B〕 〔JLCS A, 2〕
         ・Erlotinib with bevacizumab is licensed in the EU, not in the US
         ※ Lazertinib alone where osimertinib is not available 〔NCCN 2A, useful in certain circumstances〕 〔ASCO Low, Conditional〕
@@ -154,6 +160,9 @@ tree: Advanced NSCLC, first line
         ~ ACHILLES {pmid 40239133}
         ~ LUX-Lung pooled {pmid 26051236}
         ~ UNICORN {pmid 37991747}
+        ※ Amivantamab with lazertinib 〔NCCN 2A, other recommended〕 〔ASCO Low, Conditional〕
+        ・Licensed in the EU and US for exon 19 deletion or L858R only
+          ~ CHRYSALIS-2 Cohort C {pmid 41325571}
         ※ Grouping by protein structure predicts TKI benefit better than grouping by exon
         ※ T790M before any TKI: osimertinib 〔JLCS D, 2〕
     Fusion
@@ -179,7 +188,9 @@ tree: Advanced NSCLC, first line
         ② PS 2–4: alectinib 〔JLCS C, 1〕
       ROS1
         branch: FUS pale
-        ① Crizotinib, entrectinib, repotrectinib or taletrectinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
+        ① Repotrectinib, taletrectinib, crizotinib or entrectinib 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
+        ・Repotrectinib or taletrectinib 〔NCCN 2A, preferred〕
+        ・Crizotinib or entrectinib 〔NCCN 2A, other recommended〕
         ・Taletrectinib is licensed in the US, not in the EU
         ~ PROFILE 1001 {pmid 25264305}
         ~ STARTRK pooled {pmid 31838015}
@@ -215,8 +226,9 @@ tree: Advanced NSCLC, first line
       branch: MUT
       BRAF V600E
         branch: MUT pale
-        ① Dabrafenib and trametinib, or encorafenib and binimetinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕
+        ① Dabrafenib and trametinib, or encorafenib and binimetinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕, or immunotherapy with or without chemotherapy, as without a driver 〔NCCN 2A, preferred〕
         ・Dabrafenib and trametinib 〔JLCS C, 1〕
+        ・The choice between targeted treatment and immunotherapy rests on disease burden, smoking history and PD-L1 〔NCCN〕
         ~ BRF113928 {pmid 28919011}
         ~ PHAROS {pmid 37270692}
         ※ After the BRAF and MEK inhibitors
@@ -224,15 +236,18 @@ tree: Advanced NSCLC, first line
         ・Smoking history: immunotherapy with or without chemotherapy 〔ESMO IV, B〕
       MET exon 14
         branch: MUT pale
-        ① Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕
+        ① Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕, or immunotherapy with or without chemotherapy, as without a driver 〔NCCN 2A, other recommended〕
+        ・The choice between targeted treatment and immunotherapy rests on disease burden, smoking history and PD-L1 〔NCCN〕
         ~ GEOMETRY mono-1 {pmid 32877583}
         ~ VISION {pmid 32469185}
+        ※ Crizotinib 〔NCCN 2A, useful in certain circumstances〕
+        ・No EU or US licence for this mutation
         ※ Gumarontinib 〔JLCS C, 1〕
         ・Licensed in Japan and China, not in the EU or US
       KRAS G12C
         branch: MUT pale
         ① Chemotherapy with PD-1 antibody first, as without a driver 〔ESMO III, A〕
-        ② At progression: sotorasib or adagrasib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕
+        ② At progression: sotorasib or adagrasib 〔NCCN 1〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕
         ・Sotorasib 〔JLCS B, 1〕
         ~ CodeBreaK 200 {pmid 36764316}
         ~ KRYSTAL-12 {pmid 40783289}
@@ -413,13 +428,15 @@ panel: Later lines, EGFR > EGFR
   ※ NGS is an option at progression on an EGFR TKI, on tissue, or on plasma followed by tissue when plasma finds no target 〔ESMO III, C〕
   ① T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
     ~ AURA3 {pmid 27959700}
-  ② After osimertinib: amivantamab added to carboplatin and pemetrexed 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
+  ② After osimertinib: amivantamab added to carboplatin and pemetrexed 〔NCCN 1〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
     ~ MARIPOSA-2 {pmid 37879444}
     ※ Ivonescimab with chemotherapy improved OS in a trial in China
     ・Ivonescimab is licensed in China only
     ・In the global trial PFS improved and OS did not
       + HARMONi-A {pmid 38820549}
       ~ HARMONi {pmid 42636833}
+  ※ After osimertinib, amivantamab with lazertinib is an option 〔NCCN 2A, useful in certain circumstances〕
+  ・Licensed in the EU and US for first line only
   ※ MET amplification or overexpression after an EGFR TKI: osimertinib with savolitinib improved PFS over platinum and pemetrexed
   ・SAFFRON enrolled after osimertinib
   ・SACHI enrolled after any EGFR TKI, in China only
@@ -429,11 +446,14 @@ panel: Later lines, EGFR > EGFR
     + SAFFRON
     ~ SACHI {pmid 41544643}
     ~ INSIGHT 2 {pmid 39089305}
-  ③ Platinum doublet after all suitable TKIs, pemetrexed-based for adenocarcinoma 〔ESMO III, A〕
+  ③ After first-line amivantamab with lazertinib: the first-line options for disease without a driver 〔NCCN 2A〕
+  ④ Platinum doublet after all suitable TKIs, pemetrexed-based for adenocarcinoma 〔ESMO III, A〕
     ※ Continuation of osimertinib with chemotherapy delayed progression
+    ・Platinum and pemetrexed with continued osimertinib, in non-squamous disease not already on pemetrexed 〔NCCN 2A〕
     ・Platinum chemotherapy, given alone or with osimertinib 〔ASCO Moderate, Conditional〕
-      ~ COMPEL
-  ④ After a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕 〔ESMO III, B〕
+      ~ COMPEL {pmid 41139117}
+  ⑤ After a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕 〔ESMO III, B〕
+  ・It is recommended in non-squamous disease only 〔NCCN〕
   ・US licence, not EU
     ~ TROPION-Lung05 {pmid 39761483}
     ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel
@@ -445,12 +465,12 @@ panel: Later lines, EGFR > EGFR
       + OptiTROP-Lung04
       ~ HERON-Lung01 {pmid 42933457}
       ~ PANKU-Lung01
-  ⑤ Exon 20 after platinum
+  ⑥ Exon 20 after platinum
   ・Amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
   ・Sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
   ・Sunvozertinib is licensed in the US, not in the EU
     ~ WU-KONG1B {pmid 40923280}
-  ⑥ Transformation to small cell, mostly after an EGFR TKI: platinum with etoposide
+  ⑦ Transformation to small cell, mostly after an EGFR TKI: platinum with etoposide
   ・Rebiopsy at progression to detect transformation
   next: Second line | After TKIs and platinum chemotherapy
 
@@ -492,7 +512,6 @@ off:
   AENEAS2 | No licence or recommendation: aumolertinib is not licensed in the EU or US
   LUX-Lung 3 | Afatinib vs chemotherapy, superseded by FLAURA
   KCSG-LU15-09 | Osimertinib in uncommon EGFR, UNICORN covers it
-  CHRYSALIS-2 Cohort C | Small single-arm cohort, amivantamab and lazertinib in uncommon EGFR is recommended by ASCO alone 〔ASCO Low, Conditional〕, with no licence or NCCN listing in that group
   DESTINY-Lung01 | 6.4 mg/kg dose, DESTINY-Lung02 set 5.4 mg/kg
   POD1UM-304 | Retifanlimab with chemotherapy: ASCO alone recommends it 〔ASCO Moderate, Conditional〕, with no EU or US licence for NSCLC and no NCCN listing
   Sampath 2025 [t-sampath-et-al] | Non-randomised, no licence or recommendation rests on it

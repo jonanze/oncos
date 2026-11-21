@@ -56,7 +56,7 @@
 #     A wrapped line starts under its text. No word is carried down to a tag's line. An untagged statement
 #       keeps no single word alone on its last line. Each trial name has a ・ bullet and never wraps
 #   Tags give evidence first, strength second, as printed, on the statement the guideline graded:
-#     〔NCCN category, preference〕 NCCN Prostate Cancer 1.2027 (12 October 2026), pages PROS-12 to PROS-18A,
+#     〔NCCN category, preference〕 NCCN Prostate Cancer 2.2027 (20 November 2026), pages PROS-12 to PROS-18A,
 #       PROS-B, PROS-C and PROS-G; category 2A unless stated; options NCCN alone lists sit on ※ lines;
 #       the tag names the guideline, so the text does not repeat it (Jonan 2026-11-11)
 #     〔ESMO evidence, grade〕 ESMO living guideline, advanced and metastatic prostate cancer v1.0 (June 2026),
@@ -282,8 +282,11 @@ panel: Emerging upfront triplet options > Metastatic, castration-sensitive
     ~ AMPLITUDE {pmid 41057655}
     ※ No significant rPFS benefit with other HRR genes in a post hoc analysis
   ② HRR altered: talazoparib with enzalutamide
-    ~ TALAPRO-3
+    ・High volume 〔NCCN 2A, useful in certain circumstances〕
+    ・Low volume 〔NCCN 2B, useful in certain circumstances〕
+    ~ TALAPRO-3 {pmid 42223064}
     ° Toxicity of note: frequent grade 3 or higher anaemia
+  ※ The benefit of either PARP inhibitor combination in low-volume disease is unclear, because most patients in AMPLITUDE and TALAPRO-3 had high-volume disease 〔NCCN〕
   ③ PTEN loss: capivasertib with abiraterone 〔NCCN 2B, very select patients only〕
     ・PTEN loss is shown by IHC
     ・US licence
