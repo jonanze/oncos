@@ -2,6 +2,14 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.48] - 2026-11-21
+
+- Evidence: on wide screens an open row's form runs the full width of the row. The 900 px stop from 2.2.42 is lifted.
+- Evidence: one label column runs through Treatment arms, Endpoints and Results, as wide as the row's longest label up to a quarter of the form, so the vertical rules line up. Cells are more compact.
+- Evidence and the map trial card: arm letters ⓐⓑ take a narrow cell of their own beside the arm text, on phones too.
+- Evidence and the map trial card: Endpoints read ◎ Primary and ○ Secondary, the editor's marks, as label | value rows on wide screens and ruled lines on phones and in the card.
+- The doubled rule above Results is gone.
+
 ## [2.2.47] - 2026-11-21
 
 - Maps: a trial chip opens the trial's Evidence row in the side panel, drawn by the Evidence view's own code: Study type, Population, Treatment arms with ⓐⓑ rows, Endpoints with ① Primary and ② Secondary, Results with the ★ conclusion, label and value lines and ※ Limitations, and References with their PubMed lines. The panel is 440 px wide on desktop.
