@@ -1,0 +1,191 @@
+# oncOS board map: GIST (one map for the Evidence sheet "GIST")
+# Draft 0, 2026-11-20. Planning files: board-maps/sarcoma/ (plan.md, structure-plan-gist.md)
+#   Clinical content: board-maps/sarcoma/notes-asian-gist.md, notes-esmo-gist.md, notes-nccn-gist.md
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-20): GIST is its own map, beside the STS map. Three parallel stages, never chained: localised
+#   GIST with the step after resection, advanced GIST with an imatinib-sensitive mutation with the later lines, and
+#   GIST that is imatinib-insensitive or KIT/PDGFRA wild type as one box by genotype. Diagnosis and testing, risk of
+#   recurrence, response assessment and regimens are four bands. Paediatric GIST, endoscopic technique, interventional
+#   radiology detail and follow-up imaging intervals are left out
+# Guideline set (Jonan 2026-11-20) and tag forms. Tag order on every line: Asian, ESMO, NCCN (East Asian first)
+#   〔Asian strong〕, 〔Asian〕, 〔Asian weak〕 Updated Asian consensus guidelines for GIST 2025 (Japan, Korea, China,
+#     Taiwan; Hirano, Gastric Cancer 2026;29:887-903, PMID 42455249), Table 1 wording: "strongly recommended",
+#     "recommended", "weakly recommended". The consensus has no evidence levels. A bare 〔Asian〕 also marks the text
+#     and Tables 2 to 4. Consensus rates under 80% are given on a ・ line
+#   〔ESMO level, grade〕 ESMO-EURACAN-GENTURIS GIST 2022 (Casali, Ann Oncol 2022;33:20-33, PMID 34560242). A bare
+#     〔ESMO〕 marks the text or a figure. ESMO-MCBS and ESCAT scores are left off. It predates INTRIGUE and IMADGIST
+#   〔NCCN category〕 NCCN Gastrointestinal Stromal Tumors 1.2026, algorithm pages. 2A unless stated. A bare 〔NCCN〕
+#     marks a footnote, a principles page or the Discussion
+# Option order where guidelines disagree (defaults, Jonan's call):
+#   1. KIT exon 9, first line: 400 mg with escalation on progression (Asian, NCCN) before 800 mg from the start (ESMO).
+#      Decided by Jonan 2026-11-20 05:59 UTC (card)
+#   2. Fourth line: ripretinib numbered. Pimitespib a ※ line (Asian alone, licensed in Japan only)
+#   3. Options NCCN alone lists after approved therapies are ・ lines (rule ⑦)
+# Single-arm trials cited because a licence or recommendation rests on them and no randomised trial exists for that
+#   option (inclusion ①): NAVIGATOR, RTOG 0132, the NTRK basket analyses, ROAR and NCI-MATCH subprotocol H.
+#   George 2009 randomised morning against evening dosing only, so it counts as single-arm data on the schedule
+# Supporting trials added 2026-11-20 (Jonan: "tag the supporting studies"), PMIDs checked in PubMed that day
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint or single-arm, - primary endpoint not met
+
+map: GIST
+source: Asian {url https://doi.org/10.1007/s10120-026-01773-4}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2021.09.005}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+branch: LOC | Localised GIST | blue
+branch: ADV | Advanced GIST, imatinib-sensitive mutation | teal
+branch: GEN | Imatinib-insensitive or KIT/PDGFRA wild-type GIST | rose
+
+band: Diagnosis and molecular testing
+  ① Management by a multidisciplinary team in a reference centre for sarcoma and GIST 〔Asian〕 〔ESMO〕 〔NCCN〕
+  ② Diagnosis by morphology with immunohistochemistry for CD117 (KIT) and DOG1, and for SDHB when no KIT or PDGFRA mutation is found 〔Asian〕 〔ESMO〕 〔NCCN〕
+    ・About 5% of GIST are CD117 negative 〔Asian〕 〔ESMO〕
+  ③ Mutational analysis of KIT and PDGFRA, including NGS, for advanced GIST and before neoadjuvant or adjuvant treatment 〔Asian〕 〔ESMO II, A〕 〔NCCN〕
+    ・Mutational analysis is standard for all GIST, with the possible exception of non-rectal GIST under 2 cm 〔ESMO II, A〕
+    ・GIST without a KIT or PDGFRA mutation are tested by NGS for SDH deficiency and other drivers, including BRAF, NF1 and NTRK or FGFR fusions 〔ESMO〕 〔NCCN〕
+  ④ KIT mutations are found in 80% to 85% of GIST, exon 11 in 65% to 70% and exon 9 in about 10%, mostly outside the stomach, and PDGFRA mutations in 5% to 10%, mostly gastric 〔Asian〕
+    ・KIT and PDGFRA wild-type GIST make up 10% to 15%, most of them SDH-deficient 〔Asian〕 〔NCCN〕
+  ⑤ Biopsy to confirm the diagnosis before preoperative or systemic treatment, by EUS-guided fine-needle aspiration or biopsy 〔Asian〕 〔ESMO〕 〔NCCN〕
+    ・Percutaneous image-guided biopsy is not recommended for a localised primary tumour and is acceptable for metastatic or recurrent disease 〔Asian〕 〔NCCN〕
+    ・Multiple core biopsies, EUS-guided or percutaneous, are standard for a large mass that would need multivisceral resection 〔ESMO〕
+  ⑥ Genetic counselling for SDH-deficient GIST, and germline KIT and PDGFRA testing for multifocal GIST, a family history of GIST, or NF1 or SDH-deficient GIST 〔NCCN〕
+    ・Syndromes: Carney triad (SDHC epimutation), Carney-Stratakis syndrome (germline SDH subunit mutation), NF1, and familial KIT or PDGFRA mutations 〔Asian〕 〔ESMO〕
+
+band: Risk of recurrence after resection
+  ① Risk is set by mitotic count per 5 mm² (50 high-power fields), tumour size, site and rupture, before any TKI 〔Asian〕 〔ESMO〕 〔NCCN〕
+  ② Modified NIH criteria, high risk: size over 10 cm, more than 10 mitoses per 5 mm², rupture, or size over 5 cm with more than 5 mitoses per 5 mm² 〔Asian〕
+    ・Non-gastric GIST with size over 5 cm or more than 5 mitoses per 5 mm² is also high risk 〔Asian〕
+    ・The modified NIH criteria select patients for adjuvant imatinib 〔Asian〕
+  ③ AFIP criteria (Miettinen), by size, mitotic count and gastric or non-gastric site 〔ESMO〕 〔NCCN〕
+    ・Prognostic contour maps use size and mitotic count as continuous variables and include rupture 〔ESMO〕 〔NCCN〕
+  ④ Rupture: tumour spillage or fracture, piecemeal resection, incisional biopsy, perforation into the abdomen, blood-stained ascites, or microscopic transperitoneal infiltration 〔Asian〕 〔ESMO〕 〔NCCN〕
+    ・Core needle biopsy, superficial capsule laceration and R1 margins are not rupture 〔ESMO〕
+  ⑤ Risk cannot be classified after neoadjuvant imatinib 〔Asian〕 〔NCCN〕
+
+band: Response assessment on TKI
+  ① Contrast CT or MRI every 8 to 12 weeks 〔NCCN〕
+  ② Response is judged by tumour size and density, and an increase in size with a fall in density is a response 〔ESMO〕 〔NCCN〕
+    ・FDG-PET shows response within 2 to 4 weeks when an early answer is needed 〔ESMO〕 〔NCCN〕
+    ・A dense nodule within a responding mass marks progression 〔ESMO〕
+  ③ Adherence and drug interactions are checked before progression is called 〔ESMO〕 〔NCCN〕
+    ・Plasma imatinib levels are measured in selected situations 〔Asian〕 〔ESMO〕
+
+band: Regimens
+  ① Imatinib 400 mg once daily, or 400 mg twice daily
+  ② Sunitinib 50 mg once daily for 4 weeks of every 6 (A6181004), or 37.5 mg once daily continuously 〔ESMO III, C〕
+    ~ George 2009 {pmid 19282169}
+  ③ Regorafenib 160 mg once daily for 3 weeks of every 4 (GRID)
+  ④ Ripretinib 150 mg once daily (INVICTUS), and 150 mg twice daily after progression on 150 mg once daily 〔NCCN〕
+  ⑤ Avapritinib 300 mg once daily (NAVIGATOR)
+  ⑥ Imatinib is stopped shortly before surgery and restarted when oral intake allows 〔ESMO〕 〔NCCN〕
+    ・Sunitinib, regorafenib, ripretinib and avapritinib are stopped at least 1 week before surgery 〔NCCN〕
+
+course: GIST | parallel
+  Localised GIST: surgery or preoperative imatinib
+    branch: LOC
+    ① Resectable GIST without expected major morbidity: complete resection with negative macroscopic margins and the pseudocapsule intact 〔Asian〕 〔ESMO III, A〕 〔NCCN〕
+      ・Wedge or segmental resection is usually sufficient, without routine lymphadenectomy 〔Asian〕 〔ESMO III, A〕 〔NCCN〕
+      ・Enlarged nodes are removed in SDH-deficient GIST 〔Asian〕 〔NCCN〕
+      ・Laparoscopic resection is recommended for smaller GIST in favourable sites 〔Asian〕 〔NCCN〕
+      ・Laparoscopic resection follows the principles of oncological surgery 〔ESMO III, A〕 and is discouraged for large tumours 〔ESMO〕
+      ・Re-resection is not routine after R1 resection 〔ESMO〕 〔NCCN〕
+    ② Gastric or duodenal GIST under 2 cm without high-risk features: active surveillance or resection 〔Asian〕 〔ESMO IV, C〕 〔NCCN〕
+      ・High-risk EUS features: irregular border, cystic spaces, ulceration, echogenic foci and heterogeneity 〔NCCN〕
+      ・When biopsy confirms GIST, resection is performed unless major morbidity is expected 〔ESMO IV, C〕
+      ・Rectal nodules are biopsied or excised whatever their size 〔ESMO〕
+    ③ R0 resection not feasible, or feasible only with major morbidity such as multivisceral resection, total gastrectomy or abdominoperineal resection: preoperative imatinib for an imatinib-sensitive mutation 〔Asian〕 〔ESMO III, A〕 〔NCCN〕
+      ・Size over 10 cm is an indication 〔Asian〕
+      ・Surgery follows at maximal response, usually after 6 to 12 months 〔Asian〕 〔ESMO〕 〔NCCN〕
+      ・Mutational analysis precedes treatment 〔Asian〕 〔ESMO〕 〔NCCN〕, and imatinib may start before the result 〔NCCN〕
+      ・KIT exon 9: imatinib 800 mg is an option 〔ESMO〕
+      ~ RTOG 0132 {pmid 18942073}
+    next: After resection: adjuvant imatinib
+  After resection: adjuvant imatinib
+    branch: LOC pale
+    ① High risk of recurrence with an imatinib-sensitive mutation: imatinib 400 mg daily for 3 years 〔Asian strong〕 〔ESMO I, A〕 〔NCCN 1〕
+      ・Intermediate risk is an indication 〔NCCN 1〕
+      ・At intermediate risk, treatment is a shared decision 〔ESMO〕
+      ・Benefit is greatest with KIT exon 11 deletions 〔ESMO〕 〔NCCN〕
+      ・A duration of at least 6 years, based on disease-free survival, is an option 〔Asian〕 〔NCCN〕
+      ・Consensus on 6 years was 66.7% 〔Asian〕
+      + SSG XVIII {pmid 22453568}
+      ~ ACOSOG Z9001 {pmid 19303137}
+      ~ EORTC 62024 {pmid 26573069}
+      ~ IMADGIST {pmid 39241959}
+    ② KIT exon 9: imatinib 800 mg daily for 3 years may be considered 〔ESMO II, B〕
+    ③ After preoperative imatinib: imatinib continued to a total of 3 years 〔ESMO〕 〔NCCN〕
+    ④ Ruptured GIST: adjuvant imatinib 〔Asian〕 〔ESMO IV, A〕
+      ・Treatment is extended or lifelong 〔Asian〕
+      ・The optimal duration is not defined 〔ESMO〕
+      ・Ruptured GIST is managed as metastatic disease 〔NCCN〕
+    ⑤ Low risk, PDGFRA D842V, SDH-deficient, NF1-related, BRAF-mutated or NTRK-rearranged GIST: no adjuvant treatment 〔Asian〕 〔ESMO IV, D〕 〔NCCN〕
+    ⑥ Follow-up: CT or MRI at intervals set by risk of recurrence and time since surgery 〔Asian weak〕 〔ESMO〕 〔NCCN〕
+  Advanced or metastatic GIST: first line
+    branch: ADV
+    ① Imatinib-sensitive KIT or PDGFRA mutation: imatinib 400 mg daily 〔Asian〕 〔ESMO I, A〕 〔NCCN 1〕
+      ~ B2222 {pmid 12181401}
+      ~ S0033 {pmid 18235122}
+    ② KIT exon 9: imatinib 400 mg with escalation to 800 mg on progression 〔Asian〕 〔NCCN〕, or 800 mg from the start 〔ESMO III, B〕
+      ・Dose escalation is applied with caution in Asian patients 〔Asian〕
+      ~ EORTC 62005 {pmid 15451219}
+      ~ MetaGIST {pmid 20124181}
+    ③ Continuation of imatinib for life while benefit lasts, also after complete resection of metastases 〔Asian〕 〔ESMO I, A〕 〔NCCN〕
+      ・Short interruptions of 1 to 2 weeks are acceptable 〔NCCN〕
+      ~ BFR14 {pmid 20864406}
+    ④ Responding metastatic disease: resection, individualised by the multidisciplinary team 〔Asian〕 〔ESMO III, C〕 〔NCCN〕
+      ・Surgery is not routine for disease responding to imatinib 〔Asian〕
+      ・Resection is considered when complete resection is possible 〔NCCN〕
+      ・Upfront surgery is not recommended for metastatic or recurrent GIST 〔Asian〕 〔ESMO〕
+    ※ A randomised trial of resection of residual disease during imatinib closed early with 41 of 210 planned patients
+      ~ Du 2014 {pmid 24768330}
+    next: Progression on imatinib and later lines | Progression
+  Progression on imatinib and later lines
+    branch: ADV pale
+    ① Limited progression: imatinib continued with resection or ablation of the progressing lesions 〔ESMO IV, C〕 〔NCCN〕
+      ・Embolisation, chemoembolisation and palliative radiotherapy are options 〔NCCN 2B〕
+    ② Progression on 400 mg: imatinib 800 mg daily 〔ESMO III, B〕 〔NCCN〕
+      ・Switching to sunitinib may be preferable to dose escalation 〔Asian〕
+      ~ S0033 {pmid 18235122}
+      ~ EORTC 62005 {pmid 15451219}
+    ③ Second line: sunitinib 〔Asian〕 〔ESMO I, A〕 〔NCCN 1〕
+      ・Ripretinib is an option after intolerance of sunitinib 〔NCCN〕
+      ~ A6181004 {pmid 17046465}
+      - INTRIGUE {pmid 35947817}
+    ④ Third line: regorafenib 〔Asian〕 〔ESMO I, A〕 〔NCCN 1〕
+      ~ GRID {pmid 23177515}
+    ⑤ Fourth line: ripretinib 150 mg daily 〔Asian strong〕 〔ESMO I, A〕 〔NCCN 1〕
+      ・Escalation to 150 mg twice daily is an option after progression 〔NCCN〕
+      ~ INVICTUS {pmid 32511981}
+    ⑥ After fourth line: rechallenge with an earlier effective TKI, or continuation beyond progression 〔Asian〕 〔ESMO II, B〕 〔NCCN〕
+      ・Avapritinib, cabozantinib, everolimus with a TKI, nilotinib, pazopanib, ponatinib and sorafenib are options 〔NCCN〕
+      ~ RIGHT {pmid 24140183}
+      ~ PAZOGIST {pmid 27068858}
+    ※ Pimitespib after imatinib, sunitinib and regorafenib is recommended 〔Asian〕
+      ・Consensus on pimitespib was 75.0% 〔Asian〕
+      ・Pimitespib is licensed in Japan only
+      ~ CHAPTER-GIST-301 {pmid 35688358}
+  Imatinib-insensitive or wild-type GIST: treatment by genotype
+    branch: GEN
+    ① PDGFRA exon 18 mutation including D842V: avapritinib 300 mg daily in advanced disease 〔Asian〕 〔ESMO III, A〕 〔NCCN〕
+      ・Preoperative avapritinib may be considered 〔ESMO III, A〕 〔NCCN〕
+      ・Dasatinib is an option in second line 〔NCCN〕
+      ~ NAVIGATOR {pmid 32615108}
+    ※ Avapritinib did not improve progression-free survival over regorafenib in third or fourth line GIST unselected by genotype
+      - VOYAGER {pmid 34343033}
+    ② NTRK fusion: larotrectinib or entrectinib 〔Asian〕 〔ESMO III, A〕 〔NCCN〕
+      ・Repotrectinib is an option 〔NCCN 2B〕
+      ~ Larotrectinib pooled analysis {pmid 29466156}
+      ~ ALKA/STARTRK {pmid 31838007}
+      ~ TRIDENT-1 (NTRK) {pmid 41639379}
+    ③ BRAF V600E: dabrafenib with trametinib 〔Asian〕 〔ESMO V, B〕 〔NCCN〕
+      ・Dabrafenib with trametinib holds an FDA licence for BRAF V600E solid tumours
+      ~ ROAR {pmid 37059834}
+      ~ NCI-MATCH subprotocol H {pmid 41533998}
+    ④ SDH-deficient GIST: sunitinib or regorafenib 〔Asian〕 〔ESMO III, B〕 〔NCCN〕
+      ・Pazopanib 〔NCCN〕 and binimetinib with imatinib 〔NCCN 2B〕 are options
+      ・Indolent disease may be observed 〔Asian〕 〔NCCN〕
+    ⑤ NF1-associated GIST: observation for indolent disease 〔NCCN〕
+    ° Toxicity of note: cognitive effects and intracranial bleeding with avapritinib 〔Asian〕 〔ESMO〕
+
+off:
+  PERSIST-5 [t-persist-5] | Single-arm study of 5 years of adjuvant imatinib: the duration options rest on SSG XVIII and IMADGIST (inclusion ①)
+  PEAK [t-peak] | No licence or recommendation for bezuclastinib: progression-free survival improved with sunitinib, congress abstract (inclusion ③)

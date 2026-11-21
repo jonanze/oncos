@@ -1,0 +1,324 @@
+# oncOS board map: STS (one map for the Evidence sheet "STS")
+# Draft 7, 2026-11-20. Line layout (Jonan 07:54 "your lines are a mess"): desmoid and TGCT steps declared before the localised subtree so the advanced fan sits beside its box; angiosarcoma later lines merged into its box.
+# Draft 6, 2026-11-20. One treatment tree (Jonan 07:38 UTC, "rebuild the entire mind map using this", "integrate the second line
+#   pathways in, to have a unified flowsheet"): each decision of the draft 5 flowchart is a box holding its lines.
+# Draft 4, 2026-11-20. Planning files: board-maps/sarcoma/ (plan.md, structure-plan-sts.md)
+#   Clinical content: board-maps/sarcoma/notes-esmo-sts.md, notes-nccn-sts.md and sarcoma-rows.json
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Scope (Jonan 2026-11-20): adult soft tissue sarcoma of the extremity, trunk wall, retroperitoneum and uterus,
+#   with desmoid tumour and tenosynovial giant cell tumour (TGCT) as a locally aggressive branch. GIST and bone
+#   sarcomas have their own maps. Ewing sarcoma of soft tissue is on the bone map. Kaposi sarcoma and paediatric
+#   rhabdomyosarcoma are left out, as are breast sarcoma, phyllodes tumour, radiotherapy technique beyond dose and
+#   timing, and follow-up imaging intervals
+# Layout (draft 6): the course is the treatment tree. Diagnosis and extent of disease, then localised disease by
+#   site and grade, isolated lung metastases, and advanced disease by chemotherapy sensitivity, fitness for a doublet
+#   and histotype. All first-line paths meet at one box after first line, which branches by histotype and biomarker.
+#   Every trial chip appears once. "Ifosfamide-sensitive" is undefined in both guidelines: ESMO names synovial
+#   sarcoma as chemosensitive and ifosfamide as less active in LMS, and NCCN lists doxorubicin with ifosfamide for
+#   any chemotherapy-sensitive histotype. Independent review 2026-11-20 applied (biomarker box joined from both
+#   advanced decision points, angiosarcoma later lines, local relapse, lung metastases to advanced, tag wording)
+# Guideline set (Jonan 2026-11-20) and tag forms. Tag order on every line: ESMO, NCCN. No East Asian guideline
+#   (JOA 2020 dropped by Jonan, as it predates newer licences)
+#   〔ESMO level, grade〕 ESMO-EURACAN-GENTURIS soft tissue and visceral sarcomas 2021 (Gronchi, Ann Oncol
+#     2021;32:1348-1365, PMID 34303806). No eUpdate exists (esmo.org checked 2026-11-20). A bare 〔ESMO〕 marks the
+#     text, a figure or Table 1. ESMO-MCBS scores are left off. It predates DeFi, SPEARHEAD-1, the ASPS atezolizumab
+#     trial, SARC041, MANEUVER and SU2C-SARC032
+#   〔NCCN category〕 NCCN Soft Tissue Sarcoma 5.2026 (23 July 2026), algorithm pages and SARC-G. 2A unless stated.
+#     The preference label is printed on the systemic therapy pages. A bare 〔NCCN〕 marks a footnote, a principles
+#     page or the Discussion. NCCN STS refers uterine sarcoma to NCCN Uterine Neoplasms, which is not on file, so the
+#     localised uterine lines carry ESMO tags only
+# Uterine leiomyosarcoma (Jonan 2026-11-20): localised uterine LMS is in the uterine box. Advanced uterine LMS is in
+#   the leiomyosarcoma box, as ESMO treats it as STS. LMS-04, GeDDiS, CR018004 and PALETTE enrolled uterine LMS
+# Licence notes: pimicotinib (FDA, November 2026, after NCCN 5.2026), afamitresgene autoleucel (FDA accelerated),
+#   atezolizumab for ASPS, nab-sirolimus for PEComa, pembrolizumab for TMB-high and MSI-H/dMMR solid tumours (FDA)
+# Rule ⑦: NCCN-only options with no EU or US licence in that setting sit on ・ or ※ lines: first-line pazopanib,
+#   CDK4/6 inhibitors in dedifferentiated liposarcoma, checkpoint inhibitors by histotype, neoadjuvant pembrolizumab
+# Option order where guidelines disagree (defaults, Jonan's call):
+#   1. First line: doxorubicin alone first, then doxorubicin with ifosfamide, then doxorubicin with dacarbazine for LMS
+#   2. Later lines: trabectedin, eribulin and pazopanib by histotype, then gemcitabine-based regimens
+# Single-arm or non-comparative trials cited because a licence or recommendation rests on them and no randomised
+#   trial exists for that option (inclusion ①): SPEARHEAD-1, the ASPS atezolizumab trial, Wilky 2019, AMPECT,
+#   ANGIOTAX, DOREMY, SARC028, Alliance A091401, Dickson 2016, Martin-Broto 2019, Stacchiotti 2019, EORTC 62027 and
+#   SWOG S0345 (pooled), EORTC 90101 CREATE, the NTRK basket analyses and KEYNOTE-158; DESMOPAZ is randomised and
+#   non-comparative
+# Supporting trials added 2026-11-20 (Jonan: "tag the supporting studies"), PMIDs checked in PubMed that day.
+#   EORTC 62961 is cited by its 2010 report (PMID 20434400); the 2018 overall survival report is PMID 29450452
+# Trial marks (not drawn): + overall survival benefit, ~ surrogate endpoint or single-arm, - primary endpoint not met
+
+map: STS
+source: ESMO {url https://doi.org/10.1016/j.annonc.2021.07.006}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+branch: LOC | Localised extremity or trunk STS | blue
+branch: VIS | Retroperitoneal and uterine sarcoma | sage
+branch: ADV | Chemotherapy-sensitive STS | teal
+branch: LMS | Leiomyosarcoma | violet
+branch: LPS | Liposarcoma | apricot
+branch: ANG | Angiosarcoma | olive
+branch: HIS | Biomarker-directed and histotype-specific treatment | rose
+branch: LAG | Locally aggressive tumours | sand
+
+band: Regimens
+  ① Doxorubicin 75 mg/m² every 3 weeks (EORTC 62012)
+  ② Doxorubicin with ifosfamide: doxorubicin 75 mg/m² with ifosfamide 10 g/m² and mesna every 3 weeks with growth factor support (EORTC 62012), or epirubicin with ifosfamide for 3 cycles before surgery (ISG-STS 1001)
+  ③ Doxorubicin with trabectedin for leiomyosarcoma: doxorubicin 60 mg/m² with trabectedin 1.1 mg/m² every 3 weeks for up to 6 cycles, then trabectedin alone (LMS-04)
+  ④ Trabectedin 1.5 mg/m² over 24 hours every 3 weeks (CR018004)
+  ⑤ Eribulin 1.4 mg/m² on days 1 and 8 every 3 weeks (Schöffski)
+  ⑥ Pazopanib 800 mg once daily (PALETTE)
+  ⑦ Nirogacestat 150 mg twice daily (DeFi), sorafenib 400 mg once daily (A091105)
+  ⑧ Pimicotinib 50 mg once daily (MANEUVER)
+
+course: STS | parallel
+  Soft tissue sarcoma at diagnosis: extent of disease
+    ① Referral to a sarcoma reference centre before treatment, for any deep soft tissue mass or a superficial mass of 5 cm or more 〔ESMO III, A〕 〔NCCN〕
+    ② Core needle biopsy before treatment, planned so that the tract is removed at surgery 〔ESMO〕 〔NCCN〕
+      ・Excisional biopsy is an option for superficial lesions under 3 cm 〔ESMO〕
+    ③ Diagnosis by a sarcoma expert pathologist using the 2020 WHO classification, with FNCLCC grade 〔ESMO IV, A〕 〔NCCN〕
+      ・Molecular pathology is added when the diagnosis is in doubt, the presentation is unusual, or the entity is defined by a molecular alteration 〔ESMO〕 〔NCCN〕
+      ・Focused molecular testing changed the expert diagnosis in about 1 in 7 sarcomas in a prospective study 〔NCCN〕
+    ④ Staging CT of the chest, with CT of the abdomen and pelvis for myxoid liposarcoma and leiomyosarcoma 〔ESMO III, B〕 〔NCCN〕
+      ・Brain MRI is indicated for alveolar soft part sarcoma (ASPS) 〔ESMO IV, A〕
+    ⑤ Germline TP53 testing for selected patients under 46 years 〔ESMO IV, A〕
+      ・Li-Fraumeni syndrome, NF1 and Lynch syndrome are assessed in the work-up 〔NCCN〕
+    ⑥ Extraskeletal Ewing sarcoma: treatment as Ewing sarcoma of bone 〔NCCN〕
+    next: Localised STS: primary site | Localised
+    next: Advanced STS: chemotherapy sensitivity of the histotype | Metastatic or unresectable
+    next: Desmoid tumour | Locally aggressive tumour: desmoid
+    next: Tenosynovial giant cell tumour | Locally aggressive tumour: TGCT
+  Localised STS: primary site
+    ① MRI of the primary in the extremity, trunk and pelvis, and CT for the retroperitoneum 〔ESMO〕 〔NCCN〕
+    ② Unplanned excision: re-excision at a reference centre 〔ESMO IV, A〕 〔NCCN〕
+    ③ Local relapse: treatment as for primary disease, with radiotherapy or chemotherapy before or after surgery when not given before 〔ESMO〕
+    next: Extremity or trunk STS: FNCLCC grade | Extremity or trunk
+    next: Retroperitoneal sarcoma | Retroperitoneum
+    next: Localised uterine sarcoma | Uterus
+  Desmoid tumour
+    branch: LAG
+    ① Newly diagnosed desmoid tumour without a life-threatening site: active surveillance with MRI 〔ESMO III, A〕 〔NCCN〕
+      ・Spontaneous regression occurs in up to 20% 〔NCCN〕
+      ・Familial adenomatous polyposis is excluded, especially in CTNNB1 wild-type tumours 〔ESMO〕 〔NCCN〕
+    ② Progressive, symptomatic or morbid disease: systemic treatment with nirogacestat 〔NCCN 1〕 or sorafenib 〔ESMO II, B〕 〔NCCN 1〕
+      ・Methotrexate with vinblastine or vinorelbine, pazopanib, imatinib, liposomal doxorubicin, doxorubicin, and doxorubicin with dacarbazine are options 〔ESMO〕 〔NCCN〕
+      ・Surveillance can continue after progression with few symptoms 〔ESMO〕 〔NCCN〕
+      ~ DeFi {pmid 36884323}
+      ~ Alliance A091105 {pmid 30575484}
+      ~ DESMOPAZ {pmid 31331699}
+    ③ Progressive extra-abdominal disease: cryoablation 〔ESMO IV, C〕 〔NCCN〕, surgery in favourable sites 〔ESMO IV, C〕 〔NCCN〕, or definitive radiotherapy 〔ESMO III, C〕 〔NCCN〕
+      ・Surgery is not first-line treatment 〔NCCN〕
+      ・Radiotherapy is used after several failed lines or at sites where surgery would cause major morbidity 〔ESMO III, C〕
+  Tenosynovial giant cell tumour
+    branch: LAG
+    ① Tenosynovial giant cell tumour needing systemic treatment: pexidartinib 〔ESMO〕 〔NCCN 1〕, vimseltinib 〔NCCN 1〕, or pimicotinib
+      ・Pexidartinib holds a US licence and no EU licence
+      ・Pimicotinib received an FDA licence in November 2026
+      ・Imatinib and nilotinib are options 〔ESMO〕 〔NCCN〕
+      ~ ENLIVEN {pmid 31229240}
+      ~ MOTION {pmid 38843860}
+      ~ MANEUVER {pmid 41796601}
+
+  Extremity or trunk STS: FNCLCC grade
+    branch: LOC pale
+    ① Unresectable or limb-threatening disease: chemotherapy, radiotherapy or both, or isolated limb perfusion with TNF-α and melphalan 〔ESMO III, A〕 〔NCCN〕
+      ・Amputation is an option when limb-sparing treatment is not possible 〔ESMO〕 〔NCCN〕
+    next: Low-grade STS | Low grade
+    next: High-grade STS | High grade
+  Low-grade STS
+    branch: LOC
+    ① Wide excision with R0 margins 〔ESMO II, A〕 〔NCCN〕
+      ・Atypical lipomatous tumour is treated by marginal excision 〔ESMO IV, B〕 〔NCCN〕
+  High-grade STS
+    branch: LOC
+    ① Limb-sparing wide excision with radiotherapy, 50 Gy before surgery or up to 66 Gy after surgery 〔ESMO II, B〕 〔NCCN 1〕
+      ・Radiotherapy before surgery is preferred 〔NCCN〕, or when a critical structure is to be preserved 〔ESMO〕
+      ・Radiotherapy before surgery causes more wound complications and less late fibrosis, oedema and joint stiffness 〔ESMO〕 〔NCCN〕
+      ・Radiotherapy may be omitted after multidisciplinary review of margins, size and histotype 〔ESMO〕 〔NCCN〕
+      ・36 Gy before surgery can be considered for myxoid liposarcoma 〔ESMO〕 〔NCCN〕
+      ~ Rosenberg 1982 {pmid 7114936}
+      ~ Yang 1998 {pmid 9440743}
+      ~ Pisters 1996 {pmid 8622034}
+      ~ O’Sullivan (NCIC SR2) {pmid 12103287}
+      ~ DOREMY {pmid 33180100}
+    ② High risk of death, a chemotherapy-sensitive histotype and fitness for treatment: 3 cycles of an anthracycline with ifosfamide, preferably before surgery 〔ESMO II, B〕 〔NCCN〕
+      ・High risk is a predicted 10-year overall survival under 60% by the Sarculator nomogram 〔ESMO II, B〕
+      ・Trabectedin is an option for myxoid liposarcoma in place of an anthracycline with ifosfamide 〔ESMO〕 〔NCCN〕
+      ・Pembrolizumab with radiotherapy before surgery, then pembrolizumab after surgery, is preferred for UPS-related sarcomas of the extremity and limb girdle 〔NCCN〕
+      ・Regional hyperthermia with chemotherapy is an option 〔ESMO I, B〕
+      ~ Frustaci 2001 {pmid 11230464}
+      ~ Gronchi 2012 {pmid 22312103}
+      ~ ISG-STS 1001 {pmid 28499583}
+      ~ Pasquali 2019 (EORTC 62931) {pmid 30690293}
+      + Pervaiz meta-analysis {pmid 18521899}
+      ~ SU2C-SARC032 {pmid 39547252}
+      + EORTC 62961 {pmid 20434400}
+    ※ Adjuvant doxorubicin with ifosfamide did not improve overall or relapse-free survival after resection of grade 2 to 3 STS
+      - EORTC 62931 {pmid 22954508}
+  Retroperitoneal sarcoma
+    branch: VIS
+    ① Primary retroperitoneal sarcoma: en bloc resection with adherent organs at a high-volume centre 〔ESMO III, A〕 〔NCCN〕
+      ・Percutaneous core biopsy by a retroperitoneal route precedes resection 〔ESMO〕 〔NCCN〕
+      ・Grossly incomplete resection is avoided 〔ESMO〕
+    ② Low- or intermediate-grade liposarcoma: radiotherapy before surgery may be discussed 〔ESMO II, B〕 〔NCCN〕
+      ・Radiotherapy before surgery is not considered for leiomyosarcoma or high-grade dedifferentiated liposarcoma 〔ESMO〕
+    ※ Radiotherapy before surgery did not improve abdominal recurrence-free survival in resectable retroperitoneal sarcoma 〔ESMO I, D〕 〔NCCN〕
+      - STRASS (EORTC-62092) {pmid 32941794}
+    ③ Borderline resectable disease or a chemotherapy-sensitive histotype, such as synovial sarcoma: chemotherapy, radiotherapy or regional hyperthermia with chemotherapy before surgery 〔ESMO〕 〔NCCN〕
+    ④ After resection: no routine radiotherapy 〔ESMO〕 〔NCCN〕
+      ・The value of chemotherapy before or after surgery is not established 〔ESMO〕
+  Localised uterine sarcoma
+    branch: VIS
+    ① Uterine leiomyosarcoma, endometrial stromal sarcoma or undifferentiated uterine sarcoma: en bloc total hysterectomy without morcellation 〔ESMO IV, A〕
+      ・Systematic lymphadenectomy is not useful 〔ESMO〕
+      ・Ovarian preservation is possible 〔ESMO〕
+    ② After hysterectomy: no adjuvant radiotherapy 〔ESMO I, D〕
+      ・Adjuvant chemotherapy for uterine leiomyosarcoma is not standard 〔ESMO IV, C〕
+      - EORTC 55874 {pmid 18378136}
+    ※ Adjuvant gemcitabine with docetaxel, then doxorubicin, did not improve overall survival over observation in uterine-limited leiomyosarcoma, in a trial closed for poor accrual
+      - GOG 0277 {pmid 30289732}
+  Isolated lung metastases
+    ① Resectable lung metastases after a disease-free interval of 1 year or more: surgery 〔ESMO IV, B〕 〔NCCN〕
+      ・Chemotherapy before surgery is an option 〔ESMO IV, B〕 〔NCCN〕
+      ・Stereotactic radiotherapy or ablation are alternatives 〔ESMO〕 〔NCCN〕
+    ② Synchronous lung metastases: chemotherapy 〔ESMO III, B〕
+      ・Surgery for resectable residual lung metastases is an option after chemotherapy, especially after a response 〔ESMO〕
+  Advanced STS: chemotherapy sensitivity of the histotype
+    ① Unresectable lung or extrapulmonary metastatic disease: systemic treatment with palliative intent 〔ESMO I, A〕 〔NCCN〕
+      ・Histotypes insensitive to cytotoxic chemotherapy include ASPS, extraskeletal myxoid chondrosarcoma, clear cell sarcoma and extremity atypical lipomatous tumour 〔NCCN〕
+      ・ASPS and clear cell sarcoma are refractory to an anthracycline with ifosfamide 〔ESMO〕
+      ・Advanced uterine leiomyosarcoma, undifferentiated endometrial sarcoma and adenosarcoma with sarcomatous overgrowth are treated as STS 〔ESMO〕
+    ② NTRK fusion screening: pan-TRK immunohistochemistry, with molecular confirmation of a positive result 〔ESMO〕
+    next: Isolated lung metastases | Isolated lung metastases
+    next: Actionable biomarker, any line | Actionable biomarker
+    next: Histotype-specific treatment | Histotype with its own treatment
+    next: Angiosarcoma | Angiosarcoma
+    next: Chemotherapy-sensitive STS: fitness for a doublet | Sensitive histotype
+  Actionable biomarker, any line
+    branch: HIS pale
+    ① NTRK fusion: larotrectinib or entrectinib 〔ESMO III, A〕 〔NCCN〕
+      ・Repotrectinib is an option 〔NCCN〕
+      ~ Larotrectinib pooled analysis {pmid 29466156}
+      ~ ALKA/STARTRK {pmid 31838007}
+      ~ TRIDENT-1 (NTRK) {pmid 41639379}
+    ② RET fusion: selpercatinib 〔NCCN〕
+      ・Selpercatinib holds an FDA licence for RET fusion-positive solid tumours
+    ③ TMB-high or MSI-H/dMMR disease after earlier treatment: pembrolizumab 〔NCCN〕
+      ・Pembrolizumab holds FDA licences for TMB-high and MSI-H/dMMR solid tumours
+      ~ KEYNOTE-158 (TMB) {pmid 32919526}
+      ~ KEYNOTE-158 (MSI-H/dMMR) {pmid 31682550}
+  Histotype-specific treatment
+    branch: HIS
+    ① Alveolar soft part sarcoma: atezolizumab, axitinib with pembrolizumab, pembrolizumab, pazopanib or sunitinib 〔NCCN〕
+      ・Atezolizumab holds an FDA licence for ASPS
+      ・PD-1 and PD-L1 inhibitors show activity 〔ESMO〕
+      ~ Atezolizumab in ASPS (Chen / Van Tine) {pmid 37672694}
+      ~ Wilky 2019 {pmid 31078463}
+    ② Extraskeletal myxoid chondrosarcoma: pazopanib 〔ESMO III, B〕 〔NCCN〕
+      ~ Stacchiotti 2019 {pmid 31331701}
+    ③ Solitary fibrous tumour: temozolomide with bevacizumab, sunitinib, sorafenib or pazopanib 〔ESMO〕 〔NCCN〕
+      ・Doxorubicin with dacarbazine is an option 〔ESMO IV, B〕 〔NCCN〕
+      ~ Martin-Broto 2019 {pmid 30578023}
+    ④ Malignant PEComa: nab-sirolimus 〔NCCN〕
+      ・Nab-sirolimus holds an FDA licence for malignant PEComa
+      ・Sirolimus, everolimus and temsirolimus are options 〔ESMO〕 〔NCCN〕
+      ~ AMPECT {pmid 34637337}
+    ⑤ Dermatofibrosarcoma protuberans, advanced or with fibrosarcomatous change: imatinib 〔ESMO III, A〕 〔NCCN〕
+      ~ EORTC 62027 and SWOG S0345 {pmid 20194851}
+    ⑥ ALK-positive inflammatory myofibroblastic tumour: crizotinib or another ALK inhibitor 〔ESMO〕 〔NCCN〕
+      ~ EORTC 90101 CREATE {pmid 29669701}
+    ⑦ Advanced low-grade endometrial stromal sarcoma: hormone therapy with a progestin, an aromatase inhibitor or a GnRH analogue 〔ESMO V, B〕
+      ・Tamoxifen is contraindicated 〔ESMO〕
+    ⑧ Epithelioid haemangioendothelioma: STS regimens, pazopanib, sirolimus or trametinib 〔NCCN〕
+    ⑨ Extraskeletal osteosarcoma: ifosfamide, or cisplatin with doxorubicin 〔NCCN〕
+  Angiosarcoma
+    branch: ANG
+    ① First line: weekly paclitaxel 〔ESMO III, B〕 〔NCCN〕, an anthracycline-based regimen 〔NCCN〕, or gemcitabine with or without docetaxel 〔ESMO V, B〕 〔NCCN〕
+      ・Angiosarcoma is highly sensitive to taxanes 〔ESMO〕
+      ~ ANGIOTAX {pmid 18809609}
+    ※ Bevacizumab added to weekly paclitaxel did not improve progression-free survival in angiosarcoma
+      - Ray-Coquard 2015 {pmid 26215950}
+    ② After first line: docetaxel, vinorelbine or pazopanib 〔NCCN〕
+      ・PD-1 and PD-L1 inhibitors show activity after first line 〔ESMO〕
+      ・Pembrolizumab is an option for cutaneous angiosarcoma 〔NCCN〕
+  Chemotherapy-sensitive STS: fitness for a doublet
+    branch: ADV
+    ① Good performance status, with tumour shrinkage the goal: an anthracycline-based doublet 〔ESMO I, B〕 〔NCCN〕
+      ・A doublet improved response and progression-free survival, but not overall survival, over doxorubicin alone 〔ESMO〕
+      - EORTC 62012 {pmid 24618336}
+    ※ Gemcitabine with docetaxel did not improve progression-free survival over doxorubicin in the first line, including uterine leiomyosarcoma 〔ESMO I, D〕
+      ・Gemcitabine, or gemcitabine with docetaxel, is a first-line option 〔NCCN〕
+      - GeDDiS {pmid 28882536}
+    ※ Olaratumab with doxorubicin did not improve overall survival over doxorubicin
+      ・The olaratumab licence was withdrawn
+      - ANNOUNCE {pmid 32259228}
+    next: Doxorubicin alone | Not fit, or shrinkage not needed
+    next: Doxorubicin with dacarbazine or with trabectedin | Fit: leiomyosarcoma
+    next: Doxorubicin with ifosfamide | Fit: other histotypes
+  Doxorubicin alone
+    branch: ADV
+    ① Doxorubicin 〔ESMO I, A〕 〔NCCN〕
+      ・A gemcitabine-based regimen is an alternative in dedifferentiated liposarcoma 〔NCCN〕
+      ・Pazopanib is an option in non-adipocytic STS when intravenous treatment or an anthracycline is not suitable 〔NCCN〕
+      ~ EPAZ {pmid 32840417}
+    next: After first line: histotype
+  Doxorubicin with dacarbazine or with trabectedin
+    branch: LMS
+    ① Leiomyosarcoma, soft tissue or uterine: doxorubicin with dacarbazine 〔ESMO IV, B〕 〔NCCN〕, or doxorubicin with trabectedin 〔NCCN〕
+      ・Advanced uterine leiomyosarcoma is treated as soft tissue leiomyosarcoma 〔ESMO〕
+      ・The activity of ifosfamide in leiomyosarcoma is far less convincing 〔ESMO〕
+      ~ LMS-04 {pmid 35835135}
+    next: After first line: histotype
+  Doxorubicin with ifosfamide
+    branch: ADV
+    ① Chemotherapy-sensitive histotypes other than leiomyosarcoma: doxorubicin with ifosfamide 〔ESMO I, B〕 〔NCCN〕
+      ・The combination is used particularly in histotypes sensitive to ifosfamide 〔ESMO〕
+      ・Synovial sarcoma is a chemotherapy-sensitive histotype 〔ESMO〕
+    next: After first line: histotype
+  After first line: histotype
+    ① Fit patients with progression: further-line systemic treatment 〔ESMO II, B〕 〔NCCN〕
+      ・Clinical trials are considered for pretreated patients 〔ESMO〕
+    next: Leiomyosarcoma after first line | Leiomyosarcoma
+    next: Liposarcoma after first line | Liposarcoma
+    next: Other non-adipocytic STS after first line | Other non-adipocytic STS
+    next: Synovial sarcoma with HLA-A*02 and MAGE-A4 expression | Synovial sarcoma, HLA-A*02 and MAGE-A4
+  Leiomyosarcoma after first line
+    branch: LMS
+    ① After doxorubicin: trabectedin 〔ESMO I, B〕 〔NCCN 1〕, gemcitabine with docetaxel or with dacarbazine 〔ESMO II, B〕 〔NCCN〕, pazopanib 〔ESMO I, B〕 〔NCCN〕 or dacarbazine 〔ESMO〕 〔NCCN〕
+      ・Gemcitabine alone, eribulin and regorafenib are options 〔NCCN〕
+      ~ CR018004 {pmid 26371143}
+      + SARC002 {pmid 17602081}
+  Liposarcoma after first line
+    branch: LPS
+    ① After an anthracycline: eribulin 〔ESMO II, A〕 〔NCCN 1〕 or trabectedin 〔ESMO I, B〕 〔NCCN 1〕
+      ・Trabectedin has high activity in myxoid liposarcoma 〔ESMO〕
+      ・The overall survival gain with eribulin was largest in pleomorphic liposarcoma 〔ESMO〕
+      + Schöffski et al. {pmid 26874885}
+    ※ Pembrolizumab, or nivolumab with or without ipilimumab, is an option for dedifferentiated liposarcoma 〔NCCN〕
+    ※ Abemaciclib or palbociclib is an option for dedifferentiated liposarcoma 〔NCCN〕
+      ・Abemaciclib improved progression-free survival over placebo in a randomised trial reported as a congress abstract
+      ~ SARC041 [t-sarc041]
+      ~ Dickson 2016 {pmid 27124835}
+  Other non-adipocytic STS after first line
+    branch: ADV pale
+    ① After doxorubicin: pazopanib 〔ESMO I, B〕 〔NCCN〕, gemcitabine with docetaxel or with dacarbazine 〔ESMO II, B〕 〔NCCN〕, trabectedin 〔ESMO I, B〕 〔NCCN〕, or ifosfamide when not given before 〔ESMO IV, C〕 〔NCCN〕
+      ・Gemcitabine alone, dacarbazine, temozolomide, eribulin and regorafenib are options 〔NCCN〕
+      ~ PALETTE {pmid 22595799}
+      + García-del-Muro 2011 {pmid 21606430}
+      ~ T-SAR {pmid 33932507}
+      ~ Kawai 2015 {pmid 25795406}
+      ~ REGOSARC {pmid 27751846}
+    ※ Pembrolizumab, or nivolumab with or without ipilimumab, is an option for UPS, myxofibrosarcoma and undifferentiated sarcomas 〔NCCN〕
+      ~ SARC028 {pmid 28988646}
+      ~ Alliance A091401 {pmid 29370992}
+  Synovial sarcoma with HLA-A*02 and MAGE-A4 expression
+    branch: HIS pale
+    ① After chemotherapy: afamitresgene autoleucel 〔NCCN〕
+      ・Afamitresgene autoleucel holds an FDA accelerated licence
+      ~ SPEARHEAD-1 {pmid 38554725}
+off:
+  GENSARC [t-gensarc] | Prospective diagnostic cohort, not a trial: the statement on molecular testing stays as plain text in the diagnosis band
+  Sreenath et al. [t-sreenath-et-al] | Prospective diagnostic cohort, not a trial
+  WIDE Sarcoma WGS [t-wide-sarcoma-wgs] | Prospective diagnostic cohort, not a trial
+  STS Whole-Genome Sequencing (van der Laan) [t-sts-whole-genome-sequencing] | Observational cohort, not a trial
+  European Multicentre Sarcoma NGS Cohort [t-european-multicentre-sarcoma-ngs-cohort] | Retrospective cohort, not a trial
+  Foundation Medicine Sarcoma Profiling Cohort [t-foundation-medicine-sarcoma-profiling-cohort] | Retrospective cohort, not a trial
+  ProfiLER-01 sarcoma cohort [t-profiler-01-sarcoma-cohort] | Molecular screening programme without a comparison, not a trial
+  Chinese Multicentre Sarcoma RNA Sequencing Cohort [t-chinese-multicentre-sarcoma-rna-sequencing-cohort] | Retrospective cohort, not a trial
+  MULTISARC [t-multisarc] | Randomised, but no comparison of the two arms is reported yet
