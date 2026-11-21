@@ -138,11 +138,11 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .detail .inner{ column-count: 1; padding: 10px 13px 16px; }
 [data-view="evidence"] .detail .arm-vs{ display: flex; width: max-content; min-width: 30px; height: 18px; margin: 4px auto; padding: 0 6px; line-height: 18px; }
 [data-view="evidence"] footer.disclaimer{ margin-top: 18px; }
-[data-view="evidence"] main#viewroot .detail .refline .ref-au::after{ content: "\A"; white-space: pre; }
-[data-view="evidence"] main#viewroot .detail .refline > a.src{ padding-left: 0; text-indent: 0; }
-[data-view="evidence"] main#viewroot .detail .refline > .reftext{ flex: 0 0 100%; }
-[data-view="evidence"] main#viewroot .detail .refline .reftag{ order: 1; }
-[data-view="evidence"] main#viewroot .detail .refline .refpm{ order: 2; padding-left: 0; }}
+[data-view="evidence"] :is(main#viewroot, #om-card) .detail .refline .ref-au::after{ content: "\A"; white-space: pre; }
+[data-view="evidence"] :is(main#viewroot, #om-card) .detail .refline > a.src{ padding-left: 0; text-indent: 0; }
+[data-view="evidence"] :is(main#viewroot, #om-card) .detail .refline > .reftext{ flex: 0 0 100%; }
+[data-view="evidence"] :is(main#viewroot, #om-card) .detail .refline .reftag{ order: 1; }
+[data-view="evidence"] :is(main#viewroot, #om-card) .detail .refline .refpm{ order: 2; padding-left: 0; }}
 @media print{[data-view="evidence"] main{ padding: 0; }}
 [data-view="evidence"] #results{ background: var(--panel); border: 1px solid var(--grid);
     overflow: clip; }
@@ -559,7 +559,10 @@ function refText(rf) {
     : esc(rf.text) + (rf.descriptor ? ` &mdash; ${esc(rf.descriptor)}` : '');
 }
 
-function detailRow(t, collapsed) {
+// The fields of an open row, Study type to Reference. The board maps' trial card
+// draws them too, through window.oncosView.rowFields (oncos-one/fragmentize.py),
+// so a chip on a map shows its row exactly as the Evidence list does.
+function rowFields(t) {
   const refs = (t.refs && t.refs.length) ? t.refs
     : [{text: t.ref, url: t.link, label: 'primary'}];
   const link = refs.map(rf => {
@@ -574,9 +577,7 @@ function detailRow(t, collapsed) {
       ? `<div class="refpm"><a class="src" href="${esc(pm)}" target="_blank" rel="noopener">PubMed<span class="ext" aria-hidden="true"></span></a></div>` : '';
     return `<div class="refline">${a}${tag}${pmLine}</div>`;
   }).join('');
-  return `<tr class="detail" data-for="${t.id}"><td colspan="${span()}">
-    <div class="wrap${collapsed?' mo-collapsed':' mo-settled'}"><div class="clip"><div class="inner">
-      <div class="col">
+  return `<div class="col">
         ${t.type?`<div class="fld fld-type"><div class="k">Study type</div><div>${esc(t.type)}</div></div>`:''}
         <div class="fld"><div class="k">Population</div><div>${esc(t.population)}</div></div>
       </div>
@@ -585,7 +586,13 @@ function detailRow(t, collapsed) {
         <div class="fld"><div class="k">${esc(ENDPOINT_LABELS[t.sheet] || 'Endpoints')}</div><div>${epBlock(t.endpoint)}</div></div>
       </div>
       <div class="full"><div class="k">Results</div>${kfBlock(t.findings)}</div>
-      <div class="fld fld-ref"><div class="k">Reference</div><div>${link}</div></div>
+      <div class="fld fld-ref"><div class="k">Reference</div><div>${link}</div></div>`;
+}
+
+function detailRow(t, collapsed) {
+  return `<tr class="detail" data-for="${t.id}"><td colspan="${span()}">
+    <div class="wrap${collapsed?' mo-collapsed':' mo-settled'}"><div class="clip"><div class="inner">
+      ${rowFields(t)}
     </div></div></div></td></tr>`;
 }
 
@@ -856,6 +863,9 @@ focusAnchor();
       focusAnchor();
       return !!document.getElementById(record.id);
     };
+    // The board maps' trial card (maps/evidence-maps.js) draws a row's fields
+    // with the same code as an open Evidence row.
+    window.oncosView.rowFields = rowFields;
 // Presentation state contract v1. Runs in the Evidence init closure.
 (() => {
   if (!ctx.root || !ctx.search) return;

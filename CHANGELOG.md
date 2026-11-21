@@ -2,6 +2,11 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.47] - 2026-11-21
+
+- Maps: a trial chip opens the trial's Evidence row in the side panel, drawn by the Evidence view's own code: Study type, Population, Treatment arms with ⓐⓑ rows, Endpoints with ① Primary and ② Secondary, Results with the ★ conclusion, label and value lines and ※ Limitations, and References with their PubMed lines. The panel is 440 px wide on desktop.
+- Practice: the PRODIGE 24 link opens its Evidence row again (the row's id changed when the row was renamed).
+
 ## [2.2.46] - 2026-11-13
 
 - Practice and Staging: gastric post-neoadjuvant (ypTNM) stage groups are added, from the AJCC 8th edition table.
