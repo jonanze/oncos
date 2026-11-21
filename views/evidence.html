@@ -291,6 +291,11 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .wl-row:has(+ .wl-group), [data-view="evidence"] .wl-row:last-child{border-bottom-color:var(--b-line);}
 [data-view="evidence"] .wl-empty{margin:0;padding:12px;border-bottom:1px solid var(--b-line);}
 @container oncos (max-width:740px){[data-view="evidence"] .wl-row{padding:10px 12px;}}
+[data-view="evidence"] .wl-place{display:inline-flex;align-items:center;gap:5px;align-self:flex-start;max-width:100%;margin-top:2px;padding:1px 6px;
+  border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font-size:var(--t-sm);line-height:1.5;text-decoration:none;}
+[data-view="evidence"] .wl-place svg{flex:0 0 auto;width:13px;height:13px;}
+[data-view="evidence"] .wl-place span{min-width:0;overflow-wrap:anywhere;}
+@media (hover:hover){[data-view="evidence"] .wl-place:hover span{text-decoration:underline;}}
 </style>
 <div class="viewfrag">
 <div class="layout">
@@ -995,8 +1000,16 @@ const EVIDENCE_WATCH = ctx.data.watch;
   results.parentNode.insertBefore(box, results);
 
   const a = (href, text, cls) => `<a class="${cls}" href="${escHtml(href)}" target="_blank" rel="noopener">${escHtml(text)}</a>`;
-  const row = (title, meta) => `<div class="wl-row"><div class="wl-copy">${title}`
+  // A paper filed in Evidence stays listed (Jonan, 2026-11-21) with a link to each row citing it
+  // (the editor's watch_rows.holding, carried as in_row): the Evidence icon, then the row and sheet.
+  // The link is the row's own address, so it opens as any link to a row does, and Back returns here.
+  const EVIDENCE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM15 3v4h4M8 12h8M8 16h8"/></svg>';
+  const trialOf = r => TRIALS.find(t => t.sheet === r.sheet && t.study === r.study);
+  const places = item => (item.in_row || []).map(trialOf).filter(Boolean)
+    .map(t => `<a class="wl-place" href="/evidence/#${escHtml(t.anchor)}">${EVIDENCE_ICON}<span>${escHtml('Filed in ' + t.study + ' · ' + t.sheet)}</span></a>`).join('');
+  const row = (title, meta, item) => `<div class="wl-row"><div class="wl-copy">${title}`
     + (meta ? `<span class="wl-meta">${escHtml(meta)}</span>` : '')
+    + (item ? places(item) : '')
     + '</div></div>';
 
   // Guidelines: by tumour category, then newest publication first, then title; the title opens the guideline.
@@ -1045,7 +1058,7 @@ const EVIDENCE_WATCH = ctx.data.watch;
     let html = '', day = null;
     for (const c of list) {
       if (literatureDay(c) !== day) { day = literatureDay(c); html += `<div class="wl-group">${escHtml(dayLabel(day))}</div>`; }
-      html += row(a(`https://pubmed.ncbi.nlm.nih.gov/${c.pmid}/`, c.title, 'wl-title'), meta(c));
+      html += row(a(`https://pubmed.ncbi.nlm.nih.gov/${c.pmid}/`, c.title, 'wl-title'), meta(c), c);
     }
     return html;
   }
@@ -1058,7 +1071,7 @@ const EVIDENCE_WATCH = ctx.data.watch;
     for (const c of list) {
       if (c.meeting !== meeting) { meeting = c.meeting; html += `<div class="wl-group">${escHtml((meeting || '') + (c.dates ? ' · ' + c.dates : ''))}</div>`; }
       html += row(a(c.url || 'https://doi.org/' + c.doi, c.title, 'wl-title'),
-        [c.number, c.journal, c.kind === 'LBA' && /^LBA/i.test(c.number || '') ? '' : c.kind, c.phase3 ? 'Phase 3' : ''].filter(Boolean).join(' · '));
+        [c.number, c.journal, c.kind === 'LBA' && /^LBA/i.test(c.number || '') ? '' : c.kind, c.phase3 ? 'Phase 3' : ''].filter(Boolean).join(' · '), c);
     }
     return html;
   }
@@ -1106,10 +1119,19 @@ const EVIDENCE_WATCH = ctx.data.watch;
     const node = target && target.anchor ? document.getElementById(target.anchor) : ctx.root.querySelector('tr.trial.open');
     if (node && ctx.root.contains(node)) node.scrollIntoView({ block: 'start' });
   };
+  // A row opened from the Watch list is ringed until the next press, with no fade.
+  const ring = target => {
+    const t = target && target.record && TRIALS.find(x => x.anchor === target.record || x.anchorFull === target.record);
+    const tr = t && document.getElementById(t.anchor);
+    if (!tr || !ctx.root.contains(tr)) return;
+    ctx.root.querySelectorAll('tr.anchor-hit').forEach(r => r.classList.remove('anchor-hit', 'fading'));
+    tr.classList.add('anchor-hit');
+    document.addEventListener('pointerdown', () => tr.classList.remove('anchor-hit'), { once: true, capture: true });
+  };
   nav.open = target => {
     holdTable = empty(target);
     const was = landing, ok = open(target);
-    if (ok) { setLanding(empty(target)); if (was && !landing && target && (target.record || target.anchor)) reveal(target); }
+    if (ok) { setLanding(empty(target)); if (was && !landing && target && (target.record || target.anchor)) { reveal(target); ring(target); } }
     return ok;
   };
   const choose = selectSheet;
