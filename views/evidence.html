@@ -219,7 +219,7 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .detail .full, [data-view="evidence"] .detail .fld{display:grid;grid-template-columns:150px minmax(0,1fr);margin:0;
   border:1px solid var(--b-line);border-top:0;break-inside:auto;}
 [data-view="evidence"] .detail .full, [data-view="evidence"] .detail .fld-type{border-top:1px solid var(--b-line);}
-[data-view="evidence"] .detail .fld-type + .full{border-top:0;}
+[data-view="evidence"] .detail .fld-type + .full, [data-view="evidence"] .detail .col + .full{border-top:0;}
 [data-view="evidence"] .detail .k{margin:0;padding:8px 10px;background:var(--b-cell);border-right:1px solid var(--b-line);
   font-size:var(--t-sm);font-weight:var(--w-bold);letter-spacing:0;text-transform:none;color:var(--b-ink);}
 [data-view="evidence"] .detail .fld > div:last-child{padding:8px 12px;min-width:0;}
@@ -252,10 +252,33 @@ html[data-view="evidence"]{--bg: var(--paper); --panel: var(--paper); --line: va
 [data-view="evidence"] .kf-list{grid-template-columns:minmax(0,1fr);}
 [data-view="evidence"] .kf-l{padding-bottom:0;border-right:0;border-bottom:0;background:transparent;}
 [data-view="evidence"] .kf-l:empty{display:none;}
-[data-view="evidence"] .kf-arm .kf-l{display:block;}
 [data-view="evidence"] .kf-v{padding-top:1px;}
+[data-view="evidence"] .kf-row.kf-arm{display:grid;grid-template-columns:2.2em minmax(0,1fr);}
+[data-view="evidence"] .kf-arm .kf-l{display:flex;justify-content:center;padding:5px 0;background:var(--b-sub);border-right:1px solid var(--b-grid);border-bottom:1px solid var(--b-grid);}
+[data-view="evidence"] .kf-arm .kf-v{padding-top:5px;}
+[data-view="evidence"] .detail .fld > div:last-child:has(> .epsub){padding:0;}
+[data-view="evidence"] .detail .epsub{margin:0;padding:5px 12px 0;font-size:inherit;font-weight:var(--w-strong);color:var(--b-ink);}
+[data-view="evidence"] .detail .epval{margin:0;padding:1px 12px 5px;border-bottom:1px solid var(--b-grid);}
+[data-view="evidence"] .detail .epval:last-child{border-bottom:0;}
 [data-view="evidence"] td[data-label="Year"]{text-align:left;}
 [data-view="evidence"] tr.detail td{background:var(--b-paper);border-bottom:1px solid var(--b-grid);}}
+@container oncos (min-width:741px){[data-view="evidence"] .detail .inner{display:grid;grid-template-columns:max-content fit-content(25%) minmax(0,1fr);gap:0;}
+[data-view="evidence"] .detail .full, [data-view="evidence"] .detail .fld{grid-column:1/-1;grid-template-columns:subgrid;}
+[data-view="evidence"] .detail .full > .k, [data-view="evidence"] .detail .fld > .k{grid-column:1;padding:6px 10px;}
+[data-view="evidence"] .detail .full > :last-child, [data-view="evidence"] .detail .fld > :last-child{grid-column:2/-1;}
+[data-view="evidence"] .detail .fld > div:last-child{padding:6px 10px;}
+[data-view="evidence"] .detail .findings.kf-prose{padding:6px 10px;}
+[data-view="evidence"] .detail .findings.kf, [data-view="evidence"] .detail .fld > div:last-child:has(> .kf-list), [data-view="evidence"] .detail .fld > div:last-child:has(> .epsub){display:grid;grid-template-columns:subgrid;padding:0;}
+[data-view="evidence"] .kf-list{grid-column:1/-1;grid-template-columns:subgrid;}
+[data-view="evidence"] .kf-lead{grid-column:1/-1;padding:6px 10px;}
+[data-view="evidence"] .kf-l, [data-view="evidence"] .kf-v{padding:4px 10px;}
+[data-view="evidence"] .kf-row.kf-arm{display:grid;grid-column:1/-1;grid-template-columns:2.2em minmax(0,1fr);}
+[data-view="evidence"] .kf-arm .kf-l{padding:4px 0;}
+[data-view="evidence"] .detail .epsub{grid-column:1;margin:0;padding:4px 10px;font-size:inherit;font-weight:var(--w-strong);color:var(--b-ink);
+    background:var(--b-sub);border-right:1px solid var(--b-grid);border-bottom:1px solid var(--b-grid);}
+[data-view="evidence"] .detail .epsub:first-child{margin-top:0;}
+[data-view="evidence"] .detail .epval{grid-column:2;margin:0;padding:4px 10px;border-bottom:1px solid var(--b-grid);}
+[data-view="evidence"] .detail .epval:last-child, [data-view="evidence"] .detail .epsub:nth-last-child(2){border-bottom:0;}}
 [data-view="evidence"] .evwatch{display:none;max-width:1100px;}
 [data-view="evidence"] .ev-watch .evwatch{display:block;}
 [data-view="evidence"] .ev-watch #results, [data-view="evidence"] .ev-watch .topbar{display:none!important;}
@@ -625,8 +648,8 @@ function epBlock(raw) {
   const sec = j === -1 ? '' : strip(txt.slice(j + 10));
   if (!prim && !sec) return esc(txt);
   let out = '';
-  if (prim) out += `<div class="epsub"><span aria-hidden="true">① </span>Primary</div><div class="epval">${esc(prim)}</div>`;
-  if (sec) out += `<div class="epsub"><span aria-hidden="true">② </span>Secondary</div><div class="epval">${esc(sec)}</div>`;
+  if (prim) out += `<div class="epsub"><span aria-hidden="true">◎ </span>Primary</div><div class="epval">${esc(prim)}</div>`;
+  if (sec) out += `<div class="epsub"><span aria-hidden="true">○ </span>Secondary</div><div class="epval">${esc(sec)}</div>`;
   return out;
 }
 
