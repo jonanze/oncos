@@ -221,9 +221,9 @@ course:
 off:
   JGOG 2033 [t-jgog-2033] | Outdated (Jonan 2026-11-11). Adjuvant chemotherapy against pelvic RT
   JGOG 2043 [t-jgog-2043] | Outdated (Jonan 2026-11-11). Three adjuvant chemotherapy regimens compared
-  GOG 122 | Whole-abdominal radiotherapy comparator no longer used. PORTEC-3 and GOG 258 set current options
+  GOG 122 [t-gog-0122] | Whole-abdominal radiotherapy comparator no longer used. PORTEC-3 and GOG 258 set current options
   GOG 177 | Doxorubicin, cisplatin and paclitaxel replaced by carboplatin-paclitaxel (GOG 209)
-  SIENDO / ENGOT-EN5 [t-siendo-engot-en5] | No licence. Not in ESGO 2025 or NCCN 3.2026. Selinexor maintenance, TP53 wild-type benefit under confirmation
+  SIENDO / ENGOT-EN5 [t-siendo] | No licence. Not in ESGO 2025 or NCCN 3.2026. Selinexor maintenance, TP53 wild-type benefit under confirmation
   AtTEnd | No licence. Not in ESGO 2025 or NCCN 3.2026. Atezolizumab with chemotherapy
   KEYNOTE-C93 [t-keynote-c93] | Pembrolizumab alone in first-line MMR deficient disease. PFS HR 0.57 against chemotherapy alone, which is no longer the standard. OS boundary not met. Not in ESGO 2025. NCCN 3.2026 lists pembrolizumab alone only after prior platinum
   RUBY Part 2 | No licence. Not in ESGO 2025 or NCCN 3.2026. Niraparib added to dostarlimab maintenance, no OS gain
