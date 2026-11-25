@@ -75,7 +75,7 @@ function measure(){
       else { cx = +m[4]; cy = +m[5]; } }
   });
   const R = e => ({l:e.offsetLeft, t:e.offsetTop, r:e.offsetLeft + e.offsetWidth, b:e.offsetTop + e.offsetHeight});
-  const boxes = [...world.querySelectorAll('.blk:not(.elab)')].map(R), chips = [...world.querySelectorAll('.elab')];
+  const boxes = [...world.querySelectorAll('.blk:not(.elab):not(.jn)')].map(R), chips = [...world.querySelectorAll('.elab')];
   const seen = new Set();
   segs.forEach(s => boxes.forEach(bx => {
     const hit = s.h ? (s.k > bx.t + T && s.k < bx.b - T && Math.min(s.b, bx.r) - Math.max(s.a, bx.l) > T)
@@ -101,8 +101,10 @@ function measure(){
   ups.forEach(v => {
     const near = y => y >= v.a - 11 && y <= v.b + 11;
     const ys = list => [...new Set(list.map(s => Math.round(s.k * 2) / 2))];
-    const into = ys(segs.filter(s => s.h && near(s.k) && s.b <= v.k + .5 && v.k - s.b <= 11));
-    const out = ys(segs.filter(s => s.h && near(s.k) && s.a >= v.k - .5 && s.a - v.k <= 11));
+    // a run that passes straight through the upright (a line a detour comes back into) is a line in and a line out
+    const thru = segs.filter(s => s.h && near(s.k) && s.a < v.k - .5 && s.b > v.k + .5);
+    const into = ys(segs.filter(s => s.h && near(s.k) && s.b <= v.k + .5 && v.k - s.b <= 11).concat(thru));
+    const out = ys(segs.filter(s => s.h && near(s.k) && s.a >= v.k - .5 && s.a - v.k <= 11).concat(thru));
     if (!into.length || !out.length) return;
     const at = 'at x ' + Math.round(v.k) + ', y ' + Math.round(v.a);
     const run = v.b - v.a + 20;

@@ -37,6 +37,7 @@
 .om-view:focus-visible{outline:2px solid var(--b-ink);outline-offset:-2px}
 .om-world{position:absolute;left:0;top:0;transform-origin:0 0;background-image:linear-gradient(var(--wb-grid) 1px,transparent 1px),linear-gradient(90deg,var(--wb-grid) 1px,transparent 1px);background-size:40px 40px}
 .om-world .blk{position:absolute;z-index:2}
+.om-world .blk.jn{width:0;height:0;padding:0;border:0;overflow:hidden}
 
 /* blocks: a course step, a tree node and its text, a band and a panel are each one filled block */
 .om-world .step,.om-world .leaf,.om-world .band,.om-world .panel,.om-world .box.lbl{box-sizing:border-box;border:0;border-radius:8px;background:var(--brc,var(--wb-plain));color:var(--wb-text);padding:14px 16px}
