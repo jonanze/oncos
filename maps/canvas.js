@@ -252,6 +252,35 @@
     return {w:W, h:H};
   }
 
+  // steps in one column that lead to the same two or more steps, under the same labels, meet first: their lines
+  // join at a junction (a step of no size), and one line from it divides to those steps, as a fan of lines out
+  // of one step would (Jonan 2026-11-25, mesothelioma: three first-line steps each drew two lines to maintenance
+  // and to second line, as two near uprights and a line looping round maintenance). The steps it leads to then
+  // sit beside the steps before them, not in a branch below. The model is left as it is: each render starts
+  // again from the lines as written
+  function merged(list){
+    var by = {}, col = {};
+    list.forEach(function(n){ n.next0 = n.next0 || n.next; n.next = n.next0.map(function(e){ return {to:e.to, label:e.label, join:e.join, at:e.at}; }); by[n.label] = n; });
+    function c(n){
+      if (col[n.label] === undefined) { col[n.label] = 0; list.forEach(function(p){ if (p.next.some(function(e){ return e.to === n.label; })) col[n.label] = Math.max(col[n.label], c(p) + 1); }); }
+      return col[n.label];
+    }
+    var sets = {}, out = list.slice();
+    list.forEach(function(n){
+      if (n.next.length < 2) return;
+      var key = c(n) + '\u0001' + n.next.map(function(e){ return e.to + '\u0002' + e.label; }).sort().join('\u0001');
+      (sets[key] = sets[key] || []).push(n);
+    });
+    Object.keys(sets).forEach(function(key, k){
+      var src = sets[key];
+      if (src.length < 2) return;
+      var j = {label:'\u0000junction ' + k, junction:true, lines:[], children:[], depth:1,
+        next:src[0].next.map(function(e){ return {to:e.to, label:e.label, join:false, at:e.at}; })};
+      src.forEach(function(n){ n.next = [{to:j.label, label:'', join:false}]; });
+      out.splice(out.indexOf(src[src.length - 1]) + 1, 0, j);
+    });
+    return out;
+  }
   function render(host, model, opts){
     opts = opts || {};
     var O = window.oncosOutline;
@@ -302,8 +331,10 @@
     var course = !!model.tree.course, steps = course ? model.tree.children : null, elabs = [];
     var plabs = {};   // labels on panel next: lines, made once and moved on each layout
     if (course) {
+      steps = merged(steps);
       nodes = steps;
       steps.forEach(function(n){
+        if (n.junction) { n.el = add('jn', ''); n.hd = n.el; n.w = 0; return; }
         n.el = add('step' + brc(n), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + colsHtml(n.lines));
         n.hd = n.el.firstChild;
         sized(n.el, n.lines, function(w){ n.w = w; });
@@ -360,7 +391,7 @@
     // a course that runs as one line of columns, each step leading only to the next column, is laid out
     // as the whiteboard drew the early colon plan (Jonan 2026-11-11: "EXACTLY as in whiteboard")
     function boardShape(){
-      if (!course) return false;
+      if (!course || steps.some(function(n){ return n.junction; })) return false;
       var by = {}; steps.forEach(function(n){ by[n.label] = n; n.preds = []; n.col = null; });
       var ok = true;
       steps.forEach(function(n){ n.next.forEach(function(e){ if (e.join) ok = false; e.node = by[e.to]; e.node.preds.push(n); }); });
@@ -668,6 +699,7 @@
       // steps joined by next: lines, in either direction, form one branch; separate branches are drawn
       // one below the other, set apart by a wider gap, so that no branch runs beside another.
       // A join: line keeps its two steps in separate branches; it runs from the branch above down to its step.
+      function reaches(a, z){ return a.next.some(function(e){ return e.node === z || reaches(e.node, z); }); }
       var g = 0;
       steps.forEach(function(n){ n.group = null; });
       steps.forEach(function(n){
@@ -699,8 +731,13 @@
           var mine = list.filter(function(n){ return n.group === gi; });
           mine.forEach(function(n){
             // level with the middle of the steps that lead here, so its main line runs straight
-            var own = n.preds.filter(function(p){ return p.group === n.group; });
-            var ys = (own.length ? own : n.preds).map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
+            var own = n.preds.filter(function(p){ return p.group === n.group; }), use = own.length ? own : n.preds;
+            // a step reached straight from one step and also by way of another (a detour through a step the first
+            // leads to, as maintenance before second line) sits level with the first, so the straight line runs
+            // straight and the detour comes back into it
+            var direct = use.filter(function(p){ return !use.some(function(q){ return q !== p && reaches(q, p); }); });
+            if (direct.length) use = direct;
+            var ys = use.map(function(p){ return p.cy; }).sort(function(a, z){ return a - z; }), h = ys.length >> 1;
             // lines leave and enter a step at the middle of the whole box, so boxes centre on each other
             // (Jonan 2026-11-11, "centre the lines with the boxes for a more symmetrical feel")
             n.hh = n.el.offsetHeight;
@@ -804,6 +841,8 @@
         else need = t.jstub + w + 32;
         gapW[c] = Math.max(gapW[c], need);
       }); });
+      // lines meet at a junction a stub's length out from the widest step before it
+      cols.forEach(function(list, c){ if (c && list.every(function(n){ return n.junction; })) gapW[c - 1] = Math.max.apply(null, list.map(function(n){ return n.jstub; })) + STUB; });
       colX = [M];
       cols.forEach(function(list, c){ colX[c + 1] = colX[c] + Math.max.apply(null, list.map(function(n){ return n.w; })) + gapW[c]; });
       steps.forEach(function(n){ n.x = colX[n.col]; n.el.style.left = n.x + 'px'; });
@@ -935,6 +974,7 @@
       var segs = wireSegs(), labs = [], boxes = [];
       Array.prototype.forEach.call(world.querySelectorAll('.blk'), function(el){
         var r = {el:el, l:el.offsetLeft, t:el.offsetTop, r:el.offsetLeft + el.offsetWidth, b:el.offsetTop + el.offsetHeight};
+        if (/\bjn\b/.test(el.className)) return;
         (/\belab\b/.test(el.className) ? labs : boxes).push(r);
       });
       labs.forEach(function(c){
@@ -1144,7 +1184,7 @@
     });
 
     // reading size: a course opens on its first step, a tree on its root and first branch; Fit shows the whole map
-    var heads = course ? steps : [model.tree].concat(model.tree.children);
+    var heads = course ? steps.filter(function(n){ return !n.junction; }) : [model.tree].concat(model.tree.children);
     function read(n){
       size();
       st.s = 1;
