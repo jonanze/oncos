@@ -1,0 +1,5 @@
+# Melanoma trials screened and left out of the Evidence database and the map (maps/inclusion.txt ④)
+# Trial | identifier | screened | class and result | reason
+ECHO-301/KEYNOTE-252 | PMID 31221619 | 2026-11-26 | class C, negative | Epacadostat with pembrolizumab against pembrolizumab in unresectable or metastatic melanoma, progression-free and overall survival not improved. Epacadostat has no licence or recommendation
+PIVOT IO 001 | PMID 37651676 | 2026-11-26 | class C, negative | Bempegaldesleukin with nivolumab against nivolumab in untreated advanced melanoma, response, progression-free and overall survival not improved. No licence or recommendation
+SUMIT | PMID 29528792 | 2026-11-26 | class C, negative | Selumetinib with dacarbazine against dacarbazine in metastatic uveal melanoma, progression-free survival not improved. Selumetinib has no licence or recommendation in melanoma
