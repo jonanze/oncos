@@ -1,0 +1,350 @@
+# oncOS board map: Melanoma (one map for the Evidence sheet "Melanoma")
+# Draft 2, 2026-11-26. The 49 findings of the prose review and the 5 findings of the thread's own pass on draft 1
+#   applied, the owner's decisions of 2026-11-26 applied, then every block rewritten from scratch. Not approved.
+#   Planning files: board-maps/melanoma/ (plan.md, structure-plan.md, independent-review.md, prose-review.md,
+#   own-pass-draft1.md, draft1-changes.md, draft2-changes.md, map-draft0.txt, map-draft1.txt, map-draft2.txt)
+#   Clinical content: board-maps/melanoma/notes-esmo.md, notes-esmo-uveal.md, notes-nccn.md, notes-nccn-uveal.md,
+#   notes-asco.md and melanoma-rows.json
+# Format and rules: see the header of maps/early-nsclc/map.txt
+# Owner decisions (Jonan 2026-11-26, cards), all applied:
+#   1. First line: nivolumab with ipilimumab, then nivolumab with relatlimab, then anti-PD-1 alone
+#   2. Neoadjuvant: nivolumab with ipilimumab, then pembrolizumab
+#   3. Vusolimogene oderparepvec (RP1) with nivolumab: a ※ line with the IGNYTE chip
+#   4. HLA-A*02:01-negative uveal melanoma, first line: nivolumab with ipilimumab first
+#   5. KEYNOTE-942 and INTerpath-001 leave off: for one ※ line in the adjuvant box (intismeran autogene with
+#      pembrolizumab), and OptimUM-02 leaves off: for one ※ line under HLA-A*02:01-negative uveal melanoma
+#      (darovasertib with crizotinib). Each ※ line gives the row's result in one sentence and the absence of an EU or
+#      US licence, with no guideline tag (no guideline of the set grades either regimen)
+# Scope (Jonan 2026-11-26): one map for the whole sheet. Cutaneous melanoma by stage, with metastatic uveal melanoma as
+#   its own parallel stage. Mucosal melanoma is treated as cutaneous, with ※ lines where a guideline differs. Left out:
+#   melanoma in situ and lentigo maligna, follow-up imaging schedules beyond nodal ultrasound after a positive sentinel
+#   node, treatment of the primary uveal tumour and adjuvant therapy after it, conjunctival and paediatric melanoma,
+#   radiotherapy doses, the tebentafusp dose (the ASCO text as extracted reads mg, the licensed unit is micrograms)
+# Layout: the course is the treatment tree, stages in parallel with no line between stages. Four first boxes:
+#   localised stage I to II, resectable stage III with clinically detected nodes, unresectable stage III or stage IV,
+#   and metastatic uveal melanoma. Later boxes follow in time order only. Adjuvant therapy is always a later box:
+#   stage IIB or IIC after a negative sentinel node, and one shared box for resected stage III or IV, reached by a line
+#   from the positive sentinel node box. Upfront surgery with therapeutic lymph node dissection sits in the neoadjuvant
+#   numbered line of the first teal box (one population, one line) and names the adjuvant box in words. Nodal
+#   radiotherapy after dissection is a ※ line of the adjuvant box. Oligometastatic stage IV is one line of the
+#   unresectable box only, with neoadjuvant therapy among its options (draft 2: the stage III box no longer lists it).
+#   Resected stage IV is a numbered line of the adjuvant box with no line from the metastatic branch. Brain metastases
+#   are a panel beside the unresectable box, as they arise at any point. First-line therapy opens with untreated
+#   disease and then gives the two lines for recurrence within 6 months of adjuvant or neoadjuvant therapy (ESMO
+#   Figure 4). Uveal melanoma is two boxes split by disease distribution as both uveal guidelines split it, with
+#   HLA-A*02:01 status as numbered lines. The staging band keeps only the thresholds that decide a step. Every trial
+#   chip appears once
+# Guideline set (Jonan 2026-11-26) and tag forms. Tag order on every line: ESMO, NCCN, ASCO
+#   〔ESMO level, grade〕 ESMO cutaneous melanoma guideline 2025 (Amaral, Ann Oncol 2025;36:10-30, PMID 39550033) with
+#     the ESMO Living Guideline v1.0 (February 2025). A bare 〔ESMO〕 marks the text, a figure or footnote or a licence
+#     note. Figures 1 to 6 read. Supplement unread, mucosal section included. ESMO-MCBS and ESCAT scores are left off.
+#     TIL selection follows the text (performance status 0 or 1, LDH under twice the upper limit). Figure 4 footnote m
+#     is stricter (performance status 0, normal LDH)
+#   〔ESMO-EURACAN level, grade〕 ESMO-EURACAN uveal melanoma guideline 2026 (Piperno-Neumann, ESMO Open 2026;11:106888,
+#     PMID 42020098), Figure 3 included. It predates OptimUM-02
+#   〔NCCN category〕 NCCN Melanoma: Cutaneous 2.2026 (17 April 2026), algorithm pages with NEOSYS, ADJSYS and MELSYS.
+#     The category and the preference label are printed where the page prints them. A bare 〔NCCN〕 marks a footnote,
+#     a principles page (ME-C to ME-H, SYSCON, ADJSYS-2) or the Discussion. The Discussion is stale (2016 and 2019) and
+#     is not followed where the algorithm differs
+#   〔NCCN Uveal category〕 NCCN Melanoma: Uveal 2.2026 (18 March 2026). 2A unless stated. It predates OptimUM-02
+#   〔ASCO quality, strength〕 ASCO systemic therapy for melanoma 2023 (Seth, J Clin Oncol 2023;41:4794-4820, PMID
+#     37579248). 〔ASCO Strong〕 alone marks an informal consensus recommendation with no evidence quality. A bare
+#     〔ASCO〕 marks the text, a qualifying statement, Table 1 or 2 (doses) or the brain metastases guideline it quotes
+#     (ASCO-SNO-ASTRO 2022). Statements carried only from the 2020 guideline carry no ASCO tag. It predates NADINA, the
+#     lifileucel licence, EBIN and the CheckMate 76K paper. Surgery, sentinel node biopsy, radiotherapy and
+#     liver-directed therapy are outside its scope. Rec 3.3 (ipilimumab-based therapy after anti-PD-1) is for BRAF
+#     wild-type disease, now a ・ line
+# Licence notes (web search 2026-11-26, sources in structure-plan.md and independent-review.md finding 22):
+#   Vusolimogene oderparepvec (RP1, Tudriqev) with nivolumab: FDA accelerated approval 6 August 2026 for unresectable
+#     advanced cutaneous melanoma that progressed on an anti-PD-1 regimen, on IGNYTE. No guideline of the set grades it
+#   Intismeran autogene (mRNA-4157) with pembrolizumab: no FDA or EMA application filed by 9 November 2026. KEYNOTE-942
+#     and INTerpath-001 sit on a ※ line by the owner's naming (inclusion.txt ③). Recheck once a filing is made
+#   Darovasertib with crizotinib: NDA rolling submission under real-time oncology review, no approval found. OptimUM-02
+#     is a congress abstract on a ※ line by the owner's naming, and the line says so (inclusion.txt ① and ③)
+#   Lifileucel: FDA accelerated approval 16 February 2024. No EU licence: the EU application was withdrawn on 22 July 2025
+#   Tebentafusp: FDA and EMA. Melphalan hepatic delivery system: FDA. Atezolizumab with vemurafenib and cobimetinib:
+#     FDA first-line licence 2020. Neoadjuvant regimens: no EU or FDA licence as printed by ESMO (not rechecked)
+#   Singapore (HSA, Cancer Drug List) status of tebentafusp, nivolumab with relatlimab, lifileucel, RP1 and the melphalan
+#     hepatic delivery system: not checked
+# Rule ⑦: options NCCN alone lists sit on ・ or ※ lines (low-dose ipilimumab with pembrolizumab, lenvatinib with
+#   pembrolizumab, KIT inhibitors, the three-drug combination in later lines, other neoadjuvant regimens, ipilimumab
+#   alone, chemotherapy and trametinib in uveal melanoma). Isolated hepatic perfusion is graded by ESMO-EURACAN alone and
+#   is a procedure, not a drug: kept as an option pending Jonan's answer (review 32)
+# Option order where no owner decision applies: stage III neoadjuvant therapy before upfront surgery (NCCN preferred).
+#   Adjuvant stage III anti-PD-1 first, dabrafenib with trametinib second (no guideline ranks them). After anti-PD-1:
+#   BRAF and MEK inhibitors, ipilimumab-based therapy, then lifileucel
+# Single-arm trials cited because a licence or recommendation rests on them and no randomised trial of that option exists
+#   in that setting (inclusion.txt ①): C-144-01, IGNYTE, COMBI-MB, GEM-1402, Pelster 2021, Hodi 2013, Guo 2011, TEAM,
+#   LEAP-004 and RELATIVITY-020. CheckMate 204 is under off:, as the randomised ABC trial tested the same option (review 5)
+# Not yet on the sheet, as chips (intake.txt, each needs Jonan's go), PMIDs checked in PubMed 2026-11-26: CheckMate 511,
+#   OpACIN-neo, ANZMTG 01.02/TROG 02.01, IMMUNED, CheckMate 915, RELATIVITY-098, SWOG S1404, E1609, BRIM8, Lian 2013,
+#   MASTERKEY-265, IMspire150, KEYNOTE-022, SWOG S1616, RELATIVITY-020, LEAP-004, Hodi 2013, Guo 2011, TEAM, NEMO, ABC,
+#   COMBI-MB, GEM-1402, Pelster 2021, SCANDIUM, FOCUS, Hughes 2016. Database only, no map statement: IMspire170, LEAP-003.
+#   Row updates: EORTC 18071 (overall survival, PMID 27717298), IMMUNED (final, 36099927), SCANDIUM (survival, 38420778).
+#   EORTC 18071 and IMMUNED stay ~ until their overall survival reports are on the rows
+# Trial marks (not drawn), as the ruleset defines them: + OS benefit, ~ surrogate only (PFS, response, single-arm),
+#   - no benefit or harm, * no comparison. Lian 2013 is ~ (relapse-free survival is its endpoint), KEYNOTE-942 and
+#   INTerpath-001 ~ (recurrence-free survival, overall survival immature), OptimUM-02 ~ (progression-free survival)
+
+map: Melanoma
+source: ESMO {url https://doi.org/10.1016/j.annonc.2024.11.006}
+source: ESMO-EURACAN {url https://doi.org/10.1016/j.esmoop.2026.106888}
+source: NCCN {url https://www.nccn.org/guidelines/category_1}
+source: ASCO {url https://doi.org/10.1200/JCO.23.01136}
+branch: LOC | Localised stage I to II | blue
+branch: NEO | Resectable stage III, clinically detected nodes | teal
+branch: ADJ | Adjuvant therapy after resection of stage III or IV | violet
+branch: MET | Unresectable stage III or stage IV | apricot
+branch: UVE | Metastatic uveal melanoma | sage
+
+band: AJCC 8th edition staging
+  ① T1 subcategories: T1a under 0.8 mm without ulceration, T1b under 0.8 mm with ulceration or 0.8 to 1.0 mm 〔ESMO〕 〔NCCN〕
+  ② Stage IIIA: T1a to T2a with N1a or N2a nodal disease 〔NCCN〕
+    ※ The stage III adjuvant trials of anti-PD-1 therapy and dabrafenib with trametinib used the 7th edition and admitted no stage IIIA disease with a sentinel node deposit under 1 mm 〔ESMO〕 〔NCCN〕 〔ASCO〕
+  ③ Stage IV: a fourth M category for central nervous system metastases 〔ASCO〕, with the suffix (0) for a normal and (1) for a raised LDH 〔NCCN〕 〔ASCO〕
+
+band: Molecular testing
+  ① BRAF V600 testing in all stage III and IV disease 〔ESMO I, A〕 〔NCCN〕 〔ASCO〕, on a metastasis in preference to the primary 〔ESMO IV, A〕 〔NCCN〕
+    ・Testing in stage IIB to IIC is considered 〔ESMO V, C〕 when the result would guide adjuvant therapy 〔NCCN〕
+    ・Circulating tumour DNA is an alternative when no tissue is available 〔ESMO III, C〕
+  ② NRAS and KIT testing in unresectable disease 〔ESMO〕 〔NCCN〕, and NTRK fusion testing when no BRAF or RAS mutation is found 〔ESMO〕
+    ・KIT testing is for mucosal or acral melanoma and melanoma on chronically sun-damaged skin 〔NCCN〕
+    ・NTRK fusion testing is an option after progression on standard therapy 〔ASCO〕
+  ③ PD-L1 expression on tumour cells in unresectable stage III or IV, to select nivolumab with relatlimab under its EU licence 〔ESMO〕
+    ・PD-L1 expression does not guide the choice of treatment 〔NCCN〕
+  ④ Metastatic uveal melanoma: HLA-A*02:01 typing on blood 〔ESMO-EURACAN I, A〕 〔NCCN Uveal〕
+    ・Typing can be considered in localised uveal melanoma for access to adjuvant trials 〔ESMO-EURACAN V, B〕
+  ※ Gene expression profiles of the primary are not recommended to stage or to select adjuvant therapy outside trials 〔ESMO〕 〔NCCN〕
+
+band: Regimens
+  ① Nivolumab with ipilimumab: nivolumab 1 mg/kg with ipilimumab 3 mg/kg every 3 weeks for four doses, then nivolumab 240 mg every 2 weeks or 480 mg every 4 weeks 〔NCCN〕 〔ASCO〕
+    ・Nivolumab 3 mg/kg with ipilimumab 1 mg/kg is an option when tolerance is a concern 〔NCCN〕
+    ・Nivolumab 3 mg/kg with ipilimumab 1 mg/kg can be discussed for frail patients and is not recommended for general use 〔ESMO〕
+      ~ CheckMate 511 {pmid 30811280}
+  ② Nivolumab with relatlimab: nivolumab 480 mg with relatlimab 160 mg every 4 weeks 〔ASCO〕
+  ③ Anti-PD-1 alone: nivolumab 240 mg every 2 weeks or 480 mg every 4 weeks, or pembrolizumab 200 mg every 3 weeks or 400 mg every 6 weeks 〔ASCO〕
+  ④ BRAF and MEK inhibitors: dabrafenib 150 mg twice daily with trametinib 2 mg once daily, encorafenib 450 mg once daily with binimetinib 45 mg twice daily, or vemurafenib 960 mg twice daily with cobimetinib 60 mg once daily on days 1 to 21 of 28 〔ASCO〕
+  ⑤ Neoadjuvant nivolumab with ipilimumab: nivolumab 240 mg with ipilimumab 80 mg every 3 weeks for two doses, then surgery 〔NCCN〕
+  ⑥ Neoadjuvant pembrolizumab: 200 mg every 3 weeks for three doses before surgery and up to 15 doses after it 〔NCCN〕 〔ASCO〕
+  ⑦ Lifileucel: lymphodepleting chemotherapy, one infusion of tumour-infiltrating lymphocytes, then high-dose interleukin-2 〔NCCN〕
+
+course: Melanoma | parallel
+  Localised cutaneous melanoma, stage I to II
+    branch: LOC
+    ① Wide excision with a clinical margin of 1 cm for tumours up to 1.0 mm thick and 2 cm for tumours over 2.0 mm thick 〔ESMO III, B〕 〔NCCN 1〕
+      ・Melanomas of intermediate thickness, over 1.0 to 2.0 mm, are excised with a margin of 1 cm 〔ESMO III, B〕 against 1 to 2 cm 〔NCCN 1〕
+      ※ Narrower margins are acceptable in acral and facial melanoma to preserve function 〔ESMO〕 〔NCCN〕
+      ・Micrographic surgery is acceptable in acral and facial melanoma 〔ESMO〕, and only for T1a tumours 〔NCCN〕
+    ② T2a or thicker, no clinical nodal disease: sentinel node biopsy at the time of wide excision 〔ESMO I, A〕 〔NCCN 2A〕
+      ・Sentinel node biopsy can be omitted after discussion in T3b to T4b tumours that qualify for adjuvant therapy 〔ESMO V, C〕
+      ・Sentinel node biopsy is strongly recommended before adjuvant anti-PD-1 therapy in stage IIB to IIC 〔NCCN〕
+      ~ MSLT-I {pmid 24521106}
+    ③ T1b: sentinel node biopsy to be discussed with the patient 〔ESMO III, B〕 〔NCCN 2A〕
+      ・A clinicopathological gene expression profile may support the decision 〔NCCN〕
+    ④ T1a: no routine sentinel node biopsy 〔ESMO II, E〕 〔NCCN 2A〕
+      ・Sentinel node biopsy can be discussed when the tumour is over 0.5 mm thick with an adverse feature: age 42 years or younger, a head and neck site, lymphovascular invasion, or two or more mitoses per mm² 〔NCCN〕
+    ⑤ Stage IIB or higher: CT or PET-CT and brain MRI to stage the disease 〔ESMO III, B〕, in stage IIB to IIC before adjuvant therapy 〔NCCN〕
+    ※ Radiotherapy to the primary site can be considered for desmoplastic or neurotropic melanoma with inadequate margins 〔ESMO IV, C〕 〔NCCN 2B〕
+    next: Negative sentinel node: adjuvant therapy by stage | Negative sentinel node
+    next: Positive sentinel node | Positive sentinel node
+  Negative sentinel node: adjuvant therapy by stage
+    branch: LOC pale
+    ① Stage IIB or IIC: pembrolizumab or nivolumab for 12 months 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕, or observation 〔ESMO III, A〕 〔NCCN 2A〕
+      ・Observation is favoured in stage IIB 〔NCCN〕
+      ※ The gain in recurrence-free survival is weighed against the lack of mature overall survival data 〔ESMO〕 〔NCCN〕 〔ASCO〕
+      ~ KEYNOTE-716 {pmid 35367007}
+      ~ CheckMate 76K {pmid 37845511}
+    ② Stage I to IIA: observation 〔ESMO III, A〕, with adjuvant therapy in stage IIA only in a trial 〔ASCO Strong〕
+    ° Toxicity of note: permanent endocrinopathy in about 15% of patients after adjuvant anti-PD-1 therapy 〔NCCN〕
+  Positive sentinel node
+    branch: LOC pale
+    ① Nodal ultrasound surveillance every 3 to 6 months 〔ESMO〕 〔NCCN 2A〕, without completion lymph node dissection 〔ESMO I, E〕 or nodal irradiation 〔ESMO〕
+      ・Surveillance lasts 3 years 〔ESMO〕 against 5 years 〔NCCN〕
+      ・Completion dissection is an option in stage IIIB to IIID when the patient cannot adhere to ultrasound surveillance or the predicted burden in non-sentinel nodes is high 〔NCCN〕
+      - MSLT-II {pmid 28591523}
+      - DeCOG-SLT {pmid 27161539}
+    ② CT or PET-CT and brain MRI to stage the disease before further treatment 〔ESMO〕
+      ・Cross-sectional imaging is considered in stage IIIA and performed in stage IIIB to IIID, with or without brain MRI 〔NCCN〕
+    next: Resected stage III or IV: adjuvant therapy
+  Resectable stage III with clinically detected nodes
+    branch: NEO
+    ① Suspected nodal metastasis: core needle or fine-needle biopsy in place of excisional biopsy 〔NCCN〕, with CT or PET-CT and brain MRI before treatment 〔ESMO〕 〔NCCN〕
+    ② Pathologically proven clinically detected nodes or resectable in-transit metastases: neoadjuvant nivolumab with ipilimumab 〔ESMO I, A〕 〔NCCN 1, preferred〕 or neoadjuvant pembrolizumab 〔ESMO II, A〕 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕, then surgery, or upfront wide excision of the primary 〔ESMO III, B〕 with anatomically complete therapeutic lymph node dissection 〔NCCN 1〕, then adjuvant therapy as for resected stage III 〔ESMO I, A〕
+      ・Neither neoadjuvant regimen holds an EU or US licence 〔ESMO〕
+      ・Neoadjuvant nivolumab alone or nivolumab with relatlimab is an option 〔NCCN 2A, other recommended〕
+      ・Neoadjuvant dabrafenib with trametinib for 4 to 12 weeks is an option for a BRAF V600 mutation when immunotherapy is contraindicated 〔NCCN 2A, useful in certain circumstances〕
+      ~ NADINA {pmid 38828984}
+      ~ SWOG S1801 {pmid 36856617}
+      ~ OpACIN-neo {pmid 31160251}
+    next: After neoadjuvant therapy: treatment by pathological response | Neoadjuvant therapy
+  After neoadjuvant therapy: treatment by pathological response
+    branch: NEO pale
+    ① Major pathological response after nivolumab with ipilimumab: observation 〔ESMO I, A〕 〔NCCN 2A〕, or anti-PD-1 therapy 〔NCCN 2A〕
+    ② Partial or no pathological response after nivolumab with ipilimumab: adjuvant nivolumab 〔ESMO I, A〕 〔NCCN 2A〕 or pembrolizumab 〔NCCN 2A〕, or dabrafenib with trametinib for BRAF V600E 〔ESMO I, A〕 〔NCCN 2A〕
+      ・Dabrafenib with trametinib is an option for any BRAF V600 mutation 〔NCCN 2A〕
+    ③ After neoadjuvant pembrolizumab: adjuvant pembrolizumab to complete 12 months, whatever the pathological response 〔NCCN〕 〔ASCO Moderate, Strong〕
+    ※ Major pathological response is 10% or less viable tumour, partial response over 10% to 50%, and no response over 50% 〔NCCN〕
+  Resected stage III or IV: adjuvant therapy
+    branch: ADJ
+    ① Resected stage III: nivolumab or pembrolizumab for 12 months 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO High, Strong〕, or dabrafenib with trametinib for 12 months for a BRAF V600 mutation 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO High, Strong〕, to start within 12 weeks of complete resection 〔ESMO I, A〕
+      ・Dabrafenib with trametinib should not be offered for BRAF V600K 〔ESMO II, D〕
+      ~ CheckMate 238 {pmid 28891423}
+      ~ KEYNOTE-054 {pmid 29658430}
+      ~ COMBI-AD {pmid 28891408}
+    ② Stage IIIA with a sentinel node deposit under 1 mm: observation in preference to adjuvant therapy 〔ESMO I, D〕 〔NCCN〕
+      ・Adjuvant therapy is an option after discussion of risk and benefit 〔ASCO〕
+    ③ Resected stage IV with no evidence of disease: nivolumab 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO Moderate, Weak〕 or pembrolizumab 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO Low, Weak〕, nivolumab with ipilimumab 〔NCCN 2A, preferred〕 〔ASCO Low, Weak〕 for selected patients 〔ESMO II, C〕, or BRAF and MEK inhibitors for a BRAF V600 mutation 〔NCCN 2B, other recommended〕, including dabrafenib with trametinib for V600E or V600K 〔ASCO Low, Weak〕
+      ・Nivolumab with ipilimumab holds no EU or US licence as adjuvant therapy 〔ESMO〕
+      ~ IMMUNED {pmid 32416781}
+    ※ In resected stage III, adjuvant nivolumab with ipilimumab 〔ESMO I, D〕 〔NCCN〕 and adjuvant nivolumab with relatlimab are not recommended 〔NCCN〕
+      - CheckMate 915 {pmid 36162037}
+      - RELATIVITY-098 {pmid 41109920}
+    ※ Adjuvant ipilimumab 〔ESMO〕 and high-dose interferon 〔NCCN〕 are not recommended for routine use 〔ASCO High, Strong〕
+      ~ EORTC 18071 {pmid 25840693}
+      ~ SWOG S1404 {pmid 34764195}
+      ・Ipilimumab 3 mg/kg is an option after resection of a recurrence on adjuvant anti-PD-1 therapy or BRAF and MEK inhibitors 〔NCCN 2A, useful in certain circumstances〕
+        + E1609 {pmid 31880964}
+    ※ A BRAF inhibitor alone is not recommended as adjuvant therapy 〔ESMO〕 〔NCCN〕
+      - BRIM8 {pmid 29477665}
+    ※ Individualised neoantigen therapy with intismeran autogene, added to adjuvant pembrolizumab after resection of stage IIB to IV melanoma, prolonged recurrence-free survival over pembrolizumab alone and holds no EU or US licence
+      ~ KEYNOTE-942 {pmid 38246194}
+      ~ INTerpath-001 {pmid 43013837}
+    ※ Radiotherapy to the nodal basin can be considered after therapeutic lymph node dissection at high risk of nodal relapse 〔ESMO III, C〕 〔NCCN 2B〕
+      ・Risk factors for nodal relapse include no neoadjuvant therapy or no response to it, extranodal extension, a parotid node, two or more cervical or axillary nodes, three or more inguinofemoral nodes, a cervical or axillary node of 3 cm or more, and an inguinal node of 4 cm or more 〔NCCN〕
+      ~ ANZMTG 01.02/TROG 02.01 {pmid 26206146}
+    ※ In resected mucosal melanoma, adjuvant temozolomide with cisplatin prolonged relapse-free survival over high-dose interferon in a randomised phase II trial in China
+      ・The result may reflect the small size and design of the trial 〔ASCO〕
+      ~ Lian 2013 {pmid 23833309}
+    ° Toxicity of note: grade 3 or 4 adverse events and discontinuation are more frequent with adjuvant dabrafenib with trametinib than with anti-PD-1 therapy 〔ASCO〕
+
+  Unresectable stage III or stage IV cutaneous melanoma
+    branch: MET
+    ① Stage IV at diagnosis: CT or PET-CT and brain MRI 〔ESMO〕 〔NCCN〕, with serum LDH 〔NCCN〕
+    ② Any line: a clinical trial where available 〔ESMO V, A〕 〔NCCN〕 〔ASCO〕
+    ③ Oligometastatic disease: systemic therapy 〔ESMO I, A〕 〔NCCN 2A, preferred〕, neoadjuvant nivolumab with ipilimumab 〔ESMO〕 〔NCCN〕 or pembrolizumab 〔ESMO〕 〔NCCN〕 〔ASCO Moderate, Strong〕 then resection, or resection, stereotactic radiotherapy or ablation 〔ESMO V, C〕 〔NCCN 2A〕, then adjuvant therapy as for resected stage IV 〔ESMO I, A〕 〔NCCN〕
+    ④ Unresectable satellite or in-transit metastases: systemic therapy 〔ESMO I, A〕 〔NCCN 2A, preferred〕, intralesional talimogene laherparepvec 〔ESMO I, B〕 〔NCCN 1, preferred〕 〔ASCO Low, Weak〕, or isolated limb perfusion or infusion at high-volume centres, radiotherapy or electrochemotherapy 〔ESMO IV, C〕 〔NCCN〕
+      ・Talimogene laherparepvec is for injectable lesions when systemic therapy is unsuitable or declined 〔ASCO〕
+      ~ OPTiM {pmid 26014293}
+      ※ Talimogene laherparepvec added to anti-PD-1 therapy did not improve survival 〔ESMO〕 〔ASCO〕
+        - MASTERKEY-265 {pmid 35998300}
+    ※ Unresectable or metastatic mucosal melanoma may be treated as cutaneous melanoma 〔ASCO Very low, Weak〕
+    next: First-line systemic therapy
+  First-line systemic therapy
+    branch: MET
+    ① No earlier systemic therapy, or recurrence more than 6 months after adjuvant or neoadjuvant therapy 〔ESMO〕, any BRAF or NRAS status: nivolumab with ipilimumab 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO High, Strong〕, nivolumab with relatlimab 〔ESMO I, B〕 〔NCCN 1, preferred〕 〔ASCO High, Strong〕, or nivolumab or pembrolizumab alone 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ASCO High, Strong〕
+      ・Nivolumab with ipilimumab is preferred when it can be given safely and a rapid response is not required 〔ESMO I, A〕
+      ・The options are unranked 〔NCCN〕 〔ASCO〕
+      ・Combination immunotherapy is for patients with a good performance status who accept greater toxicity 〔NCCN〕 〔ASCO〕
+      ・Nivolumab with relatlimab is licensed in the EU for tumour-cell PD-L1 under 1% and in the US whatever the PD-L1 expression 〔ESMO〕
+      ・Low-dose ipilimumab with pembrolizumab is an option 〔NCCN 2B, other recommended〕
+      + CheckMate 067 {pmid 26027431}
+      ~ RELATIVITY-047 {pmid 34986285}
+      + KEYNOTE-006 {pmid 25891173}
+      + CheckMate 066 {pmid 25399552}
+    ② BRAF V600 mutation, no earlier systemic therapy: nivolumab with ipilimumab in preference to BRAF and MEK inhibitors 〔ESMO〕 〔NCCN〕 〔ASCO High, Strong〕, or BRAF and MEK inhibitors when immunotherapy is unsuitable or a rapid response is required 〔ESMO I, A〕 〔NCCN 1, other recommended〕 〔ASCO High, Strong〕
+      ・The evidence for the preference is of low quality against BRAF and MEK inhibitors other than dabrafenib with trametinib 〔ASCO Low, Strong〕
+      ・Induction with BRAF and MEK inhibitors for 8 to 12 weeks before nivolumab with ipilimumab is an option for a high LDH or liver metastases 〔ESMO II, C〕 and for high-volume symptomatic disease 〔NCCN〕
+      ・A BRAF inhibitor alone is for a contraindication to MEK inhibitors 〔ESMO II, B〕 〔NCCN〕
+      + DREAMseq {pmid 36166727}
+      * SECOMBIT {pmid 36049147}
+      - EBIN {pmid 40449497}
+      + COMBI-d {pmid 26037941}
+      + COMBI-v {pmid 25399551}
+      ~ coBRIM {pmid 25265494}
+      ~ COLUMBUS {pmid 29573941}
+    ③ Recurrence on or within 6 months of adjuvant or neoadjuvant anti-PD-1 therapy: BRAF and MEK inhibitors for a BRAF V600 mutation 〔ESMO I, A〕, nivolumab with ipilimumab when a rapid response is not required 〔ESMO II, A〕, or nivolumab with relatlimab for BRAF wild-type disease with PD-L1 under 1% 〔ESMO I, B〕
+    ④ Recurrence on or within 6 months of adjuvant BRAF and MEK inhibitors: nivolumab with ipilimumab 〔ESMO I, A〕, nivolumab with relatlimab for PD-L1 under 1% 〔ESMO I, B〕, or anti-PD-1 alone 〔ESMO I, A〕
+      ・With a contraindication to immunotherapy, the options are BRAF and MEK inhibitors given again more than 3 months after the adjuvant course 〔ESMO V, A〕 and chemotherapy 〔ESMO II, C〕
+    ※ A PD-1 or PD-L1 inhibitor added to BRAF and MEK inhibitors is not recommended in the first line 〔NCCN〕 〔ASCO〕
+      ・The three-drug combination is an option in later lines 〔NCCN 2A, useful in certain circumstances〕
+      ・Atezolizumab with vemurafenib and cobimetinib holds a US first-line licence 〔NCCN〕 〔ASCO〕
+      ~ IMspire150 {pmid 32534646}
+      - COMBI-i {pmid 35030011}
+      - KEYNOTE-022 {pmid 31171878}
+    ※ The optimal duration of anti-PD-1 therapy is unknown 〔NCCN〕 〔ASCO〕
+    ° Toxicity of note: immune-related adverse events are most frequent with nivolumab 1 mg/kg with ipilimumab 3 mg/kg, intermediate with nivolumab with relatlimab, and least frequent with anti-PD-1 alone 〔NCCN〕
+    ° Toxicity of note: pyrexia in about half of patients on dabrafenib with trametinib, managed by interruption of both drugs 〔NCCN〕
+    next: Progression after first-line therapy | Progression
+  Progression after first-line therapy
+    branch: MET pale
+    ① BRAF V600 mutation, no earlier BRAF inhibitor: BRAF and MEK inhibitors 〔ESMO II, B〕 〔NCCN 2A, preferred〕 〔ASCO Low, Weak〕
+    ② Progression on anti-PD-1 alone: nivolumab with ipilimumab 〔ESMO II, B〕 〔NCCN 2A, preferred〕 〔ASCO Low, Weak〕, nivolumab with relatlimab 〔ESMO III, B〕 〔NCCN 2A, preferred〕, or ipilimumab alone 〔ESMO II, B〕 〔NCCN 2A, other recommended〕 〔ASCO Low, Weak〕
+      ・Ipilimumab-based therapy is for BRAF wild-type disease 〔ASCO Low, Weak〕
+      ・Low-dose ipilimumab with pembrolizumab is an option 〔NCCN 2A, preferred〕
+      ・Among checkpoint inhibitors, only pembrolizumab alone and ipilimumab alone hold an EU or US licence after first-line therapy 〔ESMO〕
+      ~ SWOG S1616 {pmid 37592104}
+      ~ RELATIVITY-020 {pmid 36780608}
+      + MDX010-20 {pmid 20525992}
+    ③ After anti-PD-1 therapy, and after a BRAF inhibitor for a BRAF V600 mutation: lifileucel 〔ESMO II, B〕 〔NCCN 2A, preferred〕
+      ・Selection requires a performance status of 0 or 1, an LDH under twice the upper limit of normal and one to three earlier lines 〔ESMO〕, a resectable lesion for harvest and no active brain metastases 〔NCCN〕
+      ・Lifileucel holds a US licence and no EU licence 〔ESMO〕
+      ~ Rohaan et al. {pmid 36477031}
+      ~ C-144-01 {pmid 40454684}
+    ④ Progression on first-line BRAF and MEK inhibitors: anti-PD-1-based therapy as in the first line 〔ESMO〕 〔NCCN〕 〔ASCO Low, Weak〕
+    ⑤ Later lines: rechallenge with immune checkpoint inhibitors 〔ESMO IV, B〕 or BRAF and MEK inhibitors 〔ESMO IV, C〕, from the class not used in the preceding line 〔ESMO〕 〔NCCN〕, or chemotherapy 〔ESMO IV, C〕 〔NCCN 2A, useful in certain circumstances〕
+      ・Re-induction with the same class is an option when disease was controlled and relapse came more than 3 months after that treatment stopped 〔NCCN〕
+      ・Lenvatinib with pembrolizumab is an option 〔NCCN 2A, useful in certain circumstances〕
+      ・Lenvatinib with pembrolizumab holds no EU or US licence for melanoma 〔ESMO〕
+      ~ LEAP-004 {pmid 35867951}
+    ※ Vusolimogene oderparepvec (RP1) injected into the tumour, with nivolumab, holds a US accelerated licence of August 2026 for unresectable cutaneous melanoma that progressed on an anti-PD-1 regimen
+      ~ IGNYTE {pmid 40627813}
+    ※ Imatinib or another KIT inhibitor is an option for an activating KIT mutation 〔NCCN 2A, useful in certain circumstances〕
+      ・Immunotherapy, and BRAF-directed therapy for a BRAF V600 mutation, are more likely to benefit than a KIT inhibitor, whatever the KIT status 〔ASCO〕
+      ~ Hodi 2013 {pmid 23775962}
+      ~ Guo 2011 {pmid 21690468}
+      ~ TEAM {pmid 28327988}
+    ※ Binimetinib is an option for an NRAS mutation after immunotherapy 〔ESMO III, C〕 〔NCCN 2B, useful in certain circumstances〕
+      ~ NEMO {pmid 28284557}
+    ※ Larotrectinib or entrectinib is an option for an NTRK fusion 〔NCCN 2A, useful in certain circumstances〕 〔ASCO〕
+
+  Metastatic uveal melanoma
+    branch: UVE
+    ① Referral to a centre with uveal melanoma expertise 〔ESMO-EURACAN〕 〔NCCN Uveal〕
+    ② Liver MRI and CT of the chest, abdomen and pelvis to stage the disease, with brain imaging only for neurological symptoms 〔ESMO-EURACAN〕 〔NCCN Uveal〕
+    ③ Any line: a clinical trial where available 〔ESMO-EURACAN V, B〕 〔NCCN Uveal 2A, preferred〕 〔ASCO〕
+    ④ Positive HLA-A*02:01 typing: tebentafusp 〔ESMO-EURACAN I, A〕 〔NCCN Uveal 1, preferred〕 〔ASCO Moderate, Strong〕
+      ・Tebentafusp comes first unless liver-directed therapy is needed for debulking 〔ESMO-EURACAN〕
+      ・In symptomatic patients, liver-directed therapy or nivolumab with ipilimumab can come before tebentafusp for palliation 〔NCCN Uveal〕
+      ・Tebentafusp is an option in any line 〔ASCO〕
+      + IMCgp100-202 {pmid 34551229}
+      ° Toxicity of note: cytokine release syndrome with the first doses of tebentafusp, with inpatient monitoring indicated 〔NCCN Uveal〕
+    ⑤ Negative HLA-A*02:01 typing: nivolumab with ipilimumab 〔ESMO-EURACAN〕 〔NCCN Uveal 2A, preferred〕, pembrolizumab or nivolumab alone 〔ESMO-EURACAN V, B〕 〔NCCN Uveal 2A, other recommended〕, or liver-directed therapy 〔ESMO-EURACAN V, B〕
+      ・Nivolumab with ipilimumab is for fit patients with mainly extrahepatic disease 〔ESMO-EURACAN〕
+      ~ GEM-1402 {pmid 33417511}
+      ~ Pelster 2021 {pmid 33125309}
+      ※ Darovasertib with crizotinib prolonged progression-free survival over investigator's choice of therapy as first-line treatment of HLA-A*02:01-negative metastatic uveal melanoma in a randomised phase II/III trial reported as a congress abstract, and holds no EU or US licence
+        ~ OptimUM-02 [t-optimum-02]
+    ⑥ Progression on tebentafusp: liver-directed therapy or anti-PD-1-based immunotherapy 〔ESMO-EURACAN V, B〕, or a systemic therapy used in cutaneous melanoma 〔NCCN Uveal〕
+    ※ Other systemic options are ipilimumab alone 〔NCCN Uveal 2A, other recommended〕, chemotherapy or trametinib 〔NCCN Uveal 2A, useful in certain circumstances〕
+      ・Chemotherapy has shown no survival benefit over best supportive care 〔ESMO-EURACAN〕
+    next: Liver-directed therapy | Liver-only or liver-dominant disease
+  Liver-directed therapy
+    branch: UVE pale
+    ① Oligometastatic liver-only disease: resection or thermal ablation 〔ESMO-EURACAN IV, B〕 〔NCCN Uveal 2A〕, or stereotactic radiotherapy 〔NCCN Uveal 2A〕 for patients not eligible for either 〔ESMO-EURACAN IV, B〕
+      ・Resection is the treatment of choice with an interval over 24 months from the primary and up to four metastases 〔ESMO-EURACAN〕
+      ・In HLA-A*02:01-positive patients, tebentafusp is discussed before local treatment of the liver 〔ESMO-EURACAN〕
+    ② Multifocal liver-confined disease: percutaneous hepatic perfusion with melphalan 〔ESMO-EURACAN II, B〕 〔NCCN Uveal 2A〕, isolated hepatic perfusion 〔ESMO-EURACAN II, B〕, or chemoembolisation or radioembolisation 〔ESMO-EURACAN II, B〕 〔NCCN Uveal 2A〕
+      ・Percutaneous hepatic perfusion is given at experienced centres with under 50% of the liver involved 〔NCCN Uveal〕
+      ・The melphalan hepatic delivery system holds a US licence 〔ESMO-EURACAN〕 〔NCCN Uveal〕
+      ~ SCANDIUM {pmid 36940407}
+      ~ FOCUS {pmid 40192993}
+      ~ Hughes 2016 {pmid 26597368}
+panel: Brain metastases from cutaneous melanoma > Unresectable stage III or stage IV cutaneous melanoma
+  ① Asymptomatic brain metastases without steroids: nivolumab with ipilimumab 〔ESMO II, A〕 〔NCCN〕 〔ASCO Low, Weak〕, or dabrafenib with trametinib for BRAF V600E 〔ASCO Low, Weak〕
+    ・BRAF and MEK inhibitors are reserved for a BRAF V600 mutation when immunotherapy is unsuitable 〔ESMO III, B〕
+    ・Local therapy can be deferred until intracranial progression 〔NCCN〕 〔ASCO〕, with MRI every 6 to 8 weeks for lesions under 3 cm 〔NCCN〕
+    ・Early stereotactic radiosurgery may be preferred to salvage radiosurgery 〔ESMO IV, C〕
+    ~ ABC {pmid 29602646}
+  ② Symptomatic brain metastases on prednisolone under 10 mg daily: BRAF and MEK inhibitors for a BRAF V600 mutation, or nivolumab with ipilimumab 〔ESMO III, A〕
+    ・Neurosurgery for an accessible symptomatic lesion can precede nivolumab with ipilimumab 〔ESMO IV, C〕
+    ~ COMBI-MB {pmid 28592387}
+  ③ Symptoms requiring over 10 mg of prednisolone daily, no local option: BRAF and MEK inhibitors for a BRAF V600 mutation 〔ESMO III, A〕, nivolumab with ipilimumab 〔ESMO III, B〕, or chemotherapy in BRAF wild-type disease 〔ESMO IV, C〕
+  ④ Local therapy: stereotactic radiosurgery 〔ESMO III, B〕 〔NCCN〕, with BRAF and MEK inhibitors held for at least 1 day before and after it 〔NCCN〕, and surgery for large or symptomatic lesions 〔NCCN〕
+    ・Local therapy comes first for symptomatic disease, haemorrhage, lesions in eloquent areas and brain metastases arising on systemic therapy 〔NCCN〕
+    ・Whole-brain radiotherapy after local therapy is not recommended 〔NCCN〕
+  ⑤ Leptomeningeal disease: systemic therapy as for brain metastases, with radiotherapy 〔ESMO III, B〕 or intrathecal nivolumab 〔ESMO III, C〕, given with intravenous nivolumab 〔NCCN 2B〕
+
+off:
+  BRIM-3 [t-brim-3] | Superseded by BRAF and MEK inhibitor combinations. The line on a BRAF inhibitor alone carries ESMO's grade for encorafenib, whose randomised arm is in COLUMBUS
+  CheckMate 204 [t-checkmate-204] | Non-randomised, with randomised evidence available: ABC tested nivolumab with ipilimumab in the same population (inclusion.txt ①)
+  Sheng et al. [t-sheng-et-al] | Single-arm phase Ib trial, and toripalimab with axitinib holds no EU or US licence for melanoma (Jonan 2026-11-26)
