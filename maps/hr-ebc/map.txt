@@ -1,4 +1,5 @@
 # oncOS board map: HR+ HER2- EBC (systemic course of stage I to III hormone receptor-positive, HER2-negative breast cancer)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Draft 2, 2026-11-14. Draft 1 with JBCS removed by Jonan on 2026-11-14 (board-maps/hr-ebc/draft2-changes.md). Not approved, not live.
 #   Structure plan: board-maps/hr-ebc/structure-plan.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
@@ -248,6 +249,6 @@ panel: Men, pregnancy, small tumours and favourable histology
   ⑤ pT1a pN0 disease: endocrine therapy is considered 〔NCCN 2B〕, and chemotherapy is not given 〔St Gallen〕
 
 off:
-  POSITIVE [t-positive] | Single-arm trial with an external control cohort. Maps cite randomised trials and meta-analyses only (Jonan). The statement on interrupting endocrine therapy for pregnancy stays as plain text with its guideline tags
-  ELPh trial [t-elph-trial] | Cited by no guideline in the set. The statement it supported, a change of endocrine drug for arthralgia, rested on JBCS alone and left the map when Jonan removed JBCS (2026-11-14)
+  POSITIVE {pmid 37133584} | Single-arm trial with an external control cohort. Maps cite randomised trials and meta-analyses only (Jonan). The statement on interrupting endocrine therapy for pregnancy stays as plain text with its guideline tags
+  ELPh trial {pmid 22331951} | Cited by no guideline in the set. The statement it supported, a change of endocrine drug for arthralgia, rested on JBCS alone and left the map when Jonan removed JBCS (2026-11-14)
   lidERA (BC) [t-lidera] | Giredestrant has no licence or guideline recommendation in early breast cancer, and the result is a congress abstract (inclusion.txt ③). Moves to a ※ line if Jonan names it

@@ -1,4 +1,5 @@
 # oncOS board map: Nasopharyngeal Carcinoma (stage IA to III, recurrence, metastatic disease and M1 at diagnosis)
+# Rows reviewed: 3417c9195e61b5fd57f78e1373da7c41d0ede45a (2026-11-22)
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Stage groups are TNM 9th edition (AJCC 9), as CSCO-ASCO uses them. The NCCN algorithm lists TNM groups that match the 8th edition
 # Tags give evidence first, strength second, as printed, on the statement the guideline graded:
@@ -64,7 +65,7 @@ course: Nasopharyngeal carcinoma
     + MAC-NPC {pmid 25957714}
     ② No induction: chemoradiotherapy, then adjuvant chemotherapy 〔CSCO-ASCO High, Strong〕 〔NCCN 2A〕
     + Intergroup 0099 {pmid 9552031}
-    + NPC-9901 [t-npc-9901]
+    + NPC-9901 {pmid 16192584}
     ~ Guo 2025 {pmid 40531520}
     ※ Chemoradiotherapy alone 〔NCCN 2B〕
       ・Induction or adjuvant chemotherapy for every patient in this group 〔CSCO-ASCO〕
@@ -212,6 +213,6 @@ panel: Induction regimens > Stage II–III except T3 N0
     ~ Lv 2021 {pmid 33857411}
 
 off:
-  Guangzhou-01 | No licence or recommendation: concurrent oxaliplatin is in no guideline, and MAC-NPC carries the evidence for concurrent chemotherapy
-  EP-STAR | Non-randomised phase II of treatment guided by EBV DNA, which no guideline recommends
-  Chong 2025 [t-chong-et-al] | No licence or recommendation: bevacizumab with pembrolizumab, cited by CSCO-ASCO for no statement
+  Guangzhou-01 {pmid 16230677} | No licence or recommendation: concurrent oxaliplatin is in no guideline, and MAC-NPC carries the evidence for concurrent chemotherapy
+  EP-STAR {pmid 41813900} | Non-randomised phase II of treatment guided by EBV DNA, which no guideline recommends
+  Chong 2025 {pmid 39826567} | No licence or recommendation: bevacizumab with pembrolizumab, cited by CSCO-ASCO for no statement

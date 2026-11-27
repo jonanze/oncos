@@ -1,4 +1,5 @@
 # oncOS board map: Biliary Tract Cancer (one map for the Evidence sheet "Biliary Tract Cancer")
+# Rows reviewed: 0a839a2a5fa7a7dd203bce27d02dd048235c48a3 (2026-11-19)
 # Approved by Jonan 2026-11-19 06:14 UTC (draft 3). Line pass on draft 2 (bile duct line, iCCA transplant line moved, second-line chips under their results). Draft 2 was the prose review of draft 1 (board-maps/biliary/prose-review.md). Draft 1 was rewritten from draft 0
 #   after the independent review (board-maps/biliary/independent-review.md), changes in board-maps/biliary/draft1-changes.md
 #   Planning files: board-maps/biliary/ (plan.md, structure-plan.md)
@@ -293,5 +294,5 @@ course: Biliary tract cancer | parallel
         ~ Kim 2020 (nivolumab) {pmid 32352498}
 
 off:
-  NEO-GAP [t-neo-gap] | Non-randomised (single-arm phase II of neoadjuvant gemcitabine, cisplatin and nab-paclitaxel in iCCA): no licence or guideline recommendation rests on it (inclusion ①)
-  COMPANION-002 [t-companion-002] | No licence or recommendation for tovecimig: the response rate improved and overall survival did not (inclusion ③)
+  NEO-GAP {pmid 37368098} | Non-randomised (single-arm phase II of neoadjuvant gemcitabine, cisplatin and nab-paclitaxel in iCCA): no licence or guideline recommendation rests on it (inclusion ①)
+  COMPANION-002 {pmid 42920414} | No licence or recommendation for tovecimig: the response rate improved and overall survival did not (inclusion ③)

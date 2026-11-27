@@ -1,4 +1,5 @@
 # oncOS board map: Bladder & UTUC (urothelial carcinoma of the bladder and upper urinary tract)
+# Rows reviewed: e9ec4c777431fc0cbf0832079ccfbc43785f424f (2026-11-18)
 # Draft 4, 2026-11-18. Content approved by Jonan 2026-11-18 00:15 UTC, layout 00:39 UTC ("looks good"). Draft 1: draft 0
 #   with the independent review and Jonan's decisions of 2026-11-17 (board-maps/bladder/draft1-changes.md). Draft 2: a
 #   prose-only review (board-maps/bladder/prose-review.md). Draft 3: thread pass on NCCN grades. Draft 4: layout only,

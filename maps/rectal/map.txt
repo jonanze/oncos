@@ -1,4 +1,5 @@
 # oncOS board map: Rectal Cancer (localised and locally advanced; metastatic disease is on the Advanced CRC map)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Draft 2, 2026-11-11: JSCCR removed (Jonan), ASCO 2024 tags added from the full PDF
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Tags give evidence first, strength second, as printed, on the statement the guideline graded:
@@ -46,7 +47,7 @@ course: Stage II and III rectal cancer
     branch: IR
     ① CRT or short-course radiotherapy, then TME 〔NCCN 2A〕 〔ESMO I, A〕
     + Swedish Rectal Cancer Trial
-    + Dutch TME [t-eortc-40971]
+    + Dutch TME {pmid 11547717}
     ~ CAO/ARO/AIO-94 {pmid 15496622}
     + MRC CR07 [t-mrc-cr07-ncic-ctg-c016]
     ② FOLFOX or CAPOX for 3 months, with CRT only after a poor response 〔NCCN 2A〕 〔ESMO I, A〕 〔ASCO Moderate to high, Conditional〕
@@ -169,5 +170,5 @@ panel: Order of TNT > High risk, pMMR
     ~ RAPIDO {pmid 33301740}
 
 off:
-  Habr-Gama 2004 [t-habr-gama-et-al] | Non-randomised with randomised evidence available: retrospective cohort, watch and wait rests on OPRA
-  IWWD | Non-randomised with randomised evidence available: registry, its regrowth pattern stays as a plain ※ line
+  Habr-Gama 2004 {pmid 15383798} | Non-randomised with randomised evidence available: retrospective cohort, watch and wait rests on OPRA
+  IWWD {pmid 29976470} | Non-randomised with randomised evidence available: registry, its regrowth pattern stays as a plain ※ line

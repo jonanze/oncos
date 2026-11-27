@@ -1,4 +1,5 @@
 # oncOS board map: Advanced Prostate
+# Rows reviewed: 0b9357449dbf0e77dbffdde211072a957afb05fb (2026-11-21)
 #
 # How to read and edit this file
 #   Indent 2 spaces per level.
@@ -18,7 +19,9 @@
 #   ① text          a numbered option or item, in order of guideline preference, in every step, node,
 #                   band and panel. A single option is ① too (Jonan 2026-11-11)
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
-#   off:            sheet rows left off on purpose: Trial [t-...] | reason
+#   off:            sheet rows left off on purpose: Trial {pmid N} | reason, or Trial [t-...] | reason as above
+#   Rows reviewed:  second line of the file, the oncos commit whose Evidence rows the map was last reviewed
+#                   against; node maps/watch.cjs lists the rows changed since, and a review moves it (Jonan 2026-11-27)
 #
 # Rules (Jonan 2026-11-08; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a tree where care branches on tests, a course where one state follows another

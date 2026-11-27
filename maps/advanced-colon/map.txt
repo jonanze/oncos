@@ -1,4 +1,5 @@
 # oncOS board map: Advanced CRC (metastatic colon and rectal cancer)  DRAFT 2026-11-11
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Tags give evidence first, strength second, as printed, on the statement the guideline graded:
 #   〔JSCCR evidence, strength〕 JSCCR guidelines 2024, English edition (Int J Clin Oncol 2025;30:2410-63), CQ boxes only.
@@ -87,7 +88,7 @@ course: Metastatic colorectal cancer
     ※ Another PD-1 or PD-L1 antibody alone 〔NCCN 2A〕
     ※ dMMR with BRAF V600E: a checkpoint inhibitor first 〔NCCN 2A〕
     ※ Addition of FOLFOX and bevacizumab to atezolizumab prolonged PFS
-      ~ COMMIT
+      ~ COMMIT {pmid 42525921}
     ※ After progression on a checkpoint inhibitor: treatment by RAS and BRAF status 〔NCCN 2A〕
   RAS and BRAF wild-type, left-sided
     branch: LEFT
@@ -192,7 +193,7 @@ course: Metastatic colorectal cancer
     ⑤ RAS and BRAF wild-type, no earlier anti-EGFR antibody: cetuximab or panitumumab, alone or with irinotecan 〔NCCN 2A〕 〔ESMO I, A〕
     + CO.17 [t-ncic-ctg-co-17]
     ※ A 2-weekly schedule of trifluridine/tipiracil with bevacizumab was non-inferior for OS
-      ~ PRABITAS
+      ~ PRABITAS {pmid 42925880}
     ※ Anti-EGFR rechallenge when ctDNA shows no RAS or BRAF mutation 〔ESMO II, B〕
       ・Overall survival did not differ with panitumumab before or after regorafenib
       - PARERE {pmid 41115464}
@@ -240,5 +241,5 @@ panel: Choice of chemotherapy > RAS mutant, or wild-type and right-sided
   ※ CAPIRI is not recommended first line 〔NCCN 2A〕
 
 off:
-  ASAC | Not a map statement: aspirin after resection of liver metastases is in no guideline and the trial was negative
-  STELLAR-303 | No licence or recommendation: zanzalintinib with atezolizumab is in none of the four guidelines
+  ASAC {pmid 42777749} | Not a map statement: aspirin after resection of liver metastases is in no guideline and the trial was negative
+  STELLAR-303 {pmid 41130252} | No licence or recommendation: zanzalintinib with atezolizumab is in none of the four guidelines

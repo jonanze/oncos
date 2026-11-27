@@ -1,4 +1,5 @@
 # oncOS board map: Advanced Pancreatic (locally advanced and metastatic pancreatic ductal adenocarcinoma)
+# Rows reviewed: 030d2c12d940acd8030c735b7f6a53f433bf15cf (2026-11-17)
 # Draft 1, 2026-11-17: draft 0 rewritten after the independent review (board-maps/pancreatic/independent-review.md),
 #   decisions in board-maps/pancreatic/draft1-changes.md. Clinical content: the guideline notes in that folder and
 #   pancreatic-rows.json only. Structure plan: board-maps/pancreatic/structure-plan.md
@@ -258,5 +259,5 @@ panel: Older patients > Metastatic disease: first line
   ② Geriatric assessment is suggested before treatment 〔JPS D, weak〕 〔NCCN〕
 
 off:
-  FOLFIRINOX in LAPC (Suker meta-analysis) [t-folfirinox-in-lapc] | Non-randomised with randomised evidence available: NEOPAN tested FOLFIRINOX against gemcitabine in locally advanced disease
-  PANOVA-3 [t-panova-3] | No licence or recommendation for tumour treating fields in pancreatic cancer
+  FOLFIRINOX in LAPC (Suker meta-analysis) {pmid 27160474} | Non-randomised with randomised evidence available: NEOPAN tested FOLFIRINOX against gemcitabine in locally advanced disease
+  PANOVA-3 {pmid 40448572} | No licence or recommendation for tumour treating fields in pancreatic cancer

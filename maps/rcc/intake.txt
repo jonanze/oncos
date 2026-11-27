@@ -1,24 +1,2 @@
 # Trials on the RCC map with no Evidence row yet (name, PMID, where on the map)
-EORTC 30904	PMID 21186077	Localised RCC: local treatment
-FASTRACK II	PMID 38423047	Localised RCC: local treatment
-EORTC 30881	PMID 18848382	Localised RCC: local treatment
-LITESPARK-004	PMID 34818478	Localised RCC: local treatment
-Rini 2016	PMID 27498080	Advanced clear-cell RCC: first line
-CABOSUN	PMID 28199818	Advanced clear-cell RCC: first line
-TIVO-1	PMID 24019545	Advanced clear-cell RCC: first line
-RENOTORCH	PMID 37872020	Advanced clear-cell RCC: first line
-ETER100	PMID 40907513	Advanced clear-cell RCC: first line
-LITESPARK-012	PMID 42927856	Advanced clear-cell RCC: first line
-STAR	PMID 36796394	Advanced clear-cell RCC: first line
-CARMENA	PMID 29860937	Metastatic RCC: nephrectomy and local treatment of metastases
-SURTIME	PMID 30543350	Metastatic RCC: nephrectomy and local treatment of metastases
-KEYNOTE-B61	PMID 37451291	Advanced non-clear-cell RCC
-Lee 2022	PMID 35298296	Advanced non-clear-cell RCC
-KEYNOTE-427 (cohort B)	PMID 33529058	Advanced non-clear-cell RCC
-ASPEN	PMID 26794930	Advanced non-clear-cell RCC
-BONSAI	PMID 35420628	Advanced non-clear-cell RCC
-Srinivasan 2025	PMID 40532152	Advanced non-clear-cell RCC
-PROTECT	PMID 28902533	After nephrectomy
-ATLAS	PMID 30346481	After nephrectomy
-EVEREST	PMID 37524096	After nephrectomy
-Study 205	PMID 26482279	Advanced clear-cell RCC: second and later lines
+

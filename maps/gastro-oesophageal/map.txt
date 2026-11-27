@@ -1,4 +1,5 @@
 # oncOS board map: Localized Gastroesophageal (non-metastatic gastric, junctional and oesophageal cancer)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Built 2026-11-12. Metastatic disease is on the Advanced Gastroesophageal sheet
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # One map, three branches (Jonan 2026-11-12): gastric adenocarcinoma with Siewert type III, oesophageal and junctional
@@ -212,7 +213,7 @@ course: Localised gastric and oesophageal cancer
       - INT 0123 {pmid 11870157}
       - ARTDECO {pmid 34101496}
     ※ Capecitabine or XELOX did not improve survival over cisplatin with fluorouracil in a trial in China
-      - CRTCOESC
+      - CRTCOESC {pmid 38710003}
     next: After definitive chemoradiotherapy
   After definitive chemoradiotherapy
     branch: CR pale

@@ -1,4 +1,5 @@
 # oncOS board map: High Grade B-Cell Lymphoma (large B-cell lymphoma from first line to relapse, with PMBCL, primary CNS lymphoma and Burkitt lymphoma)
+# Rows reviewed: fe870719079d9b35c01f0ba175211094d49c9f67 (2026-11-15)
 # 2026-11-13, draft 1, not approved. Structure plan: board-maps/aggressive-bcl/structure-plan.md. Changes from draft 0: draft1-changes.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Scope (Jonan 2026-11-13): one map for the whole sheet. DLBCL and other large B-cell lymphoma from first line through relapse
@@ -178,7 +179,7 @@ course: Large B-cell lymphoma
     ※ Obinutuzumab in place of rituximab did not improve survival 〔JSH〕
       - GOYA {pmid 28796588}
     ※ Bortezomib, ibrutinib or lenalidomide added to R-CHOP did not improve survival 〔JSH〕 〔EHA〕
-      - REMoDL-B
+      - REMoDL-B {pmid 30948276}
       - PHOENIX {pmid 30901302}
       - ROBUST {pmid 33621109}
     ※ China only: tucidinostat with R-CHOP improved event-free survival in MYC and BCL2 double-expressor DLBCL
@@ -313,7 +314,7 @@ course: Large B-cell lymphoma
       ~ PILOT {pmid 35839786}
     ※ Polatuzumab vedotin with R-GemOx 〔NCCN 2A, preferred〕
       ・An option once approved, without a grade 〔EHA〕
-      + POLARGO
+      + POLARGO {pmid 42407012}
     ※ Mosunetuzumab with polatuzumab vedotin 〔NCCN 2A, preferred〕
       ~ SUNMO {pmid 41037766}
     ※ Glofitamab with polatuzumab vedotin 〔NCCN 2B, preferred〕
@@ -471,8 +472,8 @@ panel: Burkitt lymphoma
   ※ No routine imaging after 2 years of follow-up 〔JSH-BL 2B〕
 
 off:
-  Lewis et al. | Retrospective cohort, an earlier analysis of the same question as Wilson et al.
-  Wilson et al. | Retrospective cohort. Its finding is a ※ line in the CNS prophylaxis band
-  Alizadeh et al. | Observational gene-expression study. Cell of origin stays as plain text in the staging band
-  SCHOLAR-1 | Retrospective pooled cohort, the historical comparator for third-line CAR-T
-  RE-MIND2 | Retrospective cohort, non-randomised with L-MIND cited for the option
+  Lewis et al. {pmid 37797284} | Retrospective cohort, an earlier analysis of the same question as Wilson et al.
+  Wilson et al. {pmid 42274647} | Retrospective cohort. Its finding is a ※ line in the CNS prophylaxis band
+  Alizadeh et al. {pmid 10676951} | Observational gene-expression study. Cell of origin stays as plain text in the staging band
+  SCHOLAR-1 {pmid 28774879} | Retrospective pooled cohort, the historical comparator for third-line CAR-T
+  RE-MIND2 {pmid 35674661} | Retrospective cohort, non-randomised with L-MIND cited for the option

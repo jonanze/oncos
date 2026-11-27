@@ -1,4 +1,5 @@
 # oncOS board map: Cervical Cancer (one map for the Evidence sheet "Cervical Cancer")
+# Rows reviewed: 63dd8f0c3546f92620ebddc9314a0ce91a35288d (2026-11-19)
 # Draft 1 with the prose review applied, approved by Jonan 2026-11-19. Rewritten from draft 0 after the independent review.
 #   Planning files: board-maps/cervical/ (independent-review.md, prose-review-draft1.md, draft1-changes.md)
 #   Clinical content: board-maps/cervical/notes-jsgo.md, notes-jsgo-updates.md, notes-esmo.md, notes-esmo-figures.md,

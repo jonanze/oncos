@@ -1,4 +1,5 @@
 # oncOS board map: SCLC
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Format and rules: see the header of maps/early-nsclc/map.txt
 #   join: Step | label  the line of next:, but the two steps stay in separate branches (limited stage runs down to relapse)
 #   Trial {url https://...}  a randomised trial with no PubMed record yet (congress abstract): link, listed for intake
@@ -197,7 +198,7 @@ course: Small-cell lung cancer
       + IMforte {pmid 40473449}
     ③ After induction with durvalumab: tarlatamab with durvalumab
     ・Not licensed as of November 2026
-      + DeLLphi-305
+      + DeLLphi-305 {pmid 42929702}
     ※ Nivolumab with or without ipilimumab after chemotherapy alone did not improve OS
       - CheckMate 451 {pmid 33683919}
     ※ Thoracic radiotherapy, 30 Gy in 10 fractions up to definitive doses 〔NCCN 2A〕
@@ -228,7 +229,7 @@ course: Small-cell lung cancer
     ※ Brain-only progression: continuation of systemic treatment with brain radiotherapy 〔NCCN 2A〕
     ※ A B7-H3 antibody-drug conjugate, tambotatug pelitecan, improved OS over topotecan in second line at an interim analysis
     ・Trial in China, not licensed
-      + TAISHAN-302
+      + TAISHAN-302 {pmid 42734213}
     ※ The FDA withdrew the second-line indication of lurbinectedin alone on 30 September 2026
     ・LAGOON, a phase III trial against topotecan or irinotecan reported only in company topline results, did not improve OS
     ・Still preferred in NCCN 1.2027 and ASCO, both published before LAGOON
@@ -266,8 +267,8 @@ course: Small-cell lung cancer
     ・Amrubicin is licensed in Japan
 
 off:
-  Roth 1992 [t-roth-et-al] | CAV and alternating regimens no longer used, platinum and etoposide is standard
-  Fukuoka 1991 [t-fukuoka-et-al] | CAV and alternating regimens no longer used, platinum and etoposide is standard
-  DeLLphi-301 | Phase II dose selection in third line, DeLLphi-304 set tarlatamab after platinum
-  PM1183-B-005-14 | Single-arm phase II behind the US accelerated approval of lurbinectedin alone, LAGOON did not confirm it and the FDA withdrew the second-line indication in September 2026
-  BL-B01D1-101 | Single-arm phase Ib in China, izalontamab brengitecan not licensed
+  Roth 1992 {pmid 1310103} | CAV and alternating regimens no longer used, platinum and etoposide is standard
+  Fukuoka 1991 {pmid 1648142} | CAV and alternating regimens no longer used, platinum and etoposide is standard
+  DeLLphi-301 {pmid 37861218} | Phase II dose selection in third line, DeLLphi-304 set tarlatamab after platinum
+  PM1183-B-005-14 {pmid 32224306} | Single-arm phase II behind the US accelerated approval of lurbinectedin alone, LAGOON did not confirm it and the FDA withdrew the second-line indication in September 2026
+  BL-B01D1-101 {pmid 42497381} | Single-arm phase Ib in China, izalontamab brengitecan not licensed
