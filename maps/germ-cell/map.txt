@@ -1,5 +1,5 @@
 # oncOS board map: Germ Cell Tumors (testicular germ cell tumours from stage I to salvage, with primary mediastinal germ cell tumours)
-# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # 2026-11-14, approved by Jonan for publication. Intake chips linked to filed rows 2026-11-14. Structure plan: board-maps/germ-cell/structure-plan.md. Changes from draft 0
 #   and the answer to each independent-review finding: board-maps/germ-cell/draft1-changes.md. Layout QC: fable-layout-qc.md
 # Format and rules: see the header of maps/early-nsclc/map.txt

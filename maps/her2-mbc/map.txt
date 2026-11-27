@@ -1,5 +1,5 @@
 # oncOS board map: HER2+ MBC (systemic course of HER2-positive metastatic breast cancer)
-# Rows reviewed: 73a732d70e7e7b56f8e3269bff97c4fb93cbb5be (2026-11-16)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Draft 1, 2026-11-15: independent review applied and every block rewritten for consolidation. Not approved, not published
 #   Structure plan: board-maps/her2-mbc/structure-plan.md. Clinical content: board-maps/her2-mbc/guideline-read-notes.md only,
 #   with trial results from the Evidence rows (board-maps/her2-mbc/her2-mbc-rows.json)

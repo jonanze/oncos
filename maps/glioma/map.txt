@@ -1,5 +1,5 @@
 # oncOS board map: Adult Diffuse Glioma (one map for the Evidence sheet "Adult Diffuse Glioma")
-# Rows reviewed: 7e76ba6e4f325a759ba27c1d64dc23bc005287ac (2026-11-19)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Draft 7, 2026-11-19. Draft 5 moved vorasidenib into the regimens and option ② lines; draft 6 draws the WHO
 #   diagnosis band as a flowchart. Draft 7 makes surgery the first step, with lines to the three diagnoses. Draft 2 was rewritten block by block after the prose review (prose-review.md). Draft 3 merged
 #   the glioblastoma first boxes. Draft 4 removes the diffuse midline glioma branch (Jonan 2026-11-19) and splits the

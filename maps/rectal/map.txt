@@ -1,5 +1,5 @@
 # oncOS board map: Rectal Cancer (localised and locally advanced; metastatic disease is on the Advanced CRC map)
-# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Draft 2, 2026-11-11: JSCCR removed (Jonan), ASCO 2024 tags added from the full PDF
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Tags give evidence first, strength second, as printed, on the statement the guideline graded:

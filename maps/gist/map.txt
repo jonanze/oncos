@@ -1,5 +1,5 @@
 # oncOS board map: GIST (one map for the Evidence sheet "GIST")
-# Rows reviewed: 025e25e773e4e919025da9c5d6b02692b24d64b2 (2026-11-21)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Draft 0, 2026-11-20. Planning files: board-maps/sarcoma/ (plan.md, structure-plan-gist.md)
 #   Clinical content: board-maps/sarcoma/notes-asian-gist.md, notes-esmo-gist.md, notes-nccn-gist.md
 # Format and rules: see the header of maps/early-nsclc/map.txt

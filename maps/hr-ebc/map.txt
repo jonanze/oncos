@@ -1,5 +1,5 @@
 # oncOS board map: HR+ HER2- EBC (systemic course of stage I to III hormone receptor-positive, HER2-negative breast cancer)
-# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Live since 2026-11-14 (oncos PR #78). Retagged to ESMO 2026 on 2026-11-27 (board-maps/breast-guideline-update-2026-11-27/change-list.md)
 #   Structure plan: board-maps/hr-ebc/structure-plan.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
