@@ -300,15 +300,18 @@
     // every text block, with the width it takes at n columns; a block with a grid keeps one column
     var blocks = [];
     function sized(el, ls, set){
-      var b = {el: el, grid: hasGrid(ls), set: set, n: 1, h1: 0};
+      var b = {el: el, grid: hasGrid(ls), set: set, n: 1, h1: 0, maxG: 0};
       b.width = function(n){ return b.grid ? widthFor(ls, STEP_W) + (n - 1) * (COL_W + COL_GAP) : colsWidth(n); };
       var box = el.querySelector('.cols');
       function put(n){ b.n = n; var w = b.width(n); el.style.width = w + 'px'; set(w); }
+      function clearTall(){ if (box) Array.prototype.forEach.call(box.children, function(g){ g.classList.remove('tall'); }); }
       // a block takes n columns only when every column gets text and the columns come out near even (the tallest
       // within a quarter of an even share), otherwise one column fewer: a block is never wider than its text
-      // (Jonan 2026-11-11, "boxes are widened but without any text filling the space")
+      // (Jonan 2026-11-11, "boxes are widened but without any text filling the space"). When a single option group
+      // is taller than a balanced column share (e.g. HER2 ASCO-CAP criteria), allow column breaks between its lines
       b.cols = function(n){
         el.classList.remove('one');
+        clearTall();
         // a block with a grid widens as a whole while each step makes it at least a seventh shorter
         if (b.grid) {
           put(1); var k = 1, h = el.offsetHeight;
@@ -317,17 +320,29 @@
         }
         if (!box) { put(1); return; }
         for (n = Math.max(1, n); n > 1; n--) {
+          var lim = 1.25 * b.c1 / n, anyTall = false;
+          Array.prototype.forEach.call(box.children, function(g){
+            var t = !!(b.band && b.c1 > 0 && (g._h1 || 0) > lim);
+            g.classList.toggle('tall', t);
+            if (t) anyTall = true;
+          });
           put(n);
-          var xs = {}; Array.prototype.forEach.call(box.children, function(g){ xs[g.offsetLeft] = 1; });
-          if (Object.keys(xs).length === n && box.offsetHeight <= 1.25 * b.c1 / n) return;
+          var xs = {}, items = anyTall ? box.querySelectorAll('.ln, .trials') : box.children;
+          Array.prototype.forEach.call(items, function(g){ xs[g.offsetLeft] = 1; });
+          if (Object.keys(xs).length === n && box.offsetHeight <= lim) return;
         }
+        clearTall();
         put(1);
       };
       // a band can instead give each numbered option or ※ group a column of its own, tops aligned
       // (Jonan 2026-11-11: no option spilling under another, no lone ※ column)
       b.groups = box ? box.children.length : 0;
       b.split = function(){ b.cols(1); el.classList.add('one'); put(b.groups); };
-      put(1); b.c1 = box ? box.offsetHeight : 0; blocks.push(b); return b;
+      b.measure1 = function(){
+        b.cols(1); b.h1 = el.offsetHeight; b.c1 = box ? box.offsetHeight : 0; b.maxG = 0;
+        if (box) Array.prototype.forEach.call(box.children, function(g){ g._h1 = g.offsetHeight; if (g._h1 > b.maxG) b.maxG = g._h1; });
+      };
+      b.measure1(); blocks.push(b); return b;
     }
     var course = !!model.tree.course, steps = course ? model.tree.children : null, elabs = [];
     var plabs = {};   // labels on panel next: lines, made once and moved on each layout
@@ -405,7 +420,7 @@
       var size = []; steps.forEach(function(n){ size[n.col] = (size[n.col] || 0) + 1; });
       return steps.every(function(n){ return n.next.every(function(e){
         if (e.node.col <= n.col) return false;
-        for (var c = n.col + 1; c < e.node.col; c++) if (size[c] < 2) return false;
+        for (var c = n.col + 1; c < e.node.col; c++) if (size[c] < (model.tree.parallel ? 1 : 2)) return false;
         return true;
       }); });
     }
@@ -421,7 +436,7 @@
     // fits that area at the largest scale is kept, which brings most maps near 0.55 height to width
     function layout(){
       flows.forEach(function(f){ f(); });
-      blocks.forEach(function(b){ b.cols(1); b.h1 = b.el.offsetHeight; b.c1 = b.el.querySelector('.cols') ? b.el.querySelector('.cols').offsetHeight : 0; });
+      blocks.forEach(function(b){ b.measure1(); });
       function shape(r, trial){
         // the bands start at one column and widen in bandsRow to the width of the map below them
         blocks.forEach(function(b){ b.cols(b.band ? 1 : Math.max(1, Math.min(COL_MAX, Math.round(Math.sqrt(b.h1 / (r * b.width(1))))))); });
@@ -453,8 +468,8 @@
         var bb = blocks.filter(function(b){ return bands.indexOf(b.el) >= 0; });
         var rowW = function(){ return bb.reduce(function(t, b){ return t + b.width(b.n); }, 0) + 40 * (bb.length - 1); };
         bb.forEach(function(b){ b.full = !!b.flow; });
-        // on a board, first every band with two to four groups takes one column per group, tallest first, while the row fits
-        if (split) bb.filter(function(b){ return !b.grid && !b.flow && b.groups > 1 && b.groups <= COL_MAX; })
+        // on a board, first every band with two to four near-even groups takes one column per group, tallest first, while the row fits
+        if (split) bb.filter(function(b){ return !b.grid && !b.flow && b.groups > 1 && b.groups <= COL_MAX && (!b.maxG || b.maxG <= 2 * b.c1 / b.groups); })
           .sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })
           .forEach(function(b){ if (rowW() + (b.groups - b.n) * (COL_W + COL_GAP) <= span) { b.split(); b.full = true; } });
         for (var guard = 0; guard < 24; guard++) {
@@ -485,8 +500,8 @@
       var gapL = cols.map(function(){ return BG / 2; }), gapR = cols.map(function(){ return BG / 2; });
       steps.forEach(function(n){ n.next.forEach(function(e){
         if (!e.el) return;
-        var t = e.node, need = e.el.offsetWidth + 24;
-        if (t.preds.length < 2 && !e.shared) gapR[n.col] = Math.max(gapR[n.col], need); else gapL[n.col] = Math.max(gapL[n.col], need);
+        var t = e.node, need = e.el.offsetWidth + 24, gc = n.next.length > 1 ? n.col : t.col - 1;
+        if (t.preds.length < 2 && !e.shared) gapR[gc] = Math.max(gapR[gc], need); else gapL[gc] = Math.max(gapL[gc], need);
       }); });
       var gapW = cols.map(function(x, c){ return gapL[c] + gapR[c]; });
       var colX = [M], colW = cols.map(function(list){ return Math.max.apply(null, list.map(function(n){ return n.w; })); });
@@ -517,7 +532,7 @@
         var list = cols[c]; if (!list) continue;
         var ins = []; list.forEach(function(t){ t.preds.forEach(function(p){ ins.push(p.cy); }); });
         var pass = []; steps.forEach(function(n){ if (n.col < c) n.next.forEach(function(e){ if (e.node.col > c) pass.push(n.cy); }); });
-        if (pass.length) {
+        if (pass.length && list.length > 1) {
           var ys = pass[0], GAP = 80, best = list.length > 1 ? 1 : 0, bd = Infinity;
           for (var k = 1; k < list.length; k++) {
             var up = list.slice(0, k).reduce(function(t, n){ return t + hgt(n); }, 0), dn = list.slice(k).reduce(function(t, n){ return t + hgt(n); }, 0);
@@ -589,6 +604,14 @@
           var own = n.next.length && n.next.every(function(e){ return e.node.preds.length === 1; });
           var y = own ? centreOf(n.next.map(function(e){ return e.node.cy; })) - hgt(n) / 2 : n.y;
           y = Math.max(y, floor0);
+          // a line passing a column must clear the boxes in that column
+          n.next.forEach(function(e){
+            if (e.node.col <= n.col + 1) return;
+            for (var mc = n.col + 1; mc < e.node.col; mc++) (cols[mc] || []).forEach(function(m){
+              var cy = y + hgt(n) / 2;
+              if (cy > m.y - 24 && cy < m.y + hgt(m) + 24) y = Math.max(y, m.y + hgt(m) + 24 - hgt(n) / 2);
+            });
+          });
           if (Math.abs(y - n.y) > 0.5) still = false;
           n.y = y; n.cy = y + hgt(n) / 2; floor0 = y + hgt(n) + SG;
         });
@@ -641,8 +664,14 @@
         if (y < Math.max(n.y, t.y) + 20 || y > Math.min(n.y + n.el.offsetHeight, t.y + t.el.offsetHeight) - 20) return;
         e.ya = e.yb = y;
       }); });
+      var gapEdges = cols.map(function(){ return []; });
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        e.from = n;
+        var gc = n.next.length > 1 ? n.col : e.node.col - 1;
+        gapEdges[gc].push(e);
+      }); });
       cols.forEach(function(list, c){
-        var es = []; list.forEach(function(n){ n.next.forEach(function(e){ e.from = n; es.push(e); }); });
+        var es = gapEdges[c];
         var mid = colX[c] + colW[c] + gapL[c];
         // a line that runs further up or down turns nearer the side where its lines fan out, so none cross
         // one upright per fan: a step's lines out, or the lines into a step
@@ -927,8 +956,13 @@
       var right = colX[cols.length] - CGX, loose = b.top;
       panels.forEach(function(p){
         var n = p.join && by[p.join];
-        if (n) { p.el.style.left = n.x + 'px'; p.el.style.top = panelTop[n.col] + 'px'; panelTop[n.col] += p.el.offsetHeight + CGY; }
-        else { p.el.style.left = (right + CGX) + 'px'; p.el.style.top = loose + 'px'; loose += p.el.offsetHeight + CGY; }
+        if (!n) return;
+        p.el.style.left = n.x + 'px'; p.el.style.top = panelTop[n.col] + 'px'; panelTop[n.col] += p.el.offsetHeight + CGY;
+        right = Math.max(right, n.x + p.w);
+      });
+      panels.forEach(function(p){
+        if (p.join && by[p.join]) return;
+        p.el.style.left = (right + CGX) + 'px'; p.el.style.top = loose + 'px'; loose += p.el.offsetHeight + CGY;
       });
     }
 
