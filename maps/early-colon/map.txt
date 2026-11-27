@@ -12,7 +12,8 @@
 #     (Int J Clin Oncol 2025;30:2410-63, PMID 41186794), CQ boxes read from the PDF; East Asian guideline first
 #   〔NCCN category, preference〕 NCCN Colon Cancer 3.2026 (6 November 2026); category 2A unless stated
 #   〔ESMO evidence, grade〕 ESMO localised colon cancer 2020 (Ann Oncol 2020;31:1291-305, PMID 32702383)
-#     with the 2026 Express Update grades where they replace it
+#     with the 2026 Express Update grades where they replace it (Pentheroudakis, ESMO Open 2026;11:106019,
+#     PMID 41741110)
 #   Japan-only options (S-1, UFT with leucovorin) sit on a ※ line (Jonan 2026-11-11)
 #   No testing band (Jonan 2026-11-11: PI3K testing need not come before the adjuvant decision).
 #   MMR sits in the first step; DPYD testing "can be considered" (lower DPYD deficiency in East Asian patients)

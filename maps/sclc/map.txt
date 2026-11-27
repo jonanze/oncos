@@ -24,7 +24,8 @@
 #       lists sit on ※ lines or as ・ lines in their drug class; the tag names the guideline, so the text
 #       does not repeat it (Jonan 2026-11-11)
 #     〔ASCO quality, strength〕 ASCO-Ontario Health 2023 (Khurshid), systemic therapy only, with the
-#       ASCO rapid update of 20 November 2024 (Kalemkerian: 2.4, 4.1, 4.2, 5.3.1)
+#       ASCO rapid update of 20 November 2024 (Kalemkerian, J Clin Oncol 2025;43:101-105, PMID 39565968:
+#       2.4, 4.1, 4.2, 5.3.1)
 #     〔JLCS evidence, strength〕 Japan Lung Cancer Society guideline 2025 (web edition, 6 November 2025),
 #       chapter Ⅲ, CQ1–19 and BQ1–2; strength 1 strong or 2 weak, evidence A to D; a BQ has an
 #       evidence grade only; errata of 15 January 2026 checked, none in this chapter
