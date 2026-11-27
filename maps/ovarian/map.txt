@@ -1,4 +1,5 @@
 # oncOS board map: Ovarian Cancer (epithelial ovarian, fallopian tube and primary peritoneal carcinoma)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # 2026-11-13, approved by Jonan. Adjuvant regimen and cycle number are their own step. Recurrence named platinum-sensitive and platinum-resistant
 #   Structure plan: board-maps/ovarian/structure-plan.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
@@ -408,4 +409,4 @@ course: Ovarian cancer
     ※ No surgery, except for a resectable solitary lesion or symptom relief 〔JSGO C, 2 against〕
 
 off:
-  GOG 3026 | No licence or recommendation: ribociclib with letrozole in low-grade serous carcinoma is in no guideline read, and the trial is single-arm
+  GOG 3026 {pmid 41385758} | No licence or recommendation: ribociclib with letrozole in low-grade serous carcinoma is in no guideline read, and the trial is single-arm

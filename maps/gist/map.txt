@@ -1,4 +1,5 @@
 # oncOS board map: GIST (one map for the Evidence sheet "GIST")
+# Rows reviewed: 025e25e773e4e919025da9c5d6b02692b24d64b2 (2026-11-21)
 # Draft 0, 2026-11-20. Planning files: board-maps/sarcoma/ (plan.md, structure-plan-gist.md)
 #   Clinical content: board-maps/sarcoma/notes-asian-gist.md, notes-esmo-gist.md, notes-nccn-gist.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
@@ -187,5 +188,5 @@ course: GIST | parallel
     ° Toxicity of note: cognitive effects and intracranial bleeding with avapritinib 〔Asian〕 〔ESMO〕
 
 off:
-  PERSIST-5 [t-persist-5] | Single-arm study of 5 years of adjuvant imatinib: the duration options rest on SSG XVIII and IMADGIST (inclusion ①)
+  PERSIST-5 {pmid 30383140} | Single-arm study of 5 years of adjuvant imatinib: the duration options rest on SSG XVIII and IMADGIST (inclusion ①)
   PEAK [t-peak] | No licence or recommendation for bezuclastinib: progression-free survival improved with sunitinib, congress abstract (inclusion ③)

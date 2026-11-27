@@ -1,4 +1,5 @@
 # oncOS board map: HCC (hepatocellular carcinoma, one map for the Evidence sheet "HCC")
+# Rows reviewed: d42e2d2b6f352c28c914122479926432f211063f (2026-11-17)
 # Version 1, 2026-11-17, after an independent clinical review, a block-by-block rewrite and a prose review. Clinical content:
 #   board-maps/hcc/guideline-read-notes.md and notes-*.md, hcc-rows.json and plan.md only. Licence facts checked
 #   on 2026-11-17 against FDA labels, EMA product pages and FDA-related reports, sources in draft1-changes.md
@@ -26,7 +27,9 @@
 #   ① text          a numbered option or item, in order of guideline preference, in every step, node,
 #                   band and panel. A single option is ① too (Jonan 2026-11-11)
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
-#   off:            sheet rows left off on purpose: Trial [t-...] | reason
+#   off:            sheet rows left off on purpose: Trial {pmid N} | reason, or Trial [t-...] | reason as above
+#   Rows reviewed:  second line of the file, the oncos commit whose Evidence rows the map was last reviewed
+#                   against; node maps/watch.cjs lists the rows changed since, and a review moves it (Jonan 2026-11-27)
 #   source: ESMO {url https://...}   a guideline, held as a link; 〔ESMO I, A〕 at the end of a statement marks it as
 #                   resting on that guideline, with its printed level of evidence and grade, and opens the link.
 #                   Guidelines are not Evidence rows (Jonan 2026-11-11)
@@ -359,7 +362,7 @@ panel: Liver transplantation > Very early and early stage: first treatment
   ③ Beyond the Milan criteria and downstaged to within them: transplantation 〔KLCA 2, strong〕 〔NCCN〕 〔EASL 2, strong〕 〔AASLD 2, strong〕
     ・Transplantation follows 3 to 6 months of observation after downstaging, and immune checkpoint inhibitors are stopped at least 3 months before it 〔AASLD〕
     ・After downstaging with systemic therapy that includes immune checkpoint inhibitors, transplantation can be considered, with a higher risk of rejection at a shorter interval from the last dose 〔PAGA IV, C〕 〔ESMO IV, C〕, while the evidence is insufficient to recommend systemic therapy for downstaging 〔EASL 3, strong〕
-    + XXL [t-xxl]
+    + XXL {pmid 32615109}
   ④ Living donor: transplantation should be considered for selected patients in experienced centres 〔EASL 3, strong〕, including beyond the usual criteria 〔KLCA〕 〔AASLD〕
   ⑤ Long expected wait: bridging with ablation, TACE, radioembolisation or SBRT 〔PAGA III, B〕 〔KLCA 3, strong〕 〔ESMO III, B〕 〔NCCN 2A〕 〔EASL 4, strong〕 〔AASLD 3, strong〕
     ・Bridging starts at an expected wait beyond 3 months 〔PAGA〕 〔ESMO〕 or beyond 6 months 〔KLCA〕 〔EASL〕

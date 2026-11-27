@@ -1,4 +1,5 @@
 # oncOS board map: Triple Negative BC (systemic course of early and metastatic triple-negative breast cancer)
+# Rows reviewed: 18a404294bdfcea5f47370dd97a8b5b1c15989a6 (2026-11-16)
 # Draft 1, 2026-11-16. Rewritten from draft 0 after the independent review (board-maps/tnbc/independent-review.md,
 #   28 findings), then a prose review. Approved by Jonan 2026-11-16. Clinical content: board-maps/tnbc/guideline-read-notes.md and the
 #   per-guideline notes only
@@ -91,12 +92,12 @@ band: Regimens and doses in early disease
     ・Every preoperative cycle is given with G-CSF 〔NCCN〕
     ・The benefit of G-CSF with checkpoint inhibitor regimens is uncertain 〔PAGA〕
   ② Dose-dense anthracycline and taxane with G-CSF 〔PAGA I, B〕 〔ESMO I, A〕: doxorubicin 60 mg/m² and cyclophosphamide 600 mg/m² every 14 days for four cycles, then paclitaxel 175 mg/m² every 14 days for four cycles or 80 mg/m² weekly for 12 weeks 〔NCCN〕
-  + INT C9741 (CALGB 9741) [t-int-c9741]
-  + EBCTCG 2019 [t-ebctcg-dose-intensification-meta-analysis]
-  + ECOG E1199 [t-ecog-e1199]
+  + INT C9741 (CALGB 9741) {pmid 12668651}
+  + EBCTCG 2019 {pmid 30739743}
+  + ECOG E1199 {pmid 18420499}
   ③ Carboplatin with paclitaxel: paclitaxel 80 mg/m² weekly with carboplatin AUC 5 to 6 every 3 weeks for four cycles before surgery, or with carboplatin AUC 1.5 to 2 weekly on days 1, 8 and 15 every 28 days for six cycles 〔NCCN 2A〕
   ④ Docetaxel and cyclophosphamide: docetaxel 75 mg/m² and cyclophosphamide 600 mg/m² every 21 days for four to six cycles 〔NCCN〕
-  + US Oncology 9735 [t-us-oncology-9735]
+  + US Oncology 9735 {pmid 17135639}
   ⑤ Carboplatin and docetaxel with pembrolizumab: carboplatin AUC 6, docetaxel 75 mg/m² and pembrolizumab 200 mg every 21 days for six cycles before surgery, with G-CSF 〔NCCN 2A〕
   ※ Dose-dense doxorubicin and cyclophosphamide then paclitaxel, and docetaxel with cyclophosphamide, are preferred in stage I disease and can be considered in stage II and III disease when pembrolizumab is not given 〔NCCN 1, preferred〕
   ※ Chemotherapy lasts 12 to 24 weeks, or four to eight cycles, with or without pembrolizumab 〔PAGA I, A〕 〔ESMO I, A〕
@@ -141,7 +142,7 @@ course: Systemic treatment of triple-negative breast cancer
     branch: NEO
     ① Stage II and III, cT2 to cT4 or node-positive: pembrolizumab with paclitaxel and carboplatin, followed by pembrolizumab with an anthracycline and cyclophosphamide 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔St Gallen〕
       ・Pembrolizumab is withheld when risk factors for excessive immune toxicity are present 〔PAGA〕 〔ESMO〕
-    + KEYNOTE-522 [t-keynote-522]
+    + KEYNOTE-522 {pmid 32101663}
     ② cT1c cN0: neoadjuvant chemotherapy without pembrolizumab 〔PAGA I, A〕 〔ESMO I, A〕
       ・The regimen is a taxane, with or without carboplatin, and an anthracycline with cyclophosphamide 〔ESMO I, A〕
       ・Preoperative chemotherapy can be considered at cT1c cN0, and is preferred from cT2 or cN1 〔NCCN 2A〕
@@ -150,36 +151,36 @@ course: Systemic treatment of triple-negative breast cancer
       ・The regimen with carboplatin is preferred 〔St Gallen〕
       ・Carboplatin raises the rate of pathological complete response and reduces recurrence, without a proven gain in overall survival 〔ESMO〕 〔St Gallen〕
       ・The benefit of carboplatin is independent of germline BRCA1/2 status 〔ESMO〕
-    ~ GeparSixto (GBG 66) [t-geparsixto]
-    ~ CALGB 40603 [t-calgb-40603]
-    ~ BrighTNess [t-brightness]
-    - Gupta et al. (TMC) [t-gupta-et-al]
+    ~ GeparSixto (GBG 66) {pmid 24794243}
+    ~ CALGB 40603 {pmid 25092775}
+    ~ BrighTNess {pmid 29501363}
+    - Gupta et al. (TMC) {pmid 41115255}
     ④ Anthracycline contraindicated: six cycles of docetaxel with cyclophosphamide, or of a taxane with carboplatin 〔ESMO〕
       ・Carboplatin and docetaxel with pembrolizumab for six cycles is a preoperative option 〔NCCN 2A〕
-      ~ NeoPACT [t-neopact]
+      ~ NeoPACT {pmid 37991778}
     ⑤ Inoperable locally advanced or inflammatory disease: chemotherapy with an anthracycline, a taxane and a platinum, with pembrolizumab whatever the PD-L1 status 〔ABC8 I/A〕
     ※ A pathological complete response carries a lower risk of recurrence 〔ESMO〕, and its association with survival is strongest in triple-negative disease 〔NCCN〕
-      * CTNeoBC [t-ctneobc]
+      * CTNeoBC {pmid 24529560}
     ※ Neoadjuvant durvalumab with chemotherapy, without an adjuvant phase, improved survival without a significant rise in pathological complete response 〔ESMO〕 〔St Gallen〕
       ・Durvalumab has no licence in breast cancer
-      - GeparNuevo [t-geparnuevo]
+      - GeparNuevo {pmid 31095287}
     next: Early disease: after neoadjuvant therapy and surgery
   Early disease: after neoadjuvant therapy and surgery
     branch: NEO pale
     ① After neoadjuvant pembrolizumab, whatever the pathological response: pembrolizumab every 3 weeks for nine cycles 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕 〔St Gallen〕
       ・After a complete response, adjuvant pembrolizumab is given only for high-risk disease 〔NCCN 2A〕
       ・With residual disease, capecitabine, or olaparib when a germline BRCA1/2 variant is present, can be given with or after pembrolizumab 〔PAGA V, C〕 〔ESMO V, C〕 〔NCCN〕 〔St Gallen〕
-    + KEYNOTE-522 [t-keynote-522]
+    + KEYNOTE-522 {pmid 32101663}
     ② Residual disease without neoadjuvant pembrolizumab: capecitabine 1000 to 1250 mg/m² twice daily on days 1 to 14 every 21 days for six to eight cycles 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A, preferred〕
-    + CREATE-X (JBCRG-04) [t-create-x]
+    + CREATE-X (JBCRG-04) {pmid 28564564}
     ※ A platinum agent in place of capecitabine did not improve invasive disease-free survival in residual basal-subtype disease and caused more severe toxicity
-      - ECOG-ACRIN EA1131 [t-ecog-acrin-ea1131]
+      - ECOG-ACRIN EA1131 {pmid 34092112}
     ③ Residual disease with a germline BRCA1/2 variant: olaparib 300 mg twice daily for 1 year 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO〕 〔NCCN 1, preferred〕 〔St Gallen〕
       ・Olaparib is not combined with capecitabine 〔PAGA I, E〕 〔ESMO V, C〕
       ・Olaparib has not been compared with capecitabine, which was not permitted in OlympiA 〔ASCO〕 〔NCCN〕
       ・Germline PALB2 variants are treated in the same way 〔St Gallen〕
       ・After treatment for inoperable locally advanced or inflammatory disease, olaparib with pembrolizumab is preferred to capecitabine with pembrolizumab 〔ABC8 III/B〕
-    + OlympiA [t-olympia]
+    + OlympiA {pmid 34081848}
     ※ Capecitabine and olaparib start after radiotherapy 〔NCCN〕
   Early disease: primary surgery, then adjuvant chemotherapy
     branch: SURG
@@ -192,7 +193,7 @@ course: Systemic treatment of triple-negative breast cancer
     ④ pT1c or larger, or node-positive: adjuvant chemotherapy 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕, with an anthracycline and a taxane 〔ESMO〕 〔St Gallen〕
       ・In stage II and III disease, carboplatin is added to the anthracycline, cyclophosphamide and taxane 〔St Gallen〕
       ~ PEARLY {pmid 42218963}
-      + RJBC-1501 [t-rjbc-1501]
+      + RJBC-1501 {pmid 41365333}
       ・Weekly paclitaxel with carboplatin is an option 〔NCCN 2A〕
       ~ PATTERN {pmid 32789480}
     ⑤ Node-negative secretory or adenoid cystic carcinoma: no chemotherapy 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕
@@ -204,7 +205,7 @@ course: Systemic treatment of triple-negative breast cancer
     ① Germline BRCA1/2 variant with a tumour over 2 cm or a positive node: olaparib 300 mg twice daily for 1 year 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO〕 〔NCCN 1, preferred〕 〔St Gallen〕
       ・Olaparib also follows chemotherapy for pT1c N0 disease, and is considered for pT1b N0 disease or a nodal micrometastasis 〔NCCN〕
       ・Germline PALB2 variants are treated in the same way 〔St Gallen〕
-    + OlympiA [t-olympia]
+    + OlympiA {pmid 34081848}
     ※ Capecitabine 650 mg/m² twice daily for 1 year after adjuvant chemotherapy is useful in certain circumstances 〔NCCN〕
       ・Low-dose capecitabine improved outcomes after adjuvant chemotherapy that contained no platinum 〔ESMO〕
       ~ SYSUCC-001 {pmid 33300950}
@@ -216,21 +217,21 @@ course: Systemic treatment of triple-negative breast cancer
       ・A germline BRCA1/2 variant does not change this choice 〔NCCN〕, and the PARP inhibitor is kept for a later line 〔ABC8 Expert opinion/B〕
       ・Data on a second pembrolizumab regimen after neoadjuvant or adjuvant immunotherapy are limited 〔ESMO〕 〔ABC8〕
       ・Relapse 6 to 12 months after the end of neoadjuvant or adjuvant immunotherapy can also be treated with the later-line options 〔ESMO〕
-    + KEYNOTE-355 [t-keynote-355]
-    ~ ASCENT-04/KEYNOTE-D19 [t-ascent-04-keynote-d19]
+    + KEYNOTE-355 {pmid 33278935}
+    ~ ASCENT-04/KEYNOTE-D19 {pmid 41564397}
     ※ Atezolizumab with nab-paclitaxel is an option with PD-L1 on 1% or more of immune cells, in de novo disease or relapse 12 months or more after adjuvant treatment 〔PAGA II, A〕 〔ESMO II, A〕 〔ASCO Moderate, Strong〕 〔ABC8 II/B〕
       ・Atezolizumab has an EMA licence and no FDA licence for this use 〔PAGA〕 〔ESMO〕
       ・Atezolizumab is not given with paclitaxel 〔ASCO〕
-      ~ IMpassion130 [t-impassion130]
-      - IMpassion131 [t-impassion131]
+      ~ IMpassion130 {pmid 30345906}
+      - IMpassion131 {pmid 34219000}
     ② CPS below 10, or immunotherapy unsuitable: sacituzumab govitecan or datopotamab deruxtecan 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔ABC8 I/A〕, or a taxane or an anthracycline as a single agent 〔PAGA〕 〔ESMO I, A〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕 〔ABC8 I/A〕
       ・Immunotherapy is unsuitable with a medical contraindication, or with relapse within 6 months of the end of neoadjuvant or adjuvant immunotherapy 〔ABC8〕
       ・Datopotamab deruxtecan is preferred for relapse within 6 months of adjuvant therapy 〔ESMO I, A〕 〔ABC8 I/A〕
       ・No preference between the two antibody-drug conjugates in the first line is established 〔ABC8〕
       ・Carboplatin is a further option, with nab-paclitaxel 〔PAGA〕 〔NCCN 2A〕, with gemcitabine 〔NCCN 2A〕, or alone after an anthracycline given for early disease 〔ABC8 I/A〕
       ・Platinum-based and non-platinum regimens are both appropriate 〔ASCO〕
-    ~ ASCENT-03 [t-ascent-03]
-    + TROPION-Breast02 [t-tropion-breast02]
+    ~ ASCENT-03 {pmid 41124233}
+    + TROPION-Breast02 {pmid 41937088}
     ③ CPS below 10 with a germline BRCA1/2 variant: olaparib or talazoparib 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕 〔ABC8 I/A〕, or platinum chemotherapy 〔PAGA II, A〕 〔ESMO II, A〕 〔NCCN 1, preferred〕 〔ABC8 I/A〕
       ・A PARP inhibitor is offered after chemotherapy given in the neoadjuvant, adjuvant or metastatic setting 〔ASCO〕
       ・Previous treatment with an anthracycline and a taxane is not required before a PARP inhibitor 〔PAGA II, B〕
@@ -238,28 +239,28 @@ course: Systemic treatment of triple-negative breast cancer
       ・A PARP inhibitor is given in the first line when none was given for early disease, with a germline BRCA1/2 or PALB2 variant 〔ABC8〕
       ・Sacituzumab govitecan or datopotamab deruxtecan is also an option with a germline BRCA1/2 variant 〔ABC8〕
       ・Platinum is the preferred chemotherapy after an anthracycline 〔ABC8 I/A〕, and it has not been compared with a PARP inhibitor 〔NCCN〕 〔ABC8 II/B〕
-    ~ OlympiAD [t-olympiad]
-    ~ EMBRACA [t-embraca]
-    - TNT (CRUK/07/012) [t-tnt]
+    ~ OlympiAD {pmid 28578601}
+    ~ EMBRACA {pmid 30110579}
+    - TNT (CRUK/07/012) {pmid 29713086}
     next: Metastatic disease: second and later lines
   Metastatic disease: second and later lines
     branch: MET pale
     ① Sacituzumab govitecan when not given before 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO High, Strong〕 〔NCCN 1, preferred〕 〔ABC8 I/A〕
       ・It is given from the second line 〔ESMO〕 〔NCCN〕, after a taxane 〔PAGA〕, after two or more lines with at least one for metastatic disease 〔ABC8〕, or after two or more lines for metastatic disease 〔ASCO〕
       ・With a germline BRCA1/2 or PALB2 variant, a PARP inhibitor or carboplatin precedes it in the second line 〔ESMO I, A〕
-    + ASCENT [t-ascent]
+    + ASCENT {pmid 33882206}
     ※ Sacituzumab tirumotecan improved progression-free and overall survival over chemotherapy after two or more lines in a trial run in China, and has no EU or US licence
-      + OptiTROP-Breast01 [t-optitrop-breast01]
+      + OptiTROP-Breast01 {pmid 40217078}
     ② HER2-low: trastuzumab deruxtecan when not given before 〔PAGA I, A〕 〔ESMO II, B〕 〔ASCO Moderate, Strong〕 〔NCCN 2A〕 〔ABC8 I/B〕
       ・Trastuzumab deruxtecan is given after one or more lines of chemotherapy for metastatic disease 〔PAGA〕 〔ASCO〕 〔NCCN〕 〔ABC8〕, or from the third line 〔ESMO〕
       ・It can be the first line after relapse during or within 6 months of adjuvant chemotherapy 〔NCCN〕
       ・The triple-negative cohort of DESTINY-Breast04 included 58 patients, and its results were similar to those of the whole trial 〔ASCO〕 〔ABC8〕
-    + DESTINY-Breast04 [t-destiny-breast04]
+    + DESTINY-Breast04 {pmid 35665782}
     ③ Germline BRCA1/2 variant: olaparib or talazoparib when no PARP inhibitor was given before 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO Moderate, Strong〕 〔NCCN 1, preferred〕 〔ABC8 I/A〕, or carboplatin-based chemotherapy 〔ESMO II, A〕 〔ABC8 I/A〕
       ・With a germline PALB2 variant, olaparib is an option after chemotherapy 〔ESMO I, A〕 〔NCCN 2A〕 〔ABC8 II/B〕, without an FDA licence 〔NCCN〕
       ・With a somatic BRCA1/2 variant, olaparib can be considered 〔NCCN 2B〕 〔ABC8 II/B〕
     ④ Further lines: single-agent chemotherapy with eribulin, capecitabine or vinorelbine 〔PAGA〕 〔ESMO I, B〕 〔NCCN 2A〕 〔ABC8 I/A〕
-    + EMBRACE [t-embrace]
+    + EMBRACE {pmid 21376385}
     ※ One antibody-drug conjugate directly after another is not recommended routinely, and chemotherapy between the two is an option 〔ABC8〕
     ※ Checkpoint inhibitor monotherapy is not recommended in later lines 〔ABC8 I/E〕
       ・A pembrolizumab regimen can be given in a later line when no PD-1 or PD-L1 inhibitor was given before 〔NCCN〕
@@ -271,7 +272,7 @@ panel: Chemotherapy in metastatic disease > Metastatic disease: first line
   ① Sequential single agents are preferred, with combination chemotherapy kept for imminent organ failure, visceral crisis or rapid progression 〔PAGA II, A〕 〔ESMO II, A〕 〔ASCO Moderate, Strong〕 〔NCCN〕 〔ABC8 I/A〕
     ・With imminent organ failure, the options are capecitabine or a taxane, each with or without bevacizumab 〔ESMO I, B〕
   ② Each regimen other than an anthracycline continues until progression or unacceptable toxicity 〔PAGA I, B〕 〔NCCN〕 〔ABC8 I/B〕
-  + Gennari et al. [t-gennari-et-al]
+  + Gennari et al. {pmid 21464403}
   ③ An anthracycline or a taxane can be given again after a disease-free interval of 12 months or more 〔PAGA II, B〕 〔ABC8 I/B〕
     ・Rechallenge is recommended beyond the third line 〔ESMO II, B〕
   ※ Bevacizumab can be added to a taxane or capecitabine in the first or second line where available 〔PAGA I, C〕, with an EMA licence and no FDA licence 〔ESMO〕
@@ -284,7 +285,7 @@ panel: Special populations
     ・Checkpoint inhibitors, PARP inhibitors and antibody-drug conjugates are contraindicated 〔NCCN〕
   ④ Resected isolated locoregional recurrence: chemotherapy 〔ABC8 I/B〕
     ・A checkpoint inhibitor is added to induction chemotherapy after previous adjuvant chemotherapy without immunotherapy 〔St Gallen〕
-  + CALOR [t-calor]
+  + CALOR {pmid 24439313}
   ⑤ Brain metastases: brain imaging in patients without neurological symptoms may be considered when the result would change systemic therapy 〔ESMO V, C〕 〔ABC8 Expert opinion/C〕
     ・With a germline BRCA1/2 variant and stable brain metastases, a PARP inhibitor is preferred to chemotherapy 〔ESMO I, A〕
     ・Trastuzumab deruxtecan is recommended for HER2-low disease with active brain metastases, without an EMA or FDA licence in this setting 〔ESMO III, A〕

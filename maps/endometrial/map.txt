@@ -1,4 +1,5 @@
 # oncOS board map: Endometrial Cancer
+# Rows reviewed: 3417c9195e61b5fd57f78e1373da7c41d0ede45a (2026-11-22)
 # Format and rules: see the header of maps/early-nsclc/map.txt
 #   scale: Low | ...   the risk ramp, the only colour on any map: tints the adjuvant grid rows, hues their
 #                   label and treatment cells, and rules the ※ and ① lines of that tier (Jonan 2026-11-09)
@@ -219,12 +220,12 @@ course:
       ・RET: selpercatinib
 
 off:
-  JGOG 2033 [t-jgog-2033] | Outdated (Jonan 2026-11-11). Adjuvant chemotherapy against pelvic RT
-  JGOG 2043 [t-jgog-2043] | Outdated (Jonan 2026-11-11). Three adjuvant chemotherapy regimens compared
-  GOG 122 [t-gog-0122] | Whole-abdominal radiotherapy comparator no longer used. PORTEC-3 and GOG 258 set current options
-  GOG 177 | Doxorubicin, cisplatin and paclitaxel replaced by carboplatin-paclitaxel (GOG 209)
-  SIENDO / ENGOT-EN5 [t-siendo] | No licence. Not in ESGO 2025 or NCCN 3.2026. Selinexor maintenance, TP53 wild-type benefit under confirmation
-  AtTEnd | No licence. Not in ESGO 2025 or NCCN 3.2026. Atezolizumab with chemotherapy
-  KEYNOTE-C93 [t-keynote-c93] | Pembrolizumab alone in first-line MMR deficient disease. PFS HR 0.57 against chemotherapy alone, which is no longer the standard. OS boundary not met. Not in ESGO 2025. NCCN 3.2026 lists pembrolizumab alone only after prior platinum
-  RUBY Part 2 | No licence. Not in ESGO 2025 or NCCN 3.2026. Niraparib added to dostarlimab maintenance, no OS gain
-  TroFuse-005 | Sacituzumab tirumotecan after platinum and a checkpoint inhibitor. OS HR 0.68. Not yet in ESGO 2025 or NCCN 3.2026. No OS gain in MMR deficient tumours, and worse OS in carcinosarcoma
+  JGOG 2033 {pmid 17996926} | Outdated (Jonan 2026-11-11). Adjuvant chemotherapy against pelvic RT
+  JGOG 2043 {pmid 30896757} | Outdated (Jonan 2026-11-11). Three adjuvant chemotherapy regimens compared
+  GOG 122 {pmid 16330675} | Whole-abdominal radiotherapy comparator no longer used. PORTEC-3 and GOG 258 set current options
+  GOG 177 {pmid 15169803} | Doxorubicin, cisplatin and paclitaxel replaced by carboplatin-paclitaxel (GOG 209)
+  SIENDO / ENGOT-EN5 {pmid 37669480} | No licence. Not in ESGO 2025 or NCCN 3.2026. Selinexor maintenance, TP53 wild-type benefit under confirmation
+  AtTEnd {pmid 39102832} | No licence. Not in ESGO 2025 or NCCN 3.2026. Atezolizumab with chemotherapy
+  KEYNOTE-C93 {pmid 42933458} | Pembrolizumab alone in first-line MMR deficient disease. PFS HR 0.57 against chemotherapy alone, which is no longer the standard. OS boundary not met. Not in ESGO 2025. NCCN 3.2026 lists pembrolizumab alone only after prior platinum
+  RUBY Part 2 {pmid 42391799} | No licence. Not in ESGO 2025 or NCCN 3.2026. Niraparib added to dostarlimab maintenance, no OS gain
+  TroFuse-005 {pmid 42933460} | Sacituzumab tirumotecan after platinum and a checkpoint inhibitor. OS HR 0.68. Not yet in ESGO 2025 or NCCN 3.2026. No OS gain in MMR deficient tumours, and worse OS in carcinosarcoma

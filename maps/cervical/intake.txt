@@ -1,8 +1,2 @@
 # Trials on the Cervical Cancer map with no Evidence row yet (name, PMID, where on the map)
-Landoni 1997	PMID 9284774	Early disease, stage IA1 to IB2 and IIA1: local treatment
-GOG 71	PMID 12798694	Locally advanced disease, stage IB3 to IVA
-CALLA	PMID 38039991	Locally advanced disease, stage IB3 to IVA
-Gupta et al.	PMID 29432076	Locally advanced disease, stage IB3 to IVA
-EORTC 55994	PMID 37656948	Locally advanced disease, stage IB3 to IVA
-GOG-263	PMID 40947016	After hysterectomy
-SENTICOL-2	PMID 33773275	Sentinel node biopsy
+

@@ -98,9 +98,10 @@
       if (!sec) { out.errors.push(at + ': line outside a section'); return; }
       if (ind % 2) out.errors.push(at + ': indent by 2 spaces');
       if (sec === out.off) {             // off: Evidence rows left off the map on purpose, with the reason
-        var o = /^(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*\|\s*(.+)$/.exec(text);
+        // "Trial {pmid N} | reason" names the row by its paper, as a trial line does, so a renamed row stays named
+        var o = /^(.+?)\s*(?:\[(t-[^\]\s]+)\])?\s*(?:\{pmid\s+(\d+)\})?\s*\|\s*(.+)$/.exec(text);
         if (!o) { out.errors.push(at + ': off: lines are "Trial | reason"'); return; }
-        out.off.push({name:o[1], anchor:o[2] || slug(o[1]), reason:o[3], at:at});
+        out.off.push({name:o[1], anchor:o[2] || (o[3] ? null : slug(o[1])), pmid:o[3] || null, reason:o[4], at:at});
         return;
       }
       if (sec !== out.tree) {            // band or panel: every line is content
@@ -295,6 +296,7 @@
   // A trial given by {pmid N} links itself to the one Evidence row that cites that PMID (a reference's
   // pmid or the row's PubMed link), so filing and publishing the paper links the map with no map edit
   // (Jonan 2026-11-15). rows: anchor -> row. A paper filed on two sheets links to the row on the map's own sheet.
+  // off: lines given by {pmid N} are linked the same way.
   // Returns {pmid: [anchors]} for every PMID still on more than one row;
   // a trial with such a PMID keeps its PubMed link until it is given its [t-...] anchor.
   function pmids(row){
@@ -309,8 +311,7 @@
     Object.keys(rows || {}).forEach(function(a){
       pmids(rows[a]).forEach(function(p){ (by[p] = by[p] || []).indexOf(a) < 0 && by[p].push(a); });
     });
-    trials(model).forEach(function(t){
-      var l = t.line;
+    trials(model).map(function(t){ return t.line; }).concat(model.off || []).forEach(function(l){
       if (!l.pmid || l.anchor) return;
       var hit = by[l.pmid] || [];
       // one paper filed on two sheets: the row on this map's own sheet

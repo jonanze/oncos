@@ -1,4 +1,5 @@
 # oncOS board map: Mesothelioma
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Format and rules: see the header of maps/early-nsclc/map.txt
 #
 # Rules (Jonan 2026-11-08/09; node maps/check.cjs enforces the starred ones)
@@ -274,4 +275,4 @@ course: Unresectable pleural mesothelioma
     ・Clinical trial participation 〔ESMO V, C〕
 
 off:
-  KEYNOTE-158 | Single-arm cohort of pembrolizumab alone, PROMISE-meso is the randomised evidence for pembrolizumab alone and sits on the map
+  KEYNOTE-158 {pmid 33836153} | Single-arm cohort of pembrolizumab alone, PROMISE-meso is the randomised evidence for pembrolizumab alone and sits on the map

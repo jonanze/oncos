@@ -1,4 +1,5 @@
 # oncOS board map: Resectable & BR Pancreatic (resectable and borderline resectable pancreatic ductal adenocarcinoma)
+# Rows reviewed: 030d2c12d940acd8030c735b7f6a53f433bf15cf (2026-11-17)
 # Draft 1, 2026-11-17: draft 0 rewritten after the independent review (board-maps/pancreatic/independent-review.md),
 #   decisions in board-maps/pancreatic/draft1-changes.md. Clinical content: the guideline notes in that folder and
 #   pancreatic-rows.json only. Structure plan: board-maps/pancreatic/structure-plan.md

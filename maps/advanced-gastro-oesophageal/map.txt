@@ -1,4 +1,5 @@
 # oncOS board map: Advanced Gastroesophageal (unresectable, recurrent and metastatic gastric, junctional and oesophageal cancer)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # 2026-11-13, approved by Jonan. Companion of the Localized Gastroesophageal map
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # One map, two histologies: adenocarcinoma of the stomach, junction and oesophagus together (as ESMO and NCCN treat them),
@@ -141,7 +142,7 @@ course: Advanced gastric and oesophageal cancer
       ・Zolbetuximab is favoured at CPS below 5, given the small checkpoint inhibitor benefit 〔PAGA〕
       ~ Shitara 2026 {pmid 42748508}
     ※ China only: retlirafusp alfa with CAPOX improved overall survival
-      + RELIGHT
+      + RELIGHT {pmid 42784781}
     next: Second line, adenocarcinoma | Progression
   MSI-H or dMMR
     branch: MSI

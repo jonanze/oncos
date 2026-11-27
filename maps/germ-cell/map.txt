@@ -1,4 +1,5 @@
 # oncOS board map: Germ Cell Tumors (testicular germ cell tumours from stage I to salvage, with primary mediastinal germ cell tumours)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # 2026-11-14, approved by Jonan for publication. Intake chips linked to filed rows 2026-11-14. Structure plan: board-maps/germ-cell/structure-plan.md. Changes from draft 0
 #   and the answer to each independent-review finding: board-maps/germ-cell/draft1-changes.md. Layout QC: fable-layout-qc.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
@@ -342,10 +343,10 @@ panel: Late relapse > First relapse after cisplatin-based chemotherapy
     ・A clinical trial is an option, and chemotherapy has low expected efficacy 〔NCCN 2A〕
 
 off:
-  van de Wetering et al. | Editorial, not a trial. The carboplatin statement cites MRC TE19/EORTC 30982
-  SGCCG risk-adapted studies | Non-randomised pooled cohorts. The risk factors are stated as text with their guideline tags
-  SWENOTECA V | Prospective cohort. Surveillance and carboplatin in stage I seminoma are stated with their guideline tags
-  SWENOTECA | Prospective cohort. One cycle of BEP cites the randomised AUO AH 01/94 trial
-  Spanish GCCG | Single-arm prospective cohort. The chemotherapy statement in stage IIA and IIB seminoma cites the Giannatempo 2015 meta-analysis
-  Einhorn et al. | Retrospective cohort. High-dose chemotherapy cites TI-CE and the randomised IT-94 and Lorch 2007 trials
+  van de Wetering et al. {pmid 29389229} | Editorial, not a trial. The carboplatin statement cites MRC TE19/EORTC 30982
+  SGCCG risk-adapted studies {pmid 25210015} | Non-randomised pooled cohorts. The risk factors are stated as text with their guideline tags
+  SWENOTECA V {pmid 21205748} | Prospective cohort. Surveillance and carboplatin in stage I seminoma are stated with their guideline tags
+  SWENOTECA {pmid 19307506} | Prospective cohort. One cycle of BEP cites the randomised AUO AH 01/94 trial
+  Spanish GCCG {pmid 18936476} | Single-arm prospective cohort. The chemotherapy statement in stage IIA and IIB seminoma cites the Giannatempo 2015 meta-analysis
+  Einhorn et al. {pmid 17652649} | Retrospective cohort. High-dose chemotherapy cites TI-CE and the randomised IT-94 and Lorch 2007 trials
   CLIMATE (ANZUP 1906) [t-climate] | Observational cohort of microRNA-371a-3p, a test not recommended in routine care

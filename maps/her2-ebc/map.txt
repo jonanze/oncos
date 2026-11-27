@@ -1,4 +1,5 @@
 # oncOS board map: HER2+ EBC (systemic course of stage I to III HER2-positive breast cancer)
+# Rows reviewed: 73a732d70e7e7b56f8e3269bff97c4fb93cbb5be (2026-11-16)
 # 2026-11-15, approved by Jonan for publication (oncos PR #83). Endocrine-alone line under pT1a-b removed by Jonan 2026-11-15
 #   Structure plan: board-maps/her2-ebc/structure-plan.md. Changes from draft 0: board-maps/her2-ebc/draft1-changes.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
@@ -200,10 +201,10 @@ panel: Cardiac monitoring
   ※ Docetaxel and carboplatin with trastuzumab is preferred with risk factors for cardiac toxicity 〔NCCN〕
 
 off:
-  FinHer [t-finher] | Nine weeks of trastuzumab is not an option in any guideline of the set, and 9 weeks of trastuzumab did not significantly improve distant disease-free survival in HER2-positive disease. The trial is cited in the NCCN Discussion and as an NCCN dosing reference, with no 9-week option. The trastuzumab statement rests on NSABP B-31 / NCCTG N9831, HERA, BCIRG 006 and the EBCTCG meta-analysis
-  ShortHER [t-shorther] | Nine weeks of trastuzumab is not an option in any guideline of the set, and at 10 years 9 weeks could not be claimed non-inferior to 1 year. Cited by no guideline in the set
-  TRAIN-3 [t-train-3] | Single-arm trial. Maps cite randomised trials and meta-analyses only (Jonan). MRI-guided shortening of neoadjuvant chemotherapy is not a guideline option
-  PHERGain-2 [t-phergain-2] | Single-arm trial. Maps cite randomised trials and meta-analyses only (Jonan). Chemotherapy-free neoadjuvant treatment is not a guideline option
-  KRISTINE (TRIO-021) [t-kristine] | Neoadjuvant trastuzumab emtansine with pertuzumab is not a standard option, and the trial was negative against docetaxel and carboplatin with trastuzumab and pertuzumab. Standard options only (map rules)
-  WSG-ADAPT-TP [t-wsg-adapt-tp] | Neoadjuvant trastuzumab emtansine or trastuzumab with endocrine therapy and no chemotherapy is not a standard option. Cited by no guideline in the set
-  WSG-TP-II [t-wsg-tp-ii] | Neoadjuvant endocrine therapy with trastuzumab and pertuzumab in place of chemotherapy is not a standard option. Cited by no guideline in the set
+  FinHer {pmid 16495393} | Nine weeks of trastuzumab is not an option in any guideline of the set, and 9 weeks of trastuzumab did not significantly improve distant disease-free survival in HER2-positive disease. The trial is cited in the NCCN Discussion and as an NCCN dosing reference, with no 9-week option. The trastuzumab statement rests on NSABP B-31 / NCCTG N9831, HERA, BCIRG 006 and the EBCTCG meta-analysis
+  ShortHER {pmid 30219886} | Nine weeks of trastuzumab is not an option in any guideline of the set, and at 10 years 9 weeks could not be claimed non-inferior to 1 year. Cited by no guideline in the set
+  TRAIN-3 {pmid 41713473} | Single-arm trial. Maps cite randomised trials and meta-analyses only (Jonan). MRI-guided shortening of neoadjuvant chemotherapy is not a guideline option
+  PHERGain-2 {pmid 42097893} | Single-arm trial. Maps cite randomised trials and meta-analyses only (Jonan). Chemotherapy-free neoadjuvant treatment is not a guideline option
+  KRISTINE (TRIO-021) {pmid 29175149} | Neoadjuvant trastuzumab emtansine with pertuzumab is not a standard option, and the trial was negative against docetaxel and carboplatin with trastuzumab and pertuzumab. Standard options only (map rules)
+  WSG-ADAPT-TP {pmid 36809046} | Neoadjuvant trastuzumab emtansine or trastuzumab with endocrine therapy and no chemotherapy is not a standard option. Cited by no guideline in the set
+  WSG-TP-II {pmid 42150145} | Neoadjuvant endocrine therapy with trastuzumab and pertuzumab in place of chemotherapy is not a standard option. Cited by no guideline in the set

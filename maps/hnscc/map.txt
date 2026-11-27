@@ -1,4 +1,5 @@
 # oncOS board map: Head & Neck SCC (oral cavity, oropharynx, larynx, hypopharynx and unknown primary)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Built 2026-11-12 from the structure plan, an independent review and Jonan's choices (full detail, KEYNOTE-689 numbered, notable trials as ※ lines)
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # One map for the sheet, by setting: early disease and unknown primary (bands), locally advanced disease (course), recurrent or metastatic disease (course)
@@ -274,4 +275,4 @@ course: Head and neck squamous cell carcinoma
     ※ MSI-high, mismatch repair deficient or TMB-high disease: pembrolizumab 〔NCCN 2A, useful in certain circumstances〕
 
 off:
-  OrigAMI-4 | Single-arm phase Ib/II. Amivantamab has no licence in head and neck cancer, and JSHNC, PAGA and NCCN do not list it
+  OrigAMI-4 {pmid 42218660} | Single-arm phase Ib/II. Amivantamab has no licence in head and neck cancer, and JSHNC, PAGA and NCCN do not list it

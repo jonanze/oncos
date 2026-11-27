@@ -1,4 +1,5 @@
 # oncOS board map: Early CRC (localised colon cancer; rectal cancer is its own sheet)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Format and rules: see the header of maps/early-nsclc/map.txt
 #   branch: Key | legend | hue   one colour for a branch of the map; "branch: Key" or "branch: Key pale" under a step colours it.
 #                          Here pMMR or MSS and dMMR or MSI-H; steps for both stay plain (Jonan 2026-11-11)
@@ -148,16 +149,16 @@ panel: Duration of CAPOX or FOLFOX > Stage III, pMMR
   ~ ACHIEVE-2 {pmid 33121997}
 
 off:
-  INT 0035 | Superseded: levamisole is withdrawn and fluorouracil with leucovorin replaced it
-  GALAXY [t-galaxy] | Non-randomised cohort with randomised evidence available, prognostic only
-  IROCAS | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  NSABP C-08 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  AVANT | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  NCCTG N0147 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  QUASAR 2 [t-quasar-2] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  PETACC-3 [t-petacc-3] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  FNCLCC Accord02 / FFCD 9802 [t-fnclcc-accord02-ffcd-9802] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  CALGB 89803 [t-calgb-89803] | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  PETACC-8 | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  DYNAMIC-III | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)
-  ALTAIR | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  INT 0035 {pmid 2300087} | Superseded: levamisole is withdrawn and fluorouracil with leucovorin replaced it
+  GALAXY {pmid 36646802} | Non-randomised cohort with randomised evidence available, prognostic only
+  IROCAS {pmid 42927853} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  NSABP C-08 {pmid 20940184} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  AVANT {pmid 23168362} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  NCCTG N0147 {pmid 22474202} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  QUASAR 2 {pmid 27660192} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  PETACC-3 {pmid 19451425} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  FNCLCC Accord02 / FFCD 9802 {pmid 19179549} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  CALGB 89803 {pmid 17687149} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  PETACC-8 {pmid 24928083} | Negative adjuvant trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  DYNAMIC-III {pmid 41115959} | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)
+  ALTAIR {pmid 42260101} | Negative ctDNA-guided trial. The Not recommended panel was removed (Jonan 2026-11-11)

@@ -1,4 +1,5 @@
 # oncOS board map: Melanoma (one map for the Evidence sheet "Melanoma")
+# Rows reviewed: 93ad9e6a91a115ba63733d582967a8cc26a6a0fe (2026-11-26)
 # Draft 2, 2026-11-26. The 49 findings of the prose review and the 5 findings of the thread's own pass on draft 1
 #   applied, the owner's decisions of 2026-11-26 applied, then every block rewritten from scratch. Not approved.
 #   Planning files: board-maps/melanoma/ (plan.md, structure-plan.md, independent-review.md, prose-review.md,
@@ -345,6 +346,6 @@ panel: Brain metastases from cutaneous melanoma > Unresectable stage III or stag
   ⑤ Leptomeningeal disease: systemic therapy as for brain metastases, with radiotherapy 〔ESMO III, B〕 or intrathecal nivolumab 〔ESMO III, C〕, given with intravenous nivolumab 〔NCCN 2B〕
 
 off:
-  BRIM-3 [t-brim-3] | Superseded by BRAF and MEK inhibitor combinations. The line on a BRAF inhibitor alone carries ESMO's grade for encorafenib, whose randomised arm is in COLUMBUS
-  CheckMate 204 [t-checkmate-204] | Non-randomised, with randomised evidence available: ABC tested nivolumab with ipilimumab in the same population (inclusion.txt ①)
-  Sheng et al. [t-sheng-et-al] | Single-arm phase Ib trial, and toripalimab with axitinib holds no EU or US licence for melanoma (Jonan 2026-11-26)
+  BRIM-3 {pmid 21639808} | Superseded by BRAF and MEK inhibitor combinations. The line on a BRAF inhibitor alone carries ESMO's grade for encorafenib, whose randomised arm is in COLUMBUS
+  CheckMate 204 {pmid 30134131} | Non-randomised, with randomised evidence available: ABC tested nivolumab with ipilimumab in the same population (inclusion.txt ①)
+  Sheng et al. {pmid 31403867} | Single-arm phase Ib trial, and toripalimab with axitinib holds no EU or US licence for melanoma (Jonan 2026-11-26)

@@ -1,4 +1,5 @@
 # oncOS board map: HR+ HER2- MBC (systemic course of hormone receptor-positive, HER2-negative metastatic breast cancer)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # Draft 2.2, approved by Jonan for publication 2026-11-15. Intake chips linked to filed rows 2026-11-15 (ASCENT-07 awaits a PMID). Draft 0 by the structure planner, reviewed by independent QA
 #   (board-maps/hr-mbc/independent-review.md, 40 findings). Draft 1 changed: HER2-ultralow on its own line with
 #   chemotherapy first, licence and grade attachments corrected, ABC8 conditions written in, seven chips added, ・ lines
@@ -278,7 +279,7 @@ panel: Oligometastatic disease
     ・Ablation of metastases may be considered 〔PAGA II, C〕 〔ESMO II, C〕
     ・Routine ablation of asymptomatic lesions is not recommended outside a trial, since it has not prolonged progression-free or overall survival 〔NCCN〕 〔ABC8 II/D〕
     ・In de novo disease with favourable features, locoregional treatment of the primary tumour with ablation of all metastases may be considered 〔NCCN〕
-  - NRG BR002 [t-nrg-br002]
+  - NRG BR002 {pmid 42842849}
   + SABR-COMET {pmid 30982687}
   ※ Oligometastatic disease is up to five lesions, not necessarily in one organ, that local treatment can bring to complete remission 〔ABC8 Expert opinion/NA〕
 

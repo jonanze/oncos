@@ -1,4 +1,5 @@
 # oncOS board map: STS (one map for the Evidence sheet "STS")
+# Rows reviewed: 9d0c29a188d6716b9814c55c114a6ae04a69f03b (2026-11-21)
 # Draft 8, 2026-11-21. NCCN Uterine Neoplasms 3.2026 tags on the uterine sarcoma lines (Jonan's card, 09:24 UTC).
 # Draft 7, 2026-11-20. Line layout (Jonan 07:54 "your lines are a mess"): desmoid and TGCT steps declared before the localised subtree so the advanced fan sits beside its box; angiosarcoma later lines merged into its box.
 # Draft 6, 2026-11-20. One treatment tree (Jonan 07:38 UTC, "rebuild the entire mind map using this", "integrate the second line
@@ -327,12 +328,12 @@ course: STS | parallel
       ・Afamitresgene autoleucel holds an FDA accelerated licence
       ~ SPEARHEAD-1 {pmid 38554725}
 off:
-  GENSARC [t-gensarc] | Prospective diagnostic cohort, not a trial: the statement on molecular testing stays as plain text in the diagnosis band
-  Sreenath et al. [t-sreenath-et-al] | Prospective diagnostic cohort, not a trial
-  WIDE Sarcoma WGS [t-wide-sarcoma-wgs] | Prospective diagnostic cohort, not a trial
-  STS Whole-Genome Sequencing (van der Laan) [t-sts-whole-genome-sequencing] | Observational cohort, not a trial
-  European Multicentre Sarcoma NGS Cohort [t-european-multicentre-sarcoma-ngs-cohort] | Retrospective cohort, not a trial
-  Foundation Medicine Sarcoma Profiling Cohort [t-foundation-medicine-sarcoma-profiling-cohort] | Retrospective cohort, not a trial
-  ProfiLER-01 sarcoma cohort [t-profiler-01-sarcoma-cohort] | Molecular screening programme without a comparison, not a trial
-  Chinese Multicentre Sarcoma RNA Sequencing Cohort [t-chinese-multicentre-sarcoma-rna-sequencing-cohort] | Retrospective cohort, not a trial
-  MULTISARC [t-multisarc] | Randomised, but no comparison of the two arms is reported yet
+  GENSARC {pmid 26970672} | Prospective diagnostic cohort, not a trial: the statement on molecular testing stays as plain text in the diagnosis band
+  Sreenath et al. {pmid 41812090} | Prospective diagnostic cohort, not a trial
+  WIDE Sarcoma WGS {pmid 35053600} | Prospective diagnostic cohort, not a trial
+  STS Whole-Genome Sequencing (van der Laan) {pmid 40505420} | Observational cohort, not a trial
+  European Multicentre Sarcoma NGS Cohort {pmid 40939238} | Retrospective cohort, not a trial
+  Foundation Medicine Sarcoma Profiling Cohort {pmid 35705558} | Retrospective cohort, not a trial
+  ProfiLER-01 sarcoma cohort {pmid 32950930} | Molecular screening programme without a comparison, not a trial
+  Chinese Multicentre Sarcoma RNA Sequencing Cohort {pmid 40369594} | Retrospective cohort, not a trial
+  MULTISARC {pmid 38826717} | Randomised, but no comparison of the two arms is reported yet

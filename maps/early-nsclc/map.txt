@@ -1,4 +1,5 @@
 # oncOS board map: Early & Locally Adv NSCLC
+# Rows reviewed: 0b9357449dbf0e77dbffdde211072a957afb05fb (2026-11-21)
 #
 # How to read and edit this file
 #   Indent 2 spaces per level.
@@ -23,7 +24,9 @@
 #   ① text          a numbered option or item, in order of guideline preference, in every step, node,
 #                   band and panel. A single option is ① too (Jonan 2026-11-11)
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
-#   off:            sheet rows left off on purpose: Trial [t-...] | reason
+#   off:            sheet rows left off on purpose: Trial {pmid N} | reason, or Trial [t-...] | reason as above
+#   Rows reviewed:  second line of the file, the oncos commit whose Evidence rows the map was last reviewed
+#                   against; node maps/watch.cjs lists the rows changed since, and a review moves it (Jonan 2026-11-27)
 #   source: ESMO {url https://...}   a guideline, held as a link; 〔ESMO I, A〕 at the end of a statement marks it as
 #                   resting on that guideline, with its printed level of evidence and grade, and opens the link.
 #                   Guidelines are not Evidence rows (Jonan 2026-11-11)
@@ -321,7 +324,7 @@ course: Early and locally advanced NSCLC
       ※ In PEARLS, DFS improved in all patients
       ・The co-primary endpoint in TPS 50% or more was not met
       ※ Adjuvant nivolumab for 1 year did not improve DFS
-        - ANVIL
+        - ANVIL {pmid 42224490}
   EGFR, ALK or RET
     branch: ADJ pale
     ① EGFR exon 19 or L858R, stage IB–IIIA: osimertinib for 3 years, after chemotherapy where given 〔ESMO I, A〕 〔NCCN 1〕
@@ -336,7 +339,7 @@ course: Early and locally advanced NSCLC
       ・Ensartinib has a US licence for advanced ALK-positive NSCLC, not for treatment after resection
         ~ ELEVATE {pmid 42418775}
     ③ RET, stage IB–IIIA: selpercatinib for 3 years, also after radiotherapy 〔ESMO I, A〕 〔NCCN 1〕
-      ~ LIBRETTO-432
+      ~ LIBRETTO-432 {pmid 42223087}
   After chemoradiotherapy, no progression
     branch: CRT pale
     ① EGFR exon 19 or L858R: osimertinib until progression 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
@@ -358,4 +361,4 @@ course: Early and locally advanced NSCLC
       ~ PACIFIC-5 {pmid 41354932}
 
 off:
-  PLUS [t-plus-trial] | Same finding as Fischer 2009, with PET alone
+  PLUS {pmid 11978336} | Same finding as Fischer 2009, with PET alone

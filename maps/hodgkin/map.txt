@@ -1,4 +1,5 @@
 # oncOS board map: Hodgkin Lymphoma (classic Hodgkin lymphoma from first line to relapse, with older or unfit patients and NLPHL)
+# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
 # 2026-11-14, approved by Jonan for publication. Intake chips linked to filed rows 2026-11-14. Structure plan: board-maps/hodgkin/structure-plan.md. Changes: draft1-changes.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Scope (Jonan 2026-11-13): one map for the whole sheet. Classic Hodgkin lymphoma is the course: early-stage favourable,
@@ -345,6 +346,6 @@ panel: Nodular lymphocyte-predominant Hodgkin lymphoma
   ※ ICC 2022 name: nodular lymphocyte-predominant B-cell lymphoma 〔EHA〕 〔NCCN〕
 
 off:
-  GHSG HD7 | Superseded: extended-field radiotherapy with or without ABVD. GHSG HD10 is cited for combined-modality treatment
-  GHSG HD8 | Superseded: involved-field against extended-field radiotherapy after COPP/ABVD. ISRT is the current field
-  GHSG HD9 | Superseded: eight cycles of escalated BEACOPP against COPP/ABVD. GHSG HD18 and GHSG HD21 are cited for PET-guided treatment
+  GHSG HD7 {pmid 17606976} | Superseded: extended-field radiotherapy with or without ABVD. GHSG HD10 is cited for combined-modality treatment
+  GHSG HD8 {pmid 12913100} | Superseded: involved-field against extended-field radiotherapy after COPP/ABVD. ISRT is the current field
+  GHSG HD9 {pmid 12802024} | Superseded: eight cycles of escalated BEACOPP against COPP/ABVD. GHSG HD18 and GHSG HD21 are cited for PET-guided treatment

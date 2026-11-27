@@ -1,4 +1,5 @@
 # oncOS board map: Advanced NSCLC
+# Rows reviewed: 0b9357449dbf0e77dbffdde211072a957afb05fb (2026-11-21)
 #
 # How to read and edit this file
 #   Indent 2 spaces per level.
@@ -22,7 +23,9 @@
 #   ① text          a numbered option or item, in order of guideline preference, in every step, node,
 #                   band and panel. A single option is ① too (Jonan 2026-11-11)
 #   | a | b |       a row of a ruled grid; the first row is the header, - leaves a cell empty
-#   off:            sheet rows left off on purpose: Trial [t-...] | reason
+#   off:            sheet rows left off on purpose: Trial {pmid N} | reason, or Trial [t-...] | reason as above
+#   Rows reviewed:  second line of the file, the oncos commit whose Evidence rows the map was last reviewed
+#                   against; node maps/watch.cjs lists the rows changed since, and a review moves it (Jonan 2026-11-27)
 #
 # Rules (Jonan 2026-11-08/09/10; node maps/check.cjs enforces the starred ones)
 #   Layout fits the disease: a tree where care branches on tests, a course where one state follows another
@@ -150,7 +153,7 @@ tree: Advanced NSCLC, first line
         ・Recommended first line 〔ASCO Moderate, Strong〕
         ・Only after platinum chemotherapy 〔NCCN〕 〔ESMO〕
         ・First line not licensed in the EU or US
-          ~ WU-KONG28
+          ~ WU-KONG28 {pmid 42212913}
         ※ An EGFR TKI alone is not recommended first line 〔JLCS C, 1〕
       Uncommon: G719X, L861Q, S768I
         branch: EGFR pale
@@ -253,7 +256,7 @@ tree: Advanced NSCLC, first line
         ~ KRYSTAL-12 {pmid 40783289}
         ※ Divarasib improved OS over sotorasib or adagrasib
         ・Divarasib is not licensed
-          + Krascendo 1
+          + Krascendo 1 {pmid 42929675}
         ※ Hepatotoxicity is common when sotorasib follows a PD-1 antibody
       HER2
         branch: MUT pale
@@ -287,7 +290,7 @@ tree: Advanced NSCLC, first line
         + IMpower110 {pmid 32997907}
         ※ Addition of chemotherapy to pembrolizumab prolonged PFS
         ・OS was not significantly longer in the one direct trial
-          ~ PERSEE
+          ~ PERSEE {pmid 42927854}
           * Di Federico {pmid 42240993}
           ° Toxicity of note: grade 3 or higher treatment-related events were more frequent with added chemotherapy (PERSEE)
         ※ Survival on pembrolizumab alone was longer with TPS 90–100% than with 50–89%, in a retrospective study
@@ -337,7 +340,7 @@ tree: Advanced NSCLC, first line
         ※ In non-squamous disease, sacituzumab tirumotecan with pembrolizumab improved PFS over platinum and pemetrexed with pembrolizumab
         ・The trial ran in China only and OS is immature
         ・Sacituzumab tirumotecan is not licensed in the EU or US
-          ~ OptiTROP-Lung06
+          ~ OptiTROP-Lung06 {pmid 42929694}
     PS 2 or frail
       branch: ND pale
       ① Carboplatin doublet 〔ESMO I, A〕 〔JLCS B, 2〕
@@ -412,8 +415,8 @@ panel: Second line > No driver
   ・Tislelizumab 〔ESMO I, A〕
   ・Tislelizumab has an EU licence
     + CheckMate 017 {pmid 26028407}
-    + CheckMate 057 [t-checkmate-057]
-    + KEYNOTE-010 [t-keynote-010]
+    + CheckMate 057 {pmid 26412456}
+    + KEYNOTE-010 {pmid 26712084}
     + OAK {pmid 27979383}
     + RATIONALE-303 {pmid 36184068}
   ⑥ After a PD-1 antibody alone: platinum doublet 〔ASCO Low, Strong〕
@@ -443,7 +446,7 @@ panel: Later lines, EGFR > EGFR
   ・Osimertinib with savolitinib or tepotinib for acquired MET amplification 〔ASCO Low, Conditional〕
   ・This grade predates the SAFFRON report
   ・Not licensed in the EU or US
-    + SAFFRON
+    + SAFFRON {pmid 42929693}
     ~ SACHI {pmid 41544643}
     ~ INSIGHT 2 {pmid 39089305}
   ③ After first-line amivantamab with lazertinib: the first-line options for disease without a driver 〔NCCN 2A〕
@@ -462,9 +465,9 @@ panel: Later lines, EGFR > EGFR
     ※ After a TKI and before chemotherapy, three antibody–drug conjugates improved PFS over platinum and pemetrexed
     ・The trials ran in China only
     ・None of the three drugs is licensed in the EU or US
-      + OptiTROP-Lung04
+      + OptiTROP-Lung04 {pmid 41124220}
       ~ HERON-Lung01 {pmid 42933457}
-      ~ PANKU-Lung01
+      ~ PANKU-Lung01 {pmid 42933461}
   ⑥ Exon 20 after platinum
   ・Amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
   ・Sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
@@ -502,17 +505,17 @@ panel: Later lines, ALK and ROS1 > Fusion
   next: Second line | After TKIs and platinum chemotherapy
 
 off:
-  PROFILE 1014 | Crizotinib vs chemotherapy for ALK, replaced by ALEX and CROWN
-  BR.21 | Erlotinib in unselected second-line disease, no longer used
-  PARAMOUNT | Pemetrexed maintenance after chemotherapy alone, now part of KEYNOTE-189
-  Robichaux 2021 [t-robichaux-et-al] | Retrospective cohort, maps cite trials only, the statement stays
-  Aguilar 2019 [t-aguilar-et-al] | Retrospective cohort, maps cite trials only, the statement stays
-  Marcoux 2018 [t-marcoux-et-al] | Retrospective cohort, maps cite trials only, the statement stays
-  IPASS | Superseded: EGFR testing is routine, so clinical selection for a TKI is historical
-  AENEAS2 | No licence or recommendation: aumolertinib is not licensed in the EU or US
-  LUX-Lung 3 | Afatinib vs chemotherapy, superseded by FLAURA
-  KCSG-LU15-09 | Osimertinib in uncommon EGFR, UNICORN covers it
-  DESTINY-Lung01 | 6.4 mg/kg dose, DESTINY-Lung02 set 5.4 mg/kg
-  POD1UM-304 | Retifanlimab with chemotherapy: ASCO alone recommends it 〔ASCO Moderate, Conditional〕, with no EU or US licence for NSCLC and no NCCN listing
-  Sampath 2025 [t-sampath-et-al] | Non-randomised, no licence or recommendation rests on it
-  SAVANNAH | Non-randomised with randomised evidence available (SAFFRON, SACHI)
+  PROFILE 1014 {pmid 25470694} | Crizotinib vs chemotherapy for ALK, replaced by ALEX and CROWN
+  BR.21 {pmid 16014882} | Erlotinib in unselected second-line disease, no longer used
+  PARAMOUNT {pmid 22341744} | Pemetrexed maintenance after chemotherapy alone, now part of KEYNOTE-189
+  Robichaux 2021 {pmid 34526717} | Retrospective cohort, maps cite trials only, the statement stays
+  Aguilar 2019 {pmid 31435660} | Retrospective cohort, maps cite trials only, the statement stays
+  Marcoux 2018 {pmid 30550363} | Retrospective cohort, maps cite trials only, the statement stays
+  IPASS {pmid 19692680} | Superseded: EGFR testing is routine, so clinical selection for a TKI is historical
+  AENEAS2 {pmid 42296979} | No licence or recommendation: aumolertinib is not licensed in the EU or US
+  LUX-Lung 3 {pmid 23816960} | Afatinib vs chemotherapy, superseded by FLAURA
+  KCSG-LU15-09 {pmid 31825714} | Osimertinib in uncommon EGFR, UNICORN covers it
+  DESTINY-Lung01 {pmid 34534430} | 6.4 mg/kg dose, DESTINY-Lung02 set 5.4 mg/kg
+  POD1UM-304 {pmid 40983066} | Retifanlimab with chemotherapy: ASCO alone recommends it 〔ASCO Moderate, Conditional〕, with no EU or US licence for NSCLC and no NCCN listing
+  Sampath 2025 {pmid 41054436} | Non-randomised, no licence or recommendation rests on it
+  SAVANNAH {pmid 40461383} | Non-randomised with randomised evidence available (SAFFRON, SACHI)
