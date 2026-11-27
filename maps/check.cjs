@@ -41,7 +41,7 @@ for (const dir of fs.readdirSync(__dirname).sort()) {
   const src = fs.readFileSync(f, 'utf8');
   const m = O.parse(src);
   m.errors.forEach(e => fail(dir, parseInt(e, 10), 'outline', dir + '/map.txt ' + e));
-  const intake = [];
+  const intake = [], intakeItems = [];
   src.split('\n').forEach((t, k) => {
     if (/^\s*#/.test(t)) return;
     const lab = /^\s+(?:next|join):.*\|\s*(..)/.exec(t);
@@ -54,6 +54,7 @@ for (const dir of fs.readdirSync(__dirname).sort()) {
   // The header: one definition line per guideline, naming the edition read, and the rows' review point
   const head = src.split('\n').map(t => /^\s*#/.test(t) ? t.replace(/^\s*#\s?/, '').trim() : null);
   Object.values(m.sources).forEach(sr => {
+    if (sr.ver && (/\b(19|20)\d{2}\b/.test(sr.ver) || /^v?\d+\.\d+/i.test(sr.ver))) return;
     const tag = new RegExp('〔' + sr.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s〕]');
     const dated = head.some((t, k) => t !== null && tag.test(t) && /\b(19|20)\d{2}\b/.test(t + ' ' + (head[k + 1] || '')));
     if (!dated) fail(dir, sr.at, 'header', dir + '/map.txt:' + sr.at + ' source ' + sr.name + ' has no header line 〔' + sr.name + ' …〕 naming the edition read (its year or version)');
@@ -68,8 +69,11 @@ for (const dir of fs.readdirSync(__dirname).sort()) {
     if (line.pmid && !line.anchor) {
       const pm = new RegExp('(^|\\D)' + line.pmid + '(\\D|$)'), filed = rows.find(r => pm.test(JSON.stringify(r)));
       if (filed) { fail(dir, line.at, 'link', tag + ': PMID ' + line.pmid + ' appears only in the text of ' + filed.study + ' [' + filed.anchor + '] in ' + filed.sheet + ', not as its reference PMID; give that anchor'); continue; }
-      intake.push(line.name + '\tPMID ' + line.pmid + '\t' + where); continue; }
-    if (line.url && !line.anchor) { intake.push(line.name + '\tno PMID yet ' + line.url + '\t' + where); continue; }
+      intake.push(line.name + '\tPMID ' + line.pmid + '\t' + where);
+      intakeItems.push({name: line.name, pmid: line.pmid, url: null, where, at: line.at}); continue; }
+    if (line.url && !line.anchor) {
+      intake.push(line.name + '\tno PMID yet ' + line.url + '\t' + where);
+      intakeItems.push({name: line.name, pmid: null, url: line.url, where, at: line.at}); continue; }
     const r = byAnchor.get(line.anchor);
     if (!r) { fail(dir, line.at, 'link', tag + ': no Evidence row ' + line.anchor + ' (give [t-...] or {pmid N})'); continue; }
     if (!TRIAL_TYPE.test(r.type) || (NOT_TRIAL.test(r.type) && !/clinical trial|randomi/i.test(r.type) && !/^systematic review and meta-analys/i.test(r.type)))
@@ -99,7 +103,14 @@ for (const dir of fs.readdirSync(__dirname).sort()) {
     off.map(r => [r.yearnum, r.study, r.subcat, r.anchor].join('\t')).join('\n') + '\n');
   off.forEach(r => fail(dir, null, 'unplaced', dir + ': sheet row ' + r.study + ' [' + r.anchor + '] is neither on the map nor under off:'));
   if (!rows.some(r => r.sheet === m.map)) fail(dir, null, 'link', dir + ': no Evidence sheet named "' + m.map + '"');
-  summary[dir] = {trials: O.trials(m).length, intake: intake.length, unplaced: off.length};
+  summary[dir] = {
+    trials: O.trials(m).length,
+    intake: intake.length,
+    unplaced: off.length,
+    intake_items: intakeItems,
+    unplaced_items: off.map(r => ({study: r.study, anchor: r.anchor, sheet: r.sheet, subcat: r.subcat || '', yearnum: r.yearnum || '', pmids: O.pmids(r)})),
+    sources: Object.values(m.sources).map(sr => ({name: sr.name, url: sr.url, anchor: sr.anchor, ver: sr.ver || null}))
+  };
   if (!JSON_OUT) console.log(dir + ': ' + O.trials(m).length + ' trials, ' + intake.length + ' for intake, ' + off.length + ' new sheet rows to place');
 }
 if (JSON_OUT) { console.log(JSON.stringify({ok: !bad, problems, maps: summary})); process.exit(bad ? 1 : 0); }

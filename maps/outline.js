@@ -73,9 +73,10 @@
         if (h[1] === 'scale') { out.scale = h[2].split('|').map(function(x){ return x.trim(); }).filter(Boolean); out.scaleAt = at; sec = null; return; }
         if (h[1] === 'source') {
           // a guideline with an Evidence row: "ESGO [t-...]"; one held only as a link: "ESMO {url https://...}"
-          var sm = /^(\S+)\s+(?:\[(t-[^\]\s]+)\]|\{url\s+(https:\/\/[^\s}]+)\})$/.exec(h[2]);
-          if (!sm) out.errors.push(at + ': source: lines are "Name [t-...]" or "Name {url https://...}"');
-          else out.sources[sm[1]] = {name:sm[1], anchor:sm[2] || null, url:sm[3] || null, at:at};
+          // optional "{ver 3.2026}" or "{ver v1.4}" records the edition read in machine-readable form
+          var sm = /^(\S+)\s+(?:\[(t-[^\]\s]+)\]|\{url\s+(https:\/\/[^\s}]+)\})(?:\s+\{ver\s+([^}]+)\})?$/.exec(h[2]);
+          if (!sm) out.errors.push(at + ': source: lines are "Name [t-...]" or "Name {url https://...}" (optional {ver ...})');
+          else out.sources[sm[1]] = {name:sm[1], anchor:sm[2] || null, url:sm[3] || null, ver:sm[4] ? sm[4].trim() : null, at:at};
           sec = null; return;
         }
         if (h[1] === 'off') { sec = out.off; return; }
@@ -247,15 +248,43 @@
     model.panels.forEach(function(p){ p.lines.forEach(add(p.title)); });
     return all;
   }
-  // every 〔Source level, grade〕 tag on the map, with the line it sits on
+  // every 〔Source level, grade〕 tag on the map, with the line and block it sits on
   function tags(model){
     var all = [];
-    function scan(text, at){ String(text || '').replace(TAG, function(m, src, grade){ all.push({source:src, grade:grade, at:at}); return m; }); }
-    function lines(ls){ ls.forEach(function(l){ scan(l.text || l.fig, l.at); scan(l.edge, l.at); (l.cells || []).forEach(function(c){ scan(c, l.at); }); }); }
-    model.bands.forEach(function(b){ lines(b.lines); });
-    walk(model.tree, function(n){ scan(n.label, n.at); lines(n.lines); });
-    model.panels.forEach(function(p){ lines(p.lines); });
+    function scan(text, at, where){
+      var s = String(text || '');
+      s.replace(TAG, function(m, src, grade){ all.push({source:src, grade:grade, at:at, where:where || '', text:s}); return m; });
+    }
+    function lines(ls, where){
+      ls.forEach(function(l){
+        var full = (l.n ? l.n + ' ' : '') + (l.text || l.fig || '');
+        scan(full, l.at, where);
+        scan(l.edge, l.at, where);
+        (l.cells || []).forEach(function(c){ scan(c, l.at, where); });
+      });
+    }
+    model.bands.forEach(function(b){ lines(b.lines, b.title); });
+    walk(model.tree, function(n){ scan(n.label, n.at, n.label); lines(n.lines, n.label); });
+    model.panels.forEach(function(p){ lines(p.lines, p.title); });
     return all;
+  }
+  // Parse excluded.txt (maps/inclusion.txt ④: Trial | identifier | date screened | class and result | reason)
+  function parseExcluded(src){
+    var out = [];
+    String(src || '').split(/\r?\n/).forEach(function(raw, i){
+      var t = raw.trim();
+      if (!t || t.charAt(0) === '#') return;
+      var parts = t.split(/\s*\|\s*/);
+      if (parts.length < 2) return;
+      var ident = parts[1] || '', pmids = [], dois = [], m;
+      var rp = /\b(?:PMID:?\s*)(\d{6,9})\b/gi;
+      while ((m = rp.exec(ident))) if (pmids.indexOf(m[1]) < 0) pmids.push(m[1]);
+      var rd = /\b(10\.\d{4,9}\/[^\s,;)]+)/gi;
+      while ((m = rd.exec(ident))) { var d = m[1].toLowerCase().replace(/\.$/, ''); if (dois.indexOf(d) < 0) dois.push(d); }
+      out.push({trial:parts[0], identifier:ident, screened:parts[2] || '', classification:parts[3] || '',
+                reason:parts.slice(4).join(' | '), pmids:pmids, dois:dois, at:i + 1});
+    });
+    return out;
   }
   /* Live figures. A figure with no digits names what to read from the Evidence row:
        "OS HR"        HR on the row's findings line labelled OS        renders "OS HR 0.80"
@@ -337,5 +366,5 @@
     });
     return miss;
   }
-  return {FLOW:FLOW, bare:bare, parse:parse, walk:walk, trials:trials, tags:tags, TAG:TAG, slug:slug, live:live, figure:figure, figures:figures, link:link, pmids:pmids};
+  return {FLOW:FLOW, bare:bare, parse:parse, parseExcluded:parseExcluded, walk:walk, trials:trials, tags:tags, TAG:TAG, slug:slug, live:live, figure:figure, figures:figures, link:link, pmids:pmids};
 });
