@@ -237,6 +237,13 @@
   var ctrl = null;
   function draw(pane, id, html){
     var model = window.oncosOutline.parse(html.src);
+    // a map.txt the outline reader faults (a line to no step or to a step named twice, lines that loop back) is not
+    // drawn half way: node maps/check.cjs names the faults before a release
+    if (model.errors.length) {
+      if (window.console) console.error('maps/' + id + '/map.txt', model.errors);
+      pane.textContent = 'The map did not load.';
+      return;
+    }
     window.oncosOutline.link(model, html.rows);
     window.oncosOutline.figures(model, html.rows);
     ctrl = window.oncosCanvas.render(pane, model, {id: id, figures: html.rows ? 'Evidence' + (rowsDate ? ' ' + rowsDate : ', live') : 'Evidence did not load'});

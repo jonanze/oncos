@@ -34,6 +34,7 @@
 .om-view{position:relative;overflow:hidden;border:1px solid var(--b-line);border-radius:12px;background:var(--wb-paper,#fff);touch-action:none;cursor:grab;outline:none;user-select:none;-webkit-user-select:none}
 :root[data-theme="dark"] .om-view{background:#1e2228}
 .om-view.drag{cursor:grabbing}
+.om-view.moving .om-world{will-change:transform}
 .om-view:focus-visible{outline:2px solid var(--b-ink);outline-offset:-2px}
 .om-world{position:absolute;left:0;top:0;transform-origin:0 0;background-image:linear-gradient(var(--wb-grid) 1px,transparent 1px),linear-gradient(90deg,var(--wb-grid) 1px,transparent 1px);background-size:40px 40px}
 .om-world .blk{position:absolute;z-index:2}
