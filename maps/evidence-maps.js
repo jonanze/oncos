@@ -139,6 +139,17 @@
     if (on && pane) { pane.tabIndex = -1; pane.focus({preventScroll:true}); }
   }
 
+  function syncZoom(s){
+    var pct = Math.round((s || 1) * 100) + '%';
+    document.querySelectorAll('.om-bar [data-z="reset"], #map .om-fs [data-z="reset"]').forEach(function(b){ b.textContent = pct; });
+  }
+  function handleZoom(z){
+    if (!ctrl) return;
+    if (z === 'in' && ctrl.zoomIn) ctrl.zoomIn();
+    else if (z === 'out' && ctrl.zoomOut) ctrl.zoomOut();
+    else if (z === 'reset' && ctrl.resetZoom) ctrl.resetZoom();
+  }
+
   function bar(top){
     var el = top.querySelector('.om-bar');
     if (el) return el;
@@ -148,11 +159,16 @@
     el.innerHTML = '<div class="wl-tabs" role="tablist" aria-label="Sheet view">' +
       '<button type="button" class="wl-tab" role="tab" data-om="trials">Trials</button>' +
       '<button type="button" class="wl-tab" role="tab" data-om="map">Map</button></div>' +
+      '<div class="om-zoom" role="group" aria-label="Map zoom" hidden>' +
+      '<button type="button" data-z="out" aria-label="Zoom out">\u2212</button>' +
+      '<button type="button" data-z="reset" aria-label="Reset zoom to 100%">100%</button>' +
+      '<button type="button" data-z="in" aria-label="Zoom in">+</button></div>' +
       '<button type="button" class="om-fit" hidden>Fit</button>' +
       '<button type="button" class="om-fit om-fs-on" hidden>Full screen</button>';
     el.addEventListener('click', function(e){
       var b = e.target.closest('button'); if (!b) return;
       if (b.dataset.om) show(b.dataset.om === 'map');
+      else if (b.dataset.z) handleZoom(b.dataset.z);
       else if (b.classList.contains('om-fs-on')) full(true);
       else if (b.classList.contains('om-fit')) { if (ctrl) ctrl.fit(); }
     });
@@ -176,7 +192,7 @@
     // mapSheet can name the sheet a back or forward step is about to restore.
     var on = mapSheet === sheet;
     el.classList.toggle('on', on);
-    el.querySelectorAll('.om-fit').forEach(function(b){ b.hidden = !on; });
+    el.querySelectorAll('.om-fit, .om-zoom').forEach(function(b){ b.hidden = !on; });
     if (!on) full(false);
     el.querySelectorAll('.wl-tab').forEach(function(b){ b.setAttribute('aria-selected', String((b.dataset.om === 'map') === on)); });
     setPane(results, on ? MAPS[mapSheet] : null);
@@ -246,15 +262,20 @@
     }
     window.oncosOutline.link(model, html.rows);
     window.oncosOutline.figures(model, html.rows);
-    ctrl = window.oncosCanvas.render(pane, model, {id: id, figures: html.rows ? 'Evidence' + (rowsDate ? ' ' + rowsDate : ', live') : 'Evidence did not load'});
+    ctrl = window.oncosCanvas.render(pane, model, {id: id, onScale: syncZoom, figures: html.rows ? 'Evidence' + (rowsDate ? ' ' + rowsDate : ', live') : 'Evidence did not load'});
     var fs = document.createElement('div');
     fs.className = 'om-fs';
-    fs.innerHTML = '<button type="button" data-fs="fit">Fit</button><button type="button" data-fs="close">Close</button>';
+    fs.innerHTML = '<button type="button" data-z="out" aria-label="Zoom out">\u2212</button>' +
+      '<button type="button" data-z="reset" aria-label="Reset zoom to 100%">100%</button>' +
+      '<button type="button" data-z="in" aria-label="Zoom in">+</button>' +
+      '<button type="button" data-fs="fit">Fit</button><button type="button" data-fs="close">Close</button>';
     fs.addEventListener('click', function(e){
       var b = e.target.closest('button'); if (!b) return;
-      if (b.dataset.fs === 'fit') { if (ctrl) ctrl.fit(); } else full(false);
+      if (b.dataset.z) handleZoom(b.dataset.z);
+      else if (b.dataset.fs === 'fit') { if (ctrl) ctrl.fit(); } else full(false);
     });
     pane.appendChild(fs);
+    if (ctrl && ctrl.scale) syncZoom(ctrl.scale());
   }
 
   /* ---- full screen (Jonan 2026-11-11) ----
@@ -345,7 +366,8 @@
       else if (key) openRowCard(key, tb);
       return;
     }
-    if (e.target.closest && e.target.closest('#om-card .ev')) closeCard();
+    if (e.target.closest && e.target.closest('#om-card .ev')) { closeCard(); return; }
+    if (cardKey && card && card.classList.contains('open') && e.target.closest && e.target.closest('#map .om-view') && !e.target.closest('#om-card')) closeCard();
   });
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && cardKey) { closeCard(); return; }

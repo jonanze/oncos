@@ -2,6 +2,13 @@
 
 All notable oncOS frontend releases are recorded here. Versions follow semantic versioning.
 
+## [2.2.49] - 2026-11-27
+
+- Search: empty open shows a quiet search prompt and shortcut hint instead of "No matches"; adds an inline Clear button, backdrop click-to-close, sticky module bands, 2-column layout for non-Evidence modules, and highlighted match snippets.
+- Phone top strip & Staging title: moves the mobile Theme control into the Sections sheet footer to free 44 px for sheet titles; extends the phone location label to Staging, Tox, and Acute items, and restores the Staging cancer heading when the desktop sidebar is collapsed.
+- Maps: adds ruled zoom controls (− | 100% | +) in the map toolbar and full-screen bar, shows the branch quick-jump strip on desktop as well as phones, enlarges the trial card close button to a touch-safe ruled cell, and closes the trial card on empty-canvas click.
+- Sidebar & square ruled form: frames the collapsed sidebar reopen button as a ruled title-block cell, dims unavailable Back/Forward arrows, and removes stray rounded corners on the loader, error button, focus ring, and landing tiles.
+
 ## [2.2.48] - 2026-11-21
 
 - Evidence: on wide screens an open row's form runs the full width of the row. The 900 px stop from 2.2.42 is lifted.

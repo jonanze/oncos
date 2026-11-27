@@ -1143,6 +1143,7 @@
       clearTimeout(moveT);
       moveT = setTimeout(function(){ view.classList.remove('moving'); }, 250);
       world.style.transform = 'translate(' + st.x + 'px,' + st.y + 'px) scale(' + st.s + ')';
+      if (opts && opts.onScale) opts.onScale(st.s);
       clearTimeout(saveT);
       saveT = setTimeout(function(){ try { sessionStorage.setItem('oncos-map-view-' + opts.id, JSON.stringify(st)); } catch(e){} }, 200);
     }
@@ -1250,6 +1251,10 @@
     });
     return {
       fit: fit,
+      zoomIn: function(){ zoomAt(1.25, view.clientWidth / 2, view.clientHeight / 2); },
+      zoomOut: function(){ zoomAt(0.8, view.clientWidth / 2, view.clientHeight / 2); },
+      resetZoom: function(){ zoomAt(1 / st.s, view.clientWidth / 2, view.clientHeight / 2); },
+      scale: function(){ return st.s; },
       resize: function(){ size(); apply(); },
       world: world,
       destroy: function(){ host.innerHTML = ''; }

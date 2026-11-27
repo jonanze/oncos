@@ -9,6 +9,7 @@ const LABELS = {
 const dialog = document.getElementById('global-search-dialog');
 const dialogQuery = document.getElementById('global-search-query');
 const results = document.getElementById('global-search-results');
+const clearButton = document.getElementById('global-search-clear');
 const closeButton = document.getElementById('global-search-close');
 const directButton = document.getElementById('global-search-open');
 const resultStatus = document.getElementById('global-search-status');
@@ -154,15 +155,65 @@ function appendText(parent, className, text) {
   return node;
 }
 
+function escapeRe(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function termRegex(terms) {
+  const usable = (terms || []).filter(t => t && t.length >= 2);
+  if (!usable.length) return null;
+  return new RegExp(`(${usable.map(escapeRe).join('|')})`, 'gi');
+}
+
+function appendHighlighted(parent, text, regex) {
+  const raw = String(text == null ? '' : text);
+  if (!regex || !raw) { parent.appendChild(document.createTextNode(raw)); return; }
+  regex.lastIndex = 0;
+  let last = 0, match;
+  while ((match = regex.exec(raw))) {
+    if (match.index > last) parent.appendChild(document.createTextNode(raw.slice(last, match.index)));
+    const mark = document.createElement('mark');
+    mark.className = 'gs-mark';
+    mark.textContent = match[0];
+    parent.appendChild(mark);
+    last = match.index + match[0].length;
+    if (!match[0].length) regex.lastIndex++;
+  }
+  if (last < raw.length) parent.appendChild(document.createTextNode(raw.slice(last)));
+}
+
+function bodySnippet(record, regex) {
+  const body = String(record.body || '').replace(/\s+/g, ' ').trim();
+  if (!body || !regex) return '';
+  regex.lastIndex = 0;
+  const match = regex.exec(body);
+  if (!match) return '';
+  const radius = 58;
+  let start = Math.max(0, match.index - radius);
+  let end = Math.min(body.length, match.index + match[0].length + radius);
+  if (start > 0) {
+    const space = body.indexOf(' ', start);
+    if (space > 0 && space < match.index) start = space + 1;
+  }
+  if (end < body.length) {
+    const space = body.lastIndexOf(' ', end);
+    if (space > match.index + match[0].length) end = space;
+  }
+  return (start > 0 ? '…' : '') + body.slice(start, end).trim() + (end < body.length ? '…' : '');
+}
+
 function render(query) {
   if (!dialog.hidden) start();
-  const hits = ready ? searchCore.search(records, query, {limit: Infinity}) : [];
+  const clean = String(query || '').trim();
+  if (clearButton) clearButton.hidden = !clean;
+  const hits = ready && clean ? searchCore.search(records, query, {limit: Infinity}) : [];
   results.replaceChildren();
-  resultStatus.textContent = query.trim() && ready && hits.length
+  resultStatus.textContent = clean && ready && hits.length
     ? (hits.length > shownLimit ? `${shownLimit} of ${hits.length}` : String(hits.length)) : '';
   let message = '';
   if (bootstrapState === 'loading') message = 'Preparing search…';
   else if (!ready) message = 'Search unavailable';
+  else if (!clean) message = 'Type to search across Evidence, Staging, Drugs, Tox & Acute';
   else if (!hits.length) message = 'No matches';
   if (message) {
     const empty = document.createElement('p');
@@ -173,9 +224,12 @@ function render(query) {
       const mark = document.createElement('span'); mark.className = 'cell-loader'; mark.setAttribute('aria-hidden', 'true');
       mark.appendChild(document.createElement('canvas'));
       appendText(wait, 'cell-wait-label', message); wait.prepend(mark); empty.appendChild(wait);
+    } else if (!clean && ready) {
+      empty.textContent = message;
+      appendText(empty, 'gs-hint', '⌘K or / · ↑↓ navigate · Enter open · Esc close');
     } else empty.textContent = message;
     results.appendChild(empty);
-    if (ready && query.trim() && !hits.length) {
+    if (ready && clean && !hits.length) {
       for (const suggestion of searchCore.suggest(records, query)) {
         const choice = document.createElement('button'); choice.type = 'button';
         choice.className = 'gs-retry'; choice.textContent = `Search for “${suggestion.title}”`;
@@ -194,26 +248,46 @@ function render(query) {
     }
     return;
   }
+  const regex = termRegex(searchCore.displayTerms ? searchCore.displayTerms(query) : clean.split(/\s+/));
   const groups = new Map();
   for (const record of hits.slice(0, shownLimit)) {
     if (!groups.has(record.module)) groups.set(record.module, []);
     groups.get(record.module).push(record);
   }
-  const head = document.createElement('div');
-  head.className = 'gs-row gs-head'; head.setAttribute('aria-hidden', 'true');
-  ['Name', 'Sheet and section', 'Phase · year'].forEach(text => appendText(head, 'gs-cell', text));
-  results.appendChild(head);
   for (const [module, list] of groups) {
+    const isEv = module === 'evidence';
     appendText(results, 'gs-band', LABELS[module].toUpperCase());
+    if (isEv) {
+      const head = document.createElement('div');
+      head.className = 'gs-row gs-head'; head.setAttribute('aria-hidden', 'true');
+      ['Trial', 'Sheet and section', 'Phase · year'].forEach(text => appendText(head, 'gs-cell', text));
+      results.appendChild(head);
+    }
     for (const record of list) {
       const button = document.createElement('button');
-      button.type = 'button'; button.className = `gs-row gs-result m-${record.module}`;
+      button.type = 'button'; button.className = `gs-row gs-result${isEv ? '' : ' gs-two'} m-${record.module}`;
       button.dataset.module = record.module;
       button.dataset.recordId = record.id;
       const [where, when] = resultColumns(record);
-      appendText(button, 'gs-cell gs-title', record.title);
-      appendText(button, 'gs-cell gs-where', where);
-      appendText(button, 'gs-cell gs-when', when);
+      const titleCell = document.createElement('span');
+      titleCell.className = 'gs-cell gs-title';
+      appendHighlighted(titleCell, record.title, regex);
+      button.appendChild(titleCell);
+      const whereCell = document.createElement('span');
+      whereCell.className = 'gs-cell gs-where';
+      const whereLine = document.createElement('span');
+      whereLine.className = 'gs-where-line';
+      appendHighlighted(whereLine, where, regex);
+      whereCell.appendChild(whereLine);
+      const snip = bodySnippet(record, regex);
+      if (snip) {
+        const snipLine = document.createElement('span');
+        snipLine.className = 'gs-snip';
+        appendHighlighted(snipLine, snip, regex);
+        whereCell.appendChild(snipLine);
+      }
+      button.appendChild(whereCell);
+      if (isEv) appendText(button, 'gs-cell gs-when', when);
       button.addEventListener('click', () => {
         hideDialog();
         document.dispatchEvent(new CustomEvent('oncos:open-search-result', {detail: record}));
@@ -297,6 +371,13 @@ function closeFromUser() {
 }
 
 closeButton.addEventListener('click', closeFromUser);
+if (clearButton) clearButton.addEventListener('click', () => {
+  dialogQuery.value = ''; shownLimit = DISPLAY_LIMIT;
+  render(''); results.scrollTop = 0; updateSearchURL(); dialogQuery.focus();
+});
+dialog.addEventListener('click', event => {
+  if (event.target === dialog) closeFromUser();
+});
 dialogQuery.addEventListener('input', () => {
   shownLimit = DISPLAY_LIMIT;
   render(dialogQuery.value); results.scrollTop = 0; updateSearchURL();

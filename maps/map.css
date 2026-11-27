@@ -4,11 +4,17 @@
 #viewroot .om-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:0 0 16px;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 #viewroot .om-bar .wl-tabs{width:240px}
 #viewroot .om-bar .wl-tab{flex:1 1 0;min-width:0;justify-content:center;height:36px;padding:0 6px}
+#viewroot .om-bar .om-zoom{display:none;align-items:stretch;height:38px;margin-left:auto;border:1px solid var(--b-line);background:var(--b-paper)}
+#viewroot .om-bar.on .om-zoom{display:inline-flex}
+#viewroot .om-bar .om-zoom button{min-width:34px;padding:0 9px;border:0;background:none;color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
+#viewroot .om-bar .om-zoom button+button{border-left:1px solid var(--b-line)}
+#viewroot .om-bar .om-zoom [data-z="reset"]{min-width:52px;font-weight:var(--w-bold)}
+@media (hover:hover){#viewroot .om-bar .om-zoom button:hover{background:var(--b-cell)}}
 #viewroot .om-bar .om-fit{display:none;align-items:center;justify-content:center;height:38px;min-width:96px;margin-left:auto;padding:0 12px;border:1px solid var(--b-line);background:var(--b-paper);color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
 #viewroot .om-bar.on .om-fit{display:inline-flex}
 @media (hover:hover){#viewroot .om-bar .om-fit:hover{background:var(--b-cell)}}
-#viewroot .om-bar .om-fit+.om-fit{margin-left:0}
-@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-fit{margin-left:0;flex:1 1 0}}
+#viewroot .om-bar .om-zoom+.om-fit,#viewroot .om-bar .om-fit+.om-fit{margin-left:0}
+@container oncos (max-width:740px){#viewroot .om-bar .wl-tabs{width:auto;flex:1 1 100%}#viewroot .om-bar .om-zoom{margin-left:0;flex:1 1 auto}#viewroot .om-bar .om-zoom button{flex:1 1 0;min-height:44px}#viewroot .om-bar .om-fit{margin-left:0;flex:1 1 0;min-width:0;min-height:44px}}
 
 #map{outline:none}
 #map[hidden]{display:none}
@@ -157,8 +163,10 @@
    view's narrow-width rules lay the fields out as on a narrow Evidence list. */
 #om-card{position:fixed;z-index:60;display:none;flex-direction:column;background:var(--b-paper);color:var(--b-ink);border:1px solid var(--b-line)}
 #om-card.open{display:flex}
-#om-card .hd{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--b-band);border-bottom:1px solid var(--b-line);font-weight:var(--w-bold)}
-#om-card .hd button{margin-left:auto;background:none;border:0;color:var(--b-ink);cursor:pointer;font-size:18px;line-height:1;padding:0 2px}
+#om-card .hd{display:flex;align-items:center;gap:8px;min-height:38px;padding:0 0 0 12px;background:var(--b-band);border-bottom:1px solid var(--b-line);font-weight:var(--w-bold)}
+#om-card .hd .t{padding:8px 0;min-width:0}
+#om-card .hd button{margin-left:auto;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:38px;min-height:38px;background:var(--b-cell);border:0;border-left:1px solid var(--b-line);color:var(--b-ink);cursor:pointer;font-size:18px;line-height:1;padding:0}
+@media (hover:hover){#om-card .hd button:hover{background:var(--hover)}}
 #om-card .cb{overflow:auto;container:oncos / inline-size}
 #om-card .ev{display:block;padding:8px 12px;border-top:1px solid var(--b-line);text-decoration:none;color:var(--b-ink);font-weight:var(--w-bold)}
 #om-card .ev::after{content:"\25B8";margin-left:8px;color:var(--muted)}
@@ -168,15 +176,15 @@
 }
 @media (max-width:899px){
   #om-card{left:0;right:0;bottom:0;max-height:62vh;border-left:0;border-right:0;padding-bottom:env(safe-area-inset-bottom,0px)}
+  #om-card .hd button{min-width:44px;min-height:44px}
 }
+@media (pointer:coarse){#om-card .hd button{min-width:44px;min-height:44px}}
 
-/* phone: a row of the main headings above the canvas; a tap moves the map there */
-.om-idx{display:none}
-@media (max-width:740px){
-  .om-idx{display:flex;gap:6px;overflow-x:auto;white-space:nowrap;padding:0 0 8px}
-  .om-idx button{flex:none;font:inherit;font-size:12px;padding:4px 10px;border:0;border-radius:999px;background:var(--b-cell);color:var(--b-ink);cursor:pointer}
-  .om-idx button.on{background:var(--b-ink);color:var(--b-paper)}
-}
+/* section quick-jump row above the canvas (desktop and phone); a tap moves the map there */
+.om-idx{display:flex;gap:6px;overflow-x:auto;white-space:nowrap;padding:0 0 8px}
+.om-idx button{flex:none;font:inherit;font-size:12px;padding:4px 10px;border:0;border-radius:999px;background:var(--b-cell);color:var(--b-ink);cursor:pointer}
+.om-idx button.on{background:var(--b-ink);color:var(--b-paper)}
+@media (hover:hover){.om-idx button:not(.on):hover{background:var(--b-band)}}
 /* full screen: the map pane covers the page (evidence-maps.js full) */
 .om-fs{display:none}
 html.om-full,html.om-full body{overflow:hidden}
@@ -185,7 +193,9 @@ html.om-full #map{position:fixed;inset:0;z-index:50;margin:0;padding:env(safe-ar
 html.om-full #map .om-view{border:0;border-radius:0}
 html.om-full #map .om-idx{padding:8px 8px 8px}
 html.om-full .om-fs{display:flex;position:absolute;z-index:5;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);right:calc(env(safe-area-inset-right,0px) + 12px);gap:0;border:1px solid var(--b-line);background:var(--b-paper)}
-.om-fs button{height:36px;min-width:72px;padding:0 12px;border:0;background:none;color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
+.om-fs button{height:36px;min-width:36px;padding:0 10px;border:0;background:none;color:var(--b-ink);font:inherit;font-size:var(--t-sm);cursor:pointer}
+.om-fs button[data-fs]{min-width:64px;padding:0 12px}
+.om-fs button[data-z="reset"]{min-width:52px;font-weight:var(--w-bold)}
 .om-fs button+button{border-left:1px solid var(--b-line)}
 @media (hover:hover){.om-fs button:hover{background:var(--b-cell)}}
 /* a flow band's chart: step boxes outlined, final boxes filled, branch labels on their lines */
