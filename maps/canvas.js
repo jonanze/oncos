@@ -24,7 +24,7 @@
    window.oncosCanvas.render(host, model, opts) returns {fit, resize, destroy}. */
 (function(){
   // tree spacing widened (Jonan 2026-11-11, "cramped up narrowly with no breathing room")
-  var GX = 160, GY = 48, LEAF_GAP = 120, M = 28;
+  var GX = 160, GY = 48, LEAF_GAP = 120, M = 28, SHAPES = {};
   var COL_W = 460, COL_GAP = 32, PAD = 32, COL_MAX = 4, SCREEN_W = 1600, SCREEN_H = 850, STEP_W = COL_W + PAD, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 220;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -257,7 +257,8 @@
   // of one step would (Jonan 2026-11-25, mesothelioma: three first-line steps each drew two lines to maintenance
   // and to second line, as two near uprights and a line looping round maintenance). The steps it leads to then
   // sit beside the steps before them, not in a branch below. The model is left as it is: each render starts
-  // again from the lines as written
+  // again from the lines as written. Lines merge only when they are of one kind as well: a step whose line is a
+  // join: (its own branch) never shares a junction with a step whose line to the same step is a next:
   function merged(list){
     var by = {}, col = {};
     list.forEach(function(n){ n.next0 = n.next0 || n.next; n.next = n.next0.map(function(e){ return {to:e.to, label:e.label, join:e.join, at:e.at}; }); by[n.label] = n; });
@@ -268,7 +269,7 @@
     var sets = {}, out = list.slice();
     list.forEach(function(n){
       if (n.next.length < 2) return;
-      var key = c(n) + '\u0001' + n.next.map(function(e){ return e.to + '\u0002' + e.label; }).sort().join('\u0001');
+      var key = c(n) + '\u0001' + n.next.map(function(e){ return e.to + '\u0002' + e.label + '\u0002' + (e.join ? 'j' : 'n'); }).sort().join('\u0001');
       (sets[key] = sets[key] || []).push(n);
     });
     Object.keys(sets).forEach(function(key, k){
@@ -410,9 +411,9 @@
     }
     var board = boardShape();
     var multiRoot = board && !!model.tree.parallel && steps.filter(function(n){ return n.col === 0; }).length > 1;
-    function layoutOnce(){
+    function layoutOnce(trial){
       if (board) layoutBoard(); else if (course) layoutCourse(); else layoutTree();
-      finish();
+      finish(trial);
     }
     // the map is laid out to show as large as it can on a PC screen: a 1920 x 1080 screen leaves a map area of
     // about SCREEN_W x SCREEN_H beside the site's sidebar (16:9 in full screen). Each block takes the number of
@@ -421,16 +422,23 @@
     function layout(){
       flows.forEach(function(f){ f(); });
       blocks.forEach(function(b){ b.cols(1); b.h1 = b.el.offsetHeight; b.c1 = b.el.querySelector('.cols') ? b.el.querySelector('.cols').offsetHeight : 0; });
-      function shape(r){
+      function shape(r, trial){
         // the bands start at one column and widen in bandsRow to the width of the map below them
         blocks.forEach(function(b){ b.cols(b.band ? 1 : Math.max(1, Math.min(COL_MAX, Math.round(Math.sqrt(b.h1 / (r * b.width(1))))))); });
-        layoutOnce();
+        layoutOnce(trial);
       }
-      var best = null;
-      for (var r = 0.08; r < 4; r *= 1.5) {
-        shape(r);
-        var fit = Math.min(SCREEN_W / W, SCREEN_H / H);
-        if (!best || fit > best.fit + 1e-4) best = {r: r, fit: fit};
+      // the shape chosen is kept for the page's life, under the map and the height of each block at one column, so
+      // opening the map again (or after the web font arrives with the same heights) lays it out once
+      var key = opts.id + ':' + blocks.map(function(b){ return b.h1 + '/' + b.c1; }).join(',');
+      var best = opts.id ? SHAPES[key] : null;
+      if (!best) {
+        // the trial layouts are measured only: their lines and labels are drawn for the one kept
+        for (var r = 0.08; r < 4; r *= 1.5) {
+          shape(r, true);
+          var fit = Math.min(SCREEN_W / W, SCREEN_H / H);
+          if (!best || fit > best.fit + 1e-4) best = {r: r, fit: fit};
+        }
+        if (opts.id) SHAPES[key] = best;
       }
       shape(best.r);
     }
@@ -699,7 +707,16 @@
       // steps joined by next: lines, in either direction, form one branch; separate branches are drawn
       // one below the other, set apart by a wider gap, so that no branch runs beside another.
       // A join: line keeps its two steps in separate branches; it runs from the branch above down to its step.
-      function reaches(a, z){ return a.next.some(function(e){ return e.node === z || reaches(e.node, z); }); }
+      // the steps each step leads to, directly or further on, found once per layout; a step already being
+      // followed is not entered again, so even lines that loop back end
+      var ahead = new Map();
+      function after(a){
+        if (ahead.has(a)) return ahead.get(a);
+        var s = new Set(); ahead.set(a, s);
+        a.next.forEach(function(e){ s.add(e.node); after(e.node).forEach(function(x){ s.add(x); }); });
+        return s;
+      }
+      function reaches(a, z){ return after(a).has(z); }
       var g = 0;
       steps.forEach(function(n){ n.group = null; });
       steps.forEach(function(n){
@@ -915,7 +932,7 @@
       });
     }
 
-    function finish(){
+    function finish(trial){
       W = 0; H = 0;
       Array.prototype.forEach.call(world.querySelectorAll('.blk'), function(el){
         W = Math.max(W, el.offsetLeft + el.offsetWidth); H = Math.max(H, el.offsetTop + el.offsetHeight);
@@ -923,6 +940,7 @@
       W += M; H += M;
       world.style.width = W + 'px'; world.style.height = H + 'px';
       wires.setAttribute('width', W); wires.setAttribute('height', H);
+      if (trial) return;
       wires.innerHTML = svg;
       centreLabels();
     }
@@ -1116,9 +1134,14 @@
       st.x = Math.min(Math.max(st.x, Math.min(0, vw - w) - pad), Math.max(0, vw - w) + pad);
       st.y = Math.min(Math.max(st.y, Math.min(0, vh - h) - pad), Math.max(0, vh - h) + pad);
     }
-    var saveT = null;
+    // while the map moves it is a layer of its own, so a pan or zoom moves the drawn map rather than drawing
+    // it again on every frame; once it rests the layer goes and the text is drawn sharp at the new size
+    var saveT = null, moveT = null;
     function apply(){
       clamp();
+      view.classList.add('moving');
+      clearTimeout(moveT);
+      moveT = setTimeout(function(){ view.classList.remove('moving'); }, 250);
       world.style.transform = 'translate(' + st.x + 'px,' + st.y + 'px) scale(' + st.s + ')';
       clearTimeout(saveT);
       saveT = setTimeout(function(){ try { sessionStorage.setItem('oncos-map-view-' + opts.id, JSON.stringify(st)); } catch(e){} }, 200);
