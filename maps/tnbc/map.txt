@@ -1,5 +1,6 @@
 # oncOS board map: Triple Negative BC (systemic course of early and metastatic triple-negative breast cancer)
 # Rows reviewed: 18a404294bdfcea5f47370dd97a8b5b1c15989a6 (2026-11-16)
+# Retagged to ESMO EBC 2026 on 2026-11-27, with the ASCO 2023 rapid update cited in the header (board-maps/breast-guideline-update-2026-11-27/change-list.md)
 # Draft 1, 2026-11-16. Rewritten from draft 0 after the independent review (board-maps/tnbc/independent-review.md,
 #   28 findings), then a prose review. Approved by Jonan 2026-11-16. Clinical content: board-maps/tnbc/guideline-read-notes.md and the
 #   per-guideline notes only
@@ -15,10 +16,10 @@
 #   Testing, regimens with doses, and toxicity are bands. Chemotherapy for metastatic disease and special
 #   populations are panels. Criteria (stage, size, nodes, PD-L1 cut-off, relapse interval) are written into the
 #   numbered lines (Jonan, no criteria table). Early special cases sit in the early steps: inflammatory and inoperable
-#   locally advanced disease with neoadjuvant therapy, secretory and adenoid cystic carcinoma with primary surgery
+#   locally advanced disease with neoadjuvant therapy, secretory, adenoid cystic, metaplastic and apocrine carcinoma with primary surgery
 # One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a difference
 #   (a cut-off, a line of treatment, a grade), a condition or a licence. One numbered line per population
-# Guideline set (Jonan 2026-11-16): PAGA 2024 (early) and 2023 (metastatic), ESMO 2024 (early) and 2026 with Living
+# Guideline set (Jonan 2026-11-16): PAGA 2024 (early) and 2023 (metastatic), ESMO 2026 (early, in place of ESMO 2024 from 2026-11-27) and 2026 with Living
 #   Guideline v2.0 (metastatic), ASCO, NCCN 9.2026, St Gallen 2025 (early) and ABC8 2026 (advanced). No JBCS.
 #   Tag order PAGA, ESMO, ASCO, NCCN, St Gallen, ABC8
 #   The ASCO 2021 neoadjuvant guideline (Korde) and its 2022 pembrolizumab update are archived (Jonan 2026-11-16) and
@@ -27,12 +28,14 @@
 #   〔PAGA level, grade〕 Pan-Asian adapted ESMO guidelines: early breast cancer 2024 (Park, ESMO Open 2024;9:102974) on
 #     the early steps, metastatic breast cancer 2023 (Im, ESMO Open 2023;8:101541) on the metastatic steps. A bare
 #     〔PAGA〕 marks body text, a figure footnote, an ungraded Table 1 row or a licence note
-#   〔ESMO level, grade〕 ESMO early breast cancer guideline 2024 (Loibl, Ann Oncol 2024;35:159-182) on the early steps,
+#   〔ESMO level, grade〕 ESMO early breast cancer guideline 2026 (Trapani, Ann Oncol 2026, journal pre-proof accepted
+#     9 November 2026, PMID 43085660; Supplementary Material not read) on the early steps,
 #     ESMO metastatic breast cancer guideline 2026 (de Azambuja, Ann Oncol 2026;37:1203-1219, Living Guideline v2.0) on
 #     the metastatic steps. A bare 〔ESMO〕 marks ungraded text, a figure or algorithm footnote, or a licence note
 #   〔ASCO quality, strength〕 ASCO chemotherapy and targeted therapy update for HER2-negative metastatic disease 2021
-#     (Moy) and the trastuzumab deruxtecan rapid update 2022 (Moy). A bare 〔ASCO〕 marks the unrated 2021 adjuvant
-#     olaparib update (Tung) or a qualifying statement
+#     (Moy) with its rapid updates of 2022 on trastuzumab deruxtecan (Moy) and of 2023 on sacituzumab govitecan (Moy,
+#     J Clin Oncol 2023;41:1318-1320, PMID 36626701). The 2023 update changes only the recommendation for HR-positive
+#     disease. A bare 〔ASCO〕 marks the unrated 2021 adjuvant olaparib update (Tung) or a qualifying statement
 #   〔NCCN category〕 NCCN Breast Cancer 9.2026 (22 October 2026), with "preferred" as printed. A bare 〔NCCN〕 marks a
 #     footnote, a dosing page or the Discussion
 #   〔St Gallen〕 St Gallen consensus 2025 (Burstein, Ann Oncol 2025;36:1433-1446), a panel vote with no grade. The
@@ -91,7 +94,8 @@ band: Regimens and doses in early disease
   ① Pembrolizumab with chemotherapy: pembrolizumab 200 mg every 3 weeks, with paclitaxel 80 mg/m² weekly and carboplatin AUC 5 every 3 weeks or AUC 1.5 weekly for four cycles, then with doxorubicin 60 mg/m² or epirubicin 90 mg/m² and cyclophosphamide 600 mg/m² every 3 weeks for four cycles, then pembrolizumab 200 mg every 3 weeks for nine cycles after surgery 〔NCCN 1, preferred〕
     ・Every preoperative cycle is given with G-CSF 〔NCCN〕
     ・The benefit of G-CSF with checkpoint inhibitor regimens is uncertain 〔PAGA〕
-  ② Dose-dense anthracycline and taxane with G-CSF 〔PAGA I, B〕 〔ESMO I, A〕: doxorubicin 60 mg/m² and cyclophosphamide 600 mg/m² every 14 days for four cycles, then paclitaxel 175 mg/m² every 14 days for four cycles or 80 mg/m² weekly for 12 weeks 〔NCCN〕
+  ② Dose-dense anthracycline and taxane with G-CSF 〔PAGA I, B〕 〔ESMO〕: doxorubicin 60 mg/m² and cyclophosphamide 600 mg/m² every 14 days for four cycles, then paclitaxel 175 mg/m² every 14 days for four cycles or 80 mg/m² weekly for 12 weeks 〔NCCN〕
+    ・With immunotherapy, dose-dense scheduling lacks high-level evidence and remains an option in high-risk disease 〔ESMO〕
   + INT C9741 (CALGB 9741) {pmid 12668651}
   + EBCTCG 2019 {pmid 30739743}
   + ECOG E1199 {pmid 18420499}
@@ -100,9 +104,10 @@ band: Regimens and doses in early disease
   + US Oncology 9735 {pmid 17135639}
   ⑤ Carboplatin and docetaxel with pembrolizumab: carboplatin AUC 6, docetaxel 75 mg/m² and pembrolizumab 200 mg every 21 days for six cycles before surgery, with G-CSF 〔NCCN 2A〕
   ※ Dose-dense doxorubicin and cyclophosphamide then paclitaxel, and docetaxel with cyclophosphamide, are preferred in stage I disease and can be considered in stage II and III disease when pembrolizumab is not given 〔NCCN 1, preferred〕
-  ※ Chemotherapy lasts 12 to 24 weeks, or four to eight cycles, with or without pembrolizumab 〔PAGA I, A〕 〔ESMO I, A〕
-  ※ Neoadjuvant therapy starts within 2 to 4 weeks of diagnosis, and adjuvant chemotherapy starts within 4 to 6 weeks of surgery 〔ESMO〕
+  ※ Chemotherapy lasts 12 to 24 weeks, or four to eight cycles, with or without pembrolizumab 〔PAGA I, A〕
+  ※ Neoadjuvant therapy starts promptly after staging, ideally within 2 to 4 weeks 〔ESMO V, A〕, and adjuvant chemotherapy starts within 4 to 6 weeks of surgery 〔ESMO IV, A〕
     ・Efficacy is reduced when adjuvant chemotherapy starts more than 12 weeks after surgery 〔ESMO〕
+    ・Surgery usually follows neoadjuvant chemotherapy within 4 to 6 weeks, and outcomes are worse with delays beyond 9 weeks 〔ESMO〕
   ※ Fertility preservation is discussed before systemic treatment 〔PAGA V, A〕 〔ESMO V, A〕
 
 band: Regimens and doses in metastatic disease
@@ -114,7 +119,7 @@ band: Regimens and doses in metastatic disease
   ⑥ Platinum with a germline BRCA1/2 variant: carboplatin AUC 6 every 21 to 28 days, or cisplatin 75 mg/m² every 21 days 〔NCCN〕
 
 band: Toxicity and monitoring
-  ① Patients on pembrolizumab are monitored closely for immune-related adverse events during and after treatment 〔PAGA V, A〕 〔ESMO V, A〕, including hypothyroidism and adrenal insufficiency 〔NCCN〕
+  ① Patients on pembrolizumab are monitored closely for immune-related adverse events during and after treatment 〔PAGA V, A〕, including hypothyroidism and adrenal insufficiency 〔NCCN〕
     ・Immune-related endocrine disease can be permanent, and the effect on fertility is unknown 〔St Gallen〕
     ・A history of autoimmune disease calls for an individual assessment of risk 〔ASCO〕
     ・Corticosteroids and antibiotics may reduce the efficacy of checkpoint inhibitors 〔ABC8 III/A〕
@@ -130,9 +135,10 @@ band: Toxicity and monitoring
 course: Systemic treatment of triple-negative breast cancer
   Triple-negative breast cancer
     ① Triple-negative disease is ER-negative and PgR-negative, with staining in fewer than 1% of cells, and HER2-negative 〔NCCN〕
-    ※ Some ER-low tumours (ER 1 to 9%) behave as triple-negative disease, with a higher response to chemotherapy and less benefit from endocrine therapy 〔PAGA II, B〕 〔ESMO II, B〕
-      ・The ER-low range is 1 to 10% 〔NCCN〕 〔ABC8〕
+    ※ Some ER-low tumours (ER 1 to 9%) behave as triple-negative disease, with a higher response to chemotherapy and less benefit from endocrine therapy 〔PAGA II, B〕, and are treated in a similar way 〔ESMO〕
+      ・The ER-low range is 1 to 10% 〔ESMO〕 〔NCCN〕 〔ABC8〕
       ・Endocrine therapy is standard in early ER-low disease 〔St Gallen〕, and the decision is individualised 〔NCCN〕
+      ・Omission of endocrine therapy may be associated with worse overall survival, particularly with residual disease after neoadjuvant therapy or ER of 6 to 10% 〔ESMO〕
       ・In stage II, high-grade ER-low disease, neoadjuvant chemotherapy with an immune checkpoint inhibitor is recommended 〔St Gallen〕
       ・In metastatic ER-low disease, treatment options extend beyond endocrine therapy, and trials for triple-negative disease are open to these patients 〔ABC8 III/B〕
     next: Early disease: neoadjuvant therapy | Treatment before surgery
@@ -141,27 +147,28 @@ course: Systemic treatment of triple-negative breast cancer
   Early disease: neoadjuvant therapy
     branch: NEO
     ① Stage II and III, cT2 to cT4 or node-positive: pembrolizumab with paclitaxel and carboplatin, followed by pembrolizumab with an anthracycline and cyclophosphamide 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔St Gallen〕
-      ・Pembrolizumab is withheld when risk factors for excessive immune toxicity are present 〔PAGA〕 〔ESMO〕
+      ・Pembrolizumab is withheld when risk factors for excessive immune toxicity are present 〔PAGA〕
     + KEYNOTE-522 {pmid 32101663}
     ② cT1c cN0: neoadjuvant chemotherapy without pembrolizumab 〔PAGA I, A〕 〔ESMO I, A〕
-      ・The regimen is a taxane, with or without carboplatin, and an anthracycline with cyclophosphamide 〔ESMO I, A〕
+      ・Regimens include an anthracycline with cyclophosphamide followed by a taxane, with carboplatin 〔ESMO〕
       ・Preoperative chemotherapy can be considered at cT1c cN0, and is preferred from cT2 or cN1 〔NCCN 2A〕
       ・Neoadjuvant therapy is favoured from about 2 cm, and a T1c N0 tumour is treated with surgery followed by an anthracycline and a taxane 〔St Gallen〕
-    ③ Stage II and III when pembrolizumab is not given: an anthracycline with cyclophosphamide and a taxane, with carboplatin 〔ESMO〕 〔NCCN 2A〕 〔St Gallen〕 or without it 〔ESMO〕 〔NCCN 2A〕
-      ・The regimen with carboplatin is preferred 〔St Gallen〕
-      ・Carboplatin raises the rate of pathological complete response and reduces recurrence, without a proven gain in overall survival 〔ESMO〕 〔St Gallen〕
-      ・The benefit of carboplatin is independent of germline BRCA1/2 status 〔ESMO〕
+    ③ Stage II and III when pembrolizumab is not given: an anthracycline with cyclophosphamide and a taxane, with carboplatin 〔ESMO〕 〔NCCN 2A〕 〔St Gallen〕 or without it 〔NCCN 2A〕
+      ・The regimen with carboplatin is preferred 〔ESMO〕 〔St Gallen〕, whatever the germline BRCA1/2 status 〔ESMO〕
+      ・Carboplatin raises the rate of pathological complete response 〔St Gallen〕 and improves disease-free survival 〔ESMO〕 〔St Gallen〕, at the cost of more haematological toxicity 〔ESMO〕
+      ・Carboplatin improves overall survival, with a greater benefit suggested before menopause 〔ESMO〕
+      ・A gain in overall survival with carboplatin is not proven 〔St Gallen〕
     ~ GeparSixto (GBG 66) {pmid 24794243}
     ~ CALGB 40603 {pmid 25092775}
     ~ BrighTNess {pmid 29501363}
     - Gupta et al. (TMC) {pmid 41115255}
-    ④ Anthracycline contraindicated: six cycles of docetaxel with cyclophosphamide, or of a taxane with carboplatin 〔ESMO〕
-      ・Carboplatin and docetaxel with pembrolizumab for six cycles is a preoperative option 〔NCCN 2A〕
+    ④ Anthracycline contraindicated: a regimen without an anthracycline is an option 〔ESMO V, B〕, such as carboplatin and docetaxel with pembrolizumab for six cycles before surgery 〔ESMO〕 〔NCCN 2A〕
       ~ NeoPACT {pmid 37991778}
     ⑤ Inoperable locally advanced or inflammatory disease: chemotherapy with an anthracycline, a taxane and a platinum, with pembrolizumab whatever the PD-L1 status 〔ABC8 I/A〕
-    ※ A pathological complete response carries a lower risk of recurrence 〔ESMO〕, and its association with survival is strongest in triple-negative disease 〔NCCN〕
+    ※ Neoadjuvant chemotherapy can be considered in triple-negative lobular carcinoma 〔ESMO IV, B〕
+    ※ The association of a pathological complete response with survival is strongest in triple-negative disease 〔NCCN〕
       * CTNeoBC {pmid 24529560}
-    ※ Neoadjuvant durvalumab with chemotherapy, without an adjuvant phase, improved survival without a significant rise in pathological complete response 〔ESMO〕 〔St Gallen〕
+    ※ Neoadjuvant durvalumab with chemotherapy, without an adjuvant phase, improved survival without a significant rise in pathological complete response 〔St Gallen〕
       ・Durvalumab has no licence in breast cancer
       - GeparNuevo {pmid 31095287}
     next: Early disease: after neoadjuvant therapy and surgery
@@ -169,14 +176,17 @@ course: Systemic treatment of triple-negative breast cancer
     branch: NEO pale
     ① After neoadjuvant pembrolizumab, whatever the pathological response: pembrolizumab every 3 weeks for nine cycles 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕 〔St Gallen〕
       ・After a complete response, adjuvant pembrolizumab is given only for high-risk disease 〔NCCN 2A〕
-      ・With residual disease, capecitabine, or olaparib when a germline BRCA1/2 variant is present, can be given with or after pembrolizumab 〔PAGA V, C〕 〔ESMO V, C〕 〔NCCN〕 〔St Gallen〕
+      ・With residual disease, capecitabine, or olaparib when a germline BRCA1/2 variant is present, can be given with or after pembrolizumab 〔PAGA V, C〕 〔NCCN〕 〔St Gallen〕
+      ・Capecitabine for residual disease is recommended after any neoadjuvant chemotherapy 〔ESMO I, A〕
+      ・Olaparib can be combined with pembrolizumab or follow it 〔ESMO〕
     + KEYNOTE-522 {pmid 32101663}
     ② Residual disease without neoadjuvant pembrolizumab: capecitabine 1000 to 1250 mg/m² twice daily on days 1 to 14 every 21 days for six to eight cycles 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A, preferred〕
     + CREATE-X (JBCRG-04) {pmid 28564564}
     ※ A platinum agent in place of capecitabine did not improve invasive disease-free survival in residual basal-subtype disease and caused more severe toxicity
       - ECOG-ACRIN EA1131 {pmid 34092112}
-    ③ Residual disease with a germline BRCA1/2 variant: olaparib 300 mg twice daily for 1 year 〔PAGA I, A〕 〔ESMO I, A〕 〔ASCO〕 〔NCCN 1, preferred〕 〔St Gallen〕
-      ・Olaparib is not combined with capecitabine 〔PAGA I, E〕 〔ESMO V, C〕
+    ③ Residual disease with a germline BRCA1/2 variant: olaparib 300 mg twice daily for 1 year 〔PAGA I, A〕 〔ASCO〕 〔NCCN 1, preferred〕 〔St Gallen〕
+      ・The indication is residual pT2 to pT4 pN0 disease after any neoadjuvant chemotherapy 〔ESMO I, A〕
+      ・Olaparib is not combined with capecitabine 〔PAGA I, E〕
       ・Olaparib has not been compared with capecitabine, which was not permitted in OlympiA 〔ASCO〕 〔NCCN〕
       ・Germline PALB2 variants are treated in the same way 〔St Gallen〕
       ・After treatment for inoperable locally advanced or inflammatory disease, olaparib with pembrolizumab is preferred to capecitabine with pembrolizumab 〔ABC8 III/B〕
@@ -185,19 +195,22 @@ course: Systemic treatment of triple-negative breast cancer
   Early disease: primary surgery, then adjuvant chemotherapy
     branch: SURG
     ① cT1a–b cN0: primary surgery, with adjuvant treatment by pathological stage 〔ESMO〕
-    ② pT1a pN0: no adjuvant chemotherapy 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕
+    ② pT1a pN0: no adjuvant chemotherapy 〔PAGA II, B〕 〔ESMO IV, D〕 〔NCCN 2A〕
       ・Chemotherapy can be considered with high-risk features, such as young age with high-grade histology 〔NCCN 2B〕
-    ③ pT1b pN0: adjuvant chemotherapy 〔PAGA I, A〕 〔ESMO I, A〕 〔St Gallen〕
-      ・The benefit at this size is unclear 〔ESMO〕, and chemotherapy is considered 〔NCCN 2A〕
+    ③ pT1b pN0: adjuvant chemotherapy 〔PAGA I, A〕 〔St Gallen〕
+      ・Adjuvant systemic therapy is considered individually 〔ESMO IV, C〕 〔NCCN 2A〕
       ・Docetaxel with cyclophosphamide is the regimen for tumours of 1 cm or less 〔St Gallen〕
-    ④ pT1c or larger, or node-positive: adjuvant chemotherapy 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕, with an anthracycline and a taxane 〔ESMO〕 〔St Gallen〕
+    ④ pT1c or larger, or node-positive: adjuvant chemotherapy 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1〕, with an anthracycline and a taxane 〔St Gallen〕
       ・In stage II and III disease, carboplatin is added to the anthracycline, cyclophosphamide and taxane 〔St Gallen〕
       ~ PEARLY {pmid 42218963}
       + RJBC-1501 {pmid 41365333}
-      ・Weekly paclitaxel with carboplatin is an option 〔NCCN 2A〕
+      ・Weekly paclitaxel with carboplatin is an option 〔NCCN 2A〕, including selected high-risk stage I disease 〔ESMO〕
       ~ PATTERN {pmid 32789480}
-    ⑤ Node-negative secretory or adenoid cystic carcinoma: no chemotherapy 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN 2A〕
-    ※ An immune checkpoint inhibitor is not started after surgery when none was given before it 〔PAGA V, D〕 〔ESMO V, D〕 〔St Gallen〕
+    ⑤ Node-negative secretory or adenoid cystic carcinoma: no chemotherapy 〔PAGA II, B〕 〔NCCN 2A〕
+      ・Adjuvant chemotherapy is not routinely recommended for classical well-differentiated adenoid cystic carcinoma 〔ESMO IV, D〕
+      ・Higher-grade or solid-basaloid adenoid cystic carcinoma, and node-positive disease, are considered individually 〔ESMO IV, C〕
+    ⑥ Stage I node-negative low-grade metaplastic carcinoma or low-risk apocrine carcinoma: no chemotherapy 〔ESMO IV, D〕
+    ※ An immune checkpoint inhibitor is not started after surgery when none was given before it 〔PAGA V, D〕 〔St Gallen〕
       - ALEXANDRA/IMpassion030 {pmid 39883436}
     next: Early disease: after adjuvant chemotherapy
   Early disease: after adjuvant chemotherapy
@@ -207,7 +220,6 @@ course: Systemic treatment of triple-negative breast cancer
       ・Germline PALB2 variants are treated in the same way 〔St Gallen〕
     + OlympiA {pmid 34081848}
     ※ Capecitabine 650 mg/m² twice daily for 1 year after adjuvant chemotherapy is useful in certain circumstances 〔NCCN〕
-      ・Low-dose capecitabine improved outcomes after adjuvant chemotherapy that contained no platinum 〔ESMO〕
       ~ SYSUCC-001 {pmid 33300950}
   Metastatic disease: first line
     branch: MET
@@ -279,8 +291,8 @@ panel: Chemotherapy in metastatic disease > Metastatic disease: first line
     ・Bevacizumab is an option only in selected cases in the first line, and consensus was not reached 〔ABC8 I/C〕
 
 panel: Special populations
-  ① Older patients: treatment by biological age, with a standard multidrug regimen for fit patients 〔PAGA II, B〕 〔ESMO II, B〕, after geriatric assessment 〔PAGA II, A〕 〔ESMO II, A〕 〔ABC8 I/A〕
-  ② Men: the same systemic therapy as for women 〔PAGA IV, A〕 〔ESMO IV, A〕 〔NCCN〕, with germline testing for every man 〔NCCN〕 〔St Gallen〕 〔ABC8 II/A〕
+  ① Older patients: treatment by biological age after geriatric assessment 〔PAGA II, A〕 〔ESMO III, A〕 〔ABC8 I/A〕, with standard treatment and appropriate adaptation for fit patients 〔ESMO I, A〕, including a standard multidrug regimen 〔PAGA II, B〕
+  ② Men: the same systemic therapy as for women 〔PAGA IV, A〕 〔ESMO V, A〕 〔NCCN〕, with genetic counselling and germline testing for every man 〔ESMO V, A〕 〔NCCN〕 〔St Gallen〕 〔ABC8 II/A〕
   ③ Pregnancy: chemotherapy in the second and third trimesters, up to 35 weeks 〔NCCN〕 〔ABC8 II/A〕
     ・Checkpoint inhibitors, PARP inhibitors and antibody-drug conjugates are contraindicated 〔NCCN〕
   ④ Resected isolated locoregional recurrence: chemotherapy 〔ABC8 I/B〕

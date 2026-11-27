@@ -1,6 +1,7 @@
 # oncOS board map: HER2+ EBC (systemic course of stage I to III HER2-positive breast cancer)
 # Rows reviewed: 73a732d70e7e7b56f8e3269bff97c4fb93cbb5be (2026-11-16)
 # 2026-11-15, approved by Jonan for publication (oncos PR #83). Endocrine-alone line under pT1a-b removed by Jonan 2026-11-15
+#   Retagged to ESMO 2026 on 2026-11-27 (board-maps/breast-guideline-update-2026-11-27/change-list.md)
 #   Structure plan: board-maps/her2-ebc/structure-plan.md. Changes from draft 0: board-maps/her2-ebc/draft1-changes.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Scope (Jonan 2026-11-15): the systemic course, with two panels: cardiac monitoring, and endocrine therapy and neratinib
@@ -17,15 +18,15 @@
 #   resting on the chip below it
 # One narrative: a point several guidelines agree on is one statement with all their tags. A ・ line gives a real
 #   difference (a population, a cut-off, a grade, an order) or a licence. One numbered line per population
-# Guideline set (Jonan 2026-11-15): PAGA 2024, ESMO 2024, NCCN 9.2026 and St Gallen 2025, with ESC 2022 and the US
+# Guideline set (Jonan 2026-11-15): PAGA 2024, ESMO 2026 (in place of ESMO 2024 from 2026-11-27), NCCN 9.2026 and St Gallen 2025, with ESC 2022 and the US
 #   trastuzumab label on the cardiac panel only. Tag order PAGA, ESMO, NCCN, St Gallen, ESC, FDA label. No JBCS. The ASCO guidelines are archived and left out
 # Tags give the grade as printed, on the statement the guideline graded: evidence first and strength second, except
 #   〔ESC〕, which keeps its printed class then level. A tag at the end of an option covers the option. Doses, cycles and
 #   durations on that line follow NCCN and the trial rows (St Gallen prints only the 18-week THP course):
 #   〔PAGA level, grade〕 Pan-Asian adapted ESMO guideline 2024 (Park, ESMO Open 2024;9:102974)
-#   〔ESMO level, grade〕 ESMO early breast cancer guideline 2024 (Loibl, Ann Oncol 2024;35:159-182). A bare 〔ESMO〕 marks
-#     ungraded text or a figure footnote. Where Figure 6 and the text differ in grade, the grade of the text is used
-#     (pT2 pN0: I, A in the text, I, B in the figure). The pT1c pN0 line rests on the Figure 6 box for pT1 pN0
+#   〔ESMO level, grade〕 ESMO early breast cancer guideline 2026 (Trapani, Ann Oncol 2026, journal pre-proof accepted
+#     9 November 2026, PMID 43085660), which supersedes the 2024 guideline. A bare 〔ESMO〕 marks ungraded text or a
+#     figure footnote. ESMO-MCBS scores are not shown. The Supplementary Material was not read
 #   〔NCCN category〕 NCCN Breast Cancer 9.2026 (22 October 2026), with "preferred" as printed. A bare 〔NCCN〕 marks a
 #     footnote, a principles page or the Discussion
 #   〔ASCO-CAP〕 ASCO-CAP HER2 testing guideline update 2023 (Wolff, J Clin Oncol 2023;41:3867-3872), read in full from
@@ -50,16 +51,16 @@
 #   tested change, * no comparison for the statement. Single-arm trials go under off: (Jonan)
 # Exceptions (Jonan 2026-11-15, decided):
 #   Rule ⑦: trastuzumab deruxtecan then THP before surgery, and trastuzumab deruxtecan for high-risk residual disease,
-#     are numbered options. Only NCCN grades DESTINY-Breast05 and -11 because the other guidelines were written before
-#     them. To reverse, recast each as a ・ line under the matching option (the neoadjuvant option for tumours over 2 cm
-#     or node-positive, and the residual-disease trastuzumab emtansine line), with its chip right under it
+#     became numbered options on 2026-11-15 while NCCN alone graded them. ESMO 2026 now grades both (DESTINY-Breast11
+#     I, B and DESTINY-Breast05 I, A), so they are numbered options under the usual rules. PAGA 2024 and St Gallen 2025
+#     were written before the trials
 #   APT stays as a ~ chip under the pT1a-b pN0 line, a single-arm exception like LORIN on the early NSCLC map: the
 #     guidelines rest paclitaxel with trastuzumab for small node-negative tumours on it, and no randomised trial of that
 #     option exists
 
 map: HER2+ EBC
 source: PAGA {url https://doi.org/10.1016/j.esmoop.2024.102974}
-source: ESMO {url https://doi.org/10.1016/j.annonc.2023.11.016}
+source: ESMO {url https://doi.org/10.1016/j.annonc.2026.11.003}
 source: NCCN {url https://www.nccn.org/guidelines/category_1}
 source: ASCO-CAP {url https://doi.org/10.1200/JCO.22.02864}
 source: St {url https://doi.org/10.1016/j.annonc.2025.09.007}
@@ -78,45 +79,52 @@ band: HER2 testing and work-up
     ・IHC 0 and 1+ are both HER2-negative. The IHC score is always reported, because IHC 1+, or 2+ without amplification, gives eligibility for trastuzumab deruxtecan 〔NCCN〕 〔ASCO-CAP〕
   ※ After a negative HER2 result on a core biopsy, a new test on the excision specimen can be ordered on clinical criteria such as grade 3 〔ASCO-CAP〕
   ② ER, PgR, HER2 and a proliferation marker such as Ki-67 are assessed on every tumour before treatment 〔PAGA I, A〕 〔ESMO I, A〕
-  ※ The HER2DX genomic assay is not recommended for routine treatment decisions 〔St Gallen〕
+  ※ Genomic assays such as HER2DX remain investigational 〔ESMO〕, and HER2DX is not recommended for routine treatment decisions 〔St Gallen〕
 
 band: Chemotherapy and anti-HER2 regimens
   ① Trastuzumab is given with chemotherapy 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕
+    ・Anti-HER2 therapy lasts 12 months, with chemotherapy for 12 to 24 weeks before or after surgery 〔ESMO〕
   + NSABP B-31 / NCCTG N9831 {pmid 16236738}
   + HERA {pmid 16236737}
   + BCIRG 006 {pmid 21991949}
   + EBCTCG 2021 {pmid 34339645}
-  ② The chemotherapy is a taxane with carboplatin, or an anthracycline followed by a taxane 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕 〔St Gallen〕
-    ・Docetaxel with carboplatin is preferred 〔NCCN〕 〔St Gallen〕
+  ② The chemotherapy is a taxane with carboplatin 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 2A〕 〔St Gallen〕, or an anthracycline followed by a taxane 〔PAGA I, A〕 〔ESMO I, B〕 〔NCCN 2A〕 〔St Gallen〕
+    ・The regimen without an anthracycline is preferred 〔ESMO〕 〔NCCN〕 〔St Gallen〕, given as docetaxel with carboplatin 〔NCCN〕 〔St Gallen〕
   * TRYPHAENA {pmid 23704196}
   - TRAIN-2 {pmid 30413379}
   - Villacampa 2023 {pmid 37142539}
-  ※ A taxane with trastuzumab and pertuzumab, without carboplatin, is an option 〔NCCN 2A〕 〔St Gallen〕
+  ※ A taxane with trastuzumab and pertuzumab, without carboplatin, is an option 〔ESMO I, C〕 〔NCCN 2A〕 〔St Gallen〕
     ・Docetaxel and carboplatin with trastuzumab and pertuzumab is preferred in higher-risk disease, including stage III and inflammatory disease 〔St Gallen〕
     ~ neoCARHP {pmid 41576297}
     ~ HELEN-006 {pmid 39612919}
   ※ Docetaxel 75 mg/m² and carboplatin AUC 6 are given every 21 days for six cycles, with trastuzumab and pertuzumab every 21 days 〔NCCN〕
   ※ An FDA-approved biosimilar can replace trastuzumab, and subcutaneous trastuzumab, or subcutaneous pertuzumab with trastuzumab, can replace the intravenous drugs 〔NCCN〕
-  ③ Older patients: geriatric assessment 〔PAGA II, A〕 〔ESMO II, A〕, and a standard multidrug regimen when fit 〔PAGA II, B〕 〔ESMO II, B〕
-  ※ Men receive the same chemotherapy and anti-HER2 therapy as women 〔PAGA IV, A〕 〔ESMO IV, A〕 〔NCCN〕
-  ° Toxicity of note: cardiac toxicity and secondary acute myeloid leukaemia with anthracyclines 〔ESMO〕
+  ③ Older patients: geriatric assessment 〔PAGA II, A〕 〔ESMO III, A〕, and standard treatment with appropriate adaptation when fit 〔ESMO I, A〕, with a standard multidrug regimen 〔PAGA II, B〕
+  ※ Men receive the same chemotherapy and anti-HER2 therapy as women 〔PAGA IV, A〕 〔ESMO V, A〕 〔NCCN〕
+  ° Toxicity of note: cardiac toxicity and, rarely, secondary leukaemia with anthracyclines 〔ESMO〕
 
 course: Systemic treatment of stage I to III HER2-positive breast cancer | parallel
   Neoadjuvant therapy
     branch: NEO
-    ① Tumour over 2 cm or node-positive: chemotherapy with trastuzumab and pertuzumab 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕 〔St Gallen〕, with the whole chemotherapy course given before surgery 〔ESMO I, A〕 〔NCCN〕
+    ① Tumour over 2 cm or node-positive: chemotherapy with trastuzumab and pertuzumab 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕 〔St Gallen〕, with the whole chemotherapy course given before surgery 〔NCCN〕
     ~ NeoSphere {pmid 22153890}
-    ② Node-positive, cT3 to cT4 or inflammatory disease, with no interstitial lung disease or pneumonitis at screening, no history of it that needed steroids, and ECOG performance status 0 or 1: four cycles of trastuzumab deruxtecan followed by four cycles of paclitaxel with trastuzumab and pertuzumab 〔NCCN 2A, preferred〕
+    ② Node-positive, cT3 to cT4 or inflammatory disease, with no interstitial lung disease or pneumonitis at screening, no history of it that needed steroids, and ECOG performance status 0 or 1: four cycles of trastuzumab deruxtecan followed by four cycles of paclitaxel with trastuzumab and pertuzumab 〔ESMO I, B〕 〔NCCN 2A, preferred〕
+      ・This sequence is considered particularly when an anthracycline is unsuitable 〔ESMO〕
+      ・Trastuzumab deruxtecan before surgery has an FDA licence and no EMA licence 〔ESMO〕
     ~ DESTINY-Breast11 {pmid 41130363}
-    ③ cT1 cN0: neoadjuvant therapy can be considered in cT1c disease 〔ESMO〕 〔NCCN〕, and in cT1a-b disease 〔ESMO〕
+    ③ cT1c cN0: neoadjuvant therapy can be considered 〔NCCN〕
+      ・cT1 cN0 disease is treated with primary surgery 〔ESMO〕
+    ※ Neoadjuvant chemotherapy can be considered in HER2-positive lobular carcinoma 〔ESMO IV, B〕
     ※ The response at surgery guides adjuvant treatment 〔ESMO〕 〔St Gallen〕
       * CTNeoBC {pmid 24529560}
     ※ Progression during neoadjuvant therapy leads to surgery when the tumour is resectable, or to another systemic regimen 〔NCCN〕
     next: After neoadjuvant therapy and surgery
   Primary surgery, then adjuvant therapy by pathological stage
     branch: SURG
-    ① pT1a-b pN0: weekly paclitaxel for 12 weeks with trastuzumab for 1 year 〔PAGA III, B〕 〔ESMO III, B〕 〔St Gallen〕
+    ① pT1a-b pN0: weekly paclitaxel for 12 weeks with trastuzumab for 1 year 〔PAGA III, B〕 〔St Gallen〕
+      ・Paclitaxel with trastuzumab can be recommended in pT1b disease 〔ESMO III, B〕, and may be considered in selected pT1a disease 〔ESMO III, C〕
       ・Chemotherapy with trastuzumab can be considered in pT1b disease 〔NCCN 2A〕 and in pT1a disease 〔NCCN 2B〕
+      ・Paclitaxel with trastuzumab has no EMA or FDA approval in this setting 〔ESMO〕
       ・The tumour size threshold for chemotherapy with trastuzumab is about 0.5 cm 〔St Gallen〕
     ~ APT {pmid 25564897}
     ② pT1c pN0: weekly paclitaxel with trastuzumab 〔ESMO III, B〕 〔St Gallen〕, or chemotherapy with trastuzumab 〔NCCN 1〕
@@ -137,12 +145,14 @@ course: Systemic treatment of stage I to III HER2-positive breast cancer | paral
       ・When nodes were negative at diagnosis, trastuzumab is given alone 〔ESMO I, A〕, and pertuzumab is optional 〔NCCN 1〕
       ・Trastuzumab is given with pertuzumab whenever pertuzumab was given before surgery 〔St Gallen〕
     ~ APHINITY {pmid 28581356}
-    ② Residual invasive disease in cancer inoperable at presentation (cT4, or cN2 to cN3) or operable with ypN1 to ypN3: trastuzumab deruxtecan 5.4 mg/kg every 21 days for 14 cycles 〔NCCN 1, preferred〕
+    ② Residual invasive disease in cancer inoperable at presentation (cT4, or cN2 to cN3) or operable with ypN1 to ypN3: trastuzumab deruxtecan 5.4 mg/kg every 21 days for 14 cycles 〔ESMO I, A〕 〔NCCN 1, preferred〕
+      ・Trastuzumab deruxtecan after surgery is given only if it was not given before surgery 〔ESMO〕
+      ・Trastuzumab deruxtecan after surgery has an FDA licence and a positive CHMP opinion in the EU 〔ESMO〕
       ・DESTINY-Breast05 required at least 9 weeks each of a neoadjuvant taxane and trastuzumab, with or without pertuzumab, and excluded current or previous interstitial lung disease or pneumonitis
     ~ DESTINY-Breast05 {pmid 41370739}
-    ③ Residual invasive disease: trastuzumab emtansine 3.6 mg/kg every 21 days for 14 cycles 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN 1, preferred〕 〔St Gallen〕
+    ③ Residual invasive disease: trastuzumab emtansine 3.6 mg/kg every 21 days for 14 cycles 〔PAGA I, A〕 〔NCCN 1, preferred〕 〔St Gallen〕
+      ・Trastuzumab emtansine is given for residual node-negative disease 〔ESMO I, A〕
     + KATHERINE {pmid 30516102}
-    ※ Residual nodal micrometastases count as residual disease 〔ESMO〕
     ※ The residual-disease options do not apply to residual ductal carcinoma in situ alone 〔NCCN〕
     ※ When trastuzumab emtansine stops for toxicity, trastuzumab, with or without pertuzumab, completes 1 year of therapy, with pertuzumab when nodes were positive at diagnosis 〔NCCN 1〕
     ° Toxicity of note: interstitial lung disease with trastuzumab deruxtecan
@@ -152,25 +162,25 @@ course: Systemic treatment of stage I to III HER2-positive breast cancer | paral
       ・Six months of anti-HER2 therapy may be non-inferior in selected low-risk situations 〔PAGA〕 〔ESMO〕
         ~ PERSEPHONE {pmid 31178152}
         - PHARE {pmid 23764181}
-      ・Where 12 months of treatment cannot be provided, its benefit over 6 months is weighed against the risk of recurrence 〔ESMO〕
-        ~ Gulia 2020 {pmid 32833018}
-    ※ Trastuzumab for 2 years does not improve outcome over 1 year 〔ESMO〕 〔NCCN〕
+    ※ Trastuzumab for 2 years does not improve outcome over 1 year 〔NCCN〕
       - HERA {pmid 16236737}
-    ※ Anti-HER2 therapy can be given with radiotherapy and endocrine therapy 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕
+    ※ Anti-HER2 therapy can be given with radiotherapy 〔PAGA I, A〕 〔ESMO III, B〕 〔NCCN〕, and with endocrine therapy 〔PAGA I, A〕 〔ESMO I, A〕 〔NCCN〕
 
 panel: Endocrine therapy and neratinib > Completing 1 year of anti-HER2 therapy
-  ① HR-positive: endocrine therapy 〔ESMO I, A〕 〔NCCN 1〕 〔St Gallen〕, given after chemotherapy 〔NCCN〕
+  ① HR-positive: endocrine therapy 〔ESMO I, A〕 〔NCCN 1〕 〔St Gallen〕, given after chemotherapy 〔ESMO I, A〕 〔NCCN〕
+  ※ Endocrine therapy can be adapted to whether neoadjuvant therapy achieved a pathological complete response 〔ESMO〕
   ※ The endocrine drug is chosen as in HER2-negative disease 〔NCCN 1〕
   ※ In premenopausal women at higher risk of recurrence, marked by young age or long life expectancy, a high-grade tumour or nodal involvement, 5 years of tamoxifen or an aromatase inhibitor with ovarian function suppression should be considered 〔NCCN 1〕
   ※ Ovarian function suppression for 5 years is optimal, with at least 2 years encouraged 〔NCCN〕
-  ※ In men, an aromatase inhibitor is given only with a GnRH agonist 〔ESMO IV, A〕 〔NCCN〕
+  ※ In men, an aromatase inhibitor is given only with a GnRH agonist 〔NCCN〕
+    ・Tamoxifen or an aromatase inhibitor with a GnRH agonist is an option in men 〔ESMO III, B〕
   ② HR-positive at high risk, after 1 year of trastuzumab: neratinib for 1 year can be considered 〔PAGA I, B〕 〔ESMO I, B〕 〔NCCN 2A〕
     ・Neratinib is not approved for early breast cancer in Indonesia, Japan, the Philippines and Thailand 〔PAGA〕
   ~ ExteNET {pmid 26874901}
   ※ The benefit of neratinib after pertuzumab or trastuzumab emtansine is unknown 〔NCCN〕
   ※ CDK4/6 inhibitors have not been studied in HER2-positive early breast cancer 〔NCCN〕
   ※ Neratinib starts at 120 mg daily and reaches 240 mg daily from day 15 〔NCCN〕
-  ° Toxicity of note: diarrhoea with neratinib, with lower grade 3 rates when dose escalation and prophylaxis are used 〔ESMO〕
+  ° Toxicity of note: diarrhoea with neratinib, which needs proactive management 〔ESMO〕
 
 panel: Cardiac monitoring
   ① Cardiac function is assessed before, during and after anti-HER2 therapy 〔PAGA II, B〕 〔ESMO II, B〕 〔NCCN〕 〔ESC I, B〕 〔FDA label〕
@@ -194,7 +204,7 @@ panel: Cardiac monitoring
     ・An ACE inhibitor or angiotensin receptor blocker with a beta-blocker should be considered for primary prevention 〔ESC IIa, B〕
   ⑦ After adjuvant trastuzumab, LVEF is measured every 6 months for at least 2 years 〔FDA label〕
     ・An echocardiogram is recorded within 12 months after the end of treatment 〔ESC I, B〕
-    ・Without symptoms and with normal cardiac function, cardiac follow-up is as clinically indicated 〔PAGA III, B〕 〔ESMO III, B〕
+    ・Without symptoms and with normal cardiac function, cardiac follow-up is as clinically indicated 〔PAGA III, B〕
     ・A cardiovascular risk assessment with an ECG and natriuretic peptide takes place every year 〔ESC I, B〕
   ※ Concurrent use of trastuzumab and pertuzumab with an anthracycline should be avoided 〔NCCN〕
   ※ A taxane with carboplatin causes less cardiac toxicity than an anthracycline regimen 〔ESMO〕 〔NCCN〕
@@ -207,4 +217,5 @@ off:
   PHERGain-2 {pmid 42097893} | Single-arm trial. Maps cite randomised trials and meta-analyses only (Jonan). Chemotherapy-free neoadjuvant treatment is not a guideline option
   KRISTINE (TRIO-021) {pmid 29175149} | Neoadjuvant trastuzumab emtansine with pertuzumab is not a standard option, and the trial was negative against docetaxel and carboplatin with trastuzumab and pertuzumab. Standard options only (map rules)
   WSG-ADAPT-TP {pmid 36809046} | Neoadjuvant trastuzumab emtansine or trastuzumab with endocrine therapy and no chemotherapy is not a standard option. Cited by no guideline in the set
+  Gulia 2020 {pmid 32833018} | Meta-analysis of 6 against 12 months of trastuzumab. The statement it supported, weighing 12 against 6 months where 12 months cannot be provided, rested on ESMO 2024 alone and has no counterpart in ESMO 2026 (2026-11-27). The 6-month line rests on PERSEPHONE and PHARE
   WSG-TP-II {pmid 42150145} | Neoadjuvant endocrine therapy with trastuzumab and pertuzumab in place of chemotherapy is not a standard option. Cited by no guideline in the set
