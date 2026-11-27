@@ -1,28 +1,2 @@
 # Trials on the Melanoma map with no Evidence row yet (name, PMID, where on the map)
-CheckMate 511	PMID 30811280	Regimens
-OpACIN-neo	PMID 31160251	Resectable stage III with clinically detected nodes
-IMMUNED	PMID 32416781	Resected stage III or IV: adjuvant therapy
-CheckMate 915	PMID 36162037	Resected stage III or IV: adjuvant therapy
-RELATIVITY-098	PMID 41109920	Resected stage III or IV: adjuvant therapy
-SWOG S1404	PMID 34764195	Resected stage III or IV: adjuvant therapy
-E1609	PMID 31880964	Resected stage III or IV: adjuvant therapy
-BRIM8	PMID 29477665	Resected stage III or IV: adjuvant therapy
-ANZMTG 01.02/TROG 02.01	PMID 26206146	Resected stage III or IV: adjuvant therapy
-Lian 2013	PMID 23833309	Resected stage III or IV: adjuvant therapy
-MASTERKEY-265	PMID 35998300	Unresectable stage III or stage IV cutaneous melanoma
 IMspire150	PMID 32534646	First-line systemic therapy
-KEYNOTE-022	PMID 31171878	First-line systemic therapy
-SWOG S1616	PMID 37592104	Progression after first-line therapy
-RELATIVITY-020	PMID 36780608	Progression after first-line therapy
-LEAP-004	PMID 35867951	Progression after first-line therapy
-Hodi 2013	PMID 23775962	Progression after first-line therapy
-Guo 2011	PMID 21690468	Progression after first-line therapy
-TEAM	PMID 28327988	Progression after first-line therapy
-NEMO	PMID 28284557	Progression after first-line therapy
-GEM-1402	PMID 33417511	Metastatic uveal melanoma
-Pelster 2021	PMID 33125309	Metastatic uveal melanoma
-SCANDIUM	PMID 36940407	Liver-directed therapy
-FOCUS	PMID 40192993	Liver-directed therapy
-Hughes 2016	PMID 26597368	Liver-directed therapy
-ABC	PMID 29602646	Brain metastases from cutaneous melanoma
-COMBI-MB	PMID 28592387	Brain metastases from cutaneous melanoma

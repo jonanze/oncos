@@ -1,9 +1,14 @@
 # oncOS board map: Melanoma (one map for the Evidence sheet "Melanoma")
 # Rows reviewed: 93ad9e6a91a115ba63733d582967a8cc26a6a0fe (2026-11-26)
+# NCCN 3.2026 retag, 2026-11-27: the RP1 line takes the NCCN tag that 3.2026 adds on MELSYS-2. A comparison of every
+#   algorithm and principles page of 2.2026 and 3.2026 found no other change than the IGNYTE footnote and its reference
+#   on MELSYS-7.
 # Draft 2, 2026-11-26. The 49 findings of the prose review and the 5 findings of the thread's own pass on draft 1
-#   applied, the owner's decisions of 2026-11-26 applied, then every block rewritten from scratch. Not approved.
+#   applied, the owner's decisions of 2026-11-26 applied, then every block rewritten from scratch.
+#   Approved and live 2026-11-26 (oncos PR #103).
 #   Planning files: board-maps/melanoma/ (plan.md, structure-plan.md, independent-review.md, prose-review.md,
-#   own-pass-draft1.md, draft1-changes.md, draft2-changes.md, map-draft0.txt, map-draft1.txt, map-draft2.txt)
+#   own-pass-draft1.md, draft1-changes.md, draft2-changes.md, map-draft0.txt, map-draft1.txt, map-draft2.txt,
+#   nccn-3-2026-check.md)
 #   Clinical content: board-maps/melanoma/notes-esmo.md, notes-esmo-uveal.md, notes-nccn.md, notes-nccn-uveal.md,
 #   notes-asco.md and melanoma-rows.json
 # Format and rules: see the header of maps/early-nsclc/map.txt
@@ -43,7 +48,7 @@
 #     is stricter (performance status 0, normal LDH)
 #   〔ESMO-EURACAN level, grade〕 ESMO-EURACAN uveal melanoma guideline 2026 (Piperno-Neumann, ESMO Open 2026;11:106888,
 #     PMID 42020098), Figure 3 included. It predates OptimUM-02
-#   〔NCCN category〕 NCCN Melanoma: Cutaneous 2.2026 (17 April 2026), algorithm pages with NEOSYS, ADJSYS and MELSYS.
+#   〔NCCN category〕 NCCN Melanoma: Cutaneous 3.2026 (2 September 2026), algorithm pages with NEOSYS, ADJSYS and MELSYS.
 #     The category and the preference label are printed where the page prints them. A bare 〔NCCN〕 marks a footnote,
 #     a principles page (ME-C to ME-H, SYSCON, ADJSYS-2) or the Discussion. The Discussion is stale (2016 and 2019) and
 #     is not followed where the algorithm differs
@@ -57,7 +62,8 @@
 #     wild-type disease, now a ・ line
 # Licence notes (web search 2026-11-26, sources in structure-plan.md and independent-review.md finding 22):
 #   Vusolimogene oderparepvec (RP1, Tudriqev) with nivolumab: FDA accelerated approval 6 August 2026 for unresectable
-#     advanced cutaneous melanoma that progressed on an anti-PD-1 regimen, on IGNYTE. No guideline of the set grades it
+#     advanced cutaneous melanoma that progressed on an anti-PD-1 regimen, on IGNYTE. NCCN 3.2026 lists it as category 2A,
+#     other recommended, in second or later lines (MELSYS-2, IGNYTE footnote). ESMO and ASCO do not grade it
 #   Intismeran autogene (mRNA-4157) with pembrolizumab: no FDA or EMA application filed by 9 November 2026. KEYNOTE-942
 #     and INTerpath-001 sit on a ※ line by the owner's naming (inclusion.txt ③). Recheck once a filing is made
 #   Darovasertib with crizotinib: NDA rolling submission under real-time oncology review, no approval found. OptimUM-02
@@ -68,7 +74,7 @@
 #   Singapore (HSA, Cancer Drug List) status of tebentafusp, nivolumab with relatlimab, lifileucel, RP1 and the melphalan
 #     hepatic delivery system: not checked
 # Rule ⑦: options NCCN alone lists sit on ・ or ※ lines (low-dose ipilimumab with pembrolizumab, lenvatinib with
-#   pembrolizumab, KIT inhibitors, the three-drug combination in later lines, other neoadjuvant regimens, ipilimumab
+#   pembrolizumab, RP1 with nivolumab, KIT inhibitors, the three-drug combination in later lines, other neoadjuvant regimens, ipilimumab
 #   alone, chemotherapy and trametinib in uveal melanoma). Isolated hepatic perfusion is graded by ESMO-EURACAN alone and
 #   is a procedure, not a drug: kept as an option pending Jonan's answer (review 32)
 # Option order where no owner decision applies: stage III neoadjuvant therapy before upfront surgery (NCCN preferred).
@@ -287,7 +293,8 @@ course: Melanoma | parallel
       ・Lenvatinib with pembrolizumab is an option 〔NCCN 2A, useful in certain circumstances〕
       ・Lenvatinib with pembrolizumab holds no EU or US licence for melanoma 〔ESMO〕
       ~ LEAP-004 {pmid 35867951}
-    ※ Vusolimogene oderparepvec (RP1) injected into the tumour, with nivolumab, holds a US accelerated licence of August 2026 for unresectable cutaneous melanoma that progressed on an anti-PD-1 regimen
+    ※ Vusolimogene oderparepvec (RP1) injected into the tumour, with nivolumab, is an option in second or later lines 〔NCCN 2A, other recommended〕
+      ・Vusolimogene oderparepvec with nivolumab holds a US accelerated licence of August 2026 for unresectable cutaneous melanoma that progressed on an anti-PD-1 regimen
       ~ IGNYTE {pmid 40627813}
     ※ Imatinib or another KIT inhibitor is an option for an activating KIT mutation 〔NCCN 2A, useful in certain circumstances〕
       ・Immunotherapy, and BRAF-directed therapy for a BRAF V600 mutation, are more likely to benefit than a KIT inhibitor, whatever the KIT status 〔ASCO〕
