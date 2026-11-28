@@ -1,5 +1,5 @@
 # oncOS board map: Advanced Prostate
-# Rows reviewed: 0b9357449dbf0e77dbffdde211072a957afb05fb (2026-11-21)
+# Rows reviewed: de85fabe3aa248d07c0e848cffe6f957917c2b15 (2026-11-28)
 #
 # How to read and edit this file
 #   Indent 2 spaces per level.
@@ -138,7 +138,7 @@ course: Advanced prostate cancer
         ~ PEACE-1 radiotherapy {pmid 35405085}
       ※ Benefit was confined to fewer than 5 bone metastases
         - HORRAD {pmid 30266309}
-        ~ STOPCAP {pmid 30826218}
+        ~ STOPCAP radiotherapy {pmid 30826218}
     ② High volume: ADT with an ARSI and docetaxel 〔NCCN 1, preferred〕 〔ESMO II, A〕
       ・The ARSI is abiraterone or darolutamide
       ・ADT with an ARSI alone for men unfit for or declining docetaxel 〔NCCN 1, preferred〕 〔ESMO I, A〕
@@ -262,6 +262,10 @@ panel: ARSI options > Metastatic, castration-sensitive
     + STAMPEDE arm G {pmid 28578639}
     ° Toxicity of note: hypertension, hypokalaemia and oedema
     ° Toxicity of note: hepatotoxicity, with liver tests monitored frequently in the first 12 weeks
+    ※ Abiraterone showed no OS benefit in men aged 75 or older
+      ・Abiraterone increased non-cancer deaths in this age group
+      ・Abiraterone improved prostate cancer-specific survival in every age group
+      + STOPCAP ARPI [t-stopcap-arpi-individual-participant-data-meta-analysis]
   ② Enzalutamide 〔NCCN 1, preferred〕 〔ESMO I, A〕
     + ENZAMET {pmid 31157964}
     + ARCHES {pmid 31329516}

@@ -1,0 +1,1699 @@
+{
+ "generated": "2026-11-28T07:02:48.473Z",
+ "commit": "69f924ddcabef20f0d481c4761c02ff9b74b1ef7",
+ "waiting": [
+  {
+   "commit": "69f924ddcabef20f0d481c4761c02ff9b74b1ef7",
+   "date": "2026-11-28",
+   "subject": "Maps: STOPCAP ARPI meta-analysis on the prostate map"
+  },
+  {
+   "commit": "6465c7c8ee26575f161b5cc05276b6a14aca0f96",
+   "date": "2026-11-27",
+   "subject": "Map refresh 2026-11-27: rows reviewed on 19 maps, no line changes"
+  }
+ ],
+ "check": {
+  "ok": true,
+  "problems": [],
+  "maps": {
+   "advanced-colon": {
+    "trials": 57,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JSCCR",
+      "url": "https://doi.org/10.1007/s10147-025-02899-8",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2026.03.005",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO.22.01690",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "advanced-gastro-oesophageal": {
+    "trials": 52,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JGCA",
+      "url": "https://doi.org/10.1007/s10120-025-01698-4",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JES",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36933136/",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "KGCA",
+      "url": "https://doi.org/10.5230/jgc.2025.25.e11",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2023.102226",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2026.09.015",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO-26-01944",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "advanced-pancreatic": {
+    "trials": 32,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2025.105826",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JPS",
+      "url": "https://doi.org/10.1097/MPA.0000000000002600",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://www.esmo.org/guidelines/esmo-clinical-practice-guidelines-gastrointestinal-cancers/cancer-of-the-pancreas-esmo-clinical-practice-guidelines",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASTRO",
+      "url": "https://doi.org/10.1016/j.prro.2026.07.002",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "aggressive-bcl": {
+    "trials": 64,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JSH",
+      "url": "https://doi.org/10.1007/s12185-025-03997-z",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JSH-BL",
+      "url": "https://doi.org/10.1007/s12185-025-03982-6",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2025.07.014",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EHA",
+      "url": "https://doi.org/10.1002/hem3.70207",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "BSH",
+      "url": "https://doi.org/10.1111/bjh.19273",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "BSH-RR",
+      "url": "https://doi.org/10.1111/bjh.20129",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "BSH-PM",
+      "url": "https://doi.org/10.1111/bjh.70768",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EHA-ESMO",
+      "url": "https://doi.org/10.1002/hem3.89",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EHA-ESMO-HIV",
+      "url": "https://doi.org/10.1002/hem3.150",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "biliary": {
+    "trials": 48,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2024.103647",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2022.10.506",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO-26-02462",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "bladder": {
+    "trials": 57,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JUA",
+      "url": "https://doi.org/10.1111/iju.15362",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2021.11.012",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EAU",
+      "url": "https://uroweb.org/guidelines",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "AUA",
+      "url": "https://www.auanet.org/guidelines",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "cervical": {
+    "trials": 32,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JSGO",
+      "url": "https://jsgo.or.jp/guideline/keiganguide2022.html",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.esmoop.2026.108364",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/guidelines-detail?category=1&id=1426",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "early-colon": {
+    "trials": 30,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JSCCR",
+      "url": "https://doi.org/10.1007/s10147-025-02899-8",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2020.06.022",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "early-nsclc": {
+    "trials": 41,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "ESMO",
+      "url": "https://www.esmo.org/guidelines/living-guidelines/esmo-living-guideline-early-and-locally-advanced-nsclc",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ACCP",
+      "url": "https://doi.org/10.1016/j.chest.2025.06.023",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JLCS",
+      "url": "https://www.haigan.gr.jp/publication/guideline/examination/2025/",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "endometrial": {
+    "trials": 22,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "ESGO",
+      "url": "https://doi.org/10.1016/S1470-2045(25)00167-6",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JSGO",
+      "url": "https://doi.org/10.3802/jgo.2025.36.e119",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "gastro-oesophageal": {
+    "trials": 57,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JGCA",
+      "url": "https://doi.org/10.1007/s10120-025-01698-4",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JES",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36933136/",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "KGCA",
+      "url": "https://doi.org/10.5230/jgc.2025.25.e11",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2026.09.015",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "germ-cell": {
+    "trials": 25,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JUA",
+      "url": "https://minds.jcqhc.or.jp/summary/c00876/",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2022.01.002",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EAU",
+      "url": "https://uroweb.org/guidelines/testicular-cancer",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "IGCCCG",
+      "url": null,
+      "anchor": "t-international-germ-cell-cancer-collaborative-group",
+      "ver": null
+     },
+     {
+      "name": "IGCCCG-NS",
+      "url": null,
+      "anchor": "t-igcccg-update",
+      "ver": null
+     },
+     {
+      "name": "IGCCCG-S",
+      "url": null,
+      "anchor": "t-igcccg-update--germ-cell-tumors",
+      "ver": null
+     }
+    ]
+   },
+   "gist": {
+    "trials": 28,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "Asian",
+      "url": "https://doi.org/10.1007/s10120-026-01773-4",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2021.09.005",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "glioma": {
+    "trials": 33,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "EANO",
+      "url": "https://doi.org/10.1038/s41571-020-00447-z",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO.21.02036",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "hcc": {
+    "trials": 30,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2026.107771",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JSH",
+      "url": "https://doi.org/10.1111/hepr.13892",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "KLCA",
+      "url": "https://doi.org/10.3350/cmh.2026.0943",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2025.02.006",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EASL",
+      "url": "https://doi.org/10.1016/j.jhep.2024.08.028",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "AASLD",
+      "url": "https://doi.org/10.1097/HEP.0000000000000466",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "her2-ebc": {
+    "trials": 22,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2024.102974",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2026.11.003",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-CAP",
+      "url": "https://doi.org/10.1200/JCO.22.02864",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "St",
+      "url": "https://doi.org/10.1016/j.annonc.2025.09.007",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESC",
+      "url": "https://doi.org/10.1093/eurheartj/ehac244",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "FDA",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=492dbdb2-077e-4064-bff3-372d6af0a7a2",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "her2-mbc": {
+    "trials": 37,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2023.101541",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2026.05.707",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO.22.00519",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-CAP",
+      "url": "https://doi.org/10.1200/JCO.22.02864",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ABC8",
+      "url": "https://doi.org/10.1016/j.breast.2026.104921",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "hnscc": {
+    "trials": 43,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JSHNC",
+      "url": "https://doi.org/10.1016/j.anl.2025.09.004",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2021.100309",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-RM",
+      "url": "https://doi.org/10.1200/JCO.22.02328",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-TORS",
+      "url": "https://doi.org/10.1200/JCO-24-02755",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-Neck",
+      "url": "https://doi.org/10.1200/JCO.18.01921",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-UP",
+      "url": "https://doi.org/10.1200/JCO.20.00275",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "Ferrari",
+      "url": "https://doi.org/10.1016/S1470-2045(25)00020-8",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "hodgkin": {
+    "trials": 34,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2025.07.014",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EHA",
+      "url": "https://doi.org/10.1002/hem3.70422",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EBMT",
+      "url": "https://doi.org/10.1016/S2352-3026(26)00102-X",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "hr-ebc": {
+    "trials": 57,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2024.102974",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2026.11.003",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/jco-26-02034",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "St",
+      "url": "https://doi.org/10.1016/j.annonc.2025.09.007",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "hr-mbc": {
+    "trials": 50,
+    "intake": 1,
+    "unplaced": 0,
+    "intake_items": [
+     {
+      "name": "ASCENT-07",
+      "pmid": null,
+      "url": "https://doi.org/10.1158/1557-3265.SABCS25-GS1-09",
+      "where": "First cytotoxic line in endocrine-resistant disease",
+      "at": 227
+     }
+    ],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2023.101541",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2026.05.707",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO.24.00248",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ABC8",
+      "url": "https://doi.org/10.1016/j.breast.2026.104921",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "melanoma": {
+    "trials": 59,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2024.11.006",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO-EURACAN",
+      "url": "https://doi.org/10.1016/j.esmoop.2026.106888",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO.23.01136",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "mesothelioma": {
+    "trials": 21,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2021.11.005",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO-24-02425",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "PSOGI",
+      "url": "https://doi.org/10.1002/jso.27947",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "STS",
+      "url": "https://doi.org/10.1016/j.athoracsur.2026.03.074",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JLCS",
+      "url": "https://www.haigan.gr.jp/publication/guideline/examination/2025/",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "npc": {
+    "trials": 35,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "CSCO-ASCO",
+      "url": "https://doi.org/10.1200/JCO-26-02648",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "CSCO-ASCO-RM",
+      "url": "https://doi.org/10.1200/JCO-26-02650",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "Guo",
+      "url": "https://doi.org/10.1016/S1470-2045(26)00347-5",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "nsclc": {
+    "trials": 91,
+    "intake": 1,
+    "unplaced": 0,
+    "intake_items": [
+     {
+      "name": "WU-KONG1B",
+      "pmid": "40923280",
+      "url": null,
+      "where": "Later lines, EGFR",
+      "at": 475
+     }
+    ],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://www.asco.org/guidelines",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://www.esmo.org/guidelines/living-guidelines",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JLCS",
+      "url": "https://www.haigan.gr.jp/publication/guideline/examination/2025/1/2/250102070100.html",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "ovarian": {
+    "trials": 65,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "JSGO",
+      "url": "https://doi.org/10.3802/jgo.2026.37.e150",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "KSGO-5.0",
+      "url": "https://doi.org/10.3802/jgo.2024.35.e43",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "KSGO-5.1",
+      "url": "https://doi.org/10.3802/jgo.2025.36.e69",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2025.105125",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2023.07.011",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESGO",
+      "url": "https://doi.org/10.1016/j.annonc.2023.11.015",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-NACT",
+      "url": "https://doi.org/10.1200/JCO-24-02589",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-PARP",
+      "url": "https://doi.org/10.1200/JCO-26-02412",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO-REC",
+      "url": "https://doi.org/10.1200/JCO-26-01591",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "pancreatic": {
+    "trials": 27,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2025.105826",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JPS",
+      "url": "https://doi.org/10.1097/MPA.0000000000002600",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://www.esmo.org/guidelines/esmo-clinical-practice-guidelines-gastrointestinal-cancers/cancer-of-the-pancreas-esmo-clinical-practice-guidelines",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASTRO",
+      "url": "https://doi.org/10.1016/j.prro.2026.07.002",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "prostate": {
+    "trials": 49,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "ESMO",
+      "url": "https://www.esmo.org/guidelines/living-guidelines/esmo-living-guideline-advanced-and-metastatic-prostate-cancer",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "rcc": {
+    "trials": 51,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2026.108552",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://www.esmo.org/guidelines/living-guidelines/esmo-living-guideline-renal-cell-carcinoma",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "EAU",
+      "url": "https://uroweb.org/guidelines",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "rectal": {
+    "trials": 42,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2025.05.528",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO.24.01160",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "sclc": {
+    "trials": 33,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO.23.01435",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "JLCS",
+      "url": "https://www.haigan.gr.jp/publication/guideline/examination/2025/",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "sts": {
+    "trials": 54,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "ESMO",
+      "url": "https://doi.org/10.1016/j.annonc.2021.07.006",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   },
+   "tnbc": {
+    "trials": 37,
+    "intake": 0,
+    "unplaced": 0,
+    "intake_items": [],
+    "unplaced_items": [],
+    "sources": [
+     {
+      "name": "PAGA",
+      "url": "https://doi.org/10.1016/j.esmoop.2024.102974",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ESMO",
+      "url": "https://www.esmo.org/guidelines/esmo-clinical-practice-guidelines-breast-cancer",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ASCO",
+      "url": "https://doi.org/10.1200/JCO.21.01374",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "NCCN",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "St",
+      "url": "https://doi.org/10.1016/j.annonc.2025.09.007",
+      "anchor": null,
+      "ver": null
+     },
+     {
+      "name": "ABC8",
+      "url": "https://doi.org/10.1016/j.breast.2026.104921",
+      "anchor": null,
+      "ver": null
+     }
+    ]
+   }
+  }
+ },
+ "maps": {
+  "advanced-colon": {
+   "sheet": "Advanced CRC",
+   "reviewed": {
+    "commit": "84a6118054eeded50a45e99e61ff71247ffa098e",
+    "date": "2026-11-15"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "advanced-gastro-oesophageal": {
+   "sheet": "Advanced Gastroesophageal",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "advanced-pancreatic": {
+   "sheet": "Advanced Pancreatic",
+   "reviewed": {
+    "commit": "030d2c12d940acd8030c735b7f6a53f433bf15cf",
+    "date": "2026-11-17"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "aggressive-bcl": {
+   "sheet": "High Grade B-Cell Lymphoma",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "biliary": {
+   "sheet": "Biliary Tract Cancer",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 4,
+   "excluded_hits": [],
+   "error": null
+  },
+  "bladder": {
+   "sheet": "Bladder & UTUC",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "cervical": {
+   "sheet": "Cervical Cancer",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 1,
+   "excluded_hits": [],
+   "error": null
+  },
+  "early-colon": {
+   "sheet": "Early CRC",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "early-nsclc": {
+   "sheet": "Early & Locally Adv NSCLC",
+   "reviewed": {
+    "commit": "0b9357449dbf0e77dbffdde211072a957afb05fb",
+    "date": "2026-11-21"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "endometrial": {
+   "sheet": "Endometrial Cancer",
+   "reviewed": {
+    "commit": "3417c9195e61b5fd57f78e1373da7c41d0ede45a",
+    "date": "2026-11-22"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "gastro-oesophageal": {
+   "sheet": "Localized Gastroesophageal",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "germ-cell": {
+   "sheet": "Germ Cell Tumors",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "gist": {
+   "sheet": "GIST",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "glioma": {
+   "sheet": "Adult Diffuse Glioma",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 3,
+   "excluded_hits": [],
+   "error": null
+  },
+  "hcc": {
+   "sheet": "HCC",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "her2-ebc": {
+   "sheet": "HER2+ EBC",
+   "reviewed": {
+    "commit": "73a732d70e7e7b56f8e3269bff97c4fb93cbb5be",
+    "date": "2026-11-16"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "her2-mbc": {
+   "sheet": "HER2+ MBC",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "hnscc": {
+   "sheet": "Head & Neck SCC",
+   "reviewed": {
+    "commit": "84a6118054eeded50a45e99e61ff71247ffa098e",
+    "date": "2026-11-15"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "hodgkin": {
+   "sheet": "Hodgkin Lymphoma",
+   "reviewed": {
+    "commit": "84a6118054eeded50a45e99e61ff71247ffa098e",
+    "date": "2026-11-15"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "hr-ebc": {
+   "sheet": "HR+ HER2- EBC",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "hr-mbc": {
+   "sheet": "HR+ HER2- MBC",
+   "reviewed": {
+    "commit": "84a6118054eeded50a45e99e61ff71247ffa098e",
+    "date": "2026-11-15"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "melanoma": {
+   "sheet": "Melanoma",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 3,
+   "excluded_hits": [],
+   "error": null
+  },
+  "mesothelioma": {
+   "sheet": "Mesothelioma",
+   "reviewed": {
+    "commit": "84a6118054eeded50a45e99e61ff71247ffa098e",
+    "date": "2026-11-15"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 5,
+   "excluded_hits": [],
+   "error": null
+  },
+  "npc": {
+   "sheet": "Nasopharyngeal Carcinoma",
+   "reviewed": {
+    "commit": "3417c9195e61b5fd57f78e1373da7c41d0ede45a",
+    "date": "2026-11-22"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "nsclc": {
+   "sheet": "Advanced NSCLC",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "ovarian": {
+   "sheet": "Ovarian Cancer",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "pancreatic": {
+   "sheet": "Resectable & BR Pancreatic",
+   "reviewed": {
+    "commit": "030d2c12d940acd8030c735b7f6a53f433bf15cf",
+    "date": "2026-11-17"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "prostate": {
+   "sheet": "Advanced Prostate",
+   "reviewed": {
+    "commit": "de85fabe3aa248d07c0e848cffe6f957917c2b15",
+    "date": "2026-11-28"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "rcc": {
+   "sheet": "RCC",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "rectal": {
+   "sheet": "Rectal Cancer",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "sclc": {
+   "sheet": "SCLC",
+   "reviewed": {
+    "commit": "84a6118054eeded50a45e99e61ff71247ffa098e",
+    "date": "2026-11-15"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 1,
+   "excluded_hits": [],
+   "error": null
+  },
+  "sts": {
+   "sheet": "STS",
+   "reviewed": {
+    "commit": "9d0c29a188d6716b9814c55c114a6ae04a69f03b",
+    "date": "2026-11-21"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  },
+  "tnbc": {
+   "sheet": "Triple Negative BC",
+   "reviewed": {
+    "commit": "5e111d76477f76ba4c4ea8949911b16317209ccf",
+    "date": "2026-11-27"
+   },
+   "changes": [],
+   "guidelines_behind": [],
+   "excluded_count": 0,
+   "excluded_hits": [],
+   "error": null
+  }
+ }
+}

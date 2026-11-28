@@ -1,5 +1,5 @@
 # oncOS board map: High Grade B-Cell Lymphoma (large B-cell lymphoma from first line to relapse, with PMBCL, primary CNS lymphoma and Burkitt lymphoma)
-# Rows reviewed: fe870719079d9b35c01f0ba175211094d49c9f67 (2026-11-15)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # 2026-11-13, draft 1, not approved. Structure plan: board-maps/aggressive-bcl/structure-plan.md. Changes from draft 0: draft1-changes.md
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # Scope (Jonan 2026-11-13): one map for the whole sheet. DLBCL and other large B-cell lymphoma from first line through relapse

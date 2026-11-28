@@ -1,5 +1,5 @@
 # oncOS board map: Melanoma (one map for the Evidence sheet "Melanoma")
-# Rows reviewed: 93ad9e6a91a115ba63733d582967a8cc26a6a0fe (2026-11-26)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # NCCN 3.2026 retag, 2026-11-27: the RP1 line takes the NCCN tag that 3.2026 adds on MELSYS-2. A comparison of every
 #   algorithm and principles page of 2.2026 and 3.2026 found no other change than the IGNYTE footnote and its reference
 #   on MELSYS-7.

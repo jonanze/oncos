@@ -1,5 +1,5 @@
 # oncOS board map: Triple Negative BC (systemic course of early and metastatic triple-negative breast cancer)
-# Rows reviewed: 18a404294bdfcea5f47370dd97a8b5b1c15989a6 (2026-11-16)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Retagged to ESMO EBC 2026 on 2026-11-27, with the ASCO 2023 rapid update cited in the header (board-maps/breast-guideline-update-2026-11-27/change-list.md)
 # Draft 1, 2026-11-16. Rewritten from draft 0 after the independent review (board-maps/tnbc/independent-review.md,
 #   28 findings), then a prose review. Approved by Jonan 2026-11-16. Clinical content: board-maps/tnbc/guideline-read-notes.md and the

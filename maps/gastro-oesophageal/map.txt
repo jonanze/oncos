@@ -1,5 +1,5 @@
 # oncOS board map: Localized Gastroesophageal (non-metastatic gastric, junctional and oesophageal cancer)
-# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Built 2026-11-12. Metastatic disease is on the Advanced Gastroesophageal sheet
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # One map, three branches (Jonan 2026-11-12): gastric adenocarcinoma with Siewert type III, oesophageal and junctional

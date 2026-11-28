@@ -1,5 +1,5 @@
 # oncOS board map: Biliary Tract Cancer (one map for the Evidence sheet "Biliary Tract Cancer")
-# Rows reviewed: 0a839a2a5fa7a7dd203bce27d02dd048235c48a3 (2026-11-19)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Approved by Jonan 2026-11-19 06:14 UTC (draft 3). Line pass on draft 2 (bile duct line, iCCA transplant line moved, second-line chips under their results). Draft 2 was the prose review of draft 1 (board-maps/biliary/prose-review.md). Draft 1 was rewritten from draft 0
 #   after the independent review (board-maps/biliary/independent-review.md), changes in board-maps/biliary/draft1-changes.md
 #   Planning files: board-maps/biliary/ (plan.md, structure-plan.md)

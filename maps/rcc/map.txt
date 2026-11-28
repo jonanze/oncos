@@ -1,5 +1,5 @@
 # oncOS board map: RCC (renal cell carcinoma, one map for the Evidence sheet "RCC")
-# Rows reviewed: 2ae480b490efdcacea40fe11324c6c42b5d74cd0 (2026-11-18)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # Draft 5, 2026-11-19. Draft 0 was reviewed independently (board-maps/rcc/independent-review.md) and rewritten as draft 1.
 #   Draft 1 had a prose-only review (board-maps/rcc/prose-review.md) and every block was rewritten again. Draft 3
 #   applies Jonan's four option-order answers. Draft 4 applies the check of every PAGA tag against the PDF.

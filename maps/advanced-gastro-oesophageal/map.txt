@@ -1,5 +1,5 @@
 # oncOS board map: Advanced Gastroesophageal (unresectable, recurrent and metastatic gastric, junctional and oesophageal cancer)
-# Rows reviewed: 84a6118054eeded50a45e99e61ff71247ffa098e (2026-11-15)
+# Rows reviewed: 5e111d76477f76ba4c4ea8949911b16317209ccf (2026-11-27)
 # 2026-11-13, approved by Jonan. Companion of the Localized Gastroesophageal map
 # Format and rules: see the header of maps/early-nsclc/map.txt
 # One map, two histologies: adenocarcinoma of the stomach, junction and oesophagus together (as ESMO and NCCN treat them),
