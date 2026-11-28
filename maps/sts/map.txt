@@ -70,23 +70,20 @@ band: Regimens
   ⑦ Nirogacestat 150 mg twice daily (DeFi), sorafenib 400 mg once daily (A091105)
   ⑧ Pimicotinib 50 mg once daily (MANEUVER)
 
+band: Diagnosis and staging
+  ① Referral to a sarcoma reference centre before treatment, for any deep soft tissue mass or a superficial mass of 5 cm or more 〔ESMO III, A〕 〔NCCN〕
+  ② Core needle biopsy before treatment, planned so that the tract is removed at surgery 〔ESMO〕 〔NCCN〕
+    ・Excisional biopsy is an option for superficial lesions under 3 cm 〔ESMO〕
+  ③ Diagnosis by a sarcoma expert pathologist using the 2020 WHO classification, with FNCLCC grade 〔ESMO IV, A〕 〔NCCN〕
+    ・Molecular pathology is added when the diagnosis is in doubt, the presentation is unusual, or the entity is defined by a molecular alteration 〔ESMO〕 〔NCCN〕
+    ・Focused molecular testing changed the expert diagnosis in about 1 in 7 sarcomas in a prospective study 〔NCCN〕
+  ④ Staging CT of the chest, with CT of the abdomen and pelvis for myxoid liposarcoma and leiomyosarcoma 〔ESMO III, B〕 〔NCCN〕
+    ・Brain MRI is indicated for alveolar soft part sarcoma (ASPS) 〔ESMO IV, A〕
+  ⑤ Germline TP53 testing for selected patients under 46 years 〔ESMO IV, A〕
+    ・Li-Fraumeni syndrome, NF1 and Lynch syndrome are assessed in the work-up 〔NCCN〕
+  ⑥ Extraskeletal Ewing sarcoma: treatment as Ewing sarcoma of bone 〔NCCN〕
+
 course: STS | parallel
-  Soft tissue sarcoma at diagnosis: extent of disease
-    ① Referral to a sarcoma reference centre before treatment, for any deep soft tissue mass or a superficial mass of 5 cm or more 〔ESMO III, A〕 〔NCCN〕
-    ② Core needle biopsy before treatment, planned so that the tract is removed at surgery 〔ESMO〕 〔NCCN〕
-      ・Excisional biopsy is an option for superficial lesions under 3 cm 〔ESMO〕
-    ③ Diagnosis by a sarcoma expert pathologist using the 2020 WHO classification, with FNCLCC grade 〔ESMO IV, A〕 〔NCCN〕
-      ・Molecular pathology is added when the diagnosis is in doubt, the presentation is unusual, or the entity is defined by a molecular alteration 〔ESMO〕 〔NCCN〕
-      ・Focused molecular testing changed the expert diagnosis in about 1 in 7 sarcomas in a prospective study 〔NCCN〕
-    ④ Staging CT of the chest, with CT of the abdomen and pelvis for myxoid liposarcoma and leiomyosarcoma 〔ESMO III, B〕 〔NCCN〕
-      ・Brain MRI is indicated for alveolar soft part sarcoma (ASPS) 〔ESMO IV, A〕
-    ⑤ Germline TP53 testing for selected patients under 46 years 〔ESMO IV, A〕
-      ・Li-Fraumeni syndrome, NF1 and Lynch syndrome are assessed in the work-up 〔NCCN〕
-    ⑥ Extraskeletal Ewing sarcoma: treatment as Ewing sarcoma of bone 〔NCCN〕
-    next: Localised STS: primary site | Localised
-    next: Advanced STS: chemotherapy sensitivity of the histotype | Metastatic or unresectable
-    next: Desmoid tumour | Locally aggressive tumour: desmoid
-    next: Tenosynovial giant cell tumour | Locally aggressive tumour: TGCT
   Localised STS: primary site
     ① MRI of the primary in the extremity, trunk and pelvis, and CT for the retroperitoneum 〔ESMO〕 〔NCCN〕
     ② Unplanned excision: re-excision at a reference centre 〔ESMO IV, A〕 〔NCCN〕
@@ -94,30 +91,6 @@ course: STS | parallel
     next: Extremity or trunk STS: FNCLCC grade | Extremity or trunk
     next: Retroperitoneal sarcoma | Retroperitoneum
     next: Localised uterine sarcoma | Uterus
-  Desmoid tumour
-    branch: LAG
-    ① Newly diagnosed desmoid tumour without a life-threatening site: active surveillance with MRI 〔ESMO III, A〕 〔NCCN〕
-      ・Spontaneous regression occurs in up to 20% 〔NCCN〕
-      ・Familial adenomatous polyposis is excluded, especially in CTNNB1 wild-type tumours 〔ESMO〕 〔NCCN〕
-    ② Progressive, symptomatic or morbid disease: systemic treatment with nirogacestat 〔NCCN 1〕 or sorafenib 〔ESMO II, B〕 〔NCCN 1〕
-      ・Methotrexate with vinblastine or vinorelbine, pazopanib, imatinib, liposomal doxorubicin, doxorubicin, and doxorubicin with dacarbazine are options 〔ESMO〕 〔NCCN〕
-      ・Surveillance can continue after progression with few symptoms 〔ESMO〕 〔NCCN〕
-      ~ DeFi {pmid 36884323}
-      ~ Alliance A091105 {pmid 30575484}
-      ~ DESMOPAZ {pmid 31331699}
-    ③ Progressive extra-abdominal disease: cryoablation 〔ESMO IV, C〕 〔NCCN〕, surgery in favourable sites 〔ESMO IV, C〕 〔NCCN〕, or definitive radiotherapy 〔ESMO III, C〕 〔NCCN〕
-      ・Surgery is not first-line treatment 〔NCCN〕
-      ・Radiotherapy is used after several failed lines or at sites where surgery would cause major morbidity 〔ESMO III, C〕
-  Tenosynovial giant cell tumour
-    branch: LAG
-    ① Tenosynovial giant cell tumour needing systemic treatment: pexidartinib 〔ESMO〕 〔NCCN 1〕, vimseltinib 〔NCCN 1〕, or pimicotinib
-      ・Pexidartinib holds a US licence and no EU licence
-      ・Pimicotinib received an FDA licence in November 2026
-      ・Imatinib and nilotinib are options 〔ESMO〕 〔NCCN〕
-      ~ ENLIVEN {pmid 31229240}
-      ~ MOTION {pmid 38843860}
-      ~ MANEUVER {pmid 41796601}
-
   Extremity or trunk STS: FNCLCC grade
     branch: LOC pale
     ① Unresectable or limb-threatening disease: chemotherapy, radiotherapy or both, or isolated limb perfusion with TNF-α and melphalan 〔ESMO III, A〕 〔NCCN〕
@@ -327,6 +300,30 @@ course: STS | parallel
     ① After chemotherapy: afamitresgene autoleucel 〔NCCN〕
       ・Afamitresgene autoleucel holds an FDA accelerated licence
       ~ SPEARHEAD-1 {pmid 38554725}
+
+panel: Desmoid tumour (locally aggressive)
+  ① Newly diagnosed desmoid tumour without a life-threatening site: active surveillance with MRI 〔ESMO III, A〕 〔NCCN〕
+    ・Spontaneous regression occurs in up to 20% 〔NCCN〕
+    ・Familial adenomatous polyposis is excluded, especially in CTNNB1 wild-type tumours 〔ESMO〕 〔NCCN〕
+  ② Progressive, symptomatic or morbid disease: systemic treatment with nirogacestat 〔NCCN 1〕 or sorafenib 〔ESMO II, B〕 〔NCCN 1〕
+    ・Methotrexate with vinblastine or vinorelbine, pazopanib, imatinib, liposomal doxorubicin, doxorubicin, and doxorubicin with dacarbazine are options 〔ESMO〕 〔NCCN〕
+    ・Surveillance can continue after progression with few symptoms 〔ESMO〕 〔NCCN〕
+    ~ DeFi {pmid 36884323}
+    ~ Alliance A091105 {pmid 30575484}
+    ~ DESMOPAZ {pmid 31331699}
+  ③ Progressive extra-abdominal disease: cryoablation 〔ESMO IV, C〕 〔NCCN〕, surgery in favourable sites 〔ESMO IV, C〕 〔NCCN〕, or definitive radiotherapy 〔ESMO III, C〕 〔NCCN〕
+    ・Surgery is not first-line treatment 〔NCCN〕
+    ・Radiotherapy is used after several failed lines or at sites where surgery would cause major morbidity 〔ESMO III, C〕
+
+panel: Tenosynovial giant cell tumour (locally aggressive)
+  ① Tenosynovial giant cell tumour needing systemic treatment: pexidartinib 〔ESMO〕 〔NCCN 1〕, vimseltinib 〔NCCN 1〕, or pimicotinib
+    ・Pexidartinib holds a US licence and no EU licence
+    ・Pimicotinib received an FDA licence in November 2026
+    ・Imatinib and nilotinib are options 〔ESMO〕 〔NCCN〕
+    ~ ENLIVEN {pmid 31229240}
+    ~ MOTION {pmid 38843860}
+    ~ MANEUVER {pmid 41796601}
+
 off:
   GENSARC {pmid 26970672} | Prospective diagnostic cohort, not a trial: the statement on molecular testing stays as plain text in the diagnosis band
   Sreenath et al. {pmid 41812090} | Prospective diagnostic cohort, not a trial
