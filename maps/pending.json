@@ -1,7 +1,12 @@
 {
- "generated": "2026-11-27T23:43:36.212Z",
- "commit": "6465c7c8ee26575f161b5cc05276b6a14aca0f96",
+ "generated": "2026-11-28T07:02:48.473Z",
+ "commit": "69f924ddcabef20f0d481c4761c02ff9b74b1ef7",
  "waiting": [
+  {
+   "commit": "69f924ddcabef20f0d481c4761c02ff9b74b1ef7",
+   "date": "2026-11-28",
+   "subject": "Maps: STOPCAP ARPI meta-analysis on the prostate map"
+  },
   {
    "commit": "6465c7c8ee26575f161b5cc05276b6a14aca0f96",
    "date": "2026-11-27",
@@ -1118,7 +1123,7 @@
     ]
    },
    "prostate": {
-    "trials": 48,
+    "trials": 49,
     "intake": 0,
     "unplaced": 0,
     "intake_items": [],
@@ -1621,8 +1626,8 @@
   "prostate": {
    "sheet": "Advanced Prostate",
    "reviewed": {
-    "commit": "0b9357449dbf0e77dbffdde211072a957afb05fb",
-    "date": "2026-11-21"
+    "commit": "de85fabe3aa248d07c0e848cffe6f957917c2b15",
+    "date": "2026-11-28"
    },
    "changes": [],
    "guidelines_behind": [],
