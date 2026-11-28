@@ -218,13 +218,9 @@ tree: Advanced NSCLC, first line
         ~ Entrectinib {pmid 35144967}
         ※ First-line treatment as for disease without a driver 〔JLCS〕
         ※ Chemotherapy first only when no NTRK inhibitor is available 〔ESMO IV, B〕
-        ※ Repotrectinib after an earlier NTRK inhibitor 〔ESMO III, A〕 〔ASCO Low, Conditional〕
       NRG1
         branch: FUS pale
         ① Chemotherapy with or without immunotherapy, as without a driver 〔ESMO IV, B〕
-        ② After first line: zenocutuzumab 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
-        ・US licence, not EU
-        ~ eNRGy {pmid 39908431}
     Mutation
       branch: MUT
       BRAF V600E
@@ -234,9 +230,6 @@ tree: Advanced NSCLC, first line
         ・The choice between targeted treatment and immunotherapy rests on disease burden, smoking history and PD-L1 〔NCCN〕
         ~ BRF113928 {pmid 28919011}
         ~ PHAROS {pmid 37270692}
-        ※ After the BRAF and MEK inhibitors
-        ・Never smoked: platinum doublet with or without immunotherapy 〔ESMO IV, A〕
-        ・Smoking history: immunotherapy with or without chemotherapy 〔ESMO IV, B〕
       MET exon 14
         branch: MUT pale
         ① Capmatinib or tepotinib 〔NCCN 2A, preferred〕 〔ASCO Moderate, Strong〕 〔ESMO III, A〕 〔JLCS C, 1〕, or immunotherapy with or without chemotherapy, as without a driver 〔NCCN 2A, other recommended〕
@@ -247,17 +240,6 @@ tree: Advanced NSCLC, first line
         ・No EU or US licence for this mutation
         ※ Gumarontinib 〔JLCS C, 1〕
         ・Licensed in Japan and China, not in the EU or US
-      KRAS G12C
-        branch: MUT pale
-        ① Chemotherapy with PD-1 antibody first, as without a driver 〔ESMO III, A〕
-        ② At progression: sotorasib or adagrasib 〔NCCN 1〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕
-        ・Sotorasib 〔JLCS B, 1〕
-        ~ CodeBreaK 200 {pmid 36764316}
-        ~ KRYSTAL-12 {pmid 40783289}
-        ※ Divarasib improved OS over sotorasib or adagrasib
-        ・Divarasib is not licensed
-          + Krascendo 1 {pmid 42929675}
-        ※ Hepatotoxicity is common when sotorasib follows a PD-1 antibody
       HER2
         branch: MUT pale
         ① Tyrosine kinase domain mutation: zongertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕 or sevabertinib 〔NCCN 2A〕 〔ESMO III, A〕
@@ -267,12 +249,9 @@ tree: Advanced NSCLC, first line
         ② Chemotherapy with or without immunotherapy, as without a driver
         ・It comes before a HER2 tyrosine kinase inhibitor 〔JLCS〕
         ・It is the first-line option when neither drug is available or the mutation is outside the kinase domain 〔ESMO IV, B〕
-        ③ After first line: trastuzumab deruxtecan 5.4 mg/kg, zongertinib or sevabertinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
-        ・Trastuzumab deruxtecan 〔ESMO III, B〕 〔JLCS C, 1〕
-        ・Zongertinib 〔JLCS C, 1〕
-        ・Zongertinib or sevabertinib after first line is limited to non-squamous disease with a kinase domain mutation 〔ESMO III, B〕
-        ・After earlier treatment, zongertinib and sevabertinib are licensed in the US, not in the EU
-          ~ DESTINY-Lung02 {pmid 37694347}
+      KRAS G12C
+        branch: MUT pale
+        ① Chemotherapy with PD-1 antibody first, as without a driver 〔ESMO III, A〕
   No driver
     branch: ND
     PS 0–1
@@ -359,6 +338,131 @@ tree: Advanced NSCLC, first line
       ※ Atezolizumab is an option at PS 3 〔NCCN 2A〕
       ※ PS 3–4: best supportive care, without drug treatment 〔JLCS D, 1〕 〔ESMO III, A〕
 
+panel: Progression, EGFR exon 19 or L858R > Exon 19 or L858R
+  ※ Tissue rebiopsy for small-cell transformation, and NGS on tissue or plasma followed by tissue when plasma finds no target 〔ESMO III, C〕
+  ① T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
+    ~ AURA3 {pmid 27959700}
+  ② After osimertinib: amivantamab added to carboplatin and pemetrexed 〔NCCN 1〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
+    ~ MARIPOSA-2 {pmid 37879444}
+    ※ Ivonescimab with chemotherapy improved OS in a trial in China
+    ・Ivonescimab is licensed in China only
+    ・In the global trial PFS improved and OS did not
+      + HARMONi-A {pmid 38820549}
+      ~ HARMONi {pmid 42636833}
+  ※ After osimertinib, amivantamab with lazertinib is an option 〔NCCN 2A, useful in certain circumstances〕
+  ・Licensed in the EU and US for first line only
+  ※ MET amplification or overexpression after an EGFR TKI: osimertinib with savolitinib improved PFS over platinum and pemetrexed
+  ・SAFFRON enrolled after osimertinib
+  ・SACHI enrolled after any EGFR TKI, in China only
+  ・Osimertinib with savolitinib or tepotinib for acquired MET amplification 〔ASCO Low, Conditional〕
+  ・This grade predates the SAFFRON report
+  ・Not licensed in the EU or US
+    + SAFFRON {pmid 42929693}
+    ~ SACHI {pmid 41544643}
+    ~ INSIGHT 2 {pmid 39089305}
+  ③ After first-line amivantamab with lazertinib: platinum-based chemotherapy, or the first-line options for disease without a driver 〔NCCN 2A〕
+  ④ After a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕 〔ESMO III, B〕
+  ・It is recommended in non-squamous disease only 〔NCCN〕
+  ・US licence, not EU
+    ~ TROPION-Lung05 {pmid 39761483}
+    ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel
+    ・US and EU applications withdrawn
+      ~ TROPION-Lung01 {pmid 39250535}
+    ※ After a TKI and before chemotherapy, three antibody–drug conjugates improved PFS over platinum and pemetrexed
+    ・The trials ran in China only
+    ・None of the three drugs is licensed in the EU or US
+      + OptiTROP-Lung04 {pmid 41124220}
+      ~ HERON-Lung01 {pmid 42933457}
+      ~ PANKU-Lung01 {pmid 42933461}
+  ⑤ Transformation to small cell: platinum with etoposide
+  ・Rebiopsy at progression to detect transformation
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, EGFR exon 20 > Exon 20 insertion
+  ① After prior platinum chemotherapy without amivantamab: amivantamab alone 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕, or sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
+  ・Sunvozertinib is licensed in the US, not in the EU
+    ~ WU-KONG1B {pmid 40923280}
+  ② After first-line amivantamab with platinum and pemetrexed: sunvozertinib 〔ASCO Low, Strong〕
+  ③ After first-line sunvozertinib alone: platinum-based doublet chemotherapy, with or without amivantamab
+  ※ First-line amivantamab with carboplatin and pemetrexed already includes platinum, so later progression moves to second-line chemotherapy
+
+panel: Progression, uncommon EGFR > Uncommon: G719X, L861Q, S768I
+  ① T790M after afatinib: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕
+  ② T790M-negative or after osimertinib: platinum-based doublet chemotherapy 〔ESMO III, A〕
+  ※ Tissue rebiopsy or plasma NGS at progression for resistance mechanisms and small-cell transformation 〔ESMO III, C〕
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, ALK > ALK
+  ① After a second-generation TKI: lorlatinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕
+  ・After alectinib: brigatinib, lorlatinib or ceritinib 〔JLCS C, 2〕
+  ・After crizotinib: alectinib 〔ESMO I, A〕, brigatinib, lorlatinib or ceritinib 〔ASCO Moderate, Strong〕
+  ② After lorlatinib or all suitable ALK TKIs: platinum-based doublet chemotherapy, pemetrexed-based for adenocarcinoma 〔ESMO III, A〕
+  ・Atezolizumab with bevacizumab, carboplatin and paclitaxel is an option after lorlatinib 〔ESMO III, C〕
+  ※ Tissue or plasma NGS at progression can identify ALK resistance mutations and transformation
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, ROS1 > ROS1
+  ① After crizotinib or entrectinib: repotrectinib or taletrectinib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕
+  ・Repotrectinib after crizotinib 〔ESMO III, A〕
+  ・Taletrectinib or zidesamtinib after any ROS1 TKI 〔ESMO III, A〕
+  ・Zidesamtinib or lorlatinib is a further option 〔NCCN〕
+  ・Zidesamtinib is licensed in the US, not in the EU
+  ② After all suitable ROS1 TKIs: platinum-based doublet chemotherapy, pemetrexed-based for adenocarcinoma 〔ESMO IV, A〕
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, RET > RET
+  ① After a RET inhibitor: platinum doublet chemotherapy
+  ・Checkpoint inhibitor response rates are low in RET-driven disease
+  ② If no RET inhibitor was given first line: selpercatinib or pralsetinib 〔ASCO Moderate, Strong〕
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, NTRK > NTRK
+  ① After an earlier NTRK inhibitor: repotrectinib 〔ESMO III, A〕 〔ASCO Low, Conditional〕
+  ・If no NTRK inhibitor was given first line: larotrectinib or entrectinib 〔ESMO III, A〕, or repotrectinib 〔ASCO Low, Strong〕
+  ② After NTRK inhibitors: platinum doublet chemotherapy
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, NRG1 > NRG1
+  ① After first-line systemic therapy: zenocutuzumab 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
+  ・US licence, not EU
+    ~ eNRGy {pmid 39908431}
+  ※ First-line therapy already includes platinum, so later progression moves to second-line chemotherapy
+
+panel: Progression, BRAF V600E > BRAF V600E
+  ① After first-line BRAF and MEK inhibitors: platinum-based doublet chemotherapy or immunotherapy
+  ・Never smoked: platinum doublet with or without immunotherapy 〔ESMO IV, A〕
+  ・Smoking history: immunotherapy with or without chemotherapy, as without a driver 〔ESMO IV, B〕
+  ② If no BRAF and MEK inhibitor was given first line: dabrafenib and trametinib, or encorafenib and binimetinib 〔ASCO Moderate, Strong〕 〔ESMO III, A〕
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, MET exon 14 > MET exon 14
+  ① After a first-line MET inhibitor: platinum-based doublet chemotherapy, with or without immunotherapy
+  ② After first-line chemotherapy with or without immunotherapy: capmatinib or tepotinib 〔ASCO Moderate, Strong〕 〔ESMO III, A〕
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, HER2 > HER2
+  ① After first-line chemotherapy with or without immunotherapy: trastuzumab deruxtecan 5.4 mg/kg, zongertinib or sevabertinib 〔NCCN 2A, preferred〕 〔ASCO Low, Strong〕
+  ・Trastuzumab deruxtecan 〔ESMO III, B〕 〔JLCS C, 1〕
+  ・Zongertinib 〔JLCS C, 1〕
+  ・Zongertinib or sevabertinib after first line is limited to non-squamous disease with a kinase domain mutation 〔ESMO III, B〕
+  ・After earlier treatment, zongertinib and sevabertinib are licensed in the US, not in the EU
+    ~ DESTINY-Lung02 {pmid 37694347}
+  ② After trastuzumab deruxtecan: zongertinib or sevabertinib 〔ASCO Very Low, Conditional〕
+  ③ After a first-line HER2 tyrosine kinase inhibitor: platinum-based doublet chemotherapy, or trastuzumab deruxtecan
+  next: Platinum-based chemotherapy | After targeted therapy
+
+panel: Progression, KRAS G12C > KRAS G12C
+  ① After chemotherapy with PD-1 antibody: sotorasib or adagrasib 〔NCCN 1〕 〔ASCO Moderate, Strong〕 〔ESMO I, B〕
+  ・Sotorasib 〔JLCS B, 1〕
+    ~ CodeBreaK 200 {pmid 36764316}
+    ~ KRYSTAL-12 {pmid 40783289}
+    ※ Divarasib improved OS over sotorasib or adagrasib
+    ・Divarasib is not licensed
+      + Krascendo 1 {pmid 42929675}
+    ※ Hepatotoxicity is common when sotorasib follows a PD-1 antibody
+  ② After a first-line checkpoint inhibitor alone: platinum-based doublet chemotherapy 〔ESMO III, A〕
+  next: Second line | At progression
+
 panel: Dual checkpoint blockade, PS 0–1 > No driver
   ① Nivolumab and ipilimumab with 2 cycles of chemotherapy
   ・PD-L1 below 50% 〔NCCN 1, other recommended〕 〔ASCO Moderate, Conditional〕 〔ESMO I, A〕 〔JLCS C, 2〕
@@ -393,8 +497,31 @@ panel: Course of treatment > No driver
     + Scagliotti 2008 {pmid 18506025}
   Non-squamous: pemetrexed continued with the PD-1 antibody 〔NCCN 1〕
   ・Pemetrexed maintenance after platinum and pemetrexed 〔JLCS BQ9, B〕
+  next: Second line | At progression
 
-panel: Second line > No driver
+panel: Platinum-based chemotherapy
+  ① Platinum doublet after all suitable targeted therapies, pemetrexed-based for non-squamous disease 〔ESMO III, A〕
+  ・EGFR after TKI resistance 〔ESMO III, A〕, ALK after lorlatinib 〔ESMO III, A〕, ROS1 after TKIs 〔ESMO IV, A〕
+  ※ Continuation of osimertinib with chemotherapy delayed progression
+  ・Platinum and pemetrexed with continued osimertinib, in non-squamous disease not already on pemetrexed 〔NCCN 2A〕
+  ・Platinum chemotherapy, given alone or with osimertinib 〔ASCO Moderate, Conditional〕
+    ~ COMPEL {pmid 41139117}
+  ② Atezolizumab with bevacizumab, carboplatin and paclitaxel after an EGFR TKI 〔ESMO III, B〕 〔JLCS B, 2〕, or after lorlatinib for ALK 〔ESMO III, C〕
+  ・Licensed in the EU after targeted therapy, not in the US
+  ・Immunotherapy after an EGFR TKI is not recommended 〔ASCO〕
+  ・PFS improved and OS did not
+    ~ IMpower150 {pmid 29863955}
+    ~ ATTLAS {pmid 37861993}
+    ※ The IMpower150 result comes from an exploratory EGFR or ALK subgroup
+    ※ OS did not differ in ATTLAS
+  ※ After an EGFR TKI, a PD-1 or PD-L1 antibody, with or without chemotherapy, is not recommended 〔ASCO High, Strong〕
+  ・A PD-1 or PD-L1 antibody alone only after TKIs and chemotherapy 〔ESMO IV, C〕
+  ・Pembrolizumab added to chemotherapy did not improve PFS or OS
+    - KEYNOTE-789 {pmid 39173098}
+  ※ BRAF V600E, MET exon 14 and smoking-associated disease: immunotherapy may be added to platinum doublet
+  next: Second line | After platinum chemotherapy
+
+panel: Second line
   ① After chemotherapy with PD-1 antibody: docetaxel, with ramucirumab if fit 〔NCCN 2A, other recommended〕 〔ASCO Low, Strong〕
   ・Docetaxel alone 〔JLCS A, 1〕
   ・Docetaxel with ramucirumab 〔JLCS B, 2〕
@@ -420,89 +547,12 @@ panel: Second line > No driver
     + OAK {pmid 27979383}
     + RATIONALE-303 {pmid 36184068}
   ⑥ After a PD-1 antibody alone: platinum doublet 〔ASCO Low, Strong〕
-  ⑦ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C branch
+  ⑦ KRAS G12C: sotorasib or adagrasib, as in the KRAS G12C progression box
   ⑧ HER2 IHC 3+: trastuzumab deruxtecan 〔NCCN 2A, other recommended〕 〔ASCO Very Low, Conditional〕
   ⑨ c-Met IHC 3+ in 50% or more of cells, non-squamous, EGFR wild-type: telisotuzumab vedotin 〔NCCN 2A, other recommended〕 〔ASCO Low, Conditional〕
   ・Trastuzumab deruxtecan and telisotuzumab vedotin 〔ESMO III, B〕
   ・Both are licensed in the US, not in the EU
     ~ LUMINOSITY {pmid 38843488}
-
-panel: Later lines, EGFR > EGFR
-  ※ NGS is an option at progression on an EGFR TKI, on tissue, or on plasma followed by tissue when plasma finds no target 〔ESMO III, C〕
-  ① T790M after an earlier-generation TKI: osimertinib 〔NCCN 1〕 〔ASCO High, Strong〕 〔ESMO I, A〕 〔JLCS B, 1〕
-    ~ AURA3 {pmid 27959700}
-  ② After osimertinib: amivantamab added to carboplatin and pemetrexed 〔NCCN 1〕 〔ASCO Moderate, Strong〕 〔ESMO I, A〕 〔JLCS B, 2〕
-    ~ MARIPOSA-2 {pmid 37879444}
-    ※ Ivonescimab with chemotherapy improved OS in a trial in China
-    ・Ivonescimab is licensed in China only
-    ・In the global trial PFS improved and OS did not
-      + HARMONi-A {pmid 38820549}
-      ~ HARMONi {pmid 42636833}
-  ※ After osimertinib, amivantamab with lazertinib is an option 〔NCCN 2A, useful in certain circumstances〕
-  ・Licensed in the EU and US for first line only
-  ※ MET amplification or overexpression after an EGFR TKI: osimertinib with savolitinib improved PFS over platinum and pemetrexed
-  ・SAFFRON enrolled after osimertinib
-  ・SACHI enrolled after any EGFR TKI, in China only
-  ・Osimertinib with savolitinib or tepotinib for acquired MET amplification 〔ASCO Low, Conditional〕
-  ・This grade predates the SAFFRON report
-  ・Not licensed in the EU or US
-    + SAFFRON {pmid 42929693}
-    ~ SACHI {pmid 41544643}
-    ~ INSIGHT 2 {pmid 39089305}
-  ③ After first-line amivantamab with lazertinib: the first-line options for disease without a driver 〔NCCN 2A〕
-  ④ Platinum doublet after all suitable TKIs, pemetrexed-based for adenocarcinoma 〔ESMO III, A〕
-    ※ Continuation of osimertinib with chemotherapy delayed progression
-    ・Platinum and pemetrexed with continued osimertinib, in non-squamous disease not already on pemetrexed 〔NCCN 2A〕
-    ・Platinum chemotherapy, given alone or with osimertinib 〔ASCO Moderate, Conditional〕
-      ~ COMPEL {pmid 41139117}
-  ⑤ After a TKI and platinum chemotherapy: datopotamab deruxtecan 〔NCCN 2A, preferred〕 〔ASCO Low, Conditional〕 〔ESMO III, B〕
-  ・It is recommended in non-squamous disease only 〔NCCN〕
-  ・US licence, not EU
-    ~ TROPION-Lung05 {pmid 39761483}
-    ※ Unselected non-squamous disease after chemotherapy and immunotherapy: datopotamab deruxtecan improved PFS, not OS, against docetaxel
-    ・US and EU applications withdrawn
-      ~ TROPION-Lung01 {pmid 39250535}
-    ※ After a TKI and before chemotherapy, three antibody–drug conjugates improved PFS over platinum and pemetrexed
-    ・The trials ran in China only
-    ・None of the three drugs is licensed in the EU or US
-      + OptiTROP-Lung04 {pmid 41124220}
-      ~ HERON-Lung01 {pmid 42933457}
-      ~ PANKU-Lung01 {pmid 42933461}
-  ⑥ Exon 20 after platinum
-  ・Amivantamab alone if not given before 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
-  ・Sunvozertinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, B〕
-  ・Sunvozertinib is licensed in the US, not in the EU
-    ~ WU-KONG1B {pmid 40923280}
-  ⑦ Transformation to small cell, mostly after an EGFR TKI: platinum with etoposide
-  ・Rebiopsy at progression to detect transformation
-  next: Second line | After TKIs and platinum chemotherapy
-
-panel: Immunotherapy after an EGFR TKI > EGFR
-  ① Atezolizumab with bevacizumab, carboplatin and paclitaxel 〔ESMO III, B〕 〔JLCS B, 2〕
-  ・Licensed in the EU after targeted therapy, not in the US
-  ・Immunotherapy after an EGFR TKI is not recommended 〔ASCO〕
-  ・PFS improved and OS did not
-    ~ IMpower150 {pmid 29863955}
-    ~ ATTLAS {pmid 37861993}
-    ※ The IMpower150 result comes from an exploratory EGFR or ALK subgroup
-    ※ OS did not differ in ATTLAS
-  ※ After a TKI, a PD-1 or PD-L1 antibody, with or without chemotherapy, is not recommended 〔ASCO High, Strong〕
-  ・A PD-1 or PD-L1 antibody alone only after TKIs and chemotherapy 〔ESMO IV, C〕
-  ・Pembrolizumab added to chemotherapy did not improve PFS or OS
-    - KEYNOTE-789 {pmid 39173098}
-
-panel: Later lines, ALK and ROS1 > Fusion
-  ① ALK after a second-generation TKI: lorlatinib 〔NCCN 2A〕 〔ASCO Low, Strong〕 〔ESMO III, A〕
-  ・After alectinib: brigatinib, lorlatinib or ceritinib 〔JLCS C, 2〕
-  ・After lorlatinib: platinum and pemetrexed 〔ESMO III, A〕
-  ・After lorlatinib, atezolizumab with bevacizumab, carboplatin and paclitaxel is an option 〔ESMO III, C〕
-  ② ROS1 after crizotinib or entrectinib: repotrectinib or taletrectinib 〔NCCN 2A〕 〔ASCO Moderate, Strong〕
-  ・Repotrectinib after crizotinib 〔ESMO III, A〕
-  ・Taletrectinib or zidesamtinib after any ROS1 TKI 〔ESMO III, A〕
-  ・Zidesamtinib or lorlatinib is a further option 〔NCCN〕
-  ・Zidesamtinib is licensed in the US, not in the EU
-  ③ Platinum doublet after all suitable TKIs, pemetrexed-based for adenocarcinoma: ALK 〔ESMO III, A〕, ROS1 〔ESMO IV, A〕
-  next: Second line | After TKIs and platinum chemotherapy
 
 off:
   PROFILE 1014 {pmid 25470694} | Crizotinib vs chemotherapy for ALK, replaced by ALEX and CROWN

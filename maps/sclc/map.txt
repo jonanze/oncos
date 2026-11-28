@@ -62,7 +62,7 @@ course: Small-cell lung cancer
   Limited stage
     branch: LS
     Stage I–III that a tolerable radiotherapy plan can cover
-    next: Surgery or SABR | Clinical T1–2 N0, node-negative on pathological staging
+    next: Surgery or SABR | cT1–2 N0, pathologically N0
     next: Chemoradiotherapy | Other stage I–III, PS 0–2
     ※ PS 3–4 due to SCLC
     ・Chemotherapy with or without radiotherapy 〔NCCN 2A〕
@@ -131,7 +131,7 @@ course: Small-cell lung cancer
     ・GM-CSF is not recommended 〔NCCN 1〕
     ・G-CSF is not recommended 〔NCCN 2A〕
     ・G-CSF is an option 〔ASCO Moderate, Weak〕
-    next: Thoracic radiotherapy | Given with chemotherapy
+    next: Thoracic radiotherapy | Concurrent
   Thoracic radiotherapy
     branch: CRT pale
     Thoracic radiotherapy with chemotherapy improves survival
@@ -234,8 +234,8 @@ course: Small-cell lung cancer
     ※ The FDA withdrew the second-line indication of lurbinectedin alone on 30 September 2026
     ・LAGOON, a phase III trial against topotecan or irinotecan reported only in company topline results, did not improve OS
     ・Still preferred in NCCN 1.2027 and ASCO, both published before LAGOON
-    next: Sensitive relapse | 90 days or more after first-line chemotherapy
-    next: Refractory relapse | Within 90 days or during first-line chemotherapy
+    next: Sensitive relapse | Relapse ≥ 90 days
+    next: Refractory relapse | Relapse < 90 days
   Sensitive relapse
     branch: REL pale
     ① Tarlatamab 〔NCCN 1, preferred〕 〔ASCO Moderate, Strong〕
