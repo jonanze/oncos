@@ -25,7 +25,7 @@
 (function(){
   // tree spacing widened (Jonan 2026-11-11, "cramped up narrowly with no breathing room")
   var GX = 160, GY = 48, LEAF_GAP = 120, M = 28, SHAPES = {};
-  var COL_W = 460, COL_GAP = 32, PAD = 32, COL_MAX = 4, SCREEN_W = 1600, SCREEN_H = 850, STEP_W = COL_W + PAD, CGX = 170, CGY = 56, BGY = 96, STUB = 28, GRID_COL = 220;
+  var COL_W = 460, COL_GAP = 32, PAD = 32, COL_MAX = 4, SCREEN_W = 1600, SCREEN_H = 850, STEP_W = COL_W + PAD, CGX = 170, CGY = 56, BGY = 96, STUB = 64, GRID_COL = 220;
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   // Hyphenated terms and ranges stay on one line: "PD-L1", "5-year", "1–49%".
@@ -175,7 +175,7 @@
      see: branch running straight down into the side of its final box nearest it. Square lines, no arrowheads
      (Jonan 2026-11-11). Returns the chart's size. */
   function drawFlow(fl, fls){
-    var NW = 244, HG = 28, BUS = 18, LG = 10, IN = 12, O = window.oncosOutline;
+    var NW = 244, HG = 44, BUS = 24, LG = 16, IN = 16, O = window.oncosOutline;
     var root = null, stack = [], all = [], dx = {};
     while (fl.lastChild && fl.lastChild !== fl.firstChild) fl.removeChild(fl.lastChild);
     fls.forEach(function(l){
@@ -320,9 +320,10 @@
         }
         if (!box) { put(1); return; }
         for (n = Math.max(1, n); n > 1; n--) {
+          if (!b.band && b.c1 < n * 80) continue;
           var lim = 1.25 * b.c1 / n, anyTall = false;
           Array.prototype.forEach.call(box.children, function(g){
-            var t = !!(b.band && b.c1 > 0 && (g._h1 || 0) > lim);
+            var t = !!((b.band || b.c1 >= 260) && b.c1 > 0 && (g._h1 || 0) > lim);
             g.classList.toggle('tall', t);
             if (t) anyTall = true;
           });
@@ -353,7 +354,7 @@
         if (n.junction) { n.el = add('jn', ''); n.hd = n.el; n.w = 0; return; }
         n.el = add('step' + brc(n), '<div class="box lbl hd"><span>' + keep(n.label) + '</span></div>' + colsHtml(n.lines));
         n.hd = n.el.firstChild;
-        sized(n.el, n.lines, function(w){ n.w = w; });
+        sized(n.el, n.lines, function(w){ n.w = w; }).step = n;
       });
       // join: lines to one step with one label carry that label once, on their shared line
       var joinLab = {};
@@ -399,7 +400,7 @@
       // lines up with the boxes beside it (Jonan 2026-11-14, IGCCCG table on the germ cell map)
       var g0 = p.lines.filter(function(l){ return l.kind === 'grid'; })[0], bare = !!g0 && g0.cells[0] === p.title;
       p.el = add('panel' + (hasGrid(p.lines) ? ' open' : '') + (bare ? ' bare' : '') + brc(p), (bare ? '' : '<h2>' + esc(p.title) + '</h2>') + colsHtml(p.lines));
-      sized(p.el, p.lines, function(w){ p.w = w; });
+      sized(p.el, p.lines, function(w){ p.w = w; }).panel = true;
       return p;
     });
 
@@ -437,25 +438,119 @@
     function layout(){
       flows.forEach(function(f){ f(); });
       blocks.forEach(function(b){ b.measure1(); });
-      function shape(r, trial){
-        // the bands start at one column and widen in bandsRow to the width of the map below them
-        blocks.forEach(function(b){ b.cols(b.band ? 1 : Math.max(1, Math.min(COL_MAX, Math.round(Math.sqrt(b.h1 / (r * b.width(1))))))); });
+      var maxC = board && steps.reduce(function(m, n){ return Math.max(m, n.col); }, 0) <= 2 ? 5 : COL_MAX;
+      function applyNs(ns, trial){
+        // bands (and board bottom panels) start at 1 column and widen to fill the step span
+        blocks.forEach(function(b, i){ b.cols(b.band || (board && b.panel) ? 1 : ns[i]); });
         layoutOnce(trial);
+        return Math.min(SCREEN_W / W, SCREEN_H / H);
       }
       // the shape chosen is kept for the page's life, under the map and the height of each block at one column, so
       // opening the map again (or after the web font arrives with the same heights) lays it out once
       var key = opts.id + ':' + blocks.map(function(b){ return b.h1 + '/' + b.c1; }).join(',');
       var best = opts.id ? SHAPES[key] : null;
       if (!best) {
-        // the trial layouts are measured only: their lines and labels are drawn for the one kept
-        for (var r = 0.08; r < 4; r *= 1.5) {
-          shape(r, true);
-          var fit = Math.min(SCREEN_W / W, SCREEN_H / H);
-          if (!best || fit > best.fit + 1e-4) best = {r: r, fit: fit};
+        var bestNs = null, bestFit = -1;
+        // 1. Seed from a global aspect-ratio sweep
+        for (var r = 0.05; r < 4; r *= 1.5) {
+          var ns0 = blocks.map(function(b){ return b.band || (board && b.panel) ? 1 : Math.max(1, Math.min(maxC, Math.round(Math.sqrt(b.h1 / (r * b.width(1)))))); });
+          var fit0 = applyNs(ns0, true);
+          if (fit0 > bestFit + 1e-4) { bestFit = fit0; bestNs = blocks.map(function(b){ return b.n; }); }
         }
+        // 2. Per-column and per-box refinement on course/board maps:
+        //    - fill narrower tall boxes up to their column's already-paid width (zero width cost)
+        //    - when width-limited, narrow non-bottleneck wide columns; when height-limited, widen the tallest column
+        if (course && bestNs) {
+          var sblks = blocks.map(function(b, i){ return {b: b, i: i}; }).filter(function(x){ return x.b.step; });
+          function colStats(){
+            var cs = [];
+            sblks.forEach(function(x){
+              var c = x.b.step.col;
+              if (!cs[c]) cs[c] = {c: c, w: 0, h: 0, items: []};
+              cs[c].w = Math.max(cs[c].w, x.b.step.w);
+              cs[c].h += x.b.el.offsetHeight;
+              cs[c].items.push(x);
+            });
+            cs.forEach(function(col){ if (col) col.h += 48 * (col.items.length - 1); });
+            return cs.filter(Boolean);
+          }
+          function nextN(b, cur, cap){
+            var k, hit = 0;
+            for (k = cur + 1; k <= cap; k++) {
+              b.cols(k);
+              if (b.n > cur) { hit = b.n; break; }
+            }
+            b.cols(cur);
+            return hit;
+          }
+          function fillCols(ns){
+            applyNs(ns, true);
+            var cs = colStats(), trial = ns.slice(), changed = false;
+            cs.forEach(function(col){
+              col.items.forEach(function(x){
+                var cur = x.b.n, bestK = cur;
+                for (var k = cur + 1; k <= maxC; k++) {
+                  if (x.b.width(k) > col.w) break;
+                  x.b.cols(k);
+                  if (x.b.n > bestK) bestK = x.b.n;
+                }
+                if (bestK > cur) { trial[x.i] = bestK; changed = true; }
+                x.b.cols(cur);
+              });
+            });
+            if (!changed) return false;
+            var f = applyNs(trial, true);
+            if (f >= bestFit - 1e-4) { bestFit = Math.max(bestFit, f); bestNs = blocks.map(function(b){ return b.n; }); return true; }
+            return false;
+          }
+          fillCols(bestNs);
+          for (var iter = 0; iter < 18; iter++) {
+            applyNs(bestNs, true);
+            var cs = colStats(), cands = [];
+            if (SCREEN_W / W <= SCREEN_H / H) {
+              // width-limited: try narrowing the widest boxes in each column that exceeds 1 column
+              cs.forEach(function(col){
+                if (col.w <= STEP_W + 40) return;
+                var ns2 = bestNs.slice(), moved = [], ok = false;
+                col.items.forEach(function(x){
+                  if (x.b.step.w >= col.w - 40 && bestNs[x.i] > 1) { ns2[x.i] = bestNs[x.i] - 1; moved.push(x); ok = true; }
+                });
+                if (ok) cands.push({ns: ns2, moved: moved, narrow: true});
+              });
+            } else {
+              // height-limited: try widening the tallest boxes in the top 2 tallest columns
+              var tallCols = cs.slice().sort(function(a, z){ return z.h - a.h; }).slice(0, 2);
+              tallCols.forEach(function(col){
+                var sorted = col.items.slice().sort(function(a, z){ return z.b.el.offsetHeight - a.b.el.offsetHeight; });
+                var top = sorted.map(function(x){ return {x: x, nx: nextN(x.b, bestNs[x.i], maxC)}; }).filter(function(o){ return o.nx > 0; });
+                if (!top.length) return;
+                var nsA = bestNs.slice(); nsA[top[0].x.i] = top[0].nx;
+                cands.push({ns: nsA, moved: [top[0].x], narrow: false});
+                if (top.length > 1) {
+                  var nsB = bestNs.slice(), limH = top[0].x.b.el.offsetHeight * 0.65, mv = [];
+                  top.forEach(function(o){ if (o.x.b.el.offsetHeight >= limH) { nsB[o.x.i] = o.nx; mv.push(o.x); } });
+                  if (mv.length > 1) cands.push({ns: nsB, moved: mv, narrow: false});
+                }
+              });
+            }
+            var winNs = null, winFit = bestFit + 1e-3;
+            cands.forEach(function(cd){
+              var f = applyNs(cd.ns, true);
+              if (f <= winFit) return;
+              // when narrowing a column, avoid creating overly tall skinny pillars
+              if (cd.narrow && cd.moved.some(function(x){ return x.b.el.offsetHeight / x.b.el.offsetWidth > 1.85; })) return;
+              winFit = f; winNs = blocks.map(function(b){ return b.n; });
+            });
+            if (!winNs) break;
+            bestFit = winFit; bestNs = winNs;
+            fillCols(bestNs);
+          }
+          fillCols(bestNs);
+        }
+        best = {ns: bestNs, fit: bestFit};
         if (opts.id) SHAPES[key] = best;
       }
-      shape(best.r);
+      applyNs(best.ns);
     }
     var svg = '';
 
@@ -473,34 +568,47 @@
           .sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })
           .forEach(function(b){ if (rowW() + (b.groups - b.n) * (COL_W + COL_GAP) <= span) { b.split(); b.full = true; } });
         for (var guard = 0; guard < 24; guard++) {
-          var tall = bb.filter(function(b){ return !b.grid && !b.flow && !b.full && b.n < COL_MAX; }).sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })[0];
-          if (!tall || rowW() + COL_W + COL_GAP > span) break;
-          var was = tall.n; tall.cols(was + 1);
-          if (tall.n === was) tall.full = true;
+          var tall = bb.filter(function(b){ return !b.flow && !b.full && b.n < COL_MAX; }).sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })[0];
+          if (!tall) break;
+          var was = tall.n, grew = false;
+          for (var k = was + 1; k <= COL_MAX; k++) {
+            if (rowW() + tall.width(k) - tall.width(was) > span) break;
+            tall.cols(k);
+            if (tall.n > was) { grew = true; break; }
+          }
+          if (!grew) { tall.cols(was); tall.full = true; }
         }
       }
       bands.forEach(function(el){ el.style.left = bx + 'px'; el.style.top = top + 'px'; bx += el.w + 40; bandH = Math.max(bandH, el.offsetHeight); });
-      return {x:bx, top:top + (bands.length ? bandH + 28 : 0)};
+      return {x:bx, top:top + (bands.length ? bandH + 56 : 0)};
     }
 
 
-    /* board layout: columns left to right, 80 apart (wider where a line label needs room); the steps of a
-       column stacked 32 apart; every column centred on one level, so a step sits beside the middle of the
-       steps it leads to and comes from. Each line leaves the right side of its step at the middle and enters
-       the left side of the next at the middle, turning at the middle of the gap. Bands run the width of the
-       map above; panels sit in a row below. */
+    /* board layout: columns left to right, 152 apart (wider where a line label needs room); the steps of a
+       column stacked 48 apart (88 between independent parallel tracks); every column centred on one level, so
+       a step sits beside the middle of the steps it leads to and comes from. Each line leaves the right side of
+       its step at the middle and enters the left side of the next at the middle, turning at the middle of the gap.
+       Bands run the width of the map above; panels sit in a row below. */
     function layoutBoard(){
       svg = '';
-      var BG = multiRoot ? 112 : 72, SG = 36, cols = [];
+      var BG = 152, SG = 48, TG = 88, LG = 12, cols = [];
       steps.forEach(function(n){ (cols[n.col] = cols[n.col] || []).push(n); n.el.style.width = n.w + 'px'; n.hd.style.minHeight = ''; n.el.style.minHeight = ''; });
       // a step widens until no unbreakable run (a long tag, a chip) spills past its edge
       steps.forEach(function(n){ var over = n.el.scrollWidth - n.el.clientWidth; if (over > 0) { n.w += over + 4; n.el.style.width = n.w + 'px'; } });
+      // count distinct fans per gap so multi-fan lane offsets never squeeze a label pill or rounded corner
+      var fanSets = cols.map(function(){ return []; });
+      steps.forEach(function(n){ n.next.forEach(function(e){
+        var gc = n.next.length > 1 ? n.col : e.node.col - 1, key = n.next.length > 1 ? n : e.node;
+        if (fanSets[gc].indexOf(key) < 0) fanSets[gc].push(key);
+      }); });
       // each gap has a stub before the upright and a stub after it. A label widens only its own side, so a step
       // sits on its line with stubs of equal length either side (Jonan 2026-11-11, restaging box on rectal)
       var gapL = cols.map(function(){ return BG / 2; }), gapR = cols.map(function(){ return BG / 2; });
       steps.forEach(function(n){ n.next.forEach(function(e){
         if (!e.el) return;
-        var t = e.node, need = e.el.offsetWidth + 24, gc = n.next.length > 1 ? n.col : t.col - 1;
+        var t = e.node, gc = n.next.length > 1 ? n.col : t.col - 1;
+        var fanPad = Math.max(0, fanSets[gc].length - 1) * LG / 2;
+        var need = e.el.offsetWidth + 56 + fanPad;
         if (t.preds.length < 2 && !e.shared) gapR[gc] = Math.max(gapR[gc], need); else gapL[gc] = Math.max(gapL[gc], need);
       }); });
       var gapW = cols.map(function(x, c){ return gapL[c] + gapR[c]; });
@@ -514,7 +622,7 @@
       cols.forEach(function(list, c){
         var y = axis - colH[c] / 2;
         list.forEach(function(n){
-          n.x = colX[c] + (multiRoot ? 0 : (colW[c] - n.w) / 2); n.y = y; n.cy = y + n.el.offsetHeight / 2;
+          n.x = colX[c]; n.y = y; n.cy = y + n.el.offsetHeight / 2;
           n.el.style.left = n.x + 'px'; n.el.style.top = n.y + 'px';
           y += n.el.offsetHeight + SG;
         });
@@ -582,28 +690,41 @@
       // Each first step then centres on the steps it leads to; where the steps beside it hold it back, the
       // steps below it move down instead, and the later columns follow, until every line runs straight or
       // forks evenly as far as the column heights allow (Jonan 2026-11-18, bladder: "symmetry and minimal line bends")
+      var trackId = 0;
+      steps.forEach(function(n){ n.track = -1; });
+      steps.forEach(function(n){
+        if (n.track >= 0) return;
+        (function mark(m){
+          if (m.track >= 0) return; m.track = trackId;
+          m.next.forEach(function(e){ mark(e.node); });
+          m.preds.forEach(function(p){ mark(p); });
+        })(n);
+        trackId++;
+      });
       function later(){
         for (var c2 = 1; c2 < cols.length; c2++) {
-          var l2 = cols[c2], floor = -Infinity, i = 0;
+          var l2 = cols[c2], prevBot = -Infinity, prevTrack = null, i = 0;
           while (i < l2.length) {
             var t = l2[i], j = i + 1, p0 = t.preds.length === 1 ? t.preds[0] : null;
             if (p0) while (j < l2.length && l2[j].preds.length === 1 && l2[j].preds[0] === p0) j++;
             var fan = l2.slice(i, j), w = t.preds.length ? centreOf(t.preds.map(function(p){ return p.cy; })) : t.cy;
+            var gap = prevTrack !== null && prevTrack !== fan[0].track ? TG : SG;
             stack(fan, 0);
             var d = w - centreOf(fan.map(function(n){ return n.cy; }));
-            move(fan, Math.max(d, floor - fan[0].y));
-            floor = fan[fan.length - 1].y + hgt(fan[fan.length - 1]) + SG; i = j;
+            move(fan, Math.max(d, prevBot + gap - fan[0].y));
+            prevBot = fan[fan.length - 1].y + hgt(fan[fan.length - 1]); prevTrack = fan[fan.length - 1].track; i = j;
           }
         }
       }
       if (multiRoot) for (var it = 0; it < 12; it++) {
         later();
-        var floor0 = -Infinity, still = true;
+        var prevBot0 = -Infinity, prevTrack0 = null, still = true;
         cols[0].forEach(function(n){
           // a first step whose line joins another stays put, so the joined step keeps the middle of the two
           var own = n.next.length && n.next.every(function(e){ return e.node.preds.length === 1; });
           var y = own ? centreOf(n.next.map(function(e){ return e.node.cy; })) - hgt(n) / 2 : n.y;
-          y = Math.max(y, floor0);
+          var gap0 = prevTrack0 !== null && prevTrack0 !== n.track ? TG : SG;
+          y = Math.max(y, prevBot0 + gap0);
           // a line passing a column must clear the boxes in that column
           n.next.forEach(function(e){
             if (e.node.col <= n.col + 1) return;
@@ -613,7 +734,7 @@
             });
           });
           if (Math.abs(y - n.y) > 0.5) still = false;
-          n.y = y; n.cy = y + hgt(n) / 2; floor0 = y + hgt(n) + SG;
+          n.y = y; n.cy = y + hgt(n) / 2; prevBot0 = y + hgt(n); prevTrack0 = n.track;
         });
         if (still) break;
       }
@@ -643,8 +764,8 @@
       steps.forEach(function(n){ n.y += lift; n.cy += lift; n.el.style.top = n.y + 'px'; });
       // as on the whiteboard, lines that fan out from one step or into one step share its middle and one upright,
       // so they read as one trunk with rounded turns (Jonan 2026-11-11, "why are these lines broken").
-      // Fans of different steps in one gap keep their own uprights, 12 apart.
-      var SP = 0, LG = 12;
+      // Fans whose vertical spans overlap in one gap keep their own uprights, LG apart; non-overlapping fans align on one rule.
+      var SP = 0;
       function spread(list, key){ list.sort(function(a, z){ return key(a) - key(z); }); return function(e){ return (list.indexOf(e) - (list.length - 1) / 2) * SP; }; }
       var outs = [], ins = [];
       steps.forEach(function(n){
@@ -681,19 +802,17 @@
           if (fans.indexOf(key) < 0) fans.push(key);
           e.fan = key;
         });
-        // several parallel first steps: fans that do not overlap in height share one upright position, and a
-        // straight line takes none, so the uprights of a gap stand on one rule
-        if (multiRoot) {
-          var lanes = [];
-          fans.forEach(function(f){
-            var ys = []; es.forEach(function(e){ if (e.fan === f) ys.push(e.ya, e.yb); });
-            f.lo = Math.min.apply(null, ys); f.hi = Math.max.apply(null, ys);
-            if (f.hi - f.lo < 0.5) { f.lane = 0; return; }
-            for (var k = 0; ; k++) { lanes[k] = lanes[k] || []; if (lanes[k].every(function(g){ return f.lo > g.hi + 20 || f.hi < g.lo - 20; })) { lanes[k].push(f); f.lane = k; break; } }
-          });
-          es.forEach(function(e){ e.xm = mid + (e.fan.lane - (lanes.length - 1) / 2) * LG; });
-        } else
-        es.forEach(function(e){ e.xm = mid + (fans.indexOf(e.fan) - (fans.length - 1) / 2) * LG; });
+        // fans that do not overlap in height share one upright position, and a straight line takes none,
+        // so the uprights of a gap stand cleanly aligned on one rule
+        var lanes = [];
+        fans.forEach(function(f){
+          var ys = []; es.forEach(function(e){ if (e.fan === f) ys.push(e.ya, e.yb); });
+          f.lo = Math.min.apply(null, ys); f.hi = Math.max.apply(null, ys);
+          if (f.hi - f.lo < 0.5) { f.lane = 0; return; }
+          for (var k = 0; ; k++) { lanes[k] = lanes[k] || []; if (lanes[k].every(function(g){ return f.lo > g.hi + 20 || f.hi < g.lo - 20; })) { lanes[k].push(f); f.lane = k; break; } }
+        });
+        var laneCount = Math.max(1, lanes.length);
+        es.forEach(function(e){ e.xm = mid + (e.fan.lane - (laneCount - 1) / 2) * LG; });
       });
       function elbow(x1, y1, xm, y2, x2){
         if (Math.abs(y2 - y1) < 0.5) return '<path d="M' + x1 + ' ' + y1 + ' H' + x2 + '"/>';
@@ -716,10 +835,34 @@
         }
       }); });
       var bottom = Math.max.apply(null, steps.map(function(n){ return n.y + n.el.offsetHeight; })), px = M;
-      panels.forEach(function(p){
+      if (panels.length) {
+        var pb = blocks.filter(function(b){ return b.panel; });
+        var pRowW = function(){ return pb.reduce(function(t, b){ return t + b.width(b.n); }, 0) + 32 * (pb.length - 1); };
+        pb.forEach(function(b){ b.pFull = false; });
+        for (var pg = 0; pg < 24; pg++) {
+          var pt = pb.filter(function(b){ return !b.pFull && b.n < COL_MAX; }).sort(function(x, y){ return y.el.offsetHeight - x.el.offsetHeight; })[0];
+          if (!pt) break;
+          var was = pt.n, grew = false;
+          for (var k = was + 1; k <= COL_MAX; k++) {
+            if (pRowW() + pt.width(k) - pt.width(was) > width) break;
+            pt.cols(k);
+            if (pt.n > was) { grew = true; break; }
+          }
+          if (!grew) { pt.cols(was); pt.pFull = true; }
+        }
+      }
+      var remW = panels.map(function(p){ return p.w; });
+      for (var ri = remW.length - 2; ri >= 0; ri--) remW[ri] += 32 + remW[ri + 1];
+      var byLbl = {}; steps.forEach(function(n){ byLbl[n.label] = n; });
+      panels.forEach(function(p, pi){
         p.el.style.width = p.w + 'px';
-        p.el.style.left = px + 'px'; p.el.style.top = (bottom + 64) + 'px';
-        px += p.w + 32;
+        var jn = p.join && byLbl[p.join], x = px;
+        if (jn) {
+          var maxX = M + width - remW[pi];
+          if (jn.x > x && maxX > x) x = Math.min(jn.x, maxX);
+        }
+        p.el.style.left = x + 'px'; p.el.style.top = (bottom + 64) + 'px';
+        px = x + p.w + 32;
       });
     }
 
@@ -873,18 +1016,18 @@
         e.split = n.next.length > 1 || t.preds.length < 2; e.level = Math.abs(t.cy - n.cy) < 1;
         if (!e.el) return;
         var w = e.el.offsetWidth;
-        if (e.split && !e.level && !e.join) n.stub = Math.max(n.stub, w / 2 + 12);
-        if (e.joins) t.jstub = Math.max(t.jstub, w / 2 + 12);
+        if (e.split && !e.level && !e.join) n.stub = Math.max(n.stub, w / 2 + 20);
+        if (e.joins) t.jstub = Math.max(t.jstub, w / 2 + 20);
       }); });
       steps.forEach(function(n){ n.next.forEach(function(e){
         var t = e.node, c = t.col - 1;
         if (!e.el || (!e.joins && e.join) || c < 0) return;
         var w = e.el.offsetWidth, need;
-        if (e.joins && e.split) { if (n.col !== c) return; need = n.stub + w + 32; }
-        else if (e.joins) need = t.jstub + w / 2 + 12;
+        if (e.joins && e.split) { if (n.col !== c) return; need = n.stub + w + 56; }
+        else if (e.joins) need = t.jstub + w / 2 + 20;
         else if (n.col !== c) return;
-        else if (e.split) need = e.level ? n.stub + w + 32 : n.stub + w / 2 + 12;
-        else need = t.jstub + w + 32;
+        else if (e.split) need = e.level ? n.stub + w + 56 : n.stub + w / 2 + 20;
+        else need = t.jstub + w + 56;
         gapW[c] = Math.max(gapW[c], need);
       }); });
       // lines meet at a junction a stub's length out from the widest step before it
@@ -1110,7 +1253,7 @@
       groups.forEach(function(g){ g.lvl = 0; });
       groups.forEach(function(g){ groups.forEach(function(h){ if (holds(g.n, h.n)) g.lvl = Math.max(g.lvl, h.lvl + 1); }); });
       var maxLvl = groups.reduce(function(m, g){ return Math.max(m, g.lvl); }, 0);
-      var braceX = textX + leafR + 56, BSTEP = 36, panelX = braceX + maxLvl * BSTEP + 120, lastBottom = treeTop - 32, right = panelX + panels.reduce(function(m, p){ return Math.max(m, p.w); }, 0);
+      var braceX = textX + leafR + 56, BSTEP = 36, panelX = braceX + maxLvl * BSTEP + 152, lastBottom = treeTop - 32, right = panelX + panels.reduce(function(m, p){ return Math.max(m, p.w); }, 0);
       var loose = panels.filter(function(p){ return !p.join; });
       groups.forEach(function(g){
         var y1 = g.n.cy - g.n.up, y2 = g.n.cy + g.n.down, mid = (y1 + y2) / 2, bx = braceX + g.lvl * BSTEP;
@@ -1120,7 +1263,7 @@
         lastBottom = y - 32;
         svg += '<path d="' + bracePath(bx, y1, y2, 9) + '"/>';
         // tip to a fork in the gap before the panels, then across to each panel's title
-        var fx = panelX - 40, lo = Math.min.apply(null, hys.concat(mid)), hi = Math.max.apply(null, hys.concat(mid));
+        var fx = panelX - 68, lo = Math.min.apply(null, hys.concat(mid)), hi = Math.max.apply(null, hys.concat(mid));
         hys.forEach(function(hy){ svg += rpath([[bx + 18, mid], [fx, mid], [fx, hy], [panelX, hy]]); });
       });
       loose.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = (lastBottom + 32) + 'px'; lastBottom += 32 + p.el.offsetHeight; });

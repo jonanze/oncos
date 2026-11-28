@@ -11,6 +11,7 @@
    - two lines cross (a run passing through the middle of another run, not a junction)
    - a single line bends, or any line jogs by an upright under 40 px or kinks under 40 px off its stem (Jonan 2026-11-18); a fork or join off the
      middle of its branches is printed as a note, since some forks are uneven by design (rectal, 2026-11-11)
+   - a horizontal line run is under 40 px, or a horizontal line label has under 14 px of visible line beside it
    - the last word of a statement goes to the next line although it fitted on the line above (Jonan 2026-11-11)
    - a single word is alone on the last line, or a wrapped line starts left of the text (under ① or ※)
    - in a flowchart (a flow band): a line under a box, lines crossing, a branch label off its line's centre, or a
@@ -116,6 +117,15 @@ function measure(){
     else if (into.length === 1 && Math.abs(into[0] - mid(out)) > T) warn.push('a fork is ' + Math.round(Math.abs(into[0] - mid(out))) + ' px off the middle of its ' + out.length + ' branches ' + at);
     else if (out.length === 1 && Math.abs(out[0] - mid(into)) > T) warn.push('a join is ' + Math.round(Math.abs(out[0] - mid(into))) + ' px off the middle of its ' + into.length + ' lines ' + at);
   });
+  // short horizontal runs: merged collinear runs under 40 px leave too little breathing room between boxes
+  const hruns = [];
+  segs.filter(s => s.h).slice().sort((p, q) => p.k - q.k || p.a - q.a).forEach(h => {
+    const u = hruns.find(u => Math.abs(u.k - h.k) < .5 && h.a <= u.b + .5 && h.b >= u.a - .5);
+    if (u) { u.a = Math.min(u.a, h.a); u.b = Math.max(u.b, h.b); } else hruns.push({k:h.k, a:h.a, b:h.b});
+  });
+  hruns.forEach(h => {
+    if (h.b - h.a < 40) res.push('a horizontal line is only ' + Math.round(h.b - h.a) + ' px long at x ' + Math.round(h.a) + ', y ' + Math.round(h.k));
+  });
   chips.forEach(e => {
     const c = R(e), cx = (c.l + c.r) / 2, cy = (c.t + c.b) / 2, name = e.textContent.trim().slice(0, 40);
     const H = segs.filter(s => s.h && Math.abs(s.k - cy) <= T && s.a < cx && cx < s.b);
@@ -136,6 +146,8 @@ function measure(){
     const off = pos - (lo + hi) / 2, cross = B.length ? 0 : (h ? cy - k : cx - k);
     if (Math.abs(off) > T || Math.abs(cross) > T)
       res.push('"' + name + '" is ' + Math.round(Math.abs(Math.abs(off) > T ? off : cross)) + ' px off centre ' + (Math.abs(off) > T ? 'along' : 'across') + ' its line');
+    if (h && Math.min(c.l - lo, hi - c.r) < 14)
+      res.push('"' + name + '" has only ' + Math.round(Math.min(c.l - lo, hi - c.r)) + ' px of line beside it');
   });
   // a single word left alone on the last line of a statement, before its tags
   world.querySelectorAll('.ln, .sb, li, .sub, .trials>div>*, .box.lbl').forEach(el => {
