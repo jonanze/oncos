@@ -340,6 +340,7 @@ course: Early and locally advanced NSCLC
         ~ ELEVATE {pmid 42418775}
     ③ RET, stage IB–IIIA: selpercatinib for 3 years, also after radiotherapy 〔ESMO I, A〕 〔NCCN 1〕
       ~ LIBRETTO-432 {pmid 42223087}
+      ※ The primary endpoint was in stage II–IIIA, and stage IB was a secondary analysis
   After chemoradiotherapy, no progression
     branch: CRT pale
     ① EGFR exon 19 or L858R: osimertinib until progression 〔ESMO I, A〕 〔NCCN 1〕 〔JLCS B, 2〕
