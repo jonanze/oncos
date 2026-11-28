@@ -546,6 +546,31 @@
             fillCols(bestNs);
           }
           fillCols(bestNs);
+        } else if (!course && bestNs) {
+          applyNs(bestNs, true);
+          var byLeft = {}, trial = bestNs.slice(), changed = false;
+          blocks.forEach(function(b, i){
+            if (b.band) return;
+            var lx = Math.round(b.el.offsetLeft / 4) * 4;
+            (byLeft[lx] = byLeft[lx] || []).push({b: b, i: i});
+          });
+          Object.keys(byLeft).forEach(function(lx){
+            var grp = byLeft[lx], colW = grp.reduce(function(m, x){ return Math.max(m, x.b.el.offsetWidth); }, 0);
+            grp.forEach(function(x){
+              var cur = x.b.n, bestK = cur;
+              for (var k = cur + 1; k <= maxC; k++) {
+                if (x.b.width(k) > colW) break;
+                x.b.cols(k);
+                if (x.b.n > bestK) bestK = x.b.n;
+              }
+              if (bestK > cur) { trial[x.i] = bestK; changed = true; }
+              x.b.cols(cur);
+            });
+          });
+          if (changed) {
+            var ft = applyNs(trial, true);
+            if (ft >= bestFit - 1e-4) { bestFit = Math.max(bestFit, ft); bestNs = blocks.map(function(b){ return b.n; }); }
+          }
         }
         best = {ns: bestNs, fit: bestFit};
         if (opts.id) SHAPES[key] = best;
@@ -1198,19 +1223,58 @@
       colX[0] = M;
       for (var d = 1; d <= maxDepth; d++) colX[d] = colX[d - 1] + colW[d - 1] + GX;
       var textX = colX[maxDepth] + colW[maxDepth] + LEAF_GAP;
-      nodes.forEach(function(n){ n.el.style.width = colW[n.depth] + 'px'; n.h = n.el.offsetHeight; n.x = colX[n.depth]; });
+      nodes.forEach(function(n){ n.el.style.width = colW[n.depth] + 'px'; n.h = n.el.offsetHeight; n.x = colX[n.depth]; n.leafPanels = []; });
+
+      // partition panels into: leaf-joined (1-to-1 downstream beside a leaf), branch-joined (braced beside a
+      // branch), convergence panels (unjoined panels targeted by next:), and loose unjoined panels
+      var byLabel = {}; nodes.forEach(function(n){ byLabel[n.label] = n; });
+      var groups = [], col5Panels = [], col6Targets = {};
+      panels.forEach(function(p){ (p.next || []).forEach(function(e){ col6Targets[e.to] = true; }); });
+      nodes.forEach(function(n){
+        var ps = panels.filter(function(p){ return p.join === n.label; });
+        if (!ps.length) return;
+        if (!n.children.length) { n.leafPanels = ps; col5Panels = col5Panels.concat(ps); }
+        else { groups.push({n:n, ps:ps}); col5Panels = col5Panels.concat(ps); }
+      });
+      var col6 = panels.filter(function(p){ return !p.join && col6Targets[p.title]; });
+      var loose = panels.filter(function(p){ return !p.join && !col6Targets[p.title]; });
+      var holds = function(a, b){ var f = false; (function w(x){ if (x === b) f = true; x.children.forEach(w); })(a); return a !== b && f; };
+      groups.forEach(function(g){ g.lvl = 0; });
+      groups.forEach(function(g){ groups.forEach(function(h){ if (holds(g.n, h.n)) g.lvl = Math.max(g.lvl, h.lvl + 1); }); });
+      var maxLvl = groups.reduce(function(m, g){ return Math.max(m, g.lvl); }, 0);
+
+      // measure Col 5 -> Col 6 convergence labels upfront so the horizontal stem gives generous breathing room
+      var convMaxLabW = 0;
+      if (col6.length) {
+        col5Panels.forEach(function(p){ (p.next || []).forEach(function(e){
+          if (!e.label) return;
+          if (!col6.some(function(q){ return q.title === e.to; })) return;
+          var key = e.to + '|' + e.label, el = plabs[key] || (plabs[key] = add('elab', keep(e.label)));
+          el.style.whiteSpace = 'nowrap'; el.style.maxWidth = 'none';
+          convMaxLabW = Math.max(convMaxLabW, el.offsetWidth);
+        }); });
+      }
 
       // panels a little wider than on a course map, and the bands in one row above the tree, sharing its width
       var leafR = leaves.reduce(function(m, n){ return Math.max(m, n.leafW); }, 0);
-      var spanR = textX + leafR + 240 + panels.reduce(function(m, p){ return Math.max(m, p.w); }, 0);
+      var braceX = textX + leafR + 56, BSTEP = 36;
+      var panelX = groups.length ? (braceX + maxLvl * BSTEP + 152) : (textX + leafR + 96);
+      var col5W = col5Panels.concat(loose).reduce(function(m, p){ return Math.max(m, p.w); }, 0);
+      var col6W = col6.reduce(function(m, p){ return Math.max(m, p.w); }, 0);
+      var stemW = Math.max(88, convMaxLabW + 56);
+      var trunkBaseX = panelX + col5W + 68;
+      var panelX2 = trunkBaseX + stemW;
+      var spanR = col6.length ? (panelX2 + col6W) : (panelX + col5W);
       var b0 = bandsRow(spanR - M), bx = b0.x, treeTop = b0.top;
 
-      // vertical extents, bottom up: up/down from the node's own centre
+      // vertical extents, bottom up: up/down from the node's own centre (including any leaf-joined panels so each
+      // leaf and its downstream progression box sit level with one another)
       (function ext(n){
         if (!n.children.length) {
           var lh = n.leaf ? n.leaf.offsetHeight : 0;
+          var lph = n.leafPanels.length ? n.leafPanels.reduce(function(s, p){ return s + p.el.offsetHeight; }, 0) + 32 * (n.leafPanels.length - 1) : 0;
           // the text box is centred on its label, so the line enters it at its middle
-          n.up = n.down = Math.max(n.h / 2, lh / 2); return;
+          n.up = n.down = Math.max(n.h / 2, lh / 2, lph / 2); return;
         }
         n.children.forEach(ext);
         // each branch sits just below the one above it, so a tall branch leaves no gap between short ones
@@ -1240,21 +1304,33 @@
         if (n.leaf) svg += '<line x1="' + (n.x + colW[n.depth]) + '" y1="' + n.cy + '" x2="' + textX + '" y2="' + n.cy + '"/>';
       });
 
-      // panels: a brace over their node's span, the panels stacked beside it
-      // panels: a brace over their node's span, and from its tip one line that forks into each panel of the group.
-      // A group whose node holds another group's node sits one brace further right, so nested braces never overlap
-      // (Jonan 2026-11-11, "why are there so many lines")
-      var groups = [];
+      // leaf-joined panels: 1-to-1 downstream progression box centred on its leaf, joined by a straight horizontal line
+      var lastBottom = treeTop - 32;
       nodes.forEach(function(n){
-        var ps = panels.filter(function(p){ return p.join === n.label; });
-        if (ps.length) groups.push({n:n, ps:ps});
+        if (!n.leafPanels.length) return;
+        var lx = n.leaf ? (textX + n.leafW) : (n.x + colW[n.depth]);
+        if (n.leafPanels.length === 1) {
+          var p = n.leafPanels[0];
+          p.el.style.left = panelX + 'px';
+          p.el.style.top = (n.cy - p.el.offsetHeight / 2) + 'px';
+          lastBottom = Math.max(lastBottom, n.cy + p.el.offsetHeight / 2);
+          svg += '<line x1="' + lx + '" y1="' + n.cy + '" x2="' + panelX + '" y2="' + n.cy + '"/>';
+        } else {
+          var gh = n.leafPanels.reduce(function(s, p){ return s + p.el.offsetHeight; }, 0) + 32 * (n.leafPanels.length - 1);
+          var y = n.cy - gh / 2, fx = panelX - 68;
+          n.leafPanels.forEach(function(p){
+            p.el.style.left = panelX + 'px'; p.el.style.top = y + 'px';
+            var hy = y + p.el.offsetHeight / 2;
+            y += p.el.offsetHeight + 32;
+            svg += rpath([[lx, n.cy], [fx, n.cy], [fx, hy], [panelX, hy]]);
+          });
+          lastBottom = Math.max(lastBottom, y - 32);
+        }
       });
-      var holds = function(a, b){ var f = false; (function w(x){ if (x === b) f = true; x.children.forEach(w); })(a); return a !== b && f; };
-      groups.forEach(function(g){ g.lvl = 0; });
-      groups.forEach(function(g){ groups.forEach(function(h){ if (holds(g.n, h.n)) g.lvl = Math.max(g.lvl, h.lvl + 1); }); });
-      var maxLvl = groups.reduce(function(m, g){ return Math.max(m, g.lvl); }, 0);
-      var braceX = textX + leafR + 56, BSTEP = 36, panelX = braceX + maxLvl * BSTEP + 152, lastBottom = treeTop - 32, right = panelX + panels.reduce(function(m, p){ return Math.max(m, p.w); }, 0);
-      var loose = panels.filter(function(p){ return !p.join; });
+
+      // branch-joined panels: a brace over their node's span, and from its tip one line that forks into each panel
+      // of the group. A group whose node holds another group's node sits one brace further right, so nested braces
+      // never overlap (Jonan 2026-11-11, "why are there so many lines")
       groups.forEach(function(g){
         var y1 = g.n.cy - g.n.up, y2 = g.n.cy + g.n.down, mid = (y1 + y2) / 2, bx = braceX + g.lvl * BSTEP;
         var gh = g.ps.reduce(function(s, p){ return s + p.el.offsetHeight; }, 0) + 32 * (g.ps.length - 1);
@@ -1263,15 +1339,122 @@
         lastBottom = y - 32;
         svg += '<path d="' + bracePath(bx, y1, y2, 9) + '"/>';
         // tip to a fork in the gap before the panels, then across to each panel's title
-        var fx = panelX - 68, lo = Math.min.apply(null, hys.concat(mid)), hi = Math.max.apply(null, hys.concat(mid));
+        var fx = panelX - 68;
         hys.forEach(function(hy){ svg += rpath([[bx + 18, mid], [fx, mid], [fx, hy], [panelX, hy]]); });
       });
       loose.forEach(function(p){ p.el.style.left = panelX + 'px'; p.el.style.top = (lastBottom + 32) + 'px'; lastBottom += 32 + p.el.offsetHeight; });
 
-      // a panel's next: line leaves its header to the right, runs down beside the panel column and enters the
-      // named panel's header; lines to one panel with one label share an upright and one label
+      var hy = function(p){ return p.el.offsetTop + p.el.offsetHeight / 2; };
+
+      // convergence panels (Column 6): unjoined panels fed by next: from Column 5, stacked cleanly to the right
+      var col6Set = {}; col6.forEach(function(p){ col6Set[p.title] = p; });
+      var handledEdges = {};
+      if (col6.length) {
+        var c6LastBot = treeTop - 48;
+        col6.forEach(function(t, idx){
+          var srcs = [];
+          col5Panels.forEach(function(p){ (p.next || []).forEach(function(e){ if (e.to === t.title) srcs.push(p); }); });
+          var h = t.el.offsetHeight;
+          // check if the immediately preceding Col 6 panel links vertically down into this panel
+          var prev = idx > 0 ? col6[idx - 1] : null;
+          var vertEdge = prev && (prev.next || []).filter(function(e){ return e.to === t.title; })[0];
+          var gap = 48;
+          if (vertEdge) {
+            var vLabH = 0;
+            if (vertEdge.label) {
+              var vk = t.title + '|' + vertEdge.label, vel = plabs[vk] || (plabs[vk] = add('elab', keep(vertEdge.label)));
+              vel.style.whiteSpace = 'nowrap'; vel.style.maxWidth = 'none';
+              vLabH = vel.offsetHeight;
+            }
+            gap = Math.max(96, vLabH + 64);
+          }
+          var minCy = c6LastBot + gap + h / 2, ty = minCy;
+          if (srcs.length === 1) {
+            ty = Math.max(minCy, hy(srcs[0]));
+          } else if (srcs.length > 1) {
+            var ys = srcs.map(hy).sort(function(a, b){ return a - b; });
+            ty = ys.length % 2 ? ys[ys.length >> 1] : (ys[0] + ys[ys.length - 1]) / 2;
+            if (ty < minCy) ty = minCy;
+            // avoid a <40 px kink off the stem for any incoming branch
+            for (var k = 0; k < ys.length; k++) {
+              if (Math.abs(ys[k] - ty) > 0.5 && Math.abs(ys[k] - ty) < 42) {
+                ty = ys[k] >= minCy ? ys[k] : Math.max(minCy, ys[k] + 44);
+              }
+            }
+          }
+          t.el.style.left = panelX2 + 'px';
+          t.el.style.top = (ty - h / 2) + 'px';
+          c6LastBot = ty + h / 2;
+        });
+
+        // Col 5 -> Col 6 shared trunks (entering Column 6 panels on their left edge)
+        var convGroups = [];
+        col5Panels.forEach(function(p){ (p.next || []).forEach(function(e){
+          var t = col6Set[e.to];
+          if (!t) return;
+          handledEdges[p.title + '\u0001' + e.to + '\u0001' + e.label] = true;
+          var cg = convGroups.filter(function(g){ return g.t === t && g.label === e.label; })[0];
+          if (!cg) { cg = {t:t, label:e.label, src:[]}; convGroups.push(cg); }
+          cg.src.push(p);
+        }); });
+        // assign trunk lanes so non-overlapping groups share one clean upright rule
+        var trunkLanes = [];
+        convGroups.forEach(function(cg){
+          var ys = cg.src.map(hy).concat(hy(cg.t));
+          cg.lo = Math.min.apply(null, ys); cg.hi = Math.max.apply(null, ys);
+          for (var l = 0; ; l++) {
+            trunkLanes[l] = trunkLanes[l] || [];
+            if (trunkLanes[l].every(function(o){ return cg.lo > o.hi + 20 || cg.hi < o.lo - 20; })) {
+              trunkLanes[l].push(cg); cg.lane = l; break;
+            }
+          }
+        });
+        // if multiple overlapping lanes exist, shift Column 6 right so the horizontal stem keeps full width
+        if (trunkLanes.length > 1) {
+          var shiftX = (trunkLanes.length - 1) * 40;
+          panelX2 += shiftX;
+          col6.forEach(function(t){ t.el.style.left = panelX2 + 'px'; });
+        }
+        convGroups.forEach(function(cg){
+          var ty = hy(cg.t), gx = trunkBaseX + cg.lane * 40;
+          cg.src.forEach(function(p){
+            var py = hy(p), px = p.el.offsetLeft + p.el.offsetWidth;
+            if (Math.abs(py - ty) < 0.5) svg += '<line x1="' + px + '" y1="' + ty + '" x2="' + panelX2 + '" y2="' + ty + '"/>';
+            else svg += rpath([[px, py], [gx, py], [gx, ty], [panelX2, ty]]);
+          });
+          if (cg.label) {
+            var key = cg.t.title + '|' + cg.label, el = plabs[key] || (plabs[key] = add('elab', keep(cg.label)));
+            el.style.whiteSpace = 'nowrap'; el.style.maxWidth = 'none';
+            el.style.left = ((gx + panelX2 - el.offsetWidth) / 2) + 'px';
+            el.style.top = (ty - el.offsetHeight / 2) + 'px';
+          }
+        });
+
+        // Col 6 -> adjacent Col 6 vertical wires (straight down from bottom edge to top edge)
+        col6.forEach(function(p, idx){
+          var t = col6[idx + 1];
+          if (!t) return;
+          (p.next || []).forEach(function(e){
+            if (e.to !== t.title) return;
+            handledEdges[p.title + '\u0001' + e.to + '\u0001' + e.label] = true;
+            var vx = panelX2 + Math.min(p.el.offsetWidth, t.el.offsetWidth) / 2;
+            var y1 = p.el.offsetTop + p.el.offsetHeight, y2 = t.el.offsetTop;
+            svg += '<line x1="' + vx + '" y1="' + y1 + '" x2="' + vx + '" y2="' + y2 + '"/>';
+            if (e.label) {
+              var key = t.title + '|' + e.label, el = plabs[key] || (plabs[key] = add('elab', keep(e.label)));
+              el.style.whiteSpace = 'nowrap'; el.style.maxWidth = 'none';
+              el.style.left = (vx - el.offsetWidth / 2) + 'px';
+              el.style.top = ((y1 + y2 - el.offsetHeight) / 2) + 'px';
+            }
+          });
+        });
+      }
+
+      // remaining panel next: lines (e.g. same-column panel links): leave the right edge, run down beside the
+      // rightmost column and enter the named panel's right edge
       var colR = panels.reduce(function(m, p){ return Math.max(m, p.el.offsetLeft + p.el.offsetWidth); }, 0), lanes = [];
       panels.forEach(function(p){ (p.next || []).forEach(function(e){
+        if (handledEdges[p.title + '\u0001' + e.to + '\u0001' + e.label]) return;
         var t = panels.filter(function(q){ return q.title === e.to; })[0];
         if (!t) return;
         var L = lanes.filter(function(l){ return l.t === t && l.label === e.label; })[0];
@@ -1279,7 +1462,6 @@
         L.src.push(p);
       }); });
       lanes.forEach(function(L){
-        var hy = function(p){ return p.el.offsetTop + p.el.offsetHeight / 2; };
         var ty = hy(L.t), ys = L.src.map(hy), lo = Math.min.apply(null, ys.concat(ty)), hi = Math.max.apply(null, ys.concat(ty));
         var tx = L.t.el.offsetLeft + L.t.el.offsetWidth;
         L.src.forEach(function(p, i){ svg += rpath([[p.el.offsetLeft + p.el.offsetWidth, ys[i]], [L.x, ys[i]], [L.x, ty], [tx, ty]]); });
